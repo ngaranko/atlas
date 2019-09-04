@@ -78,7 +78,7 @@ const ArticleDetailPage = ({ id }) => {
   `
 
   return (
-    <EditorialPage {...{ documentTitle, loading, linkAction }}>
+    <EditorialPage {...{ documentTitle, loading, linkAction }} description={intro}>
       {!loading && (
         <div className="article">
           <Row className="article__row">
@@ -131,7 +131,7 @@ const ArticleDetailPage = ({ id }) => {
                                       variant="with-chevron"
                                     >
                                       <ListItemContent>
-                                        <Typography as="span">{fileName}</Typography>
+                                        <span>{fileName}</span>
                                         <Typography as="small">({`${type} ${size}`})</Typography>
                                       </ListItemContent>
                                     </DownloadLink>
@@ -146,7 +146,9 @@ const ArticleDetailPage = ({ id }) => {
                               <List>
                                 {links.map(({ uri, title: linkTitle }) => (
                                   <ListItem key={uri}>
-                                    <Link href={`${uri}`}>{linkTitle}</Link>
+                                    <Link variant="with-chevron" href={`${uri}`}>
+                                      {linkTitle}
+                                    </Link>
                                   </ListItem>
                                 ))}
                               </List>
