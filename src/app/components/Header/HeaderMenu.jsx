@@ -16,7 +16,7 @@ import {
 import truncateString from '../../../shared/services/truncateString/truncateString'
 
 const toPanoramaAction = toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home')
-const toMapAction = toMap(true)
+const toMapAction = toMap()
 const toDatasetsAction = toDatasets()
 const toApisAction = toApisPage()
 const toPrivacyAction = toPrivacyPage()
