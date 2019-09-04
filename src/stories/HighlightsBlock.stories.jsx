@@ -7,7 +7,7 @@ import HighlightsBlock from '../components/HighlightsBlock'
 
 storiesOf('Dataportaal/Frontpage', module)
   .addDecorator(withKnobs)
-  .add('Highlights', () => (
+  .add('Highlights block', () => (
     <Row debug>
       <Column debug wrap span={{ small: 1, medium: 2, big: 6, large: 8, xLarge: 8 }}>
         <HighlightsBlock loading={boolean('loading', false)} />

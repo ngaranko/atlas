@@ -46,7 +46,7 @@ const StyledSpecialsBlock = styled(CardContainer)`
     min-height: 66px;
 
     &:hover {
-        border-bottom: ${themeColor('secondary')} 2px solid;
+        border-bottom: ${themeColor('secondary')} 1px solid;
 
         h4 {
           color: ${themeColor('secondary')};

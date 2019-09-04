@@ -23,6 +23,11 @@ describe('The vestiging resource', () => {
       bezoekadres: {
         geometrie: 'geo',
       },
+      _bijzondere_rechts_toestand: {
+        faillisement: true,
+        status: 'Voorlopig',
+      },
+      hoofdvestiging: true,
     }
 
     const result = await normalize(mockVestiging)
@@ -31,6 +36,10 @@ describe('The vestiging resource', () => {
 
     expect(result).toMatchObject({
       activities: `${mockVestiging.activiteiten[0].sbi_code}: ${mockVestiging.activiteiten[0].sbi_omschrijving}`,
+      type: 'Hoofdvestiging',
+      bijzondereRechtstoestand: {
+        label: 'Faillissement',
+      },
       ...mockVestiging,
     })
   })

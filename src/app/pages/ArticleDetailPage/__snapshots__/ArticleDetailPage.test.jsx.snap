@@ -2,6 +2,7 @@
 
 exports[`ArticleDetailPage should render the publication when there are results 1`] = `
 <EditorialPage
+  description="intro"
   documentTitle="Artikel: This is a title"
   linkAction={
     Object {

@@ -13,6 +13,8 @@ import {
   winkelgebied,
   parkeerzones,
   monument,
+  meetbout,
+  YEAR_UNKNOWN,
 } from './normalize'
 
 import formatDate from '../../../shared/services/date-formatter/date-formatter'
@@ -49,6 +51,17 @@ describe('normalize', () => {
 
       expect(output).toMatchObject({
         address: `${input.street} ${input.housenumber}, ${input.city}`,
+      })
+
+      input = {
+        street: 'street',
+        city: 'city',
+      }
+
+      output = oplaadpunten(input)
+
+      expect(output).toMatchObject({
+        address: `${input.street}, ${input.city}`,
       })
     })
 
@@ -153,6 +166,7 @@ describe('normalize', () => {
       input = {
         status: {
           code: 26,
+          omschrijving: 'a random, not normal status',
         },
         oorspronkelijk_bouwjaar: 2012,
       }
@@ -165,7 +179,7 @@ describe('normalize', () => {
       })
 
       input = {
-        oorspronkelijk_bouwjaar: 1005,
+        oorspronkelijk_bouwjaar: `${YEAR_UNKNOWN}`,
       }
 
       output = adressenPand(input)
@@ -184,6 +198,7 @@ describe('normalize', () => {
       input = {
         status: {
           code: 22,
+          omschrijving: 'a random, not normal status',
         },
         hoofdadres: true,
       }
@@ -442,7 +457,7 @@ ${input.gebruiksdoelen[1].omschrijving}`,
       })
 
       input = {
-        bouwjaar: 1005,
+        bouwjaar: YEAR_UNKNOWN,
       }
 
       output = vastgoed(input)
@@ -568,6 +583,22 @@ ${input.gebruiksdoelen[1].omschrijving}`,
 
       expect(output).toMatchObject({
         geometry: input.monumentcoordinaten,
+      })
+    })
+  })
+
+  describe('normalizes "meetbout', () => {
+    let input
+    let output
+    it('returns the speed', () => {
+      input = {
+        zakkingssnelheid: 0.1212121212,
+      }
+
+      output = meetbout(input)
+
+      expect(output).toMatchObject({
+        speed: '0,121',
       })
     })
   })

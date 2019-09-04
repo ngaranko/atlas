@@ -1,8 +1,8 @@
 import fetchDetail, { pageTypeToEndpoint, getEndpointTypeForResult } from './map-detail'
-import mapFetch from './map-fetch/map-fetch'
-import servicesByEndpointType, { endpointTypes } from './map-services'
+import mapFetch from '../map-fetch/map-fetch'
+import servicesByEndpointType, { endpointTypes } from '../map-services.config'
 
-jest.mock('./map-fetch/map-fetch')
+jest.mock('../map-fetch/map-fetch')
 
 describe('map-detail', () => {
   it('should return the correct endpoint for the page type', () => {

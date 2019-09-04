@@ -9,4 +9,4 @@ storiesOf('Dataportaal/Frontpage', module)
     <div style={{ padding: '40px 0px', background: 'rgb(250,250,250)' }}>{storyFn()}</div>
   ))
   .addDecorator(withKnobs)
-  .add('About data and site', () => <AboutBlock loading={boolean('loading', false)} />)
+  .add('About block', () => <AboutBlock loading={boolean('loading', false)} />)

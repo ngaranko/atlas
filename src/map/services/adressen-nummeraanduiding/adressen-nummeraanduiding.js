@@ -10,7 +10,18 @@ const normalize = async result => {
   }
 
   const additionalFields = {
-    ...(await verblijfsobject),
+    ...((await verblijfsobject)
+      ? {
+          verblijfsobject: {
+            gebruiksdoelen: verblijfsobject.gebruiksdoelen,
+            gebruiksomschrijving: verblijfsobject.gebruik.omschrijving,
+            statusomschrijving: verblijfsobject.status.omschrijving,
+            size: verblijfsobject.size,
+            statusLevel: verblijfsobject.statusLevel,
+          },
+        }
+      : {}),
+    isNevenadres: !result.hoofdadres,
     // eslint-disable-next-line no-underscore-dangle
     geometry: result._geometrie,
   }

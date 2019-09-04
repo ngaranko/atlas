@@ -32,7 +32,7 @@
         ],
         "minZoom": 11,
         "notClosable": true,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "url": "/maps/panorama",
         "params": {
             "mission_type": "bi"
@@ -58,7 +58,7 @@
             }
         ],
         "minZoom": 11,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "notClosable": true,
         "url": "/maps/panorama",
         "params": {
@@ -86,7 +86,7 @@
             }
         ],
         "minZoom": 11,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "notClosable": true,
         "url": "/maps/panorama",
         "params": {
@@ -116,7 +116,7 @@
         ],
         "minZoom": 11,
         "notClosable": true,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "url": "/maps/panorama",
         "params": {
             "mission_year": 2018,
@@ -144,7 +144,7 @@
         ],
         "minZoom": 11,
         "notClosable": true,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "url": "/maps/panorama",
         "params": {
             "mission_year": 2017,
@@ -172,7 +172,7 @@
             }
         ],
         "minZoom": 11,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "notClosable": true,
         "url": "/maps/panorama",
         "params": {
@@ -201,7 +201,7 @@
         ],
         "minZoom": 11,
         "notClosable": true,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "url": "/maps/panorama",
         "params": {
             "mission_year": 2016,
@@ -860,7 +860,7 @@
         "category": "GEOGRAPHY_HEIGHT",
         "id": "mbz",
         "layers": [
-            "meetbouten_zaksnelheid",
+            "meetbout_zaksnelheid",
             "meetbouten_labels"
         ],
         "legendItems": [
@@ -908,8 +908,7 @@
         "category": "GEOGRAPHY_HEIGHT",
         "id": "mbr",
         "layers": [
-            "referentiepunt",
-            "referentiepunten"
+            "referentiepunt"
         ],
         "legendItems": [
             {
@@ -2272,7 +2271,8 @@
         "category": "MIL_SAFETY",
         "id": "mvlpga",
         "layers": [
-            "milieu_veiligheid_lpg_afleverzuil"
+            "lpgafleverzuilplaatsgebondenrisico",
+            "lpgafleverzuillocaties"
         ],
         "legendItems": [
             {
@@ -2302,7 +2302,9 @@
         "category": "MIL_SAFETY",
         "id": "mvlpgt",
         "layers": [
-            "milieu_veiligheid_lpg_tank"
+            "lpgtankligging",
+            "lpgtankplaatsgebondenrisico",
+            "lpgtankinvloedsgebied"
         ],
         "legendItems": [
             {
@@ -2340,7 +2342,8 @@
         "category": "MIL_SAFETY",
         "id": "mvlpgs",
         "layers": [
-            "milieu_veiligheid_lpg_station"
+            "lpgstationcontouren",
+            "lpgstationslocaties"
         ],
         "legendItems": [
             {
@@ -2424,7 +2427,8 @@
         "category": "MIL_SAFETY",
         "id": "mvbd",
         "layers": [
-            "milieu_veiligheid_bedrijf"
+            "overigerisicobedrijfslocaties",
+            "overigerisicobedrijfscontouren"
         ],
         "legendItems": [
             {

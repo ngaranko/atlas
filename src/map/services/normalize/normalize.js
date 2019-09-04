@@ -1,5 +1,8 @@
 import formatNumber from '../../../shared/services/number-formatter/number-formatter'
 import formatDate from '../../../shared/services/date-formatter/date-formatter'
+import { NORMAL_PAND_STATUSSES, NORMAL_VBO_STATUSSES } from '../map-search/status-labels'
+
+export const YEAR_UNKNOWN = 1005 // The API returns 1005 when a year is unknown
 
 const normalize = (result, additionalFields) => {
   return {
@@ -16,11 +19,11 @@ export const oplaadpunten = result => {
 
   const additionalFields = {
     address: result.street
-      ? `${result.street} ${
-          result.housenumberext
-            ? `${result.housenumber} ${result.housenumberext},`
-            : `${result.housenumber},`
-        } ${result.city}`
+      ? `${result.street}${
+          result.housenumber
+            ? ` ${result.housenumber}${result.housenumberext ? ` ${result.housenumberext}` : ''}`
+            : ''
+        }, ${result.city}`
       : null,
 
     // eslint-disable-next-line no-nested-ternary
@@ -44,6 +47,14 @@ export const oplaadpunten = result => {
   return normalize(result, additionalFields)
 }
 
+export const meetbout = result => {
+  const additionalFields = {
+    speed: result.zakkingssnelheid ? formatNumber(result.zakkingssnelheid) : '',
+  }
+
+  return normalize(result, additionalFields)
+}
+
 export const napPeilmerk = result => {
   const additionalFields = {
     wallCoordinates:
@@ -59,38 +70,33 @@ export const napPeilmerk = result => {
 }
 
 export const adressenPand = result => {
-  const statusLevel = {
-    24: 'info',
-    25: 'info',
-    26: 'info',
-    27: 'info',
-    28: 'info',
-    29: 'info',
-    30: '',
-    31: '',
-    32: 'info',
-  }
-
   const additionalFields = {
-    statusLevel: result.status && result.status.code ? statusLevel[result.status.code] : false,
-    year: result.oorspronkelijk_bouwjaar !== 1005 ? result.oorspronkelijk_bouwjaar : 'onbekend', // The API returns 1005 when a year is unknown
+    statusLevel:
+      // eslint-disable-next-line no-nested-ternary
+      result.status && result.status.omschrijving
+        ? NORMAL_PAND_STATUSSES.includes(result.status.omschrijving)
+          ? ''
+          : 'info'
+        : false,
+    isNevenadres: !result.hoofdadres,
+    year:
+      result.oorspronkelijk_bouwjaar !== `${YEAR_UNKNOWN}`
+        ? result.oorspronkelijk_bouwjaar
+        : 'onbekend',
   }
 
   return normalize(result, additionalFields)
 }
 
 export const adressenVerblijfsobject = result => {
-  const statusLevel = {
-    18: 'alert',
-    19: 'alert',
-    20: '',
-    21: '',
-    22: 'alert',
-    23: 'alert',
-  }
-
   const additionalFields = {
-    statusLevel: result.status && result.status.code ? statusLevel[result.status.code] : false,
+    statusLevel:
+      // eslint-disable-next-line no-nested-ternary
+      result.status && result.status.omschrijving
+        ? NORMAL_VBO_STATUSSES.includes(result.status.omschrijving)
+          ? ''
+          : 'alert'
+        : false,
     isNevenadres: !result.hoofdadres,
     gebruiksdoelen: ((result.gebruiksdoelen && result.gebruiksdoelen.slice(0, 5)) || [])
       .map(
@@ -152,7 +158,8 @@ export const grondexploitatie = result => {
 export const vastgoed = result => {
   const additionalFields = {
     geometry: result.bag_pand_geometrie,
-    construction_year: result.bouwjaar && result.bouwjaar !== 1005 ? result.bouwjaar : 'onbekend', // The API returns 1005 when a year is unknown
+    construction_year:
+      result.bouwjaar && result.bouwjaar !== YEAR_UNKNOWN ? result.bouwjaar : 'onbekend',
     monumental_status: result.monumentstatus || 'Geen monument',
   }
 
