@@ -59,7 +59,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
   animation: rotating 1s linear infinite;
 }
 
-<DefaultThemeProvider>
+<ThemeProvider>
   <ThemeProvider
     theme={
       Object {
@@ -299,7 +299,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "$$typeof": Symbol(react.forward_ref),
                 "attrs": Array [],
                 "componentStyle": ComponentStyle {
-                  "componentId": "sc-Rmtcm",
+                  "componentId": "sc-hzDkRC",
                   "isStatic": false,
                   "lastClassName": "c0",
                   "rules": Array [
@@ -336,7 +336,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "displayName": "styled.div",
                 "foldedComponentIds": Array [],
                 "render": [Function],
-                "styledComponentId": "sc-Rmtcm",
+                "styledComponentId": "sc-hzDkRC",
                 "target": "div",
                 "toString": [Function],
                 "warnTooManyClasses": [Function],
@@ -550,5 +550,5 @@ exports[`ConstructionFilesContainer should render 1`] = `
       </ConstructionFilesContainer>
     </Connect(ConstructionFilesContainer)>
   </ThemeProvider>
-</DefaultThemeProvider>
+</ThemeProvider>
 `;
