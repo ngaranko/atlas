@@ -43,9 +43,11 @@ export const endpointTypes = {
   gebiedenWijk: 'gebieden/buurtcombinatie/',
   grondexploitatie: 'grondexploitatie/project/',
   kadastraalObject: 'brk/object/',
+  kadastraalSubject: 'brk/subject/',
   maatschappelijkeActiviteiten: 'handelsregister/maatschappelijkeactiviteit/',
   meetbout: 'meetbouten/meetbout/',
   monument: 'monumenten/monumenten/',
+  monumentComplex: 'monumenten/complexen',
   napPeilmerk: 'nap/peilmerk/',
   oplaadpunten: 'vsd/oplaadpunten/',
   parkeervak: 'parkeervakken/parkeervakken/',
@@ -55,6 +57,7 @@ export const endpointTypes = {
   vestiging: 'handelsregister/vestiging/',
   winkelgebied: 'vsd/winkgeb',
   wkpbBeperking: 'wkpb/beperking',
+  wkpbUitreksel: 'brk/object-wkpb',
 }
 
 const servicesByEndpointType = {
@@ -104,6 +107,7 @@ const servicesByEndpointType = {
         {
           label: 'Status',
           value: result.verblijfsobject ? result.verblijfsobject.statusomschrijving : false,
+          status: result.verblijfsobject && result.verblijfsobject.statusLevel,
         },
         {
           label: 'Indicatie hoofdadres',
@@ -127,8 +131,11 @@ const servicesByEndpointType = {
       ],
       notifications: [
         {
-          value: result.statusLevel ? `Status: ${result.status.omschrijving}` : false,
-          level: result.statusLevel,
+          value:
+            result.verblijfsobject && result.verblijfsobject.statusLevel
+              ? `Status: ${result.verblijfsobject.statusomschrijving}`
+              : false,
+          level: result.verblijfsobject && result.verblijfsobject.statusLevel,
         },
         {
           value: result.isNevenadres ? 'Dit is een nevenadres' : false,
@@ -427,25 +434,37 @@ const servicesByEndpointType = {
   [endpointTypes.grondexploitatie]: {
     normalization: grondexploitatie,
     authScope: 'GREX/R',
-    mapDetail: result => ({
-      title: 'Grondexploitatie',
-      subTitle: result._display,
-      items: [
-        { label: 'Nummer', value: result.plannr },
-        { label: 'Startdatum', value: result.startDate },
-        { label: 'Fase', value: result.fase },
-        { label: 'Totale begroting baten', value: result.totaal_baten_display },
-        { label: 'Totale begroting kosten', value: result.totaal_kosten_display },
-        { label: 'Verschil', value: result.totaal_resultaat_display },
-      ],
-      notifications: [
-        {
-          value: !result.plannr
-            ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.'
-            : false,
-        },
-      ],
-    }),
+    mapDetail: result =>
+      result
+        ? {
+            title: 'Grondexploitatie',
+            subTitle: result._display,
+            items: [
+              { label: 'Nummer', value: result.plannr },
+              { label: 'Startdatum', value: result.startDate },
+              { label: 'Fase', value: result.fase },
+              { label: 'Totale begroting baten', value: result.totaal_baten_display },
+              { label: 'Totale begroting kosten', value: result.totaal_kosten_display },
+              { label: 'Verschil', value: result.totaal_resultaat_display },
+            ],
+            notifications: [
+              {
+                value: !result.plannr
+                  ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.'
+                  : false,
+              },
+            ],
+          }
+        : {
+            title: 'Grondexploitatie',
+            items: [],
+            notifications: [
+              {
+                value:
+                  'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.',
+              },
+            ],
+          },
   },
   [endpointTypes.kadastraalObject]: {
     normalization: kadastraalObject,
@@ -476,6 +495,18 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.monument]: {
+    normalization: monument,
+    mapDetail: result => ({
+      title: 'Monument',
+      subTitle: result._display,
+      items: [
+        { label: 'Nummer', value: result.monumentnummer },
+        { label: 'Type', value: result.monumenttype },
+        { label: 'Status', value: result.monumentstatus },
+      ],
+    }),
+  },
+  [endpointTypes.monumentComplex]: {
     normalization: monument,
     mapDetail: result => ({
       title: 'Monument',
@@ -557,57 +588,70 @@ const servicesByEndpointType = {
   [endpointTypes.vestiging]: {
     authScope: 'HR/R',
     normalization: vestiging,
-    mapDetail: result => ({
-      title: 'Vestiging',
-      subTitle: result._display,
-      items: [
-        {
-          label: 'KvK-nummer',
-          value: result.kvkNumber,
-        },
-        {
-          label: 'Vestigingsnummer',
-          value: result.vestigingsnummer,
-        },
-        {
-          label: 'Bezoekadres',
-          value: result.bezoekadres.volledig_adres,
-          multiLine: true,
-        },
-        {
-          label: 'SBI-code en -omschrijving',
-          value: result.activities,
-          multiLine: true,
-        },
-        {
-          label: 'Type',
-          value: result.type,
-        },
-        {
-          label: 'Soort bijzondere rechtstoestand',
-          value:
-            result.bijzondereRechtstoestand && result.bijzondereRechtstoestand.label
-              ? result.bijzondereRechtstoestand.label
-              : false,
-          status: 'alert',
-        },
-      ],
-      notifications: [
-        {
-          value:
-            result.bijzondereRechtstoestand && result.bijzondereRechtstoestand.label
-              ? result.bijzondereRechtstoestand.label
-              : false,
-          level: 'alert',
-        },
-        {
-          value: !result._display
-            ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken.'
-            : false,
-          level: 'info',
-        },
-      ],
-    }),
+    mapDetail: result =>
+      result
+        ? {
+            title: 'Vestiging',
+            subTitle: result._display,
+            items: [
+              {
+                label: 'KvK-nummer',
+                value: result.kvkNumber,
+              },
+              {
+                label: 'Vestigingsnummer',
+                value: result.vestigingsnummer,
+              },
+              {
+                label: 'Bezoekadres',
+                value: result.bezoekadres.volledig_adres,
+                multiLine: true,
+              },
+              {
+                label: 'SBI-code en -omschrijving',
+                value: result.activities,
+                multiLine: true,
+              },
+              {
+                label: 'Type',
+                value: result.type,
+              },
+              {
+                label: 'Soort bijzondere rechtstoestand',
+                value:
+                  result.bijzondereRechtstoestand && result.bijzondereRechtstoestand.label
+                    ? result.bijzondereRechtstoestand.label
+                    : false,
+                status: 'alert',
+              },
+            ],
+            notifications: [
+              {
+                value:
+                  result.bijzondereRechtstoestand && result.bijzondereRechtstoestand.label
+                    ? result.bijzondereRechtstoestand.label
+                    : false,
+                level: 'alert',
+              },
+              {
+                value: !result._display
+                  ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken.'
+                  : false,
+                level: 'info',
+              },
+            ],
+          }
+        : {
+            title: 'Vestiging',
+            items: [],
+            notifications: [
+              {
+                value:
+                  'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken.',
+                level: 'info',
+              },
+            ],
+          },
   },
   [endpointTypes.winkelgebied]: {
     normalization: winkelgebied,
@@ -635,12 +679,54 @@ const servicesByEndpointType = {
       items: [],
     }),
   },
-  [endpointTypes.maatschappelijkeActiviteiten]: {
+  [endpointTypes.wkpbUitreksel]: {
     mapDetail: result => ({
-      title: 'Maatschappelijke activiteit',
+      title: 'WKPB-uittreksel',
       subTitle: result._display,
       items: [],
     }),
+  },
+  [endpointTypes.kadastraalSubject]: {
+    authScope: 'BRK/RS',
+    mapDetail: result =>
+      result
+        ? {
+            title: 'Kadastraal subject',
+            subTitle: result._display,
+            items: [],
+          }
+        : {
+            title: 'Kadastraal subject',
+            items: [],
+            notifications: [
+              {
+                value:
+                  'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om kadastrale subjecten te bekijken. Om ook zakelijke rechten van natuurlijke personen te bekijken, moet je als medewerker bovendien speciale bevoegdheden hebben.',
+                level: 'info',
+              },
+            ],
+          },
+  },
+  [endpointTypes.maatschappelijkeActiviteiten]: {
+    authScope: 'HR/R',
+    mapDetail: result =>
+      result
+        ? {
+            title: 'Maatschappelijke activiteit',
+            subTitle: result._display,
+            items: [],
+          }
+        : {
+            title: 'Maatschappelijke activiteit',
+            items: [],
+            notifications: [
+              {
+                value:
+                  'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken.',
+                level: 'info',
+              },
+            ],
+          },
   },
 }
 

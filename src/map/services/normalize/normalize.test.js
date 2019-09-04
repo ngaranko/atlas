@@ -13,6 +13,7 @@ import {
   winkelgebied,
   parkeerzones,
   monument,
+  YEAR_UNKNOWN,
 } from './normalize'
 
 import formatDate from '../../../shared/services/date-formatter/date-formatter'
@@ -49,6 +50,17 @@ describe('normalize', () => {
 
       expect(output).toMatchObject({
         address: `${input.street} ${input.housenumber}, ${input.city}`,
+      })
+
+      input = {
+        street: 'street',
+        city: 'city',
+      }
+
+      output = oplaadpunten(input)
+
+      expect(output).toMatchObject({
+        address: `${input.street}, ${input.city}`,
       })
     })
 
@@ -166,14 +178,14 @@ describe('normalize', () => {
       })
 
       input = {
-        oorspronkelijk_bouwjaar: '1005',
+        oorspronkelijk_bouwjaar: `${YEAR_UNKNOWN}`,
       }
 
       output = adressenPand(input)
 
       expect(output).toMatchObject({
         statusLevel: false,
-        year: 'Onbekend',
+        year: 'onbekend',
       })
     })
   })
@@ -444,7 +456,7 @@ ${input.gebruiksdoelen[1].omschrijving}`,
       })
 
       input = {
-        bouwjaar: 1005,
+        bouwjaar: YEAR_UNKNOWN,
       }
 
       output = vastgoed(input)

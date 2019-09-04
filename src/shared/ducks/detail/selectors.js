@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 import { REDUCER_KEY } from './constants'
-import { pageTypeToEndpoint } from '../../../map/services/map-detail'
+import { pageTypeToEndpoint } from '../../../map/services/map-detail/map-detail'
 
 export const getDetail = state => state[REDUCER_KEY]
 export const getDetailGeometry = createSelector(

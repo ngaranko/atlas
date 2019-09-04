@@ -21,10 +21,7 @@ const MapDetailResultWrapper = ({
     >
       <button
         type="button"
-        className={`
-              map-detail-result__header-pano-button
-              map-detail-result__header-pano-button--${panoUrl ? 'enabled' : 'disabled'}
-            `}
+        className="map-detail-result__header-pano-button"
         disabled={!panoUrl}
         title={panoUrl ? 'Panoramabeeld tonen' : 'Geen Panoramabeeld beschikbaar'}
         onClick={onPanoPreviewClick}
