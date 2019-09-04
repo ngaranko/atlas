@@ -2,6 +2,8 @@ import formatNumber from '../../../shared/services/number-formatter/number-forma
 import formatDate from '../../../shared/services/date-formatter/date-formatter'
 import { NORMAL_PAND_STATUSSES, NORMAL_VBO_STATUSSES } from '../map-search/status-labels'
 
+export const YEAR_UNKNOWN = 1005 // The API returns 1005 when a year is unknown
+
 const normalize = (result, additionalFields) => {
   return {
     ...result,
@@ -69,7 +71,10 @@ export const adressenPand = result => {
           : 'info'
         : false,
     isNevenadres: !result.hoofdadres,
-    year: result.oorspronkelijk_bouwjaar !== '1005' ? result.oorspronkelijk_bouwjaar : 'Onbekend', // The API returns 1005 when a year is unknown
+    year:
+      result.oorspronkelijk_bouwjaar !== `${YEAR_UNKNOWN}`
+        ? result.oorspronkelijk_bouwjaar
+        : 'onbekend',
   }
 
   return normalize(result, additionalFields)
@@ -145,7 +150,8 @@ export const grondexploitatie = result => {
 export const vastgoed = result => {
   const additionalFields = {
     geometry: result.bag_pand_geometrie,
-    construction_year: result.bouwjaar && result.bouwjaar !== 1005 ? result.bouwjaar : 'onbekend', // The API returns 1005 when a year is unknown
+    construction_year:
+      result.bouwjaar && result.bouwjaar !== YEAR_UNKNOWN ? result.bouwjaar : 'onbekend',
     monumental_status: result.monumentstatus || 'Geen monument',
   }
 
