@@ -43,11 +43,13 @@ const StyledCardHeading = styled(CardHeading)`
 
 const StyledCardMedia = styled(CardMedia)`
   width: 20%;
+  max-width: 160px;
+  max-height: 160px;
   flex: 1 0 auto;
 
   @media screen and ${breakpoint('max-width', 'laptopM')} {
-    height: 218px;
-    flex: 1 0 218px;
+    height: 160px;
+    flex: 1 0 160px;
   }
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
