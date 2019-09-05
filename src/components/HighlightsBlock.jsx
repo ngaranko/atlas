@@ -16,6 +16,13 @@ const HighlightsBlockStyle = styled.div`
   @media screen and ${breakpoint('min-width', 'laptop')} {
     margin-top: 12px;
   }
+
+  ${styles.TypographyStyle}.header {
+    @media screen and ${breakpoint('max-width', 'tabletM')} {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
 `
 
 const HighlightsBlockInnerStyle = styled.section`
@@ -30,11 +37,26 @@ const HighlightsBlockInnerStyle = styled.section`
   }
 
   ${styles.LinkStyle} {
+    position: relative;
     width: 100%;
     &:hover {
       ${styles.TypographyStyle}.header {
         color: ${themeColor('secondary')};
         text-decoration: underline;
+      }
+    }
+
+    &:focus {
+      background: none;
+
+      ${/* sc-selector */ styles.ImageCardStyle}::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        ${({ theme }) => `border: 4px solid ${themeColor('support', 'focus')({ theme })};`}
       }
     }
   }
@@ -78,14 +100,12 @@ const ImageCardWrapperSmall = styled.div`
   }
 
   ${styles.TypographyStyle}.header-small {
-    @media screen and ${breakpoint('max-width', 'laptopM')} {
+    @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint(
+  'max-width',
+  'laptopM',
+)} {
       font-size: 14px;
       line-height: 17px;
-    }
-
-    @media screen and ${breakpoint('max-width', 'tabletM')} {
-      font-size: inherit;
-      line-height: inherit;
     }
   }
 `
