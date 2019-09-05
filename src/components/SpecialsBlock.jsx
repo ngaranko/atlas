@@ -61,7 +61,10 @@ const StyledSpecialsBlock = styled(CardContainer)`
     justify-content: space-between;
     align-items: flex-start;
     padding: 8px 0;
-    margin: 24px 8px!important;
+    margin: 24px 0px;
+    @media screen and ${breakpoint('min-width', 'tabletM')} {
+      margin: 24px 8px;
+    }
   }
 
   ${styles.CardContentStyle} {
