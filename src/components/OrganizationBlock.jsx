@@ -19,6 +19,7 @@ const StyledCardContainer = styled(CardContainer)`
 `
 
 const OrganizationBlockStyle = styled.div`
+  width: 100%;
   margin-top: 40px;
   padding: 40px 20px 0;
   background-color: ${themeColor('tint', 'level2')};
