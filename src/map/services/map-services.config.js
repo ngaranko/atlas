@@ -675,15 +675,11 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.wkpbBeperking]: {
-    mapDetail: result => {
-      console.log(result)
-
-      return {
-        title: 'Gemeentelijke beperking',
-        subTitle: result._display,
-        items: [],
-      }
-    },
+    mapDetail: result => ({
+      title: 'Gemeentelijke beperking',
+      subTitle: result._display,
+      items: [],
+    }),
   },
   [endpointTypes.wkpbUitreksel]: {
     mapDetail: result => ({
