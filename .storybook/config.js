@@ -1,6 +1,5 @@
 import React from 'react'
 import { addDecorator, configure } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { GlobalStyle, ThemeProvider } from '@datapunt/asc-ui'
 import { withA11y } from '@storybook/addon-a11y'
 import { Provider } from 'react-redux'
@@ -10,7 +9,6 @@ import ReduxContext from '../src/store/reduxContext'
 import main, { initialState } from '../src/app/react-reducers'
 import { AppStateProvider } from '../src/app/utils/useAppReducer'
 
-addDecorator(withInfo)
 addDecorator(withA11y)
 
 // automatically import all files ending in *.stories.js
