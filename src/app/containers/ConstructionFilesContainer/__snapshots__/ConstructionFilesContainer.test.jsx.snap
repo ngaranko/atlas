@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConstructionFilesContainer should render 1`] = `
-<<<<<<< HEAD
-=======
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -61,7 +59,6 @@ exports[`ConstructionFilesContainer should render 1`] = `
   animation: rotating 1s linear infinite;
 }
 
->>>>>>> debdc741f47de4fd5f8023feed1ca804dbaf46ca
 <ThemeProvider>
   <ThemeProvider
     theme={
@@ -304,7 +301,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "componentStyle": ComponentStyle {
                   "componentId": "sc-hzDkRC",
                   "isStatic": false,
-                  "lastClassName": "kUjrlu",
+                  "lastClassName": "c0",
                   "rules": Array [
                     "
   display: flex;
@@ -323,7 +320,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                     "
 
   ",
-                    ".sc-csuQGl",
+                    ".c1",
                     " {
     ",
                     [Function],
@@ -351,7 +348,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             gutterY={20}
           >
             <div
-              className="sc-Rmtcm kUjrlu"
+              className="c0"
               direction="column"
             >
               <styled.div>
@@ -361,9 +358,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "$$typeof": Symbol(react.forward_ref),
                       "attrs": Array [],
                       "componentStyle": ComponentStyle {
-                        "componentId": "sc-csuQGl",
+                        "componentId": "c1",
                         "isStatic": false,
-                        "lastClassName": "cdSrAo",
+                        "lastClassName": "c2",
                         "rules": Array [
                           "
   position: relative;
@@ -376,7 +373,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "displayName": "styled.div",
                       "foldedComponentIds": Array [],
                       "render": [Function],
-                      "styledComponentId": "sc-csuQGl",
+                      "styledComponentId": "c1",
                       "target": "div",
                       "toString": [Function],
                       "warnTooManyClasses": [Function],
@@ -386,7 +383,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                   forwardedRef={null}
                 >
                   <div
-                    className="sc-csuQGl cdSrAo"
+                    className="c1 c2"
                   >
                     <LoadingIndicator
                       IconComponent={
@@ -412,9 +409,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "$$typeof": Symbol(react.forward_ref),
                                   "attrs": Array [],
                                   "componentStyle": ComponentStyle {
-                                    "componentId": "sc-btzYZH",
+                                    "componentId": "sc-jwKygS",
                                     "isStatic": false,
-                                    "lastClassName": "gUyeZb",
+                                    "lastClassName": "c3",
                                     "rules": Array [
                                       "
   @keyframes rotating {
@@ -443,7 +440,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "displayName": "styled.div",
                                   "foldedComponentIds": Array [],
                                   "render": [Function],
-                                  "styledComponentId": "sc-btzYZH",
+                                  "styledComponentId": "sc-jwKygS",
                                   "target": "div",
                                   "toString": [Function],
                                   "warnTooManyClasses": [Function],
@@ -454,7 +451,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                               size={36}
                             >
                               <div
-                                className="sc-btzYZH gUyeZb"
+                                className="c3"
                                 size={36}
                               >
                                 <Icon
@@ -474,7 +471,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                           "componentStyle": ComponentStyle {
                                             "componentId": "sc-bxivhb",
                                             "isStatic": false,
-                                            "lastClassName": "etLEqh",
+                                            "lastClassName": "c4",
                                             "rules": Array [
                                               "
   display: ",
@@ -499,7 +496,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                               [Function],
                                               "
   }
-
+  
   ",
                                               [Function],
                                               ";
@@ -520,7 +517,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                       size={36}
                                     >
                                       <span
-                                        className="sc-bxivhb etLEqh"
+                                        className="c4"
                                         color="secondary"
                                         size={36}
                                       >
