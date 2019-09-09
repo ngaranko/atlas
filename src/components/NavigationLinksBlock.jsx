@@ -174,6 +174,10 @@ const StyledCardContainer = styled(CardContainer)`
     font-size: 14px;
     line-height: 17px;
 
+    @media screen and ${breakpoint('min-width', 'laptopM')} {
+      font-size: inherit;
+      line-height: inherit;
+    }
 
   }
 
