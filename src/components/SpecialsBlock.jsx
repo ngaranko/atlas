@@ -16,6 +16,7 @@ import {
   breakpoint,
   styles,
 } from '@datapunt/asc-ui'
+import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 
 const getBorderTop = () =>
   css`
@@ -27,6 +28,8 @@ const StyledSpecialsBlock = styled(CardContainer)`
   ${/* sc-selector */ styles.ColumnStyle}:first-child > ${styles.LinkStyle} {
     ${getBorderTop()}
   }
+  
+  ${({ showError }) => showError && ErrorBackgroundCSS}
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
     ${/* sc-selector */ styles.ColumnStyle}:nth-child(2) > ${styles.LinkStyle} {
@@ -105,8 +108,9 @@ const CardSpecialsSubtiltle = styled(Heading)`
   }
 `
 
-const SpecialsBlock = ({ loading, ...otherProps }) => (
-  <StyledSpecialsBlock {...otherProps}>
+const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
+  <StyledSpecialsBlock {...otherProps} showError={showError}>
+    {showError && <ErrorMessage onClick={() => {}} />}
     <Row hasMargin={false}>
       <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
         <CardSpecialsSubtiltle $as="h1">In Beeld</CardSpecialsSubtiltle>

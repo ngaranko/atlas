@@ -13,6 +13,7 @@ import {
   Row,
   styles,
 } from '@datapunt/asc-ui'
+import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 
 const StyledCardContainer = styled(CardContainer)`
   border-top: 2px solid;
@@ -23,7 +24,7 @@ const OrganizationBlockStyle = styled.div`
   margin-top: 40px;
   padding: 40px 20px 0;
   background-color: ${themeColor('tint', 'level2')};
-
+  
   @media screen and ${breakpoint('max-width', 'mobileL')} {
     padding: 40px 20px 16px;
     margin-left:-20px;
@@ -40,6 +41,8 @@ const OrganizationBlockStyle = styled.div`
     margin-right: -24px;
     width: calc(100% + 48px);
   }
+  
+  ${({ showError }) => showError && ErrorBackgroundCSS}
 `
 
 const StyledCard = styled(Card)`
@@ -71,8 +74,9 @@ const StyledRow = styled(Row)`
   }
 `
 
-const OrganizationBlock = ({ loading, ...otherProps }) => (
-  <OrganizationBlockStyle {...otherProps}>
+const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
+  <OrganizationBlockStyle {...otherProps} showError={showError}>
+    {showError && <ErrorMessage onClick={() => {}} />}
     <Row hasMargin={false}>
       <Heading $as="h2" styleAs="h1" gutterBottom={20}>
         Onderzoek, Informatie en Statistiek

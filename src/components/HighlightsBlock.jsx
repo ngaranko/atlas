@@ -9,6 +9,7 @@ import {
   Link,
   themeColor,
 } from '@datapunt/asc-ui'
+import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 
 const StyledHeading = styled(Heading)`
   @media screen and ${breakpoint('max-width', 'tabletM')} {
@@ -32,6 +33,7 @@ const HighlightsHeading = ({ children, ...otherProps }) => (
 )
 
 const HighlightsBlockStyle = styled.div`
+  position: relative;
   width: 100%;
 
   @media screen and ${breakpoint('min-width', 'laptop')} {
@@ -44,6 +46,8 @@ const HighlightsBlockStyle = styled.div`
       line-height: 20px;
     }
   }
+
+  ${({ showError }) => showError && ErrorBackgroundCSS}
 `
 
 const HighlightsBlockInnerStyle = styled.section`
@@ -121,8 +125,9 @@ const ImageCardWrapperSmall = styled.div`
   }
 `
 
-const HighlightsBlock = ({ loading, ...otherProps }) => (
-  <HighlightsBlockStyle {...otherProps}>
+const HighlightsBlock = ({ loading, showError, ...otherProps }) => (
+  <HighlightsBlockStyle {...otherProps} showError={showError}>
+    {showError && <ErrorMessage onClick={() => {}} />}
     <HighlightsBlockInnerStyle>
       <ImageCardWrapperLarge>
         <Link href="/" linkType="blank">
@@ -130,6 +135,7 @@ const HighlightsBlock = ({ loading, ...otherProps }) => (
             margin={12}
             backgroundImage="http://lorempixel.com/output/food-q-c-640-480-3.jpg"
             loading={loading}
+            animateLoading={!showError}
           >
             <ImageCardContent>
               <HighlightsHeading styleAs="h2" className="header">
@@ -145,6 +151,7 @@ const HighlightsBlock = ({ loading, ...otherProps }) => (
             margin={12}
             backgroundImage="http://lorempixel.com/output/food-q-c-640-480-3.jpg"
             loading={loading}
+            animateLoading={!showError}
           >
             <ImageCardContent>
               <HighlightsHeading strong gutterBottom={0} small>
@@ -158,6 +165,7 @@ const HighlightsBlock = ({ loading, ...otherProps }) => (
             margin={12}
             backgroundImage="http://lorempixel.com/output/food-q-c-640-480-3.jpg"
             loading={loading}
+            animateLoading={!showError}
           >
             <ImageCardContent>
               <HighlightsHeading strong gutterBottom={0}>

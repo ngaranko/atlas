@@ -22,14 +22,14 @@ import '../../modules/atlas/atlas.scss'
 import ShareBar from '../app/components/ShareBar/ShareBar'
 
 // Generates the top margin for the building blocks
-const blockTopMargin = (offset = 0) => css`
+export const blockTopMargin = (offset = 0) => css`
   margin-top: ${40 - offset}px;
   @media screen and ${breakpoint('min-width', 'laptopM')} {
     margin-top: ${80 - offset}px;
   }
 `
 
-const LandingPageStyle = styled.div`
+export const LandingPageStyle = styled.div`
   position: relative;
   @media screen and ${breakpoint('min-width', 'laptopM')} {
     margin: 0 24px;
@@ -59,15 +59,15 @@ const LandingPageStyle = styled.div`
   }
 `
 
-const StyledShareBar = styled(ShareBar)`
+export const StyledShareBar = styled(ShareBar)`
   ${blockTopMargin(24)}
 `
 
-const Subtiltle = styled(Heading)`
+export const Subtiltle = styled(Heading)`
   ${blockTopMargin(24)}
 `
 
-const OverviewLink = styled(Link)`
+export const OverviewLink = styled(Link)`
   margin-top: 32px;
   padding: 8px 3px 8px 0;
 
@@ -76,11 +76,11 @@ const OverviewLink = styled(Link)`
   }
 `
 
-const StyledFooter = styled(FooterComponent)`
+export const StyledFooter = styled(FooterComponent)`
   margin-top: 72px;
 `
 
-const StickyRow = styled(Row)`
+export const StickyRow = styled(Row)`
   position: sticky;
   top: 0;
   z-index: 2;
@@ -91,7 +91,7 @@ const StickyRow = styled(Row)`
   }
 `
 
-const StyledColumn = styled(Column)`
+export const StyledColumn = styled(Column)`
   display: block;
   height: 100%;
 `

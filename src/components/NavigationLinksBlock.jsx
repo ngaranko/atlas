@@ -16,11 +16,13 @@ import {
   styles,
   svgFill,
 } from '@datapunt/asc-ui'
+import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 
 const StyledCardContainer = styled(CardContainer)`
   position: relative;
   padding: 24px;
   background-color: ${themeColor('support', 'valid')};
+  ${({ showError }) => showError && ErrorBackgroundCSS}
 
   @media screen and ${breakpoint('max-width', 'mobileL')} {
     margin-top: 40px;
@@ -70,7 +72,7 @@ const StyledCardContainer = styled(CardContainer)`
 
   /* Generate the arrow / triangle in the left corner */
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    ::after {
+    &::before {
       content: '';
       position: absolute;
       height: 0;
@@ -187,8 +189,9 @@ const StyledCardContainer = styled(CardContainer)`
   }
 `
 
-const NavigationLinksBlock = ({ loading, ...otherProps }) => (
-  <StyledCardContainer {...otherProps}>
+const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
+  <StyledCardContainer {...otherProps} showError={showError}>
+    {showError && <ErrorMessage onClick={() => {}} />}
     <Link href="/" linkType="blank">
       <Card horizontal loading={loading}>
         <CardMedia backgroundColor="level2">

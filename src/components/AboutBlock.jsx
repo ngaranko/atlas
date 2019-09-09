@@ -13,8 +13,11 @@ import {
   color,
   breakpoint,
 } from '@datapunt/asc-ui'
+import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 
 /* istanbul ignore next */ const StyledAboutCard = styled(CardContainer)`
+  ${({ showError }) => showError && ErrorBackgroundCSS}
+
   ${styles.ColumnStyle} {
     margin-bottom: 16px;
 
@@ -72,8 +75,9 @@ import {
   background-color: ${color('tint', 'level3')};
 `
 
-/* istanbul ignore next */ const AboutBlock = ({ loading, ...otherProps }) => (
-  <StyledAboutCard {...otherProps}>
+/* istanbul ignore next */ const AboutBlock = ({ loading, showError, ...otherProps }) => (
+  <StyledAboutCard {...otherProps} showError={showError}>
+    {showError && <ErrorMessage onClick={() => {}} />}
     <Row hasMargin={false}>
       <Column
         className="column-with-heading"
