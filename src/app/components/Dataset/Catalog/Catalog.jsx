@@ -11,6 +11,7 @@ import {
   ucFirst,
 } from '../../Filters/Filters'
 import { routing } from '../../../routes'
+import useSlug from '../../../utils/useSlug'
 
 const arrayToObject = (array, keyField) =>
   array.reduce(
@@ -44,7 +45,8 @@ const Catalog = ({ content, catalogFilters }) => {
     const id = item['dct:identifier']
     const linkTo = {
       type: routing.datasetDetail.type,
-      payload: { id },
+      // Ideally we need to retrieve the slug from the API, but we convert this in the frontend for now
+      payload: { id, title: useSlug(item['dct:title'] || id) },
     }
 
     return {
