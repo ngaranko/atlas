@@ -23,13 +23,12 @@ const getBorderTop = () =>
     border-top: ${themeColor('tint', 'level3')} 1px solid;
   `
 
-const StyledSpecialsBlock = styled(CardContainer)`
-
+const StyledContentRow = styled(Row)`
+  ${({ showError }) => showError && ErrorBackgroundCSS}
+  
   ${/* sc-selector */ styles.ColumnStyle}:first-child > ${styles.LinkStyle} {
     ${getBorderTop()}
   }
-  
-  ${({ showError }) => showError && ErrorBackgroundCSS}
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
     ${/* sc-selector */ styles.ColumnStyle}:nth-child(2) > ${styles.LinkStyle} {
@@ -59,15 +58,19 @@ const StyledSpecialsBlock = styled(CardContainer)`
   }
 
   ${styles.CardStyle} {
-    background: none;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 8px 0;
-    margin: 24px 0px;
+    margin: 24px 0;
     @media screen and ${breakpoint('min-width', 'tabletM')} {
       margin: 24px 8px;
     }
+    ${({ showError }) =>
+      !showError &&
+      css`
+        background: none;
+      `}
   }
 
   ${styles.CardContentStyle} {
@@ -109,17 +112,17 @@ const CardSpecialsSubtiltle = styled(Heading)`
 `
 
 const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
-  <StyledSpecialsBlock {...otherProps} showError={showError}>
-    {showError && <ErrorMessage onClick={() => {}} />}
+  <CardContainer {...otherProps}>
     <Row hasMargin={false}>
       <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
         <CardSpecialsSubtiltle $as="h1">In Beeld</CardSpecialsSubtiltle>
       </Column>
     </Row>
-    <Row hasMargin={false}>
+    <StyledContentRow hasMargin={false} showError={showError}>
+      {showError && <ErrorMessage onClick={() => {}} />}
       <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
         <Link href="/" linkType="blank">
-          <Card horizontal loading={loading}>
+          <Card horizontal animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex
@@ -137,7 +140,7 @@ const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
       </Column>
       <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
         <Link href="/" linkType="blank">
-          <Card horizontal loading={loading}>
+          <Card horizontal animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex
@@ -155,7 +158,7 @@ const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
       </Column>
       <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
         <Link href="/" linkType="blank">
-          <Card horizontal loading={loading}>
+          <Card horizontal animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex titel 16/20
@@ -172,7 +175,7 @@ const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
       </Column>
       <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
         <Link href="/" linkType="blank">
-          <Card horizontal loading={loading}>
+          <Card horizontal animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex titel 16/20
@@ -190,7 +193,7 @@ const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
       </Column>
       <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
         <Link href="/" linkType="blank">
-          <Card horizontal loading={loading}>
+          <Card horizontal animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex titel 16/20
@@ -205,9 +208,10 @@ const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
           </Card>
         </Link>
       </Column>
+
       <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
         <Link href="/" linkType="blank">
-          <Card horizontal loading={loading}>
+          <Card horizontal animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex titel 16/20
@@ -222,11 +226,15 @@ const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
           </Card>
         </Link>
       </Column>
-      <Link linkType="with-chevron" href="/" className="overview-link">
-        Bekijk overzicht
-      </Link>
+    </StyledContentRow>
+    <Row hasMargin={false}>
+      <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
+        <Link linkType="with-chevron" href="/" className="overview-link">
+          Bekijk overzicht
+        </Link>
+      </Column>
     </Row>
-  </StyledSpecialsBlock>
+  </CardContainer>
 )
 
 export default SpecialsBlock

@@ -16,8 +16,6 @@ import {
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 
 /* istanbul ignore next */ const StyledAboutCard = styled(CardContainer)`
-  ${({ showError }) => showError && ErrorBackgroundCSS}
-
   ${styles.ColumnStyle} {
     margin-bottom: 16px;
 
@@ -75,9 +73,12 @@ import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
   background-color: ${color('tint', 'level3')};
 `
 
+const StyledContentRow = styled(Row)`
+  ${({ showError }) => showError && ErrorBackgroundCSS}
+`
+
 /* istanbul ignore next */ const AboutBlock = ({ loading, showError, ...otherProps }) => (
-  <StyledAboutCard {...otherProps} showError={showError}>
-    {showError && <ErrorMessage onClick={() => {}} />}
+  <StyledAboutCard {...otherProps}>
     <Row hasMargin={false}>
       <Column
         className="column-with-heading"
@@ -89,12 +90,15 @@ import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
           Header one
         </Heading>
       </Column>
+    </Row>
+    <StyledContentRow hasMargin={false} showError={showError}>
+      {showError && <ErrorMessage onClick={() => {}} />}
       <Column
         span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
         order={{ small: 2, medium: 2, big: 2, large: 3, xLarge: 3 }}
       >
         <Link href="/" linkType="blank">
-          <Card backgroundColor="level2" shadow loading={loading}>
+          <Card backgroundColor="level2" shadow animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3">
                 This is a card
@@ -112,7 +116,7 @@ import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
         order={{ small: 3, medium: 3, big: 3, large: 4, xLarge: 4 }}
       >
         <Link href="/" linkType="blank">
-          <Card backgroundColor="level2" shadow loading={loading}>
+          <Card backgroundColor="level2" shadow animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3">
                 This is a card with very very very long content
@@ -122,7 +126,8 @@ import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
           </Card>
         </Link>
       </Column>
-
+    </StyledContentRow>
+    <StyledContentRow hasMargin={false} showError={showError}>
       <Column
         className="column-with-heading"
         span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}
@@ -139,7 +144,7 @@ import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
         order={{ small: 5, medium: 5, big: 5, large: 5, xLarge: 5 }}
       >
         <Link href="/" linkType="blank">
-          <Card backgroundColor="level2" shadow loading={loading}>
+          <Card backgroundColor="level2" shadow animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3">
                 This is a card
@@ -155,7 +160,7 @@ import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
         order={{ small: 6, medium: 6, big: 6, large: 6, xLarge: 6 }}
       >
         <Link href="/" linkType="blank">
-          <Card backgroundColor="level2" shadow loading={loading}>
+          <Card backgroundColor="level2" shadow animateLoading={!showError} loading={loading}>
             <CardContent>
               <Heading $as="h4" styleAs="h3">
                 This is a card
@@ -165,7 +170,7 @@ import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
           </Card>
         </Link>
       </Column>
-    </Row>
+    </StyledContentRow>
   </StyledAboutCard>
 )
 

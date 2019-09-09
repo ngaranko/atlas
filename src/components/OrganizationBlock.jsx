@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import {
   breakpoint,
   Card,
@@ -41,14 +41,16 @@ const OrganizationBlockStyle = styled.div`
     margin-right: -24px;
     width: calc(100% + 48px);
   }
-  
-  ${({ showError }) => showError && ErrorBackgroundCSS}
 `
 
 const StyledCard = styled(Card)`
-  background-color: inherit;
   align-items: flex-start;
   height: 100%;
+  ${({ loading }) =>
+    !loading &&
+    css`
+      background-color: inherit;
+    `}
 `
 
 const StyledLink = styled(Link)`
@@ -69,23 +71,24 @@ const StyledCardContent = styled(CardContent)`
 `
 
 const StyledRow = styled(Row)`
+  ${({ showError }) => showError && ErrorBackgroundCSS}
   @media screen and ${breakpoint('min-width', 'tabletM')} {
     margin-top: 12px;
   }
 `
 
 const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
-  <OrganizationBlockStyle {...otherProps} showError={showError}>
-    {showError && <ErrorMessage onClick={() => {}} />}
+  <OrganizationBlockStyle {...otherProps}>
     <Row hasMargin={false}>
       <Heading $as="h2" styleAs="h1" gutterBottom={20}>
         Onderzoek, Informatie en Statistiek
       </Heading>
     </Row>
-    <StyledRow hasMargin={false}>
+    <StyledRow hasMargin={false} showError={showError}>
+      {showError && <ErrorMessage onClick={() => {}} />}
       <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
         <StyledCardContainer>
-          <StyledCard loading={loading}>
+          <StyledCard animateLoading={!showError} loading={loading}>
             <StyledCardContent>
               <div>
                 <Heading $as="h4" styleAs="h3">
@@ -105,7 +108,7 @@ const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
       </Column>
       <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
         <StyledCardContainer>
-          <StyledCard loading={loading}>
+          <StyledCard animateLoading={!showError} loading={loading}>
             <StyledCardContent>
               <div>
                 <Heading $as="h4" styleAs="h3">
@@ -125,7 +128,7 @@ const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
       </Column>
       <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
         <StyledCardContainer>
-          <StyledCard loading={loading}>
+          <StyledCard animateLoading={!showError} loading={loading}>
             <StyledCardContent>
               <div>
                 <Heading $as="h4" styleAs="h3">
@@ -145,7 +148,7 @@ const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
       </Column>
       <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
         <StyledCardContainer>
-          <StyledCard loading={loading}>
+          <StyledCard animateLoading={!showError} loading={loading}>
             <StyledCardContent>
               <div>
                 <Heading $as="h4" styleAs="h3">

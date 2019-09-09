@@ -193,7 +193,7 @@ const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
   <StyledCardContainer {...otherProps} showError={showError}>
     {showError && <ErrorMessage onClick={() => {}} />}
     <Link href="/" linkType="blank">
-      <Card horizontal loading={loading}>
+      <Card horizontal loading={loading} animateLoading={!showError}>
         <CardMedia backgroundColor="level2">
           <Icon size={20}>
             <Map />
@@ -211,7 +211,7 @@ const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
       </Card>
     </Link>
     <Link href="/" linkType="blank">
-      <Card horizontal loading={loading}>
+      <Card horizontal loading={loading} animateLoading={!showError}>
         <CardMedia backgroundColor="level2">
           <Icon size={30}>
             <Pano />
@@ -229,7 +229,7 @@ const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
       </Card>
     </Link>
     <Link href="/" linkType="blank">
-      <Card horizontal loading={loading}>
+      <Card horizontal loading={loading} animateLoading={!showError}>
         <CardMedia backgroundColor="level2">
           <Icon size={30}>
             <DocumentText />
@@ -247,7 +247,7 @@ const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
       </Card>
     </Link>
     <Link href="/" linkType="blank">
-      <Card horizontal loading={loading}>
+      <Card horizontal loading={loading} animateLoading={!showError}>
         <CardMedia backgroundColor="level2">
           <Icon size={20}>
             <Data />
@@ -265,7 +265,7 @@ const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
       </Card>
     </Link>
     <Link href="/" linkType="blank">
-      <Card horizontal loading={loading}>
+      <Card horizontal loading={loading} animateLoading={!showError}>
         <CardMedia backgroundColor="level2">
           <Icon size={25}>
             <Table />
@@ -283,7 +283,7 @@ const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
       </Card>
     </Link>
     <Link href="/" linkType="blank">
-      <Card horizontal loading={loading}>
+      <Card horizontal loading={loading} animateLoading={!showError}>
         <CardMedia backgroundColor="level2">
           <Icon size={30}>
             <Api />
