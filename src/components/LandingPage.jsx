@@ -19,6 +19,7 @@ import FooterComponent from '../app/components/Footer/Footer'
 import Header from '../app/components/Header'
 import '../_styles.scss'
 import '../../modules/atlas/atlas.scss'
+import ShareBar from '../app/components/ShareBar/ShareBar'
 
 const LandingPageStyle = styled.div`
   position: relative;
@@ -50,6 +51,14 @@ const LandingPageStyle = styled.div`
         width: 24px;
       }
     }
+  }
+`
+
+const StyledShareBar = styled(ShareBar)`
+  margin-top: 56px;
+
+  @media screen and ${breakpoint('max-width', 'laptopM')} {
+    margin-top: 16px;
   }
 `
 
@@ -141,6 +150,11 @@ const LandingPage = ({ loading }) => (
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
           <AboutBlock loading={loading} className="block" />
+        </Column>
+      </Row>
+      <Row>
+        <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
+          <StyledShareBar hasPrintButton={false} />
         </Column>
       </Row>
       <Row hasMargin={false}>
