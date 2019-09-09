@@ -37,6 +37,7 @@ import '../../modules/detail/components/partial-select/partial-compiler.factory'
 import '../../modules/detail/components/partial-select/partial-select.directive'
 import '../../modules/detail/components/time-period/time-period.filter'
 import '../../modules/detail/components/wkpb-link/wkpb-link.component'
+import '../../modules/detail/components/wkpb-download-link/wkpb-download-link.component'
 import '../../modules/detail/components/yes-no/yes-no.filter'
 
 import '../../modules/detail/detail.vendor'
