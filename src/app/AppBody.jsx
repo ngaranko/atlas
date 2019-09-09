@@ -25,6 +25,7 @@ const PublicationDetailPage = React.lazy(() => import('./pages/PublicationDetail
 const SpecialDetailPage = React.lazy(() => import('./pages/SpecialDetailPage'))
 const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverviewPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
+const NotFound = React.lazy(() => import('./pages/NotFound'))
 
 const AppBody = ({
   visibilityError,
@@ -76,6 +77,7 @@ const AppBody = ({
 
               {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
 
+              {currentPage === PAGES.NOT_FOUND && <NotFound />}
               {isOldCmsPage(currentPage) && <ContentPage />}
 
               <FeedbackModal id="feedbackModal" />

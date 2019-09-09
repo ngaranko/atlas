@@ -25,6 +25,7 @@ import AppBody from './AppBody'
 import main, { initialState } from './react-reducers'
 import { getEnvironment } from '../shared/environment'
 import { MATOMO_CONFIG } from '../store/middleware/matomo/constants'
+import { routing } from './routes'
 
 const App = ({
   isFullHeight,
@@ -43,6 +44,11 @@ const App = ({
 }) => {
   const editorialPage = isEditorialPage(currentPage)
   const hasMaxWidth = homePage || editorialPage || isOldCmsPage(currentPage)
+
+  // Redirect to the 404 page if currentPage isn't set
+  if (currentPage === '' && window) {
+    window.location.replace(routing.niet_gevonden.path)
+  }
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
