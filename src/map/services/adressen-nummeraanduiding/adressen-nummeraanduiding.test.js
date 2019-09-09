@@ -28,8 +28,20 @@ describe('The adressen nummeraanduiding resource', () => {
       _geometrie: 'geo',
     }
 
-    const result = await normalize(mockNummeraanduiding)
+    const mockVerblijsfobject = {
+      gebruiksdoelen: 'foo',
+      gebruik: {
+        omschrijving: 'gebruik',
+      },
+      status: {
+        omschrijving: 'status',
+      },
+      size: 100,
+      statusLevel: 'foo',
+    }
 
+    const result = await normalize(mockNummeraanduiding)
+    mapFetch.mockImplementationOnce(() => mockVerblijsfobject)
     expect(mapFetch).toHaveBeenCalledWith(
       mockNummeraanduiding.verblijfsobject,
       false,
@@ -39,6 +51,13 @@ describe('The adressen nummeraanduiding resource', () => {
     expect(result).toEqual({
       geometry: 'geo',
       isNevenadres: false,
+      verblijfsobject: {
+        gebruiksdoelen: mockVerblijsfobject.gebruiksdoelen,
+        gebruiksomschrijving: mockVerblijsfobject.gebruik,
+        statusomschrijving: mockVerblijsfobject.status,
+        size: mockVerblijsfobject.size,
+        statusLevel: mockVerblijsfobject.statusLevel,
+      },
       ...mockNummeraanduiding,
     })
   })
