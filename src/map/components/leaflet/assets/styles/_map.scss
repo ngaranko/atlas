@@ -44,6 +44,7 @@ $on-top-of-leaflet: 999;
   transform: translateZ(
     0
   ); //translateZ(0) is needed to fix a Firefox bug, see tg-1306 (black screen when scrolling
+  z-index: $body-z-index; // This z-index is needed to make the map clickable even when detail panels are opened
 }
 
 .c-map__overlay-buttons {
