@@ -17,13 +17,13 @@ exports[`App should render the homepage 1`] = `
       reducer={[Function]}
     >
       <div
-        className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
+        className="c-dashboard c-dashboard--page-type-data "
       >
         <Connect(Header)
           embedPreviewMode={false}
           hasEmbedButton={false}
-          hasMaxWidth={true}
-          hasPrintButton={false}
+          hasMaxWidth={false}
+          hasPrintButton={true}
           homePage={false}
           printMode={false}
           printOrEmbedMode={false}
@@ -31,9 +31,9 @@ exports[`App should render the homepage 1`] = `
         />
         <AppBody
           bodyClasses=""
-          currentPage="NOT_FOUND"
+          currentPage="DATA"
           embedPreviewMode={false}
-          hasMaxWidth={true}
+          hasMaxWidth={false}
           homePage={false}
           visibilityError={false}
         />
@@ -60,12 +60,12 @@ exports[`App should render the mapview 1`] = `
       reducer={[Function]}
     >
       <div
-        className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
+        className="c-dashboard c-dashboard--page-type-data "
       >
         <Connect(Header)
           embedPreviewMode={false}
           hasEmbedButton={true}
-          hasMaxWidth={true}
+          hasMaxWidth={false}
           hasPrintButton={true}
           homePage={false}
           printMode={false}
@@ -74,9 +74,9 @@ exports[`App should render the mapview 1`] = `
         />
         <AppBody
           bodyClasses=""
-          currentPage="NOT_FOUND"
+          currentPage="DATA"
           embedPreviewMode={false}
-          hasMaxWidth={true}
+          hasMaxWidth={false}
           homePage={false}
           visibilityError={false}
         />
