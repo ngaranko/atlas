@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import {
   breakpoint,
   styles,
@@ -21,6 +21,14 @@ import '../_styles.scss'
 import '../../modules/atlas/atlas.scss'
 import ShareBar from '../app/components/ShareBar/ShareBar'
 
+// Generates the top margin for the building blocks
+const blockTopMargin = (offset = 0) => css`
+  margin-top: ${40 - offset}px;
+  @media screen and ${breakpoint('min-width', 'laptopM')} {
+    margin-top: ${80 - offset}px;
+  }
+`
+
 const LandingPageStyle = styled.div`
   position: relative;
   @media screen and ${breakpoint('min-width', 'laptopM')} {
@@ -28,10 +36,7 @@ const LandingPageStyle = styled.div`
   }
 
   .block {
-    margin-top: 40px;
-    @media screen and ${breakpoint('min-width', 'laptopM')} {
-      margin-top: 80px;
-    }
+    ${blockTopMargin()}
   }
 
   & > ${styles.RowStyle} {
@@ -55,19 +60,11 @@ const LandingPageStyle = styled.div`
 `
 
 const StyledShareBar = styled(ShareBar)`
-  margin-top: 56px;
-
-  @media screen and ${breakpoint('max-width', 'laptopM')} {
-    margin-top: 16px;
-  }
+  ${blockTopMargin(24)}
 `
 
 const Subtiltle = styled(Heading)`
-  padding-top: 56px;
-
-  @media screen and ${breakpoint('max-width', 'laptopM')} {
-    padding-top: 16px;
-  }
+  ${blockTopMargin(24)}
 `
 
 const OverviewLink = styled(Link)`
@@ -80,7 +77,7 @@ const OverviewLink = styled(Link)`
 `
 
 const StyledFooter = styled(FooterComponent)`
-  margin-top: 56px;
+  margin-top: 72px;
 `
 
 const StickyRow = styled(Row)`
