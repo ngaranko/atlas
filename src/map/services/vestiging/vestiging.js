@@ -15,10 +15,11 @@ const normalize = async result => {
       .map(item => `${item.sbi_code}${item.sbi_omschrijving ? `: ${item.sbi_omschrijving}` : ''}`)
       .join('\n'),
     type: result.hoofdvestiging ? 'Hoofdvestiging' : 'Nevenvestiging',
-    ...(result._bijzondere_rechts_toestand.faillisement || result._bijzondere_rechts_toestand.status
+    ...(result._bijzondere_rechts_toestand.faillissement ||
+    result._bijzondere_rechts_toestand.status
       ? {
           bijzondereRechtstoestand: {
-            label: result._bijzondere_rechts_toestand.faillisement
+            label: result._bijzondere_rechts_toestand.faillissement
               ? 'Faillissement'
               : 'Surseance van betaling',
           },
