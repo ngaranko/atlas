@@ -299,7 +299,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "$$typeof": Symbol(react.forward_ref),
                 "attrs": Array [],
                 "componentStyle": ComponentStyle {
-                  "componentId": "sc-hzDkRC",
+                  "componentId": "sc-jhAzac",
                   "isStatic": false,
                   "lastClassName": "c0",
                   "rules": Array [
@@ -336,7 +336,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "displayName": "styled.div",
                 "foldedComponentIds": Array [],
                 "render": [Function],
-                "styledComponentId": "sc-hzDkRC",
+                "styledComponentId": "sc-jhAzac",
                 "target": "div",
                 "toString": [Function],
                 "warnTooManyClasses": [Function],
