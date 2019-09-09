@@ -22,6 +22,25 @@ const StyledCardContainer = styled(CardContainer)`
   padding: 24px;
   background-color: ${themeColor('support', 'valid')};
 
+  @media screen and ${breakpoint('max-width', 'mobileL')} {
+    margin-top: 40px;
+    padding: 40px 20px 16px;
+    margin-left:-20px;
+    margin-right:-20px;
+    width: calc(100% + 40px)
+  }
+
+  @media screen and ${breakpoint('min-width', 'mobileL')} and  ${breakpoint(
+  'max-width',
+  'tabletM',
+)} {
+    margin-top: 40px;
+    padding: 48px 24px 16px;
+    margin-left: -24px;
+    margin-right: -24px;
+    width: calc(100% + 48px);
+  }
+
   @media screen and ${breakpoint('min-width', 'mobileM')} {
     padding: 24px;
   }
@@ -154,6 +173,8 @@ const StyledCardContainer = styled(CardContainer)`
   ${styles.ParagraphStyle} {
     font-size: 14px;
     line-height: 17px;
+
+
   }
 
   ${styles.CardStyle} {
