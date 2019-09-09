@@ -15,18 +15,18 @@ RUN apt-get update && \
 
 WORKDIR /home
 
-COPY .babelrc package.json yarn.lock ./
+COPY .babelrc package.json package-lock.json ./
 
 # Install all NPM dependencies, and:
 #  * Changing git URL because network is blocking git protocol...
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
-    yarn config set registry https://nexus.data.amsterdam.nl/repository/npm-group/ && \
-    yarn --production=false \
+    npm config set registry https://nexus.data.amsterdam.nl/repository/npm-group/ && \
+    npm --production=false \
         --unsafe-perm \
         --no-audit \
         install && \
-    yarn cache clean
+    npm cache clean --force
 
 COPY run.sh ./
 COPY test ./test
