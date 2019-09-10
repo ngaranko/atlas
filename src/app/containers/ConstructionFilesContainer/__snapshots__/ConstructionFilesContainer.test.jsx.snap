@@ -493,9 +493,10 @@ exports[`ConstructionFilesContainer should render 1`] = `
 
   & > svg {
     ",
-                                              [Function],                                              "
+                                              [Function],
+                                              "
   }
-
+  
   ",
                                               [Function],
                                               ";

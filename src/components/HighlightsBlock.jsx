@@ -40,7 +40,7 @@ const HighlightsBlockStyle = styled.div`
     margin-top: 12px;
   }
 
-  ${styles.TypographyStyle}.header {
+  ${StyledHeading} {
     @media screen and ${breakpoint('max-width', 'tabletM')} {
       font-size: 16px;
       line-height: 20px;
@@ -138,7 +138,7 @@ const HighlightsBlock = ({ loading, showError, ...otherProps }) => (
             animateLoading={!showError}
           >
             <ImageCardContent>
-              <HighlightsHeading styleAs="h2" className="header">
+              <HighlightsHeading styleAs="h2">
                 Jeugdwerkloosheid Amsterdam daalt naar 6,2%
               </HighlightsHeading>
             </ImageCardContent>
