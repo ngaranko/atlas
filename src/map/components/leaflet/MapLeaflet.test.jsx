@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 
 import MapLeaflet from './MapLeaflet'
 
-import MAP_CONFIG from '../../services/map-config'
+import MAP_CONFIG from '../../services/map.config'
 
 import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds'
 import { markerPointType } from './services/icons.constant'

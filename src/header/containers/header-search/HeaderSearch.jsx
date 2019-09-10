@@ -35,17 +35,27 @@ class HeaderSearch extends React.Component {
 
   // Opens suggestion on mouseclick or enter
   onSuggestionSelection(suggestion) {
-    const { openDataSuggestion, openDatasetSuggestion, typedQuery, view } = this.props
+    const {
+      openDataSuggestion,
+      openDatasetSuggestion,
+      openEditorialSuggestion,
+      typedQuery,
+      view,
+    } = this.props
 
+    // Suggestion of type dataset, formerly known as "catalog"
     if (suggestion.uri.match(/^dcatd\//)) {
-      // Suggestion of type dataset, formerly known as "catalog"
       const [, , id] = extractIdEndpoint(suggestion.uri)
       const slug = useSlug(suggestion.label)
 
       openDatasetSuggestion({ id, slug, typedQuery })
+
+      // Suggestion of type article or publication
     } else if (suggestion.uri.match(/jsonapi\/node\//)) {
-      const id = extractIdEndpoint(suggestion.uri)
-      console.log(id)
+      const [, type, id] = extractIdEndpoint(suggestion.uri)
+      const slug = useSlug(suggestion.label)
+
+      openEditorialSuggestion({ id, slug }, type)
     } else {
       openDataSuggestion(
         {
