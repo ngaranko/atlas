@@ -10,6 +10,27 @@ import {
   themeColor,
 } from '@datapunt/asc-ui'
 
+const StyledHeading = styled(Heading)`
+  @media screen and ${breakpoint('max-width', 'tabletM')} {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint(
+  'max-width',
+  'laptopM',
+)} {
+      font-size: 14px;
+      line-height: 17px;
+    }
+`
+
+const HighlightsHeading = ({ children, ...otherProps }) => (
+  <StyledHeading $as="h4" {...otherProps}>
+    {children}
+  </StyledHeading>
+)
+
 const HighlightsBlockStyle = styled.div`
   width: 100%;
 
@@ -40,7 +61,7 @@ const HighlightsBlockInnerStyle = styled.section`
     position: relative;
     width: 100%;
     &:hover {
-      ${styles.TypographyStyle}.header {
+      ${StyledHeading} {
         color: ${themeColor('secondary')};
         text-decoration: underline;
       }
@@ -98,16 +119,6 @@ const ImageCardWrapperSmall = styled.div`
       padding: 8px 16px;
     }
   }
-
-  ${styles.TypographyStyle}.header-small {
-    @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint(
-  'max-width',
-  'laptopM',
-)} {
-      font-size: 14px;
-      line-height: 17px;
-    }
-  }
 `
 
 const HighlightsBlock = ({ loading, ...otherProps }) => (
@@ -121,9 +132,9 @@ const HighlightsBlock = ({ loading, ...otherProps }) => (
             loading={loading}
           >
             <ImageCardContent>
-              <Heading $as="h4" styleAs="h2" className="header">
+              <HighlightsHeading styleAs="h2" className="header">
                 Jeugdwerkloosheid Amsterdam daalt naar 6,2%
-              </Heading>
+              </HighlightsHeading>
             </ImageCardContent>
           </ImageCard>
         </Link>
@@ -136,9 +147,9 @@ const HighlightsBlock = ({ loading, ...otherProps }) => (
             loading={loading}
           >
             <ImageCardContent>
-              <Heading $as="h4" strong gutterBottom={0} className="header header-small">
+              <HighlightsHeading strong gutterBottom={0} small>
                 Jeugdwerk&shy;loosheid Amsterdam daalt naar 6,2%
-              </Heading>
+              </HighlightsHeading>
             </ImageCardContent>
           </ImageCard>
         </Link>
@@ -149,9 +160,9 @@ const HighlightsBlock = ({ loading, ...otherProps }) => (
             loading={loading}
           >
             <ImageCardContent>
-              <Heading $as="h4" strong gutterBottom={0} className="header header-small">
+              <HighlightsHeading strong gutterBottom={0}>
                 Amsterdammers voelen zich veiliger in het OV
-              </Heading>
+              </HighlightsHeading>
             </ImageCardContent>
           </ImageCard>
         </Link>
