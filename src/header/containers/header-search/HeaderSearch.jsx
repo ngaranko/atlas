@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest'
 import { extractIdEndpoint } from '../../../store/redux-first-router/actions'
+import useSlug from '../../../app/utils/useSlug'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 
 class HeaderSearch extends React.Component {
@@ -33,20 +34,18 @@ class HeaderSearch extends React.Component {
   }
 
   // Opens suggestion on mouseclick or enter
-  onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
+  onSuggestionSelection(suggestion) {
     const { openDataSuggestion, openDatasetSuggestion, typedQuery, view } = this.props
-
-    if (shouldOpenInNewWindow) {
-      // const newWindow = window.open(`${window.location.href}`, '_blank');
-      // // setting uri to the window, as window.postMessage does not work for some reason
-      // // (webpack overrides the data it seems)
-      // newWindow.window.suggestionToLoadUri = suggestion.uri;
-    }
 
     if (suggestion.uri.match(/^dcatd\//)) {
       // Suggestion of type dataset, formerly known as "catalog"
+      const [, , id] = extractIdEndpoint(suggestion.uri)
+      const slug = useSlug(suggestion.label)
+
+      openDatasetSuggestion({ id, slug, typedQuery })
+    } else if (suggestion.uri.match(/jsonapi\/node\//)) {
       const id = extractIdEndpoint(suggestion.uri)
-      openDatasetSuggestion({ id, typedQuery })
+      console.log(id)
     } else {
       openDataSuggestion(
         {

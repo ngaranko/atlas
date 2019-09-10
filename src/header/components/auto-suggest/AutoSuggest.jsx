@@ -62,18 +62,12 @@ class AutoSuggest extends React.Component {
     event.preventDefault()
     event.stopPropagation()
 
-    console.log(label, MORE_RESULTS_INDEX, suggestion)
-
     if (suggestion.index === MORE_RESULTS_INDEX) {
       this.resetActiveSuggestion()
       this.onFormSubmit(event, label)
     } else {
-      const shouldOpenInNewWindow = event.ctrlKey || event.metaKey
-      onSuggestionSelection(suggestion, shouldOpenInNewWindow)
-
-      if (!shouldOpenInNewWindow) {
-        this.clearQuery()
-      }
+      onSuggestionSelection(suggestion)
+      this.clearQuery()
     }
 
     this.setState({
