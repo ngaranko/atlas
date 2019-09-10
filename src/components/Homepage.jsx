@@ -96,7 +96,7 @@ export const StyledColumn = styled(Column)`
   height: 100%;
 `
 
-const LandingPage = ({ loading }) => (
+const Homepage = ({ loading }) => (
   <LandingPageStyle>
     <CompactThemeProvider>
       <StickyRow hasMargin={false}>
@@ -163,4 +163,4 @@ const LandingPage = ({ loading }) => (
   </LandingPageStyle>
 )
 
-export default LandingPage
+export default Homepage
