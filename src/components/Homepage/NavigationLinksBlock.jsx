@@ -1,5 +1,5 @@
 import React from 'react'
-import { Api, ChevronRight, Data, DocumentText, Map, Pano, Table } from '@datapunt/asc-assets'
+import { ChevronRight } from '@datapunt/asc-assets'
 import styled, { css } from '@datapunt/asc-core'
 import {
   Card,
@@ -18,6 +18,7 @@ import {
 } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import { focusImage, fullGridWidthContainer } from './services/styles'
+import navigationLinks from './services/navigation-links'
 
 /* Generate the arrow / triangle in the left corner */
 const whiteCorner = () => css`
@@ -161,117 +162,31 @@ const NavigationLinksBlockStyle = styled(CardContainer)`
   }
 `
 
+const NavigationLinkCard = ({ href, loading, showError, CardIcon, title, description }) => (
+  <Link href={href} linkType="blank">
+    <Card horizontal loading={loading} animateLoading={!showError}>
+      <CardMedia backgroundColor="level2">
+        <CardIcon />
+      </CardMedia>
+      <CardContent>
+        <Heading $as="h4">{title}</Heading>
+        <Paragraph>{description}</Paragraph>
+      </CardContent>
+      <CardActions>
+        <Icon size={15}>
+          <ChevronRight />
+        </Icon>
+      </CardActions>
+    </Card>
+  </Link>
+)
+
 const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
   <NavigationLinksBlockStyle {...otherProps} showError={showError}>
     {showError && <ErrorMessage onClick={() => {}} />}
-    <Link href="/" linkType="blank">
-      <Card horizontal loading={loading} animateLoading={!showError}>
-        <CardMedia backgroundColor="level2">
-          <Icon size={20}>
-            <Map />
-          </Icon>
-        </CardMedia>
-        <CardContent>
-          <Heading $as="h4">Kaart</Heading>
-          <Paragraph>Zoek en bekijk data op de kaart</Paragraph>
-        </CardContent>
-        <CardActions>
-          <Icon size={15}>
-            <ChevronRight />
-          </Icon>
-        </CardActions>
-      </Card>
-    </Link>
-    <Link href="/" linkType="blank">
-      <Card horizontal loading={loading} animateLoading={!showError}>
-        <CardMedia backgroundColor="level2">
-          <Icon size={30}>
-            <Pano />
-          </Icon>
-        </CardMedia>
-        <CardContent>
-          <Heading $as="h4">Panoramabeelden</Heading>
-          <Paragraph>Kijk 360 graden in het rond</Paragraph>
-        </CardContent>
-        <CardActions>
-          <Icon size={15}>
-            <ChevronRight />
-          </Icon>
-        </CardActions>
-      </Card>
-    </Link>
-    <Link href="/" linkType="blank">
-      <Card horizontal loading={loading} animateLoading={!showError}>
-        <CardMedia backgroundColor="level2">
-          <Icon size={30}>
-            <DocumentText />
-          </Icon>
-        </CardMedia>
-        <CardContent>
-          <Heading $as="h4">Publicaties</Heading>
-          <Paragraph>Download fasctsheets en onderzoeksrapporten</Paragraph>
-        </CardContent>
-        <CardActions>
-          <Icon size={15}>
-            <ChevronRight />
-          </Icon>
-        </CardActions>
-      </Card>
-    </Link>
-    <Link href="/" linkType="blank">
-      <Card horizontal loading={loading} animateLoading={!showError}>
-        <CardMedia backgroundColor="level2">
-          <Icon size={20}>
-            <Data />
-          </Icon>
-        </CardMedia>
-        <CardContent>
-          <Heading $as="h4">Datasets</Heading>
-          <Paragraph>Zoek en download databestanden</Paragraph>
-        </CardContent>
-        <CardActions>
-          <Icon size={15}>
-            <ChevronRight />
-          </Icon>
-        </CardActions>
-      </Card>
-    </Link>
-    <Link href="/" linkType="blank">
-      <Card horizontal loading={loading} animateLoading={!showError}>
-        <CardMedia backgroundColor="level2">
-          <Icon size={25}>
-            <Table />
-          </Icon>
-        </CardMedia>
-        <CardContent>
-          <Heading $as="h4">Tabellen</Heading>
-          <Paragraph>Selecteer data en sla op als spreadsheet</Paragraph>
-        </CardContent>
-        <CardActions>
-          <Icon size={15}>
-            <ChevronRight />
-          </Icon>
-        </CardActions>
-      </Card>
-    </Link>
-    <Link href="/" linkType="blank">
-      <Card horizontal loading={loading} animateLoading={!showError}>
-        <CardMedia backgroundColor="level2">
-          <Icon size={30}>
-            <Api />
-          </Icon>
-        </CardMedia>
-        <CardContent>
-          <Heading $as="h4">Data services</Heading>
-          <Paragraph>Alles over het koppelen van data via APIs</Paragraph>
-        </CardContent>
-        <CardActions>
-          <Icon size={15}>
-            <ChevronRight />
-          </Icon>
-        </CardActions>
-      </Card>
-    </Link>
+    {navigationLinks.map(linkProps => (
+      <NavigationLinkCard loading={loading} showError={showError} {...linkProps} />
+    ))}
   </NavigationLinksBlockStyle>
 )
 
