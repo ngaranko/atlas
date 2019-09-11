@@ -409,7 +409,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "$$typeof": Symbol(react.forward_ref),
                                   "attrs": Array [],
                                   "componentStyle": ComponentStyle {
-                                    "componentId": "sc-jwKygS",
+                                    "componentId": "sc-btzYZH",
                                     "isStatic": false,
                                     "lastClassName": "c3",
                                     "rules": Array [
@@ -440,7 +440,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "displayName": "styled.div",
                                   "foldedComponentIds": Array [],
                                   "render": [Function],
-                                  "styledComponentId": "sc-jwKygS",
+                                  "styledComponentId": "sc-btzYZH",
                                   "target": "div",
                                   "toString": [Function],
                                   "warnTooManyClasses": [Function],
