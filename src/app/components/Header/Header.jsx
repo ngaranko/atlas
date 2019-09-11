@@ -10,17 +10,7 @@ import HeaderMenuContainer from './HeaderMenuContainer'
 import EmbedHeader from './EmbedHeader'
 import PrintHeader from './PrintHeader'
 
-const style = (theme, homePage) => css`
-  ${styles.HeaderWrapperStyle} {
-    ${homePage &&
-      css`
-        @media screen and ${breakpoint('min-width', 'laptopM')({ theme })} {
-          /* The "tall" header has a position relative on the homepage only, while the smaller header has a fixed position */
-          position: relative;
-          margin: 0;
-        }
-      `}
-  }
+const style = theme => css`
   ${styles.HeaderNavigationStyle} {
     @media screen and ${breakpoint('min-width', 'tabletM')({ theme })} {
       justify-content: space-between;
