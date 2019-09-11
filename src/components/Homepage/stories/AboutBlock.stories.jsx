@@ -2,7 +2,7 @@ import React from 'react'
 /* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
-import AboutBlock from '../components/AboutBlock'
+import AboutBlock from '../AboutBlock'
 
 storiesOf('Dataportaal/Frontpage', module)
   .addDecorator(storyFn => (
