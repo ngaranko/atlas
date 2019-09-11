@@ -14,8 +14,11 @@ import {
   breakpoint,
 } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
+import { blockTopMargin } from './services/styles'
 
 /* istanbul ignore next */ const StyledAboutCard = styled(CardContainer)`
+  ${blockTopMargin()}
+
   ${styles.ColumnStyle} {
     margin-bottom: 16px;
 

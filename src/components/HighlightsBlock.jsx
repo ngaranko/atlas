@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import {
   breakpoint,
   styles,
@@ -10,6 +10,7 @@ import {
   themeColor,
 } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
+import { focusImage } from './services/styles'
 
 const StyledHeading = styled(Heading)`
   @media screen and ${breakpoint('max-width', 'tabletM')} {
@@ -24,6 +25,14 @@ const StyledHeading = styled(Heading)`
       font-size: 14px;
       line-height: 17px;
     }
+
+    ${({ large }) =>
+      large &&
+      css`
+      @media screen and ${breakpoint('max-width', 'laptopM')} {
+      font-size: 16px;
+      line-height: 20px;`}
+
 `
 
 const HighlightsHeading = ({ children, ...otherProps }) => (
@@ -38,13 +47,6 @@ const HighlightsBlockStyle = styled.div`
 
   @media screen and ${breakpoint('min-width', 'laptop')} {
     margin-top: 12px;
-  }
-
-  ${StyledHeading} {
-    @media screen and ${breakpoint('max-width', 'tabletM')} {
-      font-size: 16px;
-      line-height: 20px;
-    }
   }
 
   ${({ showError }) => showError && ErrorBackgroundCSS}
@@ -75,13 +77,7 @@ const HighlightsBlockInnerStyle = styled.section`
       background: none;
 
       ${/* sc-selector */ styles.ImageCardStyle}::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        ${({ theme }) => `border: 4px solid ${themeColor('support', 'focus')({ theme })};`}
+        ${focusImage()}
       }
     }
   }
@@ -138,7 +134,7 @@ const HighlightsBlock = ({ loading, showError, ...otherProps }) => (
             animateLoading={!showError}
           >
             <ImageCardContent>
-              <HighlightsHeading styleAs="h2">
+              <HighlightsHeading styleAs="h2" large>
                 Jeugdwerkloosheid Amsterdam daalt naar 6,2%
               </HighlightsHeading>
             </ImageCardContent>
@@ -154,7 +150,7 @@ const HighlightsBlock = ({ loading, showError, ...otherProps }) => (
             animateLoading={!showError}
           >
             <ImageCardContent>
-              <HighlightsHeading strong gutterBottom={0} small>
+              <HighlightsHeading strong gutterBottom={0}>
                 Jeugdwerk&shy;loosheid Amsterdam daalt naar 6,2%
               </HighlightsHeading>
             </ImageCardContent>

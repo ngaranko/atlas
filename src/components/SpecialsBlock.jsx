@@ -17,15 +17,18 @@ import {
   styles,
 } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
+import { blockTopMargin } from './services/styles'
 
 const getBorderTop = () =>
   css`
     border-top: ${themeColor('tint', 'level3')} 1px solid;
   `
-
+const StyledSpecialsBlock = styled(CardContainer)`
+  ${blockTopMargin()}
+`
 const StyledContentRow = styled(Row)`
   ${({ showError }) => showError && ErrorBackgroundCSS}
-  
+
   ${/* sc-selector */ styles.ColumnStyle}:first-child > ${styles.LinkStyle} {
     ${getBorderTop()}
   }
@@ -112,7 +115,7 @@ const CardSpecialsSubtiltle = styled(Heading)`
 `
 
 const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
-  <CardContainer {...otherProps}>
+  <StyledSpecialsBlock {...otherProps}>
     <Row hasMargin={false}>
       <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
         <CardSpecialsSubtiltle $as="h1">In Beeld</CardSpecialsSubtiltle>
@@ -234,7 +237,7 @@ const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
         </Link>
       </Column>
     </Row>
-  </CardContainer>
+  </StyledSpecialsBlock>
 )
 
 export default SpecialsBlock

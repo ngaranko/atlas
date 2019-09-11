@@ -17,7 +17,7 @@ storiesOf('Dataportaal/Frontpage', module)
         span={{ small: 1, medium: 2, big: 6, large: 5, xLarge: 5 }}
         push={{ small: 0, medium: 0, big: 0, large: 7, xLarge: 7 }}
       >
-        <NavigationLinksBlock loading={boolean('laodong', false)} />
+        <NavigationLinksBlock loading={boolean('laodong', false)} hasMargin />
       </Column>
     </Row>
   ))

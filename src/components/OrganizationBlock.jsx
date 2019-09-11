@@ -14,33 +14,17 @@ import {
   styles,
 } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
+import { fullGridWidthContainer, blockTopMargin } from './services/styles'
 
 const StyledCardContainer = styled(CardContainer)`
   border-top: 2px solid;
 `
 
 const OrganizationBlockStyle = styled.div`
-  width: 100%;
-  margin-top: 40px;
   padding: 40px 20px 0;
   background-color: ${themeColor('tint', 'level2')};
-  
-  @media screen and ${breakpoint('max-width', 'mobileL')} {
-    padding: 40px 20px 16px;
-    margin-left:-20px;
-    margin-right:-20px;
-    width: calc(100% + 40px)
-  }
-
-  @media screen and ${breakpoint('min-width', 'mobileL')} and  ${breakpoint(
-  'max-width',
-  'tabletM',
-)} {
-    padding: 48px 24px 16px;
-    margin-left: -24px;
-    margin-right: -24px;
-    width: calc(100% + 48px);
-  }
+  ${blockTopMargin(8)}
+  ${({ hasMargin }) => fullGridWidthContainer(hasMargin)}
 `
 
 const StyledCard = styled(Card)`

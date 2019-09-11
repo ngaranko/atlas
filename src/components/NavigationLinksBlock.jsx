@@ -1,6 +1,6 @@
 import React from 'react'
 import { Api, ChevronRight, Data, DocumentText, Map, Pano, Table } from '@datapunt/asc-assets'
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import {
   Card,
   CardActions,
@@ -17,62 +17,12 @@ import {
   svgFill,
 } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
+import { focusImage, fullGridWidthContainer } from './services/styles'
 
-const StyledCardContainer = styled(CardContainer)`
-  position: relative;
-  padding: 24px;
-  background-color: ${themeColor('support', 'valid')};
-  ${({ showError }) => showError && ErrorBackgroundCSS}
-
-  @media screen and ${breakpoint('max-width', 'mobileL')} {
-    margin-top: 40px;
-    padding: 40px 20px 16px;
-    margin-left:-20px;
-    margin-right:-20px;
-    width: calc(100% + 40px)
-  }
-
-  @media screen and ${breakpoint('min-width', 'mobileL')} and  ${breakpoint(
-  'max-width',
-  'tabletM',
-)} {
-    margin-top: 40px;
-    padding: 48px 24px 16px;
-    margin-left: -24px;
-    margin-right: -24px;
-    width: calc(100% + 48px);
-  }
-
-  @media screen and ${breakpoint('min-width', 'mobileM')} {
-    padding: 24px;
-  }
-
-  /* Separate content in two columns on tabletM only */
-  @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint('max-width', 'laptop')} {
-    margin-top: 40px;
-    column-count: 2;
-    column-gap: 8px;
-
-    /*
-      Fallback in case of having an unequal count of cards
-     eg: 5 cards instead of 6
-     because that breaks the design in Firefox and Safari
-    */
-    padding-bottom: calc(24px - 8px); /* Calculate the padding-bottom minus margin-bottom of the card */
-    ${/* sc-selector */ styles.CardStyle}, ${styles.LinkStyle} {
-      display: inline-flex;
-      width: 100%;
-      break-inside: avoid;
-    }
-
-    ${styles.LinkStyle} {
-      display: inline-flex;
-    }
-  }
-
-  /* Generate the arrow / triangle in the left corner */
+/* Generate the arrow / triangle in the left corner */
+const whiteCorner = () => css`
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    &::before {
+    ::after {
       content: '';
       position: absolute;
       height: 0;
@@ -84,12 +34,42 @@ const StyledCardContainer = styled(CardContainer)`
       border-color: #fff transparent transparent transparent;
     }
   }
+`
 
-  @media screen and ${breakpoint('min-width', 'tabletM')} {
-    display: block;
-    height: 100%;
+const NavigationLinksBlockStyle = styled(CardContainer)`
+  position: relative;
+  background-color: ${themeColor('support', 'valid')};
+  ${({ showError }) => showError && ErrorBackgroundCSS}
+
+  ${({ hasMargin }) => fullGridWidthContainer(hasMargin)}
+  ${whiteCorner()}
+
+  @media screen and ${breakpoint('max-width', 'tabletM')}{
+    margin-top: 32px
   }
 
+  /* Separate content in two columns on tabletM only */
+  @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint('max-width', 'laptop')} {
+    column-count: 2;
+    column-gap: 8px;
+    /* Calculate the padding-bottom minus margin-bottom of the card */
+    padding-bottom: calc(24px - 8px);
+
+    /*
+    Fallback in case of having an unequal count of cards
+    eg: 5 cards instead of 6
+    because that breaks the design in Firefox and Safari
+    */
+    ${/* sc-selector */ styles.CardStyle}, ${styles.LinkStyle} {
+      display: inline-flex;
+      width: 100%;
+      break-inside: avoid;
+    }
+
+    ${styles.LinkStyle} {
+      display: inline-flex;
+    }
+  }
 
   ${styles.LinkStyle} {
     position: relative;
@@ -97,9 +77,9 @@ const StyledCardContainer = styled(CardContainer)`
     margin-bottom: 8px;
 
     &:hover{
-       ${styles.HeadingStyle} {
-      color: ${themeColor('secondary')};
-      text-decoration: underline;}
+      ${styles.HeadingStyle} {
+        color: ${themeColor('secondary')};
+        text-decoration: underline;}
 
       ${styles.CardActionsStyle} ${styles.IconStyle} {
         ${svgFill('secondary')};
@@ -110,13 +90,7 @@ const StyledCardContainer = styled(CardContainer)`
       background: none;
 
       ${/* sc-selector */ styles.CardStyle}::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        ${({ theme }) => `border: 4px solid ${themeColor('support', 'focus')({ theme })};`}
+        ${focusImage()}
       }
     }
 
@@ -168,8 +142,6 @@ const StyledCardContainer = styled(CardContainer)`
 
   ${styles.HeadingStyle} {
     margin-bottom: 0;
-    font-size: 16px;
-    line-height: 20px;
   }
 
   ${styles.ParagraphStyle} {
@@ -190,7 +162,7 @@ const StyledCardContainer = styled(CardContainer)`
 `
 
 const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
-  <StyledCardContainer {...otherProps} showError={showError}>
+  <NavigationLinksBlockStyle {...otherProps} showError={showError}>
     {showError && <ErrorMessage onClick={() => {}} />}
     <Link href="/" linkType="blank">
       <Card horizontal loading={loading} animateLoading={!showError}>
@@ -300,7 +272,7 @@ const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
         </CardActions>
       </Card>
     </Link>
-  </StyledCardContainer>
+  </NavigationLinksBlockStyle>
 )
 
 export default NavigationLinksBlock

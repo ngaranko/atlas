@@ -1,14 +1,14 @@
 import React from 'react'
-import styled, { css } from '@datapunt/asc-core'
+import styled from '@datapunt/asc-core'
 import {
   breakpoint,
-  styles,
   Link,
   Row,
   Column,
   Heading,
   themeColor,
   CompactThemeProvider,
+  Container,
 } from '@datapunt/asc-ui'
 import HighlightsBlock from './HighlightsBlock'
 import NavigationLinksBlock from './NavigationLinksBlock'
@@ -20,6 +20,7 @@ import Header from '../app/components/Header'
 import '../_styles.scss'
 import '../../modules/atlas/atlas.scss'
 import ShareBar from '../app/components/ShareBar/ShareBar'
+import { blockTopMargin } from './services/styles'
 
 // Generates the top margin for the building blocks
 export const blockTopMargin = (offset = 0) => css`
@@ -29,39 +30,15 @@ export const blockTopMargin = (offset = 0) => css`
   }
 `
 
-export const LandingPageStyle = styled.div`
+const LandingPageStyle = styled(Container)`
+  background-color: ${themeColor('tint', 'level1')};
+
   position: relative;
   @media screen and ${breakpoint('min-width', 'laptopM')} {
     margin: 0 24px;
   }
 
-  .block {
-    ${blockTopMargin()}
-  }
 
-  & > ${styles.RowStyle} {
-    background-color: ${themeColor('tint', 'level1')};
-
-    @media screen and ${breakpoint('min-width', 'laptopM')} {
-      position: relative;
-
-      &::after {
-        content: '';
-        background-color: ${themeColor('support', 'valid')};
-        bottom: 0;
-        display: block;
-        position: absolute;
-        right: -24px;
-        top: 0;
-        width: 24px;
-      }
-    }
-  }
-`
-
-export const StyledShareBar = styled(ShareBar)`
-  ${blockTopMargin(24)}
-`
 
 export const Subtiltle = styled(Heading)`
   ${blockTopMargin(24)}
@@ -76,11 +53,18 @@ export const OverviewLink = styled(Link)`
   }
 `
 
-export const StyledFooter = styled(FooterComponent)`
+const StyledShareBar = styled(ShareBar)`
+  ${blockTopMargin(24)}
+`
+
+const StyledFooter = styled(FooterComponent)`
   margin-top: 72px;
 `
 
-export const StickyRow = styled(Row)`
+/**
+ *  Special sticky row for the header to fit in the grid
+ */
+const StickyRow = styled(Row)`
   position: sticky;
   top: 0;
   z-index: 2;
@@ -91,13 +75,8 @@ export const StickyRow = styled(Row)`
   }
 `
 
-export const StyledColumn = styled(Column)`
-  display: block;
-  height: 100%;
-`
-
 const Homepage = ({ loading }) => (
-  <LandingPageStyle>
+  <LandingPageStyle beamColor="valid">
     <CompactThemeProvider>
       <StickyRow hasMargin={false}>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
@@ -118,21 +97,16 @@ const Homepage = ({ loading }) => (
           <Subtiltle>Uitgelicht</Subtiltle>
         </Column>
       </Row>
-      <Row>
+      <Row valign="flex-start">
         <Column wrap span={{ small: 1, medium: 2, big: 6, large: 8, xLarge: 8 }}>
           <HighlightsBlock loading={loading} />
-        </Column>
-        <Column
-          span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}
-          order={{ large: 3, xLarge: 3 }}
-        >
           <OverviewLink linkType="with-chevron" href="/">
             Bekijk overzicht
           </OverviewLink>
         </Column>
-        <StyledColumn wrap span={{ small: 1, medium: 2, big: 6, large: 4, xLarge: 4 }}>
-          <NavigationLinksBlock loading={loading} />
-        </StyledColumn>
+        <Column wrap span={{ small: 1, medium: 2, big: 6, large: 4, xLarge: 4 }}>
+          <NavigationLinksBlock loading={loading} hasMargin={false} />
+        </Column>
       </Row>
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
@@ -141,7 +115,7 @@ const Homepage = ({ loading }) => (
       </Row>
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <OrganizationBlock loading={loading} className="block" />
+          <OrganizationBlock loading={loading} className="block" hasMargin={false} />
         </Column>
       </Row>
       <Row>
