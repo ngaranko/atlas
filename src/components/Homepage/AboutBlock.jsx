@@ -1,20 +1,11 @@
 import React from 'react'
 import styled from '@datapunt/asc-core'
-import {
-  Card,
-  Heading,
-  Paragraph,
-  Row,
-  Column,
-  Link,
-  CardContainer,
-  CardContent,
-  styles,
-  color,
-  breakpoint,
-} from '@datapunt/asc-ui'
+import { Heading, Row, Column, CardContainer, styles, color, breakpoint } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import { blockTopMargin } from './services/styles'
+import aboutDataLinks from './services/about-data-links'
+import aboutSiteLinks from './services/about-site-links'
+import AboutLinkCard from './AboutLinkCard'
 
 /* istanbul ignore next */ const StyledAboutCard = styled(CardContainer)`
   ${({ showError }) => showError && ErrorBackgroundCSS}
@@ -88,42 +79,18 @@ import { blockTopMargin } from './services/styles'
       >
         <Border />
         <Heading $as="h2" styleAs="h1">
-          Header one
+          Over data
         </Heading>
       </Column>
-      <Column
-        span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
-        order={{ small: 2, medium: 2, big: 2, large: 3, xLarge: 3 }}
-      >
-        <Link href="/" linkType="blank">
-          <Card backgroundColor="level2" shadow loading={loading}>
-            <CardContent>
-              <Heading $as="h4" styleAs="h3">
-                This is a card
-              </Heading>
-              <Paragraph>
-                Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-                Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-              </Paragraph>
-            </CardContent>
-          </Card>
-        </Link>
-      </Column>
-      <Column
-        span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
-        order={{ small: 3, medium: 3, big: 3, large: 4, xLarge: 4 }}
-      >
-        <Link href="/" linkType="blank">
-          <Card backgroundColor="level2" shadow loading={loading}>
-            <CardContent>
-              <Heading $as="h4" styleAs="h3">
-                This is a card with very very very long content
-              </Heading>
-              <Paragraph>Lorem ipsum dolor sit amet</Paragraph>
-            </CardContent>
-          </Card>
-        </Link>
-      </Column>
+
+      {aboutDataLinks.map(linkProps => (
+        <Column
+          span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
+          order={{ small: 2, medium: 2, big: 2, large: 3, xLarge: 3 }}
+        >
+          <AboutLinkCard loading={loading} {...linkProps} />
+        </Column>
+      ))}
 
       <Column
         className="column-with-heading"
@@ -132,41 +99,18 @@ import { blockTopMargin } from './services/styles'
       >
         <Border />
         <Heading $as="h2" styleAs="h1">
-          Header two
+          Over deze site
         </Heading>
       </Column>
 
-      <Column
-        span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
-        order={{ small: 5, medium: 5, big: 5, large: 5, xLarge: 5 }}
-      >
-        <Link href="/" linkType="blank">
-          <Card backgroundColor="level2" shadow loading={loading}>
-            <CardContent>
-              <Heading $as="h4" styleAs="h3">
-                This is a card
-              </Heading>
-              <Paragraph>Lorem ipsum dolor sit amet</Paragraph>
-            </CardContent>
-          </Card>
-        </Link>
-      </Column>
-
-      <Column
-        span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
-        order={{ small: 6, medium: 6, big: 6, large: 6, xLarge: 6 }}
-      >
-        <Link href="/" linkType="blank">
-          <Card backgroundColor="level2" shadow loading={loading}>
-            <CardContent>
-              <Heading $as="h4" styleAs="h3">
-                This is a card
-              </Heading>
-              <Paragraph>Lorem ipsum dolor sit amet. </Paragraph>
-            </CardContent>
-          </Card>
-        </Link>
-      </Column>
+      {aboutSiteLinks.map(linkProps => (
+        <Column
+          span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
+          order={{ small: 2, medium: 2, big: 2, large: 3, xLarge: 3 }}
+        >
+          <AboutLinkCard loading={loading} {...linkProps} />
+        </Column>
+      ))}
     </Row>
   </StyledAboutCard>
 )
