@@ -230,9 +230,13 @@ const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
         </Link>
       </Column>
     </StyledContentRow>
-    <OverviewLink linkType="with-chevron" href="/">
-      Bekijk overzicht
-    </OverviewLink>
+    <Row hasMargin={false}>
+      <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
+        <OverviewLink linkType="with-chevron" href="/">
+          Bekijk overzicht
+        </OverviewLink>
+      </Column>
+    </Row>
   </StyledSpecialsBlock>
 )
 

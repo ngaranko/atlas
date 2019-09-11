@@ -22,14 +22,6 @@ import '../../../modules/atlas/atlas.scss'
 import ShareBar from '../../app/components/ShareBar/ShareBar'
 import { blockTopMargin } from './services/styles'
 
-// Generates the top margin for the building blocks
-export const blockTopMargin = (offset = 0) => css`
-  margin-top: ${40 - offset}px;
-  @media screen and ${breakpoint('min-width', 'laptopM')} {
-    margin-top: ${80 - offset}px;
-  }
-`
-
 const LandingPageStyle = styled(Container)`
   background-color: ${themeColor('tint', 'level1')};
 
@@ -37,8 +29,7 @@ const LandingPageStyle = styled(Container)`
   @media screen and ${breakpoint('min-width', 'laptopM')} {
     margin: 0 24px;
   }
-
-
+`
 
 export const Subtiltle = styled(Heading)`
   ${blockTopMargin(24)}
