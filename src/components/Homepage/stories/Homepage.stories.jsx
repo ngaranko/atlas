@@ -17,4 +17,6 @@ storiesOf('Dataportaal', module)
     </div>
   ))
   .addDecorator(withKnobs)
-  .add('Homepage', () => <Homepage loading={boolean('loading', false)} />)
+  .add('Homepage', () => (
+    <Homepage showError={boolean('error', false)} loading={boolean('loading', false)} />
+  ))
