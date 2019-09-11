@@ -19,7 +19,7 @@ module.exports = {
       statements: 78,
       branches: 50,
       functions: 70,
-      lines: 80,
+      lines: 78,
     },
   },
   coverageReporters: process.env.CI ? ['html', 'text'] : ['lcov'],
