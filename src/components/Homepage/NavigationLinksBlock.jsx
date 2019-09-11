@@ -44,7 +44,7 @@ const NavigationLinksBlockStyle = styled(CardContainer)`
   ${({ hasMargin }) => fullGridWidthContainer(hasMargin)}
   ${whiteCorner()}
 
-  @media screen and ${breakpoint('max-width', 'tabletM')}{
+  @media screen and ${breakpoint('max-width', 'laptop')}{
     margin-top: 32px
   }
 
