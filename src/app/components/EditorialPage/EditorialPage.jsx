@@ -24,7 +24,7 @@ const EditorialPage = ({ children, documentTitle, loading, linkAction, descripti
   const href = linkAction && linkAttributesFromAction(linkAction).href
 
   return (
-    <Container className="editorial-page" beamColor="valid">
+    <Container className="editorial-page" beamColor="valid" maxWidth={1800}>
       <Helmet>
         {href && <link rel="canonical" href={href} />}
         <meta

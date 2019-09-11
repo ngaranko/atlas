@@ -93,11 +93,11 @@ const StyledContentRow = styled(Row)`
     color: ${themeColor('tint', 'level7')};
     padding: 2px;
   }
+`
 
-  ${styles.LinkStyle}.overview-link {
-    margin-top: 24px;
-    padding: 8px 3px 8px 0;
-  }
+const OverviewLink = styled(Link)`
+  margin-top: 24px;
+  padding: 8px 3px 8px 0;
 `
 
 const CardSpecialsSubtiltle = styled(Heading)`
@@ -230,13 +230,9 @@ const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
         </Link>
       </Column>
     </StyledContentRow>
-    <Row hasMargin={false}>
-      <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-        <Link linkType="with-chevron" href="/" className="overview-link">
-          Bekijk overzicht
-        </Link>
-      </Column>
-    </Row>
+    <OverviewLink linkType="with-chevron" href="/">
+      Bekijk overzicht
+    </OverviewLink>
   </StyledSpecialsBlock>
 )
 
