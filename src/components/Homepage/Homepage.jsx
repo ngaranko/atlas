@@ -31,7 +31,7 @@ const HomepageStyle = styled(Container)`
   }
 `
 
-export const Subtiltle = styled(Heading)`
+export const Subtitlle = styled(Heading)`
   ${blockTopMargin(24)}
 `
 
@@ -66,7 +66,7 @@ const StickyRow = styled(Row)`
   }
 `
 
-const Homepage = ({ loading }) => (
+const Homepage = ({ loading, showError }) => (
   <HomepageStyle beamColor="valid">
     <CompactThemeProvider>
       <StickyRow hasMargin={false}>
@@ -85,33 +85,33 @@ const Homepage = ({ loading }) => (
       </StickyRow>
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <Subtiltle>Uitgelicht</Subtiltle>
+          <Subtitlle>Uitgelicht</Subtitlle>
         </Column>
       </Row>
       <Row valign="flex-start">
         <Column wrap span={{ small: 1, medium: 2, big: 6, large: 8, xLarge: 8 }}>
-          <HighlightsBlock loading={loading} />
+          <HighlightsBlock loading={loading} showError={showError} />
           <OverviewLink linkType="with-chevron" href="/">
             Bekijk overzicht
           </OverviewLink>
         </Column>
         <Column wrap span={{ small: 1, medium: 2, big: 6, large: 4, xLarge: 4 }}>
-          <NavigationLinksBlock loading={loading} hasMargin={false} />
+          <NavigationLinksBlock loading={loading} showError={showError} hasMargin={false} />
         </Column>
       </Row>
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <SpecialsBlock loading={loading} className="block" />
+          <SpecialsBlock loading={loading} showError={showError} />
         </Column>
       </Row>
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <OrganizationBlock loading={loading} className="block" hasMargin={false} />
+          <OrganizationBlock loading={loading} showError={showError} hasMargin={false} />
         </Column>
       </Row>
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <AboutBlock loading={loading} className="block" />
+          <AboutBlock loading={loading} showError={showError} />
         </Column>
       </Row>
       <Row>
