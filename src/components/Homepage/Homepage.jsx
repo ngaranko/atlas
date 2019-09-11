@@ -22,7 +22,7 @@ import '../../../modules/atlas/atlas.scss'
 import ShareBar from '../../app/components/ShareBar/ShareBar'
 import { blockTopMargin } from './services/styles'
 
-const LandingPageStyle = styled(Container)`
+const HomepageStyle = styled(Container)`
   background-color: ${themeColor('tint', 'level1')};
 
   position: relative;
@@ -67,7 +67,7 @@ const StickyRow = styled(Row)`
 `
 
 const Homepage = ({ loading, showError }) => (
-  <LandingPageStyle beamColor="valid">
+  <HomepageStyle beamColor="valid">
     <CompactThemeProvider>
       <StickyRow hasMargin={false}>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
@@ -130,7 +130,7 @@ const Homepage = ({ loading, showError }) => (
         </Column>
       </Row>
     </CompactThemeProvider>
-  </LandingPageStyle>
+  </HomepageStyle>
 )
 
 export default Homepage
