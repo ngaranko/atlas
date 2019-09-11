@@ -22,7 +22,7 @@ import { focusImage, fullGridWidthContainer } from './services/styles'
 /* Generate the arrow / triangle in the left corner */
 const whiteCorner = () => css`
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    ::after {
+    &::before {
       content: '';
       position: absolute;
       height: 0;
