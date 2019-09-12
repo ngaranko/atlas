@@ -51,7 +51,7 @@ describe('EditorialOverviewPage', () => {
       fetchData: fetchDataMock,
       results: {
         data: [],
-        links: { next: { href: 'http://link' } },
+        _links: { next: { href: 'http://link' } },
       },
     }))
 

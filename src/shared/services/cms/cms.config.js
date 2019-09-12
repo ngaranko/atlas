@@ -22,8 +22,7 @@ const cmsConfig = {
   },
   ARTICLES: {
     type: 'article',
-    endpoint: () =>
-      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/article?include=field_teaser_image.field_media_image&sort=-field_publication_date`,
+    endpoint: () => `${SHARED_CONFIG.API_ROOT}cms_search/search/article`,
     fields: [
       'field_teaser_image.field_media_image.uri',
       'field_teaser',
@@ -52,8 +51,7 @@ const cmsConfig = {
   },
   PUBLICATIONS: {
     type: 'publication',
-    endpoint: () =>
-      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?include=field_teaser_image.field_media_image&sort=-field_publication_year,-field_publication_month,-field_publication_day`,
+    endpoint: () => `${SHARED_CONFIG.API_ROOT}cms_search/search/publication`,
     fields: [
       'field_teaser_image.field_media_image.uri',
       'field_teaser',
