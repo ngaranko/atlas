@@ -1,45 +1,10 @@
 import React from 'react'
-import styled, { css } from '@datapunt/asc-core'
-import {
-  breakpoint,
-  styles,
-  Heading,
-  ImageCardContent,
-  ImageCard,
-  Link,
-  themeColor,
-} from '@datapunt/asc-ui'
+import styled from '@datapunt/asc-core'
+import { breakpoint, styles, themeColor } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import { focusImage } from './services/styles'
-
-const StyledHeading = styled(Heading)`
-  @media screen and ${breakpoint('max-width', 'tabletM')} {
-    font-size: 16px;
-    line-height: 20px;
-  }
-
-  @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint(
-  'max-width',
-  'laptopM',
-)} {
-      font-size: 14px;
-      line-height: 17px;
-    }
-
-    ${({ large }) =>
-      large &&
-      css`
-      @media screen and ${breakpoint('max-width', 'laptopM')} {
-      font-size: 16px;
-      line-height: 20px;`}
-
-`
-
-const HighlightsHeading = ({ children, ...otherProps }) => (
-  <StyledHeading $as="h4" {...otherProps}>
-    {children}
-  </StyledHeading>
-)
+import highlightsLinks from './services/highlights-links'
+import HightlightLinkCard, { HighlightsHeadingStyle } from './HighlightsLinkCard'
 
 const HighlightsBlockStyle = styled.div`
   position: relative;
@@ -67,7 +32,7 @@ const HighlightsBlockInnerStyle = styled.section`
     position: relative;
     width: 100%;
     &:hover {
-      ${StyledHeading} {
+      ${HighlightsHeadingStyle} {
         color: ${themeColor('secondary')};
         text-decoration: underline;
       }
@@ -126,50 +91,23 @@ const HighlightsBlock = ({ loading, showError, ...otherProps }) => (
     {showError && <ErrorMessage onClick={() => {}} />}
     <HighlightsBlockInnerStyle>
       <ImageCardWrapperLarge>
-        <Link href="/" linkType="blank">
-          <ImageCard
-            margin={12}
-            backgroundImage="http://lorempixel.com/output/food-q-c-640-480-3.jpg"
-            loading={loading}
-            animateLoading={!showError}
-          >
-            <ImageCardContent>
-              <HighlightsHeading styleAs="h2" large>
-                Jeugdwerkloosheid Amsterdam daalt naar 6,2%
-              </HighlightsHeading>
-            </ImageCardContent>
-          </ImageCard>
-        </Link>
+        <HightlightLinkCard
+          loading={loading}
+          showError={showError}
+          {...highlightsLinks[0]}
+          styleAs="h2"
+        />
       </ImageCardWrapperLarge>
       <ImageCardWrapperSmall>
-        <Link href="/" linkType="blank">
-          <ImageCard
-            margin={12}
-            backgroundImage="http://lorempixel.com/output/food-q-c-640-480-3.jpg"
+        {highlightsLinks.slice(1).map(linkProps => (
+          <HightlightLinkCard
             loading={loading}
-            animateLoading={!showError}
-          >
-            <ImageCardContent>
-              <HighlightsHeading strong gutterBottom={0}>
-                Jeugdwerk&shy;loosheid Amsterdam daalt naar 6,2%
-              </HighlightsHeading>
-            </ImageCardContent>
-          </ImageCard>
-        </Link>
-        <Link href="/" linkType="blank">
-          <ImageCard
-            margin={12}
-            backgroundImage="http://lorempixel.com/output/food-q-c-640-480-3.jpg"
-            loading={loading}
-            animateLoading={!showError}
-          >
-            <ImageCardContent>
-              <HighlightsHeading strong gutterBottom={0}>
-                Amsterdammers voelen zich veiliger in het OV
-              </HighlightsHeading>
-            </ImageCardContent>
-          </ImageCard>
-        </Link>
+            showError={showError}
+            {...linkProps}
+            strong
+            gutterBottom={0}
+          />
+        ))}
       </ImageCardWrapperSmall>
     </HighlightsBlockInnerStyle>
   </HighlightsBlockStyle>
