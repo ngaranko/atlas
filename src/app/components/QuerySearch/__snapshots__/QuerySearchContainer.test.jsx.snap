@@ -5,8 +5,7 @@ exports[`QuerySearchContainer should render 1`] = `
   currentPage=""
   filters={Object {}}
   isLoading={false}
-  numberOfDataResults={1}
-  numberOfDatasetResults={1}
+  numberOfResults={1}
   store={
     Object {
       "clearActions": [Function],
@@ -17,8 +16,7 @@ exports[`QuerySearchContainer should render 1`] = `
       "subscribe": [Function],
     }
   }
-  toDataPage={[Function]}
-  toDatasetPage={[Function]}
+  toSearchPage={[Function]}
   user={
     Object {
       "authenticated": false,
