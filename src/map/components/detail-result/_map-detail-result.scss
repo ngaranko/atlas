@@ -79,7 +79,9 @@ $icon-height: 24px;
     overflow-y: auto;
 
     .c-dashboard__body--error & {
-      max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height}); //NB: fix for IE
+      max-height: calc(
+        100vh - #{$above-list-height + $below-list-height + $dashboard-error-height}
+      ); //NB: fix for IE
     }
   }
 
@@ -138,7 +140,7 @@ $icon-height: 24px;
 
       &::after {
         border-radius: 50%;
-        content: "";
+        content: '';
         display: none;
         height: 10px;
         margin-left: 5px;
@@ -194,7 +196,7 @@ $icon-height: 24px;
       color: $primary-light;
 
       &--maximize {
-        @include icon-sprite("icon-maximize", $primary-dark, $primary-dark, $icon-height);
+        @include icon-sprite('icon-maximize', $primary-dark, $primary-dark, $icon-height);
       }
     }
 
@@ -204,13 +206,12 @@ $icon-height: 24px;
       width: $icon-height;
 
       &--maximize {
-        @include icon-sprite("icon-maximize", $secondary-gray60, $primary-dark, $icon-height);
+        @include icon-sprite('icon-maximize', $secondary-gray60, $primary-dark, $icon-height);
       }
     }
   }
 
   .is-print-mode & {
-
     &__header {
       // There is no pano in print mode
       height: auto;

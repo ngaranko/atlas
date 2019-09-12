@@ -46,7 +46,7 @@ export const toHome = () => ({
 export const toGeoSearch = additionalParams =>
   preserveQuery(
     {
-      type: routing.dataGeoSearch.type,
+      type: routing.dataSearchGeo.type,
       meta: {
         forceSaga: true,
       },
@@ -59,7 +59,7 @@ export const toDataSearchQuery = (
   skipSaga = false,
   forceSaga = false,
 ) => ({
-  type: routing.dataQuerySearch.type,
+  type: routing.dataSearchQuery.type,
   meta: {
     preserve: true,
     skipSaga,
@@ -173,7 +173,7 @@ export const toDatasets = (additionalParams = null, preserve = false, forceSaga 
 })
 
 export const toDatasetSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
-  type: routing.searchDatasets.type,
+  type: routing.datasetSearch.type,
   meta: {
     preserve: true,
     skipSaga,
@@ -286,3 +286,27 @@ export const toMaintentancePage = () => ({
   type: routing.beheer_werkwijze.type,
 })
 export const toHelpPage = () => ({ type: routing.help.type })
+
+export const toArticleSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
+  type: routing.articleSearch.type,
+  meta: {
+    preserve: true,
+    skipSaga,
+    forceSaga,
+    additionalParams,
+  },
+})
+
+export const toPublicationSearch = (
+  additionalParams = null,
+  skipSaga = false,
+  forceSaga = false,
+) => ({
+  type: routing.publicationSearch.type,
+  meta: {
+    preserve: true,
+    skipSaga,
+    forceSaga,
+    additionalParams,
+  },
+})

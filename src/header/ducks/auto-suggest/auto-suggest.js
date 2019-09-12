@@ -15,7 +15,14 @@ import {
 
 export default function AutoSuggestReducer(state = initialState, action) {
   // cleanup the state for this reducer when not on the search routes
-  if (shouldResetState(action, [PAGES.DATA_QUERY_SEARCH, PAGES.SEARCH_DATASETS])) {
+  if (
+    shouldResetState(action, [
+      PAGES.DATA_SEARCH_QUERY,
+      PAGES.DATASET_SEARCH,
+      PAGES.ARTICLE_SEARCH,
+      PAGES.PUBLICATION_SEARCH,
+    ])
+  ) {
     return initialState
   }
 
@@ -55,8 +62,8 @@ export default function AutoSuggestReducer(state = initialState, action) {
         typedQuery: enrichedState.typedQuery,
       }
 
-    case routing.dataQuerySearch.type:
-    case routing.searchDatasets.type:
+    case routing.dataSearchQuery.type:
+    case routing.datasetSearch.type:
       return {
         ...enrichedState,
         typedQuery: get(action, `meta.query[${PARAMETERS.QUERY}]`),
