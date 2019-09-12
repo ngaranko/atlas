@@ -76,10 +76,6 @@ const ImageCardWrapperSmall = styled.div`
     flex-basis: ${100 / 3}%;
     flex-direction: column;
 
-    ${styles.ImageCardWrapperStyle} {
-      flex-basis: 100%;
-    }
-
     ${styles.ImageCardContentStyle} {
       padding: 8px 16px;
     }
@@ -96,6 +92,7 @@ const HighlightsBlock = ({ loading, showError, ...otherProps }) => (
           showError={showError}
           {...highlightsLinks[0]}
           styleAs="h2"
+          large
         />
       </ImageCardWrapperLarge>
       <ImageCardWrapperSmall>

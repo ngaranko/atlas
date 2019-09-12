@@ -15,7 +15,7 @@ import { blockTopMargin } from './services/styles'
 import specialsLinks from './services/specials-links'
 import SpecialsLinkCard from './SpecialsLinkCard'
 
-const getBorderTop = () =>
+const addBorderTop = () =>
   css`
     border-top: ${themeColor('tint', 'level3')} 1px solid;
   `
@@ -26,18 +26,18 @@ const StyledContentRow = styled(Row)`
   ${({ showError }) => showError && ErrorBackgroundCSS}
 
   ${/* sc-selector */ styles.ColumnStyle}:first-child > ${styles.LinkStyle} {
-    ${getBorderTop()}
+    ${addBorderTop()}
   }
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
     ${/* sc-selector */ styles.ColumnStyle}:nth-child(2) > ${styles.LinkStyle} {
-      ${getBorderTop()}
+      ${addBorderTop()}
     }
   }
 
   @media screen and ${breakpoint('min-width', 'laptop')} {
     ${/* sc-selector */ styles.ColumnStyle}:nth-child(3) > ${styles.LinkStyle} {
-      ${getBorderTop()}
+      ${addBorderTop()}
     }
   }
 
@@ -49,7 +49,7 @@ const StyledContentRow = styled(Row)`
     &:hover {
         border-bottom: ${themeColor('secondary')} 1px solid;
 
-        h4 {
+        ${styles.HeadingStyle} {
           color: ${themeColor('secondary')};
           text-decoration: underline;
         }
