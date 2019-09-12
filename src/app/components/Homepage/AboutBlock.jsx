@@ -76,7 +76,6 @@ import AboutLinkCard from './AboutLinkCard'
         <Column
           className="column-with-heading"
           span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}
-          // order={{ small: 1, medium: 1, big: 1, large: 1, xLarge: 1 }}
         >
           <Border />
           <Heading $as="h2" styleAs="h1">
@@ -85,10 +84,7 @@ import AboutLinkCard from './AboutLinkCard'
         </Column>
 
         {aboutDataLinks.map(linkProps => (
-          <Column
-            span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
-            // order={{ small: 2, medium: 2, big: 2, large: 3, xLarge: 3 }}
-          >
+          <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
             <AboutLinkCard loading={loading} {...linkProps} />
           </Column>
         ))}
@@ -97,7 +93,6 @@ import AboutLinkCard from './AboutLinkCard'
         <Column
           className="column-with-heading"
           span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}
-          // order={{ small: 4, medium: 4, big: 4, large: 4, xLarge: 4 }}
         >
           <Border />
           <Heading $as="h2" styleAs="h1">
@@ -106,10 +101,7 @@ import AboutLinkCard from './AboutLinkCard'
         </Column>
 
         {aboutSiteLinks.map(linkProps => (
-          <Column
-            span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
-            // order={{ small: 2, medium: 2, big: 2, large: 3, xLarge: 3 }}
-          >
+          <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
             <AboutLinkCard loading={loading} {...linkProps} />
           </Column>
         ))}
