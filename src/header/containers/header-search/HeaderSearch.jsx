@@ -6,6 +6,10 @@ import { extractIdEndpoint } from '../../../store/redux-first-router/actions'
 import useSlug from '../../../app/utils/useSlug'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 
+const DATASETS = 'Datasets'
+const ARTICLES = 'Artikelen'
+const PUBLICATIONS = 'Publicaties'
+
 class HeaderSearch extends React.Component {
   constructor(props) {
     super(props)
@@ -71,21 +75,41 @@ class HeaderSearch extends React.Component {
   onFormSubmit(label) {
     const {
       activeSuggestion,
-      isDatasetView,
+      isDatasetPage,
+      isArticlePage,
+      isPublicationPage,
       typedQuery,
       onCleanDatasetOverview,
       onDatasetSearch,
       onDataSearch,
+      onArticleSearch,
+      onPublicationSearch,
     } = this.props
 
-    // Todo: ideally we should get a 'type' back from the backend...
-    const toDataset = isDatasetView || label === 'Datasets'
+    const searchAction = {
+      [DATASETS]: onDatasetSearch,
+      [ARTICLES]: onArticleSearch,
+      [PUBLICATIONS]: onPublicationSearch,
+    }
 
     if (activeSuggestion.index === -1) {
       // Load the search results
       onCleanDatasetOverview() // TODO, refactor: don't clean dataset on search
-      if (toDataset) {
-        onDatasetSearch(typedQuery)
+
+      const searchType =
+        label ||
+        // eslint-disable-next-line no-nested-ternary
+        (isDatasetPage
+          ? DATASETS
+          : // eslint-disable-next-line no-nested-ternary
+          isArticlePage
+          ? ARTICLES
+          : isPublicationPage
+          ? PUBLICATIONS
+          : null)
+
+      if (searchType) {
+        searchAction[searchType](typedQuery)
       } else {
         onDataSearch(typedQuery)
       }
@@ -132,7 +156,7 @@ HeaderSearch.defaultProps = {
     index: -1,
   },
   displayQuery: '',
-  isDatasetView: false,
+  isDatasetPage: false,
   numberOfSuggestions: 0,
   pageName: '',
   prefillQuery: '',
@@ -149,7 +173,7 @@ HeaderSearch.propTypes = {
   }),
   displayQuery: PropTypes.string,
   view: PropTypes.string.isRequired,
-  isDatasetView: PropTypes.bool,
+  isDatasetPage: PropTypes.bool,
   isMapActive: PropTypes.bool.isRequired,
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
