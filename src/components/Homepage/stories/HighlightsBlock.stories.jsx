@@ -10,7 +10,7 @@ storiesOf('Dataportaal/Frontpage', module)
   .add('Highlights block', () => (
     <Row debug>
       <Column debug wrap span={{ small: 1, medium: 2, big: 6, large: 8, xLarge: 8 }}>
-        <HighlightsBlock loading={boolean('loading', false)} />
+        <HighlightsBlock loading={boolean('loading', false)} showError={boolean('error', false)} />
       </Column>
     </Row>
   ))

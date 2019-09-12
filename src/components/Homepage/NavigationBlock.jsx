@@ -1,24 +1,10 @@
 import React from 'react'
-import { ChevronRight } from '@datapunt/asc-assets'
 import styled, { css } from '@datapunt/asc-core'
-import {
-  Card,
-  CardActions,
-  CardContainer,
-  CardContent,
-  CardMedia,
-  Heading,
-  Icon,
-  Link,
-  Paragraph,
-  themeColor,
-  breakpoint,
-  styles,
-  svgFill,
-} from '@datapunt/asc-ui'
+import { CardContainer, themeColor, breakpoint, styles, svgFill } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import { focusImage, fullGridWidthContainer } from './services/styles'
 import navigationLinks from './services/navigation-links'
+import NavigationLinkCard from './NavigationLinkCard'
 
 /* Generate the arrow / triangle in the left corner */
 const whiteCorner = () => css`
@@ -37,7 +23,7 @@ const whiteCorner = () => css`
   }
 `
 
-const NavigationLinksBlockStyle = styled(CardContainer)`
+const NavigationBlockStyle = styled(CardContainer)`
   position: relative;
   background-color: ${themeColor('support', 'valid')};
   ${({ showError }) => showError && ErrorBackgroundCSS}
@@ -162,32 +148,13 @@ const NavigationLinksBlockStyle = styled(CardContainer)`
   }
 `
 
-const NavigationLinkCard = ({ href, loading, showError, CardIcon, title, description }) => (
-  <Link href={href} linkType="blank">
-    <Card horizontal loading={loading} animateLoading={!showError}>
-      <CardMedia backgroundColor="level2">
-        <CardIcon />
-      </CardMedia>
-      <CardContent>
-        <Heading $as="h4">{title}</Heading>
-        <Paragraph>{description}</Paragraph>
-      </CardContent>
-      <CardActions>
-        <Icon size={15}>
-          <ChevronRight />
-        </Icon>
-      </CardActions>
-    </Card>
-  </Link>
-)
-
-const NavigationLinksBlock = ({ loading, showError, ...otherProps }) => (
-  <NavigationLinksBlockStyle {...otherProps} showError={showError}>
+const NavigationBlock = ({ loading, showError, ...otherProps }) => (
+  <NavigationBlockStyle {...otherProps} showError={showError}>
     {showError && <ErrorMessage onClick={() => {}} />}
     {navigationLinks.map(linkProps => (
       <NavigationLinkCard loading={loading} showError={showError} {...linkProps} />
     ))}
-  </NavigationLinksBlockStyle>
+  </NavigationBlockStyle>
 )
 
-export default NavigationLinksBlock
+export default NavigationBlock

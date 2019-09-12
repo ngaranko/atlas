@@ -8,5 +8,9 @@ storiesOf('Dataportaal/Frontpage', module)
   .addDecorator(storyFn => <div style={{ padding: '40px 0' }}>{storyFn()}</div>)
   .addDecorator(withKnobs)
   .add('Organization block', () => (
-    <OrganizationBlock loading={boolean('loading', false)} hasMargin />
+    <OrganizationBlock
+      loading={boolean('loading', false)}
+      showError={boolean('error', false)}
+      hasMargin
+    />
   ))

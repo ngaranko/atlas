@@ -11,7 +11,7 @@ import {
   Container,
 } from '@datapunt/asc-ui'
 import HighlightsBlock from './HighlightsBlock'
-import NavigationLinksBlock from './NavigationLinksBlock'
+import NavigationBlock from './NavigationBlock'
 import SpecialsBlock from './SpecialsBlock'
 import OrganizationBlock from './OrganizationBlock'
 import AboutBlock from './AboutBlock'
@@ -96,7 +96,7 @@ const Homepage = ({ loading, showError }) => (
           </OverviewLink>
         </Column>
         <Column wrap span={{ small: 1, medium: 2, big: 6, large: 4, xLarge: 4 }}>
-          <NavigationLinksBlock loading={loading} showError={showError} hasMargin={false} />
+          <NavigationBlock loading={loading} showError={showError} hasMargin={false} />
         </Column>
       </Row>
       <Row>

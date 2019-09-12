@@ -3,7 +3,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { boolean, withKnobs } from '@storybook/addon-knobs'
 import { Row, Column } from '@datapunt/asc-ui'
-import NavigationLinksBlock from '../NavigationLinksBlock'
+import NavigationBlock from '../NavigationBlock'
 
 storiesOf('Dataportaal/Frontpage', module)
   .addDecorator(storyFn => (
@@ -17,7 +17,11 @@ storiesOf('Dataportaal/Frontpage', module)
         span={{ small: 1, medium: 2, big: 6, large: 5, xLarge: 5 }}
         push={{ small: 0, medium: 0, big: 0, large: 7, xLarge: 7 }}
       >
-        <NavigationLinksBlock loading={boolean('laodong', false)} hasMargin />
+        <NavigationBlock
+          loading={boolean('laodong', false)}
+          showError={boolean('error', false)}
+          hasMargin
+        />
       </Column>
     </Row>
   ))

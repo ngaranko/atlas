@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Card,
   CardContent,
@@ -37,5 +38,18 @@ const SpecialsLinkCard = ({
     </Card>
   </Link>
 )
+
+SpecialsLinkCard.defaultProps = {
+  loading: false,
+  showError: false,
+}
+
+SpecialsLinkCard.propTypes = {
+  loading: PropTypes.bool,
+  showError: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
+}
 
 export default SpecialsLinkCard

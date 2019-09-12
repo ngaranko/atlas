@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled, { css } from '@datapunt/asc-core'
 import {
   CardContainer,
@@ -57,5 +58,18 @@ const OrganizationLinkCard = ({ loading, showError, title, description, href }) 
     </StyledCard>
   </OrganizationLinkCardStyle>
 )
+
+OrganizationLinkCard.defaultProps = {
+  loading: false,
+  showError: false,
+}
+
+OrganizationLinkCard.propTypes = {
+  loading: PropTypes.bool,
+  showError: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
+}
 
 export default OrganizationLinkCard
