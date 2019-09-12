@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@datapunt/asc-core'
-import { Heading, Row, Column, CardContainer, styles, color, breakpoint } from '@datapunt/asc-ui'
+import { Heading, Row, Column, CardContainer, styles, color } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import { blockTopMargin } from './services/styles'
 import aboutDataLinks from './services/about-data-links'
@@ -13,15 +13,6 @@ import AboutLinkCard from './AboutLinkCard'
 
   ${styles.ColumnStyle} {
     margin-bottom: 16px;
-
-    &.column-with-heading {
-      margin-top: 16px;
-      flex-direction: column;
-
-      &:first-of-type {
-        margin-top: 0;
-      }
-    }
   }
 
   ${styles.LinkStyle} {
@@ -52,20 +43,12 @@ import AboutLinkCard from './AboutLinkCard'
     padding-top: 20px;
     padding-bottom: 20px;
   }
-
-  @media screen and ${breakpoint('min-width', 'tabletM')} {
-    ${styles.ColumnStyle} {
-      &.column-with-heading {
-        margin-top: 0;
-      }
-    }
-  }
 `
 
-/* istanbul ignore next */ const Border = styled.div`
-  height: 4px;
-  margin-bottom: 16px;
-  background-color: ${color('tint', 'level3')};
+const HeaderColumn = styled(Column)`
+  flex-direction: column;
+  border-top: 4px solid ${color('tint', 'level3')};
+  padding-top: 16px;
 `
 
 /* istanbul ignore next */ const AboutBlock = ({ loading, showError, ...otherProps }) => (
@@ -73,15 +56,11 @@ import AboutLinkCard from './AboutLinkCard'
     {showError && <ErrorMessage onClick={() => {}} />}
     <Row hasMargin={false}>
       <Column wrap span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
-        <Column
-          className="column-with-heading"
-          span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}
-        >
-          <Border />
+        <HeaderColumn span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
           <Heading $as="h2" styleAs="h1">
             Over data
           </Heading>
-        </Column>
+        </HeaderColumn>
 
         {aboutDataLinks.map(linkProps => (
           <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
@@ -90,15 +69,11 @@ import AboutLinkCard from './AboutLinkCard'
         ))}
       </Column>
       <Column wrap span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
-        <Column
-          className="column-with-heading"
-          span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}
-        >
-          <Border />
+        <HeaderColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
           <Heading $as="h2" styleAs="h1">
             Over deze site
           </Heading>
-        </Column>
+        </HeaderColumn>
 
         {aboutSiteLinks.map(linkProps => (
           <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
