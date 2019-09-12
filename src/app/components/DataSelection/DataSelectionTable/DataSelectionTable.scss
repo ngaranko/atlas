@@ -1,4 +1,4 @@
-@import "../../../../shared/styles/config";
+@import '../../../../shared/styles/config';
 
 .c-ds-table {
   $self: &;
@@ -22,7 +22,6 @@
     display: table-row-group;
 
     #{$self}__row {
-
       &--link {
         &:hover,
         &:focus {

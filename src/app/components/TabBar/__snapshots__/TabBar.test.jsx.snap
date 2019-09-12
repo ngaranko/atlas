@@ -8,7 +8,7 @@ exports[`TabBar should render the component with no results 1`] = `
     <span
       className="c-tab-header__title__text"
     >
-      Geen resultaten met '
+      Resultaten met '
       dam
       '
     </span>
