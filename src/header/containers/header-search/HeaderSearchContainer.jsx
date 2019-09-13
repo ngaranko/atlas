@@ -13,7 +13,7 @@ import {
 import { emptyFilters } from '../../../shared/ducks/filters/filters'
 import {
   toArticleDetail,
-  toDataSearchQuery,
+  toDataSearch,
   toDatasetDetail,
   toDatasetSearch,
   toArticleSearch,
@@ -71,7 +71,7 @@ const mapDispatchToProps = dispatch => ({
     ),
   onDataSearch: query =>
     dispatch(
-      toDataSearchQuery(
+      toDataSearch(
         {
           [PARAMETERS.QUERY]: query,
         },

@@ -64,9 +64,6 @@ class AutoSuggest extends React.Component {
 
     if (suggestion.index === MORE_RESULTS_INDEX) {
       this.resetActiveSuggestion()
-
-      console.log('onSuggestionSelection', event, label)
-
       this.onFormSubmit(event, label)
     } else {
       onSuggestionSelection(suggestion)

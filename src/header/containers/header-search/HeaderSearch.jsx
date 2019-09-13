@@ -6,9 +6,11 @@ import { extractIdEndpoint } from '../../../store/redux-first-router/actions'
 import useSlug from '../../../app/utils/useSlug'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 
-const DATASETS = 'Datasets'
-const ARTICLES = 'Artikelen'
-const PUBLICATIONS = 'Publicaties'
+export const CONSTANTS = {
+  DATASETS: 'Datasets',
+  ARTICLES: 'Artikelen',
+  PUBLICATIONS: 'Publicaties',
+}
 
 class HeaderSearch extends React.Component {
   constructor(props) {
@@ -87,9 +89,9 @@ class HeaderSearch extends React.Component {
     } = this.props
 
     const searchAction = {
-      [DATASETS]: onDatasetSearch,
-      [ARTICLES]: onArticleSearch,
-      [PUBLICATIONS]: onPublicationSearch,
+      [CONSTANTS.DATASETS]: onDatasetSearch,
+      [CONSTANTS.ARTICLES]: onArticleSearch,
+      [CONSTANTS.PUBLICATIONS]: onPublicationSearch,
     }
 
     if (activeSuggestion.index === -1) {
@@ -100,15 +102,15 @@ class HeaderSearch extends React.Component {
         label ||
         // eslint-disable-next-line no-nested-ternary
         (isDatasetPage
-          ? DATASETS
+          ? CONSTANTS.DATASETS
           : // eslint-disable-next-line no-nested-ternary
           isArticlePage
-          ? ARTICLES
+          ? CONSTANTS.ARTICLES
           : isPublicationPage
-          ? PUBLICATIONS
+          ? CONSTANTS.PUBLICATIONS
           : null)
 
-      if (searchType) {
+      if (searchAction[searchType]) {
         searchAction[searchType](typedQuery)
       } else {
         onDataSearch(typedQuery)
@@ -156,12 +158,14 @@ HeaderSearch.defaultProps = {
     index: -1,
   },
   displayQuery: '',
-  isDatasetPage: false,
   numberOfSuggestions: 0,
   pageName: '',
   prefillQuery: '',
   suggestions: [],
   typedQuery: '',
+  isDatasetPage: false,
+  isArticlePage: false,
+  isPublicationPage: false,
 }
 
 HeaderSearch.propTypes = {
@@ -174,13 +178,18 @@ HeaderSearch.propTypes = {
   displayQuery: PropTypes.string,
   view: PropTypes.string.isRequired,
   isDatasetPage: PropTypes.bool,
+  isArticlePage: PropTypes.bool,
+  isPublicationPage: PropTypes.bool,
   isMapActive: PropTypes.bool.isRequired,
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
   onDatasetSearch: PropTypes.func.isRequired,
   onDataSearch: PropTypes.func.isRequired,
+  onArticleSearch: PropTypes.func.isRequired,
+  onPublicationSearch: PropTypes.func.isRequired,
   openDataSuggestion: PropTypes.func.isRequired,
   openDatasetSuggestion: PropTypes.func.isRequired,
+  openEditorialSuggestion: PropTypes.func.isRequired,
   onGetSuggestions: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,
   pageName: PropTypes.string,
