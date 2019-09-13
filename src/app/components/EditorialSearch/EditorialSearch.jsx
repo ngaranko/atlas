@@ -6,9 +6,7 @@ import EditorialOverviewPage from '../../pages/EditorialOverviewPage/EditorialOv
 import { getByUrl } from '../../../shared/services/api/api'
 import { ArticleSearchContext, PublicationSearchContext } from './editorialSearchContexts'
 import { useArticleSearchDuck, usePublicationSearchDuck } from './editorialSearchHooks'
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
-import { EDITORIAL_DETAIL_ACTIONS } from '../../pages/EditorialOverviewPage/constants'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
+import useNormalizedCMSResults from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const contextMapping = {
   [PAGES.ARTICLES]: ArticleSearchContext,
@@ -38,19 +36,7 @@ const EditorialSearch = ({ type }) => {
     return <NoResultsForSearchType message="Tip: maak de zoekcriteria minder specifiek." />
   }
 
-  const searchData = selectors
-    .results({ results })
-    .map(({ title, slug, nid, intro, teaser_url }) => {
-      const { href } = linkAttributesFromAction(EDITORIAL_DETAIL_ACTIONS[type](nid, slug))
-      return {
-        href,
-        key: nid,
-        id: nid,
-        title,
-        intro,
-        teaserImageUrl: teaser_url && `${SHARED_CONFIG.CMS_ROOT}${teaser_url}`,
-      }
-    })
+  const searchData = useNormalizedCMSResults(selectors.results({ results }), type)
 
   return (
     <EditorialOverviewPage
