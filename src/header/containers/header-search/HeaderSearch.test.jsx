@@ -1,9 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import HeaderSearch, { CONSTANTS } from './HeaderSearch'
+import HeaderSearch from './HeaderSearch'
 import { extractIdEndpoint } from '../../../store/redux-first-router/actions'
 import useSlug from '../../../app/utils/useSlug'
+import { MAIN_PATHS } from '../../../app/routes'
 
 jest.mock('../../../store/redux-first-router/actions')
 jest.mock('../../../app/utils/useSlug')
@@ -56,7 +57,7 @@ describe('The HeaderSearch component', () => {
       const autosuggest = component.find('AutoSuggest')
 
       // execute this.onFormSubmit()
-      autosuggest.props().onSubmit(CONSTANTS.DATASETS)
+      autosuggest.props().onSubmit(MAIN_PATHS.DATASETS)
 
       expect(mockOnDatasetSearch).toHaveBeenCalledWith(typedQuery)
     })
@@ -65,7 +66,7 @@ describe('The HeaderSearch component', () => {
       const autosuggest = component.find('AutoSuggest')
 
       // execute this.onFormSubmit()
-      autosuggest.props().onSubmit(CONSTANTS.ARTICLES)
+      autosuggest.props().onSubmit(MAIN_PATHS.ARTICLES)
 
       expect(mockOnArticleSearch).toHaveBeenCalledWith(typedQuery)
     })
@@ -74,7 +75,7 @@ describe('The HeaderSearch component', () => {
       const autosuggest = component.find('AutoSuggest')
 
       // execute this.onFormSubmit()
-      autosuggest.props().onSubmit(CONSTANTS.PUBLICATIONS)
+      autosuggest.props().onSubmit(MAIN_PATHS.PUBLICATIONS)
 
       expect(mockOnPublicationSearch).toHaveBeenCalledWith(typedQuery)
     })

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -6,11 +7,7 @@ import { extractIdEndpoint } from '../../../store/redux-first-router/actions'
 import useSlug from '../../../app/utils/useSlug'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 
-export const CONSTANTS = {
-  DATASETS: 'Datasets',
-  ARTICLES: 'Artikelen',
-  PUBLICATIONS: 'Publicaties',
-}
+import { MAIN_PATHS } from '../../../app/routes'
 
 class HeaderSearch extends React.Component {
   constructor(props) {
@@ -88,10 +85,12 @@ class HeaderSearch extends React.Component {
       onPublicationSearch,
     } = this.props
 
+    const { ARTICLES, DATASETS, PUBLICATIONS } = MAIN_PATHS
+
     const searchAction = {
-      [CONSTANTS.DATASETS]: onDatasetSearch,
-      [CONSTANTS.ARTICLES]: onArticleSearch,
-      [CONSTANTS.PUBLICATIONS]: onPublicationSearch,
+      [DATASETS]: onDatasetSearch,
+      [ARTICLES]: onArticleSearch,
+      [PUBLICATIONS]: onPublicationSearch,
     }
 
     if (activeSuggestion.index === -1) {
@@ -99,15 +98,13 @@ class HeaderSearch extends React.Component {
       onCleanDatasetOverview() // TODO, refactor: don't clean dataset on search
 
       const searchType =
-        label ||
-        // eslint-disable-next-line no-nested-ternary
+        (label && label.toLowerCase()) ||
         (isDatasetPage
-          ? CONSTANTS.DATASETS
-          : // eslint-disable-next-line no-nested-ternary
-          isArticlePage
-          ? CONSTANTS.ARTICLES
+          ? DATASETS
+          : isArticlePage
+          ? ARTICLES
           : isPublicationPage
-          ? CONSTANTS.PUBLICATIONS
+          ? PUBLICATIONS
           : null)
 
       if (searchAction[searchType]) {
