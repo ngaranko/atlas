@@ -57,6 +57,19 @@ export const isDatasetPage = createSelector(
   page => page === PAGES.DATASETS || page === PAGES.DATASET_DETAIL || page === PAGES.DATASET_SEARCH,
 )
 
+export const isArticlePage = createSelector(
+  getPage,
+  page => page === PAGES.ARTICLES || page === PAGES.ARTICLE_DETAIL || page === PAGES.ARTICLE_SEARCH,
+)
+
+export const isPublicationPage = createSelector(
+  getPage,
+  page =>
+    page === PAGES.PUBLICATION ||
+    page === PAGES.PUBLICATION_DETAIL ||
+    page === PAGES.PUBLICATION_SEARCH,
+)
+
 export const isDataSelectionPage = createSelector(
   getPage,
   page =>

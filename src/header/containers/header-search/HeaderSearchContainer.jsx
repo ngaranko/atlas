@@ -13,13 +13,19 @@ import {
 import { emptyFilters } from '../../../shared/ducks/filters/filters'
 import {
   toArticleDetail,
-  toDataSearchQuery,
+  toDataSearch,
   toDatasetDetail,
   toDatasetSearch,
+  toArticleSearch,
+  toPublicationSearch,
   toDataSuggestion,
   toPublicationDetail,
 } from '../../../store/redux-first-router/actions'
-import { isDatasetPage } from '../../../store/redux-first-router/selectors'
+import {
+  isDatasetPage,
+  isArticlePage,
+  isPublicationPage,
+} from '../../../store/redux-first-router/selectors'
 import PARAMETERS from '../../../store/parameters'
 import { getViewMode, isMapPage } from '../../../shared/ducks/ui/ui'
 import HeaderSearch from './HeaderSearch'
@@ -27,7 +33,9 @@ import HeaderSearch from './HeaderSearch'
 const mapStateToProps = state => ({
   activeSuggestion: getActiveSuggestions(state),
   displayQuery: getDisplayQuery(state),
-  isDatasetView: isDatasetPage(state),
+  isDatasetPage: isDatasetPage(state),
+  isArticlePage: isArticlePage(state),
+  isPublicationPage: isPublicationPage(state),
   view: getViewMode(state),
   isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
@@ -63,7 +71,27 @@ const mapDispatchToProps = dispatch => ({
     ),
   onDataSearch: query =>
     dispatch(
-      toDataSearchQuery(
+      toDataSearch(
+        {
+          [PARAMETERS.QUERY]: query,
+        },
+        false,
+        true,
+      ),
+    ),
+  onArticleSearch: query =>
+    dispatch(
+      toArticleSearch(
+        {
+          [PARAMETERS.QUERY]: query,
+        },
+        false,
+        true,
+      ),
+    ),
+  onPublicationSearch: query =>
+    dispatch(
+      toPublicationSearch(
         {
           [PARAMETERS.QUERY]: query,
         },

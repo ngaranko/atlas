@@ -8,7 +8,7 @@ import Dataset from '../Dataset'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import DataSearchQuery from '../DataSearch/DataSearchQuery'
 import {
-  toDataSearchQuery,
+  toDataSearch,
   toDatasetSearch,
   toArticleSearch,
   toPublicationSearch,
@@ -94,7 +94,7 @@ const QuerySearch = ({
                   <Tab
                     label="Data"
                     count={numberOfResults}
-                    onClick={() => toSearchPage(toDataSearchQuery, query, filters)}
+                    onClick={() => toSearchPage(toDataSearch, query, filters)}
                     page={PAGES.DATA_SEARCH_QUERY}
                   />
                   <Tab
