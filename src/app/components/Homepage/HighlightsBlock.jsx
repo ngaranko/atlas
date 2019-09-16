@@ -4,7 +4,7 @@ import { breakpoint, styles, themeColor } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import { focusImage } from './services/styles'
 import highlightsLinks from './services/highlights-links'
-import HightlightLinkCard, { HighlightsHeadingStyle } from './HighlightsLinkCard'
+import HightlightLinkCard, { HighlightsHeadingStyle } from './HighlightLinkCard'
 
 const HighlightsBlockStyle = styled.div`
   position: relative;
