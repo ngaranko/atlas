@@ -1,0 +1,47 @@
+/* eslint-disable camelcase */
+import linkAttributesFromAction from '../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/constants'
+import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
+import useSlug from '../../app/utils/useSlug'
+import formatDate from '../../shared/services/date-formatter/date-formatter'
+
+const useNormalizedCMSResults = (aggregatedData, type) => {
+  if (aggregatedData && aggregatedData.length) {
+    return aggregatedData.map(
+      ({
+        uuid,
+        slug,
+        title,
+        teaser_url,
+        short_title,
+        field_teaser,
+        intro,
+        special_type,
+        field_publication_date,
+      }) => {
+        const { href } = linkAttributesFromAction(
+          special_type
+            ? EDITORIAL_DETAIL_ACTIONS[type](uuid, special_type, slug)
+            : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug || useSlug(title)),
+        )
+
+        return {
+          key: uuid,
+          id: uuid,
+          title,
+          teaserImageUrl: teaser_url && `${SHARED_CONFIG.CMS_ROOT}${teaser_url}`,
+          shortTitle: short_title,
+          teaser: field_teaser,
+          intro,
+          specialType: special_type,
+          localeDate: field_publication_date,
+          localeDateFormatted: formatDate(new Date(field_publication_date)),
+          href,
+        }
+      },
+    )
+  }
+  return []
+}
+
+export default useNormalizedCMSResults

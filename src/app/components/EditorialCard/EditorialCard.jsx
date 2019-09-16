@@ -82,6 +82,7 @@ const IntroText = styled(Paragraph)`
 `
 
 const MetaText = styled(Paragraph)`
+  display: inline-block;
   color: grey;
   padding-bottom: 16px;
   font-size: 14px;
@@ -98,6 +99,7 @@ const EditorialCard = ({
   intro,
   specialType,
   localeDate,
+  localeDateFormatted,
   href,
 }) => (
   <StyledLink key={id} href={href} linkType="blank">
@@ -108,7 +110,13 @@ const EditorialCard = ({
       <StyledCardContent>
         <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
         <IntroText>{teaser || intro}</IntroText>
-        {specialType ? <StyledTag>{specialType}</StyledTag> : <MetaText>{localeDate}</MetaText>}
+        {specialType ? (
+          <StyledTag>{specialType}</StyledTag>
+        ) : (
+          <MetaText as="time" datetime={localeDate}>
+            {localeDateFormatted}
+          </MetaText>
+        )}
       </StyledCardContent>
     </StyledCard>
   </StyledLink>
