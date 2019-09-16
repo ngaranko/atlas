@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Card, Heading, Paragraph, Link, CardContent } from '@datapunt/asc-ui'
 
-const AboutLinkCard = ({ loading, title, description, href }) => (
-  <Link href={href} linkType="blank">
+const AboutLinkCard = ({ loading, title, description, href, ...otherProps }) => (
+  <Link href={href} linkType="blank" {...otherProps}>
     <Card backgroundColor="level2" shadow loading={loading}>
       <CardContent>
         <Heading $as="h4" styleAs="h3">

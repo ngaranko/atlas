@@ -41,8 +41,8 @@ const StyledCardContent = styled(CardContent)`
   }
 `
 
-const OrganizationLinkCard = ({ loading, showError, title, description, href }) => (
-  <OrganizationLinkCardStyle>
+const OrganizationLinkCard = ({ loading, showError, title, description, href, ...otherProps }) => (
+  <OrganizationLinkCardStyle {...otherProps}>
     <StyledCard animateLoading={!showError} loading={loading}>
       <StyledCardContent>
         <div>

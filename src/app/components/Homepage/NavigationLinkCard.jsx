@@ -12,8 +12,16 @@ import {
   Paragraph,
 } from '@datapunt/asc-ui'
 
-const NavigationLinkCard = ({ loading, showError, CardIcon, title, description, href }) => (
-  <Link href={href} linkType="blank">
+const NavigationLinkCard = ({
+  loading,
+  showError,
+  CardIcon,
+  title,
+  description,
+  href,
+  ...otherProps
+}) => (
+  <Link href={href} linkType="blank" {...otherProps}>
     <Card horizontal loading={loading} animateLoading={!showError}>
       <CardMedia backgroundColor="level2">
         <CardIcon />

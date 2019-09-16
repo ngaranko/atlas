@@ -20,8 +20,9 @@ const SpecialsLinkCard = ({
   description,
   imageSrc,
   imageAlt,
+  ...otherProps
 }) => (
-  <Link href={href} linkType="blank">
+  <Link href={href} linkType="blank" {...otherProps}>
     <Card horizontal animateLoading={!showError} loading={loading}>
       <CardContent>
         <Heading $as="h4" styleAs="h3" gutterBottom={8}>
