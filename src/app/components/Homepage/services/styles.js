@@ -29,17 +29,6 @@ export const fullGridWidthContainer = () => css`
   }
 `
 
-/**
- * Generates the top margin for blocks for vertical uniformity in a page
- *
- */
-export const blockTopMargin = (offset = 0) => css`
-  width: 100%;
-  margin-top: ${40 - offset}px;
-  @media screen and ${breakpoint('min-width', 'laptopM')} {
-    margin-top: ${80 - offset}px;
-  }
-`
 export const focusImage = (width = 4) =>
   css`
     content: '';

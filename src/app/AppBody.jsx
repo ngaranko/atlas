@@ -14,7 +14,7 @@ import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
 const ContentPage = React.lazy(() => import('./pages/ContentPage'))
-const Home = React.lazy(() => import('./pages/Home'))
+const HomePage = React.lazy(() => import('./pages/HomePage'))
 const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'))
 const QuerySearchPage = React.lazy(() => import('./pages/QuerySearchPage'))
 const DatasetPage = React.lazy(() => import('./pages/DatasetPage'))
@@ -48,48 +48,52 @@ const AppBody = ({
 
   return (
     <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
-      <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
-        {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
-        {embedPreviewMode ? (
-          <EmbedIframeComponent />
-        ) : (
-          <div className="u-grid u-full-height">
-            <div className="u-row u-full-height">
-              {homePage && <Home showFooter />}
+      {homePage ? (
+        <HomePage />
+      ) : (
+        <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
+          {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
+          {embedPreviewMode ? (
+            <EmbedIframeComponent />
+          ) : (
+            <div className="u-grid u-full-height">
+              <div className="u-row u-full-height">
+                {isQuerySearchPage(currentPage) && <QuerySearchPage />}
 
-              {isQuerySearchPage(currentPage) && <QuerySearchPage />}
+                {/* Todo: DP-6391 */}
+                {currentPage === PAGES.DATA_SEARCH_CATEGORY && (
+                  <div className="c-search-results u-grid">
+                    <DataSearchQuery />
+                  </div>
+                )}
 
-              {/* Todo: DP-6391 */}
-              {currentPage === PAGES.DATA_SEARCH_CATEGORY && (
-                <div className="c-search-results u-grid">
-                  <DataSearchQuery />
-                </div>
-              )}
+                {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
 
-              {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
+                {isMapSplitPage(currentPage) && <MapSplitPage />}
 
-              {isMapSplitPage(currentPage) && <MapSplitPage />}
+                {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
 
-              {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
+                {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
+                {currentPage === PAGES.DATASETS && <DatasetPage />}
 
-              {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
-              {currentPage === PAGES.DATASETS && <DatasetPage />}
+                {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
+                {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
+                {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
-              {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
-              {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
-              {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
+                {isEditorialOverviewPage(currentPage) && (
+                  <EditorialOverviewPage type={currentPage} />
+                )}
 
-              {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
+                {currentPage === PAGES.NOT_FOUND && <NotFound />}
+                {isOldCmsPage(currentPage) && <ContentPage />}
 
-              {currentPage === PAGES.NOT_FOUND && <NotFound />}
-              {isOldCmsPage(currentPage) && <ContentPage />}
-
-              <FeedbackModal id="feedbackModal" />
-              <InfoModal id="infoModal" open />
+                <FeedbackModal id="feedbackModal" />
+                <InfoModal id="infoModal" open />
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </Suspense>
   )
 }

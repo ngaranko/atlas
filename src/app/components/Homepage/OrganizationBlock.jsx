@@ -2,14 +2,13 @@ import React from 'react'
 import styled from '@datapunt/asc-core'
 import { breakpoint, themeColor, Column, Heading, Row } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
-import { fullGridWidthContainer, blockTopMargin } from './services/styles'
+import { fullGridWidthContainer } from './services/styles'
 import organizationLinks from './services/organization-links'
 import OrganizationLinkCard from './OrganizationLinkCard'
 
 const OrganizationBlockStyle = styled.div`
   padding: 40px 20px 0;
   background-color: ${themeColor('tint', 'level2')};
-  ${blockTopMargin(8)}
   ${({ hasMargin }) => fullGridWidthContainer(hasMargin)}
 `
 

@@ -17,16 +17,16 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
       @media screen and (min-width: 1200px) {
         width: calc(100% - 48px);
 
-        &::after {
-          display: block;
-          position: absolute;
-          top: 0;
-          right: -24px;
-          bottom: 0;
-          width: 24px;
-          background-color: $thema-6;
-          content: '';
-        }
+        // &::after {
+        //   display: block;
+        //   position: absolute;
+        //   top: 0;
+        //   right: -24px;
+        //   bottom: 0;
+        //   width: 24px;
+        //   background-color: $thema-6;
+        //   content: '';
+        // }
       }
 
       // Temporary overwrite! When the header will be refactored to

@@ -2,14 +2,12 @@ import React from 'react'
 import styled from '@datapunt/asc-core'
 import { Heading, Row, Column, CardContainer, styles, color } from '@datapunt/asc-ui'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
-import { blockTopMargin } from './services/styles'
 import aboutDataLinks from './services/about-data-links'
 import aboutSiteLinks from './services/about-site-links'
 import AboutLinkCard from './AboutLinkCard'
 
 /* istanbul ignore next */ const StyledAboutCard = styled(CardContainer)`
   ${({ showError }) => showError && ErrorBackgroundCSS}
-  ${blockTopMargin()}
 
   ${styles.ColumnStyle} {
     margin-bottom: 16px;

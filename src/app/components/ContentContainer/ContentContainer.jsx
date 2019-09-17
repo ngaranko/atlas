@@ -5,13 +5,13 @@ import { breakpoint } from '@datapunt/asc-ui'
 
 const StyledContainer = styled.div`
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 16px;
+  margin-bottom: 16px;
   background-color: white;
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    margin-top: 54px;
-    margin-bottom: 70px;
+    margin-top: 56px;
+    margin-bottom: 72px;
   }
 `
 

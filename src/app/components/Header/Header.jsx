@@ -62,6 +62,7 @@ const Header = ({
           title="City Data"
           homeLink="/"
           css={({ theme }) => style(theme, homePage)}
+          className="styled-header"
           fullWidth={!hasMaxWidth}
           navigation={
             <React.Fragment>

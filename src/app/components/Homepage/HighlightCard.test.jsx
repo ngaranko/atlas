@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render, cleanup } from '@testing-library/react'
 import { ThemeProvider } from '@datapunt/asc-ui'
-import HightlightLinkCard from './HighlightLinkCard'
+import HightlightLinkCard from './HighlightCard'
 import 'jest-styled-components'
 
 describe('HightlightLinkCard', () => {
