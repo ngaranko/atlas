@@ -71,8 +71,11 @@ const ImageCardWrapperSmall = styled.div`
     }
   }
 
-  @media screen and ${breakpoint('min-width', 'tabletM')} {
+  @media screen and ${breakpoint('min-width', 'mobileL')} {
     flex-wrap: nowrap;
+  }
+
+  @media screen and ${breakpoint('min-width', 'tabletM')} {
     flex-basis: ${100 / 3}%;
     flex-direction: column;
 

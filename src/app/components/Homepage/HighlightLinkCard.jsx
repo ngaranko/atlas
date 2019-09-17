@@ -8,7 +8,7 @@ export const HighlightsHeadingStyle = styled(Heading)`
     line-height: 20px;
   }
 
-  @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint(
+  @media screen and ${breakpoint('min-width', 'mobileL')} and ${breakpoint(
   'max-width',
   'laptopM',
 )} {

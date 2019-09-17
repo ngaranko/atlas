@@ -31,7 +31,7 @@ const HomepageStyle = styled(Container)`
   }
 `
 
-export const Subtitlle = styled(Heading)`
+export const Subtitle = styled(Heading)`
   ${blockTopMargin(24)}
 `
 
@@ -85,7 +85,7 @@ const Homepage = ({ loading, showError }) => (
       </StickyRow>
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <Subtitlle>Uitgelicht</Subtitlle>
+          <Subtitle>Uitgelicht</Subtitle>
         </Column>
       </Row>
       <Row valign="flex-start">
