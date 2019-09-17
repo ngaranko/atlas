@@ -36,7 +36,7 @@ const navigationLinks = [
   {
     href: '/',
     CardIcon: () => (
-      <Icon size={30}>
+      <Icon size={20}>
         <Data />
       </Icon>
     ),
