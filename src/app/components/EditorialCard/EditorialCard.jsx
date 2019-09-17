@@ -11,6 +11,7 @@ import {
   Tag,
   breakpoint,
   themeColor,
+  themeSpacing,
 } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
 
@@ -19,12 +20,12 @@ const notFoundImage = require('./not_found_thumbnail.jpg')
 const CardHeading = styled(Heading)`
   border-bottom: 2px solid transparent;
   line-height: 22px;
-  margin-bottom: 12px;
+  margin-bottom: ${themeSpacing(3)};
   width: fit-content;
 `
 
 const StyledRouterLink = styled(RouterLink)`
-  margin-bottom: 16px;
+  margin-bottom: ${themeSpacing(4)};
   width: 100%;
 
   &:hover,
@@ -37,7 +38,7 @@ const StyledRouterLink = styled(RouterLink)`
 `
 
 const StyledLinkWrapper = ({ children, ...otherProps }) => (
-  <Link $as={StyledRouterLink} gutterBottom={3} {...otherProps}>
+  <Link $as={StyledRouterLink} {...otherProps}>
     {children}
   </Link>
 )
@@ -74,7 +75,7 @@ const StyledCardMedia = styled(CardMedia)`
 
 const StyledCardContent = styled(CardContent)`
   padding: 0;
-  margin: 0 16px;
+  margin: ${themeSpacing(0, 4)};
   border-bottom: 1px solid ${themeColor('tint', 'level3')};
   position: relative;
 `
@@ -85,13 +86,13 @@ const StyledTag = styled(Tag)`
 `
 
 const IntroText = styled(Paragraph)`
-  padding-bottom: 16px;
+  padding-bottom: ${themeSpacing(4)};
 `
 
 const MetaText = styled(Paragraph)`
   display: inline-block;
   color: grey;
-  padding-bottom: 16px;
+  padding-bottom: ${themeSpacing(4)};
   font-size: 14px;
   line-height: 1.25;
   text-transform: capitalize;

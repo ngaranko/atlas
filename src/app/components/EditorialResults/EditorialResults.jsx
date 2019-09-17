@@ -1,7 +1,7 @@
 import React from 'react'
 import { Enlarge } from '@datapunt/asc-assets'
 import styled from '@datapunt/asc-core'
-import { Button, CardContainer, Heading, svgFill, themeColor } from '@datapunt/asc-ui'
+import { Button, CardContainer, Heading, svgFill, themeColor, themeSpacing } from '@datapunt/asc-ui'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import { EDITORIAL_TITLES } from '../../pages/EditorialOverviewPage/constants'
 import EditorialCard from '../EditorialCard'
@@ -13,7 +13,7 @@ const EditorialCardContainer = styled(CardContainer)`
 const StyledButton = styled(Button)`
   border-color: ${themeColor('tint', 'level7')};
   color: ${themeColor('tint', 'level7')};
-  background: #fff;
+  background: ${themeColor('tint', 'level1')};
   ${svgFill('tint', 'level7')};
 
   &:hover,
@@ -24,8 +24,8 @@ const StyledButton = styled(Button)`
 `
 
 const PageHeading = styled(Heading)`
-  margin-bottom: 16px;
-  padding-bottom: 8px;
+  margin-bottom: ${themeSpacing(4)};
+  padding-bottom: ${themeSpacing(2)};
   border-bottom: 1px solid ${themeColor('tint', 'level3')};
 `
 
