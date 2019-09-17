@@ -12,6 +12,7 @@ import {
   breakpoint,
   themeColor,
 } from '@datapunt/asc-ui'
+import RouterLink from 'redux-first-router-link'
 
 const notFoundImage = require('./not_found_thumbnail.jpg')
 
@@ -22,7 +23,7 @@ const CardHeading = styled(Heading)`
   width: fit-content;
 `
 
-const StyledLink = styled(Link)`
+const StyledRouterLink = styled(RouterLink)`
   margin-bottom: 16px;
   width: 100%;
 
@@ -34,6 +35,12 @@ const StyledLink = styled(Link)`
     }
   }
 `
+
+const StyledLinkWrapper = ({ children, ...otherProps }) => (
+  <Link $as={StyledRouterLink} gutterBottom={3} {...otherProps}>
+    {children}
+  </Link>
+)
 
 const StyledCard = styled(Card)`
   align-items: stretch;
@@ -100,9 +107,9 @@ const EditorialCard = ({
   specialType,
   localeDate,
   localeDateFormatted,
-  href,
+  to,
 }) => (
-  <StyledLink key={id} href={href} linkType="blank">
+  <StyledLinkWrapper key={id} to={to} linkType="blank">
     <StyledCard horizontal>
       <StyledCardMedia>
         <Image src={teaserImageUrl || notFoundImage} alt={title} square />
@@ -110,7 +117,7 @@ const EditorialCard = ({
       <StyledCardContent>
         <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
         <IntroText>{teaser || intro}</IntroText>
-        {specialType ? (
+        {specialType && !localeDate ? (
           <StyledTag>{specialType}</StyledTag>
         ) : (
           <MetaText as="time" datetime={localeDate}>
@@ -119,7 +126,7 @@ const EditorialCard = ({
         )}
       </StyledCardContent>
     </StyledCard>
-  </StyledLink>
+  </StyledLinkWrapper>
 )
 
 export default EditorialCard
