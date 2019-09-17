@@ -16,7 +16,7 @@ const ShareBarContainer = styled.div`
   }
 `
 
-const ShareBar = ({ hasPrintButton, openSharePage, openPrintMode }) => {
+const ShareBar = ({ hasPrintButton, openSharePage, openPrintMode, className }) => {
   const handlePageShare = target => {
     openSharePage(target)
 
@@ -25,7 +25,7 @@ const ShareBar = ({ hasPrintButton, openSharePage, openPrintMode }) => {
   }
 
   return (
-    <ShareBarContainer>
+    <ShareBarContainer className={className}>
       <ShareButton
         type="button"
         onClick={() => handlePageShare('facebook')}

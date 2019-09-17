@@ -22,7 +22,6 @@ const useNormalizedCMSResults = (aggregatedData, type) => {
           ? EDITORIAL_DETAIL_ACTIONS[type](uuid, special_type, slug)
           : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug || useSlug(title))
 
-        console.log(to)
         return {
           key: uuid,
           id: uuid,
