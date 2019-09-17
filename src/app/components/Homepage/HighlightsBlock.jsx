@@ -95,7 +95,6 @@ const HighlightsBlock = ({ loading, showError, ...otherProps }) => (
           showError={showError}
           {...highlightsLinks[0]}
           styleAs="h2"
-          large
         />
       </ImageCardWrapperLarge>
       <ImageCardWrapperSmall>
@@ -104,8 +103,8 @@ const HighlightsBlock = ({ loading, showError, ...otherProps }) => (
             loading={loading}
             showError={showError}
             {...linkProps}
-            strong
             gutterBottom={0}
+            small
           />
         ))}
       </ImageCardWrapperSmall>

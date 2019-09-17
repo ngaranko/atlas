@@ -36,7 +36,7 @@ export const Subtitle = styled(Heading)`
 `
 
 export const OverviewLink = styled(Link)`
-  margin-top: 32px;
+  margin-top: 16px;
   padding: 8px 3px 8px 0;
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
