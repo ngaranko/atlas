@@ -1,11 +1,7 @@
 /* eslint-disable camelcase */
 import React from 'react'
-import { Container } from '@datapunt/asc-ui'
-import Footer from '../../components/Footer/Footer'
 import useFromCMS from '../../utils/useFromCMS'
 import cmsConfig from '../../../shared/services/cms/cms.config'
-
-import './EditorialOverviewPage.scss'
 import EditorialOverviewPage from './EditorialOverviewPage'
 import useNormalizedCMSResults from '../../../normalizations/cms/useNormalizedCMSResults'
 
@@ -31,14 +27,11 @@ const EditorialOverviewPageWrapper = ({ type = '' }) => {
   const normalizedResults = useNormalizedCMSResults(aggregatedData, type)
 
   return (
-    <Container className="editorial-overview" beamColor="valid">
-      <EditorialOverviewPage
-        {...{ type, page, loading, links: _links }}
-        results={normalizedResults}
-        onClickMore={fetchData}
-      />
-      <Footer />
-    </Container>
+    <EditorialOverviewPage
+      {...{ type, page, loading, links: _links }}
+      results={normalizedResults}
+      onClickMore={fetchData}
+    />
   )
 }
 

@@ -1,17 +1,17 @@
-import React from 'react'
 import styled, { css } from '@datapunt/asc-core'
 import {
   breakpoint,
   Heading,
-  ImageCardContent,
   ImageCard,
+  ImageCardContent,
   Link,
   styles,
   themeColor,
 } from '@datapunt/asc-ui'
-import { focusImage } from './services/styles'
+import React from 'react'
+import { focusOutline } from './services/styles'
 
-export const HighlightCardHeadingStyle = styled(Heading)`
+const HighlightCardHeadingStyle = styled(Heading)`
   margin: 0;
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
@@ -32,7 +32,6 @@ export const HighlightCardHeadingStyle = styled(Heading)`
       font-size: 14px;
       line-height: 17px;
     }
-
 `
 
 const StyledLink = styled(Link)`
@@ -50,22 +49,18 @@ const StyledLink = styled(Link)`
     background: none;
 
     ${/* sc-selector */ styles.ImageCardStyle}::after {
-      ${focusImage()}
+      ${focusOutline()}
     }
   }
 `
-
-const HighlightCardHeading = ({ children, ...otherProps }) => (
-  <HighlightCardHeadingStyle $as="h4" {...otherProps}>
-    {children}
-  </HighlightCardHeadingStyle>
-)
 
 const HighlightCard = ({ loading, showError, title, href, backgroundImage, ...otherProps }) => (
   <StyledLink href={href} linkType="blank">
     <ImageCard backgroundImage={backgroundImage} loading={loading} animateLoading={!showError}>
       <ImageCardContent>
-        <HighlightCardHeading {...otherProps}>{title}</HighlightCardHeading>
+        <HighlightCardHeadingStyle $as="h4" {...otherProps}>
+          {title}
+        </HighlightCardHeadingStyle>
       </ImageCardContent>
     </ImageCard>
   </StyledLink>

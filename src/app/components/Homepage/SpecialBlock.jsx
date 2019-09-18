@@ -1,0 +1,73 @@
+import styled from '@datapunt/asc-core'
+import {
+  breakpoint,
+  CardContainer,
+  Column,
+  Heading,
+  Row,
+  styles,
+  themeColor,
+} from '@datapunt/asc-ui'
+import React from 'react'
+import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
+import OverviewLink from './OverviewLink'
+import specialsLinks from './services/specials-links'
+import SpecialCard from './SpecialCard'
+
+const StyledRow = styled(Row)`
+  ${({ showError }) => showError && ErrorBackgroundCSS}
+
+  /* Add border-top to first row of cards when three SpecialCards are shown */
+  ${/* sc-selector */ styles.ColumnStyle}:nth-child(-n+3) > ${styles.LinkStyle} {
+    border-top: ${themeColor('tint', 'level3')} 1px solid;
+  }
+
+  /* Add border-top to first row of cards when two SpecialCards are shown */
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    ${/* sc-selector */ styles.ColumnStyle}:nth-child(3) > ${styles.LinkStyle} {
+      border-top: none;
+    }
+  }
+
+  /* Add border-top to first row of cards when one SpecialCard is shown */
+  @media screen and ${breakpoint('max-width', 'tabletM')} {
+    ${/* sc-selector */ styles.ColumnStyle}:nth-child(n+2) > ${styles.LinkStyle} {
+      border-top: none;
+    }
+  }
+`
+
+const StyledHeading = styled(Heading)`
+  @media screen and ${breakpoint('max-width', 'laptopL')} {
+    margin-bottom: 16px;
+  }
+
+  @media screen and ${breakpoint('min-width', 'laptopL')} {
+    margin-bottom: 24px;
+  }
+`
+
+const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
+  <CardContainer {...otherProps}>
+    <Row hasMargin={false}>
+      <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
+        <StyledHeading $as="h1">In Beeld</StyledHeading>
+      </Column>
+    </Row>
+    <StyledRow hasMargin={false} showError={showError}>
+      {showError && <ErrorMessage onClick={() => {}} />}
+      {specialsLinks.map(linkProps => (
+        <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
+          <SpecialCard loading={loading} showError={showError} {...linkProps} />
+        </Column>
+      ))}
+    </StyledRow>
+    <Row hasMargin={false}>
+      <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
+        <OverviewLink href="/" label="Bekijk overzicht" />
+      </Column>
+    </Row>
+  </CardContainer>
+)
+
+export default SpecialsBlock

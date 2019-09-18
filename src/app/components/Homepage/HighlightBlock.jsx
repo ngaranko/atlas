@@ -1,10 +1,10 @@
-import React from 'react'
 import styled from '@datapunt/asc-core'
 import { breakpoint, styles, themeSpacing } from '@datapunt/asc-ui'
+import React from 'react'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
-import highlightsLinks from './services/highlights-links'
 import HighlightCard from './HighlightCard'
 import OverviewLink from './OverviewLink'
+import highlightsLinks from './services/highlights-links'
 
 const HighlightBlockStyle = styled.div`
   position: relative;

@@ -7,6 +7,7 @@ import { FeedbackModal, InfoModal } from './components/Modal'
 import PAGES, {
   isMapSplitPage,
   isOldCmsPage,
+  isEditorialPage,
   isEditorialOverviewPage,
   isQuerySearchPage,
 } from './pages'
@@ -46,10 +47,19 @@ const AppBody = ({
     'c-dashboard__body--backdrop': state.backdropKeys.length,
   })
 
+  const hasGrid = homePage || isEditorialPage(currentPage)
+
   return (
     <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
-      {homePage ? (
-        <HomePage />
+      {hasGrid ? (
+        <>
+          {homePage && <HomePage />}
+          {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
+          {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
+          {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
+
+          {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
+        </>
       ) : (
         <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
           {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
@@ -76,24 +86,15 @@ const AppBody = ({
                 {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
                 {currentPage === PAGES.DATASETS && <DatasetPage />}
 
-                {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
-                {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
-                {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
-
-                {isEditorialOverviewPage(currentPage) && (
-                  <EditorialOverviewPage type={currentPage} />
-                )}
-
                 {currentPage === PAGES.NOT_FOUND && <NotFound />}
                 {isOldCmsPage(currentPage) && <ContentPage />}
-
-                <FeedbackModal id="feedbackModal" />
-                <InfoModal id="infoModal" open />
               </div>
             </div>
           )}
         </div>
       )}
+      <FeedbackModal id="feedbackModal" />
+      <InfoModal id="infoModal" open />
     </Suspense>
   )
 }

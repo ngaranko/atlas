@@ -1,6 +1,6 @@
-import React from 'react'
 import styled from '@datapunt/asc-core'
 import { breakpoint, Link, themeSpacing } from '@datapunt/asc-ui'
+import React from 'react'
 
 const StyledLink = styled(Link)`
   margin-top: ${themeSpacing(4)};

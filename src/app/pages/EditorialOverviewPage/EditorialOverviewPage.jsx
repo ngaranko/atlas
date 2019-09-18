@@ -1,11 +1,19 @@
 import React from 'react'
 import styled from '@datapunt/asc-core'
-import { Button, CardContainer, Column, Heading, Row, themeColor, svgFill } from '@datapunt/asc-ui'
+import {
+  Button,
+  CardContainer,
+  Column,
+  Container,
+  Heading,
+  Row,
+  themeColor,
+  svgFill,
+} from '@datapunt/asc-ui'
 import { Enlarge } from '@datapunt/asc-assets'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import EditorialCard from '../../components/EditorialCard'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
-import './EditorialOverviewPage.scss'
 import { EDITORIAL_TITLES } from './constants'
 
 const PageHeading = styled(Heading)`
@@ -32,7 +40,7 @@ const StyledButton = styled(Button)`
 `
 
 const EditorialOverviewPage = ({ page, loading, results, type, links, onClickMore }) => (
-  <div className="editorial-overview__body">
+  <Container>
     <Row>
       <ContentContainer>
         <Column
@@ -60,8 +68,7 @@ const EditorialOverviewPage = ({ page, loading, results, type, links, onClickMor
                       iconLeft={<Enlarge />}
                       iconSize={12}
                       onClick={() => {
-                        // Temporarily replace http:// as no changes will be made to JSON API
-                        // until GraphQL API becomes available
+                        // Temporarily replace http:// as API currently returns http
                         const nextHref = links.next.href.replace('http://', 'https://')
 
                         onClickMore(nextHref)
@@ -76,7 +83,7 @@ const EditorialOverviewPage = ({ page, loading, results, type, links, onClickMor
         </Column>
       </ContentContainer>
     </Row>
-  </div>
+  </Container>
 )
 
 export default EditorialOverviewPage

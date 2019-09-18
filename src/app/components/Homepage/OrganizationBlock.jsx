@@ -1,40 +1,51 @@
-import React from 'react'
 import styled from '@datapunt/asc-core'
-import { breakpoint, themeColor, Column, Heading, Row } from '@datapunt/asc-ui'
+import {
+  breakpoint,
+  CardContainer,
+  Column,
+  Heading,
+  Row,
+  themeColor,
+  themeSpacing,
+} from '@datapunt/asc-ui'
+import React from 'react'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
-import { fullGridWidthContainer } from './services/styles'
+import OrganizationCard from './OrganizationCard'
 import organizationLinks from './services/organization-links'
-import OrganizationLinkCard from './OrganizationLinkCard'
 
-const OrganizationBlockStyle = styled.div`
-  padding: 40px 20px 0;
+const StyledCardContainer = styled(CardContainer)`
   background-color: ${themeColor('tint', 'level2')};
-  ${({ hasMargin }) => fullGridWidthContainer(hasMargin)}
+  padding: ${themeSpacing(5)};
 `
 
 const StyledRow = styled(Row)`
   ${({ showError }) => showError && ErrorBackgroundCSS}
+`
+
+const StyledHeading = styled(Heading)`
+  margin-bottom: ${themeSpacing(4)};
+
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    margin-top: 12px;
+    margin-bottom: ${themeSpacing(8)};
   }
 `
 
 const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
-  <OrganizationBlockStyle {...otherProps}>
+  <StyledCardContainer {...otherProps}>
     <Row hasMargin={false}>
-      <Heading $as="h2" styleAs="h1" gutterBottom={20}>
+      <StyledHeading $as="h2" styleAs="h1">
         Onderzoek, Informatie en Statistiek
-      </Heading>
+      </StyledHeading>
     </Row>
     <StyledRow hasMargin={false} showError={showError}>
       {showError && <ErrorMessage onClick={() => {}} />}
       {organizationLinks.map(linkProps => (
         <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
-          <OrganizationLinkCard loading={loading} showError={showError} {...linkProps} />
+          <OrganizationCard loading={loading} showError={showError} {...linkProps} />
         </Column>
       ))}
     </StyledRow>
-  </OrganizationBlockStyle>
+  </StyledCardContainer>
 )
 
 export default OrganizationBlock
