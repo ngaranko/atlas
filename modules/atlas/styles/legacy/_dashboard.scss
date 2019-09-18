@@ -9,7 +9,8 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
   }
 
-  &:not(&--editorial) {
+  &--max-width:not(&--editorial),
+  &--homepage {
     #header {
       max-width: 1800px;
       header {
