@@ -293,6 +293,14 @@ export const toArticleSearch = (additionalParams = null, skipSaga = false, force
   },
 })
 
+export const toArticleOverview = () => ({
+  type: routing.articles.type,
+})
+
+export const toPublicationOverview = () => ({
+  type: routing.publications.type,
+})
+
 export const toPublicationSearch = (
   additionalParams = null,
   skipSaga = false,
