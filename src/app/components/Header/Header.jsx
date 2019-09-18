@@ -11,6 +11,8 @@ import EmbedHeader from './EmbedHeader'
 import PrintHeader from './PrintHeader'
 
 const style = theme => css`
+  z-index: 9999;
+
   ${styles.HeaderNavigationStyle} {
     @media screen and ${breakpoint('min-width', 'tabletM')({ theme })} {
       justify-content: space-between;
@@ -30,6 +32,7 @@ const style = theme => css`
 
 const HeaderWrapper = styled.section`
   width: 100%;
+  z-index: 9999;
 `
 
 const MenuDefault = props => <HeaderMenuContainer {...props} type="default" />

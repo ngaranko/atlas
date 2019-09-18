@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import { Container } from '@datapunt/asc-ui'
+import styled from '@datapunt/asc-core'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
@@ -33,6 +35,35 @@ const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverview
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 const NotFound = React.lazy(() => import('./pages/NotFound'))
 
+const StyledContainer = styled(Container)`
+  // Check if this should be moved to the @datapunt/asc-ui project
+  &::before {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.2s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.5);
+    content: '';
+    opacity: 0;
+    z-index: 101;
+    pointer-events: none;
+  }
+
+  ${({ hasBackdrop }) =>
+    hasBackdrop &&
+    `
+      &::before {
+        opacity: 1;
+          pointer-events: all;
+      }
+  `}
+`
+
 const AppBody = ({
   visibilityError,
   bodyClasses,
@@ -52,14 +83,14 @@ const AppBody = ({
   return (
     <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
       {hasGrid ? (
-        <>
+        <StyledContainer hasBackdrop={state.backdropKeys.length}>
           {homePage && <HomePage />}
           {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
           {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
           {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
           {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
-        </>
+        </StyledContainer>
       ) : (
         <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
           {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}

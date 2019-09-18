@@ -9,6 +9,15 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
   }
+
+  &--max-width {
+    #header {
+      max-width: 1800px;
+      header {
+        max-width: 1600px;
+      }
+    }
+  }
 }
 
 .c-dashboard__heading {
