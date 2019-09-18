@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import linkAttributesFromAction from '../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/constants'
 import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
 import useSlug from '../../app/utils/useSlug'
@@ -19,11 +18,9 @@ const useNormalizedCMSResults = (aggregatedData, type) => {
         special_type,
         field_publication_date,
       }) => {
-        const { href } = linkAttributesFromAction(
-          special_type
-            ? EDITORIAL_DETAIL_ACTIONS[type](uuid, special_type, slug)
-            : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug || useSlug(title)),
-        )
+        const to = special_type
+          ? EDITORIAL_DETAIL_ACTIONS[type](uuid, special_type, slug)
+          : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug || useSlug(title))
 
         return {
           key: uuid,
@@ -35,8 +32,9 @@ const useNormalizedCMSResults = (aggregatedData, type) => {
           intro,
           specialType: special_type,
           localeDate: field_publication_date,
-          localeDateFormatted: formatDate(new Date(field_publication_date)),
-          href,
+          localeDateFormatted:
+            field_publication_date && formatDate(new Date(field_publication_date)),
+          to,
         }
       },
     )
