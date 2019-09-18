@@ -20,26 +20,27 @@ exports[`QuerySearch should render with results 1`] = `
   className="c-data-selection c-dashboard__content"
 >
   <div
-    className="c-data-selection-content qa-data-selection-content"
+    className="qa-data-selection-content"
   >
     <Connect(TabBar)
-      numberOfDataResults={1}
-      numberOfDatasetResults={1}
+      numberOfResults={2}
     >
       <Tabs
-        currentTab="Datasets"
+        currentPage="data"
       >
         <Tab
-          count={1}
-          isCurrentTab={false}
+          count={2}
+          isSelected={false}
           label="Data"
           onClick={[Function]}
+          page="DATA_SEARCH_QUERY"
         />
         <Tab
-          count={1}
-          isCurrentTab={false}
+          count={2}
+          isSelected={false}
           label="Datasets"
           onClick={[Function]}
+          page="DATASET_SEARCH"
         />
       </Tabs>
     </Connect(TabBar)>

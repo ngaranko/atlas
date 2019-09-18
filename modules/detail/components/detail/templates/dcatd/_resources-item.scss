@@ -1,6 +1,6 @@
 /* sass-lint:disable property-sort-order */
 /* already in react sass lint style*/
-@import "./styles/config";
+@import './styles/config';
 
 .resources-item {
   font-size: $s-font-size;
@@ -37,7 +37,7 @@
     &::after {
       @extend %icon-arrow-right;
       bottom: -5px;
-      content: "";
+      content: '';
       display: inline-block;
       height: 35px;
       position: absolute;

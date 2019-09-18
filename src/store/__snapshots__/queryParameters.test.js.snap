@@ -40,7 +40,7 @@ Object {
         "selector": [Function],
         "stateKey": "baseLayer",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": "topografie",
@@ -84,7 +84,7 @@ Object {
   },
   "categorie": Object {
     "routes": Object {
-      "atlasRouter/DATA_QUERY_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_QUERY": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": undefined,
@@ -145,7 +145,7 @@ Object {
         "selector": [Function],
         "stateKey": "viewCenter",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [
@@ -234,7 +234,7 @@ Object {
         "selector": [Function],
         "stateKey": "isEmbed",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": false,
@@ -301,7 +301,7 @@ Object {
         "selector": [Function],
         "stateKey": "isEmbedPreview",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": false,
@@ -341,6 +341,15 @@ Object {
         "selector": [Function],
         "stateKey": "filters",
       },
+      "atlasRouter/ARTICLE_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Object {},
+        "encode": [Function],
+        "reducerKey": "filter",
+        "selector": [Function],
+        "stateKey": "filters",
+      },
       "atlasRouter/CADASTRAL_OBJECTS": Object {
         "addHistory": true,
         "decode": [Function],
@@ -359,7 +368,16 @@ Object {
         "selector": [Function],
         "stateKey": "filters",
       },
-      "atlasRouter/DATA_QUERY_SEARCH": Object {
+      "atlasRouter/DATASET_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Object {},
+        "encode": [Function],
+        "reducerKey": "filter",
+        "selector": [Function],
+        "stateKey": "filters",
+      },
+      "atlasRouter/DATA_SEARCH_QUERY": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": Object {},
@@ -377,7 +395,7 @@ Object {
         "selector": [Function],
         "stateKey": "filters",
       },
-      "atlasRouter/SEARCH_DATASETS": Object {
+      "atlasRouter/PUBLICATION_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": Object {},
@@ -458,6 +476,15 @@ Object {
         "selector": [Function],
         "stateKey": "overlays",
       },
+      "atlasRouter/ARTICLE_SEARCH": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "overlays",
+      },
       "atlasRouter/CADASTRAL_OBJECTS": Object {
         "addHistory": false,
         "decode": [Function],
@@ -476,6 +503,15 @@ Object {
         "selector": [Function],
         "stateKey": "overlays",
       },
+      "atlasRouter/DATASET_SEARCH": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "overlays",
+      },
       "atlasRouter/DATA_DETAIL": Object {
         "addHistory": false,
         "decode": [Function],
@@ -485,7 +521,7 @@ Object {
         "selector": [Function],
         "stateKey": "overlays",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [],
@@ -494,7 +530,7 @@ Object {
         "selector": [Function],
         "stateKey": "overlays",
       },
-      "atlasRouter/DATA_QUERY_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_QUERY": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [],
@@ -521,7 +557,7 @@ Object {
         "selector": [Function],
         "stateKey": "overlays",
       },
-      "atlasRouter/SEARCH_DATASETS": Object {
+      "atlasRouter/PUBLICATION_SEARCH": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [],
@@ -579,7 +615,7 @@ Object {
         "selector": [Function],
         "stateKey": "mapPanelActive",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": false,
@@ -610,7 +646,7 @@ Object {
   },
   "locatie": Object {
     "routes": Object {
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": null,
@@ -668,7 +704,7 @@ Object {
         "selector": [Function],
         "stateKey": "isMapLinkVisible",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": true,
@@ -735,7 +771,7 @@ Object {
         "selector": [Function],
         "stateKey": "marker",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": null,
@@ -802,7 +838,7 @@ Object {
         "selector": [Function],
         "stateKey": "markerIcon",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": "default",
@@ -869,7 +905,7 @@ Object {
         "selector": [Function],
         "stateKey": "viewMode",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": "gesplitst",
@@ -1002,7 +1038,7 @@ Object {
         "selector": [Function],
         "stateKey": "isPrintMode",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": false,
@@ -1048,7 +1084,7 @@ Object {
   },
   "term": Object {
     "routes": Object {
-      "atlasRouter/DATA_QUERY_SEARCH": Object {
+      "atlasRouter/ARTICLE_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": "",
@@ -1057,7 +1093,25 @@ Object {
         "selector": [Function],
         "stateKey": "query",
       },
-      "atlasRouter/SEARCH_DATASETS": Object {
+      "atlasRouter/DATASET_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "",
+        "encode": [Function],
+        "reducerKey": "dataSearch",
+        "selector": [Function],
+        "stateKey": "query",
+      },
+      "atlasRouter/DATA_SEARCH_QUERY": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "",
+        "encode": [Function],
+        "reducerKey": "dataSearch",
+        "selector": [Function],
+        "stateKey": "query",
+      },
+      "atlasRouter/PUBLICATION_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": "",
@@ -1115,7 +1169,7 @@ Object {
         "selector": [Function],
         "stateKey": "zoom",
       },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
+      "atlasRouter/DATA_SEARCH_GEO": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": 11,

@@ -28,7 +28,7 @@ export const getPage = createSelector(
   getLocation,
   (location = {}) => {
     const key = Object.keys(routing).find(route => routing[route].type === location.type)
-    return (key && routing[key].page) || routing.niet_gevonden.page
+    return (key && routing[key].page) || ''
   },
 )
 export const isHomepage = createSelector(
@@ -54,8 +54,20 @@ export const isDatasetDetailPage = createSelector(
 
 export const isDatasetPage = createSelector(
   getPage,
+  page => page === PAGES.DATASETS || page === PAGES.DATASET_DETAIL || page === PAGES.DATASET_SEARCH,
+)
+
+export const isArticlePage = createSelector(
+  getPage,
+  page => page === PAGES.ARTICLES || page === PAGES.ARTICLE_DETAIL || page === PAGES.ARTICLE_SEARCH,
+)
+
+export const isPublicationPage = createSelector(
+  getPage,
   page =>
-    page === PAGES.DATASETS || page === PAGES.DATASET_DETAIL || page === PAGES.SEARCH_DATASETS,
+    page === PAGES.PUBLICATION ||
+    page === PAGES.PUBLICATION_DETAIL ||
+    page === PAGES.PUBLICATION_SEARCH,
 )
 
 export const isDataSelectionPage = createSelector(

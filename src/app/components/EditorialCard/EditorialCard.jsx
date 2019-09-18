@@ -13,6 +13,8 @@ import {
   themeColor,
 } from '@datapunt/asc-ui'
 
+const notFoundImage = require('./not_found_thumbnail.jpg')
+
 const CardHeading = styled(Heading)`
   border-bottom: 2px solid transparent;
   line-height: 22px;
@@ -43,11 +45,13 @@ const StyledCardHeading = styled(CardHeading)`
 
 const StyledCardMedia = styled(CardMedia)`
   width: 20%;
+  max-width: 160px;
+  max-height: 160px;
   flex: 1 0 auto;
 
   @media screen and ${breakpoint('max-width', 'laptopM')} {
-    height: 218px;
-    flex: 1 0 218px;
+    height: 160px;
+    flex: 1 0 160px;
   }
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
@@ -78,6 +82,7 @@ const IntroText = styled(Paragraph)`
 `
 
 const MetaText = styled(Paragraph)`
+  display: inline-block;
   color: grey;
   padding-bottom: 16px;
   font-size: 14px;
@@ -85,29 +90,32 @@ const MetaText = styled(Paragraph)`
   text-transform: capitalize;
 `
 
-const EditorialCard = ({ dataItem, href }) => (
-  <StyledLink key={dataItem.id} href={href} linkType="blank">
+const EditorialCard = ({
+  id,
+  title,
+  teaserImageUrl,
+  shortTitle,
+  teaser,
+  intro,
+  specialType,
+  localeDate,
+  localeDateFormatted,
+  href,
+}) => (
+  <StyledLink key={id} href={href} linkType="blank">
     <StyledCard horizontal>
       <StyledCardMedia>
-        <Image
-          src={
-            dataItem.teaserImageUrl
-              ? dataItem.teaserImageUrl
-              : '../assets/images/not_found_thumbnail.jpg'
-          }
-          alt={dataItem.title}
-          square
-        />
+        <Image src={teaserImageUrl || notFoundImage} alt={title} square />
       </StyledCardMedia>
       <StyledCardContent>
-        <StyledCardHeading $as="h4">
-          {dataItem.field_short_title || dataItem.title}
-        </StyledCardHeading>
-        <IntroText>{dataItem.field_teaser || dataItem.field_intro}</IntroText>
-        {dataItem.field_special_type ? (
-          <StyledTag>{dataItem.field_special_type}</StyledTag>
+        <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
+        <IntroText>{teaser || intro}</IntroText>
+        {specialType ? (
+          <StyledTag>{specialType}</StyledTag>
         ) : (
-          <MetaText>{dataItem.localeDate}</MetaText>
+          <MetaText as="time" datetime={localeDate}>
+            {localeDateFormatted}
+          </MetaText>
         )}
       </StyledCardContent>
     </StyledCard>

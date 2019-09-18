@@ -4,7 +4,12 @@ import PropTypes from 'prop-types'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
-import PAGES, { isMapSplitPage, isOldCmsPage, isEditorialOverviewPage } from './pages'
+import PAGES, {
+  isMapSplitPage,
+  isOldCmsPage,
+  isEditorialOverviewPage,
+  isQuerySearchPage,
+} from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
@@ -25,6 +30,7 @@ const PublicationDetailPage = React.lazy(() => import('./pages/PublicationDetail
 const SpecialDetailPage = React.lazy(() => import('./pages/SpecialDetailPage'))
 const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverviewPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
+const NotFound = React.lazy(() => import('./pages/NotFound'))
 
 const AppBody = ({
   visibilityError,
@@ -51,8 +57,7 @@ const AppBody = ({
             <div className="u-row u-full-height">
               {homePage && <Home showFooter />}
 
-              {(currentPage === PAGES.DATA_QUERY_SEARCH ||
-                currentPage === PAGES.SEARCH_DATASETS) && <QuerySearchPage />}
+              {isQuerySearchPage(currentPage) && <QuerySearchPage />}
 
               {/* Todo: DP-6391 */}
               {currentPage === PAGES.DATA_SEARCH_CATEGORY && (
@@ -76,6 +81,7 @@ const AppBody = ({
 
               {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
 
+              {currentPage === PAGES.NOT_FOUND && <NotFound />}
               {isOldCmsPage(currentPage) && <ContentPage />}
 
               <FeedbackModal id="feedbackModal" />

@@ -3,7 +3,6 @@ import { routing } from '../../app/routes'
 import { fetchFetchPanoramaEffect } from '../../panorama/sagas/panorama'
 import {
   fetchGeoSearchResultsEffect,
-  fetchQuerySearchEffect,
   fetchQuerySearchResultsEffect,
 } from '../../shared/sagas/data-search/data-search'
 import { fetchDataSelectionEffect } from '../../shared/sagas/data-selection/data-selection'
@@ -15,15 +14,15 @@ import { fetchDetailEffect } from '../../map/sagas/detail/map-detail'
 
 const routeSagaMapping = [
   [routing.panorama.type, fetchFetchPanoramaEffect],
-  [routing.dataGeoSearch.type, fetchGeoSearchResultsEffect],
+  [routing.dataSearchGeo.type, fetchGeoSearchResultsEffect],
   [routing.addresses.type, fetchDataSelectionEffect],
   [routing.establishments.type, fetchDataSelectionEffect],
   [routing.cadastralObjects.type, fetchDataSelectionEffect],
   [routing.datasets.type, fetchDatasetsEffect],
   [routing.datasetDetail.type, fetchDatasetsOptionalEffect],
   [routing.dataSearchCategory.type, fetchQuerySearchResultsEffect],
-  [routing.dataQuerySearch.type, fetchQuerySearchEffect],
-  [routing.searchDatasets.type, fetchQuerySearchEffect],
+  [routing.dataSearchQuery.type, fetchQuerySearchResultsEffect],
+  [routing.datasetSearch.type, fetchDatasetsEffect],
   [routing.dataDetail.type, fetchDetailEffect],
 ]
 

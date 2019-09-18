@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { ThemeProvider } from '@datapunt/asc-ui'
-import EditorialOverviewPage from './EditorialOverviewPage'
+import EditorialOverviewPage from './EditorialOverviewPageWrapper'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import Footer from '../../components/Footer/Footer'
@@ -51,7 +51,7 @@ describe('EditorialOverviewPage', () => {
       fetchData: fetchDataMock,
       results: {
         data: [],
-        links: { next: { href: 'http://link' } },
+        _links: { next: { href: 'http://link' } },
       },
     }))
 

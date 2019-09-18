@@ -8,16 +8,21 @@ exports[`HeaderSearchWrapper should render 1`] = `
     }
   }
   displayQuery=""
-  isDatasetView={false}
+  isArticlePage={false}
+  isDatasetPage={false}
   isMapActive={false}
+  isPublicationPage={false}
   numberOfSuggestions={6}
+  onArticleSearch={[Function]}
   onCleanDatasetOverview={[Function]}
   onDataSearch={[Function]}
   onDatasetSearch={[Function]}
   onGetSuggestions={[Function]}
+  onPublicationSearch={[Function]}
   onSuggestionActivate={[Function]}
   openDataSuggestion={[Function]}
   openDatasetSuggestion={[Function]}
+  openEditorialSuggestion={[Function]}
   pageName=""
   prefillQuery=""
   store={

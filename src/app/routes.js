@@ -2,7 +2,7 @@ import PAGES from './pages'
 
 export const ROUTER_NAMESPACE = 'atlasRouter'
 
-const MAIN_PATHS = {
+export const MAIN_PATHS = {
   ARTICLES: 'artikelen',
   DATA: 'data',
   DATASETS: 'datasets',
@@ -48,29 +48,29 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.CADASTRAL_OBJECTS}`,
     page: PAGES.CADASTRAL_OBJECTS,
   },
-  searchDatasets: {
+  datasetSearch: {
     title: 'Datasets zoekresultaten',
     path: `/${MAIN_PATHS.DATASETS}/zoek/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATASETS}`,
-    page: PAGES.SEARCH_DATASETS,
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATASET_SEARCH}`,
+    page: PAGES.DATASET_SEARCH,
   },
   datasetDetail: {
     title: 'Dataset',
-    path: `/${MAIN_PATHS.DATASETS}/:id/`,
+    path: `/${MAIN_PATHS.DATASETS}/:id/:slug/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.DATASET_DETAIL}`,
     page: PAGES.DATASET_DETAIL,
   },
-  dataQuerySearch: {
+  dataSearchQuery: {
     title: 'Data zoekresultaten',
     path: `/${MAIN_PATHS.DATA}/zoek/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_QUERY_SEARCH}`,
-    page: PAGES.DATA_QUERY_SEARCH,
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH_QUERY}`,
+    page: PAGES.DATA_SEARCH_QUERY,
   },
-  dataGeoSearch: {
+  dataSearchGeo: {
     title: 'Data zoekresultaten op locatie',
     path: `/${MAIN_PATHS.DATA}/geozoek/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_GEO_SEARCH}`,
-    page: PAGES.DATA_GEO_SEARCH,
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH_GEO}`,
+    page: PAGES.DATA_SEARCH_GEO,
   },
   dataSearchCategory: {
     title: 'Data zoekresultaten',
@@ -93,7 +93,7 @@ export const routing = {
   },
   articleDetail: {
     title: 'Artikel',
-    path: `/${MAIN_PATHS.ARTICLES}/artikel/:id/:slug`,
+    path: `/${MAIN_PATHS.ARTICLES}/artikel/:id/:slug/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLE_DETAIL}`,
     page: PAGES.ARTICLE_DETAIL,
   },
@@ -193,23 +193,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_DETAIL}`,
     page: PAGES.DATA_DETAIL,
   },
-  specialDetail: {
-    title: 'Special',
-    path: `/${MAIN_PATHS.SPECIALS}/:type/:id/:slug`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.SPECIAL_DETAIL}`,
-    page: PAGES.SPECIAL_DETAIL,
-  },
-  specials: {
-    title: 'Specials',
-    path: `/${MAIN_PATHS.SPECIALS}/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.SPECIALS}`,
-    page: PAGES.SPECIALS,
-  },
-  publicationDetail: {
-    title: 'Publicatie',
-    path: `/${MAIN_PATHS.PUBLICATIONS}/publicatie/:id/:slug`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATION_DETAIL}`,
-    page: PAGES.PUBLICATION_DETAIL,
+  articleSearch: {
+    title: 'Artikelen zoekresultaten',
+    path: `/${MAIN_PATHS.ARTICLES}/zoek/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLE_SEARCH}`,
+    page: PAGES.ARTICLE_SEARCH,
   },
   publications: {
     title: 'Publicaties',
@@ -217,7 +205,41 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATIONS}`,
     page: PAGES.PUBLICATIONS,
   },
+  publicationDetail: {
+    title: 'Publicatie',
+    path: `/${MAIN_PATHS.PUBLICATIONS}/publicatie/:id/:slug/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATION_DETAIL}`,
+    page: PAGES.PUBLICATION_DETAIL,
+  },
+  publicationSearch: {
+    title: 'Publicaties zoekresultaten',
+    path: `/${MAIN_PATHS.PUBLICATIONS}/zoek/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATION_SEARCH}`,
+    page: PAGES.PUBLICATION_SEARCH,
+  },
+  specials: {
+    title: 'Specials',
+    path: `/${MAIN_PATHS.SPECIALS}/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.SPECIALS}`,
+    page: PAGES.SPECIALS,
+  },
+  specialDetail: {
+    title: 'Special',
+    path: `/${MAIN_PATHS.SPECIALS}/:type/:id/:slug/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.SPECIAL_DETAIL}`,
+    page: PAGES.SPECIAL_DETAIL,
+  },
 }
+
+/**
+ * We need to check if the route paths have a trailing slash
+ */
+Object.values(routing).forEach(value => {
+  if (value.path.substring(value.path.length - 1) !== '/') {
+    // eslint-disable-next-line no-console
+    console.warn(`Route for "${value.title}" doesn't have trailing slash`)
+  }
+})
 
 // e.g. { home: '/' }, to be used by redux-first-router/connectRoutes
 const routes = Object.keys(routing).reduce((acc, key) => {

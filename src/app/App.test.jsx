@@ -3,6 +3,8 @@ import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import App from './App'
 import { VIEW_MODE } from '../shared/ducks/ui/ui'
+import PAGES from './pages'
+import { ROUTER_NAMESPACE } from './routes'
 
 describe('App', () => {
   const initialState = {
@@ -18,6 +20,9 @@ describe('App', () => {
     user: {},
     error: {
       hassErrors: false,
+    },
+    location: {
+      type: `${ROUTER_NAMESPACE}/${PAGES.DATA}`,
     },
   }
 

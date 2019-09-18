@@ -24,7 +24,7 @@ describe('The vestiging resource', () => {
         geometrie: 'geo',
       },
       _bijzondere_rechts_toestand: {
-        faillisement: true,
+        faillissement: true,
         status: 'Voorlopig',
       },
       hoofdvestiging: true,

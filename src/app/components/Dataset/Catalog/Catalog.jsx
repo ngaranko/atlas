@@ -10,7 +10,8 @@ import {
   truncateHtmlAsTextFilter,
   ucFirst,
 } from '../../Filters/Filters'
-import { routing } from '../../../routes'
+import useSlug from '../../../utils/useSlug'
+import { toDatasetDetail } from '../../../../store/redux-first-router/actions'
 
 const arrayToObject = (array, keyField) =>
   array.reduce(
@@ -41,11 +42,12 @@ const Catalog = ({ content, catalogFilters }) => {
       return distributionMap[resource['ams:distributionType']]
     })
 
+    // Ideally we need to retrieve the slug from the API, but we convert this in the frontend for now
     const id = item['dct:identifier']
-    const linkTo = {
-      type: routing.datasetDetail.type,
-      payload: { id },
-    }
+    const linkTo = toDatasetDetail({
+      id,
+      slug: useSlug(item['dct:title']),
+    })
 
     return {
       header: item['dct:title'],
