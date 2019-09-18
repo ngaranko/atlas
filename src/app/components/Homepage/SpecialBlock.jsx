@@ -7,6 +7,7 @@ import {
   Row,
   styles,
   themeColor,
+  themeSpacing,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
@@ -39,11 +40,11 @@ const StyledRow = styled(Row)`
 
 const StyledHeading = styled(Heading)`
   @media screen and ${breakpoint('max-width', 'laptopL')} {
-    margin-bottom: 16px;
+    margin-bottom: ${themeSpacing(4)};
   }
 
   @media screen and ${breakpoint('min-width', 'laptopL')} {
-    margin-bottom: 24px;
+    margin-bottom: ${themeSpacing(6)};
   }
 `
 
