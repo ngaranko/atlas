@@ -300,7 +300,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "$$typeof": Symbol(react.forward_ref),
                 "attrs": Array [],
                 "componentStyle": ComponentStyle {
-                  "componentId": "sc-jhAzac",
+                  "componentId": "sc-fAjcbJ",
                   "isStatic": false,
                   "lastClassName": "c0",
                   "rules": Array [
@@ -337,7 +337,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "displayName": "styled.div",
                 "foldedComponentIds": Array [],
                 "render": [Function],
-                "styledComponentId": "sc-jhAzac",
+                "styledComponentId": "sc-fAjcbJ",
                 "target": "div",
                 "toString": [Function],
                 "warnTooManyClasses": [Function],
@@ -410,7 +410,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "$$typeof": Symbol(react.forward_ref),
                                   "attrs": Array [],
                                   "componentStyle": ComponentStyle {
-                                    "componentId": "sc-btzYZH",
+                                    "componentId": "sc-kTUwUJ",
                                     "isStatic": false,
                                     "lastClassName": "c3",
                                     "rules": Array [
@@ -441,7 +441,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "displayName": "styled.div",
                                   "foldedComponentIds": Array [],
                                   "render": [Function],
-                                  "styledComponentId": "sc-btzYZH",
+                                  "styledComponentId": "sc-kTUwUJ",
                                   "target": "div",
                                   "toString": [Function],
                                   "warnTooManyClasses": [Function],
