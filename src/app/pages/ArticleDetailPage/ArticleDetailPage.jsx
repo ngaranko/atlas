@@ -12,7 +12,6 @@ import {
   List,
   ListItem,
   Link,
-  Paragraph,
   Typography,
   Row,
   themeColor,
@@ -29,6 +28,7 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import cmsConfig from '../../../shared/services/cms/cms.config'
 import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
+import EditorialIntro from '../../components/EditorialIntro'
 
 const ListItemContent = styled.div`
   display: flex;
@@ -106,9 +106,7 @@ const ArticleDetailPage = ({ id }) => {
                               fields={byline && [{ id: 1, label: byline }]}
                             />
                           </EditorialHeader>
-                          <Paragraph strong hasLongText>
-                            {intro}
-                          </Paragraph>
+                          <EditorialIntro>{intro}</EditorialIntro>
                           <CustomHTMLBlock body={body} />
                         </EditorialBody>
                       </Column>
