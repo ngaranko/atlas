@@ -11,19 +11,21 @@ import {
   Tag,
   breakpoint,
   themeColor,
+  themeSpacing,
 } from '@datapunt/asc-ui'
+import RouterLink from 'redux-first-router-link'
 
 const notFoundImage = require('./not_found_thumbnail.jpg')
 
 const CardHeading = styled(Heading)`
   border-bottom: 2px solid transparent;
   line-height: 22px;
-  margin-bottom: 12px;
+  margin-bottom: ${themeSpacing(3)};
   width: fit-content;
 `
 
-const StyledLink = styled(Link)`
-  margin-bottom: 16px;
+const StyledRouterLink = styled(RouterLink)`
+  margin-bottom: ${themeSpacing(4)};
   width: 100%;
 
   &:hover,
@@ -34,6 +36,12 @@ const StyledLink = styled(Link)`
     }
   }
 `
+
+const StyledLinkWrapper = ({ children, ...otherProps }) => (
+  <Link $as={StyledRouterLink} {...otherProps}>
+    {children}
+  </Link>
+)
 
 const StyledCard = styled(Card)`
   align-items: stretch;
@@ -67,7 +75,7 @@ const StyledCardMedia = styled(CardMedia)`
 
 const StyledCardContent = styled(CardContent)`
   padding: 0;
-  margin: 0 16px;
+  margin: ${themeSpacing(0, 4)};
   border-bottom: 1px solid ${themeColor('tint', 'level3')};
   position: relative;
 `
@@ -78,13 +86,13 @@ const StyledTag = styled(Tag)`
 `
 
 const IntroText = styled(Paragraph)`
-  padding-bottom: 16px;
+  padding-bottom: ${themeSpacing(4)};
 `
 
 const MetaText = styled(Paragraph)`
   display: inline-block;
   color: grey;
-  padding-bottom: 16px;
+  padding-bottom: ${themeSpacing(4)};
   font-size: 14px;
   line-height: 1.25;
   text-transform: capitalize;
@@ -100,9 +108,9 @@ const EditorialCard = ({
   specialType,
   localeDate,
   localeDateFormatted,
-  href,
+  to,
 }) => (
-  <StyledLink key={id} href={href} linkType="blank">
+  <StyledLinkWrapper key={id} to={to} linkType="blank">
     <StyledCard horizontal>
       <StyledCardMedia>
         <Image src={teaserImageUrl || notFoundImage} alt={title} square />
@@ -110,7 +118,7 @@ const EditorialCard = ({
       <StyledCardContent>
         <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
         <IntroText>{teaser || intro}</IntroText>
-        {specialType ? (
+        {specialType && !localeDate ? (
           <StyledTag>{specialType}</StyledTag>
         ) : (
           <MetaText as="time" datetime={localeDate}>
@@ -119,7 +127,7 @@ const EditorialCard = ({
         )}
       </StyledCardContent>
     </StyledCard>
-  </StyledLink>
+  </StyledLinkWrapper>
 )
 
 export default EditorialCard
