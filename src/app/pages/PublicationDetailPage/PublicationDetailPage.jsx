@@ -9,7 +9,6 @@ import {
   EditorialMetaList,
   DocumentCover,
   EditorialContent,
-  Paragraph,
 } from '@datapunt/asc-ui'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
@@ -17,6 +16,7 @@ import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms.config'
 import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import EditorialIntro from '../../components/EditorialIntro'
 
 const PublicationDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS(cmsConfig.PUBLICATION, id)
@@ -80,11 +80,7 @@ const PublicationDetailPage = ({ id }) => {
                 </Column>
                 <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                   <EditorialContent>
-                    {intro && (
-                      <Paragraph hasLongText strong>
-                        {intro}
-                      </Paragraph>
-                    )}
+                    {intro && <EditorialIntro>{intro}</EditorialIntro>}
                     {body && <CustomHTMLBlock body={body} />}
                   </EditorialContent>
                 </Column>
