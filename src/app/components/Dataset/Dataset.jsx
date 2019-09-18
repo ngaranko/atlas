@@ -33,6 +33,7 @@ const Dataset = ({
       <NoResultsForSearchType
         message={`Tip: maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens
         de optie 'Alle datasets tonen' en filter vervolgens op thema.`}
+        hideLoginLink
       />
     )
   }
