@@ -34,6 +34,7 @@ const StyledShareBar = styled(ShareBar)`
 
 const StyledEditorialSearch = styled.div`
   margin-bottom: 24px;
+  max-width: 792px; // Image width + 600px (design system rule)
 `
 
 const EditorialSearch = ({ type }) => {
