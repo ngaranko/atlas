@@ -53,7 +53,10 @@ describe('PublicationDetailPage', () => {
     }))
     useMatomo.mockImplementation(() => ({ trackPageView: jest.fn(), href }))
 
-    store = configureMockStore()({ location: { payload: { id } } })
+    store = configureMockStore()({
+      location: { payload: { id } },
+      ui: { isPrintMode: false },
+    })
   })
 
   afterEach(() => {
@@ -78,8 +81,6 @@ describe('PublicationDetailPage', () => {
       loading: true,
       fetchData: mockFetchData,
     }))
-
-    store = configureMockStore()({ location: { payload: { id } } })
 
     const component = mount(
       <ThemeProvider>
