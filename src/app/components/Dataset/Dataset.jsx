@@ -18,6 +18,7 @@ const Dataset = ({
   results: { numberOfRecords, numberOfPages, data, filters: availableFilters },
   page: currentPage,
   apiSpecification,
+  printMode,
 }) => {
   const showFilters = numberOfRecords > 0
   const { MAX_AVAILABLE_PAGES } = DATA_SELECTION_CONFIG.datasets[DEFAULT_DATASET]
@@ -79,9 +80,7 @@ const Dataset = ({
             />
             <div className="u-row">
               <div className="u-col-sm--12">
-                <div className="u-margin__top--4">
-                  <ShareBar />
-                </div>
+                <div className="u-margin__top--4">{!printMode && <ShareBar />}</div>
               </div>
             </div>
           </div>
@@ -102,6 +101,7 @@ Dataset.propTypes = {
     filters: PropTypes.arrayOf(PropTypes.object),
     data: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
+  printMode: PropTypes.bool.isRequired,
 }
 
 export default Dataset

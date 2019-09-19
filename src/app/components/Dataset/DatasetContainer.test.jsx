@@ -5,6 +5,9 @@ import DatasetContainer from './DatasetContainer'
 import Dataset from './Dataset'
 
 const initialState = {
+  ui: {
+    isPrintMode: false,
+  },
   datasets: {
     datasetData: {
       page: 1,

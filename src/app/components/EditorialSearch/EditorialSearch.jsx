@@ -36,7 +36,7 @@ const StyledEditorialSearch = styled.div`
   margin-bottom: 24px;
 `
 
-const EditorialSearch = ({ type }) => {
+const EditorialSearch = ({ type, printMode }) => {
   const [{ results, loading }, dispatch] = useContext(contextMapping[type])
   const { actions, selectors } = ducksMapping[type]()
 
@@ -78,7 +78,7 @@ const EditorialSearch = ({ type }) => {
         links={results._links}
         showTitle={false}
       />
-      <StyledShareBar />
+      {!printMode && <StyledShareBar />}
     </StyledEditorialSearch>
   )
 }

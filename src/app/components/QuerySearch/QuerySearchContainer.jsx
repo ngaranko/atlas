@@ -10,6 +10,7 @@ import { getPage } from '../../../store/redux-first-router/selectors'
 import QuerySearch from './QuerySearch'
 import { getUser } from '../../../shared/ducks/user/user'
 import PARAMETERS from '../../../store/parameters'
+import { isPrintMode } from '../../../shared/ducks/ui/ui'
 
 const mapStateToProps = state => ({
   isLoading: isDatasetsLoading(state) || isSearchLoading(state),
@@ -18,6 +19,7 @@ const mapStateToProps = state => ({
   user: getUser(state),
   numberOfResults: getNumberOfResults(state),
   currentPage: getPage(state),
+  printMode: isPrintMode(state),
 })
 
 const mapDispatchToProps = dispatch => ({

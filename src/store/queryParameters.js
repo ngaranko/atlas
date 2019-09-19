@@ -290,7 +290,7 @@ export default paramsRegistry
     })
   })
   .addParameter(PARAMETERS.PRINT, routes => {
-    routes.add(routesWithMapActive, UI, 'isPrintMode', {
+    routes.add([...routesWithMapActive, ...routesWithSearch], UI, 'isPrintMode', {
       defaultValue: UIInitialState.isPrintMode,
       selector: isPrintMode,
     })

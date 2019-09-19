@@ -107,6 +107,7 @@ exports[`Dataset should render the container 1`] = `
   activeFilters={Object {}}
   apiSpecification={Object {}}
   page={1}
+  printMode={false}
   results={Object {}}
   setPage={[Function]}
   store={
