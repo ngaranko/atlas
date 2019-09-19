@@ -15,6 +15,7 @@ import {
   Typography,
   Row,
   themeColor,
+  Paragraph,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -28,7 +29,6 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import cmsConfig from '../../../shared/services/cms/cms.config'
 import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
-import EditorialIntro from '../../components/EditorialIntro'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import { isPrintMode } from '../../../shared/ducks/ui/ui'
 
@@ -112,7 +112,7 @@ const ArticleDetailPage = ({ id, printMode }) => {
                               fields={byline && [{ id: 1, label: byline }]}
                             />
                           </EditorialHeader>
-                          <EditorialIntro>{intro}</EditorialIntro>
+                          <Paragraph strong>{intro}</Paragraph>
                           <CustomHTMLBlock body={body} />
                         </EditorialBody>
                       </Column>
