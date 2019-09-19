@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React, { useContext } from 'react'
-import Link from 'redux-first-router-link'
+import RouterLink from 'redux-first-router-link'
+import { Link } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import NoResultsForSearchType from '../Messages/NoResultsForSearchType'
 import PAGES from '../../pages'
@@ -34,6 +35,7 @@ const StyledShareBar = styled(ShareBar)`
 
 const StyledEditorialSearch = styled.div`
   margin-bottom: 24px;
+  max-width: 792px; // Image width + 600px (design system rule)
 `
 
 const EditorialSearch = ({ type }) => {
@@ -56,7 +58,12 @@ const EditorialSearch = ({ type }) => {
         message={
           <p>
             Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
-            <Link to={routeMapping[type]()} title={`Overzicht van ${EDITORIAL_TITLES[type]}`}>
+            <Link
+              variant="inline"
+              $as={RouterLink}
+              to={routeMapping[type]()}
+              title={`Overzicht van ${EDITORIAL_TITLES[type]}`}
+            >
               {EDITORIAL_TITLES[type]}
             </Link>
             .
