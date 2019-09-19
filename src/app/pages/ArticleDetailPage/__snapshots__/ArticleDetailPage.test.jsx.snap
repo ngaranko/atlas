@@ -82,7 +82,6 @@ exports[`ArticleDetailPage should render the publication when there are results 
                       <EditorialMetaList />
                     </EditorialHeader>
                     <Paragraph
-                      hasLongText={true}
                       strong={true}
                     >
                       intro
