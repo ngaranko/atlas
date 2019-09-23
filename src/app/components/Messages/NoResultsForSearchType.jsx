@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
 
-const NoResultsForSearchType = ({ message, authMessage }) => {
+const NoResultsForSearchType = ({ message, authMessage, hideLoginLink }) => {
   return (
     <div className="-link__wrapper--inine-block">
       <div className="u-margin__bottom--1">Geen resultaten van deze soort</div>
@@ -17,7 +17,7 @@ const NoResultsForSearchType = ({ message, authMessage }) => {
           </>
         )}
       </div>
-      <LoginLinkContainer inverted={false} />
+      {!hideLoginLink && authMessage && <LoginLinkContainer inverted={false} />}
     </div>
   )
 }
@@ -25,11 +25,13 @@ const NoResultsForSearchType = ({ message, authMessage }) => {
 NoResultsForSearchType.defaultProps = {
   message: '',
   authMessage: false,
+  hideLoginLink: false,
 }
 
 NoResultsForSearchType.propTypes = {
   message: PropTypes.string,
   authMessage: PropTypes.bool,
+  hideLoginLink: PropTypes.bool,
 }
 
 export default NoResultsForSearchType
