@@ -15,14 +15,14 @@ const HighlightCardHeadingStyle = styled(Heading)`
   margin: 0;
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
-    font-size: 16px;
-    line-height: 1;
+    font-size: 14px;
+    line-height: 19px;
 
     ${({ large }) =>
       large &&
       css`
-        font-size: 16px;
-        line-height: 20px;
+        font-size: 20px;
+        line-height: 1.2;
       `}
 
   @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint(
@@ -31,6 +31,11 @@ const HighlightCardHeadingStyle = styled(Heading)`
 )} {
       font-size: 14px;
       line-height: 17px;
+    }
+
+    @media screen and ${breakpoint('max-width', 'mobileL')} {
+      font-size: 20px;
+      line-height: 1.2;
     }
 `
 

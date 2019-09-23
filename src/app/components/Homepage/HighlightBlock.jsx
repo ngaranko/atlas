@@ -33,8 +33,9 @@ const ImageCardWrapperLarge = styled.div`
 const ImageCardWrapperSmall = styled.div`
   justify-content: flex-start;
   display: flex;
-  flex-wrap: wrap;
-  flex-basis: 100%;
+  flex-wrap: nowrap;
+  flex-basis: calc(${100 / 3}% - ${themeSpacing(3)});
+  flex-direction: column;
 
   // Set a margin-bottom on the last item in ImageCardWrapperSmall
   ${/* sc-selector */ styles.LinkStyle}:first-child {
@@ -49,11 +50,20 @@ const ImageCardWrapperSmall = styled.div`
     padding: ${themeSpacing(2)} ${themeSpacing(4)};
   }
 
-  // Calculate the width of ImageCardWrapperSmall and correct for the margin-right of ImageCardWrapperLarge
-  @media screen and ${breakpoint('min-width', 'tabletM')} {
-    flex-wrap: nowrap;
-    flex-basis: calc(${100 / 3}% - ${themeSpacing(3)});
-    flex-direction: column;
+  @media screen and ${breakpoint('min-width', 'mobileL')} and ${breakpoint(
+  'max-width',
+  'tabletM',
+)} {
+    flex-basis: 100%;
+    flex-direction: row;
+
+    ${/* sc-selector */ styles.LinkStyle}:first-child {
+      margin-right: ${themeSpacing(5)};
+    }
+  }
+
+  @media screen and ${breakpoint('max-width', 'mobileL')} {
+flex-basis: 100%;
   }
 `
 

@@ -66,11 +66,25 @@ const StyledLink = styled(Link)`
 `
 
 const StyledCardMedia = styled(CardMedia)`
-  width: 25%;
+  max-width: 30%;
 
-  @media screen and ${breakpoint('min-width', 'laptop')} {
-    width: 30%;
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    max-width: 25%;
   }
+
+  @media screen and ${breakpoint('min-width', 'tabletS')} and ${breakpoint(
+  'max-width',
+  'tabletM',
+)} {
+    max-width: 15%;
+  }
+
+  @media screen and ${breakpoint('min-width', 'mobileL')} and ${breakpoint(
+  'max-width',
+  'tabletS',
+)} {
+      max-width: 20%;
+    }
 `
 
 const StyledCardContent = styled(CardContent)`
