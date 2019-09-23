@@ -112,8 +112,8 @@ const ProclaimerContent = () => (
   </>
 )
 
-const FooterComponent = () => (
-  <Footer>
+const FooterComponent = ({ ...otherProps }) => (
+  <Footer {...otherProps}>
     <FooterTop>
       <Row>
         <Column wrap span={{ small: 1, medium: 2, big: 4, large: 8, xLarge: 8 }}>

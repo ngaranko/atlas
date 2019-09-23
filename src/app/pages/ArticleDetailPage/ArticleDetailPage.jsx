@@ -12,10 +12,10 @@ import {
   List,
   ListItem,
   Link,
-  Paragraph,
   Typography,
   Row,
   themeColor,
+  Paragraph,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -106,9 +106,7 @@ const ArticleDetailPage = ({ id }) => {
                               fields={byline && [{ id: 1, label: byline }]}
                             />
                           </EditorialHeader>
-                          <Paragraph strong hasLongText>
-                            {intro}
-                          </Paragraph>
+                          <Paragraph strong>{intro}</Paragraph>
                           <CustomHTMLBlock body={body} />
                         </EditorialBody>
                       </Column>

@@ -5,6 +5,7 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
   background: $primary-light;
 
   .styled-header {
+    width: 100%;
     display: flex;
     justify-content: center;
   }
