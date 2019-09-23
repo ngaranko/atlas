@@ -15,7 +15,7 @@ import NavigationBlock from './NavigationBlock'
 import SpecialsBlock from './SpecialsBlock'
 import OrganizationBlock from './OrganizationBlock'
 import AboutBlock from './AboutBlock'
-import FooterComponent from '../Footer/Footer'
+import Footer from '../Footer/Footer'
 import Header from '../Header'
 import '../../../_styles.scss'
 import '../../../../modules/atlas/atlas.scss'
@@ -48,7 +48,7 @@ const StyledShareBar = styled(ShareBar)`
   ${blockTopMargin(24)}
 `
 
-const StyledFooter = styled(FooterComponent)`
+const StyledFooter = styled(Footer)`
   margin-top: 72px;
 `
 
