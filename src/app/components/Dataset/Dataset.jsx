@@ -19,7 +19,7 @@ const NoDatasetsMessage = () => (
     <Link href="../" variant="inline">
       Datasets
     </Link>{' '}
-    en filter.
+    en filter vervolgens op thema.
   </>
 )
 
