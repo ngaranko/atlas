@@ -68,10 +68,11 @@ const StyledLink = styled(Link)`
 const StyledCardMedia = styled(CardMedia)`
   max-width: 20%;
 
-  @media screen and ${breakpoint('max-width', 'laptopM')} {
-    max-width: 25%;
+  ${styles.CardMediaWrapperStyle} {
+    padding: ${themeSpacing(2)};
+  }
 
-    @media screen and ${breakpoint('min-width', 'tabletS')} and ${breakpoint(
+  @media screen and ${breakpoint('min-width', 'tabletS')} and ${breakpoint(
   'max-width',
   'tabletM',
 )} {
