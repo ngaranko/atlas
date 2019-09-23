@@ -40,7 +40,7 @@ const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
     <StyledRow hasMargin={false} showError={showError}>
       {showError && <ErrorMessage onClick={() => {}} />}
       {organizationLinks.map(linkProps => (
-        <Column span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
+        <Column wrap span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
           <OrganizationCard loading={loading} showError={showError} {...linkProps} />
         </Column>
       ))}

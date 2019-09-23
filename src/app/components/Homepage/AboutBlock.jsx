@@ -8,6 +8,7 @@ import aboutSiteLinks from './services/about-site-links'
 
 const AboutBlockStyle = styled.div`
   ${({ showError }) => showError && ErrorBackgroundCSS}
+  width: 100%;
 `
 
 const StyledCardColumn = styled(Column)`

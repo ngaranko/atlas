@@ -15,6 +15,7 @@ const StyledCard = styled(Card)`
   border-top: 2px solid;
   align-items: flex-start;
   height: 100%;
+  width: 100%;
   margin-bottom: 0px !important; // Check why the Card has a margin-bottom
   ${({ loading }) =>
     !loading &&

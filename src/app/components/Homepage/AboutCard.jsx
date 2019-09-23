@@ -37,8 +37,10 @@ const StyledLink = styled(Link)`
     }
   }
 
-  &:focus ${styles.CardStyle} {
-    background: none;
+  &:focus {
+    ${styles.CardStyle} {
+      background: none;
+    }
   }
 `
 

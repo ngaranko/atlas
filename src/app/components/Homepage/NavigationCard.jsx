@@ -67,15 +67,8 @@ const StyledLink = styled(Link)`
 `
 
 const StyledCardMedia = styled(CardMedia)`
-  max-width: 20%;
-
-  @media screen and ${breakpoint('min-width', 'tabletS')} and ${breakpoint(
-  'max-width',
-  'tabletM',
-)} {
-      max-width: 15%;
-    }
-  }
+  flex-basis: ${themeSpacing(18)};
+  min-width: ${themeSpacing(18)};
 `
 
 const StyledCardContent = styled(CardContent)`
