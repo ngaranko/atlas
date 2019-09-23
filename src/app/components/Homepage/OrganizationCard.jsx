@@ -1,5 +1,13 @@
 import styled, { css } from '@datapunt/asc-core'
-import { Card, CardContent, Heading, Link, Paragraph, themeSpacing } from '@datapunt/asc-ui'
+import {
+  Card,
+  CardContent,
+  Heading,
+  Link,
+  Paragraph,
+  themeSpacing,
+  breakpoint,
+} from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -7,6 +15,7 @@ const StyledCard = styled(Card)`
   border-top: 2px solid;
   align-items: flex-start;
   height: 100%;
+  margin-bottom: 0px !important; // Check why the Card has a margin-bottom
   ${({ loading }) =>
     !loading &&
     css`
@@ -34,7 +43,11 @@ const StyledParagraph = styled(Paragraph)`
 `
 
 const StyledLink = styled(Link)`
-  margin-bottom: ${themeSpacing(6)};
+  margin-bottom: ${themeSpacing(5)};
+
+  @media screen and ${breakpoint('max-width', 'tabletM')} {
+    margin-bottom: ${themeSpacing(10)};
+  }
 `
 
 const OrganizationCard = ({ loading, showError, title, description, href, ...otherProps }) => (

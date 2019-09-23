@@ -14,6 +14,11 @@ const style = theme => css`
   z-index: 9999;
 
   ${styles.HeaderNavigationStyle} {
+    @media screen and ${breakpoint('min-width', 'laptop')({ theme })} {
+      margin-left: 29px; // Check if this should be changed in @datapunt/asc-ui
+      margin-right: 29px; // Check if this should be changed in @datapunt/asc-ui
+    }
+
     @media screen and ${breakpoint('min-width', 'tabletM')({ theme })} {
       justify-content: space-between;
     }

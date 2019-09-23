@@ -32,6 +32,7 @@ const StyledIcon = styled(Icon)`
 const StyledCard = styled(Card)`
   width: 100%;
   margin-bottom: 0;
+  height: ${themeSpacing(18)};
 `
 
 const StyledLink = styled(Link)`
@@ -41,7 +42,7 @@ const StyledLink = styled(Link)`
   display: flex;
   margin-bottom: ${themeSpacing(2)};
 
-  &:hover{
+  &:hover {
     ${StyledHeading} {
       color: ${themeColor('secondary')};
       text-decoration: underline;}
@@ -68,10 +69,6 @@ const StyledLink = styled(Link)`
 const StyledCardMedia = styled(CardMedia)`
   max-width: 20%;
 
-  ${styles.CardMediaWrapperStyle} {
-    padding: ${themeSpacing(2)};
-  }
-
   @media screen and ${breakpoint('min-width', 'tabletS')} and ${breakpoint(
   'max-width',
   'tabletM',
@@ -92,6 +89,7 @@ const StyledCardActions = styled(CardActions)`
 `
 
 const StyledParagraph = styled(Paragraph)`
+  // Check why compact theme is not working as expected
   font-size: 14px;
   line-height: 17px;
   height: 34px; // two times the line-height

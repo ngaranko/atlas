@@ -7,7 +7,6 @@ import navigationLinks from './services/navigation-links'
 
 const StyledCardContainer = styled.div`
   ${({ showError }) => showError && ErrorBackgroundCSS}
-
   position: relative;
   width: 100%;
   background-color: ${themeColor('support', 'valid')};
@@ -33,6 +32,22 @@ const StyledCardContainer = styled.div`
     @media screen and ${breakpoint('max-width', 'laptop')} {
       column-count: 2;
       column-gap: ${themeSpacing(2)};
+    }
+  }
+
+  // Makes sure the background of this component fills the entire screen width
+  @media screen and ${breakpoint('max-width', 'tabletM')} {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100vw;
+      left: -${themeSpacing(5)};
+      top: 0;
+      background-color: ${themeColor('support', 'valid')};
     }
   }
 `

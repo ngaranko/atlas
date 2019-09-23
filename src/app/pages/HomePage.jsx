@@ -30,6 +30,12 @@ const StyledRow = styled(Row)`
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
     margin-bottom: ${themeSpacing(12)};
+
+    ${({ fullWidth }) =>
+      fullWidth &&
+      `
+      padding: 0;
+    `}
   }
 `
 
@@ -43,8 +49,8 @@ const HomePage = ({ loading, showError }) => (
         <HighlightColumn wrap span={{ small: 1, medium: 2, big: 6, large: 8, xLarge: 8 }}>
           <HighlightBlock loading={loading} showError={showError} />
         </HighlightColumn>
-        <Column wrap span={{ small: 1, medium: 2, big: 6, large: 4, xLarge: 4 }}>
-          <NavigationBlock loading={loading} showError={showError} hasMargin={false} />
+        <Column span={{ small: 1, medium: 2, big: 6, large: 4, xLarge: 4 }}>
+          <NavigationBlock loading={loading} showError={showError} />
         </Column>
       </StyledRow>
       <StyledRow>
@@ -52,9 +58,9 @@ const HomePage = ({ loading, showError }) => (
           <SpecialBlock loading={loading} showError={showError} />
         </Column>
       </StyledRow>
-      <StyledRow>
+      <StyledRow fullWidth>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <OrganizationBlock loading={loading} showError={showError} hasMargin={false} />
+          <OrganizationBlock loading={loading} showError={showError} />
         </Column>
       </StyledRow>
       <StyledRow>

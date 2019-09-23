@@ -16,13 +16,6 @@ const StyledCard = styled(Card)`
   width: 100%;
   height: 100%;
   cursor: pointer;
-
-  &:hover {
-    box-shadow: 2px 2px ${themeColor('secondary')} ${styles.HeadingStyle} {
-      color: ${themeColor('secondary')};
-      text-decoration: underline;
-    }
-  }
 `
 
 const StyledCardContent = styled(CardContent)`
@@ -32,6 +25,17 @@ const StyledCardContent = styled(CardContent)`
 const StyledLink = styled(Link)`
   width: 100%;
   height: 100%;
+
+  &:hover {
+    ${StyledCard} {
+      box-shadow: 2px 2px ${themeColor('secondary')};
+    }
+
+    ${styles.HeadingStyle} {
+      color: ${themeColor('secondary')};
+      text-decoration: underline;
+    }
+  }
 
   &:focus ${styles.CardStyle} {
     background: none;

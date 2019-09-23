@@ -15,8 +15,9 @@ const HighlightCardHeadingStyle = styled(Heading)`
   margin: 0;
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
+    // Check why compact theme is not working as expected
     font-size: 14px;
-    line-height: 19px;
+    line-height: 17px;
 
     ${({ large }) =>
       large &&
@@ -29,6 +30,7 @@ const HighlightCardHeadingStyle = styled(Heading)`
   'max-width',
   'laptopM',
 )} {
+      // Check why compact theme is not working as expected
       font-size: 14px;
       line-height: 17px;
     }

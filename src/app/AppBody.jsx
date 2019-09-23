@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { Container } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
@@ -35,7 +34,8 @@ const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverview
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 const NotFound = React.lazy(() => import('./pages/NotFound'))
 
-const StyledContainer = styled(Container)`
+// The Container from @datapunt/asc-ui isnt used here as the margins added do not match the ones in the design
+const Container = styled.div`
   // Check if this should be moved to the @datapunt/asc-ui project
   &::before {
     display: block;
@@ -83,14 +83,14 @@ const AppBody = ({
   return (
     <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
       {hasGrid ? (
-        <StyledContainer hasBackdrop={state.backdropKeys.length}>
+        <Container hasBackdrop={state.backdropKeys.length}>
           {homePage && <HomePage />}
           {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
           {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
           {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
           {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
-        </StyledContainer>
+        </Container>
       ) : (
         <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
           {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
