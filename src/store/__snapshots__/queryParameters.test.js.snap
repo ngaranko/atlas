@@ -1056,6 +1056,15 @@ Object {
         "selector": [Function],
         "stateKey": "isPrintMode",
       },
+      "atlasRouter/DATASET_DETAIL": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": false,
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "isPrintMode",
+      },
       "atlasRouter/DATASET_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],

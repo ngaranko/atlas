@@ -298,7 +298,12 @@ export default paramsRegistry
   })
   .addParameter(PARAMETERS.PRINT, routes => {
     routes.add(
-      [...routesWithMapActive, ...routesWithSearch, ...routesWithCmsData],
+      [
+        ...routesWithMapActive,
+        ...routesWithSearch,
+        ...routesWithCmsData,
+        routing.datasetDetail.type,
+      ],
       UI,
       'isPrintMode',
       {
