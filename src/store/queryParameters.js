@@ -302,7 +302,7 @@ export default paramsRegistry
         ...routesWithMapActive,
         ...routesWithSearch,
         ...routesWithCmsData,
-        // routing.datasetDetail.type,
+        routing.datasetDetail.type,
       ],
       UI,
       'isPrintMode',
