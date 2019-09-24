@@ -7,6 +7,7 @@ import {
   Row,
   themeColor,
   themeSpacing,
+  styles,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
@@ -15,18 +16,24 @@ import organizationLinks from './services/organization-links'
 
 const StyledCardContainer = styled(CardContainer)`
   background-color: ${themeColor('tint', 'level2')};
-  padding: ${themeSpacing(5)};
+  padding: ${themeSpacing(8)} ${themeSpacing(4)};
 `
 
 const StyledRow = styled(Row)`
   ${({ showError }) => showError && ErrorBackgroundCSS}
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    ${/* sc-selector */ styles.ColumnStyle}:nth-child(-n+2) {
+      margin-bottom: ${themeSpacing(8)};
+    }
+  }
 `
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(4)};
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    margin-bottom: ${themeSpacing(8)};
+    margin-bottom: ${themeSpacing(6)};
   }
 `
 

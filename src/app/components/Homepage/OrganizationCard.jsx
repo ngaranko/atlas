@@ -1,13 +1,5 @@
 import styled, { css } from '@datapunt/asc-core'
-import {
-  Card,
-  CardContent,
-  Heading,
-  Link,
-  Paragraph,
-  themeSpacing,
-  breakpoint,
-} from '@datapunt/asc-ui'
+import { Card, CardContent, Heading, Link, Paragraph, themeSpacing } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -43,14 +35,6 @@ const StyledParagraph = styled(Paragraph)`
   margin-bottom: ${themeSpacing(6)} !important;
 `
 
-const StyledLink = styled(Link)`
-  margin-bottom: ${themeSpacing(5)};
-
-  @media screen and ${breakpoint('max-width', 'tabletM')} {
-    margin-bottom: ${themeSpacing(10)};
-  }
-`
-
 const OrganizationCard = ({ loading, showError, title, description, href, ...otherProps }) => (
   <StyledCard animateLoading={!showError} loading={loading} {...otherProps}>
     <StyledCardContent>
@@ -58,9 +42,9 @@ const OrganizationCard = ({ loading, showError, title, description, href, ...oth
         {title}
       </StyledHeading>
       <StyledParagraph>{description}</StyledParagraph>
-      <StyledLink linkType="with-chevron" href={href}>
+      <Link linkType="with-chevron" href={href}>
         Lees meer
-      </StyledLink>
+      </Link>
     </StyledCardContent>
   </StyledCard>
 )
