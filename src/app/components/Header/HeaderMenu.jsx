@@ -5,23 +5,19 @@ import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
 import {
   toApisPage,
-  toAvailabilityPage,
   toDatasets,
   toHelpPage,
-  toMaintentancePage,
   toMap,
   toPanoramaAndPreserveQuery,
-  toPrivacyPage,
+  toAdresses,
 } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
 
 const toPanoramaAction = toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home')
 const toMapAction = toMap()
 const toDatasetsAction = toDatasets()
+const toTablesAction = toAdresses() //
 const toApisAction = toApisPage()
-const toPrivacyAction = toPrivacyPage()
-const toAvailabilityAction = toAvailabilityPage()
-const toMaintentanceAction = toMaintentancePage()
 const toHelpAction = toHelpPage()
 
 const components = {
@@ -57,25 +53,40 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
           </Link>
         </MenuItem>
         <MenuItem>
+          <Link iconLeft={<ChevronRight />} to={toTablesAction}>
+            Tabellen
+          </Link>
+        </MenuItem>
+        <MenuItem>
           <Link iconLeft={<ChevronRight />} to={toApisAction}>
             Data services
           </Link>
         </MenuItem>
       </MenuFlyOut>
-      <MenuFlyOut label="Over">
+      <MenuFlyOut label="Over OIS">
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toPrivacyAction}>
-            Privacy en informatiebeveiliging
+          <Link iconLeft={<ChevronRight />} href="/">
+            Onderzoek, Informatie en Statistiek
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toAvailabilityAction}>
-            Beschikbaarheid en kwaliteit data
+          <Link iconLeft={<ChevronRight />} href="/">
+            Onderzoek
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toMaintentanceAction}>
-            Technisch beheer en werkwijze
+          <Link iconLeft={<ChevronRight />} href="/">
+            Databeleid
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link iconLeft={<ChevronRight />} href="/">
+            Bronnen
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link iconLeft={<ChevronRight />} href="/">
+            Onderzoek, Informatie en Statistiek
           </Link>
         </MenuItem>
         <MenuItem>
