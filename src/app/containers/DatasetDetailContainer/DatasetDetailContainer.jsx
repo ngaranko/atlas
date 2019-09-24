@@ -12,6 +12,7 @@ import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import { toDatasetDetail } from '../../../store/redux-first-router/actions'
 import useSlug from '../../utils/useSlug'
+import { isPrintMode } from '../../../shared/ducks/ui/ui'
 
 const mapStateToProps = state => ({
   isLoading: isDetailLoading(state),
@@ -32,6 +33,7 @@ const mapStateToProps = state => ({
 
   detailTemplateUrl: getDetailTemplateUrl(state),
   detailData: getDetailData(state),
+  printMode: isPrintMode(state),
 })
 
 export default connect(

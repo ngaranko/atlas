@@ -24,6 +24,9 @@ const initialState = {
       id: 2,
     },
   },
+  ui: {
+    isPrintMode: false,
+  },
 }
 
 jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')

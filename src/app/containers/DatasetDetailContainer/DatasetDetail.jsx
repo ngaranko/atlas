@@ -15,6 +15,7 @@ const DatasetDetail = ({
   detailData,
   action,
   description,
+  printMode,
 }) => {
   return (
     <div className="c-dashboard__content qa-detail">
@@ -40,9 +41,7 @@ const DatasetDetail = ({
       />
       <div className="u-row">
         <div className="u-col-sm--12">
-          <div className="u-margin__left--2 u-margin__bottom--2">
-            <ShareBar />
-          </div>
+          <div className="u-margin__left--2 u-margin__bottom--2">{!printMode && <ShareBar />}</div>
         </div>
       </div>
     </div>
@@ -62,6 +61,7 @@ DatasetDetail.propTypes = {
   endpoint: PropTypes.string.isRequired,
   detailTemplateUrl: PropTypes.string,
   detailData: PropTypes.shape({}),
+  printMode: PropTypes.bool.isRequired,
 }
 
 export default DatasetDetail

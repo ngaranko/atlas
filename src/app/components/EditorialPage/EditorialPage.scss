@@ -5,9 +5,12 @@
 
   &__body {
     background-color: $primary-light;
-    min-height: calc(100% - 278px);
     position: relative;
     width: 100%;
+
+    @media screen {
+      min-height: calc(100% - 278px);
+    }
   }
 
   .loading-indicator {
