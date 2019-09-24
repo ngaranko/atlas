@@ -24,7 +24,7 @@ const StyledCardContainer = styled.div`
       left: 0;
       top: 0;
       border-style: solid;
-      border-width: ${themeSpacing(6)} ${themeSpacing(6)} 0 0;
+      border-width: ${themeSpacing(6, 6)} 0 0;
       border-color: #fff transparent transparent transparent;
     }
 

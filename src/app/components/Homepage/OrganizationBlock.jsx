@@ -16,7 +16,7 @@ import organizationLinks from './services/organization-links'
 
 const StyledCardContainer = styled(CardContainer)`
   background-color: ${themeColor('tint', 'level2')};
-  padding: ${themeSpacing(8)} ${themeSpacing(4)};
+  padding: ${themeSpacing(8, 4)};
 `
 
 const StyledRow = styled(Row)`

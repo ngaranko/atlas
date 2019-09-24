@@ -19,7 +19,7 @@ const StyledCard = styled(Card)`
 `
 
 const StyledCardContent = styled(CardContent)`
-  padding: ${themeSpacing(5)} ${themeSpacing(4)};
+  padding: ${themeSpacing(5, 4)};
 `
 
 const StyledLink = styled(Link)`

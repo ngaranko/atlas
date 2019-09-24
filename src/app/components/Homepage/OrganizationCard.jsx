@@ -25,7 +25,7 @@ const StyledCardContent = styled(CardContent)`
 `
 
 const StyledHeading = styled(Heading)`
-  margin: ${themeSpacing(3)} 0 ${themeSpacing(6)};
+  margin: ${themeSpacing(3, 0, 6)};
 `
 
 const StyledParagraph = styled(Paragraph)`

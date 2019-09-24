@@ -47,7 +47,7 @@ const ImageCardWrapperSmall = styled.div`
   }
 
   ${styles.ImageCardContentStyle} {
-    padding: ${themeSpacing(2)} ${themeSpacing(4)};
+    padding: ${themeSpacing(2, 4)};
   }
 
   @media screen and ${breakpoint('min-width', 'mobileL')} and ${breakpoint(

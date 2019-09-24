@@ -38,7 +38,7 @@ const StyledCard = styled(Card)`
   padding: ${themeSpacing(2)} 0;
   margin: ${themeSpacing(6)} 0;
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    margin: ${themeSpacing(6)} ${themeSpacing(2)};
+    margin: ${themeSpacing(6, 2)};
   }
   ${({ showError }) =>
     !showError &&
