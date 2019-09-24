@@ -9,7 +9,6 @@ import {
   Paragraph,
   Image,
   Tag,
-  breakpoint,
   themeColor,
   themeSpacing,
 } from '@datapunt/asc-ui'
@@ -45,8 +44,6 @@ const StyledLinkWrapper = ({ children, ...otherProps }) => (
   </Link>
 )
 
-const MEDIA_IMAGE_DEFAULT_DIMENSION = 160
-
 const StyledCard = styled(Card)`
   align-items: stretch;
 `
@@ -56,24 +53,15 @@ const StyledCardHeading = styled(CardHeading)`
 `
 
 const StyledCardMedia = styled(CardMedia)`
-  width: 20%;
-  max-width: ${({ vertical }) => (vertical ? '110px' : `${MEDIA_IMAGE_DEFAULT_DIMENSION}px`)};
-  height: ${MEDIA_IMAGE_DEFAULT_DIMENSION}px;
   flex: 1 0 auto;
   border: 1px solid ${themeColor('tint', 'level3')};
+  height: 0%; // fix to reset the height given by the parent's display: flex;
+  min-width: ${themeSpacing(12)};
+  max-width: ${themeSpacing(40)};
+  width: 20%;
 
-  @media screen and ${breakpoint('max-width', 'laptopM')} {
-    flex: 1 0 160px;
-  }
-
-  @media screen and ${breakpoint('max-width', 'tabletM')} {
-    height: 72px;
-    flex: 1 0 72px;
-  }
-
-  @media screen and ${breakpoint('max-width', 'mobileM')} {
-    height: 56px;
-    flex: 1 0 56px;
+  &::before {
+    padding-top: ${({ vertical }) => (vertical ? '145%' : '100%')};
   }
 `
 
