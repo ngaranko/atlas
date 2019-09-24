@@ -1,5 +1,38 @@
 import React from 'react'
-import { FooterLinkList, FooterLinkListItem, Paragraph, Link } from '@datapunt/asc-ui'
+import { FooterLinkList, FooterLinkListItem, Paragraph, Link, themeColor } from '@datapunt/asc-ui'
+import styled from '@datapunt/asc-core'
+import { cmsIds, FAQ } from '../../../shared/services/cms/cms.config'
+import ActionLink from '../Links/ActionLink/ActionLink'
+import { toArticleDetail, toHelpPage } from '../../../store/redux-first-router/actions'
+import { openFeedbackForm } from '../Modal/FeedbackModal'
+
+const FAQ_LINK = {
+  title: 'Veelgestelde vragen',
+  id: cmsIds[FAQ],
+  slug: FAQ,
+}
+
+const CONTACT_LINK = {
+  title: 'Contact opnemen',
+  href: 'https://www.amsterdam.nl/ois/contact/',
+}
+
+const HELP_LINK = {
+  title: 'Uitleg gebruik',
+  to: toHelpPage(),
+}
+
+const ArticleLink = ({ title, id, slug }) => (
+  <ActionLink title={title} to={toArticleDetail(id, slug)} variant="with-chevron">
+    {title}
+  </ActionLink>
+)
+
+export const FeedbackLink = styled(Link).attrs({
+  type: 'button',
+})`
+  background-color: ${themeColor('tint', 'level5')};
+`
 
 const HelpLinks = () => (
   <>
@@ -9,24 +42,32 @@ const HelpLinks = () => (
     </Paragraph>
     <FooterLinkList>
       <FooterLinkListItem>
-        <Link href="/" variant="with-chevron">
-          Veelgestelde vragen
+        <ArticleLink {...FAQ_LINK} />
+      </FooterLinkListItem>
+      <FooterLinkListItem>
+        <Link
+          rel="external noopener noreferrer"
+          target="_blank"
+          variant="with-chevron"
+          {...CONTACT_LINK}
+        >
+          {CONTACT_LINK.title}
         </Link>
       </FooterLinkListItem>
       <FooterLinkListItem>
-        <Link href="/" variant="with-chevron">
-          Contact opnemen
-        </Link>
-      </FooterLinkListItem>
-      <FooterLinkListItem>
-        <Link href="/" variant="with-chevron">
+        <FeedbackLink
+          $as="button"
+          title="Feedback geven"
+          variant="with-chevron"
+          onClick={openFeedbackForm}
+        >
           Feedback geven
-        </Link>
+        </FeedbackLink>
       </FooterLinkListItem>
       <FooterLinkListItem>
-        <Link href="/" variant="with-chevron">
-          Uitleg gebruik
-        </Link>
+        <ActionLink {...HELP_LINK} variant="with-chevron">
+          {HELP_LINK.title}
+        </ActionLink>
       </FooterLinkListItem>
     </FooterLinkList>
   </>

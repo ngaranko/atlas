@@ -5,7 +5,7 @@ import { followLinks } from './services/footer-links'
 const FollowLinks = () => (
   <FooterLinkList>
     {followLinks.map(({ title, href }) => (
-      <FooterLinkListItem>
+      <FooterLinkListItem key={title}>
         <Link
           title={title}
           href={href}

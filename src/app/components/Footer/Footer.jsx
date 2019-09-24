@@ -35,45 +35,39 @@ const Footer = ({ ...otherProps }) => (
     <FooterTop>
       <Row>
         <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
-          <>
-            <FooterToggle title="Colofon" hideAt="tabletM">
-              <FooterContent indent>
-                <ColofonLinks />
-              </FooterContent>
-            </FooterToggle>
-            <FooterContent showAt="tabletM">
-              <FooterHeading $as="h3">Colofon</FooterHeading>
+          <FooterToggle title="Colofon" hideAt="tabletM">
+            <FooterContent indent>
               <ColofonLinks />
             </FooterContent>
-          </>
+          </FooterToggle>
+          <FooterContent showAt="tabletM">
+            <FooterHeading $as="h3">Colofon</FooterHeading>
+            <ColofonLinks />
+          </FooterContent>
         </Column>
         <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
-          <>
-            <FooterToggle title="Volg de gemeente" hideAt="tabletM">
-              <FooterContent indent>
-                <FollowLinks />
-              </FooterContent>
-            </FooterToggle>
-            <FooterContent showAt="tabletM">
-              <FooterHeading $as="h3">Volg de gemeente</FooterHeading>
+          <FooterToggle title="Volg de gemeente" hideAt="tabletM">
+            <FooterContent indent>
               <FollowLinks />
             </FooterContent>
-          </>
+          </FooterToggle>
+          <FooterContent showAt="tabletM">
+            <FooterHeading $as="h3">Volg de gemeente</FooterHeading>
+            <FollowLinks />
+          </FooterContent>
         </Column>
         <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
-          <>
-            <FooterToggle title="Vragen?" hideAt="tabletM">
-              <FooterContent indent>
-                <HelpLinks />
-              </FooterContent>
-            </FooterToggle>
-            <FooterContent showAt="tabletM">
-              <FooterHeading $as="h3" styleAs="h3">
-                Vragen?
-              </FooterHeading>
+          <FooterToggle title="Vragen?" hideAt="tabletM">
+            <FooterContent indent>
               <HelpLinks />
             </FooterContent>
-          </>
+          </FooterToggle>
+          <FooterContent showAt="tabletM">
+            <FooterHeading $as="h3" styleAs="h3">
+              Vragen?
+            </FooterHeading>
+            <HelpLinks />
+          </FooterContent>
         </Column>
       </Row>
     </FooterTop>
