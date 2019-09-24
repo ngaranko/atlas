@@ -23,14 +23,6 @@ const cmsConfig = {
   ARTICLES: {
     type: 'article',
     endpoint: () => `${SHARED_CONFIG.API_ROOT}cms_search/search/article`,
-    fields: [
-      'field_teaser_image.field_media_image.uri',
-      'field_teaser',
-      'field_intro',
-      'field_slug',
-      'field_short_title',
-      'field_publication_date',
-    ],
   },
   PUBLICATION: {
     type: 'publication',
@@ -52,16 +44,6 @@ const cmsConfig = {
   PUBLICATIONS: {
     type: 'publication',
     endpoint: () => `${SHARED_CONFIG.API_ROOT}cms_search/search/publication`,
-    fields: [
-      'field_teaser_image.field_media_image.uri',
-      'field_teaser',
-      'field_intro',
-      'field_slug',
-      'field_short_title',
-      'field_publication_year',
-      'field_publication_month',
-      'field_publication_day',
-    ],
   },
   SPECIAL: {
     type: 'special',
@@ -70,14 +52,7 @@ const cmsConfig = {
   },
   SPECIALS: {
     type: 'special',
-    endpoint: () =>
-      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special?include=field_teaser_image.field_media_image&sort=-created`,
-    fields: [
-      'field_teaser_image.field_media_image.uri',
-      'field_slug',
-      'field_special_type',
-      'field_intro',
-    ],
+    endpoint: () => `${SHARED_CONFIG.API_ROOT}cms_search/search/special`,
   },
 }
 
