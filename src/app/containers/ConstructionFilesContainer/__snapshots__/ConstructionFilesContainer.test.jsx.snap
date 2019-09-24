@@ -140,6 +140,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "min": 1200,
           },
         },
+        "maxContainerWidth": 1920,
         "maxGridWidth": 1430,
         "spacing": 4,
         "typography": Object {
@@ -163,7 +164,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
           "fontSize": "16px",
           "h1": Object {
             "breakpoints": Object {
-              "tabletS": Object {
+              "laptop": Object {
                 "fontSize": "30px",
                 "lineHeight": "38px",
               },
@@ -177,7 +178,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
           },
           "h2": Object {
             "breakpoints": Object {
-              "tabletS": Object {
+              "laptop": Object {
                 "fontSize": "24px",
                 "lineHeight": "30px",
               },
@@ -223,6 +224,10 @@ exports[`ConstructionFilesContainer should render 1`] = `
           },
           "p": Object {
             "breakpoints": Object {
+              "laptop": Object {
+                "fontSize": "18px",
+                "lineHeight": "25px",
+              },
               "tabletS": Object {
                 "marginBottom": "24px",
               },
@@ -340,6 +345,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "styledComponentId": "sc-fAjcbJ",
                 "target": "div",
                 "toString": [Function],
+                "usesTheme": false,
                 "warnTooManyClasses": [Function],
                 "withComponent": [Function],
               }
@@ -377,6 +383,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "styledComponentId": "c1",
                       "target": "div",
                       "toString": [Function],
+                      "usesTheme": false,
                       "warnTooManyClasses": [Function],
                       "withComponent": [Function],
                     }
@@ -444,6 +451,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "styledComponentId": "sc-kTUwUJ",
                                   "target": "div",
                                   "toString": [Function],
+                                  "usesTheme": false,
                                   "warnTooManyClasses": [Function],
                                   "withComponent": [Function],
                                 }
@@ -510,6 +518,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                           "styledComponentId": "sc-bxivhb",
                                           "target": "span",
                                           "toString": [Function],
+                                          "usesTheme": false,
                                           "warnTooManyClasses": [Function],
                                           "withComponent": [Function],
                                         }
