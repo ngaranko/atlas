@@ -24,8 +24,8 @@ const ImageCardWrapperLarge = styled.div`
   line-height: 0;
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    flex-basis: calc(${100 - 100 / 3}% - ${themeSpacing(3)});
-    margin-right: ${themeSpacing(3)};
+    flex-basis: calc(${100 - 100 / 3}% - ${themeSpacing(6)});
+    margin-right: ${themeSpacing(6)};
     margin-bottom: 0;
   }
 `
@@ -34,7 +34,7 @@ const ImageCardWrapperSmall = styled.div`
   justify-content: flex-start;
   display: flex;
   flex-wrap: nowrap;
-  flex-basis: calc(${100 / 3}% - ${themeSpacing(3)});
+  flex-basis: calc(${100 / 3}% - ${themeSpacing(6)});
   flex-direction: column;
 
   // Set a margin-bottom on the last item in ImageCardWrapperSmall
@@ -42,7 +42,7 @@ const ImageCardWrapperSmall = styled.div`
     margin-bottom: ${themeSpacing(5)};
 
     @media screen and ${breakpoint('min-width', 'tabletM')} {
-      margin-bottom: ${themeSpacing(3)};
+      margin-bottom: ${themeSpacing(6)};
     }
   }
 

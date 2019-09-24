@@ -93,7 +93,7 @@ export const routing = {
   },
   articleDetail: {
     title: 'Artikel',
-    path: `/${MAIN_PATHS.ARTICLES}/artikel/:id/:slug/`,
+    path: `/${MAIN_PATHS.ARTICLES}/artikel/:slug/:id/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLE_DETAIL}`,
     page: PAGES.ARTICLE_DETAIL,
   },
@@ -207,7 +207,7 @@ export const routing = {
   },
   publicationDetail: {
     title: 'Publicatie',
-    path: `/${MAIN_PATHS.PUBLICATIONS}/publicatie/:id/:slug/`,
+    path: `/${MAIN_PATHS.PUBLICATIONS}/publicatie/:slug/:id/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATION_DETAIL}`,
     page: PAGES.PUBLICATION_DETAIL,
   },
@@ -225,7 +225,7 @@ export const routing = {
   },
   specialDetail: {
     title: 'Special',
-    path: `/${MAIN_PATHS.SPECIALS}/:type/:id/:slug/`,
+    path: `/${MAIN_PATHS.SPECIALS}/:type/:slug/:id/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.SPECIAL_DETAIL}`,
     page: PAGES.SPECIAL_DETAIL,
   },

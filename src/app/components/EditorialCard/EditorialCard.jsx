@@ -30,6 +30,8 @@ const StyledRouterLink = styled(RouterLink)`
 
   &:hover,
   &:focus {
+    background-color: inherit;
+
     ${CardHeading} {
       color: ${themeColor('secondary')};
       border-color: ${themeColor('secondary')};
@@ -43,6 +45,8 @@ const StyledLinkWrapper = ({ children, ...otherProps }) => (
   </Link>
 )
 
+const MEDIA_IMAGE_DEFAULT_DIMENSION = 160
+
 const StyledCard = styled(Card)`
   align-items: stretch;
 `
@@ -53,12 +57,12 @@ const StyledCardHeading = styled(CardHeading)`
 
 const StyledCardMedia = styled(CardMedia)`
   width: 20%;
-  max-width: 160px;
-  max-height: 160px;
+  max-width: ${({ vertical }) => (vertical ? '110px' : `${MEDIA_IMAGE_DEFAULT_DIMENSION}px`)};
+  height: ${MEDIA_IMAGE_DEFAULT_DIMENSION}px;
   flex: 1 0 auto;
+  border: 1px solid ${themeColor('tint', 'level3')};
 
   @media screen and ${breakpoint('max-width', 'laptopM')} {
-    height: 160px;
     flex: 1 0 160px;
   }
 
@@ -74,6 +78,8 @@ const StyledCardMedia = styled(CardMedia)`
 `
 
 const StyledCardContent = styled(CardContent)`
+  display: flex;
+  flex-direction: column;
   padding: 0;
   margin: ${themeSpacing(0, 4)};
   border-bottom: 1px solid ${themeColor('tint', 'level3')};
@@ -83,6 +89,8 @@ const StyledCardContent = styled(CardContent)`
 const StyledTag = styled(Tag)`
   display: inline-block;
   text-transform: capitalize;
+  margin-bottom: ${themeSpacing(2)};
+  padding: 2px; // needs to check if we need to implement this in asc-ui, as we also use the same padding on the homepage
 `
 
 const IntroText = styled(Paragraph)`
@@ -91,36 +99,41 @@ const IntroText = styled(Paragraph)`
 
 const MetaText = styled(Paragraph)`
   display: inline-block;
-  color: grey;
+  color: ${themeColor('tint', 'level5')};
   padding-bottom: ${themeSpacing(4)};
   font-size: 14px;
   line-height: 1.25;
   text-transform: capitalize;
+  margin-top: auto;
 `
 
 const EditorialCard = ({
   id,
   title,
-  teaserImageUrl,
   shortTitle,
   teaser,
   intro,
   specialType,
   localeDate,
   localeDateFormatted,
+  image,
+  imageIsVertical,
   to,
 }) => (
   <StyledLinkWrapper key={id} to={to} linkType="blank">
     <StyledCard horizontal>
-      <StyledCardMedia>
-        <Image src={teaserImageUrl || notFoundImage} alt={title} square />
+      <StyledCardMedia vertical={imageIsVertical}>
+        <Image src={image || notFoundImage} alt={title} square />
       </StyledCardMedia>
       <StyledCardContent>
         <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
+        {specialType && (
+          <StyledTag colorType="tint" colorSubtype="level3">
+            {specialType}
+          </StyledTag>
+        )}
         <IntroText>{teaser || intro}</IntroText>
-        {specialType && !localeDate ? (
-          <StyledTag>{specialType}</StyledTag>
-        ) : (
+        {localeDate && (
           <MetaText as="time" datetime={localeDate}>
             {localeDateFormatted}
           </MetaText>
