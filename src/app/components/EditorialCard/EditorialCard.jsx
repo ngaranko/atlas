@@ -45,6 +45,8 @@ const StyledLinkWrapper = ({ children, ...otherProps }) => (
   </Link>
 )
 
+const MEDIA_IMAGE_DEFAULT_DIMENSION = 160
+
 const StyledCard = styled(Card)`
   align-items: stretch;
 `
@@ -55,8 +57,8 @@ const StyledCardHeading = styled(CardHeading)`
 
 const StyledCardMedia = styled(CardMedia)`
   width: 20%;
-  max-width: ${({ vertical }) => (vertical ? '110px' : '160px')};
-  height: 160px;
+  max-width: ${({ vertical }) => (vertical ? '110px' : `${MEDIA_IMAGE_DEFAULT_DIMENSION}px`)};
+  height: ${MEDIA_IMAGE_DEFAULT_DIMENSION}px;
   flex: 1 0 auto;
   border: 1px solid ${themeColor('tint', 'level3')};
 
