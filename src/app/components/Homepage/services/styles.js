@@ -8,7 +8,8 @@ import { breakpoint, themeColor } from '@datapunt/asc-ui'
  */
 export const fullGridWidthContainer = () => css`
   @media screen and ${breakpoint('max-width', 'mobileL')} {
-    padding: 20px ${({ hasMargin }) => (hasMargin ? 40 : 20)}px;
+    padding: 20px ${({ hasMargin }) => (hasMargin ? 40 : 20)}px ${({ hasPaddingBottom }) =>
+  hasPaddingBottom ? 20 : 0}px;
     margin-left:-20px;
     margin-right:-20px;
     width: calc(100% + 40px)
@@ -18,14 +19,15 @@ export const fullGridWidthContainer = () => css`
   'max-width',
   'tabletM',
 )} {
-    padding: 24px ${({ hasMargin }) => (hasMargin ? 48 : 24)}px;
+    padding: 24px ${({ hasMargin }) => (hasMargin ? 48 : 24)}px ${({ hasPaddingBottom }) =>
+  hasPaddingBottom ? 24 : 0}px;
     margin-left: -24px;
     margin-right: -24px;
     width: calc(100% + 48px);
   }
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    padding: 24px;
+    padding: 24px 24px ${({ hasPaddingBottom }) => (hasPaddingBottom ? 24 : 0)}px;
   }
 `
 

@@ -3,6 +3,7 @@ import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/
 import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
 import useSlug from '../../app/utils/useSlug'
 import formatDate from '../../shared/services/date-formatter/date-formatter'
+import PAGES from '../../app/pages'
 
 const useNormalizedCMSResults = (aggregatedData, type) => {
   if (aggregatedData && aggregatedData.length) {
@@ -15,14 +16,17 @@ const useNormalizedCMSResults = (aggregatedData, type) => {
         short_title,
         field_teaser,
         intro,
-        special_type,
+        field_special_type,
         field_publication_date,
         field_publication_year,
         field_publication_month,
+        media_image_url,
       }) => {
-        const to = special_type
-          ? EDITORIAL_DETAIL_ACTIONS[type](uuid, special_type, slug)
+        const to = field_special_type
+          ? EDITORIAL_DETAIL_ACTIONS[type](uuid, field_special_type, slug)
           : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug || useSlug(title))
+
+        let localeDate = field_publication_date
 
         let localeDateFormatted =
           field_publication_date && formatDate(new Date(field_publication_date))
@@ -32,7 +36,7 @@ const useNormalizedCMSResults = (aggregatedData, type) => {
          * Then we need to convert it to a locale date that only shows the year or year and month
          */
         if (!field_publication_date && (field_publication_year || field_publication_month)) {
-          const localeDate = new Date(
+          localeDate = new Date(
             Date.UTC(field_publication_year, field_publication_month || 1, 1, 0, 0, 0),
           )
 
@@ -44,20 +48,29 @@ const useNormalizedCMSResults = (aggregatedData, type) => {
           )
         }
 
+        const buildImageUrl = url => `${SHARED_CONFIG.CMS_ROOT}${url}`
+
+        const imageIsVertical = type === PAGES.PUBLICATIONS
+
+        // Publications should show the 'cover' / 'media' image
+        const image =
+          type === PAGES.PUBLICATIONS
+            ? media_image_url && buildImageUrl(media_image_url)
+            : teaser_url && buildImageUrl(teaser_url)
+
         return {
           key: uuid,
           id: uuid,
           title,
-          teaserImageUrl: teaser_url && `${SHARED_CONFIG.CMS_ROOT}${teaser_url}`,
+          image,
+          imageIsVertical,
           shortTitle: short_title,
           teaser: field_teaser,
           intro,
-          specialType: special_type,
-          localeDate: field_publication_date,
+          specialType: field_special_type,
+          localeDate,
           localeDateFormatted,
           to,
-          localeDataFormattedMonth: field_publication_month,
-          localeDataFormattedYear: field_publication_year,
         }
       },
     )

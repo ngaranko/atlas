@@ -7,7 +7,7 @@ describe('EditorialCard', () => {
     id: 1,
     title: 'title',
     intro: 'intro',
-    teaserImageUrl: 'thumbnail.jpg',
+    image: 'thumbnail.jpg',
   }
 
   it('should display a cover image', () => {
@@ -20,9 +20,7 @@ describe('EditorialCard', () => {
   })
 
   it("should display a placeholder when there's no cover image", () => {
-    const component = shallow(
-      <EditorialCard href="link" {...mockDataItem} teaserImageUrl={false} />,
-    ).dive()
+    const component = shallow(<EditorialCard href="link" {...mockDataItem} image={false} />).dive()
 
     const image = component.find('Image')
 

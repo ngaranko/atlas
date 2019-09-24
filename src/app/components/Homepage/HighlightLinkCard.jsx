@@ -3,26 +3,23 @@ import styled, { css } from '@datapunt/asc-core'
 import { breakpoint, Heading, ImageCardContent, ImageCard, Link } from '@datapunt/asc-ui'
 
 export const HighlightsHeadingStyle = styled(Heading)`
-  @media screen and ${breakpoint('max-width', 'tabletM')} {
-    font-size: 16px;
-    line-height: 20px;
-  }
+  ${({ small }) =>
+    small
+      ? css`
 
-  @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint(
-  'max-width',
-  'laptopM',
-)} {
+      @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint(
+          'max-width',
+          'laptopM',
+        )} {
       font-size: 14px;
       line-height: 17px;
     }
-
-    ${({ large }) =>
-      large &&
-      css`
-      @media screen and ${breakpoint('max-width', 'laptopM')} {
-      font-size: 16px;
-      line-height: 20px;`}
-
+    `
+      : css`
+        @media screen and ${breakpoint('max-width', 'mobileL')} {
+        font-size: 16px;
+        line-height: 20px;
+    `}
 `
 
 const HighlightsHeading = ({ children, ...otherProps }) => (
