@@ -3,8 +3,9 @@ import { breakpoint, Column, Heading, Row, themeColor, themeSpacing } from '@dat
 import React from 'react'
 import AboutCard from './AboutCard'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
-import aboutDataLinks from './services/about-data-links'
-import aboutSiteLinks from './services/about-site-links'
+
+import useFromCMS from '../../utils/useFromCMS'
+import cmsConfig from '../../../shared/services/cms/cms.config'
 
 const AboutBlockStyle = styled.div`
   ${({ showError }) => showError && ErrorBackgroundCSS}
@@ -60,38 +61,66 @@ const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(6)};
 `
 
-const AboutBlock = ({ loading, showError, ...otherProps }) => (
-  <AboutBlockStyle {...otherProps} showError={showError}>
-    {showError && <ErrorMessage onClick={() => {}} />}
-    <Row hasMargin={false}>
-      <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
-        <StyledHeading $as="h2" styleAs="h1">
-          Over data
-        </StyledHeading>
+const AboutBlock = ({ showError, ...otherProps }) => {
+  const { results: resultsAbout, fetchData: fetchDataAbout, loading: loadingAbout } = useFromCMS(
+    cmsConfig.HOME_ABOUT,
+    undefined,
+  )
+  const {
+    results: resultsAboutData,
+    fetchData: fetchDataAboutData,
+    loading: loadingAboutData,
+  } = useFromCMS(cmsConfig.HOME_ABOUT_DATA, undefined)
 
-        <StyledRow hasMargin={false}>
-          {aboutDataLinks.map(linkProps => (
-            <StyledCardColumn span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
-              <AboutCard loading={loading} {...linkProps} />
-            </StyledCardColumn>
-          ))}
-        </StyledRow>
-      </StyledColumn>
-      <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
-        <StyledHeading $as="h2" styleAs="h1">
-          Over deze site
-        </StyledHeading>
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchDataAbout()
+    })()
+  }, [])
 
-        <StyledRow hasMargin={false}>
-          {aboutSiteLinks.map(linkProps => (
-            <StyledCardColumn span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
-              <AboutCard loading={loading} {...linkProps} />
-            </StyledCardColumn>
-          ))}
-        </StyledRow>
-      </StyledColumn>
-    </Row>
-  </AboutBlockStyle>
-)
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchDataAboutData()
+    })()
+  }, [])
+
+  console.log(resultsAbout, resultsAboutData)
+
+  return (
+    <AboutBlockStyle {...otherProps} showError={showError}>
+      {showError && <ErrorMessage onClick={() => {}} />}
+      <Row hasMargin={false}>
+        <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
+          <StyledHeading $as="h2" styleAs="h1">
+            Over data
+          </StyledHeading>
+
+          <StyledRow hasMargin={false}>
+            {resultsAboutData &&
+              resultsAboutData.map(resultAboutData => (
+                <StyledCardColumn span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
+                  <AboutCard loading={loadingAbout} {...resultAboutData} />
+                </StyledCardColumn>
+              ))}
+          </StyledRow>
+        </StyledColumn>
+        <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
+          <StyledHeading $as="h2" styleAs="h1">
+            Over deze site
+          </StyledHeading>
+
+          <StyledRow hasMargin={false}>
+            {resultsAbout &&
+              resultsAbout.map(resultAbout => (
+                <StyledCardColumn span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
+                  <AboutCard loading={loadingAboutData} {...resultAbout} />
+                </StyledCardColumn>
+              ))}
+          </StyledRow>
+        </StyledColumn>
+      </Row>
+    </AboutBlockStyle>
+  )
+}
 
 export default AboutBlock

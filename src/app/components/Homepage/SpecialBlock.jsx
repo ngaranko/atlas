@@ -12,7 +12,6 @@ import {
 import React from 'react'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import OverviewLink from './OverviewLink'
-import specialsLinks from './services/specials-links'
 import SpecialCard from './SpecialCard'
 
 import useFromCMS from '../../utils/useFromCMS'
@@ -60,8 +59,6 @@ const SpecialsBlock = ({ showError, ...otherProps }) => {
     })()
   }, [])
 
-  console.log(results)
-
   return (
     <CardContainer {...otherProps}>
       <Row hasMargin={false}>
@@ -71,11 +68,12 @@ const SpecialsBlock = ({ showError, ...otherProps }) => {
       </Row>
       <StyledRow hasMargin={false} showError={showError}>
         {showError && <ErrorMessage onClick={() => {}} />}
-        {specialsLinks.map(linkProps => (
-          <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-            <SpecialCard loading={loading} showError={showError} {...linkProps} />
-          </Column>
-        ))}
+        {results &&
+          results.map(result => (
+            <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
+              <SpecialCard loading={loading} showError={showError} {...result} />
+            </Column>
+          ))}
       </StyledRow>
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>

@@ -60,11 +60,14 @@ const normalizeDataObject = (dataItem, type = '') => {
 const cmsNormalizer = (type, data, fields) => {
   const normalizedData = normalize(data).get(['id', 'title', 'body', 'created', ...fields])
 
-  if (Array.isArray(normalizedData)) {
-    return {
-      data: normalizedData.map(dataItem => normalizeDataObject(dataItem, type)),
-      links: data.links,
-    }
+  // In case of a Drupal collection resource the returned data will include several objects that need to be normalized
+  if (normalizedData.field_items) {
+    console.log(normalizedData)
+
+    return normalizedData.field_items.map((item, index) => ({
+      ...normalizeDataObject(item),
+      id: index,
+    }))
   }
 
   return normalizeDataObject(normalizedData, type)

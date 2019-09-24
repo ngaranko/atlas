@@ -6,6 +6,9 @@ import HighlightCard from './HighlightCard'
 import OverviewLink from './OverviewLink'
 import highlightsLinks from './services/highlights-links'
 
+import useFromCMS from '../../utils/useFromCMS'
+import cmsConfig from '../../../shared/services/cms/cms.config'
+
 const HighlightBlockStyle = styled.div`
   position: relative;
   width: 100%;
@@ -67,35 +70,50 @@ flex-basis: 100%;
   }
 `
 
-const HighlightBlock = ({ loading, showError, ...otherProps }) => (
-  <>
-    <HighlightBlockStyle {...otherProps} showError={showError}>
-      {showError && <ErrorMessage onClick={() => {}} />}
-      <HighlightBlockInnerStyle>
-        <ImageCardWrapperLarge>
-          <HighlightCard
-            loading={loading}
-            showError={showError}
-            {...highlightsLinks[0]}
-            styleAs="h2"
-            large
-          />
-        </ImageCardWrapperLarge>
-        <ImageCardWrapperSmall>
-          {highlightsLinks.slice(1).map(linkProps => (
+const HighlightBlock = ({ showError, ...otherProps }) => {
+  const { results, fetchData, loading } = useFromCMS(cmsConfig.HOME_HIGHLIGHT, undefined)
+
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchData()
+    })()
+  }, [])
+
+  console.log(results)
+
+  return (
+    <>
+      <HighlightBlockStyle {...otherProps} showError={showError}>
+        {showError && <ErrorMessage onClick={() => {}} />}
+        <HighlightBlockInnerStyle>
+          <ImageCardWrapperLarge>
             <HighlightCard
               loading={loading}
               showError={showError}
-              {...linkProps}
-              strong
-              gutterBottom={0}
+              {...(results && results[0])}
+              styleAs="h2"
+              large
             />
-          ))}
-        </ImageCardWrapperSmall>
-      </HighlightBlockInnerStyle>
-    </HighlightBlockStyle>
-    <OverviewLink href="/" label="Bekijk overzicht" />
-  </>
-)
+          </ImageCardWrapperLarge>
+          <ImageCardWrapperSmall>
+            {results &&
+              results
+                .slice(1)
+                .map(result => (
+                  <HighlightCard
+                    loading={loading}
+                    showError={showError}
+                    {...result}
+                    strong
+                    gutterBottom={0}
+                  />
+                ))}
+          </ImageCardWrapperSmall>
+        </HighlightBlockInnerStyle>
+      </HighlightBlockStyle>
+      <OverviewLink href="/" label="Bekijk overzicht" />
+    </>
+  )
+}
 
 export default HighlightBlock

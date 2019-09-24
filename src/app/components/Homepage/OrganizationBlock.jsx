@@ -12,7 +12,9 @@ import {
 import React from 'react'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import OrganizationCard from './OrganizationCard'
-import organizationLinks from './services/organization-links'
+
+import useFromCMS from '../../utils/useFromCMS'
+import cmsConfig from '../../../shared/services/cms/cms.config'
 
 const StyledCardContainer = styled(CardContainer)`
   background-color: ${themeColor('tint', 'level2')};
@@ -37,22 +39,35 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
-  <StyledCardContainer {...otherProps}>
-    <Row hasMargin={false}>
-      <StyledHeading $as="h2" styleAs="h1">
-        Onderzoek, Informatie en Statistiek
-      </StyledHeading>
-    </Row>
-    <StyledRow hasMargin={false} showError={showError}>
-      {showError && <ErrorMessage onClick={() => {}} />}
-      {organizationLinks.map(linkProps => (
-        <Column wrap span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
-          <OrganizationCard loading={loading} showError={showError} {...linkProps} />
-        </Column>
-      ))}
-    </StyledRow>
-  </StyledCardContainer>
-)
+const OrganizationBlock = ({ showError, ...otherProps }) => {
+  const { results, fetchData, loading } = useFromCMS(cmsConfig.HOME_ORGANIZATION, undefined)
+
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchData()
+    })()
+  }, [])
+
+  console.log(results)
+
+  return (
+    <StyledCardContainer {...otherProps}>
+      <Row hasMargin={false}>
+        <StyledHeading $as="h2" styleAs="h1">
+          Onderzoek, Informatie en Statistiek
+        </StyledHeading>
+      </Row>
+      <StyledRow hasMargin={false} showError={showError}>
+        {showError && <ErrorMessage onClick={() => {}} />}
+        {results &&
+          results.map(result => (
+            <Column wrap span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
+              <OrganizationCard loading={loading} showError={showError} {...result} />
+            </Column>
+          ))}
+      </StyledRow>
+    </StyledCardContainer>
+  )
+}
 
 export default OrganizationBlock

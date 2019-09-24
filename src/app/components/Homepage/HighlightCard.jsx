@@ -61,7 +61,14 @@ const StyledLink = styled(Link)`
   }
 `
 
-const HighlightCard = ({ loading, showError, title, href, backgroundImage, ...otherProps }) => (
+const HighlightCard = ({
+  loading,
+  showError,
+  title,
+  href,
+  teaserImageUrl: backgroundImage,
+  ...otherProps
+}) => (
   <StyledLink href={href} linkType="blank">
     <ImageCard backgroundImage={backgroundImage} loading={loading} animateLoading={!showError}>
       <ImageCardContent>

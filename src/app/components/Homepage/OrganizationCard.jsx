@@ -35,7 +35,14 @@ const StyledParagraph = styled(Paragraph)`
   margin-bottom: ${themeSpacing(6)} !important;
 `
 
-const OrganizationCard = ({ loading, showError, title, description, href, ...otherProps }) => (
+const OrganizationCard = ({
+  loading,
+  showError,
+  title,
+  field_teaser: description,
+  href,
+  ...otherProps
+}) => (
   <StyledCard animateLoading={!showError} loading={loading} {...otherProps}>
     <StyledCardContent>
       <StyledHeading $as="h4" styleAs="h3">

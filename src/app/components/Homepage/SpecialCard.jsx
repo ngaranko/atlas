@@ -66,9 +66,9 @@ const SpecialCard = ({
   title,
   tag,
   href,
-  description,
-  imageSrc,
-  imageAlt,
+  field_teaser: description,
+  teaserImageUrl: imageSrc,
+  title: imageAlt,
   ...otherProps
 }) => (
   <StyledLink href={href} linkType="blank" {...otherProps}>

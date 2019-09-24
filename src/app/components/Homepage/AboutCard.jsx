@@ -44,7 +44,7 @@ const StyledLink = styled(Link)`
   }
 `
 
-const AboutCard = ({ loading, title, description, href, ...otherProps }) => (
+const AboutCard = ({ loading, title, field_teaser: description, href, ...otherProps }) => (
   <StyledLink href={href} linkType="blank" {...otherProps}>
     <StyledCard backgroundColor="level2" shadow loading={loading}>
       <StyledCardContent>
