@@ -79,6 +79,17 @@ const cmsConfig = {
       'field_intro',
     ],
   },
+  HOME_SPECIALS: {
+    type: 'special',
+    endpoint: () =>
+      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/list/fffa0199-9a9a-4cce-86c4-7fe7bfed21a0?include=field_items.field_teaser_image.field_media_image&sort=-created`,
+    fields: [
+      'field_teaser_image.field_media_image.uri',
+      'field_slug',
+      'field_special_type',
+      'field_intro',
+    ],
+  },
 }
 
 export default cmsConfig

@@ -20,12 +20,14 @@ function useFromCMS(config, id = false, normalize = true) {
 
       let result = data
 
+      console.log(result)
+
       if (normalize) {
         result = await cmsNormalizer(config.type, data, fields)
       }
       setResults(result)
     } catch (e) {
-      window.location.replace(routing.niet_gevonden.path)
+      // window.location.replace(routing.niet_gevonden.path)
     }
 
     setLoading(false)

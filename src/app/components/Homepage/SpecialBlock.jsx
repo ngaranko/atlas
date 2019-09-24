@@ -15,6 +15,9 @@ import OverviewLink from './OverviewLink'
 import specialsLinks from './services/specials-links'
 import SpecialCard from './SpecialCard'
 
+import useFromCMS from '../../utils/useFromCMS'
+import cmsConfig from '../../../shared/services/cms/cms.config'
+
 const StyledRow = styled(Row)`
   ${({ showError }) => showError && ErrorBackgroundCSS}
 
@@ -48,27 +51,39 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
-  <CardContainer {...otherProps}>
-    <Row hasMargin={false}>
-      <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-        <StyledHeading $as="h1">In Beeld</StyledHeading>
-      </Column>
-    </Row>
-    <StyledRow hasMargin={false} showError={showError}>
-      {showError && <ErrorMessage onClick={() => {}} />}
-      {specialsLinks.map(linkProps => (
-        <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-          <SpecialCard loading={loading} showError={showError} {...linkProps} />
+const SpecialsBlock = ({ showError, ...otherProps }) => {
+  const { results, fetchData, loading } = useFromCMS(cmsConfig.HOME_SPECIALS, undefined)
+
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchData()
+    })()
+  }, [])
+
+  console.log(results)
+
+  return (
+    <CardContainer {...otherProps}>
+      <Row hasMargin={false}>
+        <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
+          <StyledHeading $as="h1">In Beeld</StyledHeading>
         </Column>
-      ))}
-    </StyledRow>
-    <Row hasMargin={false}>
-      <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-        <OverviewLink href="/" label="Bekijk overzicht" />
-      </Column>
-    </Row>
-  </CardContainer>
-)
+      </Row>
+      <StyledRow hasMargin={false} showError={showError}>
+        {showError && <ErrorMessage onClick={() => {}} />}
+        {specialsLinks.map(linkProps => (
+          <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
+            <SpecialCard loading={loading} showError={showError} {...linkProps} />
+          </Column>
+        ))}
+      </StyledRow>
+      <Row hasMargin={false}>
+        <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
+          <OverviewLink href="/" label="Bekijk overzicht" />
+        </Column>
+      </Row>
+    </CardContainer>
+  )
+}
 
 export default SpecialsBlock
