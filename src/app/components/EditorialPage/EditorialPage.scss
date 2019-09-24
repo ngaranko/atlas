@@ -5,11 +5,12 @@
 
   &__body {
     background-color: $primary-light;
+    min-height: calc(100vh - 330px);
     position: relative;
     width: 100%;
 
-    @media screen {
-      min-height: calc(100% - 278px);
+    .is-print-mode & {
+      min-height: auto;
     }
   }
 
