@@ -2,14 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import { Facebook, Twitter, Linkedin, Email, Print } from '@datapunt/asc-assets'
-import { ShareButton } from '@datapunt/asc-ui'
+import { ShareButton, themeSpacing } from '@datapunt/asc-ui'
 import { hasPrintMode, showPrintMode, sharePage } from '../../../shared/ducks/ui/ui'
 import getShareUrl from '../../../shared/services/share-url/share-url'
 
 const ShareBarContainer = styled.div`
   display: flex;
+  ${({ topSpacing }) =>
+    topSpacing &&
+    css`
+      margin-top: ${themeSpacing(topSpacing)};
+    `}
 
   & > * {
     margin-right: 5px;

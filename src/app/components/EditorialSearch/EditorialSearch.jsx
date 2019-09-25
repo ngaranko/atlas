@@ -29,10 +29,6 @@ const routeMapping = {
   [PAGES.PUBLICATIONS]: toPublicationOverview,
 }
 
-const StyledShareBar = styled(ShareBar)`
-  margin-top: 24px;
-`
-
 const StyledEditorialSearch = styled.div`
   margin-bottom: 24px;
   max-width: 792px; // Image width + 600px (design system rule)
@@ -71,7 +67,7 @@ const EditorialSearch = ({ type, printMode }) => {
             </p>
           }
         />
-        {!printMode && <StyledShareBar />}
+        {!printMode && <ShareBar topSpacing={6} />}
       </>
     )
   }
@@ -88,7 +84,7 @@ const EditorialSearch = ({ type, printMode }) => {
         links={results._links}
         showTitle={false}
       />
-      {!printMode && <StyledShareBar />}
+      {!printMode && <ShareBar topSpacing={6} />}
     </StyledEditorialSearch>
   )
 }

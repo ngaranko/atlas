@@ -42,10 +42,6 @@ const ListItemContent = styled.div`
   }
 `
 
-const StyledShareBar = styled(ShareBar)`
-  margin-top: 24px;
-`
-
 /* istanbul ignore next */
 const ArticleDetailPage = ({ id, printMode }) => {
   const { fetchData, results, loading } = useFromCMS(cmsConfig.ARTICLE, id)
@@ -165,7 +161,7 @@ const ArticleDetailPage = ({ id, printMode }) => {
                       span={{ small: 1, medium: 2, big: 4, large: 11, xLarge: 11 }}
                       push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                     >
-                      {!printMode && <StyledShareBar />}
+                      {!printMode && <ShareBar topSpacing={6} />}
                     </Column>
                   </EditorialContent>
                 </Row>

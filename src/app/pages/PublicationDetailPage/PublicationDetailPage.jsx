@@ -11,7 +11,6 @@ import {
   EditorialContent,
   Paragraph,
 } from '@datapunt/asc-ui'
-import styled from '@datapunt/asc-core'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
@@ -20,10 +19,6 @@ import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import { isPrintMode } from '../../../shared/ducks/ui/ui'
-
-const StyledShareBar = styled(ShareBar)`
-  padding: 24px 0;
-`
 
 const PublicationDetailPage = ({ id, printMode }) => {
   const { fetchData, results, loading } = useFromCMS(cmsConfig.PUBLICATION, id)
@@ -93,7 +88,7 @@ const PublicationDetailPage = ({ id, printMode }) => {
                 </Column>
               </Column>
               <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-                {!printMode && <StyledShareBar />}
+                {!printMode && <ShareBar topSpacing={6} />}
               </Column>
             </Row>
           </ContentContainer>

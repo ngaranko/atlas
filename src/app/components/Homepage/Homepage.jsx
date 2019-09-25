@@ -44,10 +44,6 @@ export const OverviewLink = styled(Link)`
   }
 `
 
-const StyledShareBar = styled(ShareBar)`
-  ${blockTopMargin(24)}
-`
-
 const StyledFooter = styled(FooterComponent)`
   margin-top: 72px;
 `
@@ -116,7 +112,7 @@ const Homepage = ({ loading, showError }) => (
       </Row>
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <StyledShareBar hasPrintButton={false} />
+          <ShareBar topSpacing={6} hasPrintButton={false} />
         </Column>
       </Row>
       <Row hasMargin={false}>
