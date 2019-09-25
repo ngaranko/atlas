@@ -1,11 +1,11 @@
-import SHARED_CONFIG from '../shared-config/shared-config'
-import PAGES from '../../../app/pages'
+import SHARED_CONFIG from '../services/shared-config/shared-config'
+import PAGES from '../../app/pages'
 
 const cmsConfig = {
-  ARTICLES: {
-    type: 'articleS',
+  ARTICLE: {
+    type: PAGES.ARTICLES,
     endpoint: id =>
-      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/articleS/${id}?include=field_cover_image.field_media_image,field_downloads.field_file.field_media_file`,
+      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/article/${id}?include=field_cover_image.field_media_image,field_downloads.field_file.field_media_file`,
     fields: [
       'field_cover_image.field_media_image.uri',
       'field_downloads',
@@ -21,12 +21,12 @@ const cmsConfig = {
       'field_publication_date',
     ],
   },
-  ARTICLESS: {
-    type: 'articleS',
-    endpoint: () => `${SHARED_CONFIG.API_ROOT}cms_search/search/articleS`,
+  ARTICLES: {
+    type: PAGES.ARTICLES,
+    endpoint: () => `${SHARED_CONFIG.API_ROOT}cms_search/search/article`,
   },
   PUBLICATION: {
-    type: 'publication',
+    type: PAGES.PUBLICATIONS,
     endpoint: id =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication/${id}?include=field_cover_image.field_media_image,field_file.field_media_file`,
     fields: [
@@ -43,16 +43,16 @@ const cmsConfig = {
     ],
   },
   PUBLICATIONS: {
-    type: 'publication',
+    type: PAGES.PUBLICATIONS,
     endpoint: () => `${SHARED_CONFIG.API_ROOT}cms_search/search/publication`,
   },
   SPECIAL: {
-    type: 'special',
+    type: PAGES.SPECIALS,
     endpoint: id => `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special/${id}`,
     fields: ['field_iframe_link', 'field_slug', 'field_special_type'],
   },
   SPECIALS: {
-    type: 'special',
+    type: PAGES.SPECIALS,
     endpoint: () => `${SHARED_CONFIG.API_ROOT}cms_search/search/special`,
   },
   HOME_SPECIALS: {
@@ -81,6 +81,7 @@ const cmsConfig = {
       'field_items.field_short_title',
       'field_items.field_teaser',
       'field_items.field_slug',
+      'field_items.field_link',
     ],
   },
   HOME_ABOUT: {

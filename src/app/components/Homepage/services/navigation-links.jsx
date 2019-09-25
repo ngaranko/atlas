@@ -1,10 +1,18 @@
 import React from 'react'
 import { Api, Data, DocumentText, Map, Pano, Table } from '@datapunt/asc-assets'
 import { Icon } from '@datapunt/asc-ui'
+import {
+  toMap,
+  toPanoramaAndPreserveQuery,
+  toPublicationOverview,
+  toDatasets,
+  toAdresses,
+} from '../../../../store/redux-first-router/actions'
+import linkAttributesFromAction from '../../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 
 const navigationLinks = [
   {
-    href: '/',
+    href: linkAttributesFromAction(toMap()).href,
     CardIcon: () => (
       <Icon square size={32}>
         <Map />
@@ -14,7 +22,7 @@ const navigationLinks = [
     description: 'Zoek en bekijk data op de kaart',
   },
   {
-    href: '/',
+    href: linkAttributesFromAction(toPanoramaAndPreserveQuery()).href,
     CardIcon: () => (
       <Icon size={36}>
         <Pano />
@@ -24,7 +32,7 @@ const navigationLinks = [
     description: 'Kijk 360 graden in het rond',
   },
   {
-    href: '/',
+    href: linkAttributesFromAction(toPublicationOverview()).href,
     CardIcon: () => (
       <Icon size={36}>
         <DocumentText />
@@ -34,7 +42,7 @@ const navigationLinks = [
     description: 'Download fasctsheets en onderzoeksrapporten',
   },
   {
-    href: '/',
+    href: linkAttributesFromAction(toDatasets()).href,
     CardIcon: () => (
       <Icon size={32}>
         <Data />
@@ -44,7 +52,7 @@ const navigationLinks = [
     description: 'Zoek en download databestanden',
   },
   {
-    href: '/',
+    href: linkAttributesFromAction(toAdresses()).href,
     CardIcon: () => (
       <Icon size={32}>
         <Table />

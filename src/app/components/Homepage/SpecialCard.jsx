@@ -42,9 +42,9 @@ const StyledCard = styled(Card)`
     margin: ${themeSpacing(6, 2)};
   }
   ${({ showError }) =>
-    !showError &&
+    showError &&
     css`
-      background: none;
+      background: ${themeColor('tint', 'level4')};
     `}
 `
 const StyledCardContent = styled(CardContent)`
@@ -61,6 +61,10 @@ const StyledTag = styled(Tag)`
   margin-right: ${themeSpacing(1)};
 `
 
+const StyledHeading = styled(Heading)`
+  margin-bottom: ${themeSpacing(2)};
+`
+
 const SpecialCard = ({
   loading,
   showError,
@@ -69,7 +73,7 @@ const SpecialCard = ({
   specialType,
   teaser,
   intro,
-  image,
+  teaserImage,
   to,
   ...otherProps
 }) => {
@@ -77,20 +81,22 @@ const SpecialCard = ({
 
   return (
     <StyledLink href={href} linkType="blank" {...otherProps}>
-      <StyledCard horizontal animateLoading={!showError} loading={loading}>
+      <StyledCard horizontal animateLoading={!showError} loading={loading} showError={showError}>
         <StyledCardContent>
-          <Heading $as="h4" styleAs="h3" gutterBottom={8}>
+          <StyledHeading $as="h4" styleAs="h3">
             {shortTitle || title}
-          </Heading>
+          </StyledHeading>
           <Paragraph>
-            <StyledTag colorType="tint" colorSubtype="level3">
-              {specialType}
-            </StyledTag>
+            {specialType && (
+              <StyledTag colorType="tint" colorSubtype="level3">
+                {specialType}
+              </StyledTag>
+            )}
             {teaser || intro}
           </Paragraph>
         </StyledCardContent>
         <StyledCardMedia>
-          <Image src={image} alt={shortTitle || title} square />
+          <Image src={teaserImage} alt={shortTitle || title} square />
         </StyledCardMedia>
       </StyledCard>
     </StyledLink>

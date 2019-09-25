@@ -62,15 +62,28 @@ const StyledLink = styled(Link)`
   }
 `
 
-const HighlightCard = ({ loading, showError, title, to, image, ...otherProps }) => {
+const HighlightCard = ({
+  loading,
+  showError,
+  title,
+  shortTitle,
+  to,
+  teaserImage,
+  ...otherProps
+}) => {
   const { href } = linkAttributesFromAction(to)
 
   return (
     <StyledLink href={href} linkType="blank">
-      <ImageCard backgroundImage={image} loading={loading} animateLoading={!showError}>
+      <ImageCard
+        backgroundImage={teaserImage}
+        loading={loading || showError}
+        animateLoading={!showError}
+        alt={shortTitle || title}
+      >
         <ImageCardContent>
           <HighlightCardHeadingStyle $as="h4" {...otherProps}>
-            {title}
+            {shortTitle || title}
           </HighlightCardHeadingStyle>
         </ImageCardContent>
       </ImageCard>

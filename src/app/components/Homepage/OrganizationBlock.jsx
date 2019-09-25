@@ -10,11 +10,10 @@ import {
   styles,
 } from '@datapunt/asc-ui'
 import React from 'react'
-import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
+import ErrorMessage from './ErrorMessage'
 import OrganizationCard from './OrganizationCard'
-
 import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/services/cms/cms.config'
+import cmsConfig from '../../../shared/config/cms.config'
 
 const StyledCardContainer = styled(CardContainer)`
   background-color: ${themeColor('tint', 'level2')};
@@ -22,7 +21,7 @@ const StyledCardContainer = styled(CardContainer)`
 `
 
 const StyledRow = styled(Row)`
-  ${({ showError }) => showError && ErrorBackgroundCSS}
+  ${({ showError }) => showError && `justify-content: center;`}
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     ${/* sc-selector */ styles.ColumnStyle}:nth-child(-n+2) {
@@ -39,16 +38,14 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const OrganizationBlock = ({ showError, ...otherProps }) => {
-  const { results, fetchData, loading } = useFromCMS(cmsConfig.HOME_ORGANIZATION, undefined)
+const OrganizationBlock = ({ ...otherProps }) => {
+  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_ORGANIZATION, undefined)
 
   React.useEffect(() => {
     ;(async () => {
       await fetchData()
     })()
   }, [])
-
-  console.log(results)
 
   return (
     <StyledCardContainer {...otherProps}>
@@ -57,12 +54,16 @@ const OrganizationBlock = ({ showError, ...otherProps }) => {
           Onderzoek, Informatie en Statistiek
         </StyledHeading>
       </Row>
-      <StyledRow hasMargin={false} showError={showError}>
-        {showError && <ErrorMessage onClick={() => {}} />}
+      <StyledRow hasMargin={false} showError={error}>
+        {error && <ErrorMessage absolute={false} />}
         {results &&
           results.map(result => (
-            <Column wrap span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
-              <OrganizationCard loading={loading} showError={showError} {...result} />
+            <Column
+              key={result.key}
+              wrap
+              span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}
+            >
+              <OrganizationCard loading={loading} {...result} />
             </Column>
           ))}
       </StyledRow>

@@ -45,7 +45,7 @@ const StyledLink = styled(Link)`
   }
 `
 
-const AboutCard = ({ loading, shortTitle, title, teaser, intro, to, ...otherProps }) => {
+const AboutCard = ({ loading, shortTitle, title, teaser, intro, to, showError, ...otherProps }) => {
   const { href } = linkAttributesFromAction(to)
 
   return (

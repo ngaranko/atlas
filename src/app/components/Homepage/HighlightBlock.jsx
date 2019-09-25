@@ -4,10 +4,8 @@ import React from 'react'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import HighlightCard from './HighlightCard'
 import OverviewLink from './OverviewLink'
-import highlightsLinks from './services/highlights-links'
-
 import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/services/cms/cms.config'
+import cmsConfig from '../../../shared/config/cms.config'
 import { toArticleOverview } from '../../../store/redux-first-router/actions'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 
@@ -72,8 +70,8 @@ flex-basis: 100%;
   }
 `
 
-const HighlightBlock = ({ showError, ...otherProps }) => {
-  const { results, fetchData, loading } = useFromCMS(cmsConfig.HOME_HIGHLIGHT, undefined)
+const HighlightBlock = ({ ...otherProps }) => {
+  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_HIGHLIGHT, undefined)
   const { href } = linkAttributesFromAction(toArticleOverview())
 
   React.useEffect(() => {
@@ -84,13 +82,13 @@ const HighlightBlock = ({ showError, ...otherProps }) => {
 
   return (
     <>
-      <HighlightBlockStyle {...otherProps} showError={showError}>
-        {showError && <ErrorMessage onClick={() => {}} />}
+      <HighlightBlockStyle {...otherProps} showError={error}>
+        {error && <ErrorMessage />}
         <HighlightBlockInnerStyle>
-          <ImageCardWrapperLarge>
+          <ImageCardWrapperLarge showError={error}>
             <HighlightCard
               loading={loading}
-              showError={showError}
+              showError={error}
               {...(results && results[0])}
               styleAs="h2"
               large
@@ -104,12 +102,17 @@ const HighlightBlock = ({ showError, ...otherProps }) => {
                   <HighlightCard
                     key={result.id}
                     loading={loading}
-                    showError={showError}
+                    showError={error}
                     {...result}
                     strong
-                    gutterBottom={0}
                   />
                 ))}
+            {error && (
+              <>
+                <HighlightCard key={0} showError={error} />
+                <HighlightCard key={1} showError={error} />
+              </>
+            )}
           </ImageCardWrapperSmall>
         </HighlightBlockInnerStyle>
       </HighlightBlockStyle>

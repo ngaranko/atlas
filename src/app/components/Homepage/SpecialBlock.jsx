@@ -13,9 +13,8 @@ import React from 'react'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import OverviewLink from './OverviewLink'
 import SpecialCard from './SpecialCard'
-
 import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/services/cms/cms.config'
+import cmsConfig from '../../../shared/config/cms.config'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import { toSpecialOverview } from '../../../store/redux-first-router/actions'
 
@@ -52,8 +51,8 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const SpecialsBlock = ({ showError, ...otherProps }) => {
-  const { results, fetchData, loading } = useFromCMS(cmsConfig.HOME_SPECIALS, undefined)
+const SpecialsBlock = ({ ...otherProps }) => {
+  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_SPECIALS, undefined)
   const { href } = linkAttributesFromAction(toSpecialOverview())
 
   React.useEffect(() => {
@@ -62,6 +61,12 @@ const SpecialsBlock = ({ showError, ...otherProps }) => {
     })()
   }, [])
 
+  const specials =
+    results ||
+    Array(6)
+      .fill(null)
+      .map((x, i) => i)
+
   return (
     <CardContainer {...otherProps}>
       <Row hasMargin={false}>
@@ -69,12 +74,16 @@ const SpecialsBlock = ({ showError, ...otherProps }) => {
           <StyledHeading $as="h1">In Beeld</StyledHeading>
         </Column>
       </Row>
-      <StyledRow hasMargin={false} showError={showError}>
-        {showError && <ErrorMessage onClick={() => {}} />}
-        {results &&
-          results.map(result => (
-            <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-              <SpecialCard loading={loading} showError={showError} {...result} />
+      <StyledRow hasMargin={false} showError={error}>
+        {error && <ErrorMessage />}
+        {specials &&
+          specials.map((special, index) => (
+            <Column
+              key={special.key || index}
+              wrap
+              span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}
+            >
+              <SpecialCard loading={loading} showError={error} {...special} />
             </Column>
           ))}
       </StyledRow>

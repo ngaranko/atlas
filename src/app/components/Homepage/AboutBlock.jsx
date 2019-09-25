@@ -1,14 +1,12 @@
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import { breakpoint, Column, Heading, Row, themeColor, themeSpacing } from '@datapunt/asc-ui'
 import React from 'react'
 import AboutCard from './AboutCard'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
-
 import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/services/cms/cms.config'
+import cmsConfig from '../../../shared/config/cms.config'
 
 const AboutBlockStyle = styled.div`
-  ${({ showError }) => showError && ErrorBackgroundCSS}
   width: 100%;
 `
 
@@ -23,6 +21,16 @@ const StyledCardColumn = styled(Column)`
 `
 
 const StyledRow = styled(Row)`
+  ${({ showError, theme }) =>
+    showError &&
+    css`
+      margin: 0;
+      padding: ${themeSpacing(5)};
+      background-color: ${themeColor('tint', 'level4')({ theme })};
+      justify-content: center;
+      ${ErrorBackgroundCSS};
+    `}
+  margin: 0;
   height: 100%; // make sure the AboutCards have the same size in both Columns
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
@@ -62,47 +70,44 @@ const StyledHeading = styled(Heading)`
 `
 
 const AboutBlock = ({ showError, ...otherProps }) => {
-  const { results: resultsAbout, fetchData: fetchDataAbout, loading: loadingAbout } = useFromCMS(
-    cmsConfig.HOME_ABOUT,
-    undefined,
-  )
+  const {
+    results: resultsAbout,
+    fetchData: fetchDataAbout,
+    loading: loadingAbout,
+    error: errorAbout,
+  } = useFromCMS(cmsConfig.HOME_ABOUT, undefined)
   const {
     results: resultsAboutData,
     fetchData: fetchDataAboutData,
     loading: loadingAboutData,
+    error: errorAboutData,
   } = useFromCMS(cmsConfig.HOME_ABOUT_DATA, undefined)
 
   React.useEffect(() => {
     ;(async () => {
       await fetchDataAbout()
-    })()
-  }, [])
-
-  React.useEffect(() => {
-    ;(async () => {
       await fetchDataAboutData()
     })()
   }, [])
 
-  console.log('resultsAbout', resultsAbout, resultsAboutData)
-
   return (
-    <AboutBlockStyle {...otherProps} showError={showError}>
-      {showError && <ErrorMessage onClick={() => {}} />}
+    <AboutBlockStyle {...otherProps}>
       <Row hasMargin={false}>
         <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
           <StyledHeading $as="h2" styleAs="h1">
             Over data
           </StyledHeading>
 
-          <StyledRow hasMargin={false}>
+          <StyledRow hasMargin={false} showError={errorAboutData}>
+            {errorAboutData && <ErrorMessage onClick={() => {}} absolute={false} />}
             {resultsAboutData &&
-              resultsAboutData.map(resultAboutData => (
+              resultsAboutData.map((aboutData, index) => (
                 <StyledCardColumn
-                  key={resultAboutData.id}
+                  wrap
+                  key={aboutData.key || index}
                   span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
                 >
-                  <AboutCard loading={loadingAbout} {...resultAboutData} />
+                  <AboutCard loading={loadingAboutData} {...aboutData} />
                 </StyledCardColumn>
               ))}
           </StyledRow>
@@ -112,14 +117,16 @@ const AboutBlock = ({ showError, ...otherProps }) => {
             Over deze site
           </StyledHeading>
 
-          <StyledRow hasMargin={false}>
+          <StyledRow hasMargin={false} showError={errorAbout}>
+            {errorAbout && <ErrorMessage onClick={() => {}} absolute={false} />}
             {resultsAbout &&
-              resultsAbout.map(resultAbout => (
+              resultsAbout.map((about, index) => (
                 <StyledCardColumn
-                  key={resultAbout.id}
+                  wrap
+                  key={about.key || index}
                   span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
                 >
-                  <AboutCard loading={loadingAboutData} {...resultAbout} />
+                  <AboutCard loading={loadingAbout} {...about} />
                 </StyledCardColumn>
               ))}
           </StyledRow>

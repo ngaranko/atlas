@@ -45,24 +45,24 @@ const StyledParagraph = styled(Paragraph)`
 
 const OrganizationCard = ({
   loading,
-  showError,
   title,
   shortTitle,
   teaser,
   intro,
   to,
+  field_link: link,
   ...otherProps
 }) => {
   const { href } = linkAttributesFromAction(to)
 
   return (
-    <StyledCard animateLoading={!showError} loading={loading} {...otherProps}>
+    <StyledCard loading={loading} {...otherProps}>
       <StyledCardContent>
         <StyledHeading $as="h4" styleAs="h3">
           {shortTitle || title}
         </StyledHeading>
         <StyledParagraph>{teaser || intro}</StyledParagraph>
-        <Link linkType="with-chevron" href={href}>
+        <Link linkType="with-chevron" href={(link && link.uri) || href}>
           Lees meer
         </Link>
       </StyledCardContent>

@@ -89,17 +89,9 @@ const StyledParagraph = styled(Paragraph)`
   overflow: hidden; // make sure the text doesn't falls outside this Paragraph
 `
 
-const NavigationCard = ({
-  loading,
-  showError,
-  CardIcon,
-  title,
-  description,
-  href,
-  ...otherProps
-}) => (
+const NavigationCard = ({ CardIcon, title, description, href, ...otherProps }) => (
   <StyledLink href={href} linkType="blank" {...otherProps}>
-    <StyledCard horizontal loading={loading} animateLoading={!showError}>
+    <StyledCard horizontal>
       <StyledCardMedia backgroundColor="level2">
         <CardIcon />
       </StyledCardMedia>

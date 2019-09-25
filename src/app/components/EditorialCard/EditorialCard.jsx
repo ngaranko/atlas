@@ -104,14 +104,14 @@ const EditorialCard = ({
   specialType,
   localeDate,
   localeDateFormatted,
-  image,
+  teaserImage,
   imageIsVertical,
   to,
 }) => (
   <StyledLinkWrapper key={id} to={to} linkType="blank">
     <StyledCard horizontal>
       <StyledCardMedia vertical={imageIsVertical}>
-        <Image src={image || notFoundImage} alt={title} square />
+        <Image src={teaserImage || notFoundImage} alt={title} square />
       </StyledCardMedia>
       <StyledCardContent>
         <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>

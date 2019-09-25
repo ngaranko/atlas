@@ -14,22 +14,29 @@ import {
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
-import cmsConfig from '../../../shared/services/cms/cms.config'
+import cmsConfig from '../../../shared/config/cms.config'
 import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import { routing } from '../../routes'
 
 const PublicationDetailPage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS(cmsConfig.PUBLICATION, id)
+  const { fetchData, results, loading, error } = useFromCMS(cmsConfig.PUBLICATION, id)
 
   React.useEffect(() => {
     fetchData()
   }, [id])
 
+  React.useEffect(() => {
+    if (error) {
+      window.location.replace(routing.niet_gevonden.path)
+    }
+  }, [error])
+
   const {
     title,
-    localeDate,
+    localeDateFormatted,
     body,
-    coverImageUrl,
+    coverImage,
     fileUrl,
     field_file_size: fileSize,
     field_file_type: fileType,
@@ -62,7 +69,7 @@ const PublicationDetailPage = ({ id }) => {
                     <EditorialMetaList
                       fields={[
                         { id: 1, label: source },
-                        { id: 4, label: localeDate },
+                        { id: 4, label: localeDateFormatted },
                         { id: 2, label: fileSize },
                         { id: 3, label: fileType.toUpperCase() },
                       ]}
@@ -71,7 +78,7 @@ const PublicationDetailPage = ({ id }) => {
                 </Column>
                 <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                   <DocumentCover
-                    imageSrc={coverImageUrl}
+                    imageSrc={coverImage}
                     description={`Download PDF (${fileSize})`}
                     onClick={() => {
                       download(fileUrl)

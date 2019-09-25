@@ -2,16 +2,15 @@
 import React from 'react'
 import { Column, Container, Row } from '@datapunt/asc-ui'
 import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/services/cms/cms.config'
+import cmsConfig from '../../../shared/config/cms.config'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import EditorialResults from '../../components/EditorialResults'
-import useNormalizedCMSResults from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const EditorialOverviewPage = ({ type = '' }) => {
   const { results, fetchData, loading } = useFromCMS(cmsConfig[type], undefined, false)
   const [aggregatedData, setData] = React.useState([])
   const [page, setPage] = React.useState(0)
-  const { results: data, _links } = results || {}
+  const { data, links } = results || {}
 
   React.useEffect(() => {
     ;(async () => {
@@ -26,8 +25,6 @@ const EditorialOverviewPage = ({ type = '' }) => {
     }
   }, [data])
 
-  const normalizedResults = useNormalizedCMSResults(aggregatedData, type)
-
   return (
     <Container>
       <Row>
@@ -41,9 +38,9 @@ const EditorialOverviewPage = ({ type = '' }) => {
               {...{
                 page,
                 loading,
-                results: normalizedResults,
+                results: aggregatedData,
                 type,
-                links: _links,
+                links,
                 onClickMore: fetchData,
               }}
             />
