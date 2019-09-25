@@ -85,11 +85,6 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} href="/">
-            Onderzoek, Informatie en Statistiek
-          </Link>
-        </MenuItem>
-        <MenuItem>
           <MenuButton iconLeft={<ChevronRight />} href="mailto:datapunt@amsterdam.nl">
             Contact
           </MenuButton>
