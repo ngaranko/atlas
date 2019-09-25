@@ -7,10 +7,9 @@ import organizationLinks from './services/organization-links'
 import OrganizationLinkCard from './OrganizationLinkCard'
 
 const OrganizationBlockStyle = styled.div`
-  padding: 40px 20px 0;
   background-color: ${themeColor('tint', 'level2')};
   ${blockTopMargin(8)}
-  ${({ hasMargin }) => fullGridWidthContainer(hasMargin)}
+  ${fullGridWidthContainer()}
 `
 
 const StyledRow = styled(Row)`
@@ -30,7 +29,7 @@ const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
     <StyledRow hasMargin={false} showError={showError}>
       {showError && <ErrorMessage onClick={() => {}} />}
       {organizationLinks.map(linkProps => (
-        <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
+        <Column span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
           <OrganizationLinkCard loading={loading} showError={showError} {...linkProps} />
         </Column>
       ))}

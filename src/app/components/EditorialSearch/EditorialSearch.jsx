@@ -66,6 +66,7 @@ const EditorialSearch = ({ type, printMode }) => {
               .
             </p>
           }
+          hideLoginLink
         />
         {!printMode && <ShareBar topSpacing={6} />}
       </>

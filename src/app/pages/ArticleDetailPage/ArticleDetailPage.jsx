@@ -72,6 +72,10 @@ const ArticleDetailPage = ({ id, printMode }) => {
     type: 'button',
   })`
     text-align: left;
+    background-color: ${themeColor(
+      'tint',
+      'level1',
+    )}; // Buttons are grey by default on Safari and Firefox
 
     small {
       text-transform: uppercase;

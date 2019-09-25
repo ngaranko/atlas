@@ -146,7 +146,9 @@ exports[`ArticleDetailPage should render the publication when there are results 
                 }
                 wrap={false}
               >
-                <Styled(Connect(ShareBar)) />
+                <Connect(ShareBar)
+                  topSpacing={6}
+                />
               </Column>
             </EditorialContent>
           </Row>

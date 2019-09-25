@@ -10,8 +10,8 @@ const EditorialOverviewPage = ({ page, loading, results, type, links, onClickMor
       <ContentContainer>
         <Column
           wrap
-          span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 9 }}
-          push={{ small: 0, medium: 0, big: 0, large: 0, xLarge: 1 }}
+          span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 8 }}
+          push={{ small: 0, medium: 0, big: 0, large: 0, xLarge: 2 }}
         >
           <EditorialResults {...{ page, loading, results, type, links, onClickMore }} />
         </Column>

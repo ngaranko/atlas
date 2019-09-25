@@ -31,12 +31,12 @@ const HomepageStyle = styled(Container)`
   }
 `
 
-export const Subtitlle = styled(Heading)`
+export const Subtitle = styled(Heading)`
   ${blockTopMargin(24)}
 `
 
 export const OverviewLink = styled(Link)`
-  margin-top: 32px;
+  margin-top: 16px;
   padding: 8px 3px 8px 0;
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
@@ -81,7 +81,7 @@ const Homepage = ({ loading, showError }) => (
       </StickyRow>
       <Row>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <Subtitlle>Uitgelicht</Subtitlle>
+          <Subtitle>Uitgelicht</Subtitle>
         </Column>
       </Row>
       <Row valign="flex-start">

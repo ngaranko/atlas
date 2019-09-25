@@ -28,7 +28,7 @@ const NavigationBlockStyle = styled(CardContainer)`
   background-color: ${themeColor('support', 'valid')};
   ${({ showError }) => showError && ErrorBackgroundCSS}
 
-  ${({ hasMargin }) => fullGridWidthContainer(hasMargin)}
+  ${fullGridWidthContainer()}
   ${whiteCorner()}
 
   @media screen and ${breakpoint('max-width', 'laptop')}{
@@ -149,7 +149,7 @@ const NavigationBlockStyle = styled(CardContainer)`
 `
 
 const NavigationBlock = ({ loading, showError, ...otherProps }) => (
-  <NavigationBlockStyle {...otherProps} showError={showError}>
+  <NavigationBlockStyle {...otherProps} showError={showError} hasPaddingBottom>
     {showError && <ErrorMessage onClick={() => {}} />}
     {navigationLinks.map(linkProps => (
       <NavigationLinkCard loading={loading} showError={showError} {...linkProps} />

@@ -158,7 +158,9 @@ exports[`PublicationDetailPage should render the publication when there are resu
           }
           wrap={false}
         >
-          <Styled(Connect(ShareBar)) />
+          <Connect(ShareBar)
+            topSpacing={6}
+          />
         </Column>
       </Row>
     </ContentContainer>

@@ -63,7 +63,7 @@ const HeaderColumn = styled(Column)`
         </HeaderColumn>
 
         {aboutDataLinks.map(linkProps => (
-          <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
+          <Column span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
             <AboutLinkCard loading={loading} {...linkProps} />
           </Column>
         ))}
@@ -76,7 +76,7 @@ const HeaderColumn = styled(Column)`
         </HeaderColumn>
 
         {aboutSiteLinks.map(linkProps => (
-          <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
+          <Column span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
             <AboutLinkCard loading={loading} {...linkProps} />
           </Column>
         ))}
