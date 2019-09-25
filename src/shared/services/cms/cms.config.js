@@ -65,21 +65,21 @@ export const OVER_OIS = 'over-ois'
 export const ONDERZOEK_DOOR_OIS = 'onderzoek-door-ois'
 
 const cmsIdListAcc = {
+  [WAT_KUN_JE_HIER]: '5a962d67-ae2d-41b5-9c1a-263591eb5b0c',
+  [OVER_OIS]: '4dba60f2-7161-4fd8-81e9-03eddb52d259',
   [AMSTERDAM_EN_DATA]: '29160257-dd4b-4349-a5df-d6f7715615ed',
   [BRONNEN]: 'e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115',
-  [WAT_KUN_JE_HIER]: 'e1704036-dcda-4cac-ba87-732d5dc45855',
-  [VEELGESTELDE_VRAGEN]: 'a939afed-ff98-4db1-a927-fe6c9bac1ae6',
-  [OVER_OIS]: '4dba60f2-7161-4fd8-81e9-03eddb52d259',
   [ONDERZOEK_DOOR_OIS]: 'bd25761c-ca8c-4587-bdd8-6f77bd8bd7e3',
+  [VEELGESTELDE_VRAGEN]: 'a939afed-ff98-4db1-a927-fe6c9bac1ae6',
 }
 
 const cmsIdListProd = {
+  [WAT_KUN_JE_HIER]: '5a962d67-ae2d-41b5-9c1a-263591eb5b0c',
+  [OVER_OIS]: '4dba60f2-7161-4fd8-81e9-03eddb52d259',
   [AMSTERDAM_EN_DATA]: '29160257-dd4b-4349-a5df-d6f7715615ed',
   [BRONNEN]: 'e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115',
-  [WAT_KUN_JE_HIER]: 'e1704036-dcda-4cac-ba87-732d5dc45855',
-  [VEELGESTELDE_VRAGEN]: 'a939afed-ff98-4db1-a927-fe6c9bac1ae6',
-  [OVER_OIS]: '4dba60f2-7161-4fd8-81e9-03eddb52d259',
   [ONDERZOEK_DOOR_OIS]: 'bd25761c-ca8c-4587-bdd8-6f77bd8bd7e3',
+  [VEELGESTELDE_VRAGEN]: 'a939afed-ff98-4db1-a927-fe6c9bac1ae6',
 }
 
 const cmsIdList = {

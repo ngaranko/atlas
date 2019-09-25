@@ -14,7 +14,13 @@ const HelpLinks = () => (
         </Link>
       </FooterLinkListItem>
       <FooterLinkListItem>
-        <Link href="/" variant="with-chevron">
+        <Link
+          title="Contact opnemen"
+          href="https://www.amsterdam.nl/ois/contact/"
+          rel="external noopener noreferrer"
+          target="_blank"
+          variant="with-chevron"
+        >
           Contact opnemen
         </Link>
       </FooterLinkListItem>
