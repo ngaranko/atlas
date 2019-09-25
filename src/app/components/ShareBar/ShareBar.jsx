@@ -29,6 +29,7 @@ const ShareBar = ({ hasPrintButton, openSharePage, openPrintMode, ...otherProps 
     window.open(link.url, link.target)
   }
 
+  console.log('hasPrintButton', hasPrintButton)
   return (
     <ShareBarContainer {...otherProps}>
       <ShareButton
