@@ -4,14 +4,20 @@ import { getAuthHeaders } from '../../../shared/services/auth/auth'
 // Minimun length for typeahead query in backend is 3 characters
 const MIN_QUERY_LENGTH = 3
 
+// These strings correspond to the labels defined in the typeahead API.
+export const LABELS = {
+  PUBLICATIONS: 'Publicaties',
+  DATASETS: 'Datasets',
+  ARTICLES: 'Artikelen',
+}
+
 /**
- * Orders the array by the object's labels in the order defined in the method
+ * Orders the array by the object's labels in the order defined the LABELS const
  * @param {Array} results
  * @returns {*[]}
  */
 export const orderAutoSuggestResults = results => {
-  // These strings correspond to the labels defined in the typeahead API.
-  const order = ['Data', 'Publicaties', 'Datasets', 'Artikelen']
+  const order = Object.values(LABELS)
 
   const dataPart = results.filter(category => !order.includes(category.label))
   const orderedPart = order.reduce((acc, label) => {
