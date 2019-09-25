@@ -1,14 +1,14 @@
-import React from 'react'
 import styled, { css } from '@datapunt/asc-core'
-import { breakpoint, Button, Paragraph, themeColor } from '@datapunt/asc-ui'
+import { breakpoint, Button, Paragraph, themeColor, themeSpacing } from '@datapunt/asc-ui'
+import React from 'react'
 
 const ErrorMessageStyle = styled.div`
   position: absolute;
   z-index: 1;
   background-color: white;
-  padding: 20px;
+  padding: ${themeSpacing(5)};
   border: 1px solid ${themeColor('tint', 'level4')};
-  top: 56px;
+  top: ${themeSpacing(14)};
   left: 50%;
   transform: translateX(-50%);
   text-align: center;

@@ -1,23 +1,57 @@
+/* eslint-disable camelcase */
 import React from 'react'
-import { Column, Row } from '@datapunt/asc-ui'
+import { Column, Container, Row } from '@datapunt/asc-ui'
+import useFromCMS from '../../utils/useFromCMS'
+import cmsConfig from '../../../shared/services/cms/cms.config'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
-import './EditorialOverviewPage.scss'
 import EditorialResults from '../../components/EditorialResults'
+import useNormalizedCMSResults from '../../../normalizations/cms/useNormalizedCMSResults'
 
-const EditorialOverviewPage = ({ page, loading, results, type, links, onClickMore }) => (
-  <div className="editorial-overview__body">
-    <Row>
-      <ContentContainer>
-        <Column
-          wrap
-          span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 8 }}
-          push={{ small: 0, medium: 0, big: 0, large: 0, xLarge: 2 }}
-        >
-          <EditorialResults {...{ page, loading, results, type, links, onClickMore }} />
-        </Column>
-      </ContentContainer>
-    </Row>
-  </div>
-)
+const EditorialOverviewPage = ({ type = '' }) => {
+  const { results, fetchData, loading } = useFromCMS(cmsConfig[type], undefined, false)
+  const [aggregatedData, setData] = React.useState([])
+  const [page, setPage] = React.useState(0)
+  const { results: data, _links } = results || {}
+
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchData()
+    })()
+  }, [])
+
+  React.useEffect(() => {
+    if (data) {
+      setData([...aggregatedData, ...data])
+      setPage(page + 1)
+    }
+  }, [data])
+
+  const normalizedResults = useNormalizedCMSResults(aggregatedData, type)
+
+  return (
+    <Container>
+      <Row>
+        <ContentContainer>
+          <Column
+            wrap
+            span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 9 }}
+            push={{ small: 0, medium: 0, big: 0, large: 0, xLarge: 1 }}
+          >
+            <EditorialResults
+              {...{
+                page,
+                loading,
+                results: normalizedResults,
+                type,
+                links: _links,
+                onClickMore: fetchData,
+              }}
+            />
+          </Column>
+        </ContentContainer>
+      </Row>
+    </Container>
+  )
+}
 
 export default EditorialOverviewPage

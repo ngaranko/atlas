@@ -1,88 +1,97 @@
-import React from 'react'
 import styled from '@datapunt/asc-core'
-import { Heading, Row, Column, CardContainer, styles, color } from '@datapunt/asc-ui'
+import { breakpoint, Column, Heading, Row, themeColor, themeSpacing } from '@datapunt/asc-ui'
+import React from 'react'
+import AboutCard from './AboutCard'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
-import { blockTopMargin } from './services/styles'
 import aboutDataLinks from './services/about-data-links'
 import aboutSiteLinks from './services/about-site-links'
-import AboutLinkCard from './AboutLinkCard'
 
-/* istanbul ignore next */ const StyledAboutCard = styled(CardContainer)`
+const AboutBlockStyle = styled.div`
   ${({ showError }) => showError && ErrorBackgroundCSS}
-  ${blockTopMargin()}
+  width: 100%;
+`
 
-  ${styles.ColumnStyle} {
-    margin-bottom: 16px;
+const StyledCardColumn = styled(Column)`
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-bottom: ${themeSpacing(6)};
   }
 
-  ${styles.LinkStyle} {
-    width: 100%;
-    height: 100%;
+  @media screen and ${breakpoint('max-width', 'tabletM')} {
+    margin-bottom: ${themeSpacing(4)};
+  }
+`
 
-    &:focus ${styles.CardStyle} {
-      background: none;
+const StyledRow = styled(Row)`
+  height: 100%; // make sure the AboutCards have the same size in both Columns
+
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-bottom: ${themeSpacing(4)};
+
+    @media screen and ${breakpoint('max-width', 'tabletM')} {
+      margin-bottom: ${themeSpacing(6)};
     }
   }
+`
 
-  ${styles.CardStyle} {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
+const StyledColumn = styled(Column)`
+  flex-direction: column;
+  border-top: 4px solid ${themeColor('tint', 'level3')};
+  padding-top: ${themeSpacing(4)};
 
-    &:hover {
-      ${({ theme }) => `box-shadow: 2px 2px ${color('secondary')({ theme })};`}
+  // Don't add a margin-bottom rule on the last StyledCardColumn and StyledRow components
+  &:last-child {
+    ${StyledCardColumn}:last-child {
+      margin-bottom: 0;
+    }
 
-      ${styles.HeadingStyle} {
-        color: ${color('secondary')};
-        text-decoration: underline;
+    @media screen and ${breakpoint('min-width', 'tabletM')} {
+      ${StyledCardColumn} {
+        margin-bottom: 0;
       }
     }
-  }
 
-  ${styles.CardContentStyle} {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    ${StyledRow} {
+      margin-bottom: 0;
+    }
   }
 `
 
-const HeaderColumn = styled(Column)`
-  flex-direction: column;
-  border-top: 4px solid ${color('tint', 'level3')};
-  padding-top: 16px;
+const StyledHeading = styled(Heading)`
+  margin-bottom: ${themeSpacing(6)};
 `
 
-/* istanbul ignore next */ const AboutBlock = ({ loading, showError, ...otherProps }) => (
-  <StyledAboutCard {...otherProps} showError={showError}>
+const AboutBlock = ({ loading, showError, ...otherProps }) => (
+  <AboutBlockStyle {...otherProps} showError={showError}>
     {showError && <ErrorMessage onClick={() => {}} />}
     <Row hasMargin={false}>
-      <Column wrap span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
-        <HeaderColumn span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <Heading $as="h2" styleAs="h1">
-            Over data
-          </Heading>
-        </HeaderColumn>
+      <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
+        <StyledHeading $as="h2" styleAs="h1">
+          Over data
+        </StyledHeading>
 
-        {aboutDataLinks.map(linkProps => (
-          <Column span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
-            <AboutLinkCard loading={loading} {...linkProps} />
-          </Column>
-        ))}
-      </Column>
-      <Column wrap span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
-        <HeaderColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
-          <Heading $as="h2" styleAs="h1">
-            Over deze site
-          </Heading>
-        </HeaderColumn>
+        <StyledRow hasMargin={false}>
+          {aboutDataLinks.map(linkProps => (
+            <StyledCardColumn span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
+              <AboutCard loading={loading} {...linkProps} />
+            </StyledCardColumn>
+          ))}
+        </StyledRow>
+      </StyledColumn>
+      <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
+        <StyledHeading $as="h2" styleAs="h1">
+          Over deze site
+        </StyledHeading>
 
-        {aboutSiteLinks.map(linkProps => (
-          <Column span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
-            <AboutLinkCard loading={loading} {...linkProps} />
-          </Column>
-        ))}
-      </Column>
+        <StyledRow hasMargin={false}>
+          {aboutSiteLinks.map(linkProps => (
+            <StyledCardColumn span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
+              <AboutCard loading={loading} {...linkProps} />
+            </StyledCardColumn>
+          ))}
+        </StyledRow>
+      </StyledColumn>
     </Row>
-  </StyledAboutCard>
+  </AboutBlockStyle>
 )
 
 export default AboutBlock
