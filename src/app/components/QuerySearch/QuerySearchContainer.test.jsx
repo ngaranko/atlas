@@ -4,9 +4,6 @@ import configureMockStore from 'redux-mock-store'
 import QuerySearchContainer from './QuerySearchContainer'
 
 const initialState = {
-  ui: {
-    isPrintMode: false,
-  },
   datasets: {
     datasetData: {
       isLoading: false,

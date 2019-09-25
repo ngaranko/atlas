@@ -43,7 +43,6 @@ const QuerySearch = ({
   filters,
   user,
   toSearchPage,
-  printMode,
 }) => {
   // Article
   const {
@@ -124,11 +123,9 @@ const QuerySearch = ({
                   <DataSearchQuery numberOfResults={numberOfResults} user={user} />
                 )}
                 {currentPage === PAGES.DATASET_SEARCH && <Dataset />}
-                {currentPage === PAGES.ARTICLE_SEARCH && (
-                  <EditorialSearch type={PAGES.ARTICLES} printMode={printMode} />
-                )}
+                {currentPage === PAGES.ARTICLE_SEARCH && <EditorialSearch type={PAGES.ARTICLES} />}
                 {currentPage === PAGES.PUBLICATION_SEARCH && (
-                  <EditorialSearch type={PAGES.PUBLICATIONS} printMode={printMode} />
+                  <EditorialSearch type={PAGES.PUBLICATIONS} />
                 )}
               </div>
             </div>
@@ -151,7 +148,6 @@ QuerySearch.propTypes = {
   currentPage: PropTypes.string.isRequired,
   numberOfResults: PropTypes.number.isRequired,
   toSearchPage: PropTypes.func.isRequired,
-  printMode: PropTypes.bool.isRequired,
 }
 
 export default QuerySearch
