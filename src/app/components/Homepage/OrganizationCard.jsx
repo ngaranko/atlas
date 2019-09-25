@@ -9,7 +9,12 @@ const StyledCard = styled(Card)`
   align-items: flex-start;
   height: 100%;
   width: 100%;
-  margin-bottom: 0px !important; // Check why the Card has a margin-bottom
+
+  // Override the margin-bottom of the Card component when used in a CardContainer
+  && {
+    margin-bottom: 0px;
+  }
+
   ${({ loading }) =>
     !loading &&
     css`
@@ -26,14 +31,16 @@ const StyledCardContent = styled(CardContent)`
 `
 
 const StyledHeading = styled(Heading)`
-  margin: ${themeSpacing(3)} 0 ${themeSpacing(6)};
+  margin: ${themeSpacing(3, 0, 6)};
 `
 
 const StyledParagraph = styled(Paragraph)`
   height: 100%;
 
-  // check where and WHY the margin-bottom rule is overriden in @datapunt/asc-ui
-  margin-bottom: ${themeSpacing(6)} !important;
+  // Override the margin-bottom of the Paragraph component
+  && {
+    margin-bottom: ${themeSpacing(6)};
+  }
 `
 
 const OrganizationCard = ({

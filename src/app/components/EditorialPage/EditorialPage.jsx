@@ -14,7 +14,6 @@ const StyledContainer = styled(Container)`
 `
 const BodyStyle = styled.div`
   background-color: ${themeColor('level', 'level1')}
-  min-height: calc(100% - 278px);
   position: relative;
   width: 100%;
 `

@@ -4,7 +4,7 @@ import React from 'react'
 
 const StyledLink = styled(Link)`
   margin-top: ${themeSpacing(4)};
-  padding: ${themeSpacing(2)} ${themeSpacing(1)} ${themeSpacing(2)} 0;
+  padding: ${themeSpacing(2, 1, 2)} 0;
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
     margin-top: ${themeSpacing(6)};
