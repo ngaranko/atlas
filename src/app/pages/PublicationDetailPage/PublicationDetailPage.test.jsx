@@ -55,7 +55,6 @@ describe('PublicationDetailPage', () => {
 
     store = configureMockStore()({
       location: { payload: { id } },
-      ui: { isPrintMode: false },
     })
   })
 

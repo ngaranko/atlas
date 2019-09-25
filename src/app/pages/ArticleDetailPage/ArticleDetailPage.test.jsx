@@ -54,7 +54,7 @@ describe('ArticleDetailPage', () => {
     }))
     useMatomo.mockImplementation(() => ({ trackPageView: jest.fn(), href }))
 
-    store = configureMockStore()({ location: { payload: { id } }, ui: { isPrintMode: false } })
+    store = configureMockStore()({ location: { payload: { id } } })
   })
 
   afterEach(() => {
