@@ -1,5 +1,6 @@
 import React from 'react'
 import { AngularWrapper } from 'react-angular'
+import styled from '@datapunt/asc-core'
 import classNames from 'classnames'
 import angular from 'angular'
 import PropTypes from 'prop-types'
@@ -11,6 +12,10 @@ import NoResultsForSearchType from '../Messages/NoResultsForSearchType'
 import Catalog from './Catalog/Catalog'
 import ShareBar from '../ShareBar/ShareBar'
 import '../../angularModules'
+
+const StyledShareBar = styled(ShareBar)`
+  margin-top: 24px;
+`
 
 const Dataset = ({
   setPage,
@@ -31,10 +36,13 @@ const Dataset = ({
 
   if (numberOfRecords === 0) {
     return (
-      <NoResultsForSearchType
-        message={`Tip: maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens
+      <>
+        <NoResultsForSearchType
+          message={`Tip: maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens
         de optie 'Alle datasets tonen' en filter vervolgens op thema.`}
-      />
+        />
+        {!printMode && <StyledShareBar />}
+      </>
     )
   }
 

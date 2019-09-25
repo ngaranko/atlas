@@ -206,7 +206,8 @@ export const hasPrintMode = createSelector(
     ((!dataSelectionPage || viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
       (!datasetPage || datasetDetailPage) &&
       (dataPage || mapActive || viewMode === VIEW_MODE.SPLIT)) ||
-    panoPageActive,
+    panoPageActive ||
+    datasetPage,
 )
 
 export const hasEmbedMode = createSelector(

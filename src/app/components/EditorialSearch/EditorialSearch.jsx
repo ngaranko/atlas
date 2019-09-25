@@ -54,22 +54,25 @@ const EditorialSearch = ({ type, printMode }) => {
 
   if (results && !results.results) {
     return (
-      <NoResultsForSearchType
-        message={
-          <p>
-            Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
-            <Link
-              variant="inline"
-              $as={RouterLink}
-              to={routeMapping[type]()}
-              title={`Overzicht van ${EDITORIAL_TITLES[type]}`}
-            >
-              {EDITORIAL_TITLES[type]}
-            </Link>
-            .
-          </p>
-        }
-      />
+      <>
+        <NoResultsForSearchType
+          message={
+            <p>
+              Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
+              <Link
+                variant="inline"
+                $as={RouterLink}
+                to={routeMapping[type]()}
+                title={`Overzicht van ${EDITORIAL_TITLES[type]}`}
+              >
+                {EDITORIAL_TITLES[type]}
+              </Link>
+              .
+            </p>
+          }
+        />
+        {!printMode && <StyledShareBar />}
+      </>
     )
   }
 
