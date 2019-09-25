@@ -69,6 +69,7 @@ const EditorialSearch = ({ type }) => {
             .
           </p>
         }
+        hideLoginLink
       />
     )
   }

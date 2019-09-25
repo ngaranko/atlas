@@ -590,6 +590,7 @@ exports[`DataSelection should render the container 1`] = `
     <Connect(DataSelectionActiveFilters) />
     <NoResultsForSearchType
       authMessage={false}
+      hideLoginLink={false}
       message="Tip: verwijder een of meer criteria"
     />
     <div

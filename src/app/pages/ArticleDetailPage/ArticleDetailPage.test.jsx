@@ -6,12 +6,10 @@ import { useMatomo } from '@datapunt/matomo-tracker-react'
 import ArticleDetailPage from './ArticleDetailPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
-import Footer from '../../components/Footer/Footer'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
-jest.mock('../../components/Footer/Footer')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('@datapunt/matomo-tracker-react')
 
@@ -47,7 +45,6 @@ describe('ArticleDetailPage', () => {
   let store
   beforeEach(() => {
     linkAttributesFromAction.mockImplementation(() => ({ href }))
-    Footer.mockImplementation(() => <></>)
     useDocumentTitle.mockImplementation(() => ({
       setDocumentTitle: jest.fn(),
       href,

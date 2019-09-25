@@ -3,14 +3,14 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { boolean, withKnobs } from '@storybook/addon-knobs'
 import { Row, Column } from '@datapunt/asc-ui'
-import HighlightsBlock from '../HighlightsBlock'
+import HighlightBlock from '../HighlightBlock'
 
 storiesOf('Dataportaal/Frontpage', module)
   .addDecorator(withKnobs)
   .add('Highlights block', () => (
     <Row debug>
       <Column debug wrap span={{ small: 1, medium: 2, big: 6, large: 8, xLarge: 8 }}>
-        <HighlightsBlock loading={boolean('loading', false)} showError={boolean('error', false)} />
+        <HighlightBlock loading={boolean('loading', false)} showError={boolean('error', false)} />
       </Column>
     </Row>
   ))
