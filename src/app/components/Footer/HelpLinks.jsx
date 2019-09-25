@@ -50,7 +50,7 @@ const HelpLinks = () => (
           variant="with-chevron"
           {...contactLink}
         >
-          contactLink.title
+          {contactLink.title}
         </Link>
       </FooterLinkListItem>
       <FooterLinkListItem>
