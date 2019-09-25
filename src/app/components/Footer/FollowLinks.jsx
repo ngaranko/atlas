@@ -1,12 +1,11 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react'
 import { FooterLinkList, FooterLinkListItem, Link } from '@datapunt/asc-ui'
 import { followLinks } from './services/footer-links'
 
 const FollowLinks = () => (
   <FooterLinkList>
-    {followLinks.map(({ title, href }, i) => (
-      <FooterLinkListItem key={i}>
+    {followLinks.map(({ title, href }) => (
+      <FooterLinkListItem key={title}>
         <Link
           title={title}
           href={href}

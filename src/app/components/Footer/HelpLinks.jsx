@@ -6,18 +6,18 @@ import ActionLink from '../Links/ActionLink/ActionLink'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import { openFeedbackForm } from '../Modal/FeedbackModal'
 
-const veelGesteldeVragenLink = {
+const FAQ_LINK = {
   title: 'Veelgestelde vragen',
   id: cmsIds[VEELGESTELDE_VRAGEN],
   slug: VEELGESTELDE_VRAGEN,
 }
 
-const contactLink = {
+const CONTACT_LINK = {
   title: 'Contact opnemen',
   href: 'https://www.amsterdam.nl/ois/contact/',
 }
 
-const uitlegGebruikLink = {
+const HELP_LINK = {
   title: 'Uitleg gebruik',
   id: cmsIds[VEELGESTELDE_VRAGEN],
   slug: VEELGESTELDE_VRAGEN,
@@ -41,16 +41,16 @@ const HelpLinks = () => (
     </Paragraph>
     <FooterLinkList>
       <FooterLinkListItem>
-        <ArticleLink {...veelGesteldeVragenLink} />
+        <ArticleLink {...FAQ_LINK} />
       </FooterLinkListItem>
       <FooterLinkListItem>
         <Link
           rel="external noopener noreferrer"
           target="_blank"
           variant="with-chevron"
-          {...contactLink}
+          {...CONTACT_LINK}
         >
-          {contactLink.title}
+          {CONTACT_LINK.title}
         </Link>
       </FooterLinkListItem>
       <FooterLinkListItem>
@@ -59,7 +59,7 @@ const HelpLinks = () => (
         </FeedbackLink>
       </FooterLinkListItem>
       <FooterLinkListItem>
-        <ArticleLink {...uitlegGebruikLink} />
+        <ArticleLink {...HELP_LINK} />
       </FooterLinkListItem>
     </FooterLinkList>
   </>
