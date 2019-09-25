@@ -11,7 +11,7 @@ import EmbedHeader from './EmbedHeader'
 import PrintHeader from './PrintHeader'
 
 const style = theme => css`
-  z-index: 9999;
+  z-index: 9999; // Check why this z-index is set when refactoring the print and embed header
 
   ${styles.HeaderNavigationStyle} {
     // This must be added to the @datapunt/asc-ui project https://github.com/Amsterdam/amsterdam-styled-components/issues/165
@@ -38,7 +38,7 @@ const style = theme => css`
 
 const HeaderWrapper = styled.section`
   width: 100%;
-  z-index: 9999;
+  z-index: 9999; // Check why this z-index is set when refactoring the print and embed header
 `
 
 const MenuDefault = props => <HeaderMenuContainer {...props} type="default" />
