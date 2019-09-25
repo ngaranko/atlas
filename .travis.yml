@@ -1,0 +1,22 @@
+sudo: false
+os:
+  - linux
+  - osx
+  - windows
+language: node_js
+node_js:
+  - '10'
+cache:
+  npm: true
+  directories:
+    - node_modules
+install:
+  - npm install
+script:
+  - npm run lint
+  - npm run test
+  - npm run build
+branches:
+  only:
+    - master
+    - develop
