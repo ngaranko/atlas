@@ -5,7 +5,7 @@
 
   &__body {
     background-color: $primary-light;
-    min-height: calc(100vh - 330px);
+    min-height: calc(100vh - 330px); // header=50px + footer=280px
     position: relative;
     width: 100%;
 

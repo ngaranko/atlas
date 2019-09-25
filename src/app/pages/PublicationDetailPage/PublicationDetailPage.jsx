@@ -18,9 +18,8 @@ import cmsConfig from '../../../shared/services/cms/cms.config'
 import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import ShareBar from '../../components/ShareBar/ShareBar'
-import { isPrintMode } from '../../../shared/ducks/ui/ui'
 
-const PublicationDetailPage = ({ id, printMode }) => {
+const PublicationDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS(cmsConfig.PUBLICATION, id)
 
   React.useEffect(() => {
@@ -88,7 +87,7 @@ const PublicationDetailPage = ({ id, printMode }) => {
                 </Column>
               </Column>
               <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-                {!printMode && <ShareBar topSpacing={6} />}
+                <ShareBar topSpacing={6} />
               </Column>
             </Row>
           </ContentContainer>
@@ -102,7 +101,6 @@ const mapStateToProps = state => {
   const { id } = getLocationPayload(state)
   return {
     id,
-    printMode: isPrintMode(state),
   }
 }
 

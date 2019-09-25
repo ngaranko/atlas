@@ -30,7 +30,6 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
 import cmsConfig from '../../../shared/services/cms/cms.config'
 import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
 import ShareBar from '../../components/ShareBar/ShareBar'
-import { isPrintMode } from '../../../shared/ducks/ui/ui'
 
 const ListItemContent = styled.div`
   display: flex;
@@ -43,7 +42,7 @@ const ListItemContent = styled.div`
 `
 
 /* istanbul ignore next */
-const ArticleDetailPage = ({ id, printMode }) => {
+const ArticleDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS(cmsConfig.ARTICLE, id)
 
   React.useEffect(() => {
@@ -165,7 +164,7 @@ const ArticleDetailPage = ({ id, printMode }) => {
                       span={{ small: 1, medium: 2, big: 4, large: 11, xLarge: 11 }}
                       push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                     >
-                      {!printMode && <ShareBar topSpacing={6} />}
+                      <ShareBar topSpacing={6} />
                     </Column>
                   </EditorialContent>
                 </Row>
@@ -182,7 +181,6 @@ const mapStateToProps = state => {
   const { id } = getLocationPayload(state)
   return {
     id,
-    printMode: isPrintMode(state),
   }
 }
 

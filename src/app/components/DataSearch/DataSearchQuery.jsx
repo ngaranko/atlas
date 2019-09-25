@@ -4,11 +4,10 @@ import { getSearchQueryResults } from '../../../shared/ducks/data-search/selecto
 import DataSearchContainer from './DataSearchContainer'
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn'
 import ShareBar from '../ShareBar/ShareBar'
-import { isPrintMode } from '../../../shared/ducks/ui/ui'
 
 const EXCLUDED_RESULTS = 'kadastrale subjecten, maatschappelijke activiteiten en vestigingen'
 
-const DataSearchQuery = ({ user, numberOfResults, searchResults, printMode }) => (
+const DataSearchQuery = ({ user, numberOfResults, searchResults }) => (
   <div>
     <DataSearchContainer user={user} searchResults={searchResults} />
     {!!numberOfResults && (!user.scopes.includes('HR/R') || !user.scopes.includes('BRK/RS')) && (
@@ -16,7 +15,9 @@ const DataSearchQuery = ({ user, numberOfResults, searchResults, printMode }) =>
     )}
     <div className="u-row">
       <div className="u-col-sm--12">
-        <div className="u-margin__top--4">{!printMode && <ShareBar />}</div>
+        <div className="u-margin__top--4">
+          <ShareBar />
+        </div>
       </div>
     </div>
   </div>
@@ -24,7 +25,6 @@ const DataSearchQuery = ({ user, numberOfResults, searchResults, printMode }) =>
 
 const mapStateToProps = state => ({
   searchResults: getSearchQueryResults(state),
-  printMode: isPrintMode(state),
 })
 
 export default connect(

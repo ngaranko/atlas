@@ -34,7 +34,7 @@ const StyledEditorialSearch = styled.div`
   max-width: 792px; // Image width + 600px (design system rule)
 `
 
-const EditorialSearch = ({ type, printMode }) => {
+const EditorialSearch = ({ type }) => {
   const [{ results, loading }, dispatch] = useContext(contextMapping[type])
   const { actions, selectors } = ducksMapping[type]()
 
@@ -68,7 +68,7 @@ const EditorialSearch = ({ type, printMode }) => {
           }
           hideLoginLink
         />
-        {!printMode && <ShareBar topSpacing={6} />}
+        <ShareBar topSpacing={6} />
       </>
     )
   }
@@ -85,7 +85,7 @@ const EditorialSearch = ({ type, printMode }) => {
         links={results._links}
         showTitle={false}
       />
-      {!printMode && <ShareBar topSpacing={6} />}
+      <ShareBar topSpacing={6} />
     </StyledEditorialSearch>
   )
 }
