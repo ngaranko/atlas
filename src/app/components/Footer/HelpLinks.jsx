@@ -1,5 +1,5 @@
 import React from 'react'
-import { FooterLinkList, FooterLinkListItem, Paragraph, Link } from '@datapunt/asc-ui'
+import { FooterLinkList, FooterLinkListItem, Paragraph, Link, themeColor } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import { cmsIds, VEELGESTELDE_VRAGEN } from '../../../shared/services/cms/cms.config'
 import ActionLink from '../Links/ActionLink/ActionLink'
@@ -29,8 +29,10 @@ const ArticleLink = ({ title, id, slug }) => (
   </ActionLink>
 )
 
-const FeedbackLink = styled(Link)`
-  cursor: pointer;
+const FeedbackLink = styled(Link).attrs({
+  type: 'button',
+})`
+  background-color: ${themeColor('tint', 'level5')};
 `
 
 const HelpLinks = () => (
@@ -54,7 +56,12 @@ const HelpLinks = () => (
         </Link>
       </FooterLinkListItem>
       <FooterLinkListItem>
-        <FeedbackLink title="Feedback geven" variant="with-chevron" onClick={openFeedbackForm}>
+        <FeedbackLink
+          $as="button"
+          title="Feedback geven"
+          variant="with-chevron"
+          onClick={openFeedbackForm}
+        >
           Feedback geven
         </FeedbackLink>
       </FooterLinkListItem>
