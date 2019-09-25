@@ -25,7 +25,7 @@ function useFromCMS(config, id = false, normalize = true) {
       }
       setResults(result)
     } catch (e) {
-      window.location.replace(routing.niet_gevonden.path)
+      // window.location.replace(routing.niet_gevonden.path)
     }
 
     setLoading(false)

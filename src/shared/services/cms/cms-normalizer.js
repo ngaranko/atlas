@@ -1,6 +1,7 @@
 import normalize from 'json-api-normalize'
 import formatDate, { dateToString } from '../date-formatter/date-formatter'
 import SHARED_CONFIG from '../shared-config/shared-config'
+import useNormalizedCMSResults from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const normalizeDataObject = (dataItem, type = '') => {
   const {
@@ -14,31 +15,22 @@ const normalizeDataObject = (dataItem, type = '') => {
     ...otherFields
   } = dataItem
 
-  let formattedDate
   let localeDate
+  let localeDateFormatted
+
   // publications follow a different pattern for constructing the localeDate
   if (type === 'publication') {
-    const {
-      field_publication_year: year,
-      field_publication_month: month,
-      field_publication_day: day,
-    } = otherFields || {}
+    const { field_publication_year: year, field_publication_month: month } = otherFields || {}
 
-    // eslint-disable-next-line no-nested-ternary
-    const combinedDate = (year, month, day)
-      ? `${year}, ${month}, ${day}`
-      : (year, month)
-      ? `${year}, ${month}`
-      : year
+    localeDate = new Date(Date.UTC(year, month || 1, 1, 0, 0, 0))
 
-    formattedDate = new Date(combinedDate)
-    localeDate = formatDate(formattedDate, !!day, !!month, !!year)
+    localeDateFormatted = formatDate(localeDate, false, !!month, !!year)
   } else {
-    formattedDate = new Date(publicationDate)
-    localeDate = formatDate(formattedDate)
+    localeDate = new Date(publicationDate)
+    localeDateFormatted = formatDate(localeDate)
   }
 
-  const date = dateToString(formattedDate)
+  const date = dateToString(localeDateFormatted)
 
   const { url: coverImageUrl } = coverImage ? coverImage.field_media_image.uri : {}
   const { url: fileUrl } = file ? file.field_media_file.uri : {}
@@ -48,7 +40,7 @@ const normalizeDataObject = (dataItem, type = '') => {
     id,
     title,
     date,
-    localeDate,
+    localeDate: localeDateFormatted,
     body: body && body.value,
     coverImageUrl: coverImageUrl ? `${SHARED_CONFIG.CMS_ROOT}${coverImageUrl}` : null,
     fileUrl: fileUrl ? `${SHARED_CONFIG.CMS_ROOT}${fileUrl}` : null,
@@ -62,12 +54,25 @@ const cmsNormalizer = (type, data, fields) => {
 
   // In case of a Drupal collection resource the returned data will include several objects that need to be normalized
   if (normalizedData.field_items) {
-    console.log(normalizedData)
+    const aggregatedData = normalizedData.field_items.map(item => {
+      const { url: teaserImageUrl } = item.field_teaser_image
+        ? item.field_teaser_image.field_media_image.uri
+        : {}
 
-    return normalizedData.field_items.map((item, index) => ({
-      ...normalizeDataObject(item),
-      id: index,
-    }))
+      // Make sure the correct fields have data here to be used by useNormalizedCMSResults()
+      return {
+        ...normalizedData,
+        ...item,
+        slug: item.field_slug,
+        intro: item.field_intro,
+        short_title: item.field_short_title,
+        uuid: item.id,
+        teaser_url: teaserImageUrl,
+      }
+    })
+    const normalizedNew = useNormalizedCMSResults(aggregatedData, type)
+
+    return normalizedNew
   }
 
   return normalizeDataObject(normalizedData, type)

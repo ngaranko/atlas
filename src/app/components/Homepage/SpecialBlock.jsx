@@ -16,6 +16,8 @@ import SpecialCard from './SpecialCard'
 
 import useFromCMS from '../../utils/useFromCMS'
 import cmsConfig from '../../../shared/services/cms/cms.config'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import { toSpecialOverview } from '../../../store/redux-first-router/actions'
 
 const StyledRow = styled(Row)`
   ${({ showError }) => showError && ErrorBackgroundCSS}
@@ -52,6 +54,7 @@ const StyledHeading = styled(Heading)`
 
 const SpecialsBlock = ({ showError, ...otherProps }) => {
   const { results, fetchData, loading } = useFromCMS(cmsConfig.HOME_SPECIALS, undefined)
+  const { href } = linkAttributesFromAction(toSpecialOverview())
 
   React.useEffect(() => {
     ;(async () => {
@@ -77,7 +80,7 @@ const SpecialsBlock = ({ showError, ...otherProps }) => {
       </StyledRow>
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-          <OverviewLink href="/" label="Bekijk overzicht" />
+          <OverviewLink href={href} label="Bekijk overzicht" />
         </Column>
       </Row>
     </CardContainer>

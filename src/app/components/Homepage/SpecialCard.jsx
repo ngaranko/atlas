@@ -15,6 +15,7 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 
 const StyledLink = styled(Link)`
   border-bottom: ${themeColor('tint', 'level3')} 1px solid;
@@ -63,33 +64,38 @@ const StyledTag = styled(Tag)`
 const SpecialCard = ({
   loading,
   showError,
+  shortTitle,
   title,
-  tag,
-  href,
-  field_teaser: description,
-  teaserImageUrl: imageSrc,
-  title: imageAlt,
+  specialType,
+  teaser,
+  intro,
+  image,
+  to,
   ...otherProps
-}) => (
-  <StyledLink href={href} linkType="blank" {...otherProps}>
-    <StyledCard horizontal animateLoading={!showError} loading={loading}>
-      <StyledCardContent>
-        <Heading $as="h4" styleAs="h3" gutterBottom={8}>
-          {title}
-        </Heading>
-        <Paragraph>
-          <StyledTag colorType="tint" colorSubtype="level3">
-            {tag}
-          </StyledTag>
-          {description}
-        </Paragraph>
-      </StyledCardContent>
-      <StyledCardMedia>
-        <Image src={imageSrc} alt={imageAlt} square />
-      </StyledCardMedia>
-    </StyledCard>
-  </StyledLink>
-)
+}) => {
+  const { href } = linkAttributesFromAction(to)
+
+  return (
+    <StyledLink href={href} linkType="blank" {...otherProps}>
+      <StyledCard horizontal animateLoading={!showError} loading={loading}>
+        <StyledCardContent>
+          <Heading $as="h4" styleAs="h3" gutterBottom={8}>
+            {shortTitle || title}
+          </Heading>
+          <Paragraph>
+            <StyledTag colorType="tint" colorSubtype="level3">
+              {specialType}
+            </StyledTag>
+            {teaser || intro}
+          </Paragraph>
+        </StyledCardContent>
+        <StyledCardMedia>
+          <Image src={image} alt={shortTitle || title} square />
+        </StyledCardMedia>
+      </StyledCard>
+    </StyledLink>
+  )
+}
 
 SpecialCard.defaultProps = {
   loading: false,

@@ -10,6 +10,7 @@ import {
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { focusOutline } from './services/styles'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 
 const HighlightCardHeadingStyle = styled(Heading)`
   margin: 0;
@@ -61,23 +62,20 @@ const StyledLink = styled(Link)`
   }
 `
 
-const HighlightCard = ({
-  loading,
-  showError,
-  title,
-  href,
-  teaserImageUrl: backgroundImage,
-  ...otherProps
-}) => (
-  <StyledLink href={href} linkType="blank">
-    <ImageCard backgroundImage={backgroundImage} loading={loading} animateLoading={!showError}>
-      <ImageCardContent>
-        <HighlightCardHeadingStyle $as="h4" {...otherProps}>
-          {title}
-        </HighlightCardHeadingStyle>
-      </ImageCardContent>
-    </ImageCard>
-  </StyledLink>
-)
+const HighlightCard = ({ loading, showError, title, to, image, ...otherProps }) => {
+  const { href } = linkAttributesFromAction(to)
+
+  return (
+    <StyledLink href={href} linkType="blank">
+      <ImageCard backgroundImage={image} loading={loading} animateLoading={!showError}>
+        <ImageCardContent>
+          <HighlightCardHeadingStyle $as="h4" {...otherProps}>
+            {title}
+          </HighlightCardHeadingStyle>
+        </ImageCardContent>
+      </ImageCard>
+    </StyledLink>
+  )
+}
 
 export default HighlightCard

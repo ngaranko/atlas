@@ -84,7 +84,7 @@ const AboutBlock = ({ showError, ...otherProps }) => {
     })()
   }, [])
 
-  console.log(resultsAbout, resultsAboutData)
+  console.log('resultsAbout', resultsAbout, resultsAboutData)
 
   return (
     <AboutBlockStyle {...otherProps} showError={showError}>
@@ -98,7 +98,10 @@ const AboutBlock = ({ showError, ...otherProps }) => {
           <StyledRow hasMargin={false}>
             {resultsAboutData &&
               resultsAboutData.map(resultAboutData => (
-                <StyledCardColumn span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
+                <StyledCardColumn
+                  key={resultAboutData.id}
+                  span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
+                >
                   <AboutCard loading={loadingAbout} {...resultAboutData} />
                 </StyledCardColumn>
               ))}
@@ -112,7 +115,10 @@ const AboutBlock = ({ showError, ...otherProps }) => {
           <StyledRow hasMargin={false}>
             {resultsAbout &&
               resultsAbout.map(resultAbout => (
-                <StyledCardColumn span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
+                <StyledCardColumn
+                  key={resultAbout.id}
+                  span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}
+                >
                   <AboutCard loading={loadingAboutData} {...resultAbout} />
                 </StyledCardColumn>
               ))}

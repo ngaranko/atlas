@@ -8,6 +8,8 @@ import highlightsLinks from './services/highlights-links'
 
 import useFromCMS from '../../utils/useFromCMS'
 import cmsConfig from '../../../shared/services/cms/cms.config'
+import { toArticleOverview } from '../../../store/redux-first-router/actions'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 
 const HighlightBlockStyle = styled.div`
   position: relative;
@@ -72,14 +74,13 @@ flex-basis: 100%;
 
 const HighlightBlock = ({ showError, ...otherProps }) => {
   const { results, fetchData, loading } = useFromCMS(cmsConfig.HOME_HIGHLIGHT, undefined)
+  const { href } = linkAttributesFromAction(toArticleOverview())
 
   React.useEffect(() => {
     ;(async () => {
       await fetchData()
     })()
   }, [])
-
-  console.log(results)
 
   return (
     <>
@@ -101,6 +102,7 @@ const HighlightBlock = ({ showError, ...otherProps }) => {
                 .slice(1)
                 .map(result => (
                   <HighlightCard
+                    key={result.id}
                     loading={loading}
                     showError={showError}
                     {...result}
@@ -111,7 +113,7 @@ const HighlightBlock = ({ showError, ...otherProps }) => {
           </ImageCardWrapperSmall>
         </HighlightBlockInnerStyle>
       </HighlightBlockStyle>
-      <OverviewLink href="/" label="Bekijk overzicht" />
+      <OverviewLink href={href} label="Bekijk overzicht" />
     </>
   )
 }

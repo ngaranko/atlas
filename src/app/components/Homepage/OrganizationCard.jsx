@@ -2,6 +2,7 @@ import styled, { css } from '@datapunt/asc-core'
 import { Card, CardContent, Heading, Link, Paragraph, themeSpacing } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 
 const StyledCard = styled(Card)`
   border-top: 2px solid;
@@ -39,22 +40,28 @@ const OrganizationCard = ({
   loading,
   showError,
   title,
-  field_teaser: description,
-  href,
+  shortTitle,
+  teaser,
+  intro,
+  to,
   ...otherProps
-}) => (
-  <StyledCard animateLoading={!showError} loading={loading} {...otherProps}>
-    <StyledCardContent>
-      <StyledHeading $as="h4" styleAs="h3">
-        {title}
-      </StyledHeading>
-      <StyledParagraph>{description}</StyledParagraph>
-      <Link linkType="with-chevron" href={href}>
-        Lees meer
-      </Link>
-    </StyledCardContent>
-  </StyledCard>
-)
+}) => {
+  const { href } = linkAttributesFromAction(to)
+
+  return (
+    <StyledCard animateLoading={!showError} loading={loading} {...otherProps}>
+      <StyledCardContent>
+        <StyledHeading $as="h4" styleAs="h3">
+          {shortTitle || title}
+        </StyledHeading>
+        <StyledParagraph>{teaser || intro}</StyledParagraph>
+        <Link linkType="with-chevron" href={href}>
+          Lees meer
+        </Link>
+      </StyledCardContent>
+    </StyledCard>
+  )
+}
 
 OrganizationCard.defaultProps = {
   loading: false,
