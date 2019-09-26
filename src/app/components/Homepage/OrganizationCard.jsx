@@ -61,7 +61,12 @@ const OrganizationCard = ({
       </StyledHeading>
       <StyledParagraph>{teaser || intro}</StyledParagraph>
 
-      <OverviewLink $as={link && link.uri ? Link : RouterLink} to={to} href={link && link.uri} />
+      <OverviewLink
+        $as={link && link.uri ? Link : RouterLink}
+        to={to}
+        href={link && link.uri}
+        label="Lees meer"
+      />
     </StyledCardContent>
   </StyledCard>
 )
