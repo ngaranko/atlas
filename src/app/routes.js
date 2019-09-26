@@ -189,7 +189,7 @@ export const routing = {
   },
   articleDetail: {
     title: 'Artikel',
-    path: `/${MAIN_PATHS.ARTICLES}/artikel/:id/:slug/`,
+    path: `/${MAIN_PATHS.ARTICLES}/artikel/:slug/:id/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLE_DETAIL}`,
     page: PAGES.ARTICLE_DETAIL,
   },
