@@ -3,24 +3,10 @@ import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton } from '@datap
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
-import {
-  toApisPage,
-  toDatasets,
-  toHelpPage,
-  toMap,
-  toPanoramaAndPreserveQuery,
-  toAdresses,
-  toArticleDetail,
-} from '../../../store/redux-first-router/actions'
+import { toHelpPage, toArticleDetail } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
 import { colofonLinks } from '../Footer/services/footer-links'
-
-const toPanoramaAction = toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home')
-const toMapAction = toMap()
-const toDatasetsAction = toDatasets()
-const toTablesAction = toAdresses() //
-const toApisAction = toApisPage()
-const toHelpAction = toHelpPage()
+import navigationLinks from '../Homepage/services/navigation-links'
 
 const components = {
   default: MenuInline,
@@ -33,37 +19,21 @@ const Link = ({ children, ...otherProps }) => (
   </MenuButton>
 )
 
+const NavigationLink = ({ title, toAction, ...otherProps }) => (
+  <Link iconLeft={<ChevronRight />} to={toAction} {...otherProps}>
+    {title}
+  </Link>
+)
+
 const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
   const Menu = components[type]
 
   return (
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
-        <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toMapAction}>
-            Kaart
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toPanoramaAction}>
-            Panoramabeelden
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toDatasetsAction}>
-            Datasets
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toTablesAction}>
-            Tabellen
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toApisAction}>
-            Data services
-          </Link>
-        </MenuItem>
+        {navigationLinks.map(({ title, toAction }) => (
+          <NavigationLink key={title} title={title} to={toAction} />
+        ))}
       </MenuFlyOut>
       <MenuFlyOut label="Over OIS">
         {colofonLinks.map(({ title, id, slug }) => (
@@ -85,7 +55,7 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         </MenuButton>
       </MenuItem>
       <MenuItem>
-        <Link to={toHelpAction}>Help</Link>
+        <Link to={toHelpPage()}>Help</Link>
       </MenuItem>
 
       {!user.authenticated ? (
