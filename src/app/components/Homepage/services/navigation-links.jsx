@@ -1,6 +1,14 @@
 import React from 'react'
 import { Api, Data, DocumentText, Map, Pano, Table } from '@datapunt/asc-assets'
 import { Icon } from '@datapunt/asc-ui'
+import {
+  toPublicationOverview,
+  toApisPage,
+  toAdresses,
+  toDatasets,
+  toPanoramaAndPreserveQuery,
+  toMap,
+} from '../../../../store/redux-first-router/actions'
 
 const navigationLinks = [
   {
@@ -12,6 +20,7 @@ const navigationLinks = [
     ),
     title: 'Kaart',
     description: 'Zoek en bekijk data op de kaart',
+    toAction: toMap(),
   },
   {
     href: '/',
@@ -22,6 +31,7 @@ const navigationLinks = [
     ),
     title: 'Panoramabeelden',
     description: 'Kijk 360 graden in het rond',
+    toAction: toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home'),
   },
   {
     href: '/',
@@ -32,6 +42,7 @@ const navigationLinks = [
     ),
     title: 'Publicaties',
     description: 'Download fasctsheets en onderzoeksrapporten',
+    toAction: toPublicationOverview(),
   },
   {
     href: '/',
@@ -42,6 +53,7 @@ const navigationLinks = [
     ),
     title: 'Datasets',
     description: 'Zoek en download databestanden',
+    toAction: toDatasets(),
   },
   {
     href: '/',
@@ -52,6 +64,7 @@ const navigationLinks = [
     ),
     title: 'Tabellen',
     description: 'Selecteer data en sla op als spreadsheet',
+    toAction: toAdresses(),
   },
   {
     href: '/',
@@ -62,6 +75,7 @@ const navigationLinks = [
     ),
     title: 'Data services',
     description: 'Alles over het koppelen van data via APIs',
+    toAction: toApisPage(),
   },
 ]
 
