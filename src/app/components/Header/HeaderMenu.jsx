@@ -1,5 +1,5 @@
 import React from 'react'
-import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton } from '@datapunt/asc-ui'
+import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton, Link } from '@datapunt/asc-ui'
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
@@ -29,8 +29,18 @@ const components = {
   mobile: MenuToggle,
 }
 
-const Link = ({ children, ...otherProps }) => (
-  <MenuButton $as={RouterLink} {...otherProps}>
+const getContactLink = () => {
+  const CONTACT_RECIPIENT = 'datapunt@amsterdam.nl'
+  const CONTACT_SUBJECT = 'Contact opnemen via data.amsterdam.nl'
+  const CONTACT_BODY = `Contact opgenomen via de pagina: ${window.location.href}\n`
+
+  return `mailto:${CONTACT_RECIPIENT}?subject=${window.encodeURIComponent(
+    CONTACT_SUBJECT,
+  )}&body=${window.encodeURIComponent(CONTACT_BODY)}`
+}
+
+const MenuLink = ({ children, as = RouterLink, ...otherProps }) => (
+  <MenuButton $as={as} {...otherProps}>
     {children}
   </MenuButton>
 )
@@ -42,44 +52,44 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toMapAction}>
+          <MenuLink iconLeft={<ChevronRight />} to={toMapAction}>
             Kaart
-          </Link>
+          </MenuLink>
         </MenuItem>
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toPanoramaAction}>
+          <MenuLink iconLeft={<ChevronRight />} to={toPanoramaAction}>
             Panoramabeelden
-          </Link>
+          </MenuLink>
         </MenuItem>
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toDatasetsAction}>
+          <MenuLink iconLeft={<ChevronRight />} to={toDatasetsAction}>
             Datasets
-          </Link>
+          </MenuLink>
         </MenuItem>
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toApisAction}>
+          <MenuLink iconLeft={<ChevronRight />} to={toApisAction}>
             Data services
-          </Link>
+          </MenuLink>
         </MenuItem>
       </MenuFlyOut>
       <MenuFlyOut label="Over">
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toPrivacyAction}>
+          <MenuLink iconLeft={<ChevronRight />} to={toPrivacyAction}>
             Privacy en informatiebeveiliging
-          </Link>
+          </MenuLink>
         </MenuItem>
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toAvailabilityAction}>
+          <MenuLink iconLeft={<ChevronRight />} to={toAvailabilityAction}>
             Beschikbaarheid en kwaliteit data
-          </Link>
+          </MenuLink>
         </MenuItem>
         <MenuItem>
-          <Link iconLeft={<ChevronRight />} to={toMaintentanceAction}>
+          <MenuLink iconLeft={<ChevronRight />} to={toMaintentanceAction}>
             Technisch beheer en werkwijze
-          </Link>
+          </MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuButton iconLeft={<ChevronRight />} href="mailto:datapunt@amsterdam.nl">
+          <MenuButton iconLeft={<ChevronRight />} $as={Link} href={getContactLink()}>
             Contact
           </MenuButton>
         </MenuItem>
@@ -90,7 +100,7 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         </MenuButton>
       </MenuItem>
       <MenuItem>
-        <Link to={toHelpAction}>Help</Link>
+        <MenuLink to={toHelpAction}>Help</MenuLink>
       </MenuItem>
 
       {!user.authenticated ? (
