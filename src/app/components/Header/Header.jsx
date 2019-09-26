@@ -11,7 +11,15 @@ import EmbedHeader from './EmbedHeader'
 import PrintHeader from './PrintHeader'
 
 const style = theme => css`
+  z-index: 9999; // Check why this z-index is set when refactoring the print and embed header
+
   ${styles.HeaderNavigationStyle} {
+    // This must be added to the @datapunt/asc-ui project https://github.com/Amsterdam/amsterdam-styled-components/issues/165
+    @media screen and ${breakpoint('min-width', 'laptop')({ theme })} {
+      margin-left: 29px;
+      margin-right: 29px;
+    }
+
     @media screen and ${breakpoint('min-width', 'tabletM')({ theme })} {
       justify-content: space-between;
     }
@@ -30,6 +38,7 @@ const style = theme => css`
 
 const HeaderWrapper = styled.section`
   width: 100%;
+  z-index: 9999; // Check why this z-index is set when refactoring the print and embed header
 `
 
 const MenuDefault = props => <HeaderMenuContainer {...props} type="default" />
@@ -62,6 +71,7 @@ const Header = ({
           title="City Data"
           homeLink="/"
           css={({ theme }) => style(theme, homePage)}
+          className="styled-header"
           fullWidth={!hasMaxWidth}
           navigation={
             <React.Fragment>

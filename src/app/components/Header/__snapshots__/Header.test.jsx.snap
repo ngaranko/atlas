@@ -21,6 +21,7 @@ exports[`Header should render the main header 1`] = `
   data-test="header"
 >
   <Header
+    className="styled-header"
     css={[Function]}
     fullWidth={false}
     homeLink="/"

@@ -5,11 +5,11 @@ import {
   Column,
   Row,
   CustomHTMLBlock,
-  EditorialHeader,
   EditorialMetaList,
   DocumentCover,
   EditorialContent,
   Paragraph,
+  Heading,
 } from '@datapunt/asc-ui'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
@@ -17,6 +17,7 @@ import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms.config'
 import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import ShareBar from '../../components/ShareBar/ShareBar'
 
 const PublicationDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS(cmsConfig.PUBLICATION, id)
@@ -58,7 +59,7 @@ const PublicationDetailPage = ({ id }) => {
                   }}
                 >
                   <EditorialContent>
-                    <EditorialHeader title={title} />
+                    <Heading $as="h1">{title}</Heading>
                     <EditorialMetaList
                       fields={[
                         { id: 1, label: source },
@@ -84,6 +85,9 @@ const PublicationDetailPage = ({ id }) => {
                     {body && <CustomHTMLBlock body={body} />}
                   </EditorialContent>
                 </Column>
+              </Column>
+              <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
+                <ShareBar topSpacing={6} />
               </Column>
             </Row>
           </ContentContainer>

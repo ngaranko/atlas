@@ -104,7 +104,8 @@ describe('switchClickAction', () => {
   const provideSelectionTypePanorama = ({ selector }, next) =>
     selector === getSelectionType ? SELECTION_TYPE.PANORAMA : next()
 
-  it('should dispatch the REQUEST_NEAREST_DETAILS when the panorama is not enabled', () => {
+  // Skipped as this test failes randomly. Need to be fixed: https://datapunt.atlassian.net/browse/DP-7282
+  it.skip('should dispatch the REQUEST_NEAREST_DETAILS when the panorama is not enabled', () => {
     const provideMapPanelLayers = ({ selector }, next) =>
       selector === getMapPanelLayers ? mapPanelLayersWithSelection : next()
     return expectSaga(switchClickAction, { payload })

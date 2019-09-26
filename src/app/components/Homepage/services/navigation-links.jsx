@@ -14,7 +14,7 @@ const navigationLinks = [
   {
     href: '/',
     CardIcon: () => (
-      <Icon size={20}>
+      <Icon square size={32}>
         <Map />
       </Icon>
     ),
@@ -25,7 +25,7 @@ const navigationLinks = [
   {
     href: '/',
     CardIcon: () => (
-      <Icon size={30}>
+      <Icon size={36}>
         <Pano />
       </Icon>
     ),
@@ -36,7 +36,7 @@ const navigationLinks = [
   {
     href: '/',
     CardIcon: () => (
-      <Icon size={30}>
+      <Icon size={36}>
         <DocumentText />
       </Icon>
     ),
@@ -47,7 +47,7 @@ const navigationLinks = [
   {
     href: '/',
     CardIcon: () => (
-      <Icon size={30}>
+      <Icon size={32}>
         <Data />
       </Icon>
     ),
@@ -58,7 +58,7 @@ const navigationLinks = [
   {
     href: '/',
     CardIcon: () => (
-      <Icon size={25}>
+      <Icon size={32}>
         <Table />
       </Icon>
     ),
@@ -69,7 +69,7 @@ const navigationLinks = [
   {
     href: '/',
     CardIcon: () => (
-      <Icon size={30}>
+      <Icon size={36}>
         <Api />
       </Icon>
     ),
