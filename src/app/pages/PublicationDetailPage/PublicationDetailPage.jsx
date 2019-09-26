@@ -5,11 +5,11 @@ import {
   Column,
   Row,
   CustomHTMLBlock,
-  EditorialHeader,
   EditorialMetaList,
   DocumentCover,
   EditorialContent,
   Paragraph,
+  Heading,
 } from '@datapunt/asc-ui'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
@@ -65,7 +65,7 @@ const PublicationDetailPage = ({ id }) => {
                   }}
                 >
                   <EditorialContent>
-                    <EditorialHeader title={title} />
+                    <Heading $as="h1">{title}</Heading>
                     <EditorialMetaList
                       fields={[
                         { id: 1, label: source },
