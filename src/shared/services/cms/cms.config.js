@@ -1,12 +1,13 @@
 import SHARED_CONFIG from '../shared-config/shared-config'
 
+const SHARED_FIELDS = ['field_intro', 'field_slug', 'field_cover_image.field_media_image.uri']
+
 const cmsConfig = {
   ARTICLE: {
     type: 'article',
     endpoint: id =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/article/${id}?include=field_cover_image.field_media_image,field_downloads.field_file.field_media_file`,
     fields: [
-      'field_cover_image.field_media_image.uri',
       'field_downloads',
       'field_downloads.title',
       'field_downloads.drupal_internal__nid',
@@ -15,9 +16,9 @@ const cmsConfig = {
       'field_downloads.field_file.field_media_file.uri',
       'field_links',
       'field_byline',
-      'field_slug',
-      'field_intro',
       'field_publication_date',
+      'field_type',
+      ...SHARED_FIELDS,
     ],
   },
   ARTICLES: {
@@ -29,16 +30,14 @@ const cmsConfig = {
     endpoint: id =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication/${id}?include=field_cover_image.field_media_image,field_file.field_media_file`,
     fields: [
-      'field_cover_image.field_media_image.uri',
       'field_file.field_media_file.uri',
       'field_file_size',
       'field_file_type',
       'field_publication_source',
-      'field_intro',
-      'field_slug',
       'field_publication_year',
       'field_publication_month',
       'field_publication_day',
+      ...SHARED_FIELDS,
     ],
   },
   PUBLICATIONS: {

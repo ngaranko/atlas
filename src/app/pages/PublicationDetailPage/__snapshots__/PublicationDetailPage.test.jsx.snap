@@ -71,9 +71,11 @@ exports[`PublicationDetailPage should render the publication when there are resu
             wrap={false}
           >
             <EditorialContent>
-              <EditorialHeader
-                title="This is a title"
-              />
+              <Heading
+                $as="h1"
+              >
+                This is a title
+              </Heading>
               <EditorialMetaList
                 fields={
                   Array [
