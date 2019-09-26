@@ -1,15 +1,15 @@
 import React from 'react'
 import { FooterLinkList, FooterLinkListItem, Paragraph, Link, themeColor } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
-import { cmsIds, VEELGESTELDE_VRAGEN } from '../../../shared/services/cms/cms.config'
+import { cmsIds, FAQ } from '../../../shared/services/cms/cms.config'
 import ActionLink from '../Links/ActionLink/ActionLink'
 import { toArticleDetail, toHelpPage } from '../../../store/redux-first-router/actions'
 import { openFeedbackForm } from '../Modal/FeedbackModal'
 
 const FAQ_LINK = {
   title: 'Veelgestelde vragen',
-  id: cmsIds[VEELGESTELDE_VRAGEN],
-  slug: VEELGESTELDE_VRAGEN,
+  id: cmsIds[FAQ],
+  slug: FAQ,
 }
 
 const CONTACT_LINK = {
@@ -28,7 +28,7 @@ const ArticleLink = ({ title, id, slug }) => (
   </ActionLink>
 )
 
-const FeedbackLink = styled(Link).attrs({
+export const FeedbackLink = styled(Link).attrs({
   type: 'button',
 })`
   background-color: ${themeColor('tint', 'level5')};
