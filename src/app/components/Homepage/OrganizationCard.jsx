@@ -2,7 +2,8 @@ import styled, { css } from '@datapunt/asc-core'
 import { Card, CardContent, Heading, Link, Paragraph, themeSpacing } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import RouterLink from 'redux-first-router-link'
+import OverviewLink from './OverviewLink'
 
 const StyledCard = styled(Card)`
   border-top: 2px solid;
@@ -52,23 +53,18 @@ const OrganizationCard = ({
   to,
   field_link: link,
   ...otherProps
-}) => {
-  const { href } = linkAttributesFromAction(to)
+}) => (
+  <StyledCard $as={RouterLink} loading={loading} {...otherProps}>
+    <StyledCardContent>
+      <StyledHeading $as="h4" styleAs="h3">
+        {shortTitle || title}
+      </StyledHeading>
+      <StyledParagraph>{teaser || intro}</StyledParagraph>
 
-  return (
-    <StyledCard loading={loading} {...otherProps}>
-      <StyledCardContent>
-        <StyledHeading $as="h4" styleAs="h3">
-          {shortTitle || title}
-        </StyledHeading>
-        <StyledParagraph>{teaser || intro}</StyledParagraph>
-        <Link linkType="with-chevron" href={(link && link.uri) || href}>
-          Lees meer
-        </Link>
-      </StyledCardContent>
-    </StyledCard>
-  )
-}
+      <OverviewLink $as={link && link.uri ? Link : RouterLink} to={to} href={link && link.uri} />
+    </StyledCardContent>
+  </StyledCard>
+)
 
 OrganizationCard.defaultProps = {
   loading: false,

@@ -1,13 +1,13 @@
 import styled from '@datapunt/asc-core'
 import { breakpoint, styles, themeSpacing } from '@datapunt/asc-ui'
 import React from 'react'
+import RouterLink from 'redux-first-router-link'
+import cmsConfig from '../../../shared/config/cms.config'
+import { toArticleOverview } from '../../../store/redux-first-router/actions'
+import useFromCMS from '../../utils/useFromCMS'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import HighlightCard from './HighlightCard'
 import OverviewLink from './OverviewLink'
-import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/config/cms.config'
-import { toArticleOverview } from '../../../store/redux-first-router/actions'
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 
 const HighlightBlockStyle = styled.div`
   position: relative;
@@ -72,7 +72,6 @@ flex-basis: 100%;
 
 const HighlightBlock = ({ ...otherProps }) => {
   const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_HIGHLIGHT, undefined)
-  const { href } = linkAttributesFromAction(toArticleOverview())
 
   React.useEffect(() => {
     ;(async () => {
@@ -116,7 +115,7 @@ const HighlightBlock = ({ ...otherProps }) => {
           </ImageCardWrapperSmall>
         </HighlightBlockInnerStyle>
       </HighlightBlockStyle>
-      <OverviewLink href={href} label="Bekijk overzicht" />
+      <OverviewLink to={toArticleOverview()} $as={RouterLink} label="Bekijk overzicht" />
     </>
   )
 }

@@ -11,7 +11,7 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import RouterLink from 'redux-first-router-link'
 
 const StyledCard = styled(Card)`
   width: 100%;
@@ -45,22 +45,18 @@ const StyledLink = styled(Link)`
   }
 `
 
-const AboutCard = ({ loading, shortTitle, title, teaser, intro, to, showError, ...otherProps }) => {
-  const { href } = linkAttributesFromAction(to)
-
-  return (
-    <StyledLink href={href} linkType="blank" {...otherProps}>
-      <StyledCard backgroundColor="level2" shadow loading={loading}>
-        <StyledCardContent>
-          <Heading $as="h4" styleAs="h3">
-            {shortTitle || title}
-          </Heading>
-          <Paragraph>{teaser || intro}</Paragraph>
-        </StyledCardContent>
-      </StyledCard>
-    </StyledLink>
-  )
-}
+const AboutCard = ({ loading, shortTitle, title, teaser, intro, showError, ...otherProps }) => (
+  <StyledLink $as={RouterLink} linkType="blank" {...otherProps}>
+    <StyledCard backgroundColor="level2" shadow loading={loading}>
+      <StyledCardContent>
+        <Heading $as="h4" styleAs="h3">
+          {shortTitle || title}
+        </Heading>
+        <Paragraph>{teaser || intro}</Paragraph>
+      </StyledCardContent>
+    </StyledCard>
+  </StyledLink>
+)
 
 AboutCard.defaultProps = {
   loading: false,

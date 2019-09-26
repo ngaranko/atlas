@@ -10,13 +10,13 @@ import {
   themeSpacing,
 } from '@datapunt/asc-ui'
 import React from 'react'
+import RouterLink from 'redux-first-router-link'
+import cmsConfig from '../../../shared/config/cms.config'
+import { toSpecialOverview } from '../../../store/redux-first-router/actions'
+import useFromCMS from '../../utils/useFromCMS'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import OverviewLink from './OverviewLink'
 import SpecialCard from './SpecialCard'
-import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/config/cms.config'
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
-import { toSpecialOverview } from '../../../store/redux-first-router/actions'
 
 const StyledRow = styled(Row)`
   ${({ showError }) => showError && ErrorBackgroundCSS}
@@ -53,7 +53,6 @@ const StyledHeading = styled(Heading)`
 
 const SpecialsBlock = ({ ...otherProps }) => {
   const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_SPECIALS, undefined)
-  const { href } = linkAttributesFromAction(toSpecialOverview())
 
   React.useEffect(() => {
     ;(async () => {
@@ -89,7 +88,7 @@ const SpecialsBlock = ({ ...otherProps }) => {
       </StyledRow>
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-          <OverviewLink href={href} label="Bekijk overzicht" />
+          <OverviewLink to={toSpecialOverview()} $as={RouterLink} label="Bekijk overzicht" />
         </Column>
       </Row>
     </CardContainer>

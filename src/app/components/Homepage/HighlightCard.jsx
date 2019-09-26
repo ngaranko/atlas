@@ -9,8 +9,8 @@ import {
   themeColor,
 } from '@datapunt/asc-ui'
 import React from 'react'
+import RouterLink from 'redux-first-router-link'
 import { focusOutline } from './services/styles'
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 
 const HighlightCardHeadingStyle = styled(Heading)`
   margin: 0;
@@ -70,25 +70,21 @@ const HighlightCard = ({
   to,
   teaserImage,
   ...otherProps
-}) => {
-  const { href } = linkAttributesFromAction(to)
-
-  return (
-    <StyledLink href={href} linkType="blank">
-      <ImageCard
-        backgroundImage={teaserImage}
-        loading={loading || showError}
-        animateLoading={!showError}
-        alt={shortTitle || title}
-      >
-        <ImageCardContent>
-          <HighlightCardHeadingStyle $as="h4" {...otherProps}>
-            {shortTitle || title}
-          </HighlightCardHeadingStyle>
-        </ImageCardContent>
-      </ImageCard>
-    </StyledLink>
-  )
-}
+}) => (
+  <StyledLink to={to} $as={RouterLink} linkType="blank">
+    <ImageCard
+      backgroundImage={teaserImage}
+      loading={loading || showError}
+      animateLoading={!showError}
+      alt={shortTitle || title}
+    >
+      <ImageCardContent>
+        <HighlightCardHeadingStyle $as="h4" {...otherProps}>
+          {shortTitle || title}
+        </HighlightCardHeadingStyle>
+      </ImageCardContent>
+    </ImageCard>
+  </StyledLink>
+)
 
 export default HighlightCard

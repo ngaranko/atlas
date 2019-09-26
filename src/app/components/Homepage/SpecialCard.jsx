@@ -15,7 +15,7 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import RouterLink from 'redux-first-router-link'
 
 const StyledLink = styled(Link)`
   border-bottom: ${themeColor('tint', 'level3')} 1px solid;
@@ -76,32 +76,28 @@ const SpecialCard = ({
   teaserImage,
   to,
   ...otherProps
-}) => {
-  const { href } = linkAttributesFromAction(to)
-
-  return (
-    <StyledLink href={href} linkType="blank" {...otherProps}>
-      <StyledCard horizontal animateLoading={!showError} loading={loading} showError={showError}>
-        <StyledCardContent>
-          <StyledHeading $as="h4" styleAs="h3">
-            {shortTitle || title}
-          </StyledHeading>
-          <Paragraph>
-            {specialType && (
-              <StyledTag colorType="tint" colorSubtype="level3">
-                {specialType}
-              </StyledTag>
-            )}
-            {teaser || intro}
-          </Paragraph>
-        </StyledCardContent>
-        <StyledCardMedia>
-          <Image src={teaserImage} alt={shortTitle || title} square />
-        </StyledCardMedia>
-      </StyledCard>
-    </StyledLink>
-  )
-}
+}) => (
+  <StyledLink to={to} $as={RouterLink} linkType="blank" {...otherProps}>
+    <StyledCard horizontal animateLoading={!showError} loading={loading} showError={showError}>
+      <StyledCardContent>
+        <StyledHeading $as="h4" styleAs="h3">
+          {shortTitle || title}
+        </StyledHeading>
+        <Paragraph>
+          {specialType && (
+            <StyledTag colorType="tint" colorSubtype="level3">
+              {specialType}
+            </StyledTag>
+          )}
+          {teaser || intro}
+        </Paragraph>
+      </StyledCardContent>
+      <StyledCardMedia>
+        <Image src={teaserImage} alt={shortTitle || title} square />
+      </StyledCardMedia>
+    </StyledCard>
+  </StyledLink>
+)
 
 SpecialCard.defaultProps = {
   loading: false,
