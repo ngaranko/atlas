@@ -74,8 +74,6 @@ describe('ArticleDetailPage', () => {
       fetchData: fetchDataMock,
     }))
 
-    store = configureMockStore()({ location: { payload: { id } } })
-
     const component = mount(
       <ThemeProvider>
         <ArticleDetailPage store={store} />

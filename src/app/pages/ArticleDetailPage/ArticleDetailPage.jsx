@@ -29,6 +29,7 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import cmsConfig from '../../../shared/services/cms/cms.config'
 import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
+import ShareBar from '../../components/ShareBar/ShareBar'
 import { EDITORIAL_FIELD_TYPE_VALUES } from '../EditorialOverviewPage/constants'
 
 const ListItemContent = styled.div`
@@ -173,6 +174,12 @@ const ArticleDetailPage = ({ id }) => {
                           ) : null}
                         </EditorialSidebar>
                       </Column>
+                    </Column>
+                    <Column
+                      span={{ small: 1, medium: 2, big: 4, large: 11, xLarge: 11 }}
+                      push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
+                    >
+                      <ShareBar topSpacing={6} />
                     </Column>
                   </EditorialContent>
                 </Row>
