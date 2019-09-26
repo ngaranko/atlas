@@ -175,9 +175,14 @@ exports[`Dataset should render with search results 1`] = `
 `;
 
 exports[`Dataset should render without search results 1`] = `
-<NoResultsForSearchType
-  authMessage={false}
-  hideLoginLink={true}
-  message={<NoDatasetsMessage />}
-/>
+<Fragment>
+  <NoResultsForSearchType
+    authMessage={false}
+    hideLoginLink={true}
+    message={<NoDatasetsMessage />}
+  />
+  <Connect(ShareBar)
+    topSpacing={6}
+  />
+</Fragment>
 `;

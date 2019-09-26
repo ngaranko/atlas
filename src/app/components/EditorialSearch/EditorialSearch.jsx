@@ -29,10 +29,6 @@ const routeMapping = {
   [PAGES.PUBLICATIONS]: toPublicationOverview,
 }
 
-const StyledShareBar = styled(ShareBar)`
-  margin-top: 24px;
-`
-
 const StyledEditorialSearch = styled.div`
   margin-bottom: 24px;
   max-width: 792px; // Image width + 600px (design system rule)
@@ -54,23 +50,26 @@ const EditorialSearch = ({ type }) => {
 
   if (results && !results.results) {
     return (
-      <NoResultsForSearchType
-        message={
-          <p>
-            Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
-            <Link
-              variant="inline"
-              $as={RouterLink}
-              to={routeMapping[type]()}
-              title={`Overzicht van ${EDITORIAL_TITLES[type]}`}
-            >
-              {EDITORIAL_TITLES[type]}
-            </Link>
-            .
-          </p>
-        }
-        hideLoginLink
-      />
+      <>
+        <NoResultsForSearchType
+          message={
+            <p>
+              Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
+              <Link
+                variant="inline"
+                $as={RouterLink}
+                to={routeMapping[type]()}
+                title={`Overzicht van ${EDITORIAL_TITLES[type]}`}
+              >
+                {EDITORIAL_TITLES[type]}
+              </Link>
+              .
+            </p>
+          }
+          hideLoginLink
+        />
+        <ShareBar topSpacing={6} />
+      </>
     )
   }
 
@@ -86,7 +85,7 @@ const EditorialSearch = ({ type }) => {
         links={results._links}
         showTitle={false}
       />
-      <StyledShareBar />
+      <ShareBar topSpacing={6} />
     </StyledEditorialSearch>
   )
 }

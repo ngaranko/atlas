@@ -18,6 +18,7 @@ import cmsConfig from '../../../shared/config/cms.config'
 import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import { routing } from '../../routes'
+import ShareBar from '../../components/ShareBar/ShareBar'
 
 const PublicationDetailPage = ({ id }) => {
   const { fetchData, results, loading, error } = useFromCMS(cmsConfig.PUBLICATION, id)
@@ -91,6 +92,9 @@ const PublicationDetailPage = ({ id }) => {
                     {body && <CustomHTMLBlock body={body} />}
                   </EditorialContent>
                 </Column>
+              </Column>
+              <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
+                <ShareBar topSpacing={6} />
               </Column>
             </Row>
           </ContentContainer>

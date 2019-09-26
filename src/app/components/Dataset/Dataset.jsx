@@ -40,7 +40,12 @@ const Dataset = ({
   })
 
   if (numberOfRecords === 0) {
-    return <NoResultsForSearchType message={<NoDatasetsMessage />} hideLoginLink />
+    return (
+      <>
+        <NoResultsForSearchType message={<NoDatasetsMessage />} hideLoginLink />
+        <ShareBar topSpacing={6} />
+      </>
+    )
   }
 
   return (
