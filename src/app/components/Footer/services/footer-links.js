@@ -24,10 +24,3 @@ export const followLinks = [
   { title: 'LinkedIn', href: 'https://www.linkedin.com/company/gemeente-amsterdam' },
   { title: 'GitHub', href: 'https://github.com/Amsterdam' },
 ]
-
-export const helpLinks = [
-  { title: 'Veelgestelde vragen', href: '/' },
-  { title: 'Contact opnemen', href: '/' },
-  { title: 'Feedback geven', href: '/' },
-  { title: 'Uitleg gebruik', href: '/' },
-]

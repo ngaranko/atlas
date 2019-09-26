@@ -3,7 +3,7 @@ import { FooterLinkList, FooterLinkListItem, Paragraph, Link, themeColor } from 
 import styled from '@datapunt/asc-core'
 import { cmsIds, VEELGESTELDE_VRAGEN } from '../../../shared/services/cms/cms.config'
 import ActionLink from '../Links/ActionLink/ActionLink'
-import { toArticleDetail } from '../../../store/redux-first-router/actions'
+import { toArticleDetail, toHelpPage } from '../../../store/redux-first-router/actions'
 import { openFeedbackForm } from '../Modal/FeedbackModal'
 
 const FAQ_LINK = {
@@ -19,8 +19,7 @@ const CONTACT_LINK = {
 
 const HELP_LINK = {
   title: 'Uitleg gebruik',
-  id: cmsIds[VEELGESTELDE_VRAGEN],
-  slug: VEELGESTELDE_VRAGEN,
+  to: toHelpPage(),
 }
 
 const ArticleLink = ({ title, id, slug }) => (
@@ -66,7 +65,9 @@ const HelpLinks = () => (
         </FeedbackLink>
       </FooterLinkListItem>
       <FooterLinkListItem>
-        <ArticleLink {...HELP_LINK} />
+        <ActionLink {...HELP_LINK} variant="with-chevron">
+          {HELP_LINK.title}
+        </ActionLink>
       </FooterLinkListItem>
     </FooterLinkList>
   </>
