@@ -1,9 +1,8 @@
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import {
   Article,
   EditorialBody,
   EditorialContent,
-  EditorialHeader,
   EditorialMetaList,
   EditorialSidebar,
   Column,
@@ -16,6 +15,7 @@ import {
   Row,
   themeColor,
   Paragraph,
+  themeSpacing,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -29,6 +29,7 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import cmsConfig from '../../../shared/services/cms/cms.config'
 import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
+import { EDITORIAL_FIELD_TYPE_VALUES } from '../EditorialOverviewPage/constants'
 
 const ListItemContent = styled.div`
   display: flex;
@@ -59,6 +60,7 @@ const ArticleDetailPage = ({ id }) => {
     field_byline: byline,
     field_slug: slug,
     field_intro: intro,
+    field_type: articleType,
   } = results || {}
 
   const documentTitle = title && `Artikel: ${title}`
@@ -80,6 +82,16 @@ const ArticleDetailPage = ({ id }) => {
       color: ${themeColor('tint', 'level6')};
     }
   `
+
+  const StyledHeading = styled(Heading)`
+    ${({ isContentType }) =>
+      isContentType &&
+      css`
+        margin-bottom: ${themeSpacing(4)};
+      `}
+  `
+
+  const isContentType = articleType === EDITORIAL_FIELD_TYPE_VALUES.CONTENT
 
   return (
     <EditorialPage {...{ documentTitle, loading, linkAction }} description={intro}>
@@ -103,13 +115,16 @@ const ArticleDetailPage = ({ id }) => {
                     >
                       <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
                         <EditorialBody>
-                          <EditorialHeader title={title}>
+                          <StyledHeading $as="h1" isContentType={isContentType}>
+                            {title}
+                          </StyledHeading>
+                          {!isContentType && (
                             <EditorialMetaList
                               dateTime={date}
                               dateFormatted={localeDate}
                               fields={byline && [{ id: 1, label: byline }]}
                             />
-                          </EditorialHeader>
+                          )}
                           <Paragraph strong>{intro}</Paragraph>
                           <CustomHTMLBlock body={body} />
                         </EditorialBody>
