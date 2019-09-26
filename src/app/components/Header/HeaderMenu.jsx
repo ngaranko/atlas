@@ -10,8 +10,10 @@ import {
   toMap,
   toPanoramaAndPreserveQuery,
   toAdresses,
+  toArticleDetail,
 } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
+import { colofonLinks } from '../Footer/services/footer-links'
 
 const toPanoramaAction = toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home')
 const toMapAction = toMap()
@@ -64,26 +66,13 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         </MenuItem>
       </MenuFlyOut>
       <MenuFlyOut label="Over OIS">
-        <MenuItem>
-          <Link iconLeft={<ChevronRight />} href="/">
-            Onderzoek, Informatie en Statistiek
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link iconLeft={<ChevronRight />} href="/">
-            Onderzoek
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link iconLeft={<ChevronRight />} href="/">
-            Databeleid
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link iconLeft={<ChevronRight />} href="/">
-            Bronnen
-          </Link>
-        </MenuItem>
+        {colofonLinks.map(({ title, id, slug }) => (
+          <MenuItem key={slug}>
+            <Link iconLeft={<ChevronRight />} title={title} to={toArticleDetail(id, slug)}>
+              {title}
+            </Link>
+          </MenuItem>
+        ))}
         <MenuItem>
           <MenuButton iconLeft={<ChevronRight />} href="mailto:datapunt@amsterdam.nl">
             Contact
