@@ -1,10 +1,17 @@
 import React from 'react'
 import { Api, Data, DocumentText, Map, Pano, Table } from '@datapunt/asc-assets'
 import { Icon } from '@datapunt/asc-ui'
+import {
+  toMap,
+  toPanoramaAndPreserveQuery,
+  toPublicationOverview,
+  toDatasets,
+  toAdresses,
+} from '../../../../store/redux-first-router/actions'
 
 const navigationLinks = [
   {
-    href: '/',
+    to: toMap(),
     CardIcon: () => (
       <Icon square size={32}>
         <Map />
@@ -14,7 +21,7 @@ const navigationLinks = [
     description: 'Zoek en bekijk data op de kaart',
   },
   {
-    href: '/',
+    to: toPanoramaAndPreserveQuery(),
     CardIcon: () => (
       <Icon size={36}>
         <Pano />
@@ -24,7 +31,7 @@ const navigationLinks = [
     description: 'Kijk 360 graden in het rond',
   },
   {
-    href: '/',
+    to: toPublicationOverview(),
     CardIcon: () => (
       <Icon size={36}>
         <DocumentText />
@@ -34,7 +41,7 @@ const navigationLinks = [
     description: 'Download fasctsheets en onderzoeksrapporten',
   },
   {
-    href: '/',
+    to: toDatasets(),
     CardIcon: () => (
       <Icon size={32}>
         <Data />
@@ -44,7 +51,7 @@ const navigationLinks = [
     description: 'Zoek en download databestanden',
   },
   {
-    href: '/',
+    to: toAdresses(),
     CardIcon: () => (
       <Icon size={32}>
         <Table />
@@ -54,7 +61,7 @@ const navigationLinks = [
     description: 'Selecteer data en sla op als spreadsheet',
   },
   {
-    href: '/',
+    to: '/',
     CardIcon: () => (
       <Icon size={36}>
         <Api />
