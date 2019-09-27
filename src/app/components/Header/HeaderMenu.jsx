@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from '@datapunt/asc-core'
 import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton, Link } from '@datapunt/asc-ui'
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
@@ -39,10 +40,15 @@ const getContactLink = () => {
   )}&body=${window.encodeURIComponent(CONTACT_BODY)}`
 }
 
+// Hotfix, need to be moved to asc-ui MenuButtonStyle
+const StyledMenuButton = styled(MenuButton)`
+  white-space: normal;
+`
+
 const MenuLink = ({ children, as = RouterLink, ...otherProps }) => (
-  <MenuButton $as={as} {...otherProps}>
+  <StyledMenuButton $as={as} {...otherProps}>
     {children}
-  </MenuButton>
+  </StyledMenuButton>
 )
 
 const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
