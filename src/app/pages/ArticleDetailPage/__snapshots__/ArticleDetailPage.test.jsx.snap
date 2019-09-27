@@ -69,11 +69,10 @@ exports[`ArticleDetailPage should render the publication when there are results 
                   <EditorialBody>
                     <Styled(Heading)
                       $as="h1"
-                      isContentType={false}
+                      isContentType={true}
                     >
                       This is a title
                     </Styled(Heading)>
-                    <EditorialMetaList />
                     <Paragraph
                       strong={true}
                     />

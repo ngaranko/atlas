@@ -49,7 +49,6 @@ export default PAGES
 export const isOldCmsPage = page =>
   page === PAGES.NEWS ||
   page === PAGES.HELP ||
-  page === PAGES.ACTUALITY ||
   page === PAGES.PROCLAIMER ||
   page === PAGES.CONTROLS ||
   page === PAGES.CONTROLS ||

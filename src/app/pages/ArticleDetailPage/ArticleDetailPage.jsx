@@ -123,10 +123,10 @@ const ArticleDetailPage = ({ id }) => {
                     >
                       <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
                         <EditorialBody>
-                          <StyledHeading $as="h1" isContentType={isContentType}>
+                          <StyledHeading $as="h1" isContentType={!isContentType}>
                             {title}
                           </StyledHeading>
-                          {!isContentType && (
+                          {isContentType && (
                             <EditorialMetaList
                               dateTime={localeDate}
                               dateFormatted={localeDateFormatted}
