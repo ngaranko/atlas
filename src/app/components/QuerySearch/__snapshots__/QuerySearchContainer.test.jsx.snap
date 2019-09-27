@@ -5,7 +5,8 @@ exports[`QuerySearchContainer should render 1`] = `
   currentPage=""
   filters={Object {}}
   isLoading={false}
-  numberOfResults={1}
+  numberOfDataResults={1}
+  numberOfDatasetResults={1}
   store={
     Object {
       "clearActions": [Function],

@@ -4,7 +4,10 @@ import {
   getSearchQuery,
   isSearchLoading,
 } from '../../../shared/ducks/data-search/selectors'
-import { isLoading as isDatasetsLoading } from '../../../shared/ducks/datasets/datasets'
+import {
+  isLoading as isDatasetsLoading,
+  getNumberOfResults as datasetNumberOfResults,
+} from '../../../shared/ducks/datasets/datasets'
 import { getFilters } from '../../../shared/ducks/filters/filters'
 import { getPage } from '../../../store/redux-first-router/selectors'
 import QuerySearch from './QuerySearch'
@@ -16,7 +19,8 @@ const mapStateToProps = state => ({
   query: getSearchQuery(state),
   filters: getFilters(state),
   user: getUser(state),
-  numberOfResults: getNumberOfResults(state),
+  numberOfDataResults: getNumberOfResults(state),
+  numberOfDatasetResults: datasetNumberOfResults(state),
   currentPage: getPage(state),
 })
 

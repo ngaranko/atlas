@@ -11,6 +11,12 @@ exports[`Tab not the current tab should render 1`] = `
     type="button"
   >
     myTab
+     
+    <span>
+      (
+      0
+      )
+    </span>
   </button>
 </li>
 `;

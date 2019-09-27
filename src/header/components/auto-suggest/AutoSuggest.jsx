@@ -142,7 +142,7 @@ class AutoSuggest extends React.Component {
       // Enter
       case 13:
         if (activeSuggestion.index > -1) {
-          this.onSuggestionSelection(activeSuggestion, event)
+          this.onSuggestionSelection(activeSuggestion, activeSuggestion.label, event)
         }
         break
       default:
