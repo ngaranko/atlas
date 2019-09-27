@@ -56,7 +56,7 @@ export const routing = {
   },
   datasetDetail: {
     title: 'Dataset',
-    path: `/${MAIN_PATHS.DATASETS}/:id/:slug/`,
+    path: `/${MAIN_PATHS.DATASETS}/:id/:slug*/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.DATASET_DETAIL}`,
     page: PAGES.DATASET_DETAIL,
   },
