@@ -38,11 +38,12 @@ import {
 const QuerySearch = ({
   isLoading,
   query,
-  numberOfResults,
+  numberOfDataResults,
   currentPage,
   filters,
   user,
   toSearchPage,
+  numberOfDatasetResults,
 }) => {
   // // Article
   // const {
@@ -89,11 +90,14 @@ const QuerySearch = ({
       {isLoading && <LoadingIndicator />}
       {!isLoading && (
         <div className="qa-data-selection-content">
-          <TabBar numberOfResults={numberOfResults}>
+          <TabBar
+            numberOfDataResults={numberOfDataResults}
+            numberOfDatasetResults={numberOfDatasetResults}
+          >
             <Tabs currentPage={currentPage}>
               <Tab
                 label="Data"
-                count={numberOfResults}
+                count={numberOfDataResults}
                 onClick={() => toSearchPage(toDataSearch, query, filters)}
                 page={PAGES.DATA_SEARCH_QUERY}
               />
@@ -105,7 +109,7 @@ const QuerySearch = ({
                   /> */}
               <Tab
                 label="Datasets"
-                count={numberOfResults}
+                count={numberOfDatasetResults}
                 onClick={() => toSearchPage(toDatasetSearch, query, filters)}
                 page={PAGES.DATASET_SEARCH}
               />
@@ -120,7 +124,7 @@ const QuerySearch = ({
 
           <div className="qa-search-results">
             {currentPage === PAGES.DATA_SEARCH_QUERY && (
-              <DataSearchQuery numberOfResults={numberOfResults} user={user} />
+              <DataSearchQuery numberOfResults={numberOfDataResults} user={user} />
             )}
             {currentPage === PAGES.DATASET_SEARCH && <Dataset />}
             {/* {currentPage === PAGES.ARTICLE_SEARCH && <EditorialSearch type={PAGES.ARTICLES} />}
@@ -146,7 +150,8 @@ QuerySearch.propTypes = {
   isLoading: PropTypes.bool,
   query: PropTypes.string,
   currentPage: PropTypes.string.isRequired,
-  numberOfResults: PropTypes.number.isRequired,
+  numberOfDataResults: PropTypes.number.isRequired,
+  numberOfDatasetResults: PropTypes.number.isRequired,
   toSearchPage: PropTypes.func.isRequired,
 }
 
