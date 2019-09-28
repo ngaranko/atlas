@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
 import { toHelpPage, toArticleDetail } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
-import { colofonLinks } from '../Footer/services/footer-links'
-import navigationLinks from '../Homepage/services/navigation-links'
+import { COLOFON_LINKS } from '../Footer/services/footer-links'
+import NAVIGATION_LINKS from '../Homepage/services/navigation-links'
 
 const components = {
   default: MenuInline,
@@ -31,13 +31,13 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
   return (
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
-        {navigationLinks.map(({ title, toAction }) => (
-          <NavigationLink key={title} title={title} to={toAction} />
+        {NAVIGATION_LINKS.map(({ id, title, toAction }) => (
+          <NavigationLink key={id} title={title} to={toAction} />
         ))}
       </MenuFlyOut>
       <MenuFlyOut label="Over OIS">
-        {colofonLinks.map(({ menuTitle, id, slug }) => (
-          <MenuItem key={slug}>
+        {COLOFON_LINKS.map(({ menuTitle, id, slug }) => (
+          <MenuItem key={id}>
             <Link iconLeft={<ChevronRight />} title={menuTitle} to={toArticleDetail(id, slug)}>
               {menuTitle}
             </Link>

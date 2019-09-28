@@ -1,11 +1,11 @@
 import React from 'react'
 import { FooterLinkList, FooterLinkListItem, Link } from '@datapunt/asc-ui'
-import { followLinks } from './services/footer-links'
+import { FOLLOW_LINKS } from './services/footer-links'
 
 const FollowLinks = () => (
   <FooterLinkList>
-    {followLinks.map(({ title, href }) => (
-      <FooterLinkListItem key={title}>
+    {FOLLOW_LINKS.map(({ id, title, href }) => (
+      <FooterLinkListItem key={id}>
         <Link
           title={title}
           href={href}

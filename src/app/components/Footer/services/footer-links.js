@@ -2,16 +2,16 @@ import {
   OVER_OIS,
   RESOURCES,
   AMSTERDAM_EN_DATA,
-  WAT_KUN_JE_HIER,
+  ABOUT_SITE,
   cmsIds,
 } from '../../../../shared/services/cms/cms.config'
 
-export const colofonLinks = [
+export const COLOFON_LINKS = [
   {
     title: 'Over deze site',
     menuTitle: 'Onderzoek, Informatie en Statistiek',
-    id: cmsIds[WAT_KUN_JE_HIER],
-    slug: WAT_KUN_JE_HIER,
+    id: cmsIds[ABOUT_SITE],
+    slug: ABOUT_SITE,
   },
   { title: 'Over OIS', menuTitle: 'Onderzoek', id: cmsIds[OVER_OIS], slug: OVER_OIS },
   {
@@ -23,14 +23,15 @@ export const colofonLinks = [
   { title: 'Bronnen', menuTitle: 'Bronnen', id: cmsIds[RESOURCES], slug: RESOURCES },
 ]
 
-export const followLinks = [
+export const FOLLOW_LINKS = [
   {
+    id: 0,
     title: 'Nieuwsbrief OIS',
     href:
       'https://www.amsterdam.nl/nieuwsbrieven/bestuur-organisatie/dienstverlening/nieuwsbrief-data/nieuwsbrief-data/',
   },
-  { title: 'Twitter', href: 'https://twitter.com/AmsterdamNL' },
-  { title: 'Facebook', href: 'https://www.facebook.com/gemeenteamsterdam' },
-  { title: 'LinkedIn', href: 'https://www.linkedin.com/company/gemeente-amsterdam' },
-  { title: 'GitHub', href: 'https://github.com/Amsterdam' },
+  { id: 1, title: 'Twitter', href: 'https://twitter.com/AmsterdamNL' },
+  { id: 2, title: 'Facebook', href: 'https://www.facebook.com/gemeenteamsterdam' },
+  { id: 3, title: 'LinkedIn', href: 'https://www.linkedin.com/company/gemeente-amsterdam' },
+  { id: 4, title: 'GitHub', href: 'https://github.com/Amsterdam' },
 ]

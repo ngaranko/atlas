@@ -10,8 +10,9 @@ import {
   toMap,
 } from '../../../../store/redux-first-router/actions'
 
-const navigationLinks = [
+const NAVIGATION_LINKS = [
   {
+    id: 0,
     href: '/',
     CardIcon: () => (
       <Icon square size={32}>
@@ -23,6 +24,7 @@ const navigationLinks = [
     toAction: toMap(),
   },
   {
+    id: 1,
     href: '/',
     CardIcon: () => (
       <Icon size={36}>
@@ -34,6 +36,7 @@ const navigationLinks = [
     toAction: toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home'),
   },
   {
+    id: 2,
     href: '/',
     CardIcon: () => (
       <Icon size={36}>
@@ -45,6 +48,7 @@ const navigationLinks = [
     toAction: toPublicationOverview(),
   },
   {
+    id: 3,
     href: '/',
     CardIcon: () => (
       <Icon size={32}>
@@ -56,6 +60,7 @@ const navigationLinks = [
     toAction: toDatasets(),
   },
   {
+    id: 4,
     href: '/',
     CardIcon: () => (
       <Icon size={32}>
@@ -67,6 +72,7 @@ const navigationLinks = [
     toAction: toAdresses(),
   },
   {
+    id: 5,
     href: '/',
     CardIcon: () => (
       <Icon size={36}>
@@ -79,4 +85,4 @@ const navigationLinks = [
   },
 ]
 
-export default navigationLinks
+export default NAVIGATION_LINKS
