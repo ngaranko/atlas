@@ -35,20 +35,15 @@ const MenuLink = ({ children, as = RouterLink, ...otherProps }) => (
   </StyledMenuButton>
 )
 
-const NavigationLink = ({ title, toAction, ...otherProps }) => (
-  <MenuLink iconLeft={<ChevronRight />} to={toAction} {...otherProps}>
-    {title}
-  </MenuLink>
-)
-
 const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
   const Menu = components[type]
-
   return (
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
-        {NAVIGATION_LINKS.map(({ id, title, toAction }) => (
-          <NavigationLink key={id} title={title} to={toAction} />
+        {NAVIGATION_LINKS.map(({ id, title, to }) => (
+          <MenuLink iconLeft={<ChevronRight />} key={id} title={title} to={to}>
+            {title}
+          </MenuLink>
         ))}
       </MenuFlyOut>
       <MenuFlyOut label="Over OIS">
