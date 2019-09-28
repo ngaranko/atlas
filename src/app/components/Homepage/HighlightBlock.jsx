@@ -1,10 +1,13 @@
 import styled from '@datapunt/asc-core'
 import { breakpoint, styles, themeSpacing } from '@datapunt/asc-ui'
 import React from 'react'
+import RouterLink from 'redux-first-router-link'
+import cmsConfig from '../../../shared/config/cms.config'
+import { toArticleOverview } from '../../../store/redux-first-router/actions'
+import useFromCMS from '../../utils/useFromCMS'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import HighlightCard from './HighlightCard'
 import OverviewLink from './OverviewLink'
-import highlightsLinks from './services/highlights-links'
 
 const HighlightBlockStyle = styled.div`
   position: relative;
@@ -67,35 +70,54 @@ flex-basis: 100%;
   }
 `
 
-const HighlightBlock = ({ loading, showError, ...otherProps }) => (
-  <>
-    <HighlightBlockStyle {...otherProps} showError={showError}>
-      {showError && <ErrorMessage onClick={() => {}} />}
-      <HighlightBlockInnerStyle>
-        <ImageCardWrapperLarge>
-          <HighlightCard
-            loading={loading}
-            showError={showError}
-            {...highlightsLinks[0]}
-            styleAs="h2"
-            large
-          />
-        </ImageCardWrapperLarge>
-        <ImageCardWrapperSmall>
-          {highlightsLinks.slice(1).map(linkProps => (
+const HighlightBlock = ({ ...otherProps }) => {
+  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_HIGHLIGHT, undefined)
+
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchData()
+    })()
+  }, [])
+
+  return (
+    <>
+      <HighlightBlockStyle {...otherProps} showError={error}>
+        {error && <ErrorMessage />}
+        <HighlightBlockInnerStyle>
+          <ImageCardWrapperLarge showError={error}>
             <HighlightCard
               loading={loading}
-              showError={showError}
-              {...linkProps}
-              strong
-              gutterBottom={0}
+              showError={error}
+              {...(results && results[0])}
+              styleAs="h2"
+              large
             />
-          ))}
-        </ImageCardWrapperSmall>
-      </HighlightBlockInnerStyle>
-    </HighlightBlockStyle>
-    <OverviewLink href="/" label="Bekijk overzicht" />
-  </>
-)
+          </ImageCardWrapperLarge>
+          <ImageCardWrapperSmall>
+            {results &&
+              results
+                .slice(1)
+                .map(result => (
+                  <HighlightCard
+                    key={result.id}
+                    loading={loading}
+                    showError={error}
+                    {...result}
+                    strong
+                  />
+                ))}
+            {error && (
+              <>
+                <HighlightCard key={0} showError={error} />
+                <HighlightCard key={1} showError={error} />
+              </>
+            )}
+          </ImageCardWrapperSmall>
+        </HighlightBlockInnerStyle>
+      </HighlightBlockStyle>
+      <OverviewLink to={toArticleOverview()} $as={RouterLink} label="Bekijk overzicht" />
+    </>
+  )
+}
 
 export default HighlightBlock

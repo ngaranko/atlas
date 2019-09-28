@@ -3,17 +3,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getSearchQuery } from '../../../shared/ducks/data-search/selectors'
 
-const TabBar = ({ numberOfResults, searchQuery, children }) => (
+const TabBar = ({ numberOfDataResults, numberOfDatasetResults, searchQuery, children }) => (
   <div>
     <h1 className="qa-tab-header__title c-tab-header__title">
-      {numberOfResults !== 0 && (
+      {(numberOfDataResults !== 0 || numberOfDatasetResults !== 0) && (
         <span className="c-tab-header__title__text">
           Resultaten met &apos;
           {searchQuery}
           &apos;
         </span>
       )}
-      {numberOfResults === 0 && (
+      {numberOfDataResults === 0 && numberOfDatasetResults === 0 && (
         <span className="c-tab-header__title__text">
           Geen resultaten met &apos;
           {searchQuery}
@@ -32,7 +32,8 @@ TabBar.defaultProps = {
 TabBar.propTypes = {
   searchQuery: PropTypes.string.isRequired,
   children: PropTypes.node,
-  numberOfResults: PropTypes.number.isRequired,
+  numberOfDataResults: PropTypes.number.isRequired,
+  numberOfDatasetResults: PropTypes.number.isRequired,
 }
 
 const mapStateToProps = state => ({

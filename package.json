@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/Amsterdam/atlas.git"
   },
-  "version": "3.9.0",
+  "version": "3.10.1",
   "scripts": {
     "build": "npm run build:prod",
     "build-storybook": "cross-env NODE_ENV=production build-storybook -c .storybook -o .sb",

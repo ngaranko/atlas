@@ -1,5 +1,6 @@
 import React from 'react'
-import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton } from '@datapunt/asc-ui'
+import styled from '@datapunt/asc-core'
+import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton, Link } from '@datapunt/asc-ui'
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
@@ -13,16 +14,31 @@ const components = {
   mobile: MenuToggle,
 }
 
-const Link = ({ children, ...otherProps }) => (
-  <MenuButton $as={RouterLink} {...otherProps}>
+const getContactLink = () => {
+  const CONTACT_RECIPIENT = 'datapunt@amsterdam.nl'
+  const CONTACT_SUBJECT = 'Contact opnemen via data.amsterdam.nl'
+  const CONTACT_BODY = `Contact opgenomen via de pagina: ${window.location.href}\n`
+
+  return `mailto:${CONTACT_RECIPIENT}?subject=${window.encodeURIComponent(
+    CONTACT_SUBJECT,
+  )}&body=${window.encodeURIComponent(CONTACT_BODY)}`
+}
+
+// Hotfix, need to be moved to asc-ui MenuButtonStyle
+const StyledMenuButton = styled(MenuButton)`
+  white-space: normal;
+`
+
+const MenuLink = ({ children, as = RouterLink, ...otherProps }) => (
+  <StyledMenuButton $as={as} {...otherProps}>
     {children}
-  </MenuButton>
+  </StyledMenuButton>
 )
 
 const NavigationLink = ({ title, toAction, ...otherProps }) => (
-  <Link iconLeft={<ChevronRight />} to={toAction} {...otherProps}>
+  <MenuLink iconLeft={<ChevronRight />} to={toAction} {...otherProps}>
     {title}
-  </Link>
+  </MenuLink>
 )
 
 const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
@@ -38,13 +54,13 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
       <MenuFlyOut label="Over OIS">
         {COLOFON_LINKS.map(({ menuTitle, id, slug }) => (
           <MenuItem key={id}>
-            <Link iconLeft={<ChevronRight />} title={menuTitle} to={toArticleDetail(id, slug)}>
+            <MenuLink iconLeft={<ChevronRight />} title={menuTitle} to={toArticleDetail(id, slug)}>
               {menuTitle}
-            </Link>
+            </MenuLink>
           </MenuItem>
         ))}
         <MenuItem>
-          <MenuButton iconLeft={<ChevronRight />} href="mailto:datapunt@amsterdam.nl">
+          <MenuButton iconLeft={<ChevronRight />} $as={Link} href={getContactLink()}>
             Contact
           </MenuButton>
         </MenuItem>
@@ -55,7 +71,7 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         </MenuButton>
       </MenuItem>
       <MenuItem>
-        <Link to={toHelpPage()}>Help</Link>
+        <MenuLink to={toHelpPage()}>Help</MenuLink>
       </MenuItem>
 
       {!user.authenticated ? (

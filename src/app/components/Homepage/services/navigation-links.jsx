@@ -2,18 +2,18 @@ import React from 'react'
 import { Api, Data, DocumentText, Map, Pano, Table } from '@datapunt/asc-assets'
 import { Icon } from '@datapunt/asc-ui'
 import {
-  toPublicationOverview,
-  toApisPage,
-  toAdresses,
-  toDatasets,
-  toPanoramaAndPreserveQuery,
   toMap,
+  toPanoramaAndPreserveQuery,
+  toPublicationOverview,
+  toDatasets,
+  toAdresses,
+  toApisPage,
 } from '../../../../store/redux-first-router/actions'
 
 const NAVIGATION_LINKS = [
   {
     id: 0,
-    href: '/',
+    to: toMap(),
     CardIcon: () => (
       <Icon square size={32}>
         <Map />
@@ -21,11 +21,10 @@ const NAVIGATION_LINKS = [
     ),
     title: 'Kaart',
     description: 'Zoek en bekijk data op de kaart',
-    toAction: toMap(),
   },
   {
     id: 1,
-    href: '/',
+    to: toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home'),
     CardIcon: () => (
       <Icon size={36}>
         <Pano />
@@ -33,11 +32,10 @@ const NAVIGATION_LINKS = [
     ),
     title: 'Panoramabeelden',
     description: 'Kijk 360 graden in het rond',
-    toAction: toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home'),
   },
   {
     id: 2,
-    href: '/',
+    to: toPublicationOverview(),
     CardIcon: () => (
       <Icon size={36}>
         <DocumentText />
@@ -45,11 +43,10 @@ const NAVIGATION_LINKS = [
     ),
     title: 'Publicaties',
     description: 'Download fasctsheets en onderzoeksrapporten',
-    toAction: toPublicationOverview(),
   },
   {
     id: 3,
-    href: '/',
+    to: toDatasets(),
     CardIcon: () => (
       <Icon size={32}>
         <Data />
@@ -57,11 +54,10 @@ const NAVIGATION_LINKS = [
     ),
     title: 'Datasets',
     description: 'Zoek en download databestanden',
-    toAction: toDatasets(),
   },
   {
     id: 4,
-    href: '/',
+    to: toAdresses(),
     CardIcon: () => (
       <Icon size={32}>
         <Table />
@@ -69,11 +65,10 @@ const NAVIGATION_LINKS = [
     ),
     title: 'Tabellen',
     description: 'Selecteer data en sla op als spreadsheet',
-    toAction: toAdresses(),
   },
   {
     id: 5,
-    href: '/',
+    to: toApisPage(),
     CardIcon: () => (
       <Icon size={36}>
         <Api />
@@ -81,7 +76,6 @@ const NAVIGATION_LINKS = [
     ),
     title: 'Data services',
     description: 'Alles over het koppelen van data via APIs',
-    toAction: toApisPage(),
   },
 ]
 

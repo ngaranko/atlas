@@ -10,9 +10,12 @@ import {
   themeSpacing,
 } from '@datapunt/asc-ui'
 import React from 'react'
+import RouterLink from 'redux-first-router-link'
+import cmsConfig from '../../../shared/config/cms.config'
+import { toSpecialOverview } from '../../../store/redux-first-router/actions'
+import useFromCMS from '../../utils/useFromCMS'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import OverviewLink from './OverviewLink'
-import specialsLinks from './services/specials-links'
 import SpecialCard from './SpecialCard'
 
 const StyledRow = styled(Row)`
@@ -48,27 +51,48 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const SpecialsBlock = ({ loading, showError, ...otherProps }) => (
-  <CardContainer {...otherProps}>
-    <Row hasMargin={false}>
-      <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-        <StyledHeading $as="h1">In Beeld</StyledHeading>
-      </Column>
-    </Row>
-    <StyledRow hasMargin={false} showError={showError}>
-      {showError && <ErrorMessage onClick={() => {}} />}
-      {specialsLinks.map(linkProps => (
-        <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-          <SpecialCard loading={loading} showError={showError} {...linkProps} />
+const SpecialsBlock = ({ ...otherProps }) => {
+  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_SPECIALS, undefined)
+
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchData()
+    })()
+  }, [])
+
+  const specials =
+    results ||
+    Array(6)
+      .fill(null)
+      .map((x, i) => i)
+
+  return (
+    <CardContainer {...otherProps}>
+      <Row hasMargin={false}>
+        <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
+          <StyledHeading $as="h1">In Beeld</StyledHeading>
         </Column>
-      ))}
-    </StyledRow>
-    <Row hasMargin={false}>
-      <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-        <OverviewLink href="/" label="Bekijk overzicht" />
-      </Column>
-    </Row>
-  </CardContainer>
-)
+      </Row>
+      <StyledRow hasMargin={false} showError={error}>
+        {error && <ErrorMessage />}
+        {specials &&
+          specials.map((special, index) => (
+            <Column
+              key={special.key || index}
+              wrap
+              span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}
+            >
+              <SpecialCard loading={loading} showError={error} {...special} />
+            </Column>
+          ))}
+      </StyledRow>
+      <Row hasMargin={false}>
+        <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
+          <OverviewLink to={toSpecialOverview()} $as={RouterLink} label="Bekijk overzicht" />
+        </Column>
+      </Row>
+    </CardContainer>
+  )
+}
 
 export default SpecialsBlock

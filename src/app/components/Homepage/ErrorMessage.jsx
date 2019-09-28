@@ -3,20 +3,25 @@ import { breakpoint, Button, Paragraph, themeColor, themeSpacing } from '@datapu
 import React from 'react'
 
 const ErrorMessageStyle = styled.div`
-  position: absolute;
+  ${({ absolute }) =>
+    absolute &&
+    css`
+      position: absolute;
+      top: ${themeSpacing(14)};
+      left: 50%;
+      transform: translateX(-50%);
+
+      @media screen and ${breakpoint('min-width', 'tabletM')} {
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    `}
+
   z-index: 1;
   background-color: white;
   padding: ${themeSpacing(5)};
   border: 1px solid ${themeColor('tint', 'level4')};
-  top: ${themeSpacing(14)};
-  left: 50%;
-  transform: translateX(-50%);
   text-align: center;
-
-  @media screen and ${breakpoint('min-width', 'tabletM')} {
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-  }
 `
 
 export const ErrorBackgroundCSS = css`
@@ -32,11 +37,13 @@ export const ErrorBackgroundCSS = css`
     left: 0;
     background-color: ${themeColor('tint', 'level1')};
     opacity: 0.8;
+    width: 100%;
+    height: 100%;
   }
 `
 
-const ErrorMessage = ({ onClick }) => (
-  <ErrorMessageStyle>
+const ErrorMessage = ({ onClick = () => window.location.reload(), absolute = true }) => (
+  <ErrorMessageStyle absolute={absolute}>
     <Paragraph>Er is een fout opgetreden bij het laden van dit blok.</Paragraph>
     <Button type="button" onClick={onClick} variant="primary" taskflow={false}>
       Probeer opnieuw

@@ -37,7 +37,6 @@ const EditorialResults = ({ page, results, loading, type, links, onClickMore, sh
       ) : (
         <>
           {showTitle && <PageHeading $as="h1">{EDITORIAL_TITLES[type]}</PageHeading>}
-
           {results && results.map(result => <EditorialCard {...result} />)}
           {page > 0 && loading && <LoadingIndicator />}
           {links &&
@@ -52,7 +51,6 @@ const EditorialResults = ({ page, results, loading, type, links, onClickMore, sh
                 iconSize={12}
                 onClick={() => {
                   // Temporarily replace http:// as no changes will be made to JSON API
-                  // until GraphQL API becomes available
                   const nextHref = links.next.href.replace('http://', 'https://')
 
                   onClickMore(nextHref)

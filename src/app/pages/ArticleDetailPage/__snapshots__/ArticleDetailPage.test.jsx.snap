@@ -2,17 +2,8 @@
 
 exports[`ArticleDetailPage should render the publication when there are results 1`] = `
 <EditorialPage
-  description="intro"
   documentTitle="Artikel: This is a title"
-  linkAction={
-    Object {
-      "payload": Object {
-        "id": 3,
-        "slug": "slug",
-      },
-      "type": "atlasRouter/ARTICLE_DETAIL",
-    }
-  }
+  linkAction={null}
   loading={false}
 >
   <div
@@ -78,16 +69,13 @@ exports[`ArticleDetailPage should render the publication when there are results 
                   <EditorialBody>
                     <Styled(Heading)
                       $as="h1"
-                      isContentType={false}
+                      isContentType={true}
                     >
                       This is a title
                     </Styled(Heading)>
-                    <EditorialMetaList />
                     <Paragraph
                       strong={true}
-                    >
-                      intro
-                    </Paragraph>
+                    />
                     <CustomHTMLBlock
                       body={
                         Object {

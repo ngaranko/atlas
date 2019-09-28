@@ -1,7 +1,7 @@
 import React from 'react'
 import { FooterLinkList, FooterLinkListItem, Paragraph, Link, themeColor } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
-import { cmsIds, FAQ } from '../../../shared/services/cms/cms.config'
+import { cmsIds, FAQ } from '../../../shared/config/cms.config'
 import ActionLink from '../Links/ActionLink/ActionLink'
 import { toArticleDetail, toHelpPage } from '../../../store/redux-first-router/actions'
 import { openFeedbackForm } from '../Modal/FeedbackModal'

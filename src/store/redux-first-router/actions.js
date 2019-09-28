@@ -301,6 +301,10 @@ export const toPublicationOverview = () => ({
   type: routing.publications.type,
 })
 
+export const toSpecialOverview = () => ({
+  type: routing.specials.type,
+})
+
 export const toPublicationSearch = (
   additionalParams = null,
   skipSaga = false,

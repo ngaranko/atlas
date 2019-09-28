@@ -15,6 +15,7 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import RouterLink from 'redux-first-router-link'
 
 const StyledLink = styled(Link)`
   border-bottom: ${themeColor('tint', 'level3')} 1px solid;
@@ -41,9 +42,9 @@ const StyledCard = styled(Card)`
     margin: ${themeSpacing(6, 2)};
   }
   ${({ showError }) =>
-    !showError &&
+    showError &&
     css`
-      background: none;
+      background: ${themeColor('tint', 'level4')};
     `}
 `
 const StyledCardContent = styled(CardContent)`
@@ -60,32 +61,39 @@ const StyledTag = styled(Tag)`
   margin-right: ${themeSpacing(1)};
 `
 
+const StyledHeading = styled(Heading)`
+  margin-bottom: ${themeSpacing(2)};
+`
+
 const SpecialCard = ({
   loading,
   showError,
+  shortTitle,
   title,
-  tag,
-  href,
-  description,
-  imageSrc,
-  imageAlt,
+  specialType,
+  teaser,
+  intro,
+  teaserImage,
+  to,
   ...otherProps
 }) => (
-  <StyledLink href={href} linkType="blank" {...otherProps}>
-    <StyledCard horizontal animateLoading={!showError} loading={loading}>
+  <StyledLink to={to} $as={RouterLink} linkType="blank" {...otherProps}>
+    <StyledCard horizontal animateLoading={!showError} loading={loading} showError={showError}>
       <StyledCardContent>
-        <Heading $as="h4" styleAs="h3" gutterBottom={8}>
-          {title}
-        </Heading>
+        <StyledHeading $as="h4" styleAs="h3">
+          {shortTitle || title}
+        </StyledHeading>
         <Paragraph>
-          <StyledTag colorType="tint" colorSubtype="level3">
-            {tag}
-          </StyledTag>
-          {description}
+          {specialType && (
+            <StyledTag colorType="tint" colorSubtype="level3">
+              {specialType}
+            </StyledTag>
+          )}
+          {teaser || intro}
         </Paragraph>
       </StyledCardContent>
       <StyledCardMedia>
-        <Image src={imageSrc} alt={imageAlt} square />
+        <Image src={teaserImage} alt={shortTitle || title} square />
       </StyledCardMedia>
     </StyledCard>
   </StyledLink>

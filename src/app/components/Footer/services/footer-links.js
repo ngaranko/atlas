@@ -1,10 +1,10 @@
 import {
+  cmsIds,
   OVER_OIS,
   RESOURCES,
-  AMSTERDAM_EN_DATA,
   ABOUT_SITE,
-  cmsIds,
-} from '../../../../shared/services/cms/cms.config'
+  AMSTERDAM_EN_DATA,
+} from '../../../../shared/config/cms.config'
 
 export const COLOFON_LINKS = [
   {

@@ -10,9 +10,10 @@ import {
   styles,
 } from '@datapunt/asc-ui'
 import React from 'react'
-import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
+import ErrorMessage from './ErrorMessage'
 import OrganizationCard from './OrganizationCard'
-import organizationLinks from './services/organization-links'
+import useFromCMS from '../../utils/useFromCMS'
+import cmsConfig from '../../../shared/config/cms.config'
 
 const StyledCardContainer = styled(CardContainer)`
   background-color: ${themeColor('tint', 'level2')};
@@ -20,7 +21,7 @@ const StyledCardContainer = styled(CardContainer)`
 `
 
 const StyledRow = styled(Row)`
-  ${({ showError }) => showError && ErrorBackgroundCSS}
+  ${({ showError }) => showError && `justify-content: center;`}
 
   @media screen and ${breakpoint('max-width', 'laptop')} {
     ${/* sc-selector */ styles.ColumnStyle}:nth-child(-n+2) {
@@ -37,22 +38,37 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const OrganizationBlock = ({ loading, showError, ...otherProps }) => (
-  <StyledCardContainer {...otherProps}>
-    <Row hasMargin={false}>
-      <StyledHeading $as="h2" styleAs="h1">
-        Onderzoek, Informatie en Statistiek
-      </StyledHeading>
-    </Row>
-    <StyledRow hasMargin={false} showError={showError}>
-      {showError && <ErrorMessage onClick={() => {}} />}
-      {organizationLinks.map(linkProps => (
-        <Column wrap span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}>
-          <OrganizationCard loading={loading} showError={showError} {...linkProps} />
-        </Column>
-      ))}
-    </StyledRow>
-  </StyledCardContainer>
-)
+const OrganizationBlock = ({ ...otherProps }) => {
+  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_ORGANIZATION, undefined)
+
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchData()
+    })()
+  }, [])
+
+  return (
+    <StyledCardContainer {...otherProps}>
+      <Row hasMargin={false}>
+        <StyledHeading $as="h2" styleAs="h1">
+          Onderzoek, Informatie en Statistiek
+        </StyledHeading>
+      </Row>
+      <StyledRow hasMargin={false} showError={error}>
+        {error && <ErrorMessage absolute={false} />}
+        {results &&
+          results.map(result => (
+            <Column
+              key={result.key}
+              wrap
+              span={{ small: 1, medium: 1, big: 3, large: 3, xLarge: 3 }}
+            >
+              <OrganizationCard loading={loading} {...result} />
+            </Column>
+          ))}
+      </StyledRow>
+    </StyledCardContainer>
+  )
+}
 
 export default OrganizationBlock

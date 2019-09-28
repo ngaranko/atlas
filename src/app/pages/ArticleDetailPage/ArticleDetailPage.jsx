@@ -27,8 +27,9 @@ import './ArticleDetailPage.scss'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
-import cmsConfig from '../../../shared/services/cms/cms.config'
+import cmsConfig from '../../../shared/config/cms.config'
 import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
+import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import { EDITORIAL_FIELD_TYPE_VALUES } from '../EditorialOverviewPage/constants'
 
@@ -44,7 +45,7 @@ const ListItemContent = styled.div`
 
 /* istanbul ignore next */
 const ArticleDetailPage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS(cmsConfig.ARTICLE, id)
+  const { fetchData, results, loading, error } = useFromCMS(cmsConfig.ARTICLE, id)
 
   React.useEffect(() => {
     fetchData()
@@ -52,17 +53,23 @@ const ArticleDetailPage = ({ id }) => {
 
   const {
     title,
-    date,
     localeDate,
+    localeDateFormatted,
     body,
-    coverImageUrl,
+    coverImage,
     field_downloads: downloads,
     field_links: links,
     field_byline: byline,
-    field_slug: slug,
-    field_intro: intro,
+    slug,
+    intro,
     field_type: articleType,
   } = results || {}
+
+  React.useEffect(() => {
+    if (error) {
+      window.location.replace(routing.niet_gevonden.path)
+    }
+  }, [error])
 
   const documentTitle = title && `Artikel: ${title}`
   const linkAction = slug && toArticleDetail(id, slug)
@@ -101,9 +108,9 @@ const ArticleDetailPage = ({ id }) => {
           <Row className="article__row">
             <ContentContainer>
               <Article
-                {...(coverImageUrl
+                {...(coverImage
                   ? {
-                      image: typeof coverImageUrl === 'string' ? coverImageUrl : undefined,
+                      image: typeof coverImage === 'string' ? coverImage : undefined,
                     }
                   : {})}
               >
@@ -116,13 +123,13 @@ const ArticleDetailPage = ({ id }) => {
                     >
                       <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
                         <EditorialBody>
-                          <StyledHeading $as="h1" isContentType={isContentType}>
+                          <StyledHeading $as="h1" isContentType={!isContentType}>
                             {title}
                           </StyledHeading>
-                          {!isContentType && (
+                          {isContentType && (
                             <EditorialMetaList
-                              dateTime={date}
-                              dateFormatted={localeDate}
+                              dateTime={localeDate}
+                              dateFormatted={localeDateFormatted}
                               fields={byline && [{ id: 1, label: byline }]}
                             />
                           )}

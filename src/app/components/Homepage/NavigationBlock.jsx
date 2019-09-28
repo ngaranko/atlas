@@ -54,10 +54,10 @@ const StyledCardContainer = styled.div`
 
 const NavigationBlock = ({ loading, showError, ...otherProps }) => (
   <CompactThemeProvider>
-    <StyledCardContainer {...otherProps} showError={showError} hasPaddingBottom>
-      {showError && <ErrorMessage onClick={() => {}} />}
+    <StyledCardContainer {...otherProps} showError={showError}>
+      {showError && <ErrorMessage />}
       {navigationLinks.map(linkProps => (
-        <NavigationCard loading={loading} showError={showError} {...linkProps} />
+        <NavigationCard {...linkProps} />
       ))}
     </StyledCardContainer>
   </CompactThemeProvider>

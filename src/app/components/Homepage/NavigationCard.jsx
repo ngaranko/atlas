@@ -17,6 +17,7 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import RouterLink from 'redux-first-router-link'
 import { focusOutline } from './services/styles'
 
 const StyledHeading = styled(Heading)`
@@ -89,17 +90,9 @@ const StyledParagraph = styled(Paragraph)`
   overflow: hidden; // make sure the text doesn't falls outside this Paragraph
 `
 
-const NavigationCard = ({
-  loading,
-  showError,
-  CardIcon,
-  title,
-  description,
-  href,
-  ...otherProps
-}) => (
-  <StyledLink href={href} linkType="blank" {...otherProps}>
-    <StyledCard horizontal loading={loading} animateLoading={!showError}>
+const NavigationCard = ({ CardIcon, title, description, ...otherProps }) => (
+  <StyledLink $as={RouterLink} linkType="blank" {...otherProps}>
+    <StyledCard horizontal>
       <StyledCardMedia backgroundColor="level2">
         <CardIcon />
       </StyledCardMedia>
@@ -127,7 +120,7 @@ NavigationCard.propTypes = {
   CardIcon: PropTypes.shape({}).isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
 }
 
 export default NavigationCard
