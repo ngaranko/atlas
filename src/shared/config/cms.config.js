@@ -134,6 +134,9 @@ export const FAQ = 'veelgestelde-vragen'
 export const OVER_OIS = 'over-ois'
 export const RESEARCH_BY_OIS = 'onderzoek-door-ois'
 export const DATA_IN_TABLES = 'tabellen'
+export const HELP = 'help'
+export const CONTACT = 'contact'
+export const OVER_SITE = 'over-deze-site'
 
 const cmsIdListAcc = {
   [DESCRIPTION_USAGE]: '5a962d67-ae2d-41b5-9c1a-263591eb5b0c',
@@ -143,6 +146,9 @@ const cmsIdListAcc = {
   [RESEARCH_BY_OIS]: 'bd25761c-ca8c-4587-bdd8-6f77bd8bd7e3',
   [FAQ]: 'a939afed-ff98-4db1-a927-fe6c9bac1ae6',
   [DATA_IN_TABLES]: '647c0fd0-567e-4157-b7ee-94c7b8504235',
+  [HELP]: '4e5af47c-a67f-4cbc-be3c-7a0f410a45d6',
+  [CONTACT]: 'aadfea20-7308-4caf-9126-a900f9e6df1f',
+  [OVER_SITE]: '6b474539-32fb-4a1c-929a-bbfefadadc08',
 }
 
 const cmsIdListProd = {
@@ -153,6 +159,9 @@ const cmsIdListProd = {
   [RESEARCH_BY_OIS]: '3d7c706a-0898-4adc-b0e8-2c4c195ed7f9',
   [FAQ]: 'a939afed-ff98-4db1-a927-fe6c9bac1ae6',
   [DATA_IN_TABLES]: '3f5a9b94-a9d8-417d-aac8-45971f4b3a43',
+  [HELP]: 'de7d3101-354c-44f6-b94d-dde572239090',
+  [CONTACT]: 'c8f4d1da-75f3-4ee7-93e8-256b201d6ccf',
+  [OVER_SITE]: 'a5176bed-cad4-46d2-b501-a628370c9099',
 }
 
 const cmsIdList = {

@@ -4,10 +4,11 @@ import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton, Link } from '
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
-import { toArticleDetail, toHelpPage } from '../../../store/redux-first-router/actions'
+import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
 import { OIS_LINKS } from '../Footer/services/footer-links'
 import NAVIGATION_LINKS from '../Homepage/services/navigation-links'
+import { HELP, cmsIds } from '../../../shared/config/cms.config'
 
 const components = {
   default: MenuInline,
@@ -22,6 +23,12 @@ const getContactLink = () => {
   return `mailto:${CONTACT_RECIPIENT}?subject=${window.encodeURIComponent(
     CONTACT_SUBJECT,
   )}&body=${window.encodeURIComponent(CONTACT_BODY)}`
+}
+
+const HELP_LINK = {
+  title: 'Help',
+  id: cmsIds[HELP],
+  slug: HELP,
 }
 
 // Hotfix, need to be moved to asc-ui MenuButtonStyle
@@ -66,7 +73,9 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         </MenuButton>
       </MenuItem>
       <MenuItem>
-        <MenuLink to={toHelpPage()}>Help</MenuLink>
+        <MenuLink title={HELP_LINK.title} to={toArticleDetail(HELP_LINK.id, HELP_LINK.slug)}>
+          {HELP_LINK.title}
+        </MenuLink>
       </MenuItem>
 
       {!user.authenticated ? (

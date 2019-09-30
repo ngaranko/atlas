@@ -2,9 +2,9 @@ import {
   cmsIds,
   OVER_OIS,
   RESOURCES,
-  DESCRIPTION_USAGE,
   AMSTERDAM_EN_DATA,
   RESEARCH_BY_OIS,
+  OVER_SITE,
 } from '../../../../shared/config/cms.config'
 
 export const OVER_OIS_LINKS = [
@@ -28,8 +28,8 @@ export const OVER_DATA_LINKS = [
 export const OVER_DEZE_SITE_LINKS = [
   {
     title: 'Over deze site',
-    id: cmsIds[DESCRIPTION_USAGE],
-    slug: DESCRIPTION_USAGE,
+    id: cmsIds[OVER_SITE],
+    slug: OVER_SITE,
   },
   { title: 'Over OIS', id: cmsIds[OVER_OIS], slug: OVER_OIS },
 ]
