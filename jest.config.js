@@ -18,8 +18,8 @@ module.exports = {
     global: {
       statements: 77,
       branches: 50,
-      functions: 70,
-      lines: 78,
+      functions: 69,
+      lines: 77,
     },
   },
   coverageReporters: process.env.CI ? ['html', 'text'] : ['lcov'],

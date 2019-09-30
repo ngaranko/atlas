@@ -7,10 +7,12 @@ import {
   toPublicationOverview,
   toDatasets,
   toAdresses,
+  toApisPage,
 } from '../../../../store/redux-first-router/actions'
 
-const navigationLinks = [
+const NAVIGATION_LINKS = [
   {
+    id: 0,
     to: toMap(),
     CardIcon: () => (
       <Icon square size={32}>
@@ -21,7 +23,8 @@ const navigationLinks = [
     description: 'Zoek en bekijk data op de kaart',
   },
   {
-    to: toPanoramaAndPreserveQuery(),
+    id: 1,
+    to: toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home'),
     CardIcon: () => (
       <Icon size={36}>
         <Pano />
@@ -31,6 +34,7 @@ const navigationLinks = [
     description: 'Kijk 360 graden in het rond',
   },
   {
+    id: 2,
     to: toPublicationOverview(),
     CardIcon: () => (
       <Icon size={36}>
@@ -41,6 +45,7 @@ const navigationLinks = [
     description: 'Download fasctsheets en onderzoeksrapporten',
   },
   {
+    id: 3,
     to: toDatasets(),
     CardIcon: () => (
       <Icon size={32}>
@@ -51,6 +56,7 @@ const navigationLinks = [
     description: 'Zoek en download databestanden',
   },
   {
+    id: 4,
     to: toAdresses(),
     CardIcon: () => (
       <Icon size={32}>
@@ -61,7 +67,8 @@ const navigationLinks = [
     description: 'Selecteer data en sla op als spreadsheet',
   },
   {
-    to: '/',
+    id: 5,
+    to: toApisPage(),
     CardIcon: () => (
       <Icon size={36}>
         <Api />
@@ -72,4 +79,4 @@ const navigationLinks = [
   },
 ]
 
-export default navigationLinks
+export default NAVIGATION_LINKS
