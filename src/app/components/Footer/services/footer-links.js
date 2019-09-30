@@ -33,9 +33,9 @@ export const OVER_DEZE_SITE_LINKS = [
   { title: 'Over OIS', id: cmsIds[OVER_OIS], slug: OVER_OIS },
 ]
 
-export const COLOFON_LINKS = [...OVER_OIS_LINKS, ...OVER_DATA_LINKS]
+export const COLOFON_LINKS = [...OVER_DEZE_SITE_LINKS, ...OVER_DATA_LINKS]
 
-export const OIS_LINKS = [...OVER_DEZE_SITE_LINKS, ...OVER_DATA_LINKS]
+export const OIS_LINKS = [...OVER_OIS_LINKS, ...OVER_DATA_LINKS]
 
 export const FOLLOW_LINKS = [
   {
