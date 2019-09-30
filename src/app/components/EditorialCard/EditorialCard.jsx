@@ -114,17 +114,28 @@ const EditorialCard = ({
         <Image src={teaserImage || notFoundImage} alt={title} square />
       </StyledCardMedia>
       <StyledCardContent>
-        <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
+        <div>
+          <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
+        </div>
+
         {specialType && (
-          <StyledTag colorType="tint" colorSubtype="level3">
-            {specialType}
-          </StyledTag>
+          <div>
+            <StyledTag colorType="tint" colorSubtype="level3">
+              {specialType}
+            </StyledTag>
+          </div>
         )}
-        <IntroText>{teaser || intro}</IntroText>
+
+        <div>
+          <IntroText>{teaser || intro}</IntroText>
+        </div>
+
         {localeDate && (
-          <MetaText as="time" datetime={localeDate}>
-            {localeDateFormatted}
-          </MetaText>
+          <div>
+            <MetaText as="time" datetime={localeDate}>
+              {localeDateFormatted}
+            </MetaText>
+          </div>
         )}
       </StyledCardContent>
     </StyledCard>
