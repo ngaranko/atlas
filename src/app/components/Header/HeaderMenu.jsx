@@ -47,10 +47,10 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         ))}
       </MenuFlyOut>
       <MenuFlyOut label="Over OIS">
-        {COLOFON_LINKS.map(({ menuTitle, id, slug }) => (
+        {COLOFON_LINKS.map(({ title, id, slug }) => (
           <MenuItem key={id}>
-            <MenuLink iconLeft={<ChevronRight />} title={menuTitle} to={toArticleDetail(id, slug)}>
-              {menuTitle}
+            <MenuLink iconLeft={<ChevronRight />} title={title} to={toArticleDetail(id, slug)}>
+              {title}
             </MenuLink>
           </MenuItem>
         ))}
