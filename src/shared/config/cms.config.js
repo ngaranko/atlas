@@ -129,14 +129,14 @@ const cmsConfig = {
 
 export const AMSTERDAM_EN_DATA = 'amsterdam-en-data'
 export const RESOURCES = 'bronnen'
-export const ABOUT_SITE = 'wat-kun-je-hier'
+export const DESCRIPTION_USAGE = 'wat-kun-je-hier'
 export const FAQ = 'veelgestelde-vragen'
 export const OVER_OIS = 'over-ois'
 export const RESEARCH_BY_OIS = 'onderzoek-door-ois'
 export const DATA_IN_TABLES = 'tabellen'
 
 const cmsIdListAcc = {
-  [ABOUT_SITE]: '5a962d67-ae2d-41b5-9c1a-263591eb5b0c',
+  [DESCRIPTION_USAGE]: '5a962d67-ae2d-41b5-9c1a-263591eb5b0c',
   [OVER_OIS]: '4dba60f2-7161-4fd8-81e9-03eddb52d259',
   [AMSTERDAM_EN_DATA]: '29160257-dd4b-4349-a5df-d6f7715615ed',
   [RESOURCES]: 'e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115',
@@ -146,7 +146,7 @@ const cmsIdListAcc = {
 }
 
 const cmsIdListProd = {
-  [ABOUT_SITE]: '5a962d67-ae2d-41b5-9c1a-263591eb5b0c',
+  [DESCRIPTION_USAGE]: '5a962d67-ae2d-41b5-9c1a-263591eb5b0c',
   [OVER_OIS]: '8cf61560-0f90-4b81-84bf-900a6755159d',
   [AMSTERDAM_EN_DATA]: '8af0598f-12a0-47c5-9327-938fade1159a',
   [RESOURCES]: '6f095138-5e73-4388-8300-489270fdd60a',

@@ -4,9 +4,9 @@ import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton, Link } from '
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
-import { toHelpPage, toArticleDetail } from '../../../store/redux-first-router/actions'
+import { toArticleDetail, toHelpPage } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
-import { COLOFON_LINKS } from '../Footer/services/footer-links'
+import { OIS_LINKS } from '../Footer/services/footer-links'
 import NAVIGATION_LINKS from '../Homepage/services/navigation-links'
 
 const components = {
@@ -47,7 +47,7 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         ))}
       </MenuFlyOut>
       <MenuFlyOut label="Over OIS">
-        {COLOFON_LINKS.map(({ title, id, slug }) => (
+        {OIS_LINKS.map(({ title, id, slug }) => (
           <MenuItem key={id}>
             <MenuLink iconLeft={<ChevronRight />} title={title} to={toArticleDetail(id, slug)}>
               {title}

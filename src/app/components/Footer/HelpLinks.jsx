@@ -1,9 +1,9 @@
 import React from 'react'
 import { FooterLinkList, FooterLinkListItem, Paragraph, Link, themeColor } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
-import { cmsIds, FAQ } from '../../../shared/config/cms.config'
+import { cmsIds, FAQ, DESCRIPTION_USAGE } from '../../../shared/config/cms.config'
 import ActionLink from '../Links/ActionLink/ActionLink'
-import { toArticleDetail, toHelpPage } from '../../../store/redux-first-router/actions'
+import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import { openFeedbackForm } from '../Modal/FeedbackModal'
 
 const FAQ_LINK = {
@@ -17,9 +17,10 @@ const CONTACT_LINK = {
   href: 'https://www.amsterdam.nl/ois/contact/',
 }
 
-const HELP_LINK = {
+const DESCRIPTION_USAGE_LINK = {
   title: 'Uitleg gebruik',
-  to: toHelpPage(),
+  id: cmsIds[DESCRIPTION_USAGE],
+  slug: DESCRIPTION_USAGE,
 }
 
 const ArticleLink = ({ title, id, slug }) => (
@@ -65,9 +66,7 @@ const HelpLinks = () => (
         </FeedbackLink>
       </FooterLinkListItem>
       <FooterLinkListItem>
-        <ActionLink {...HELP_LINK} variant="with-chevron">
-          {HELP_LINK.title}
-        </ActionLink>
+        <ArticleLink {...DESCRIPTION_USAGE_LINK} />
       </FooterLinkListItem>
     </FooterLinkList>
   </>

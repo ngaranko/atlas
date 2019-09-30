@@ -2,7 +2,7 @@ import {
   cmsIds,
   OVER_OIS,
   RESOURCES,
-  ABOUT_SITE,
+  DESCRIPTION_USAGE,
   AMSTERDAM_EN_DATA,
   RESEARCH_BY_OIS,
 } from '../../../../shared/config/cms.config'
@@ -15,6 +15,7 @@ export const OVER_OIS_LINKS = [
   },
   { title: 'Onderzoek', id: cmsIds[RESEARCH_BY_OIS], slug: RESEARCH_BY_OIS },
 ]
+
 export const OVER_DATA_LINKS = [
   {
     title: 'Databeleid',
@@ -27,15 +28,15 @@ export const OVER_DATA_LINKS = [
 export const OVER_DEZE_SITE_LINKS = [
   {
     title: 'Over deze site',
-    id: cmsIds[ABOUT_SITE],
-    slug: ABOUT_SITE,
+    id: cmsIds[DESCRIPTION_USAGE],
+    slug: DESCRIPTION_USAGE,
   },
   { title: 'Over OIS', id: cmsIds[OVER_OIS], slug: OVER_OIS },
 ]
 
-export const COLOFON_LINKS = [...OVER_DEZE_SITE_LINKS, ...OVER_DATA_LINKS]
-
 export const OIS_LINKS = [...OVER_OIS_LINKS, ...OVER_DATA_LINKS]
+
+export const COLOFON_LINKS = [...OVER_DEZE_SITE_LINKS, ...OVER_DATA_LINKS]
 
 export const FOLLOW_LINKS = [
   {
