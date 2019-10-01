@@ -64,7 +64,7 @@ class MapLegend extends React.Component {
       onLayerVisibilityToggle,
       user,
       zoomLevel,
-      printMode,
+      isPrint,
       onLayerToggle,
     } = this.props
 
@@ -129,7 +129,7 @@ class MapLegend extends React.Component {
                     <ul className="map-legend__items">
                       {mapLayer.legendItems.map((legendItem, legendItemIndex) => {
                         const legendItemIsVisible = this.determineLegendItemVisibility(legendItem)
-                        return !legendItemIsVisible && printMode ? null : (
+                        return !legendItemIsVisible && isPrint ? null : (
                           <li
                             className="map-legend__item"
                             // eslint-disable-next-line react/no-array-index-key
@@ -176,7 +176,7 @@ class MapLegend extends React.Component {
 MapLegend.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
-  printMode: PropTypes.bool.isRequired,
+  isPrint: PropTypes.bool.isRequired,
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
   overlays: PropTypes.array, // eslint-disable-line
   user: PropTypes.object, // eslint-disable-line

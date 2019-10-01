@@ -6,11 +6,13 @@ import useFromCMS from '../../utils/useFromCMS'
 import setIframeSize from '../../../shared/services/set-iframe-size/setIframeSize'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
+import Footer from '../../components/Footer/Footer'
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../../shared/services/set-iframe-size/setIframeSize')
 jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('../../utils/useDocumentTitle')
+jest.mock('../../components/Footer/Footer')
 
 describe('SpecialDetailPage', () => {
   const id = 6
@@ -23,6 +25,7 @@ describe('SpecialDetailPage', () => {
   beforeEach(() => {
     linkAttributesFromAction.mockImplementation(() => ({ href }))
     useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: jest.fn() }))
+    Footer.mockImplementation(() => <></>)
 
     store = configureMockStore()({ location: { payload: { id } } })
 

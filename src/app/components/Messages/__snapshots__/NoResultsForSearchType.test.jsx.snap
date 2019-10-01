@@ -14,6 +14,9 @@ exports[`NoResultsForSearchType should render 1`] = `
   >
     Tip: this is the message
   </div>
+  <Connect(LoginLink)
+    inverted={false}
+  />
 </div>
 `;
 

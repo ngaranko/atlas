@@ -256,7 +256,6 @@ describe('UI selectors', () => {
       dataPage: false,
       mapActive: false,
       panoPageActive: false,
-      homePageActive: false,
       viewMode: VIEW_MODE.MAP,
     }
 
@@ -269,7 +268,6 @@ describe('UI selectors', () => {
         mockParameters.dataPage,
         mockParameters.mapActive,
         mockParameters.panoPageActive,
-        mockParameters.homePageActive,
         mockParameters.viewMode,
       )
       expect(selected).toEqual(true)
@@ -285,7 +283,6 @@ describe('UI selectors', () => {
         mockParameters.dataPage,
         mockParameters.mapActive,
         mockParameters.panoPageActive,
-        mockParameters.homePageActive,
         mockParameters.viewMode,
       )
       expect(selected).toEqual(true)
@@ -302,7 +299,6 @@ describe('UI selectors', () => {
         mockParameters.dataPage,
         mockParameters.mapActive,
         mockParameters.panoPageActive,
-        mockParameters.homePageActive,
         mockParameters.viewMode,
       )
       expect(selected).toEqual(true)
@@ -317,25 +313,9 @@ describe('UI selectors', () => {
         mockParameters.dataPage,
         mockParameters.mapActive,
         mockParameters.panoPageActive,
-        mockParameters.homePageActive,
         mockParameters.viewMode,
       )
       expect(selected).toEqual(true)
-    })
-
-    it('should return false when on the home page', () => {
-      mockParameters.homePageActive = true
-      const selected = hasPrintMode.resultFunc(
-        mockParameters.dataSelectionPage,
-        mockParameters.datasetPage,
-        mockParameters.datasetDetailPage,
-        mockParameters.dataPage,
-        mockParameters.mapActive,
-        mockParameters.panoPageActive,
-        mockParameters.homePageActive,
-        mockParameters.viewMode,
-      )
-      expect(selected).toEqual(false)
     })
   })
 

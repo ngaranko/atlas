@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from '@datapunt/asc-ui'
 import { AngularWrapper } from 'react-angular'
 import classNames from 'classnames'
 import angular from 'angular'
@@ -12,16 +11,6 @@ import NoResultsForSearchType from '../Messages/NoResultsForSearchType'
 import Catalog from './Catalog/Catalog'
 import ShareBar from '../ShareBar/ShareBar'
 import '../../angularModules'
-
-const NoDatasetsMessage = () => (
-  <>
-    Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
-    <Link href="../" variant="inline">
-      Datasets
-    </Link>{' '}
-    en filter vervolgens op thema.
-  </>
-)
 
 const Dataset = ({
   setPage,
@@ -41,10 +30,11 @@ const Dataset = ({
 
   if (numberOfRecords === 0) {
     return (
-      <>
-        <NoResultsForSearchType message={<NoDatasetsMessage />} hideLoginLink />
-        <ShareBar topSpacing={6} />
-      </>
+      <NoResultsForSearchType
+        message={`Tip: maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens
+        de optie 'Alle datasets tonen' en filter vervolgens op thema.`}
+        hideLoginLink
+      />
     )
   }
 

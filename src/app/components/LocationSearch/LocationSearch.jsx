@@ -19,6 +19,7 @@ const LocationSearch = ({
   numberOfResults,
   location,
   panoramaPreview,
+  printMode,
 }) => {
   const { x: rdX, y: rdY } = wgs84ToRd(location)
   return (
@@ -54,13 +55,15 @@ const LocationSearch = ({
               <MoreResultsWhenLoggedIn excludedResults={EXCLUDED_RESULTS} />
             )}
 
-          <div className="u-row">
-            <div className="u-col-sm--12">
-              <div className="u-margin__top--4">
-                <ShareBar />
+          {!printMode && (
+            <div className="u-row">
+              <div className="u-col-sm--12">
+                <div className="u-margin__top--4">
+                  <ShareBar />
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>
@@ -73,6 +76,7 @@ LocationSearch.defaultProps = {
 
 LocationSearch.propTypes = {
   panoramaPreview: PropTypes.bool.isRequired,
+  printMode: PropTypes.bool.isRequired,
   numberOfResults: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   layerWarning: PropTypes.string,

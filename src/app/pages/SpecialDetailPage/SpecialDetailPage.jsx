@@ -6,31 +6,23 @@ import setIframeSize from '../../../shared/services/set-iframe-size/setIframeSiz
 import useFromCMS from '../../utils/useFromCMS'
 import './SpecialDetailPage.scss'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
-import cmsConfig from '../../../shared/config/cms.config'
+import cmsConfig from '../../../shared/services/cms/cms.config'
 import { toSpecialDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
-import { routing } from '../../routes'
 
 const SpecialDetailPage = ({ id }) => {
-  const { fetchData, results, loading, error } = useFromCMS(cmsConfig.SPECIAL, id)
+  const { fetchData, results, loading } = useFromCMS(cmsConfig.SPECIAL, id)
   const [iframeLoading, setIframeLoading] = React.useState(true)
   const [iframeHeight, setIframeHeight] = React.useState(0)
   const iframeRef = React.useRef(null)
 
-  const handleResize = () => {
-    setIframeSize(setIframeHeight)
-  }
-
-  const iframeLoaded = () => {
-    setIframeLoading(false)
-
-    // Handle resize after the iframe is loaded
-    handleResize(setIframeHeight)
-  }
-
   React.useEffect(() => {
     fetchData()
   }, [id])
+
+  const handleResize = () => {
+    setIframeSize(setIframeHeight)
+  }
 
   React.useEffect(() => {
     window.addEventListener('resize', handleResize)
@@ -46,11 +38,12 @@ const SpecialDetailPage = ({ id }) => {
     }
   }, [iframeHeight])
 
-  React.useEffect(() => {
-    if (error) {
-      window.location.replace(routing.niet_gevonden.path)
-    }
-  }, [error])
+  const iframeLoaded = () => {
+    setIframeLoading(false)
+
+    // Handle resize after the iframe is loaded
+    handleResize(setIframeHeight)
+  }
 
   const { field_iframe_link: iframeLink, field_slug: slug, field_special_type: type, title } =
     results || {}

@@ -1,13 +1,10 @@
 import React from 'react'
 import styled from '@datapunt/asc-core'
-import { Row, Column, Heading, Paragraph, Link, themeSpacing } from '@datapunt/asc-ui'
+import { Row, Column, Heading, Paragraph, Link } from '@datapunt/asc-ui'
 import ShareBar from '../components/ShareBar/ShareBar'
 
 const StyledRow = styled(Row)`
-  padding-top: ${themeSpacing(14)};
-`
-const StyledHeading = styled(Heading)`
-  margin-bottom: ${themeSpacing(5)};
+  padding-top: 56px;
 `
 
 const NotFound = () => (
@@ -17,7 +14,7 @@ const NotFound = () => (
       push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
     >
       <div>
-        <StyledHeading>Pagina niet gevonden</StyledHeading>
+        <Heading gutterBottom={20}>Pagina niet gevonden</Heading>
         <Paragraph>De link die je volgde, werkt niet (meer).</Paragraph>
         <Paragraph>
           Heb je een link, waarvan je niet meer weet over welke pagina die ging? Neem dan{' '}

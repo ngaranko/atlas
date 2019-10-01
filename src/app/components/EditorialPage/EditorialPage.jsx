@@ -1,22 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
-import styled from '@datapunt/asc-core'
-import { Container, themeColor } from '@datapunt/asc-ui'
+import { Container } from '@datapunt/asc-ui'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import './EditorialPage.scss'
 import '../../../map/components/loading-indicator/LoadingIndicator.scss'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
-
-const StyledContainer = styled(Container)`
-  min-height: 50vh; // Makes sure the loading indicator is displayed inside the page
-`
-const BodyStyle = styled.div`
-  background-color: ${themeColor('level', 'level1')}
-  position: relative;
-  width: 100%;
-`
+import Footer from '../Footer/Footer'
 
 const EditorialPage = ({ children, documentTitle, loading, linkAction, description }) => {
   const { setDocumentTitle } = useDocumentTitle()
@@ -32,16 +24,21 @@ const EditorialPage = ({ children, documentTitle, loading, linkAction, descripti
   const href = linkAction && linkAttributesFromAction(linkAction).href
 
   return (
-    <StyledContainer>
+    <Container className="editorial-page" beamColor="valid">
       <Helmet>
         {href && <link rel="canonical" href={href} />}
+        <meta
+          name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
         {description && <meta name="description" content={description} />}
       </Helmet>
-      <BodyStyle>
+      <div className="editorial-page__body">
         {loading && <LoadingIndicator />}
         {children}
-      </BodyStyle>
-    </StyledContainer>
+      </div>
+      <Footer />
+    </Container>
   )
 }
 
