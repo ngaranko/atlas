@@ -6,13 +6,11 @@ import { useMatomo } from '@datapunt/matomo-tracker-react'
 import PublicationDetailPage from './PublicationDetailPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
-import Footer from '../../components/Footer/Footer'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('downloadjs')
-jest.mock('../../components/Footer/Footer')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('@datapunt/matomo-tracker-react')
 
@@ -31,7 +29,6 @@ describe('PublicationDetailPage', () => {
       field_file_type: 'pdf',
       field_publication_source: 'source',
       field_publication_intro: 'intro',
-      field_slug: 'slug',
       included: [
         { attributes: { uri: { url: 'https://cover-link' } } },
         { attributes: { uri: { url: 'https://cover-link' } } },
@@ -46,14 +43,15 @@ describe('PublicationDetailPage', () => {
   let store
   beforeEach(() => {
     linkAttributesFromAction.mockImplementation(() => ({ href }))
-    Footer.mockImplementation(() => <></>)
     useDocumentTitle.mockImplementation(() => ({
       setDocumentTitle: jest.fn(),
       href,
     }))
     useMatomo.mockImplementation(() => ({ trackPageView: jest.fn(), href }))
 
-    store = configureMockStore()({ location: { payload: { id } } })
+    store = configureMockStore()({
+      location: { payload: { id } },
+    })
   })
 
   afterEach(() => {
@@ -78,8 +76,6 @@ describe('PublicationDetailPage', () => {
       loading: true,
       fetchData: mockFetchData,
     }))
-
-    store = configureMockStore()({ location: { payload: { id } } })
 
     const component = mount(
       <ThemeProvider>
