@@ -30,7 +30,7 @@ describe('useFromCMS', () => {
   const mockCMSconfig = {
     TEST: {
       endpoint: () => `https://test.url/api`,
-      fields: ['field_slug'],
+      fields: ['field_title'],
     },
   }
 
