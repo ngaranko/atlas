@@ -20,9 +20,8 @@ exports[`Header should render the main header 1`] = `
 <styled.section
   data-test="header"
 >
-  <Header
+  <Styled(Header)
     className="styled-header"
-    css={[Function]}
     fullWidth={false}
     homeLink="/"
     navigation={

@@ -8,7 +8,6 @@ import PAGES from '../../app/pages'
 const normalizeObject = (data, type) => {
   const {
     uuid,
-    slug,
     title,
     body,
     teaser_url,
@@ -24,11 +23,13 @@ const normalizeObject = (data, type) => {
     ...otherFields
   } = data
 
+  const slug = useSlug(title)
+
   // The type SPECIALS has a different url structure
   const to =
     type === PAGES.SPECIALS
       ? EDITORIAL_DETAIL_ACTIONS[type](uuid, field_special_type, slug)
-      : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug || useSlug(title))
+      : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug)
 
   let localeDate = field_publication_date
 
@@ -80,6 +81,7 @@ const normalizeObject = (data, type) => {
     fileUrl,
     localeDate,
     localeDateFormatted,
+    slug,
     to,
     ...otherFields,
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import styled, { css } from '@datapunt/asc-core'
+import styled from '@datapunt/asc-core'
 import { Header as HeaderComponent, styles, breakpoint } from '@datapunt/asc-ui'
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer'
 import { useAppReducer } from '../../utils/useAppReducer'
@@ -10,17 +10,23 @@ import HeaderMenuContainer from './HeaderMenuContainer'
 import EmbedHeader from './EmbedHeader'
 import PrintHeader from './PrintHeader'
 
-const style = theme => css`
-  z-index: 9999; // Check why this z-index is set when refactoring the print and embed header
+const HeaderWrapper = styled.section`
+  width: 100%;
 
+  // As position: sticky isn't supported on IE, this is needed to have position the header on top of the other contents
+  z-index: 999;
+  position: relative;
+`
+
+const StyledHeader = styled(HeaderComponent)`
   ${styles.HeaderNavigationStyle} {
     // This must be added to the @datapunt/asc-ui project https://github.com/Amsterdam/amsterdam-styled-components/issues/165
-    @media screen and ${breakpoint('min-width', 'laptop')({ theme })} {
+    @media screen and ${breakpoint('min-width', 'laptop')} {
       margin-left: 29px;
       margin-right: 29px;
     }
 
-    @media screen and ${breakpoint('min-width', 'tabletM')({ theme })} {
+    @media screen and ${breakpoint('min-width', 'tabletM')} {
       justify-content: space-between;
     }
 
@@ -34,11 +40,6 @@ const style = theme => css`
       }
     }
   }
-`
-
-const HeaderWrapper = styled.section`
-  width: 100%;
-  z-index: 9999; // Check why this z-index is set when refactoring the print and embed header
 `
 
 const MenuDefault = props => <HeaderMenuContainer {...props} type="default" />
@@ -66,11 +67,10 @@ const Header = ({
   if (!printOrEmbedMode) {
     return (
       <HeaderWrapper data-test="header">
-        <HeaderComponent
+        <StyledHeader
           tall={homePage}
           title="Data en informatie"
           homeLink="/"
-          css={({ theme }) => style(theme, homePage)}
           className="styled-header"
           fullWidth={!hasMaxWidth}
           navigation={

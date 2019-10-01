@@ -10,7 +10,6 @@ describe('cmsNormalizer', () => {
       value: 'body',
     },
     title: 'title',
-    field_slug: 'image',
     field_intro: 'intro',
     field_short_title: 'september',
     created: '2019-03-15T00:00:00+01:00',
@@ -39,11 +38,10 @@ describe('cmsNormalizer', () => {
       get: () => mockData,
     }))
 
-    const normalizedData = cmsNormalizer(mockData, ['field_slug', 'field_intro'])
+    const normalizedData = cmsNormalizer(mockData, ['field_title', 'field_intro'])
 
     expect(normalizedData).toEqual({
       ...mockData,
-      slug: mockData.field_slug,
       intro: mockData.field_intro,
       uuid: mockData.id,
       media_image_url: mockImageUrl,
@@ -63,12 +61,11 @@ describe('cmsNormalizer', () => {
       get: () => mockData,
     }))
 
-    const normalizedData = cmsNormalizer(mockData, ['field_slug', 'field_intro'])
+    const normalizedData = cmsNormalizer(mockData, ['field_title', 'field_intro'])
 
     expect(normalizedData).toEqual([
       {
         ...mockData,
-        slug: mockData.field_slug,
         intro: mockData.field_intro,
         uuid: mockData.id,
         short_title: mockData.field_short_title,

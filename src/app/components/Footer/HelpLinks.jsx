@@ -1,5 +1,12 @@
 import React from 'react'
-import { FooterLinkList, FooterLinkListItem, Paragraph, Link, themeColor } from '@datapunt/asc-ui'
+import {
+  FooterLinkList,
+  FooterLinkListItem,
+  Paragraph,
+  Link,
+  themeColor,
+  themeSpacing,
+} from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import { cmsIds, FAQ, DESCRIPTION_USAGE } from '../../../shared/config/cms.config'
 import ActionLink from '../Links/ActionLink/ActionLink'
@@ -35,12 +42,16 @@ export const FeedbackLink = styled(Link).attrs({
   background-color: ${themeColor('tint', 'level5')};
 `
 
+const StyledParagraph = styled(Paragraph)`
+  margin-bottom: ${themeSpacing(5)};
+`
+
 const HelpLinks = () => (
   <>
-    <Paragraph gutterBottom={8}>
+    <StyledParagraph>
       Heeft u een vraag en kunt u het antwoord niet vinden op deze website? Of heeft u bevindingen?
       Neem dan contact met ons op.
-    </Paragraph>
+    </StyledParagraph>
     <FooterLinkList>
       <FooterLinkListItem>
         <ArticleLink {...FAQ_LINK} />

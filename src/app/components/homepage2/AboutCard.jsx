@@ -12,6 +12,7 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
+import { focusOutline } from './services/styles'
 
 const StyledCard = styled(Card)`
   width: 100%;
@@ -39,14 +40,15 @@ const StyledLink = styled(Link)`
   }
 
   &:focus {
-    ${styles.CardStyle} {
-      background: none;
-    }
+    background: none;
+    position: relative;
+
+    ${focusOutline()}
   }
 `
 
-const AboutCard = ({ loading, shortTitle, title, teaser, intro, showError, ...otherProps }) => (
-  <StyledLink $as={RouterLink} linkType="blank" {...otherProps}>
+const AboutCard = ({ loading, shortTitle, title, teaser, intro, to }) => (
+  <StyledLink $as={RouterLink} linkType="blank" to={to}>
     <StyledCard backgroundColor="level2" shadow loading={loading}>
       <StyledCardContent>
         <Heading $as="h4" styleAs="h3">
@@ -60,16 +62,20 @@ const AboutCard = ({ loading, shortTitle, title, teaser, intro, showError, ...ot
 
 AboutCard.defaultProps = {
   loading: false,
+  shortTitle: '',
+  title: '',
   teaser: '',
   intro: '',
+  to: {},
 }
 
 AboutCard.propTypes = {
   loading: PropTypes.bool,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  shortTitle: PropTypes.string,
   teaser: PropTypes.string,
   intro: PropTypes.string,
-  href: PropTypes.string.isRequired,
+  to: PropTypes.shape({}),
 }
 
 export default AboutCard

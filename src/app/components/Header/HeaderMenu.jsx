@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from '@datapunt/asc-core'
 import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton, Link } from '@datapunt/asc-ui'
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
@@ -7,7 +6,7 @@ import RouterLink from 'redux-first-router-link'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
 import { OIS_LINKS } from '../Footer/services/footer-links'
-import NAVIGATION_LINKS from '../Homepage/services/navigation-links'
+import NAVIGATION_LINKS from '../HomePage/services/navigation-links'
 import { HELP, cmsIds } from '../../../shared/config/cms.config'
 
 const components = {
@@ -31,15 +30,10 @@ const HELP_LINK = {
   slug: HELP,
 }
 
-// Hotfix, need to be moved to asc-ui MenuButtonStyle
-const StyledMenuButton = styled(MenuButton)`
-  white-space: normal;
-`
-
 const MenuLink = ({ children, as = RouterLink, ...otherProps }) => (
-  <StyledMenuButton $as={as} {...otherProps}>
+  <MenuButton $as={as} {...otherProps}>
     {children}
-  </StyledMenuButton>
+  </MenuButton>
 )
 
 const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {

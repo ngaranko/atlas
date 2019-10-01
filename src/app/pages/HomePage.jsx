@@ -8,11 +8,11 @@ import {
   breakpoint,
   themeSpacing,
 } from '@datapunt/asc-ui'
-import HighlightBlock from '../components/Homepage/HighlightBlock'
-import NavigationBlock from '../components/Homepage/NavigationBlock'
-import SpecialBlock from '../components/Homepage/SpecialBlock'
-import OrganizationBlock from '../components/Homepage/OrganizationBlock'
-import AboutBlock from '../components/Homepage/AboutBlock'
+import HighlightBlock from '../components/HomePage/HighlightBlock'
+import NavigationBlock from '../components/HomePage/NavigationBlock'
+import SpecialBlock from '../components/HomePage/SpecialBlock'
+import OrganizationBlock from '../components/HomePage/OrganizationBlock'
+import AboutBlock from '../components/HomePage/AboutBlock'
 import ShareBar from '../components/ShareBar/ShareBar'
 import ContentContainer from '../components/ContentContainer/ContentContainer'
 
@@ -39,7 +39,7 @@ const StyledRow = styled(Row)`
   }
 `
 
-const HomePage = ({ loading, showError }) => (
+const HomePage = () => (
   <CompactThemeProvider>
     <ContentContainer>
       <StyledRow valign="flex-start">
@@ -47,25 +47,25 @@ const HomePage = ({ loading, showError }) => (
           <Heading>Uitgelicht</Heading>
         </Column>
         <HighlightColumn wrap span={{ small: 1, medium: 2, big: 6, large: 8, xLarge: 8 }}>
-          <HighlightBlock loading={loading} showError={showError} />
+          <HighlightBlock />
         </HighlightColumn>
         <Column span={{ small: 1, medium: 2, big: 6, large: 4, xLarge: 4 }}>
-          <NavigationBlock loading={loading} showError={showError} />
+          <NavigationBlock />
         </Column>
       </StyledRow>
       <StyledRow>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <SpecialBlock loading={loading} showError={showError} />
+          <SpecialBlock />
         </Column>
       </StyledRow>
       <StyledRow fullWidth>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <OrganizationBlock loading={loading} showError={showError} />
+          <OrganizationBlock />
         </Column>
       </StyledRow>
       <StyledRow>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <AboutBlock loading={loading} showError={showError} />
+          <AboutBlock />
         </Column>
       </StyledRow>
       <StyledRow>

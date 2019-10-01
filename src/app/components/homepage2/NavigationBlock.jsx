@@ -1,12 +1,10 @@
 import styled from '@datapunt/asc-core'
 import { breakpoint, CompactThemeProvider, themeColor, themeSpacing } from '@datapunt/asc-ui'
 import React from 'react'
-import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import NavigationCard from './NavigationCard'
-import navigationLinks from './services/navigation-links'
+import NAVIGATION_LINKS from './services/navigation-links'
 
 const StyledCardContainer = styled.div`
-  ${({ showError }) => showError && ErrorBackgroundCSS}
   position: relative;
   width: 100%;
   background-color: ${themeColor('support', 'valid')};
@@ -52,12 +50,11 @@ const StyledCardContainer = styled.div`
   }
 `
 
-const NavigationBlock = ({ loading, showError, ...otherProps }) => (
+const NavigationBlock = () => (
   <CompactThemeProvider>
-    <StyledCardContainer {...otherProps} showError={showError}>
-      {showError && <ErrorMessage />}
-      {navigationLinks.map(linkProps => (
-        <NavigationCard {...linkProps} />
+    <StyledCardContainer>
+      {NAVIGATION_LINKS.map(linkProps => (
+        <NavigationCard key={linkProps.id} {...linkProps} />
       ))}
     </StyledCardContainer>
   </CompactThemeProvider>

@@ -2,7 +2,7 @@ import SHARED_CONFIG from '../services/shared-config/shared-config'
 import PAGES from '../../app/pages'
 import ENVIRONMENT, { ENVIRONMENTS } from '../environment'
 
-const SHARED_FIELDS = ['field_intro', 'field_slug', 'field_cover_image.field_media_image.uri']
+const SHARED_FIELDS = ['field_intro', 'field_cover_image.field_media_image.uri']
 
 const cmsConfig = {
   ARTICLE: {
@@ -49,7 +49,7 @@ const cmsConfig = {
   SPECIAL: {
     type: PAGES.SPECIALS,
     endpoint: id => `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special/${id}`,
-    fields: ['field_iframe_link', 'field_slug', 'field_special_type'],
+    fields: ['field_iframe_link', 'field_special_type'],
   },
   SPECIALS: {
     type: PAGES.SPECIALS,
@@ -65,7 +65,6 @@ const cmsConfig = {
       'field_items.intro',
       'field_items.field_short_title',
       'field_items.field_teaser_image.field_media_image.uri',
-      'field_items.field_slug',
       'field_items.field_special_type',
       'field_items.field_teaser',
     ],
@@ -80,7 +79,6 @@ const cmsConfig = {
       'field_items.intro',
       'field_items.field_short_title',
       'field_items.field_teaser',
-      'field_items.field_slug',
       'field_items.field_link',
     ],
   },
@@ -94,7 +92,6 @@ const cmsConfig = {
       'field_items.intro',
       'field_items.field_short_title',
       'field_items.field_teaser',
-      'field_items.field_slug',
     ],
   },
   HOME_ABOUT_DATA: {
@@ -107,7 +104,6 @@ const cmsConfig = {
       'field_items.intro',
       'field_items.field_short_title',
       'field_items.field_teaser',
-      'field_items.field_slug',
     ],
   },
   HOME_HIGHLIGHT: {
@@ -120,7 +116,6 @@ const cmsConfig = {
       'field_items.intro',
       'field_items.field_short_title',
       'field_items.field_teaser_image.field_media_image.uri',
-      'field_items.field_slug',
       'field_items.field_special_type',
       'field_items.field_teaser',
     ],
