@@ -38,7 +38,7 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const OrganizationBlock = ({ ...otherProps }) => {
+const OrganizationBlock = () => {
   const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_ORGANIZATION, undefined)
 
   React.useEffect(() => {
@@ -48,7 +48,7 @@ const OrganizationBlock = ({ ...otherProps }) => {
   }, [])
 
   return (
-    <StyledCardContainer {...otherProps}>
+    <StyledCardContainer>
       <Row hasMargin={false}>
         <StyledHeading $as="h2" styleAs="h1">
           Onderzoek, Informatie en Statistiek

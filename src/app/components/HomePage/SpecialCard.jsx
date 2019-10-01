@@ -16,6 +16,12 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
+import { focusOutline } from './services/styles'
+
+const StyledHeading = styled(Heading)`
+  margin-bottom: ${themeSpacing(2)};
+  width: 100%;
+`
 
 const StyledLink = styled(Link)`
   border-bottom: ${themeColor('tint', 'level3')} 1px solid;
@@ -29,6 +35,13 @@ const StyledLink = styled(Link)`
       color: ${themeColor('secondary')};
       text-decoration: underline;
     }
+  }
+
+  &:focus {
+    background: none;
+    position: relative;
+
+    ${focusOutline()}
   }
 `
 
@@ -61,10 +74,6 @@ const StyledTag = styled(Tag)`
   margin-right: ${themeSpacing(1)};
 `
 
-const StyledHeading = styled(Heading)`
-  margin-bottom: ${themeSpacing(2)};
-`
-
 const SpecialCard = ({
   loading,
   showError,
@@ -75,9 +84,8 @@ const SpecialCard = ({
   intro,
   teaserImage,
   to,
-  ...otherProps
 }) => (
-  <StyledLink to={to} $as={RouterLink} linkType="blank" {...otherProps}>
+  <StyledLink to={to} $as={RouterLink} linkType="blank">
     <StyledCard horizontal animateLoading={!showError} loading={loading} showError={showError}>
       <StyledCardContent>
         <StyledHeading $as="h4" styleAs="h3">
@@ -102,14 +110,25 @@ const SpecialCard = ({
 SpecialCard.defaultProps = {
   loading: false,
   showError: false,
+  shortTitle: '',
+  title: '',
+  specialType: '',
+  teaser: '',
+  intro: '',
+  teaserImage: '',
+  to: {},
 }
 
 SpecialCard.propTypes = {
   loading: PropTypes.bool,
   showError: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired,
+  specialType: PropTypes.string,
+  title: PropTypes.string,
+  shortTitle: PropTypes.string,
+  teaser: PropTypes.string,
+  intro: PropTypes.string,
+  teaserImage: PropTypes.string,
+  to: PropTypes.shape({}),
 }
 
 export default SpecialCard

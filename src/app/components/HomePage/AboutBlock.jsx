@@ -69,7 +69,7 @@ const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(6)};
 `
 
-const AboutBlock = ({ showError, ...otherProps }) => {
+const AboutBlock = () => {
   const {
     results: resultsAbout,
     fetchData: fetchDataAbout,
@@ -91,7 +91,7 @@ const AboutBlock = ({ showError, ...otherProps }) => {
   }, [])
 
   return (
-    <AboutBlockStyle {...otherProps}>
+    <AboutBlockStyle>
       <Row hasMargin={false}>
         <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
           <StyledHeading $as="h2" styleAs="h1">

@@ -44,44 +44,44 @@ const StyledParagraph = styled(Paragraph)`
   }
 `
 
-const OrganizationCard = ({
-  loading,
-  title,
-  shortTitle,
-  teaser,
-  intro,
-  to,
-  field_link: link,
-  ...otherProps
-}) => (
-  <StyledCard $as={RouterLink} loading={loading} {...otherProps}>
+const OrganizationCard = ({ loading, title, shortTitle, teaser, intro, to, field_link: link }) => (
+  <StyledCard $as={RouterLink} loading={loading}>
     <StyledCardContent>
       <StyledHeading $as="h4" styleAs="h3">
         {shortTitle || title}
       </StyledHeading>
       <StyledParagraph>{teaser || intro}</StyledParagraph>
 
-      <OverviewLink
-        $as={link && link.uri ? Link : RouterLink}
-        to={to}
-        href={link && link.uri}
-        label="Lees meer"
-      />
+      <div>
+        <OverviewLink
+          as={link && link.uri ? Link : RouterLink}
+          to={to}
+          href={link && link.uri}
+          label="Lees meer"
+        />
+      </div>
     </StyledCardContent>
   </StyledCard>
 )
 
 OrganizationCard.defaultProps = {
   loading: false,
-  showError: false,
+  shortTitle: '',
+  title: '',
+  field_link: {},
+  teaser: '',
+  intro: '',
+  to: {},
 }
 
 OrganizationCard.propTypes = {
   loading: PropTypes.bool,
-  showError: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired,
+  field_link: PropTypes.shape({}),
+  title: PropTypes.string,
+  shortTitle: PropTypes.string,
+  teaser: PropTypes.string,
+  intro: PropTypes.string,
+  to: PropTypes.shape({}),
 }
 
 export default OrganizationCard

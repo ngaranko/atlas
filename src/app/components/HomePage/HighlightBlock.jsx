@@ -70,7 +70,7 @@ flex-basis: 100%;
   }
 `
 
-const HighlightBlock = ({ ...otherProps }) => {
+const HighlightBlock = () => {
   const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_HIGHLIGHT, undefined)
 
   React.useEffect(() => {
@@ -81,7 +81,7 @@ const HighlightBlock = ({ ...otherProps }) => {
 
   return (
     <>
-      <HighlightBlockStyle {...otherProps} showError={error}>
+      <HighlightBlockStyle showError={error}>
         {error && <ErrorMessage />}
         <HighlightBlockInnerStyle>
           <ImageCardWrapperLarge showError={error}>
@@ -115,7 +115,7 @@ const HighlightBlock = ({ ...otherProps }) => {
           </ImageCardWrapperSmall>
         </HighlightBlockInnerStyle>
       </HighlightBlockStyle>
-      <OverviewLink to={toArticleOverview()} $as={RouterLink} label="Bekijk overzicht" />
+      <OverviewLink to={toArticleOverview()} as={RouterLink} label="Bekijk overzicht" />
     </>
   )
 }
