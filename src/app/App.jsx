@@ -106,10 +106,8 @@ const App = ({
 
   const StyledContainer = styled(Container)`
     background-color: ${themeColor('tint', 'level1')};
-    height: 100%;
-    min-height: 100vh; // Makes sure the page is at least the full height of the browser view
-
     position: relative;
+    
     @media screen and ${breakpoint('min-width', 'laptopM')} {
       margin: 0 ${themeSpacing(6)};
     }
