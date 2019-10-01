@@ -2,9 +2,17 @@ const merge = require('webpack-merge')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { commonConfig } = require('./webpack.common.js')
+const { GenerateSW } = require('workbox-webpack-plugin')
 
 module.exports = env => {
   const nodeEnv = env && env.nodeEnv ? env.nodeEnv : 'production'
+  const isAcc = env && env.nodeEnv === 'acceptance'
+
+  // Todo: Put this in a .env file: https://datapunt.atlassian.net/browse/DP-7302
+  const getApiUrl = (prefix = '') => `https://${isAcc ? 'acc.' : ''}${prefix}data.amsterdam.nl/`
+
+  const apiUrl = getApiUrl('api.')
+  const cmsUrl = getApiUrl('cms.')
 
   const CHUNKS = {
     MAP:
@@ -117,6 +125,50 @@ module.exports = env => {
       },
       runtimeChunk: true,
     },
-    plugins: [new MiniCssExtractPlugin('main.[contenthash].css')],
+    plugins: [
+      new MiniCssExtractPlugin('main.[contenthash].css'),
+      new GenerateSW({
+        importWorkboxFrom: 'local',
+        clientsClaim: true,
+        skipWaiting: true,
+        exclude: [/\.map$/],
+        navigateFallbackBlacklist: [
+          // Exclude any URLs whose last part seems to be a file extension
+          // as they're likely a resource and not a SPA route.
+          // URLs containing a "?" character won't be blacklisted as they're likely
+          // a route with query params (e.g. auth callbacks).
+          new RegExp('/[^/?]+\\.[^/]+$'),
+        ],
+        cleanupOutdatedCaches: true,
+        runtimeCaching: [
+          {
+            urlPattern: new RegExp(apiUrl),
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'api',
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 12, // 12h
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: new RegExp(`${cmsUrl}(?!/jsonapi/node/notification)`),
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'cms',
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 12, // 12h
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      }),
+    ],
   })
 }
