@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { css } from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import { Header as HeaderComponent, styles, breakpoint } from '@datapunt/asc-ui'
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer'
 import { useAppReducer } from '../../utils/useAppReducer'
@@ -38,6 +38,14 @@ const style = (theme, homePage) => css`
   }
 `
 
+const StyledHeaderComponent = styled(HeaderComponent)`
+  ${({ tall }) =>
+    tall &&
+    css`
+      max-width: 1600px;
+    `}
+`
+
 const MenuDefault = props => <HeaderMenuContainer {...props} type="default" />
 const MenuMobile = props => <HeaderMenuContainer {...props} type="mobile" align="right" />
 
@@ -63,7 +71,7 @@ const Header = ({
   if (!printOrEmbedMode) {
     return (
       <section className="styled-header" data-test="header">
-        <HeaderComponent
+        <StyledHeaderComponent
           tall={homePage}
           title="City Data"
           homeLink="/"
