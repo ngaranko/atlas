@@ -14,7 +14,6 @@ const cmsNormalizer = (data, fields) => {
       return {
         ...normalizedData,
         ...item,
-        slug: item.field_slug,
         intro: item.field_intro,
         short_title: item.field_short_title,
         uuid: item.id,
@@ -31,7 +30,6 @@ const cmsNormalizer = (data, fields) => {
   return {
     ...normalizedData,
     uuid: normalizedData.id,
-    slug: normalizedData.field_slug,
     media_image_url: coverImageUrl,
     intro: normalizedData.field_intro,
     body: normalizedData.body,
