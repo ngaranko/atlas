@@ -20,7 +20,7 @@ import SpecialCard from './SpecialCard'
 
 const StyledRow = styled(Row)``
 
-const StyledDiv = styled.div`
+const CardRow = styled.div`
   ${({ showError }) => showError && ErrorBackgroundCSS}
 
   /* Add border-top to first row of cards when three SpecialCards are shown */
@@ -75,7 +75,7 @@ const SpecialBlock = () => {
           <StyledHeading $as="h1">In Beeld</StyledHeading>
         </Column>
       </Row>
-      <StyledDiv showError={error}>
+      <CardRow showError={error}>
         {error && <ErrorMessage />}
         <StyledRow hasMargin={false}>
           {specials &&
@@ -89,10 +89,10 @@ const SpecialBlock = () => {
               </Column>
             ))}
         </StyledRow>
-      </StyledDiv>
+      </CardRow>
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-          <OverviewLink to={toSpecialOverview()} $as={RouterLink} label="Bekijk overzicht" />
+          <OverviewLink to={toSpecialOverview()} as={RouterLink} label="Bekijk overzicht" />
         </Column>
       </Row>
     </CardContainer>

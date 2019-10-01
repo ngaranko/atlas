@@ -16,6 +16,12 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
+import { focusOutline } from './services/styles'
+
+const StyledHeading = styled(Heading)`
+  margin-bottom: ${themeSpacing(2)};
+  width: 100%;
+`
 
 const StyledLink = styled(Link)`
   border-bottom: ${themeColor('tint', 'level3')} 1px solid;
@@ -29,6 +35,13 @@ const StyledLink = styled(Link)`
       color: ${themeColor('secondary')};
       text-decoration: underline;
     }
+  }
+
+  &:focus {
+    background: none;
+    position: relative;
+
+    ${focusOutline()}
   }
 `
 
@@ -59,10 +72,6 @@ const StyledCardMedia = styled(CardMedia)`
 const StyledTag = styled(Tag)`
   display: inline;
   margin-right: ${themeSpacing(1)};
-`
-
-const StyledHeading = styled(Heading)`
-  margin-bottom: ${themeSpacing(2)};
 `
 
 const SpecialCard = ({

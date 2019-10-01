@@ -115,7 +115,7 @@ const HighlightBlock = () => {
           </ImageCardWrapperSmall>
         </HighlightBlockInnerStyle>
       </HighlightBlockStyle>
-      <OverviewLink to={toArticleOverview()} $as={RouterLink} label="Bekijk overzicht" />
+      <OverviewLink to={toArticleOverview()} as={RouterLink} label="Bekijk overzicht" />
     </>
   )
 }

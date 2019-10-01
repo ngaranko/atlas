@@ -12,6 +12,7 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
+import { focusOutline } from './services/styles'
 
 const StyledCard = styled(Card)`
   width: 100%;
@@ -39,9 +40,10 @@ const StyledLink = styled(Link)`
   }
 
   &:focus {
-    ${styles.CardStyle} {
-      background: none;
-    }
+    background: none;
+    position: relative;
+
+    ${focusOutline()}
   }
 `
 

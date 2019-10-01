@@ -57,7 +57,9 @@ const StyledLink = styled(Link)`
   &:focus {
     background: none;
 
-    ${/* sc-selector */ styles.ImageCardStyle}::after {
+    ${styles.ImageCardStyle} {
+      position: relative;
+
       ${focusOutline()}
     }
   }

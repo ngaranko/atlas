@@ -55,7 +55,7 @@ const StyledLink = styled(Link)`
 
   &:focus {
     background: none;
-    ${StyledCard}::after {
+    ${StyledCard} {
       ${focusOutline()}
     }
     
