@@ -1,5 +1,5 @@
 import styled, { css } from '@datapunt/asc-core'
-import { Card, CardContent, Heading, Link, Paragraph, themeSpacing } from '@datapunt/asc-ui'
+import { Card, CardContent, Heading, Paragraph, themeSpacing } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
@@ -53,12 +53,7 @@ const OrganizationCard = ({ loading, title, shortTitle, teaser, intro, to, field
       <StyledParagraph>{teaser || intro}</StyledParagraph>
 
       <div>
-        <OverviewLink
-          as={link && link.uri ? Link : RouterLink}
-          to={to}
-          href={link && link.uri}
-          label="Lees meer"
-        />
+        <OverviewLink as={!link && RouterLink} to={to} href={link && link.uri} label="Lees meer" />
       </div>
     </StyledCardContent>
   </StyledCard>
