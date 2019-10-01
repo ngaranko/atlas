@@ -46,6 +46,13 @@ const StyledHeaderComponent = styled(HeaderComponent)`
     `}
 `
 
+// This is temporary
+const StyledSection = styled.section`
+  #header {
+    z-index: 666;
+  }
+`
+
 const MenuDefault = props => <HeaderMenuContainer {...props} type="default" />
 const MenuMobile = props => <HeaderMenuContainer {...props} type="mobile" align="right" />
 
@@ -70,7 +77,7 @@ const Header = ({
 
   if (!printOrEmbedMode) {
     return (
-      <section className="styled-header" data-test="header">
+      <StyledSection className="styled-header" data-test="header">
         <StyledHeaderComponent
           tall={homePage}
           title="City Data"
@@ -89,7 +96,7 @@ const Header = ({
             </React.Fragment>
           }
         />
-      </section>
+      </StyledSection>
     )
   }
 
