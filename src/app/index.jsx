@@ -16,18 +16,18 @@ if ('serviceWorker' in navigator) {
 
 const store = configureStore(routes)
 
-const hasToRedirect = resolveRedirects()
+resolveRedirects().then(hasToRedirect => {
+  if (!hasToRedirect) {
+    // eslint-disable-next-line no-undef,no-console
+    console.log(`CityData: version: ${VERSION}, build: ${__BUILD_ID__}`)
 
-if (!hasToRedirect) {
-  // eslint-disable-next-line no-undef,no-console
-  console.log(`CityData: version: ${VERSION}, build: ${__BUILD_ID__}`)
-
-  ReactDOM.render(
-    <Provider store={store}>
-      <ReduxContext.Provider value={store}>
-        <App />
-      </ReduxContext.Provider>
-    </Provider>,
-    document.getElementById('root'),
-  )
-}
+    ReactDOM.render(
+      <Provider store={store}>
+        <ReduxContext.Provider value={store}>
+          <App />
+        </ReduxContext.Provider>
+      </Provider>,
+      document.getElementById('root'),
+    )
+  }
+})
