@@ -18,7 +18,9 @@ import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import OverviewLink from './OverviewLink'
 import SpecialCard from './SpecialCard'
 
-const StyledRow = styled(Row)`
+const StyledRow = styled(Row)``
+
+const StyledDiv = styled.div`
   ${({ showError }) => showError && ErrorBackgroundCSS}
 
   /* Add border-top to first row of cards when three SpecialCards are shown */
@@ -51,7 +53,7 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const SpecialsBlock = ({ ...otherProps }) => {
+const SpecialBlock = () => {
   const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_SPECIALS, undefined)
 
   React.useEffect(() => {
@@ -67,25 +69,27 @@ const SpecialsBlock = ({ ...otherProps }) => {
       .map((x, i) => i)
 
   return (
-    <CardContainer {...otherProps}>
+    <CardContainer>
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
           <StyledHeading $as="h1">In Beeld</StyledHeading>
         </Column>
       </Row>
-      <StyledRow hasMargin={false} showError={error}>
+      <StyledDiv showError={error}>
         {error && <ErrorMessage />}
-        {specials &&
-          specials.map((special, index) => (
-            <Column
-              key={special.key || index}
-              wrap
-              span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}
-            >
-              <SpecialCard loading={loading} showError={error} {...special} />
-            </Column>
-          ))}
-      </StyledRow>
+        <StyledRow hasMargin={false}>
+          {specials &&
+            specials.map((special, index) => (
+              <Column
+                key={special.key || index}
+                wrap
+                span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}
+              >
+                <SpecialCard loading={loading} showError={error} {...special} />
+              </Column>
+            ))}
+        </StyledRow>
+      </StyledDiv>
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
           <OverviewLink to={toSpecialOverview()} $as={RouterLink} label="Bekijk overzicht" />
@@ -95,4 +99,4 @@ const SpecialsBlock = ({ ...otherProps }) => {
   )
 }
 
-export default SpecialsBlock
+export default SpecialBlock

@@ -90,8 +90,8 @@ const StyledParagraph = styled(Paragraph)`
   overflow: hidden; // make sure the text doesn't falls outside this Paragraph
 `
 
-const NavigationCard = ({ CardIcon, title, description, ...otherProps }) => (
-  <StyledLink $as={RouterLink} linkType="blank" {...otherProps}>
+const NavigationCard = ({ CardIcon, to, title, description }) => (
+  <StyledLink $as={RouterLink} linkType="blank" to={to}>
     <StyledCard horizontal>
       <StyledCardMedia backgroundColor="level2">
         <CardIcon />
@@ -109,18 +109,11 @@ const NavigationCard = ({ CardIcon, title, description, ...otherProps }) => (
   </StyledLink>
 )
 
-NavigationCard.defaultProps = {
-  loading: false,
-  showError: false,
-}
-
 NavigationCard.propTypes = {
-  loading: PropTypes.bool,
-  showError: PropTypes.bool,
-  CardIcon: PropTypes.shape({}).isRequired,
+  CardIcon: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
+  to: PropTypes.shape({}).isRequired,
 }
 
 export default NavigationCard

@@ -8,6 +8,7 @@ import {
   styles,
   themeColor,
 } from '@datapunt/asc-ui'
+import PropTypes from 'prop-types'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import { focusOutline } from './services/styles'
@@ -62,15 +63,7 @@ const StyledLink = styled(Link)`
   }
 `
 
-const HighlightCard = ({
-  loading,
-  showError,
-  title,
-  shortTitle,
-  to,
-  teaserImage,
-  ...otherProps
-}) => (
+const HighlightCard = ({ loading, showError, title, shortTitle, to, teaserImage }) => (
   <StyledLink to={to} $as={RouterLink} linkType="blank">
     <ImageCard
       backgroundImage={teaserImage}
@@ -79,12 +72,28 @@ const HighlightCard = ({
       alt={shortTitle || title}
     >
       <ImageCardContent>
-        <HighlightCardHeadingStyle $as="h4" {...otherProps}>
-          {shortTitle || title}
-        </HighlightCardHeadingStyle>
+        <HighlightCardHeadingStyle $as="h4">{shortTitle || title}</HighlightCardHeadingStyle>
       </ImageCardContent>
     </ImageCard>
   </StyledLink>
 )
+
+HighlightCard.defaultProps = {
+  loading: false,
+  showError: false,
+  shortTitle: '',
+  title: '',
+  teaserImage: '',
+  to: {},
+}
+
+HighlightCard.propTypes = {
+  loading: PropTypes.bool,
+  showError: PropTypes.bool,
+  title: PropTypes.string,
+  shortTitle: PropTypes.string,
+  teaserImage: PropTypes.string,
+  to: PropTypes.shape({}),
+}
 
 export default HighlightCard
