@@ -114,8 +114,8 @@ const App = ({
   `
 
   function AppWrapper({ children }) {
-    return homePage || editorialPage ? (
-      <StyledContainer beamColor={editorialPage && 'valid'}>
+    return editorialPage ? (
+      <StyledContainer beamColor="valid">
         <Helmet>
           <meta
             name="viewport"
@@ -123,7 +123,7 @@ const App = ({
           />
         </Helmet>
         {children}
-        <Footer />
+        {!homePage && <Footer />}
       </StyledContainer>
     ) : (
       <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>
