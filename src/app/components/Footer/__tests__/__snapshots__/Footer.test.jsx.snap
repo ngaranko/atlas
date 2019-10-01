@@ -1,164 +1,166 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Footer should render 1`] = `
-<Footer>
-  <FooterTop>
-    <Row
-      debug={false}
-      debugColor="rgba(51,102,153,0.75)"
-      hasMargin={true}
-    >
-      <Column
+<CompactThemeProvider>
+  <Footer>
+    <FooterTop>
+      <Row
         debug={false}
-        debugColor="rgba(51,102,153,0.5)"
-        order={0}
-        push={0}
-        span={
-          Object {
-            "big": 2,
-            "large": 4,
-            "medium": 2,
-            "small": 1,
-            "xLarge": 4,
-          }
-        }
-        wrap={true}
+        debugColor="rgba(51,102,153,0.75)"
+        hasMargin={true}
       >
-        <FooterToggle
-          hideAt="tabletM"
-          title="Colofon"
+        <Column
+          debug={false}
+          debugColor="rgba(51,102,153,0.5)"
+          order={0}
+          push={0}
+          span={
+            Object {
+              "big": 2,
+              "large": 4,
+              "medium": 2,
+              "small": 1,
+              "xLarge": 4,
+            }
+          }
+          wrap={true}
         >
-          <FooterContent
-            indent={true}
+          <FooterToggle
+            hideAt="tabletM"
+            title="Colofon"
           >
+            <FooterContent
+              indent={true}
+            >
+              <ColofonLinks />
+            </FooterContent>
+          </FooterToggle>
+          <FooterContent
+            showAt="tabletM"
+          >
+            <FooterHeading
+              $as="h3"
+            >
+              Colofon
+            </FooterHeading>
             <ColofonLinks />
           </FooterContent>
-        </FooterToggle>
-        <FooterContent
-          showAt="tabletM"
-        >
-          <FooterHeading
-            $as="h3"
-          >
-            Colofon
-          </FooterHeading>
-          <ColofonLinks />
-        </FooterContent>
-      </Column>
-      <Column
-        debug={false}
-        debugColor="rgba(51,102,153,0.5)"
-        order={0}
-        push={0}
-        span={
-          Object {
-            "big": 2,
-            "large": 4,
-            "medium": 2,
-            "small": 1,
-            "xLarge": 4,
+        </Column>
+        <Column
+          debug={false}
+          debugColor="rgba(51,102,153,0.5)"
+          order={0}
+          push={0}
+          span={
+            Object {
+              "big": 2,
+              "large": 4,
+              "medium": 2,
+              "small": 1,
+              "xLarge": 4,
+            }
           }
-        }
-        wrap={true}
-      >
-        <FooterToggle
-          hideAt="tabletM"
-          title="Volg de gemeente"
+          wrap={true}
         >
-          <FooterContent
-            indent={true}
+          <FooterToggle
+            hideAt="tabletM"
+            title="Volg de gemeente"
           >
+            <FooterContent
+              indent={true}
+            >
+              <FollowLinks />
+            </FooterContent>
+          </FooterToggle>
+          <FooterContent
+            showAt="tabletM"
+          >
+            <FooterHeading
+              $as="h3"
+            >
+              Volg de gemeente
+            </FooterHeading>
             <FollowLinks />
           </FooterContent>
-        </FooterToggle>
-        <FooterContent
-          showAt="tabletM"
-        >
-          <FooterHeading
-            $as="h3"
-          >
-            Volg de gemeente
-          </FooterHeading>
-          <FollowLinks />
-        </FooterContent>
-      </Column>
-      <Column
-        debug={false}
-        debugColor="rgba(51,102,153,0.5)"
-        order={0}
-        push={0}
-        span={
-          Object {
-            "big": 2,
-            "large": 4,
-            "medium": 2,
-            "small": 1,
-            "xLarge": 4,
+        </Column>
+        <Column
+          debug={false}
+          debugColor="rgba(51,102,153,0.5)"
+          order={0}
+          push={0}
+          span={
+            Object {
+              "big": 2,
+              "large": 4,
+              "medium": 2,
+              "small": 1,
+              "xLarge": 4,
+            }
           }
-        }
-        wrap={true}
-      >
-        <FooterToggle
-          hideAt="tabletM"
-          title="Vragen?"
+          wrap={true}
         >
-          <FooterContent
-            indent={true}
+          <FooterToggle
+            hideAt="tabletM"
+            title="Vragen?"
           >
+            <FooterContent
+              indent={true}
+            >
+              <HelpLinks />
+            </FooterContent>
+          </FooterToggle>
+          <FooterContent
+            showAt="tabletM"
+          >
+            <FooterHeading
+              $as="h3"
+              styleAs="h3"
+            >
+              Vragen?
+            </FooterHeading>
             <HelpLinks />
           </FooterContent>
-        </FooterToggle>
-        <FooterContent
-          showAt="tabletM"
-        >
-          <FooterHeading
-            $as="h3"
-            styleAs="h3"
-          >
-            Vragen?
-          </FooterHeading>
-          <HelpLinks />
-        </FooterContent>
-      </Column>
-    </Row>
-  </FooterTop>
-  <FooterBottom>
-    <Row
-      debug={false}
-      debugColor="rgba(51,102,153,0.75)"
-      hasMargin={true}
-    >
-      <Column
+        </Column>
+      </Row>
+    </FooterTop>
+    <FooterBottom>
+      <Row
         debug={false}
-        debugColor="rgba(51,102,153,0.5)"
-        order={0}
-        push={0}
-        span={
-          Object {
-            "big": 6,
-            "large": 10,
-            "medium": 2,
-            "small": 1,
-            "xLarge": 10,
-          }
-        }
-        wrap={true}
+        debugColor="rgba(51,102,153,0.75)"
+        hasMargin={true}
       >
-        <Styled(List)>
-          <Styled(ListItem)>
-            <StyledLink
-              to={
-                Object {
-                  "type": "atlasRouter/PROCLAIMER",
+        <Column
+          debug={false}
+          debugColor="rgba(51,102,153,0.5)"
+          order={0}
+          push={0}
+          span={
+            Object {
+              "big": 6,
+              "large": 10,
+              "medium": 2,
+              "small": 1,
+              "xLarge": 10,
+            }
+          }
+          wrap={true}
+        >
+          <Styled(List)>
+            <Styled(ListItem)>
+              <StyledLink
+                to={
+                  Object {
+                    "type": "atlasRouter/PROCLAIMER",
+                  }
                 }
-              }
-            >
-              Privacy en cookies
-            </StyledLink>
-          </Styled(ListItem)>
-        </Styled(List)>
-      </Column>
-    </Row>
-  </FooterBottom>
-</Footer>
+              >
+                Privacy en cookies
+              </StyledLink>
+            </Styled(ListItem)>
+          </Styled(List)>
+        </Column>
+      </Row>
+    </FooterBottom>
+  </Footer>
+</CompactThemeProvider>
 `;

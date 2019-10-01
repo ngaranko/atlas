@@ -12,6 +12,7 @@ import {
   FooterTop,
   Row,
   Column,
+  CompactThemeProvider,
 } from '@datapunt/asc-ui'
 import { routing } from '../../routes'
 import FollowLinks from './FollowLinks'
@@ -31,58 +32,60 @@ const StyledLink = ({ children, ...otherProps }) => (
 )
 
 const Footer = ({ ...otherProps }) => (
-  <AscFooter {...otherProps}>
-    <FooterTop>
-      <Row>
-        <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
-          <FooterToggle title="Colofon" hideAt="tabletM">
-            <FooterContent indent>
+  <CompactThemeProvider>
+    <AscFooter {...otherProps}>
+      <FooterTop>
+        <Row>
+          <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
+            <FooterToggle title="Colofon" hideAt="tabletM">
+              <FooterContent indent>
+                <ColofonLinks />
+              </FooterContent>
+            </FooterToggle>
+            <FooterContent showAt="tabletM">
+              <FooterHeading $as="h3">Colofon</FooterHeading>
               <ColofonLinks />
             </FooterContent>
-          </FooterToggle>
-          <FooterContent showAt="tabletM">
-            <FooterHeading $as="h3">Colofon</FooterHeading>
-            <ColofonLinks />
-          </FooterContent>
-        </Column>
-        <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
-          <FooterToggle title="Volg de gemeente" hideAt="tabletM">
-            <FooterContent indent>
+          </Column>
+          <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
+            <FooterToggle title="Volg de gemeente" hideAt="tabletM">
+              <FooterContent indent>
+                <FollowLinks />
+              </FooterContent>
+            </FooterToggle>
+            <FooterContent showAt="tabletM">
+              <FooterHeading $as="h3">Volg de gemeente</FooterHeading>
               <FollowLinks />
             </FooterContent>
-          </FooterToggle>
-          <FooterContent showAt="tabletM">
-            <FooterHeading $as="h3">Volg de gemeente</FooterHeading>
-            <FollowLinks />
-          </FooterContent>
-        </Column>
-        <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
-          <FooterToggle title="Vragen?" hideAt="tabletM">
-            <FooterContent indent>
+          </Column>
+          <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
+            <FooterToggle title="Vragen?" hideAt="tabletM">
+              <FooterContent indent>
+                <HelpLinks />
+              </FooterContent>
+            </FooterToggle>
+            <FooterContent showAt="tabletM">
+              <FooterHeading $as="h3" styleAs="h3">
+                Vragen?
+              </FooterHeading>
               <HelpLinks />
             </FooterContent>
-          </FooterToggle>
-          <FooterContent showAt="tabletM">
-            <FooterHeading $as="h3" styleAs="h3">
-              Vragen?
-            </FooterHeading>
-            <HelpLinks />
-          </FooterContent>
-        </Column>
-      </Row>
-    </FooterTop>
-    <FooterBottom>
-      <Row>
-        <Column wrap span={{ small: 1, medium: 2, big: 6, large: 10, xLarge: 10 }}>
-          <FooterBottomLinkList>
-            <FooterBottomLinkListItem>
-              <StyledLink to={{ type: routing.proclaimer.type }}>Privacy en cookies</StyledLink>
-            </FooterBottomLinkListItem>
-          </FooterBottomLinkList>
-        </Column>
-      </Row>
-    </FooterBottom>
-  </AscFooter>
+          </Column>
+        </Row>
+      </FooterTop>
+      <FooterBottom>
+        <Row>
+          <Column wrap span={{ small: 1, medium: 2, big: 6, large: 10, xLarge: 10 }}>
+            <FooterBottomLinkList>
+              <FooterBottomLinkListItem>
+                <StyledLink to={{ type: routing.proclaimer.type }}>Privacy en cookies</StyledLink>
+              </FooterBottomLinkListItem>
+            </FooterBottomLinkList>
+          </Column>
+        </Row>
+      </FooterBottom>
+    </AscFooter>
+  </CompactThemeProvider>
 )
 
 export default Footer

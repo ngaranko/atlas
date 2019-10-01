@@ -5,10 +5,11 @@ import {
   toMap,
   toPanoramaAndPreserveQuery,
   toPublicationOverview,
-  toDatasets,
-  toAdresses,
   toApisPage,
+  toArticleDetail,
+  toDatasets,
 } from '../../../../store/redux-first-router/actions'
+import { cmsIds, DATA_IN_TABLES } from '../../../../shared/config/cms.config'
 
 const NAVIGATION_LINKS = [
   {
@@ -57,7 +58,7 @@ const NAVIGATION_LINKS = [
   },
   {
     id: 4,
-    to: toAdresses(),
+    to: toArticleDetail(cmsIds[DATA_IN_TABLES], DATA_IN_TABLES),
     CardIcon: () => (
       <Icon size={32}>
         <Table />
