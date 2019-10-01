@@ -42,7 +42,7 @@ describe('embed module', () => {
     )
     // the header should be hidden
     cy.get(HEADER.root).should('not.exist')
-    // the button to go to city data should exist
+    // the button to go to homepage should exist
     cy.get(MAP.embedButton)
       .contains('data.amsterdam.nl')
       .should('exist')

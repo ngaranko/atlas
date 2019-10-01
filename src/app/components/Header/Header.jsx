@@ -68,7 +68,7 @@ const Header = ({
       <HeaderWrapper data-test="header">
         <HeaderComponent
           tall={homePage}
-          title="City Data"
+          title="Data en informatie"
           homeLink="/"
           css={({ theme }) => style(theme, homePage)}
           className="styled-header"
