@@ -1,8 +1,9 @@
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
+import styled from '@datapunt/asc-core'
 import {
   Link,
-  Footer as AscFooter,
+  Footer as FooterComponent,
   FooterBottom,
   FooterBottomLinkList,
   FooterContent,
@@ -15,9 +16,11 @@ import {
   CompactThemeProvider,
 } from '@datapunt/asc-ui'
 import { routing } from '../../routes'
-import FollowLinks from './FollowLinks'
+import SocialLinks from './SocialLinks'
 import HelpLinks from './HelpLinks'
 import ColofonLinks from './ColofonLinks'
+
+import { FOOTER_LINKS } from '../../../shared/config/config'
 
 const RouterLinkWrapper = ({ to, className, children }) => (
   <RouterLink to={to} className={className}>
@@ -31,44 +34,46 @@ const StyledLink = ({ children, ...otherProps }) => (
   </Link>
 )
 
-const Footer = ({ ...otherProps }) => (
+const colofonLinks = FOOTER_LINKS && FOOTER_LINKS.COLOFON
+const socialLinks = FOOTER_LINKS && FOOTER_LINKS.SOCIAL
+const helpLinks = FOOTER_LINKS && FOOTER_LINKS.HELP
+
+const Footer = () => (
   <CompactThemeProvider>
-    <AscFooter {...otherProps}>
+    <FooterComponent>
       <FooterTop>
         <Row>
           <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
             <FooterToggle title="Colofon" hideAt="tabletM">
               <FooterContent indent>
-                <ColofonLinks />
+                {colofonLinks && <ColofonLinks links={colofonLinks} />}
               </FooterContent>
             </FooterToggle>
             <FooterContent showAt="tabletM">
               <FooterHeading $as="h3">Colofon</FooterHeading>
-              <ColofonLinks />
+              {colofonLinks && <ColofonLinks links={colofonLinks} />}
             </FooterContent>
           </Column>
           <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
             <FooterToggle title="Volg de gemeente" hideAt="tabletM">
               <FooterContent indent>
-                <FollowLinks />
+                {socialLinks && <SocialLinks links={socialLinks} />}
               </FooterContent>
             </FooterToggle>
             <FooterContent showAt="tabletM">
               <FooterHeading $as="h3">Volg de gemeente</FooterHeading>
-              <FollowLinks />
+              {socialLinks && <SocialLinks links={socialLinks} />}
             </FooterContent>
           </Column>
           <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
             <FooterToggle title="Vragen?" hideAt="tabletM">
-              <FooterContent indent>
-                <HelpLinks />
-              </FooterContent>
+              <FooterContent indent>{helpLinks && <HelpLinks links={helpLinks} />}</FooterContent>
             </FooterToggle>
             <FooterContent showAt="tabletM">
               <FooterHeading $as="h3" styleAs="h3">
                 Vragen?
               </FooterHeading>
-              <HelpLinks />
+              {helpLinks && <HelpLinks links={helpLinks} />}
             </FooterContent>
           </Column>
         </Row>
@@ -84,7 +89,7 @@ const Footer = ({ ...otherProps }) => (
           </Column>
         </Row>
       </FooterBottom>
-    </AscFooter>
+    </FooterComponent>
   </CompactThemeProvider>
 )
 

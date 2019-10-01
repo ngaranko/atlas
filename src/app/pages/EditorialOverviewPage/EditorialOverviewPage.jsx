@@ -2,7 +2,7 @@
 import React from 'react'
 import { Column, Container, Row } from '@datapunt/asc-ui'
 import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/config/cms.config'
+import { cmsConfig } from '../../../shared/config/config'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import EditorialResults from '../../components/EditorialResults'
 

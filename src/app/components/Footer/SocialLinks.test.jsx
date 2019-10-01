@@ -1,12 +1,12 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { FooterLinkListItem } from '@datapunt/asc-ui'
-import FollowLinks from './FollowLinks'
+import SocialLinks from './SocialLinks'
 
-describe('FollowLinks', () => {
+describe('SocialLinks', () => {
   let component
   beforeEach(() => {
-    component = shallow(<FollowLinks />)
+    component = shallow(<SocialLinks />)
   })
 
   it('should render all links', () => {
