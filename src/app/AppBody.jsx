@@ -16,7 +16,7 @@ import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
 const ContentPage = React.lazy(() => import('./pages/ContentPage'))
-const Home = React.lazy(() => import('./pages/Home'))
+const HomePage = React.lazy(() => import('./pages/HomePage'))
 const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'))
 const QuerySearchPage = React.lazy(() => import('./pages/QuerySearchPage'))
 const DatasetPage = React.lazy(() => import('./pages/DatasetPage'))
@@ -78,12 +78,13 @@ const AppBody = ({
     'c-dashboard__body--backdrop': state.backdropKeys.length,
   })
 
-  const hasGrid = isEditorialPage(currentPage)
+  const hasGrid = homePage || isEditorialPage(currentPage)
 
   return (
     <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
       {hasGrid ? (
         <Container hasBackdrop={state.backdropKeys.length}>
+          {homePage && <HomePage />}
           {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
           {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
           {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
@@ -98,8 +99,6 @@ const AppBody = ({
           ) : (
             <div className="u-grid u-full-height">
               <div className="u-row u-full-height">
-                {homePage && <Home showFooter />}
-
                 {isQuerySearchPage(currentPage) && <QuerySearchPage />}
 
                 {/* Todo: DP-6391 */}
