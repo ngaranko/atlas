@@ -1,12 +1,14 @@
 import React, { Suspense } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import styled from '@datapunt/asc-core'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
 import PAGES, {
   isMapSplitPage,
   isOldCmsPage,
+  isEditorialPage,
   isEditorialOverviewPage,
   isQuerySearchPage,
 } from './pages'
@@ -32,6 +34,38 @@ const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverview
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 const NotFound = React.lazy(() => import('./pages/NotFound'))
 
+// The Container from @datapunt/asc-ui isnt used here as the margins added do not match the ones in the design
+const Container = styled.div`
+  min-height: 50vh; // Makes sure the loading indicator is displayed inside the page
+
+  // Should be moved to @datapunt/asc-ui project https://github.com/Amsterdam/amsterdam-styled-components/issues/133
+  &::before {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.2s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.5);
+    content: '';
+    opacity: 0;
+    z-index: 101;
+    pointer-events: none;
+  }
+
+  ${({ hasBackdrop }) =>
+    hasBackdrop &&
+    `
+      &::before {
+        opacity: 1;
+          pointer-events: all;
+      }
+  `}
+`
+
 const AppBody = ({
   visibilityError,
   bodyClasses,
@@ -46,7 +80,22 @@ const AppBody = ({
     'c-dashboard__body--backdrop': state.backdropKeys.length,
   })
 
-  return (
+  const hasGrid = isEditorialPage(currentPage)
+
+  return hasGrid ? (
+    <Container hasBackdrop={state.backdropKeys.length}>
+      <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
+        {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
+        {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
+        {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
+
+        {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
+
+        <FeedbackModal id="feedbackModal" />
+        <InfoModal id="infoModal" open />
+      </Suspense>
+    </Container>
+  ) : (
     <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
       <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
         {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
@@ -75,21 +124,14 @@ const AppBody = ({
               {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
               {currentPage === PAGES.DATASETS && <DatasetPage />}
 
-              {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
-              {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
-              {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
-
-              {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
-
               {currentPage === PAGES.NOT_FOUND && <NotFound />}
               {isOldCmsPage(currentPage) && <ContentPage />}
-
-              <FeedbackModal id="feedbackModal" />
-              <InfoModal id="infoModal" open />
             </div>
           </div>
         )}
       </div>
+      <FeedbackModal id="feedbackModal" />
+      <InfoModal id="infoModal" open />
     </Suspense>
   )
 }

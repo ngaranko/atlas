@@ -15,6 +15,7 @@ exports[`DataSearch should render with search results 1`] = `
 exports[`DataSearch should render without search results 1`] = `
 <NoResultsForSearchType
   authMessage={true}
+  hideLoginLink={false}
   message="Tip: maak de zoekcriteria minder specifiek."
 />
 `;
