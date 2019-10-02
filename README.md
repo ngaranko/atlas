@@ -1,4 +1,4 @@
-# `Data en informatie (atlas)`
+# Data en informatie
 
 ## Requirements
 

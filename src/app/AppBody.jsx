@@ -91,6 +91,9 @@ const AppBody = ({
         {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
         {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
+
+        <FeedbackModal id="feedbackModal" />
+        <InfoModal id="infoModal" open />
       </Suspense>
     </Container>
   ) : (
@@ -126,7 +129,6 @@ const AppBody = ({
           </div>
         )}
       </div>
-      )}
       <FeedbackModal id="feedbackModal" />
       <InfoModal id="infoModal" open />
     </Suspense>
