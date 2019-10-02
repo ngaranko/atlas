@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin')
-const { GenerateSW } = require('workbox-webpack-plugin')
 
 const root = path.resolve(__dirname)
 const src = path.resolve(root, 'src')
@@ -15,14 +14,6 @@ const dist = path.resolve(root, 'dist')
 function commonConfig(env) {
   const buildId = env && env.buildId ? env.buildId : env.nodeEnv
   const isDev = env.nodeEnv === 'development'
-  const isAcc = env.nodeEnv === 'acceptance'
-
-  // Todo: Put this in a .env file: https://datapunt.atlassian.net/browse/DP-7302
-  const getApiUrl = (prefix = '') =>
-    `https://${isAcc || isDev ? 'acc.' : ''}${prefix}data.amsterdam.nl/`
-
-  const apiUrl = getApiUrl('api.')
-  const cmsUrl = getApiUrl('cms.')
 
   return {
     context: root,
@@ -214,48 +205,6 @@ function commonConfig(env) {
           NODE_ENV: JSON.stringify(env.nodeEnv),
           GIT_COMMIT: JSON.stringify(process.env.GIT_COMMIT),
         },
-      }),
-      new GenerateSW({
-        importWorkboxFrom: 'local',
-        clientsClaim: true,
-        skipWaiting: true,
-        exclude: [/\.map$/],
-        navigateFallbackBlacklist: [
-          // Exclude any URLs whose last part seems to be a file extension
-          // as they're likely a resource and not a SPA route.
-          // URLs containing a "?" character won't be blacklisted as they're likely
-          // a route with query params (e.g. auth callbacks).
-          new RegExp('/[^/?]+\\.[^/]+$'),
-        ],
-        cleanupOutdatedCaches: true,
-        runtimeCaching: [
-          {
-            urlPattern: new RegExp(apiUrl),
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'api',
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 12, // 12h
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-          {
-            urlPattern: new RegExp(`${cmsUrl}(?!/jsonapi/node/notification)`),
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'cms',
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 12, // 12h
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-        ],
       }),
     ],
   }

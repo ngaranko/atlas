@@ -3,10 +3,11 @@ import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton, Link } from '
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
-import { toHelpPage, toArticleDetail } from '../../../store/redux-first-router/actions'
+import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
-import { COLOFON_LINKS } from '../Footer/services/footer-links'
+import { OIS_LINKS } from '../Footer/services/footer-links'
 import NAVIGATION_LINKS from '../HomePage/services/navigation-links'
+import { HELP, cmsIds } from '../../../shared/config/cms.config'
 
 const components = {
   default: MenuInline,
@@ -21,6 +22,12 @@ const getContactLink = () => {
   return `mailto:${CONTACT_RECIPIENT}?subject=${window.encodeURIComponent(
     CONTACT_SUBJECT,
   )}&body=${window.encodeURIComponent(CONTACT_BODY)}`
+}
+
+const HELP_LINK = {
+  title: 'Help',
+  id: cmsIds[HELP],
+  slug: HELP,
 }
 
 const MenuLink = ({ children, as = RouterLink, ...otherProps }) => (
@@ -41,10 +48,10 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         ))}
       </MenuFlyOut>
       <MenuFlyOut label="Over OIS">
-        {COLOFON_LINKS.map(({ menuTitle, id, slug }) => (
+        {OIS_LINKS.map(({ title, id, slug }) => (
           <MenuItem key={id}>
-            <MenuLink iconLeft={<ChevronRight />} title={menuTitle} to={toArticleDetail(id, slug)}>
-              {menuTitle}
+            <MenuLink iconLeft={<ChevronRight />} title={title} to={toArticleDetail(id, slug)}>
+              {title}
             </MenuLink>
           </MenuItem>
         ))}
@@ -60,7 +67,9 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         </MenuButton>
       </MenuItem>
       <MenuItem>
-        <MenuLink to={toHelpPage()}>Help</MenuLink>
+        <MenuLink title={HELP_LINK.title} to={toArticleDetail(HELP_LINK.id, HELP_LINK.slug)}>
+          {HELP_LINK.title}
+        </MenuLink>
       </MenuItem>
 
       {!user.authenticated ? (
