@@ -37,8 +37,8 @@ const HelpLinks = ({ links }) => (
     </StyledParagraph>
     <FooterLinkList>
       {links &&
-        links.map(({ id, title, href, slug }) => (
-          <FooterLinkListItem key={id}>
+        links.map(({ id, title, href, slug, order }) => (
+          <FooterLinkListItem key={id} order={order}>
             {!href && id ? (
               <ActionLink
                 title={title}
@@ -47,15 +47,6 @@ const HelpLinks = ({ links }) => (
               >
                 {title}
               </ActionLink>
-            ) : !href && !id ? (
-              <FeedbackLink
-                $as="button"
-                title={title}
-                variant="with-chevron"
-                onClick={openFeedbackForm}
-              >
-                {title}
-              </FeedbackLink>
             ) : (
               <Link
                 title={title}
@@ -67,6 +58,14 @@ const HelpLinks = ({ links }) => (
                 {title}
               </Link>
             )}
+            <FeedbackLink
+              $as="button"
+              title="Feedback geven"
+              variant="with-chevron"
+              onClick={openFeedbackForm}
+            >
+              Feedback geven
+            </FeedbackLink>
           </FooterLinkListItem>
         ))}
     </FooterLinkList>
