@@ -36,6 +36,8 @@ const NotFound = React.lazy(() => import('./pages/NotFound'))
 
 // The Container from @datapunt/asc-ui isnt used here as the margins added do not match the ones in the design
 const Container = styled.div`
+  min-height: 50vh; // Makes sure the loading indicator is displayed inside the page
+
   // Should be moved to @datapunt/asc-ui project https://github.com/Amsterdam/amsterdam-styled-components/issues/133
   &::before {
     display: block;
