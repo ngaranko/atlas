@@ -83,6 +83,7 @@ const normalizeObject = (data, type) => {
     localeDateFormatted,
     slug,
     to,
+    currentPage: type,
     ...otherFields,
   }
 }
