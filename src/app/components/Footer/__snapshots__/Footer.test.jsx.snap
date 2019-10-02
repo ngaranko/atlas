@@ -25,26 +25,52 @@ exports[`Footer should render 1`] = `
           }
           wrap={true}
         >
-          <FooterToggle
-            hideAt="tabletM"
+          <FooterBlock
             title="Colofon"
           >
-            <FooterContent
-              indent={true}
-            >
-              <ColofonLinks />
-            </FooterContent>
-          </FooterToggle>
-          <FooterContent
-            showAt="tabletM"
-          >
-            <FooterHeading
-              $as="h3"
-            >
-              Colofon
-            </FooterHeading>
-            <ColofonLinks />
-          </FooterContent>
+            <FooterLinks
+              links={
+                Array [
+                  Object {
+                    "id": Object {
+                      "development": "29160257-dd4b-4349-a5df-d6f7715615ed",
+                      "production": "8af0598f-12a0-47c5-9327-938fade1159a",
+                    },
+                    "order": 1,
+                    "slug": "amsterdam-en-data",
+                    "title": "Databeleid",
+                  },
+                  Object {
+                    "id": Object {
+                      "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+                      "production": "6f095138-5e73-4388-8300-489270fdd60a",
+                    },
+                    "order": 2,
+                    "slug": "bronnen",
+                    "title": "Bronnen",
+                  },
+                  Object {
+                    "id": Object {
+                      "development": "6b474539-32fb-4a1c-929a-bbfefadadc08",
+                      "production": "a5176bed-cad4-46d2-b501-a628370c9099",
+                    },
+                    "order": 3,
+                    "slug": "over-deze-site",
+                    "title": "Over deze site",
+                  },
+                  Object {
+                    "id": Object {
+                      "development": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
+                      "production": "8cf61560-0f90-4b81-84bf-900a6755159d",
+                    },
+                    "order": 4,
+                    "slug": "over-ois",
+                    "title": "Over OIS",
+                  },
+                ]
+              }
+            />
+          </FooterBlock>
         </Column>
         <Column
           debug={false}
@@ -62,26 +88,46 @@ exports[`Footer should render 1`] = `
           }
           wrap={true}
         >
-          <FooterToggle
-            hideAt="tabletM"
+          <FooterBlock
             title="Volg de gemeente"
           >
-            <FooterContent
-              indent={true}
-            >
-              <FollowLinks />
-            </FooterContent>
-          </FooterToggle>
-          <FooterContent
-            showAt="tabletM"
-          >
-            <FooterHeading
-              $as="h3"
-            >
-              Volg de gemeente
-            </FooterHeading>
-            <FollowLinks />
-          </FooterContent>
+            <FooterLinks
+              links={
+                Array [
+                  Object {
+                    "href": "https://www.amsterdam.nl/nieuwsbrieven/bestuur-organisatie/dienstverlening/nieuwsbrief-data/nieuwsbrief-data/",
+                    "id": 0,
+                    "order": 1,
+                    "title": "Nieuwsbrief OIS",
+                  },
+                  Object {
+                    "href": "https://twitter.com/AmsterdamNL",
+                    "id": 1,
+                    "order": 2,
+                    "title": "Twitter",
+                  },
+                  Object {
+                    "href": "https://www.facebook.com/gemeenteamsterdam",
+                    "id": 2,
+                    "order": 3,
+                    "title": "Facebook",
+                  },
+                  Object {
+                    "href": "https://www.linkedin.com/company/gemeente-amsterdam",
+                    "id": 3,
+                    "order": 4,
+                    "title": "LinkedIn",
+                  },
+                  Object {
+                    "href": "https://github.com/Amsterdam",
+                    "id": 4,
+                    "order": 5,
+                    "title": "GitHub",
+                  },
+                ]
+              }
+            />
+          </FooterBlock>
         </Column>
         <Column
           debug={false}
@@ -99,27 +145,43 @@ exports[`Footer should render 1`] = `
           }
           wrap={true}
         >
-          <FooterToggle
-            hideAt="tabletM"
-            title="Vragen?"
+          <FooterBlock
+            title="Vragen"
           >
-            <FooterContent
-              indent={true}
-            >
-              <HelpLinks />
-            </FooterContent>
-          </FooterToggle>
-          <FooterContent
-            showAt="tabletM"
-          >
-            <FooterHeading
-              $as="h3"
-              styleAs="h3"
-            >
-              Vragen?
-            </FooterHeading>
-            <HelpLinks />
-          </FooterContent>
+            <HelpLinks
+              links={
+                Array [
+                  Object {
+                    "id": Object {
+                      "development": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
+                      "production": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
+                    },
+                    "order": 1,
+                    "slug": "veelgestelde-vragen",
+                    "title": "Veelgestelde vragen",
+                  },
+                  Object {
+                    "id": Object {
+                      "development": "aadfea20-7308-4caf-9126-a900f9e6df1f",
+                      "production": "c8f4d1da-75f3-4ee7-93e8-256b201d6ccf",
+                    },
+                    "order": 2,
+                    "slug": "contact",
+                    "title": "Contact openemen",
+                  },
+                  Object {
+                    "id": Object {
+                      "development": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
+                      "production": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
+                    },
+                    "order": 4,
+                    "slug": "wat-kun-je-hier",
+                    "title": "Uitleg gebruik",
+                  },
+                ]
+              }
+            />
+          </FooterBlock>
         </Column>
       </Row>
     </FooterTop>
@@ -147,15 +209,25 @@ exports[`Footer should render 1`] = `
         >
           <Styled(List)>
             <Styled(ListItem)>
-              <StyledLink
+              <Styled(Link)
+                $as={
+                  Object {
+                    "$$typeof": Symbol(react.memo),
+                    "WrappedComponent": [Function],
+                    "compare": null,
+                    "displayName": "Connect(Link)",
+                    "type": [Function],
+                  }
+                }
                 to={
                   Object {
                     "type": "atlasRouter/PROCLAIMER",
                   }
                 }
+                variant="with-chevron"
               >
                 Privacy en cookies
-              </StyledLink>
+              </Styled(Link)>
             </Styled(ListItem)>
           </Styled(List)>
         </Column>
