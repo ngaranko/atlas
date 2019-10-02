@@ -115,7 +115,7 @@ const EditorialCard = ({
     <StyledCard horizontal>
       <StyledCardMedia vertical={imageIsVertical}>
         <Image
-          src={currentPage === PAGES.PUBLICATIONS ? coverImage : teaserImage || notFoundImage}
+          src={(currentPage === PAGES.PUBLICATIONS ? coverImage : teaserImage) || notFoundImage}
           alt={title}
           square
         />
