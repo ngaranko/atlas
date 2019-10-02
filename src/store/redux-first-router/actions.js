@@ -273,7 +273,6 @@ export const toNotFoundPage = () => ({
   type: routing.niet_gevonden.type,
 })
 
-export const toApisPage = () => ({ type: routing.apis.type })
 export const toPrivacyPage = () => ({ type: routing.privacy_beveiliging.type })
 export const toAvailabilityPage = () => ({
   type: routing.beschikbaar_kwaliteit.type,

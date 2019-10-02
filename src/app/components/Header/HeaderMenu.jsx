@@ -1,77 +1,65 @@
 import React from 'react'
-import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton, Link } from '@datapunt/asc-ui'
+import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton } from '@datapunt/asc-ui'
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
-import { OIS_LINKS } from '../Footer/services/footer-links'
-import NAVIGATION_LINKS from '../HomePage/services/navigation-links'
-import { HELP, cmsIds } from '../../../shared/config/cms.config'
+import navigationLinks from '../HomePage/services/navigationLinks'
+
+import { HEADER_LINKS } from '../../../shared/config/config'
 
 const components = {
   default: MenuInline,
   mobile: MenuToggle,
 }
 
-const getContactLink = () => {
-  const CONTACT_RECIPIENT = 'datapunt@amsterdam.nl'
-  const CONTACT_SUBJECT = 'Contact opnemen via data.amsterdam.nl'
-  const CONTACT_BODY = `Contact opgenomen via de pagina: ${window.location.href}\n`
-
-  return `mailto:${CONTACT_RECIPIENT}?subject=${window.encodeURIComponent(
-    CONTACT_SUBJECT,
-  )}&body=${window.encodeURIComponent(CONTACT_BODY)}`
-}
-
-const HELP_LINK = {
-  title: 'Help',
-  id: cmsIds[HELP],
-  slug: HELP,
-}
-
-const MenuLink = ({ children, as = RouterLink, ...otherProps }) => (
-  <MenuButton $as={as} {...otherProps}>
-    {children}
-  </MenuButton>
-)
-
 const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
   const Menu = components[type]
   return (
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
-        {NAVIGATION_LINKS.map(({ id, title, to }) => (
-          <MenuLink iconLeft={<ChevronRight />} key={id} title={title} to={to}>
+        {navigationLinks.map(({ id, title, to }) => (
+          <MenuButton $as={RouterLink} iconLeft={<ChevronRight />} key={id} title={title} to={to}>
             {title}
-          </MenuLink>
+          </MenuButton>
         ))}
       </MenuFlyOut>
       <MenuFlyOut label="Over OIS">
-        {OIS_LINKS.map(({ title, id, slug }) => (
-          <MenuItem key={id}>
-            <MenuLink iconLeft={<ChevronRight />} title={title} to={toArticleDetail(id, slug)}>
-              {title}
-            </MenuLink>
-          </MenuItem>
-        ))}
-        <MenuItem>
-          <MenuButton iconLeft={<ChevronRight />} $as={Link} href={getContactLink()}>
-            Contact
-          </MenuButton>
-        </MenuItem>
+        {HEADER_LINKS &&
+          HEADER_LINKS.ABOUT.map(({ title, id, slug }) => {
+            const linkId = id[process.env.NODE_ENV]
+
+            return (
+              <MenuItem key={linkId}>
+                <MenuButton
+                  $as={RouterLink}
+                  iconLeft={<ChevronRight />}
+                  title={title}
+                  to={toArticleDetail(linkId, slug)}
+                >
+                  {title}
+                </MenuButton>
+              </MenuItem>
+            )
+          })}
       </MenuFlyOut>
       <MenuItem>
         <MenuButton type="button" onClick={showFeedbackForm}>
           Feedback
         </MenuButton>
       </MenuItem>
-      <MenuItem>
-        <MenuLink title={HELP_LINK.title} to={toArticleDetail(HELP_LINK.id, HELP_LINK.slug)}>
-          {HELP_LINK.title}
-        </MenuLink>
-      </MenuItem>
-
+      {HEADER_LINKS && (
+        <MenuItem>
+          <MenuButton
+            $as={RouterLink}
+            title={HEADER_LINKS.HELP.title}
+            to={toArticleDetail(HEADER_LINKS.HELP.id[process.env.NODE_ENV], HEADER_LINKS.HELP.slug)}
+          >
+            {HEADER_LINKS.HELP.title}
+          </MenuButton>
+        </MenuItem>
+      )}
       {!user.authenticated ? (
         <MenuItem>
           <MenuButton type="button" onClick={login}>

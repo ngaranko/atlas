@@ -121,12 +121,6 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_INFO}`,
     page: PAGES.DATA_INFO,
   },
-  apis: {
-    title: "Api's",
-    path: `/${MAIN_PATHS.CONTENT}/apis/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.ABOUT_API}`,
-    page: PAGES.ABOUT_API,
-  },
   actuality: {
     title: 'Actualiteit',
     path: `/${MAIN_PATHS.CONTENT}/actualiteit/`,

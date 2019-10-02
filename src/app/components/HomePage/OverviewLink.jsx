@@ -12,7 +12,7 @@ const StyledLink = styled(Link)`
 `
 
 const OverviewLink = ({ label, href, as, to }) => (
-  <StyledLink tabIndex={0} linkType="with-chevron" $as={as} to={to} href={href}>
+  <StyledLink tabIndex={0} linkType="with-chevron" $as={as} to={to} href={href} title={label}>
     {label}
   </StyledLink>
 )

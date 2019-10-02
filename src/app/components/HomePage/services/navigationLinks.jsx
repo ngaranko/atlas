@@ -5,13 +5,12 @@ import {
   toMap,
   toPanoramaAndPreserveQuery,
   toPublicationOverview,
-  toApisPage,
   toArticleDetail,
   toDatasets,
 } from '../../../../store/redux-first-router/actions'
-import { cmsIds, DATA_IN_TABLES } from '../../../../shared/config/cms.config'
+import { NAVIGATION_LINKS } from '../../../../shared/config/config'
 
-const NAVIGATION_LINKS = [
+const navigationLinks = [
   {
     id: 0,
     to: toMap(),
@@ -58,26 +57,32 @@ const NAVIGATION_LINKS = [
   },
   {
     id: 4,
-    to: toArticleDetail(cmsIds[DATA_IN_TABLES], DATA_IN_TABLES),
+    to: toArticleDetail(
+      NAVIGATION_LINKS.DATA_IN_TABLES.id[process.env.NODE_ENV],
+      NAVIGATION_LINKS.DATA_IN_TABLES.slug,
+    ),
     CardIcon: () => (
       <Icon size={32}>
         <Table />
       </Icon>
     ),
-    title: 'Tabellen',
-    description: 'Selecteer data en sla op als spreadsheet',
+    title: NAVIGATION_LINKS.DATA_IN_TABLES.title,
+    description: NAVIGATION_LINKS.DATA_IN_TABLES.description,
   },
   {
     id: 5,
-    to: toApisPage(),
+    to: toArticleDetail(
+      NAVIGATION_LINKS.DATA_SERVICES.id[process.env.NODE_ENV],
+      NAVIGATION_LINKS.DATA_SERVICES.slug,
+    ),
     CardIcon: () => (
       <Icon size={36}>
         <Api />
       </Icon>
     ),
-    title: 'Data services',
-    description: 'Alles over het koppelen van data via APIs',
+    title: NAVIGATION_LINKS.DATA_SERVICES.title,
+    description: NAVIGATION_LINKS.DATA_SERVICES.description,
   },
 ]
 
-export default NAVIGATION_LINKS
+export default navigationLinks

@@ -4,7 +4,7 @@ import React from 'react'
 import AboutCard from './AboutCard'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/config/cms.config'
+import { cmsConfig } from '../../../shared/config/config'
 
 const AboutBlockStyle = styled.div`
   width: 100%;
