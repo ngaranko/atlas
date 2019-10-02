@@ -69,6 +69,7 @@ const Footer = () => (
                   $as={RouterLink}
                   to={{ type: routing.proclaimer.type }}
                   variant="with-chevron"
+                  title="Privacy en cookies"
                 >
                   Privacy en cookies
                 </StyledLink>

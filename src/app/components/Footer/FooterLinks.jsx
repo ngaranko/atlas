@@ -7,10 +7,10 @@ const FooterLinks = ({ children, links }) => (
   <FooterLinkList>
     {links &&
       links.map(({ title, id, href, slug, order }) => {
-        const linkId = !href && id[process.env.NODE_ENV]
+        const linkId = !href ? id[process.env.NODE_ENV] : id
 
         return (
-          <FooterLinkListItem key={linkId || id} order={order}>
+          <FooterLinkListItem key={linkId} order={order}>
             {linkId ? (
               <Link
                 $as={RouterLink}
@@ -22,7 +22,7 @@ const FooterLinks = ({ children, links }) => (
               </Link>
             ) : (
               <Link
-                key={id}
+                key={linkId}
                 title={title}
                 href={href}
                 rel="external noopener noreferrer"

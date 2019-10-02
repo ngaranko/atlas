@@ -6,6 +6,7 @@
                 "title": "Databeleid",
                 "id": {
                     "development": "29160257-dd4b-4349-a5df-d6f7715615ed",
+                    "acceptance": "29160257-dd4b-4349-a5df-d6f7715615ed",
                     "production": "8af0598f-12a0-47c5-9327-938fade1159a"
                 },
                 "slug": "amsterdam-en-data"
@@ -15,6 +16,7 @@
                 "title": "Bronnen",
                 "id": {
                     "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+                    "acceptance": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
                     "production": "6f095138-5e73-4388-8300-489270fdd60a"
                 },
                 "slug": "bronnen"
@@ -24,6 +26,7 @@
                 "title": "Over deze site",
                 "id": {
                     "development": "6b474539-32fb-4a1c-929a-bbfefadadc08",
+                    "acceptance": "6b474539-32fb-4a1c-929a-bbfefadadc08",
                     "production": "a5176bed-cad4-46d2-b501-a628370c9099"
                 },
                 "slug": "over-deze-site"
@@ -33,6 +36,7 @@
                 "title": "Over OIS",
                 "id": {
                     "development": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
+                    "acceptance": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
                     "production": "8cf61560-0f90-4b81-84bf-900a6755159d"
                 },
                 "slug": "over-ois"
@@ -76,6 +80,7 @@
                 "title": "Veelgestelde vragen",
                 "id": {
                     "development": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
+                    "acceptance": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
                     "production": "a939afed-ff98-4db1-a927-fe6c9bac1ae6"
                 },
                 "slug": "veelgestelde-vragen"
@@ -85,6 +90,7 @@
                 "title": "Contact openemen",
                 "id": {
                     "development": "aadfea20-7308-4caf-9126-a900f9e6df1f",
+                    "acceptance": "aadfea20-7308-4caf-9126-a900f9e6df1f",
                     "production": "c8f4d1da-75f3-4ee7-93e8-256b201d6ccf"
                 },
                 "slug": "contact"
@@ -94,6 +100,7 @@
                 "title": "Uitleg gebruik",
                 "id": {
                     "development": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
+                    "acceptance": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
                     "production": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c"
                 },
                 "slug": "wat-kun-je-hier"
@@ -107,6 +114,7 @@
                 "title": "Onderzoek, Informatie en Statistiek",
                 "id": {
                     "development": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
+                    "acceptance": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
                     "production": "8cf61560-0f90-4b81-84bf-900a6755159d"
                 },
                 "slug": "over-ois"
@@ -116,6 +124,7 @@
                 "title": "Onderzoek",
                 "id": {
                     "development": "bd25761c-ca8c-4587-bdd8-6f77bd8bd7e3",
+                    "acceptance": "bd25761c-ca8c-4587-bdd8-6f77bd8bd7e3",
                     "production": "3d7c706a-0898-4adc-b0e8-2c4c195ed7f9"
                 },
                 "slug": "onderzoek-door-ois"
@@ -125,6 +134,7 @@
                 "title": "Databeleid",
                 "id": {
                     "development": "29160257-dd4b-4349-a5df-d6f7715615ed",
+                    "acceptance": "29160257-dd4b-4349-a5df-d6f7715615ed",
                     "production": "8af0598f-12a0-47c5-9327-938fade1159a"
                 },
                 "slug": "amsterdam-en-data"
@@ -134,6 +144,7 @@
                 "title": "Bronnen",
                 "id": {
                     "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+                    "acceptance": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
                     "production": "6f095138-5e73-4388-8300-489270fdd60a"
                 },
                 "slug": "bronnen"
@@ -143,6 +154,7 @@
                 "title": "Contact",
                 "id": {
                     "development": "aadfea20-7308-4caf-9126-a900f9e6df1f",
+                    "acceptance": "aadfea20-7308-4caf-9126-a900f9e6df1f",
                     "production": "c8f4d1da-75f3-4ee7-93e8-256b201d6ccf"
                 },
                 "slug": "contact"
@@ -152,6 +164,7 @@
             "title": "Help",
             "id": {
                 "development": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
+                "acceptance": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
                 "production": "de7d3101-354c-44f6-b94d-dde572239090"
             },
             "slug": "help"
@@ -163,6 +176,7 @@
             "description": "Selecteer data en sla op als spreadsheet",
             "id": {
                 "development": "647c0fd0-567e-4157-b7ee-94c7b8504235",
+                "acceptance": "647c0fd0-567e-4157-b7ee-94c7b8504235",
                 "production": "3f5a9b94-a9d8-417d-aac8-45971f4b3a43"
             },
             "slug": "tabellen"
@@ -172,6 +186,7 @@
             "description": "Alles over het koppelen van data via APIs",
             "id": {
                 "development": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
+                "acceptance": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
                 "production": "bb2dddf3-ddd1-4533-bcce-e33ea00a8a60"
             },
             "slug": "services"
@@ -180,6 +195,7 @@
     "HELP": {
         "id": {
             "development": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
+            "acceptance": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
             "production": "de7d3101-354c-44f6-b94d-dde572239090"
         },
         "slug": "help"
