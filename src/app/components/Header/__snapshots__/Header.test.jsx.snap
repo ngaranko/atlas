@@ -18,11 +18,10 @@ exports[`Header should render the embed header 1`] = `
 
 exports[`Header should render the main header 1`] = `
 <styled.section
-  className="styled-header"
   data-test="header"
 >
   <Styled(Header)
-    css={[Function]}
+    className="styled-header"
     fullWidth={false}
     homeLink="/"
     navigation={
@@ -41,7 +40,7 @@ exports[`Header should render the main header 1`] = `
       </React.Fragment>
     }
     tall={false}
-    title="City Data"
+    title="Data en informatie"
   />
 </styled.section>
 `;

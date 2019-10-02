@@ -7,13 +7,12 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
   .styled-header {
     width: 100%;
     display: flex;
-    justify-content: center;
   }
 
   &--max-width {
     #header {
       max-width: 1800px;
-      margin: 0;
+      // margin: 0;
       header {
         max-width: 1600px;
       }

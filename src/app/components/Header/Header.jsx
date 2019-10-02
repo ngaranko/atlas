@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import styled, { css } from '@datapunt/asc-core'
+import styled from '@datapunt/asc-core'
 import { Header as HeaderComponent, styles, breakpoint } from '@datapunt/asc-ui'
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer'
 import { useAppReducer } from '../../utils/useAppReducer'
@@ -10,19 +10,23 @@ import HeaderMenuContainer from './HeaderMenuContainer'
 import EmbedHeader from './EmbedHeader'
 import PrintHeader from './PrintHeader'
 
-const style = (theme, homePage) => css`
-  ${styles.HeaderWrapperStyle} {
-    ${homePage &&
-      css`
-        @media screen and ${breakpoint('min-width', 'laptopM')({ theme })} {
-          /* The "tall" header has a position relative on the homepage only, while the smaller header has a fixed position */
-          position: relative;
-          margin: 0;
-        }
-      `}
-  }
+const HeaderWrapper = styled.section`
+  width: 100%;
+
+  // As position: sticky isn't supported on IE, this is needed to have position the header on top of the other contents
+  z-index: 999;
+  position: relative;
+`
+
+const StyledHeader = styled(HeaderComponent)`
   ${styles.HeaderNavigationStyle} {
-    @media screen and ${breakpoint('min-width', 'tabletM')({ theme })} {
+    // This must be added to the @datapunt/asc-ui project https://github.com/Amsterdam/amsterdam-styled-components/issues/165
+    @media screen and ${breakpoint('min-width', 'laptop')} {
+      margin-left: 29px;
+      margin-right: 29px;
+    }
+
+    @media screen and ${breakpoint('min-width', 'tabletM')} {
       justify-content: space-between;
     }
 
@@ -35,21 +39,6 @@ const style = (theme, homePage) => css`
         width: 100%;
       }
     }
-  }
-`
-
-const StyledHeaderComponent = styled(HeaderComponent)`
-  ${({ tall }) =>
-    tall &&
-    css`
-      max-width: 1600px;
-    `}
-`
-
-// This is temporary
-const StyledSection = styled.section`
-  #header {
-    z-index: 666;
   }
 `
 
@@ -77,12 +66,12 @@ const Header = ({
 
   if (!printOrEmbedMode) {
     return (
-      <StyledSection className="styled-header" data-test="header">
-        <StyledHeaderComponent
+      <HeaderWrapper data-test="header">
+        <StyledHeader
           tall={homePage}
-          title="City Data"
+          title="Data en informatie"
           homeLink="/"
-          css={({ theme }) => style(theme, homePage)}
+          className="styled-header"
           fullWidth={!hasMaxWidth}
           navigation={
             <React.Fragment>
@@ -96,7 +85,7 @@ const Header = ({
             </React.Fragment>
           }
         />
-      </StyledSection>
+      </HeaderWrapper>
     )
   }
 
