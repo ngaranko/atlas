@@ -11,7 +11,7 @@ const FooterLinks = ({ children, links }) => (
 
         return (
           <FooterLinkListItem key={linkId} order={order}>
-            {linkId ? (
+            {!href ? (
               <Link
                 $as={RouterLink}
                 title={title}

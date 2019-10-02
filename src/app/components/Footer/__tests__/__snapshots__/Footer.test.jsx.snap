@@ -33,6 +33,7 @@ exports[`Footer should render 1`] = `
                 Array [
                   Object {
                     "id": Object {
+                      "acceptance": "29160257-dd4b-4349-a5df-d6f7715615ed",
                       "development": "29160257-dd4b-4349-a5df-d6f7715615ed",
                       "production": "8af0598f-12a0-47c5-9327-938fade1159a",
                     },
@@ -42,6 +43,7 @@ exports[`Footer should render 1`] = `
                   },
                   Object {
                     "id": Object {
+                      "acceptance": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
                       "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
                       "production": "6f095138-5e73-4388-8300-489270fdd60a",
                     },
@@ -51,6 +53,7 @@ exports[`Footer should render 1`] = `
                   },
                   Object {
                     "id": Object {
+                      "acceptance": "6b474539-32fb-4a1c-929a-bbfefadadc08",
                       "development": "6b474539-32fb-4a1c-929a-bbfefadadc08",
                       "production": "a5176bed-cad4-46d2-b501-a628370c9099",
                     },
@@ -60,6 +63,7 @@ exports[`Footer should render 1`] = `
                   },
                   Object {
                     "id": Object {
+                      "acceptance": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
                       "development": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
                       "production": "8cf61560-0f90-4b81-84bf-900a6755159d",
                     },
@@ -153,6 +157,7 @@ exports[`Footer should render 1`] = `
                 Array [
                   Object {
                     "id": Object {
+                      "acceptance": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
                       "development": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
                       "production": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
                     },
@@ -162,6 +167,7 @@ exports[`Footer should render 1`] = `
                   },
                   Object {
                     "id": Object {
+                      "acceptance": "aadfea20-7308-4caf-9126-a900f9e6df1f",
                       "development": "aadfea20-7308-4caf-9126-a900f9e6df1f",
                       "production": "c8f4d1da-75f3-4ee7-93e8-256b201d6ccf",
                     },
@@ -171,6 +177,7 @@ exports[`Footer should render 1`] = `
                   },
                   Object {
                     "id": Object {
+                      "acceptance": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
                       "development": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
                       "production": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
                     },
@@ -219,6 +226,7 @@ exports[`Footer should render 1`] = `
                     "type": [Function],
                   }
                 }
+                title="Privacy en cookies"
                 to={
                   Object {
                     "type": "atlasRouter/PROCLAIMER",

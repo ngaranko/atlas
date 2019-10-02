@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import RouterLink from 'redux-first-router-link'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import truncateString from '../../../shared/services/truncateString/truncateString'
-import NAVIGATION_LINKS from '../HomePage/services/navigation-links'
+import navigationLinks from '../HomePage/services/navigationLinks'
 
 import { HEADER_LINKS } from '../../../shared/config/config'
 
@@ -19,7 +19,7 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
   return (
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
-        {NAVIGATION_LINKS.map(({ id, title, to }) => (
+        {navigationLinks.map(({ id, title, to }) => (
           <MenuButton $as={RouterLink} iconLeft={<ChevronRight />} key={id} title={title} to={to}>
             {title}
           </MenuButton>

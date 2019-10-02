@@ -10,7 +10,7 @@ import {
 } from '../../../../store/redux-first-router/actions'
 import { NAVIGATION_LINKS } from '../../../../shared/config/config'
 
-export default [
+const navigationLinks = [
   {
     id: 0,
     to: toMap(),
@@ -84,3 +84,5 @@ export default [
     description: NAVIGATION_LINKS.DATA_SERVICES.description,
   },
 ]
+
+export default navigationLinks
