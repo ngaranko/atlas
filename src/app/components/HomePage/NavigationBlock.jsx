@@ -1,5 +1,5 @@
 import styled from '@datapunt/asc-core'
-import { breakpoint, CompactThemeProvider, themeColor, themeSpacing } from '@datapunt/asc-ui'
+import { breakpoint, themeColor, themeSpacing } from '@datapunt/asc-ui'
 import React from 'react'
 import NavigationCard from './NavigationCard'
 import NAVIGATION_LINKS from './services/navigation-links'
@@ -51,13 +51,11 @@ const StyledCardContainer = styled.div`
 `
 
 const NavigationBlock = () => (
-  <CompactThemeProvider>
-    <StyledCardContainer>
-      {NAVIGATION_LINKS.map(linkProps => (
-        <NavigationCard key={linkProps.id} {...linkProps} />
-      ))}
-    </StyledCardContainer>
-  </CompactThemeProvider>
+  <StyledCardContainer>
+    {NAVIGATION_LINKS.map(linkProps => (
+      <NavigationCard key={linkProps.id} {...linkProps} />
+    ))}
+  </StyledCardContainer>
 )
 
 export default NavigationBlock

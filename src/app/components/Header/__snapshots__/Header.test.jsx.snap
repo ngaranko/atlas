@@ -19,6 +19,7 @@ exports[`Header should render the embed header 1`] = `
 exports[`Header should render the main header 1`] = `
 <styled.section
   data-test="header"
+  isHomePage={false}
 >
   <Styled(Header)
     className="styled-header"
