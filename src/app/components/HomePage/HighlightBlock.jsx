@@ -84,13 +84,12 @@ const HighlightBlock = () => {
       <HighlightBlockStyle showError={error}>
         {error && <ErrorMessage />}
         <HighlightBlockInnerStyle>
-          <ImageCardWrapperLarge showError={error}>
+          <ImageCardWrapperLarge>
             <HighlightCard
               loading={loading}
               showError={error}
               {...(results && results[0])}
               styleAs="h2"
-              large
             />
           </ImageCardWrapperLarge>
           <ImageCardWrapperSmall>
@@ -98,20 +97,15 @@ const HighlightBlock = () => {
               results
                 .slice(1)
                 .map(result => (
-                  <HighlightCard
-                    key={result.id}
-                    loading={loading}
-                    showError={error}
-                    {...result}
-                    strong
-                  />
+                  <HighlightCard key={result.id} loading={loading} showError={error} {...result} />
                 ))}
-            {error && (
-              <>
-                <HighlightCard key={0} showError={error} />
-                <HighlightCard key={1} showError={error} />
-              </>
-            )}
+            {error ||
+              (loading && (
+                <>
+                  <HighlightCard key={0} loading={loading} showError={error} />
+                  <HighlightCard key={1} loading={loading} showError={error} />
+                </>
+              ))}
           </ImageCardWrapperSmall>
         </HighlightBlockInnerStyle>
       </HighlightBlockStyle>
