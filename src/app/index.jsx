@@ -19,7 +19,7 @@ const store = configureStore(routes)
 resolveRedirects().then(hasToRedirect => {
   if (!hasToRedirect) {
     // eslint-disable-next-line no-undef,no-console
-    console.log(`CityData: version: ${VERSION}, build: ${__BUILD_ID__}`)
+    console.log(`CityData: version: ${VERSION}, build: ${process.env.NODE_ENV}`)
 
     ReactDOM.render(
       <Provider store={store}>

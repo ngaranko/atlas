@@ -1,4 +1,3 @@
-import SHARED_CONFIG from '../../../../src/shared/services/shared-config/shared-config'
 ;(function() {
   angular.module('dpDetail').directive('dpPartialSelect', dpPartialSelectDirective)
 
@@ -19,7 +18,7 @@ import SHARED_CONFIG from '../../../../src/shared/services/shared-config/shared-
     }
 
     function linkFunction(scope, element) {
-      scope.apiUrl = SHARED_CONFIG.API_ROOT
+      scope.apiUrl = process.env.API_ROOT
       const templateUrl = `modules/detail/components/partial-select/partials/${scope.partial}.html`
 
       partialCompiler.getHtml(templateUrl, scope).then(function(partial) {

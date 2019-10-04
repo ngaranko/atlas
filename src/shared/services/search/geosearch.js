@@ -2,7 +2,6 @@
 import identity from 'lodash.identity'
 import SEARCH_CONFIG from './search-config'
 import { getByUrl } from '../api/api'
-import SHARED_CONFIG from '../shared-config/shared-config'
 import { formatCategory } from './search-formatter'
 import geosearchFormatter from './geosearch-formatter'
 import { getFeaturesFromResult } from '../../../map/services/map-search/map-search'
@@ -40,7 +39,7 @@ function getRelatedObjects(geosearchResults, user) {
       // Only fetching 'vestigingen' for a standplaats/ligplaats, so
       // we check for employee status here already
       getByUrl(plaatsEndpoint).then(plaats => {
-        const vestigingenUri = `${SHARED_CONFIG.API_ROOT}handelsregister/vestiging/?nummeraanduiding=${plaats.hoofdadres.landelijk_id}`
+        const vestigingenUri = `${process.env.API_ROOT}handelsregister/vestiging/?nummeraanduiding=${plaats.hoofdadres.landelijk_id}`
 
         getByUrl(vestigingenUri).then(vestigingen => {
           const formatted =
@@ -102,7 +101,7 @@ function getRelatedObjects(geosearchResults, user) {
 
         if (user.scopes.includes('HR/R')) {
           requests.push(
-            getByUrl(`${SHARED_CONFIG.API_ROOT}${vestigingenUri}`).then(vestigingen => {
+            getByUrl(`${process.env.API_ROOT}${vestigingenUri}`).then(vestigingen => {
               const formatted =
                 vestigingen && vestigingen.count ? formatCategory('vestiging', vestigingen) : null
               const extended = formatted
@@ -155,7 +154,7 @@ export default function geosearch(location, user) {
       }
 
       const request = getByUrl(
-        `${SHARED_CONFIG.API_ROOT}${endpoint.uri}`,
+        `${process.env.API_ROOT}${endpoint.uri}`,
         searchParams,
         false,
         true,

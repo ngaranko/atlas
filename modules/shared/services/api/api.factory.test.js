@@ -10,10 +10,12 @@ describe('The api factory', function() {
   let isLoggedIn
   let clearHttpCache
 
+  const mockUrl1 = `${process.env.API_ROOT}bag/verblijfsobject/123/`
+  const mockUrl2 = `${process.env.API_ROOT}bag/verblijfsobject/456/`
+
   beforeEach(function() {
     angular.mock.module('dpShared', {
       sharedConfig: {
-        API_ROOT: 'https://www.i-am-the-api-root.com/path/',
         AUTH_HEADER_PREFIX: 'Bearer ',
       },
       store: {
@@ -50,9 +52,7 @@ describe('The api factory', function() {
       title: 'This is a fake title',
     }
 
-    $httpBackend
-      .whenGET('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/')
-      .respond(mockedApiData)
+    $httpBackend.whenGET(mockUrl1).respond(mockedApiData)
 
     isLoggedIn = false
 
@@ -71,11 +71,9 @@ describe('The api factory', function() {
   it('getByUrl returns the data as a promise', function() {
     let returnValue
 
-    api
-      .getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/')
-      .then(function(data) {
-        returnValue = data
-      })
+    api.getByUrl(mockUrl1).then(function(data) {
+      returnValue = data
+    })
 
     $httpBackend.flush()
 
@@ -85,15 +83,9 @@ describe('The api factory', function() {
   it('getByUrl optionally accepts a promise to allow for cancelling the request', function() {
     const cancel = $q.defer()
 
-    api
-      .getByUrl(
-        'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-        undefined,
-        cancel,
-      )
-      .then(function() {
-        fail() // Should never be resolved
-      })
+    api.getByUrl(mockUrl1, undefined, cancel).then(function() {
+      fail() // Should never be resolved
+    })
 
     cancel.resolve()
     $httpBackend.verifyNoOutstandingRequest()
@@ -103,15 +95,9 @@ describe('The api factory', function() {
     let returnValue
     const cancel = $q.defer()
 
-    api
-      .getByUrl(
-        'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-        undefined,
-        cancel,
-      )
-      .then(function(data) {
-        returnValue = data
-      })
+    api.getByUrl(mockUrl1, undefined, cancel).then(function(data) {
+      returnValue = data
+    })
 
     let isRejected = false
     cancel.promise.then(angular.noop, () => (isRejected = true))
@@ -138,11 +124,8 @@ describe('The api factory', function() {
     // Not logged in
     isLoggedIn = false
 
-    $httpBackend.expectGET(
-      'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-      $http.defaults.headers.common,
-    )
-    api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/')
+    $httpBackend.expectGET(mockUrl1, $http.defaults.headers.common)
+    api.getByUrl(mockUrl1)
     $httpBackend.flush()
   })
 
@@ -150,12 +133,12 @@ describe('The api factory', function() {
     // Logged in
     isLoggedIn = true
     $httpBackend.expectGET(
-      'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
+      mockUrl1,
       angular.merge({}, $http.defaults.headers.common, {
         Authorization: 'Bearer MY_FAKE_ACCESS_TOKEN',
       }),
     )
-    api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/')
+    api.getByUrl(mockUrl1)
     $httpBackend.flush()
   })
 
@@ -163,16 +146,8 @@ describe('The api factory', function() {
     // Logged in
     isLoggedIn = true
 
-    $httpBackend.expectGET(
-      'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-      $http.defaults.headers.common,
-    )
-    api.getByUrl(
-      'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-      null,
-      null,
-      false,
-    )
+    $httpBackend.expectGET(mockUrl1, $http.defaults.headers.common)
+    api.getByUrl(mockUrl1, null, null, false)
     $httpBackend.flush()
   })
 
@@ -223,9 +198,7 @@ describe('The api factory', function() {
     it('succeeds after the second try', () => {
       let returnValue
 
-      const getRequest = $httpBackend.whenGET(
-        'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/456/',
-      )
+      const getRequest = $httpBackend.whenGET(mockUrl2)
       getRequest.respond(500, 'ERROR')
 
       api.getByUri('bag/verblijfsobject/456/').then(function(data) {
@@ -245,9 +218,7 @@ describe('The api factory', function() {
     it('succeeds after the third try', () => {
       let returnValue
 
-      const getRequest = $httpBackend.whenGET(
-        'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/456/',
-      )
+      const getRequest = $httpBackend.whenGET(mockUrl2)
       getRequest.respond(500, 'ERROR')
 
       api.getByUri('bag/verblijfsobject/456/').then(function(data) {
@@ -271,9 +242,7 @@ describe('The api factory', function() {
     it('gives up after the third try fails', () => {
       let returnValue
 
-      const getRequest = $httpBackend.whenGET(
-        'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/456/',
-      )
+      const getRequest = $httpBackend.whenGET(mockUrl2)
       getRequest.respond(500, 'ERROR')
 
       api.getByUri('bag/verblijfsobject/456/').then(function(data) {

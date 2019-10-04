@@ -8,7 +8,6 @@ import { getUser } from '../../../shared/ducks/user/user'
 import { SCOPES } from '../../../shared/services/auth/auth'
 import NotAuthorizedMessage from '../../components/PanelMessages/NotAuthorizedMessage'
 import ConstructionFileDetail from '../../components/ConstructionFileDetail/ConstructionFileDetail'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import ErrorMessage from '../../components/PanelMessages/ErrorMessage/ErrorMessage'
@@ -126,9 +125,10 @@ ConstructionFilesContainer.propTypes = {
 
 const mapStateToProps = state => ({
   fileName: getFileName(state),
-  endpoint: `${SHARED_CONFIG.API_ROOT}stadsarchief/bouwdossier/${getLocationPayload(
-    state,
-  ).id.replace('id', '')}/`,
+  endpoint: `${process.env.API_ROOT}stadsarchief/bouwdossier/${getLocationPayload(state).id.replace(
+    'id',
+    '',
+  )}/`,
   user: getUser(state),
 })
 

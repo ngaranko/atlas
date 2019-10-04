@@ -13,15 +13,9 @@ import { downloadDataSelection } from '../../../../../src/shared/ducks/data-sele
     controllerAs: 'vm',
   })
 
-  DpDataSelectionDownloadButtonController.$inject = [
-    '$window',
-    '$scope',
-    'api',
-    'sharedConfig',
-    'store',
-  ]
+  DpDataSelectionDownloadButtonController.$inject = ['$window', '$scope', 'api', 'store']
 
-  function DpDataSelectionDownloadButtonController($window, $scope, api, sharedConfig, store) {
+  function DpDataSelectionDownloadButtonController($window, $scope, api, store) {
     const vm = this
     const filterParams = []
 
@@ -30,7 +24,7 @@ import { downloadDataSelection } from '../../../../../src/shared/ducks/data-sele
     function setDownloadUrl() {
       filterParams.length = 0
 
-      let url = sharedConfig.API_ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT
+      let url = process.env.API_ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT
 
       DATA_SELECTION_CONFIG.datasets[vm.dataset].FILTERS.forEach(function(filter) {
         if (angular.isString(vm.activeFilters[filter.slug])) {

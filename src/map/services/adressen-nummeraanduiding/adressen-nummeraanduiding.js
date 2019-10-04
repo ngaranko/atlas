@@ -1,4 +1,3 @@
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getByUrl } from '../../../shared/services/api/api'
 import mapFetch from '../map-fetch/map-fetch'
 import { adressenVerblijfsobject } from '../normalize/normalize'
@@ -40,7 +39,7 @@ export function fetchByPandId(pandId) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(
+  return getByUrl(`${process.env.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(
     data => data.results,
   )
 }
@@ -54,7 +53,7 @@ export function fetchByLigplaatsId(ligplaatsId) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(data =>
+  return getByUrl(`${process.env.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(data =>
     data.results.map(result => ({
       ...result,
       id: result.landelijk_id,
@@ -75,7 +74,7 @@ export function fetchByStandplaatsId(standplaatsId) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(data =>
+  return getByUrl(`${process.env.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(data =>
     data.results.map(result => ({
       ...result,
       id: result.landelijk_id,

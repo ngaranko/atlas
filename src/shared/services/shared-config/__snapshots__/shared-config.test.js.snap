@@ -2,65 +2,10 @@
 
 exports[`The sharedConfig service gives you the configuration based on global environment 1`] = `
 Object {
-  "API_ROOT": "https://acc.api.data.amsterdam.nl/",
   "AUTH_HEADER_PREFIX": "Bearer ",
   "CACHE_THRESHOLD": 30,
-  "CMS_ROOT": "https://acc.cms.data.amsterdam.nl/",
-  "IIIF_ROOT": "https://acc.images.data.amsterdam.nl/",
   "PANORAMA_THUMBNAIL_URL": "panorama/thumbnail/",
   "RADIUS": 50,
-  "ROOT": "https://acc.data.amsterdam.nl/",
-  "ROOT_KEYS": Array [
-    "API_ROOT",
-  ],
-  "THUMBNAIL_WIDTH": 240,
-}
-`;
-
-exports[`The sharedConfig service gives you the configuration based on global environment 2`] = `
-Object {
-  "API_ROOT": "https://acc.api.data.amsterdam.nl/",
-  "AUTH_HEADER_PREFIX": "Bearer ",
-  "CACHE_THRESHOLD": 30,
-  "CMS_ROOT": "https://acc.cms.data.amsterdam.nl/",
-  "IIIF_ROOT": "https://acc.images.data.amsterdam.nl/",
-  "PANORAMA_THUMBNAIL_URL": "panorama/thumbnail/",
-  "RADIUS": 50,
-  "ROOT": "https://acc.data.amsterdam.nl/",
-  "ROOT_KEYS": Array [
-    "API_ROOT",
-  ],
-  "THUMBNAIL_WIDTH": 240,
-}
-`;
-
-exports[`The sharedConfig service gives you the configuration based on global environment 3`] = `
-Object {
-  "API_ROOT": "https://acc.api.data.amsterdam.nl/",
-  "AUTH_HEADER_PREFIX": "Bearer ",
-  "CACHE_THRESHOLD": 30,
-  "CMS_ROOT": "https://acc.cms.data.amsterdam.nl/",
-  "IIIF_ROOT": "https://acc.images.data.amsterdam.nl/",
-  "PANORAMA_THUMBNAIL_URL": "panorama/thumbnail/",
-  "RADIUS": 50,
-  "ROOT": "https://acc.data.amsterdam.nl/",
-  "ROOT_KEYS": Array [
-    "API_ROOT",
-  ],
-  "THUMBNAIL_WIDTH": 240,
-}
-`;
-
-exports[`The sharedConfig service gives you the configuration based on global environment 4`] = `
-Object {
-  "API_ROOT": "https://acc.api.data.amsterdam.nl/",
-  "AUTH_HEADER_PREFIX": "Bearer ",
-  "CACHE_THRESHOLD": 30,
-  "CMS_ROOT": "https://acc.cms.data.amsterdam.nl/",
-  "IIIF_ROOT": "https://acc.images.data.amsterdam.nl/",
-  "PANORAMA_THUMBNAIL_URL": "panorama/thumbnail/",
-  "RADIUS": 50,
-  "ROOT": "https://acc.data.amsterdam.nl/",
   "ROOT_KEYS": Array [
     "API_ROOT",
   ],
