@@ -12,7 +12,6 @@ export default function fetchPano(location) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  console.log(process.env.CMS_ROOT)
   return getByUrl(`${process.env.API_ROOT}panorama/thumbnail/?${queryString}`).then(response => ({
     id: response.pano_id,
     heading: response.heading,

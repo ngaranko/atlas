@@ -1,5 +1,6 @@
 import getContents, { cache, GOOGLE_SHEET_CMS } from './google-sheet'
 import * as api from '../api/api'
+import { ENVIRONMENTS } from '../../environment'
 
 const mockedDate = new Date(2017, 11, 10)
 const originalDate = Date
@@ -147,8 +148,11 @@ const response = {
   },
 }
 
-describe.skip('The google sheet factory', () => {
+describe('The google sheet factory', () => {
   describe('The static variant', () => {
+    beforeEach(() => {
+      process.env.NODE_ENV = ENVIRONMENTS.PRODUCTION
+    })
     afterEach(() => {
       delete cache[GOOGLE_SHEET_CMS.key]
     })
@@ -157,7 +161,7 @@ describe.skip('The google sheet factory', () => {
       api.getByUri = jest.fn(() => Promise.resolve())
       getContents('beleid')
       expect(api.getByUri).toHaveBeenCalledWith(
-        `cms_local/${GOOGLE_SHEET_CMS.key}.${GOOGLE_SHEET_CMS.index.beleid}.json`,
+        `/cms_local/${GOOGLE_SHEET_CMS.key}.${GOOGLE_SHEET_CMS.index.beleid}.json`,
       )
     })
 
@@ -185,6 +189,9 @@ describe.skip('The google sheet factory', () => {
   })
 
   describe('The dynamic variant is the default variant', () => {
+    beforeEach(() => {
+      process.env.NODE_ENV = ENVIRONMENTS.ACCEPTANCE
+    })
     const keyWithUnderscores = GOOGLE_SHEET_CMS.key.replace('-', '_')
     const callbackName = `googleScriptCallback_${keyWithUnderscores}_${GOOGLE_SHEET_CMS.index.beleid}`
 
@@ -196,6 +203,9 @@ describe.skip('The google sheet factory', () => {
   })
 
   describe('The contents parser', () => {
+    beforeEach(() => {
+      process.env.NODE_ENV = ENVIRONMENTS.PRODUCTION
+    })
     it('processes the global feed properties', async () => {
       api.getByUri = jest.fn(() => Promise.resolve(response))
       await getContents('beleid')

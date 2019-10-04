@@ -31,14 +31,10 @@ COPY .babelrc \
       webpack.* \
       index.ejs \
       favicon.png \
+      .env.* \
       /app/
 
-
-RUN npm run build:prod
-
 ARG NODE_ENV=production
-
-COPY .env.${NODE_ENV} /app/.env
 
 RUN npm run build:${NODE_ENV}
 RUN echo "build= `date`" > /app/dist/version.txt
@@ -52,7 +48,7 @@ COPY test /app/test
 
 # Web server image
 FROM nginx:1.12.2-alpine
-ARG NODE_ENV=prod
+ARG NODE_ENV=production
 COPY nginx-${NODE_ENV}.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/
 COPY --from=build-deps /app/dist /usr/share/nginx/html

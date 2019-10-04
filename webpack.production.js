@@ -3,14 +3,8 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { commonConfig } = require('./webpack.common.js')
 const { GenerateSW } = require('workbox-webpack-plugin')
-const dotenv = require('dotenv')
-
-const env = dotenv.config().parsed
 
 module.exports = () => {
-  const apiUrl = env.API_ROOT
-  const cmsUrl = env.CMS_ROOT
-
   const CHUNKS = {
     MAP:
       'leaflet|leaflet-draw|leaflet-rotatedmarker|leaflet.markercluster|leaflet.nontiledlayer|proj4|proj4leaflet',
