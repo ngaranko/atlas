@@ -3,16 +3,13 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { commonConfig } = require('./webpack.common.js')
 const { GenerateSW } = require('workbox-webpack-plugin')
+const dotenv = require('dotenv')
 
-module.exports = env => {
-  const nodeEnv = env && env.nodeEnv ? env.nodeEnv : 'production'
-  const isAcc = env && env.nodeEnv === 'acceptance'
+const env = dotenv.config().parsed
 
-  // Todo: Put this in a .env file: https://datapunt.atlassian.net/browse/DP-7302
-  const getApiUrl = (prefix = '') => `https://${isAcc ? 'acc.' : ''}${prefix}data.amsterdam.nl/`
-
-  const apiUrl = getApiUrl('api.')
-  const cmsUrl = getApiUrl('cms.')
+module.exports = () => {
+  const apiUrl = env.API_ROOT
+  const cmsUrl = env.CMS_ROOT
 
   const CHUNKS = {
     MAP:
@@ -28,7 +25,7 @@ module.exports = env => {
 
   const getTestRegex = path => new RegExp(`/node_modules/(${path})/`)
 
-  return merge(commonConfig({ nodeEnv }), {
+  return merge(commonConfig(), {
     output: {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[name].[chunkhash].bundle.js',

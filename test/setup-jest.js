@@ -3,6 +3,8 @@ import Adapter from 'enzyme-adapter-react-16'
 import 'leaflet'
 import 'leaflet-draw'
 
+require('./load-env')
+
 // React 16 Enzyme adapter
 Enzyme.configure({ adapter: new Adapter() })
 
