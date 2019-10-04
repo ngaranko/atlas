@@ -194,6 +194,7 @@ function commonConfig(env) {
         },
         sortChunks: 'none',
         lang: 'nl',
+        hash: true,
         title: 'Dataportaal',
         favicon: './favicon.png',
         scripts: ['/mtiFontTrackingCode.min.js'],
