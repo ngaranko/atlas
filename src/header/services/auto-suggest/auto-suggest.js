@@ -31,9 +31,11 @@ export const orderAutoSuggestResults = results => {
 
 function formatData(categories) {
   const numberOfResults = categories.reduce((acc, category) => acc + category.content.length, 0)
+  const sortedCategories = orderAutoSuggestResults(categories)
+
   let indexInTotal = -1
 
-  const indexedCategories = categories.map(category => ({
+  const indexedCategories = sortedCategories.map(category => ({
     ...category,
     content: category.content.map(suggestion => {
       indexInTotal += 1
@@ -46,11 +48,9 @@ function formatData(categories) {
     }),
   }))
 
-  const sortedCategories = orderAutoSuggestResults(indexedCategories)
-
   return {
     count: numberOfResults,
-    data: sortedCategories,
+    data: indexedCategories,
   }
 }
 
