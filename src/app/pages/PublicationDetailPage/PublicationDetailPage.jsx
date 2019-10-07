@@ -82,7 +82,7 @@ const PublicationDetailPage = ({ id }) => {
                     imageSrc={coverImage}
                     description={`Download PDF (${fileSize})`}
                     onClick={() => {
-                      download(fileUrl)
+                      download(`${process.env.CMS_ROOT}${fileUrl && fileUrl.substring(1)}`)
                     }}
                   />
                 </Column>
