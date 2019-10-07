@@ -142,7 +142,9 @@ const ArticleDetailPage = ({ id }) => {
                           />
                         )}
                         <Paragraph strong>{intro}</Paragraph>
-                        <CustomHTMLBlock body={body} />
+                        {typeof body === 'string' && (
+                          <CustomHTMLBlock body={body.replace(/^http:\/\//i, 'https://')} />
+                        )}
                       </EditorialBody>
                     </Column>
                     <Column
