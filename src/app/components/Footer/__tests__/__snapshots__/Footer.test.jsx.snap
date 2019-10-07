@@ -173,7 +173,7 @@ exports[`Footer should render 1`] = `
                     },
                     "order": 2,
                     "slug": "contact",
-                    "title": "Contact openemen",
+                    "title": "Contact opnemen",
                   },
                   Object {
                     "id": Object {
