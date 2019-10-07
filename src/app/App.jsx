@@ -107,7 +107,7 @@ const App = ({
   const StyledContainer = styled(Container)`
     background-color: ${themeColor('tint', 'level1')};
     position: relative;
-    
+
     @media screen and ${breakpoint('min-width', 'laptopM')} {
       margin: 0 ${themeSpacing(6)};
     }
@@ -115,7 +115,7 @@ const App = ({
 
   function AppWrapper({ children }) {
     return homePage || editorialPage ? (
-      <StyledContainer beamColor={editorialPage && 'valid'}>
+      <StyledContainer beamColor="valid">
         <Helmet>
           <meta
             name="viewport"
