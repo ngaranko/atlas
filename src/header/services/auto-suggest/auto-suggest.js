@@ -1,4 +1,3 @@
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getAuthHeaders } from '../../../shared/services/auth/auth'
 
 // Minimun length for typeahead query in backend is 3 characters
@@ -57,7 +56,7 @@ function formatData(categories) {
 
 function search(query) {
   const uri =
-    query && query.length >= MIN_QUERY_LENGTH && `${SHARED_CONFIG.API_ROOT}typeahead?q=${query}`
+    query && query.length >= MIN_QUERY_LENGTH && `${process.env.API_ROOT}typeahead?q=${query}`
 
   if (uri) {
     return fetch(uri, { headers: getAuthHeaders() })

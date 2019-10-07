@@ -1,6 +1,6 @@
 import marked from 'marked'
 import { getByUri } from '../api/api'
-import { ENVIRONMENTS, getEnvironment } from '../../environment'
+import { ENVIRONMENTS } from '../../environment'
 
 export const cache = {} // local cache of parsed sheets
 
@@ -8,7 +8,6 @@ export const GOOGLE_SHEET_CMS = {
   // when to get CMS static data (daily refreshed) or dynamically direct from the sheet
   getStatic: {
     [ENVIRONMENTS.PRODUCTION]: true,
-    [ENVIRONMENTS.PRE_PRODUCTION]: true,
     [ENVIRONMENTS.ACCEPTANCE]: false,
     [ENVIRONMENTS.DEVELOPMENT]: false,
   },
@@ -121,7 +120,7 @@ export default function getContents(type) {
   const promise = new Promise(async resolve => {
     const { key } = GOOGLE_SHEET_CMS
     const index = GOOGLE_SHEET_CMS.index[type]
-    const getSheet = GOOGLE_SHEET_CMS.getStatic[getEnvironment(window.location.host)]
+    const getSheet = GOOGLE_SHEET_CMS.getStatic[process.env.NODE_ENV]
       ? getStaticSheet
       : getDynamicSheet
 

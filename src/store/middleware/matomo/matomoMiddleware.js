@@ -1,5 +1,4 @@
 import MatomoTracker from '@datapunt/matomo-tracker-js'
-import { getEnvironment } from '../../../shared/environment'
 // eslint-disable-next-line import/no-cycle
 import trackEvents from './trackEvents'
 // eslint-disable-next-line import/no-cycle
@@ -14,7 +13,7 @@ const matomoMiddleware = ({ getState }) => next => action => {
   // Initialize connection with Matomo
   const MatomoInstance = new MatomoTracker({
     urlBase: MATOMO_CONFIG.BASE_URL,
-    siteId: MATOMO_CONFIG[getEnvironment(window.location.hostname)].SITE_ID,
+    siteId: MATOMO_CONFIG[process.env.NODE_ENV].SITE_ID,
   })
 
   const actionsToMatomo = []

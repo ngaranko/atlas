@@ -1,5 +1,4 @@
 import { getByUrl } from '../../../shared/services/api/api'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import mapFetch from '../map-fetch/map-fetch'
 
 const normalize = async result => {
@@ -40,7 +39,7 @@ export function fetchByPandId(pandId) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(`${SHARED_CONFIG.API_ROOT}handelsregister/vestiging/?${queryString}`).then(
+  return getByUrl(`${process.env.API_ROOT}handelsregister/vestiging/?${queryString}`).then(
     data => data.results,
   )
 }
@@ -54,7 +53,7 @@ export function fetchByAddressId(addressId) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(`${SHARED_CONFIG.API_ROOT}handelsregister/vestiging/?${queryString}`).then(
+  return getByUrl(`${process.env.API_ROOT}handelsregister/vestiging/?${queryString}`).then(
     data => data.results,
   )
 }

@@ -8,13 +8,11 @@
     controllerAs: 'vm',
   })
 
-  DpWkpbLinkController.$inject = ['sharedConfig']
-
-  function DpWkpbLinkController(sharedConfig) {
+  function DpWkpbLinkController() {
     const vm = this
 
     this.$onInit = function() {
-      vm.wkpbEndpoint = `${sharedConfig.ROOT}brk/object-wkpb/${vm.brkId}/`
+      vm.wkpbEndpoint = `${process.env.ROOT}brk/object-wkpb/${vm.brkId}/`
     }
   }
 })()

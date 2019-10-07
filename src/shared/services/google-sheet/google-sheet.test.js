@@ -1,6 +1,6 @@
 import getContents, { cache, GOOGLE_SHEET_CMS } from './google-sheet'
 import * as api from '../api/api'
-import * as environments from '../../environment'
+import { ENVIRONMENTS } from '../../environment'
 
 const mockedDate = new Date(2017, 11, 10)
 const originalDate = Date
@@ -151,9 +151,8 @@ const response = {
 describe('The google sheet factory', () => {
   describe('The static variant', () => {
     beforeEach(() => {
-      environments.getEnvironment = jest.fn().mockReturnValue('PRODUCTION')
+      process.env.NODE_ENV = ENVIRONMENTS.PRODUCTION
     })
-
     afterEach(() => {
       delete cache[GOOGLE_SHEET_CMS.key]
     })
@@ -190,12 +189,11 @@ describe('The google sheet factory', () => {
   })
 
   describe('The dynamic variant is the default variant', () => {
+    beforeEach(() => {
+      process.env.NODE_ENV = ENVIRONMENTS.ACCEPTANCE
+    })
     const keyWithUnderscores = GOOGLE_SHEET_CMS.key.replace('-', '_')
     const callbackName = `googleScriptCallback_${keyWithUnderscores}_${GOOGLE_SHEET_CMS.index.beleid}`
-
-    beforeEach(() => {
-      environments.getEnvironment = jest.fn().mockReturnValue('DEVELOPMENT')
-    })
 
     it('puts a scripts in the document header to load the sheet contents', () => {
       getContents('beleid')
@@ -206,9 +204,8 @@ describe('The google sheet factory', () => {
 
   describe('The contents parser', () => {
     beforeEach(() => {
-      environments.getEnvironment = jest.fn().mockReturnValue('PRODUCTION')
+      process.env.NODE_ENV = ENVIRONMENTS.PRODUCTION
     })
-
     it('processes the global feed properties', async () => {
       api.getByUri = jest.fn(() => Promise.resolve(response))
       await getContents('beleid')
