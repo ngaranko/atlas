@@ -20,7 +20,6 @@ import {
 import React from 'react'
 import { connect } from 'react-redux'
 import download from 'downloadjs'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import './ArticleDetailPage.scss'
@@ -151,7 +150,7 @@ const ArticleDetailPage = ({ id }) => {
                                     <DownloadLink
                                       $as="button"
                                       onClick={() => {
-                                        download(`${SHARED_CONFIG.CMS_ROOT}${url}`)
+                                        download(`${process.env.CMS_ROOT}${url}`)
                                       }}
                                       variant="with-chevron"
                                     >

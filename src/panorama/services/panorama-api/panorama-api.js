@@ -1,4 +1,3 @@
-import sharedConfig from '../../../shared/services/shared-config/shared-config'
 import { getByUrl } from '../../../shared/services/api/api'
 import getCenter from '../../../shared/services/geo-json/geo-json'
 
@@ -115,7 +114,7 @@ export function getImageDataByLocation(location, tags) {
     standardRadius,
     tagsQuery,
   } = getLocationHistoryParams(location, tags)
-  const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?${locationRange}${tagsQuery}`
+  const getLocationUrl = `${process.env.API_ROOT}${prefix}/?${locationRange}${tagsQuery}`
   const limitResults = 'limit_results=1'
 
   const promise = new Promise((resolve, reject) => {
@@ -143,7 +142,7 @@ export function getImageDataByLocation(location, tags) {
 export function getImageDataById(id, tags) {
   const { adjacenciesParams } = getLocationHistoryParams(null, tags)
 
-  return fetchPanorama(`${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${adjacenciesParams}`)
+  return fetchPanorama(`${process.env.API_ROOT}${prefix}/${id}/${suffix}/?${adjacenciesParams}`)
 }
 
 export function getStreetViewUrl(location, heading) {

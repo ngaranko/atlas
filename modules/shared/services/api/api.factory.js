@@ -1,10 +1,11 @@
 import { encodeQueryParams } from '../../../../src/shared/services/query-string-parser/query-string-parser'
+import SHARED_CONFIG from '../../../../src/shared/services/shared-config/shared-config'
 ;(function() {
   angular.module('dpShared').factory('api', apiFactory)
 
-  apiFactory.$inject = ['$injector', '$interval', '$q', '$http', '$window', 'sharedConfig']
+  apiFactory.$inject = ['$injector', '$interval', '$q', '$http']
 
-  function apiFactory($injector, $interval, $q, $http, $window, sharedConfig) {
+  function apiFactory($injector, $interval, $q, $http) {
     let store
 
     return {
@@ -24,7 +25,7 @@ import { encodeQueryParams } from '../../../../src/shared/services/query-string-
       const headers = {}
 
       if (token) {
-        headers.Authorization = sharedConfig.AUTH_HEADER_PREFIX + token
+        headers.Authorization = SHARED_CONFIG.AUTH_HEADER_PREFIX + token
       }
 
       const options = {
@@ -117,7 +118,7 @@ import { encodeQueryParams } from '../../../../src/shared/services/query-string-
     }
 
     function getByUri(uri, params) {
-      return getByUrl(sharedConfig.API_ROOT + uri, params)
+      return getByUrl(process.env.API_ROOT + uri, params)
     }
   }
 })()

@@ -30,7 +30,6 @@ import formatDetailData from '../../../detail/services/data-formatter/data-forma
 import { getUserScopes } from '../../ducks/user/user'
 import { getParts, getTemplateUrl } from '../../../detail/services/endpoint-parser/endpoint-parser'
 import { getByUrl } from '../../services/api/api'
-import SHARED_CONFIG from '../../services/shared-config/shared-config'
 import { toNotFoundPage } from '../../../store/redux-first-router/actions'
 
 export function* ensureCatalogFilters() {
@@ -126,7 +125,7 @@ export function* fetchDatasetsEffect(action) {
  */
 export function* fetchDatasetsOptionalEffect(action) {
   yield call(waitForAuthentication)
-  const endpoint = `${SHARED_CONFIG.API_ROOT}dcatd/datasets/${action.payload.id}`
+  const endpoint = `${process.env.API_ROOT}dcatd/datasets/${action.payload.id}`
 
   const detailData = yield call(getDatasetData, endpoint)
 

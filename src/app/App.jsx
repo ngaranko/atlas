@@ -32,7 +32,6 @@ import Header from './components/Header'
 import { AppStateProvider } from './utils/useAppReducer'
 import AppBody from './AppBody'
 import main, { initialState } from './react-reducers'
-import { getEnvironment } from '../shared/environment'
 import { MATOMO_CONFIG } from '../store/middleware/matomo/constants'
 import { routing } from './routes'
 import Footer from './components/Footer/Footer'
@@ -101,7 +100,7 @@ const App = ({
 
   const matomoInstance = createInstance({
     urlBase: MATOMO_CONFIG.BASE_URL,
-    siteId: MATOMO_CONFIG[getEnvironment(window.location.hostname)].SITE_ID,
+    siteId: MATOMO_CONFIG[process.env.NODE_ENV].SITE_ID,
   })
 
   const StyledContainer = styled(Container)`

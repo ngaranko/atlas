@@ -1,5 +1,6 @@
 import { toPanoramaAndPreserveQuery } from '../../../../src/store/redux-first-router/actions'
 import { getDetailLocation } from '../../../../src/store/redux-first-router/selectors'
+import SHARED_CONFIG from '../../../../src/shared/services/shared-config/shared-config'
 ;(function() {
   angular.module('dpShared').component('dpPanoramaThumbnail', {
     bindings: {
@@ -11,14 +12,14 @@ import { getDetailLocation } from '../../../../src/store/redux-first-router/sele
     controllerAs: 'vm',
   })
 
-  DpPanoramaThumbnailController.$inject = ['sharedConfig', 'store']
+  DpPanoramaThumbnailController.$inject = ['store']
 
-  function DpPanoramaThumbnailController(sharedConfig, store) {
+  function DpPanoramaThumbnailController(store) {
     const vm = this
     const state = store.getState()
 
     const reference = getDetailLocation(state)
-    vm.radius = sharedConfig.RADIUS
+    vm.radius = SHARED_CONFIG.RADIUS
 
     function setLinkTo(panorama) {
       if (panorama) {

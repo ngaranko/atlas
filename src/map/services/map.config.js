@@ -1,5 +1,5 @@
 import BOUNDING_BOX from './bounding-box.constant'
-import ENVIRONMENT, { ENVIRONMENTS } from '../../shared/environment'
+import { ENVIRONMENTS } from '../../shared/environment'
 import getCrs from './crs-service'
 
 const BOUNDS = [BOUNDING_BOX.COORDINATES.southWest, BOUNDING_BOX.COORDINATES.northEast]
@@ -49,12 +49,6 @@ const environmentConfig = {
     },
     OVERLAY_ROOT: 'https://map.data.amsterdam.nl',
   },
-  [ENVIRONMENTS.PRE_PRODUCTION]: {
-    BASE_LAYER_OPTIONS: {
-      subdomains: ['t1', 't2', 't3', 't4'],
-    },
-    OVERLAY_ROOT: 'https://map.data.amsterdam.nl',
-  },
   [ENVIRONMENTS.ACCEPTANCE]: {
     BASE_LAYER_OPTIONS: {
       subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4'],
@@ -73,9 +67,9 @@ const MAP_CONFIG = {
   ...defaultConfig,
   BASE_LAYER_OPTIONS: {
     ...defaultConfig.BASE_LAYER_OPTIONS,
-    ...environmentConfig[ENVIRONMENT].BASE_LAYER_OPTIONS,
+    ...environmentConfig[process.env.NODE_ENV].BASE_LAYER_OPTIONS,
   },
-  OVERLAY_ROOT: environmentConfig[ENVIRONMENT].OVERLAY_ROOT,
+  OVERLAY_ROOT: environmentConfig[process.env.NODE_ENV].OVERLAY_ROOT,
 }
 
 export default MAP_CONFIG

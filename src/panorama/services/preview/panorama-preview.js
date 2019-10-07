@@ -1,5 +1,3 @@
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
-
 import { getByUrl } from '../../../shared/services/api/api'
 
 export default function fetchPano(location) {
@@ -14,7 +12,7 @@ export default function fetchPano(location) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(`${SHARED_CONFIG.API_ROOT}panorama/thumbnail/?${queryString}`).then(response => ({
+  return getByUrl(`${process.env.API_ROOT}panorama/thumbnail/?${queryString}`).then(response => ({
     id: response.pano_id,
     heading: response.heading,
     url: response.url,

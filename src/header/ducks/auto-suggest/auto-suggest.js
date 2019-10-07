@@ -62,8 +62,11 @@ export default function AutoSuggestReducer(state = initialState, action) {
         typedQuery: enrichedState.typedQuery,
       }
 
+    // Sets the typedQuery based on the selected tab
     case routing.dataSearchQuery.type:
     case routing.datasetSearch.type:
+    case routing.articleSearch.type:
+    case routing.publicationSearch.type:
       return {
         ...enrichedState,
         typedQuery: get(action, `meta.query[${PARAMETERS.QUERY}]`),

@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/constants'
-import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
 import useSlug from '../../app/utils/useSlug'
 import formatDate from '../../shared/services/date-formatter/date-formatter'
 import PAGES from '../../app/pages'
@@ -52,7 +51,7 @@ const normalizeObject = (data, type) => {
     )
   }
 
-  const buildImageUrl = url => `${SHARED_CONFIG.CMS_ROOT}${url}`
+  const buildImageUrl = url => `${process.env.CMS_ROOT}${url}`
 
   const imageIsVertical = type === PAGES.PUBLICATIONS
 

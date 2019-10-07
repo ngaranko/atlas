@@ -2,10 +2,8 @@ const merge = require('webpack-merge')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { commonConfig, dist } = require('./webpack.common.js')
 
-module.exports = env => {
-  const nodeEnv = env && env.nodeEnv ? env.nodeEnv : 'development'
-
-  return merge(commonConfig({ nodeEnv }), {
+module.exports = () =>
+  merge(commonConfig(), {
     mode: 'development',
     devtool: 'source-map',
     devServer: {
@@ -30,4 +28,3 @@ module.exports = env => {
     },
     plugins: [new MiniCssExtractPlugin('main.css')],
   })
-}

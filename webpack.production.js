@@ -4,16 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { commonConfig } = require('./webpack.common.js')
 const { GenerateSW } = require('workbox-webpack-plugin')
 
-module.exports = env => {
-  const nodeEnv = env && env.nodeEnv ? env.nodeEnv : 'production'
-  const isAcc = env && env.nodeEnv === 'acceptance'
-
-  // Todo: Put this in a .env file: https://datapunt.atlassian.net/browse/DP-7302
-  const getApiUrl = (prefix = '') => `https://${isAcc ? 'acc.' : ''}${prefix}data.amsterdam.nl/`
-
-  const apiUrl = getApiUrl('api.')
-  const cmsUrl = getApiUrl('cms.')
-
+module.exports = () => {
   const CHUNKS = {
     MAP:
       'leaflet|leaflet-draw|leaflet-rotatedmarker|leaflet.markercluster|leaflet.nontiledlayer|proj4|proj4leaflet',
@@ -28,7 +19,7 @@ module.exports = env => {
 
   const getTestRegex = path => new RegExp(`/node_modules/(${path})/`)
 
-  return merge(commonConfig({ nodeEnv }), {
+  return merge(commonConfig(), {
     output: {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[name].[chunkhash].bundle.js',

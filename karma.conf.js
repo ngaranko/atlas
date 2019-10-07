@@ -1,7 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
 const { root, dist, src, legacy } = require('./webpack.common.js')
-const nodeEnv = 'development'
+
+const env = require('./test/load-env')
+
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next])
+  return prev
+}, {})
 
 const webpackConfig = {
   context: root,
@@ -65,10 +71,7 @@ const webpackConfig = {
   plugins: [
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(require('./package.json').version),
-      __BUILD_ID__: JSON.stringify(nodeEnv),
-      'process.env': {
-        NODE_ENV: JSON.stringify(nodeEnv),
-      },
+      ...envKeys,
     }),
   ],
 }

@@ -1,7 +1,6 @@
 import fetchByGeoLocation from './vastgoed'
 
 import { getByUrl } from '../../../shared/services/api/api'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 
 import mapFetch from '../map-fetch/map-fetch'
 import { vastgoed } from '../normalize/normalize'
@@ -49,7 +48,7 @@ describe('The vastgoed resource', () => {
 
     // Will retrieve the information for the second feature
     expect(mapFetch).toHaveBeenCalledWith(
-      `${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${vastgoedMock.features[1].properties.id}/`,
+      `${process.env.API_ROOT}vsd/vastgoed/${vastgoedMock.features[1].properties.id}/`,
       false,
       vastgoed,
     )

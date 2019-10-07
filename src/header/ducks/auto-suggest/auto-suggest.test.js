@@ -90,16 +90,25 @@ describe('AutoSuggestReducer Reducer', () => {
   })
 
   it('should set the query from meta data', () => {
-    expect(
-      reducer(initialState, {
-        type: routing.dataSearchQuery.type,
-        meta: {
-          query: { term: 'foo' },
-        },
-      }),
-    ).toEqual({
-      ...initialState,
-      typedQuery: 'foo',
+    const tabRoutes = [
+      routing.dataSearchQuery.type,
+      routing.datasetSearch.type,
+      routing.articleSearch.type,
+      routing.publicationSearch.type,
+    ]
+
+    tabRoutes.forEach(route => {
+      expect(
+        reducer(initialState, {
+          type: route,
+          meta: {
+            query: { term: 'foo' },
+          },
+        }),
+      ).toEqual({
+        ...initialState,
+        typedQuery: 'foo',
+      })
     })
   })
 })

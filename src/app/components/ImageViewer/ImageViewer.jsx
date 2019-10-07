@@ -7,7 +7,6 @@ import { Button } from '@datapunt/asc-ui'
 import { Close, Enlarge, Minimise } from '@datapunt/asc-assets'
 import ViewerControls from '../ViewerControls/ViewerControls'
 import { setCurrentFile } from '../../../shared/ducks/files/actions'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import './ImageViewer.scss'
 
 /* istanbul ignore next */
@@ -26,7 +25,7 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
       sequenceMode: true,
       showNavigationControl: false,
       showSequenceControl: false,
-      tileSources: [`${SHARED_CONFIG.IIIF_ROOT}iiif/2/edepot:${fileName}/info.json`],
+      tileSources: [`${process.env.IIIF_ROOT}iiif/2/edepot:${fileName}/info.json`],
     }).addHandler('open', ({ eventSource }) => {
       setViewerInstance(eventSource)
     })
