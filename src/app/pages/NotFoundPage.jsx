@@ -10,7 +10,7 @@ const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(5)};
 `
 
-const NotFound = () => (
+const NotFoundPage = () => (
   <StyledRow>
     <Column
       span={{ small: 1, medium: 2, big: 6, large: 8, xLarge: 8 }}
@@ -39,4 +39,4 @@ const NotFound = () => (
   </StyledRow>
 )
 
-export default NotFound
+export default NotFoundPage

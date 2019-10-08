@@ -7,7 +7,6 @@ import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMe
 import { FeedbackModal, InfoModal } from './components/Modal'
 import PAGES, {
   isMapSplitPage,
-  isOldCmsPage,
   isEditorialPage,
   isEditorialOverviewPage,
   isQuerySearchPage,
@@ -15,7 +14,6 @@ import PAGES, {
 import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
-const ContentPage = React.lazy(() => import('./pages/ContentPage'))
 const HomePage = React.lazy(() => import('./pages/HomePage'))
 const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'))
 const QuerySearchPage = React.lazy(() => import('./pages/QuerySearchPage'))
@@ -32,7 +30,8 @@ const PublicationDetailPage = React.lazy(() => import('./pages/PublicationDetail
 const SpecialDetailPage = React.lazy(() => import('./pages/SpecialDetailPage'))
 const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverviewPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
-const NotFound = React.lazy(() => import('./pages/NotFound'))
+const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'))
+const MovedPage = React.lazy(() => import('./pages/MovedPage'))
 
 // The Container from @datapunt/asc-ui isnt used here as the margins added do not match the ones in the design
 const Container = styled.div`
@@ -123,8 +122,8 @@ const AppBody = ({
               {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
               {currentPage === PAGES.DATASETS && <DatasetPage />}
 
-              {currentPage === PAGES.NOT_FOUND && <NotFound />}
-              {isOldCmsPage(currentPage) && <ContentPage />}
+              {currentPage === PAGES.MOVED && <MovedPage />}
+              {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
             </div>
           </div>
         )}
