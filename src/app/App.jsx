@@ -114,7 +114,7 @@ const App = ({
   `
 
   function AppWrapper({ children }) {
-    return homePage || editorialPage || contentPage ? (
+    return hasMaxWidth ? (
       <StyledContainer beamColor="valid">
         <Helmet>
           <meta
