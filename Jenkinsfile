@@ -96,7 +96,7 @@ pipeline {
     // }
 
     stage('Build A') {
-      when { branch 'master' }
+      when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
@@ -110,7 +110,7 @@ pipeline {
     }
 
     stage('Deploy A (Master)') {
-      when { branch 'master' }
+      when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
