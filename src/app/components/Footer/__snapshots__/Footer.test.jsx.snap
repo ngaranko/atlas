@@ -217,21 +217,8 @@ exports[`Footer should render 1`] = `
           <Styled(List)>
             <Styled(ListItem)>
               <Styled(Link)
-                $as={
-                  Object {
-                    "$$typeof": Symbol(react.memo),
-                    "WrappedComponent": [Function],
-                    "compare": null,
-                    "displayName": "Connect(Link)",
-                    "type": [Function],
-                  }
-                }
+                href="https://www.amsterdam.nl/privacy/"
                 title="Privacy en cookies"
-                to={
-                  Object {
-                    "type": "atlasRouter/PROCLAIMER",
-                  }
-                }
                 variant="with-chevron"
               >
                 Privacy en cookies

@@ -114,7 +114,7 @@ const App = ({
   `
 
   function AppWrapper({ children }) {
-    return homePage || editorialPage ? (
+    return homePage || editorialPage || contentPage ? (
       <StyledContainer beamColor="valid">
         <Helmet>
           <meta
