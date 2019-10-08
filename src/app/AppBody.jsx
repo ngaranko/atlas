@@ -10,6 +10,7 @@ import PAGES, {
   isEditorialPage,
   isEditorialOverviewPage,
   isQuerySearchPage,
+  isContentPage,
 } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
@@ -79,10 +80,10 @@ const AppBody = ({
     'c-dashboard__body--backdrop': state.backdropKeys.length,
   })
 
-  const hasGrid = homePage || isEditorialPage(currentPage)
+  const hasGrid = homePage || isEditorialPage(currentPage) || isContentPage(currentPage)
 
   return hasGrid ? (
-    <Container hasBackdrop={state.backdropKeys.length}>
+    <Container hasBackdrop={state.backdropKeys.length} className="main-container">
       <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
         {homePage && <HomePage />}
         {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
@@ -90,6 +91,10 @@ const AppBody = ({
         {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
         {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
+
+        {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
+        {currentPage === PAGES.MOVED && <MovedPage />}
+        {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
 
         <FeedbackModal id="feedbackModal" />
         <InfoModal id="infoModal" open />
@@ -113,17 +118,12 @@ const AppBody = ({
                 </div>
               )}
 
-              {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
-
               {isMapSplitPage(currentPage) && <MapSplitPage />}
 
               {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
 
               {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
               {currentPage === PAGES.DATASETS && <DatasetPage />}
-
-              {currentPage === PAGES.MOVED && <MovedPage />}
-              {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
             </div>
           </div>
         )}
