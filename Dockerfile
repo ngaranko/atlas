@@ -15,8 +15,7 @@ RUN git config --global url."https://".insteadOf git:// && \
     npm --production=false \
         --unsafe-perm \
         --verbose \
-        ci && \
-    npm cache clean --force
+        ci
 
 # Build dependencies
 COPY src /app/src
