@@ -2,6 +2,7 @@ import { ROUTER_NAMESPACE, routing } from '../../app/routes'
 import { DATASET_ROUTE_MAPPER } from '../../shared/ducks/data-selection/constants'
 import PARAMETERS from '../parameters'
 import { VIEW_MODE } from '../../shared/ducks/ui/ui'
+import { HEADER_LINKS } from '../../shared/config/config'
 
 export const preserveQuery = (action, additionalParams = null) => ({
   ...action,
@@ -273,14 +274,8 @@ export const toNotFoundPage = () => ({
   type: routing.niet_gevonden.type,
 })
 
-export const toPrivacyPage = () => ({ type: routing.privacy_beveiliging.type })
-export const toAvailabilityPage = () => ({
-  type: routing.beschikbaar_kwaliteit.type,
-})
-export const toMaintentancePage = () => ({
-  type: routing.beheer_werkwijze.type,
-})
-export const toHelpPage = () => ({ type: routing.help.type })
+export const toHelpPage = () =>
+  toArticleDetail(HEADER_LINKS.HELP.id[process.env.NODE_ENV], HEADER_LINKS.HELP.slug)
 
 export const toArticleSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
   type: routing.articleSearch.type,
