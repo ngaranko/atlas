@@ -10,7 +10,6 @@ import {
 export function* fetchSuggestions(action) {
   try {
     const suggestions = yield call(autoSuggestSearch, action.query)
-    console.log(suggestions)
     yield put({ type: FETCH_SUGGESTIONS_SUCCESS, suggestions })
   } catch (error) {
     yield put({ type: FETCH_SUGGESTIONS_FAILURE, error })
