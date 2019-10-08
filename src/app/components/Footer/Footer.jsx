@@ -1,5 +1,4 @@
 import React from 'react'
-import RouterLink from 'redux-first-router-link'
 import styled from '@datapunt/asc-core'
 import {
   Link,
@@ -16,7 +15,6 @@ import {
   CompactThemeProvider,
   themeSpacing,
 } from '@datapunt/asc-ui'
-import { routing } from '../../routes'
 import HelpLinks from './HelpLinks'
 import FooterLinks from './FooterLinks'
 
@@ -65,13 +63,8 @@ const Footer = () => (
           <Column wrap span={{ small: 1, medium: 2, big: 6, large: 10, xLarge: 10 }}>
             <FooterBottomLinkList>
               <FooterBottomLinkListItem>
-                <StyledLink
-                  $as={RouterLink}
-                  to={{ type: routing.proclaimer.type }}
-                  variant="with-chevron"
-                  title="Privacy en cookies"
-                >
-                  Privacy en cookies
+                <StyledLink variant="with-chevron" {...FOOTER_LINKS.PRIVACY}>
+                  {FOOTER_LINKS.PRIVACY.title}
                 </StyledLink>
               </FooterBottomLinkListItem>
             </FooterBottomLinkList>

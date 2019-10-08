@@ -13,7 +13,7 @@ import {
 } from '@datapunt/asc-ui'
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
 import Helmet from 'react-helmet'
-import { isEditorialPage } from './pages'
+import { isEditorialPage, isContentPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -52,7 +52,8 @@ const App = ({
   hasEmbedButton,
 }) => {
   const editorialPage = isEditorialPage(currentPage)
-  const hasMaxWidth = homePage || editorialPage
+  const contentPage = isContentPage(currentPage)
+  const hasMaxWidth = homePage || editorialPage || contentPage
 
   // Redirect to the 404 page if currentPage isn't set
   if (currentPage === '' && window) {

@@ -2,9 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Divider, Modal, TopBar, Heading, Paragraph, Link } from '@datapunt/asc-ui'
 import { Close } from '@datapunt/asc-assets'
-import { routing } from '../../routes'
+import RouterLink from 'redux-first-router-link'
 import withModalBehaviour, { propTypes as modalPropTypes } from './withModalBehaviour'
 import ModalBlock from './ModalBlock'
+import { toHelpPage } from '../../../store/redux-first-router/actions'
 
 export const openFeedbackForm = () => {
   const openFeedbackFormEvent = new CustomEvent('openForm_feedbackModal')
@@ -91,7 +92,7 @@ const FeedbackModalComponent = ({
     </ModalBlock>
     <Divider transparent />
     <ModalBlock>
-      <Link linkType="inline" href={routing.help.path}>
+      <Link linkType="inline" to={toHelpPage} $as={RouterLink}>
         Hulp nodig?
       </Link>
     </ModalBlock>

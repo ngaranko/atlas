@@ -37,6 +37,12 @@ const PAGES = {
 
 export default PAGES
 
+export const isContentPage = page =>
+  page === PAGES.ACTUALITY ||
+  page === PAGES.LOGIN ||
+  page === PAGES.MOVED ||
+  page === PAGES.NOT_FOUND
+
 export const isEditorialDetailPage = page =>
   page === PAGES.ARTICLE_DETAIL ||
   page === PAGES.PUBLICATION_DETAIL ||
