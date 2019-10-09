@@ -5,20 +5,23 @@ import { connect } from 'react-redux'
 import { Heading, themeSpacing } from '@datapunt/asc-ui'
 import { getSearchQuery } from '../../../shared/ducks/data-search/selectors'
 
+const TabBarWrapperStyle = styled.div`
+  padding-top: ${themeSpacing(5)};
+`
+
 const StyledHeading = styled(Heading)`
-  margin-top: ${themeSpacing(5)};
   margin-bottom: ${themeSpacing(8)};
 `
 
 const TabBar = ({ numberOfDataResults, numberOfDatasetResults, searchQuery, children }) => (
-  <>
+  <TabBarWrapperStyle>
     <StyledHeading>
       {numberOfDataResults === 0 && numberOfDatasetResults === 0
         ? `Geen resultaten met '${searchQuery}'`
         : `Resultaten met '${searchQuery}'`}
     </StyledHeading>
     {children}
-  </>
+  </TabBarWrapperStyle>
 )
 
 TabBar.defaultProps = {

@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TabBar should render the component with no results 1`] = `
-<Fragment>
+<styled.div>
   <Styled(Heading)>
     Geen resultaten met 'dam'
   </Styled(Heading)>
-</Fragment>
+</styled.div>
 `;
 
 exports[`TabBar should render the component with results 1`] = `
-<Fragment>
+<styled.div>
   <Styled(Heading)>
     Resultaten met 'dam'
   </Styled(Heading)>
-</Fragment>
+</styled.div>
 `;
 
 exports[`TabBar should render the container 1`] = `
