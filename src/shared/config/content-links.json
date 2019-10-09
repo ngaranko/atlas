@@ -195,5 +195,86 @@
       },
       "slug": "services"
     }
+  },
+  "CONTENT_REDIRECTS": {
+    "ARTICLES": [
+      {
+        "from": "/content/beschikbaarheid-en-kwaliteit-data/",
+        "to": {
+          "id": {
+            "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+            "acceptance": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+            "production": "6f095138-5e73-4388-8300-489270fdd60a"
+          },
+          "slug": "bronnen"
+        }
+      },
+      {
+        "from": "/content/apis/",
+        "to": {
+          "id": {
+            "development": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
+            "acceptance": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
+            "production": "bb2dddf3-ddd1-4533-bcce-e33ea00a8a60"
+          },
+          "slug": "services"
+        }
+      },
+      {
+        "from": "/content/help/",
+        "to": {
+          "id": {
+            "development": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
+            "acceptance": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
+            "production": "de7d3101-354c-44f6-b94d-dde572239090"
+          },
+          "slug": "help"
+        }
+      },
+      {
+        "from": "/content/inloggen/",
+        "to": {
+          "id": {
+            "development": "96d46e1f-3610-4eb4-b489-b576fbdc550e",
+            "acceptance": "96d46e1f-3610-4eb4-b489-b576fbdc550e",
+            "production": "cb7275e3-9bbf-4082-ab76-fd6c436a3ab1"
+          },
+          "slug": "alleen-voor-medewerkers"
+        }
+      },
+      {
+        "from": "/content/gegevens/",
+        "to": {
+          "id": {
+            "development": "816ca097-8227-4010-8941-24009030050f",
+            "acceptance": "816ca097-8227-4010-8941-24009030050f",
+            "production": "16fd6ce4-43fc-458d-a91a-010602cb046c"
+          },
+          "slug": "gegevens"
+        }
+      },
+      {
+        "from": "/content/nieuws/",
+        "to": {
+          "id": {
+            "development": "6940c6ff-fecf-4b6f-9359-bc44cadc7004",
+            "acceptance": "6940c6ff-fecf-4b6f-9359-bc44cadc7004",
+            "production": "2653a7b9-49fb-4bcf-a15a-ebe129908281"
+          },
+          "slug": "updates"
+        }
+      },
+      {
+        "from": "/content/bediening/",
+        "to": {
+          "id": {
+            "development": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
+            "acceptance": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
+            "production": "088c348e-73cd-42e0-9998-4123186feded"
+          },
+          "slug": "wat-kun-je-hier"
+        }
+      }
+    ]
   }
 }
