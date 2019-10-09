@@ -1,9 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import Search from './Search'
-import { useAppReducer } from '../../../app/utils/useAppReducer'
-
-jest.mock('../../../app/utils/useAppReducer')
 
 describe('Search', () => {
   let component
@@ -17,8 +14,6 @@ describe('Search', () => {
     onOpenSearchBarToggle: onOpenSearchBarToggleMock,
     inputProps: {},
   }
-
-  useAppReducer.mockImplementation(() => ['', { setBackDrop: setBackDropMock }])
 
   beforeEach(() => {
     component = shallow(<Search {...props} />)

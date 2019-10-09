@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import styled, { css } from '@datapunt/asc-core'
 import { Header as HeaderComponent, styles, breakpoint } from '@datapunt/asc-ui'
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer'
-import { useAppReducer } from '../../utils/useAppReducer'
 import HeaderMenuContainer from './HeaderMenuContainer'
 
 import EmbedHeader from './EmbedHeader'
@@ -62,16 +61,6 @@ const Header = ({
   hidePrintMode,
   hideEmbedMode,
 }) => {
-  const [, actions] = useAppReducer('ui')
-  const setBackDrop = open => {
-    actions.setBackDrop({
-      payload: {
-        open,
-        key: 'menu',
-      },
-    })
-  }
-
   if (!printOrEmbedMode) {
     return (
       <HeaderWrapper isHomePage={homePage} data-test="header">
@@ -85,7 +74,7 @@ const Header = ({
             <React.Fragment>
               <HeaderSearchContainer />
               <MenuDefault data-test="header-menu-default" showAt="laptopM" />
-              <MenuMobile data-test="header-menu-mobile" hideAt="laptopM" onExpand={setBackDrop} />
+              <MenuMobile data-test="header-menu-mobile" hideAt="laptopM" />
             </React.Fragment>
           }
         />

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { SearchBar, SearchBarToggle } from '@datapunt/asc-ui'
-import { useAppReducer } from '../../../app/utils/useAppReducer'
+import { SearchBar, SearchBarToggle, Portal, BackDrop } from '@datapunt/asc-ui'
 
 const Search = ({
   showSuggestions,
@@ -11,29 +10,19 @@ const Search = ({
   onOpenSearchBarToggle,
   inputProps,
 }) => {
-  const [, actions] = useAppReducer('ui')
+  const [showBackdrop, setBackDrop] = React.useState(!!(showSuggestions && suggestions.length))
 
   const onOpenSearchToggle = open => {
     onOpenSearchBarToggle(open)
-
-    actions.setBackDrop({
-      payload: {
-        open,
-        key: 'search',
-      },
-    })
   }
 
-  const showBackdrop = !!(showSuggestions && suggestions.length)
-
   React.useEffect(() => {
-    actions.setBackDrop({
-      payload: {
-        open: showBackdrop,
-        key: 'search',
-      },
-    })
-  }, [showBackdrop])
+    const setBackDropFn = val => setBackDrop(val)
+
+    if (showSuggestions && suggestions.length) {
+      setBackDropFn(!!(showSuggestions && suggestions.length))
+    }
+  }, [showSuggestions, suggestions.length])
 
   return (
     <React.Fragment>
@@ -44,7 +33,13 @@ const Search = ({
         open={openSearchBarToggle}
         inputProps={inputProps}
         searchBarProps={searchBarProps}
+        hasBackDrop
       />
+      {showBackdrop && showSuggestions && (
+        <Portal>
+          <BackDrop onClick={() => setBackDrop(false)} />
+        </Portal>
+      )}
     </React.Fragment>
   )
 }

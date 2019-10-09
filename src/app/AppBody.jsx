@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react'
-import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import styled from '@datapunt/asc-core'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
@@ -12,7 +11,6 @@ import PAGES, {
   isQuerySearchPage,
   isContentPage,
 } from './pages'
-import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
@@ -47,12 +45,6 @@ const AppBody = ({
   currentPage,
   embedPreviewMode,
 }) => {
-  const [state] = useAppReducer('ui')
-
-  const extraBodyClasses = classNames({
-    'c-dashboard__body--backdrop': state.backdropKeys.length,
-  })
-
   const hasGrid = homePage || isEditorialPage(currentPage) || isContentPage(currentPage)
 
   return hasGrid ? (
@@ -75,7 +67,7 @@ const AppBody = ({
     </Container>
   ) : (
     <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
-      <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
+      <div className={`c-dashboard__body ${bodyClasses}`}>
         {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
         {embedPreviewMode ? (
           <EmbedIframeComponent />
