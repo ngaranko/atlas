@@ -30,7 +30,9 @@ COPY .babelrc \
       webpack.* \
       index.ejs \
       favicon.png \
-      .env.* \
+      .env.development \
+      .env.acceptance \
+      .env.production \
       /app/
 
 ARG NODE_ENV=production
