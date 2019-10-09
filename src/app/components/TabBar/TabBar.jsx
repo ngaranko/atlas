@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from '@datapunt/asc-core'
 import { connect } from 'react-redux'
+import { Heading, themeSpacing } from '@datapunt/asc-ui'
 import { getSearchQuery } from '../../../shared/ducks/data-search/selectors'
+
+const StyledHeading = styled(Heading)`
+  margin-top: ${themeSpacing(5)};
+  margin-bottom: ${themeSpacing(8)};
+`
 
 const TabBar = ({ numberOfDataResults, numberOfDatasetResults, searchQuery, children }) => (
   <div>
-    <h1 className="qa-tab-header__title c-tab-header__title">
+    <StyledHeading>
       {(numberOfDataResults !== 0 || numberOfDatasetResults !== 0) && (
         <span className="c-tab-header__title__text">
           Resultaten met &apos;
@@ -20,7 +27,7 @@ const TabBar = ({ numberOfDataResults, numberOfDatasetResults, searchQuery, chil
           &apos;
         </span>
       )}
-    </h1>
+    </StyledHeading>
     {children}
   </div>
 )
