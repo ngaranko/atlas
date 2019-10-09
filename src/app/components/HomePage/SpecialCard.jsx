@@ -17,6 +17,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import { focusOutline } from './services/styles'
+import getImageFromCms from '../../utils/getImageFromCms'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(2)};
@@ -101,7 +102,7 @@ const SpecialCard = ({
         </Paragraph>
       </StyledCardContent>
       <StyledCardMedia>
-        <Image src={teaserImage} alt={shortTitle || title} square />
+        <Image src={getImageFromCms(teaserImage, 160, 160)} alt={shortTitle || title} square />
       </StyledCardMedia>
     </StyledCard>
   </StyledLink>
