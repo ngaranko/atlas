@@ -11,25 +11,14 @@ const StyledHeading = styled(Heading)`
 `
 
 const TabBar = ({ numberOfDataResults, numberOfDatasetResults, searchQuery, children }) => (
-  <div>
+  <>
     <StyledHeading>
-      {(numberOfDataResults !== 0 || numberOfDatasetResults !== 0) && (
-        <span className="c-tab-header__title__text">
-          Resultaten met &apos;
-          {searchQuery}
-          &apos;
-        </span>
-      )}
-      {numberOfDataResults === 0 && numberOfDatasetResults === 0 && (
-        <span className="c-tab-header__title__text">
-          Geen resultaten met &apos;
-          {searchQuery}
-          &apos;
-        </span>
-      )}
+      {numberOfDataResults === 0 && numberOfDatasetResults === 0
+        ? `Geen resultaten met '${searchQuery}'`
+        : `Resultaten met '${searchQuery}'`}
     </StyledHeading>
     {children}
-  </div>
+  </>
 )
 
 TabBar.defaultProps = {
