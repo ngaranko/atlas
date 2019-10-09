@@ -4,7 +4,7 @@ LABEL maintainer="datapunt@amsterdam.nl"
 
 WORKDIR /app
 
-COPY package.json package-lock.json /app/
+COPY package.json package-lock.json .env.* /app/
 
 # Install all NPM dependencies, and:
 #  * Changing git URL because network is blocking git protocol...
@@ -30,9 +30,6 @@ COPY .babelrc \
       webpack.* \
       index.ejs \
       favicon.png \
-      .env.development \
-      .env.acceptance \
-      .env.production \
       /app/
 
 ARG NODE_ENV=production
