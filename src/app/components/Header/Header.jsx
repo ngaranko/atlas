@@ -84,11 +84,7 @@ const Header = ({
           navigation={
             <React.Fragment>
               <HeaderSearchContainer />
-              <MenuDefault
-                data-test="header-menu-default"
-                showAt="laptopM"
-                onExpand={setBackDrop}
-              />
+              <MenuDefault data-test="header-menu-default" showAt="laptopM" />
               <MenuMobile data-test="header-menu-mobile" hideAt="laptopM" onExpand={setBackDrop} />
             </React.Fragment>
           }

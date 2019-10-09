@@ -37,33 +37,6 @@ const MovedPage = React.lazy(() => import('./pages/MovedPage'))
 // The Container from @datapunt/asc-ui isnt used here as the margins added do not match the ones in the design
 const Container = styled.div`
   min-height: 50vh; // Makes sure the loading indicator is displayed in the Container
-
-  // Should be moved to @datapunt/asc-ui project https://github.com/Amsterdam/amsterdam-styled-components/issues/133
-  &::before {
-    display: block;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: opacity 0.2s ease-in-out;
-    background-color: rgba(0, 0, 0, 0.5);
-    content: '';
-    opacity: 0;
-    z-index: 101;
-    pointer-events: none;
-  }
-
-  ${({ hasBackdrop }) =>
-    hasBackdrop &&
-    `
-      &::before {
-        opacity: 1;
-          pointer-events: all;
-      }
-  `}
 `
 
 const AppBody = ({
@@ -83,7 +56,7 @@ const AppBody = ({
   const hasGrid = homePage || isEditorialPage(currentPage) || isContentPage(currentPage)
 
   return hasGrid ? (
-    <Container hasBackdrop={state.backdropKeys.length} className="main-container">
+    <Container id="main" className="main-container">
       <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
         {homePage && <HomePage />}
         {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
