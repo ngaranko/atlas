@@ -51,7 +51,7 @@ const StyledCardContainer = styled.div`
 `
 
 const NavigationBlock = () => (
-  <StyledCardContainer>
+  <StyledCardContainer data-test="navigation-block">
     {navigationLinks.map(linkProps => (
       <NavigationCard key={linkProps.id} {...linkProps} />
     ))}

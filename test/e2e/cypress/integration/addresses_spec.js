@@ -1,51 +1,38 @@
 import { getCountFromHeader } from '../support/helper-functions'
 import { DATA_SELECTION_TABLE, HEADINGS } from '../support/selectors'
 
-const dataSelection = '.c-data-selection'
-const homepage = '.c-homepage'
+const ADDRESS_PAGE_SELECTORS = {
+  pageUrl: '/data/bag/adressen/?modus=volledig',
+  mapContainer: 'qa-map-container',
+  dataSelection: '.c-data-selection',
+}
+
+const { pageUrl, mapContainer, dataSelection } = ADDRESS_PAGE_SELECTORS
 
 describe('addresses module', () => {
   beforeEach(() => {
     cy.server()
     cy.route('/dataselectie/bag/*').as('getResults')
 
-    // go to the homepage
-    cy.visit('/')
-    // the homepage should be visible
-    cy.get(homepage)
-      .should('exist')
-      .and('be.visible')
-    // check if the link is in the dom and visible
-    cy.get('#homepage-address-block')
-      .should('exist')
-      .and('be.visible')
-    // the data-selection should not exist yet
-    cy.get(dataSelection).should('not.exist')
-    // click on the link to go to the addresses
-    cy.get('.homepage-block__link')
-      .contains('Adressentabel')
-      .click()
-    // get the adresses page
-    cy.wait('@getResults')
-    // check if the page is loaded
+    // go to the addresses table
+    cy.visit(pageUrl)
+
+    // the address table should be visible
     cy.get(dataSelection)
       .should('exist')
       .and('be.visible')
   })
 
-  describe('user should be able to navigate to the addresses from the homepage', () => {
+  describe('user should see the addresses table in full mode', () => {
     it('should open the address catalogus', () => {
-      // the homepage should not be visible anymore
-      cy.get(homepage).should('not.be.visible')
-      // the data selection should exist
-      cy.get(dataSelection)
-        .should('exist')
-        .and('be.visible')
       // the title should contain Adressen
       cy.get(HEADINGS.dataSelectionHeading)
         .contains('Adressen')
         .should('exist')
         .and('be.visible')
+
+      // the map view is not visible
+      cy.get(mapContainer).should('not.exist')
     })
   })
 

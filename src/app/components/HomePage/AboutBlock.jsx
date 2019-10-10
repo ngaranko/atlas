@@ -91,7 +91,7 @@ const AboutBlock = () => {
   }, [])
 
   return (
-    <AboutBlockStyle>
+    <AboutBlockStyle data-test="about-block">
       <Row hasMargin={false}>
         <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
           <StyledHeading $as="h2" styleAs="h1">

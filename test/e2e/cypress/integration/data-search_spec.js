@@ -1,4 +1,5 @@
 import { SEARCH } from '../support/selectors'
+import { queries } from '../support/permissions-constants'
 
 describe('data search module', () => {
   before(() => {
@@ -25,7 +26,7 @@ describe('data search module', () => {
     cy.get('.auto-suggest')
       .should('exist')
       .and('be.visible')
-    cy.get('h4')
+    cy.get(queries.autoSuggestHeader)
       .contains('Straatnamen')
       .siblings('ul')
       .children('li')
