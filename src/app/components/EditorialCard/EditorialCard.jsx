@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@datapunt/asc-core'
+import styled, { ascDefaultTheme } from '@datapunt/asc-core'
 import {
   Card,
   CardContent,
@@ -14,6 +14,7 @@ import {
 } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
 import PAGES from '../../pages'
+import getImageFromCms from '../../utils/getImageFromCms'
 
 const notFoundImage = require('./not_found_thumbnail.jpg')
 
@@ -110,43 +111,60 @@ const EditorialCard = ({
   currentPage,
   imageIsVertical,
   to,
-}) => (
-  <StyledLinkWrapper key={id} to={to} linkType="blank">
-    <StyledCard horizontal>
-      <StyledCardMedia vertical={imageIsVertical}>
-        <Image
-          src={(currentPage === PAGES.PUBLICATIONS ? coverImage : teaserImage) || notFoundImage}
-          alt={title}
-          square
-        />
-      </StyledCardMedia>
-      <StyledCardContent>
-        <div>
-          <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
-        </div>
-
-        {specialType && (
+}) => {
+  const image = currentPage === PAGES.PUBLICATIONS ? coverImage : teaserImage
+  const resize = currentPage === PAGES.PUBLICATIONS ? 'fit' : 'fill'
+  const srcSet = {
+    srcSet: `${getImageFromCms(image, 100, 100, resize)} 70w,
+             ${getImageFromCms(image, 200, 100, resize)} 200w,
+             ${getImageFromCms(image, 400, 400, resize)} 400w`,
+  }
+  const sizes = {
+    sizes: `
+    (max-width: ${ascDefaultTheme.breakpoints.mobileL}px) 70px,
+    (max-width: ${ascDefaultTheme.breakpoints.tabletM}px) 200px,
+    400px
+    `,
+  }
+  return (
+    <StyledLinkWrapper key={id} to={to} linkType="blank">
+      <StyledCard horizontal>
+        <StyledCardMedia vertical={imageIsVertical}>
+          <Image
+            {...(image ? { ...srcSet, ...sizes } : {})}
+            src={getImageFromCms(image, 400, 400) || notFoundImage}
+            alt={title}
+            square
+          />
+        </StyledCardMedia>
+        <StyledCardContent>
           <div>
-            <StyledTag colorType="tint" colorSubtype="level3">
-              {specialType}
-            </StyledTag>
+            <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
           </div>
-        )}
 
-        <div>
-          <IntroText>{teaser || intro}</IntroText>
-        </div>
+          {specialType && (
+            <div>
+              <StyledTag colorType="tint" colorSubtype="level3">
+                {specialType}
+              </StyledTag>
+            </div>
+          )}
 
-        {localeDate && (
           <div>
-            <MetaText as="time" datetime={localeDate}>
-              {localeDateFormatted}
-            </MetaText>
+            <IntroText>{teaser || intro}</IntroText>
           </div>
-        )}
-      </StyledCardContent>
-    </StyledCard>
-  </StyledLinkWrapper>
-)
+
+          {localeDate && (
+            <div>
+              <MetaText as="time" datetime={localeDate}>
+                {localeDateFormatted}
+              </MetaText>
+            </div>
+          )}
+        </StyledCardContent>
+      </StyledCard>
+    </StyledLinkWrapper>
+  )
+}
 
 export default EditorialCard

@@ -19,6 +19,7 @@ import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
+import getImageFromCms from '../../utils/getImageFromCms'
 
 const PublicationDetailPage = ({ id }) => {
   const { fetchData, results, loading, error } = useFromCMS(cmsConfig.PUBLICATION, id)
@@ -79,7 +80,7 @@ const PublicationDetailPage = ({ id }) => {
                 </Column>
                 <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                   <DocumentCover
-                    imageSrc={coverImage}
+                    imageSrc={getImageFromCms(coverImage, 600, 0, 'fit')}
                     description={`Download PDF (${fileSize})`}
                     onClick={() => {
                       download(`${process.env.CMS_ROOT}${fileUrl && fileUrl.substring(1)}`)

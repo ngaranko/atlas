@@ -1,6 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import EditorialCard from './EditorialCard'
+import getImageFromCms from '../../utils/getImageFromCms'
+
+jest.mock('../../utils/getImageFromCms')
 
 describe('EditorialCard', () => {
   const mockDataItem = {
@@ -10,13 +13,15 @@ describe('EditorialCard', () => {
     teaserImage: 'thumbnail.jpg',
   }
 
+  getImageFromCms.mockImplementation(() => 'image.jpg')
+
   it('should display a cover image', () => {
     const component = shallow(<EditorialCard href="link" {...mockDataItem} />).dive()
 
     const image = component.find('Image')
 
     expect(image.exists()).toBeTruthy()
-    expect(image.props().src).toBe('thumbnail.jpg')
+    expect(image.props().src).toBe('image.jpg')
   })
 
   it("should display a placeholder when there's no cover image", () => {
@@ -27,7 +32,7 @@ describe('EditorialCard', () => {
     const image = component.find('Image')
 
     expect(image.exists()).toBeTruthy()
-    expect(image.props().src).toBe('test-file-stub')
+    expect(image.props().src).toBe('image.jpg')
   })
 
   it("should display a tag when there's one provided", () => {

@@ -31,6 +31,7 @@ import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownl
 import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import { EDITORIAL_FIELD_TYPE_VALUES } from '../EditorialOverviewPage/constants'
+import getImageFromCms from '../../utils/getImageFromCms'
 
 const ListItemContent = styled.div`
   display: flex;
@@ -63,6 +64,8 @@ const ArticleDetailPage = ({ id }) => {
     intro,
     field_type: articleType,
   } = results || {}
+
+  const image = getImageFromCms(coverImage, 1200, 600)
 
   React.useEffect(() => {
     if (error) {
@@ -118,13 +121,7 @@ const ArticleDetailPage = ({ id }) => {
       {!loading && (
         <StyledRow>
           <StyledContentContainer>
-            <Article
-              {...(coverImage
-                ? {
-                    image: typeof coverImage === 'string' ? coverImage : undefined,
-                  }
-                : {})}
-            >
+            <Article image={image}>
               <Row>
                 <EditorialContent>
                   <Column

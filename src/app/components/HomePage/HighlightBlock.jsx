@@ -8,6 +8,7 @@ import useFromCMS from '../../utils/useFromCMS'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import HighlightCard from './HighlightCard'
 import OverviewLink from './OverviewLink'
+import getImageFromCms from '../../utils/getImageFromCms'
 
 const HighlightBlockStyle = styled.div`
   position: relative;
@@ -89,6 +90,9 @@ const HighlightBlock = () => {
               loading={loading}
               showError={error}
               {...(results && results[0])}
+              teaserImage={
+                results && results[0] && getImageFromCms(results[0].teaserImage, 900, 900)
+              }
               styleAs="h2"
             />
           </ImageCardWrapperLarge>
@@ -97,7 +101,13 @@ const HighlightBlock = () => {
               results
                 .slice(1)
                 .map(result => (
-                  <HighlightCard key={result.id} loading={loading} showError={error} {...result} />
+                  <HighlightCard
+                    key={result.id}
+                    loading={loading}
+                    showError={error}
+                    {...result}
+                    teaserImage={getImageFromCms(result.teaserImage, 500, 500)}
+                  />
                 ))}
             {(error || loading) && (
               <>
