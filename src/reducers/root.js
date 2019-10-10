@@ -21,7 +21,6 @@ import DataSearchReducer, { DATA_SEARCH_REDUCER } from '../shared/ducks/data-sea
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection'
 import DataSelectionReducer, { DATA_SELECTION } from '../shared/ducks/data-selection/reducer'
 import DatasetReducer, { DATASETS } from '../shared/ducks/datasets/datasets'
-import ContentReducer, { CONTENT } from '../shared/ducks/content/reducer'
 import FilesReducer, { FILES_REDUCER } from '../shared/ducks/files/reducer'
 
 export default routeReducer => (oldState = {}, action) => {
@@ -49,7 +48,6 @@ export default routeReducer => (oldState = {}, action) => {
     [SELECTION]: SelectionReducer,
     [DATA_SELECTION]: DataSelectionReducer,
     [DATASETS]: DatasetReducer,
-    [CONTENT]: ContentReducer,
     [FILES_REDUCER]: FilesReducer,
   })
 

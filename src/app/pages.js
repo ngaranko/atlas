@@ -28,38 +28,20 @@ const PAGES = {
   PUBLICATION_SEARCH: 'PUBLICATION_SEARCH',
 
   // text pages
-  NEWS: 'NEWS',
-  PROCLAIMER: 'PROCLAIMER',
   ACTUALITY: 'ACTUALITY',
-  HELP: 'HELP',
-  CONTROLS: 'CONTROLS',
-  DATA_INFO: 'DATA_INFO',
-  ABOUT_API: 'ABOUT_API',
   LOGIN: 'LOGIN',
-  PRIVACY_SECURITY: 'PRIVACY_SECURITY',
-  AVAILABILITY_QUALITY: 'AVAILABILITY_QUALITY',
-  MANAGEMENT: 'MANAGEMENT',
-  STATISTICS: 'STATISTICS',
+
   MOVED: 'MOVED',
   NOT_FOUND: 'NOT_FOUND',
 }
 
 export default PAGES
 
-export const isOldCmsPage = page =>
-  page === PAGES.NEWS ||
-  page === PAGES.HELP ||
-  page === PAGES.PROCLAIMER ||
-  page === PAGES.CONTROLS ||
-  page === PAGES.CONTROLS ||
-  page === PAGES.DATA_INFO ||
-  page === PAGES.ABOUT_API ||
-  page === PAGES.PRIVACY_SECURITY ||
-  page === PAGES.AVAILABILITY_QUALITY ||
-  page === PAGES.STATISTICS ||
+export const isContentPage = page =>
+  page === PAGES.ACTUALITY ||
   page === PAGES.LOGIN ||
   page === PAGES.MOVED ||
-  page === PAGES.MANAGEMENT
+  page === PAGES.NOT_FOUND
 
 export const isEditorialDetailPage = page =>
   page === PAGES.ARTICLE_DETAIL ||

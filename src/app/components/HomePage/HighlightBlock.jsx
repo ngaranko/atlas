@@ -99,13 +99,12 @@ const HighlightBlock = () => {
                 .map(result => (
                   <HighlightCard key={result.id} loading={loading} showError={error} {...result} />
                 ))}
-            {error ||
-              (loading && (
-                <>
-                  <HighlightCard key={0} loading={loading} showError={error} />
-                  <HighlightCard key={1} loading={loading} showError={error} />
-                </>
-              ))}
+            {(error || loading) && (
+              <>
+                <HighlightCard key={0} loading={loading} showError={error} />
+                <HighlightCard key={1} loading={loading} showError={error} />
+              </>
+            )}
           </ImageCardWrapperSmall>
         </HighlightBlockInnerStyle>
       </HighlightBlockStyle>

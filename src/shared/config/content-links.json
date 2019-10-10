@@ -1,203 +1,280 @@
 {
-    "FOOTER": {
-        "COLOFON": [
-            {
-                "order": 1,
-                "title": "Databeleid",
-                "id": {
-                    "development": "29160257-dd4b-4349-a5df-d6f7715615ed",
-                    "acceptance": "29160257-dd4b-4349-a5df-d6f7715615ed",
-                    "production": "8af0598f-12a0-47c5-9327-938fade1159a"
-                },
-                "slug": "amsterdam-en-data"
-            },
-            {
-                "order": 2,
-                "title": "Bronnen",
-                "id": {
-                    "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
-                    "acceptance": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
-                    "production": "6f095138-5e73-4388-8300-489270fdd60a"
-                },
-                "slug": "bronnen"
-            },
-            {
-                "order": 3,
-                "title": "Over deze site",
-                "id": {
-                    "development": "6b474539-32fb-4a1c-929a-bbfefadadc08",
-                    "acceptance": "6b474539-32fb-4a1c-929a-bbfefadadc08",
-                    "production": "a5176bed-cad4-46d2-b501-a628370c9099"
-                },
-                "slug": "over-deze-site"
-            },
-            {
-                "order": 4,
-                "title": "Over OIS",
-                "id": {
-                    "development": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
-                    "acceptance": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
-                    "production": "8cf61560-0f90-4b81-84bf-900a6755159d"
-                },
-                "slug": "over-ois"
-            }
-        ],
-        "SOCIAL": [
-            {
-                "id": 0,
-                "order": 1,
-                "title": "Nieuwsbrief OIS",
-                "href": "https://www.amsterdam.nl/nieuwsbrieven/bestuur-organisatie/dienstverlening/nieuwsbrief-data/nieuwsbrief-data/"
-            },
-            {
-                "id": 1,
-                "order": 2,
-                "title": "Twitter",
-                "href": "https://twitter.com/AmsterdamNL"
-            },
-            {
-                "id": 2,
-                "order": 3,
-                "title": "Facebook",
-                "href": "https://www.facebook.com/gemeenteamsterdam"
-            },
-            {
-                "id": 3,
-                "order": 4,
-                "title": "LinkedIn",
-                "href": "https://www.linkedin.com/company/gemeente-amsterdam"
-            },
-            {
-                "id": 4,
-                "order": 5,
-                "title": "GitHub",
-                "href": "https://github.com/Amsterdam"
-            }
-        ],
-        "HELP": [
-            {
-                "order": 1,
-                "title": "Veelgestelde vragen",
-                "id": {
-                    "development": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
-                    "acceptance": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
-                    "production": "a939afed-ff98-4db1-a927-fe6c9bac1ae6"
-                },
-                "slug": "veelgestelde-vragen"
-            },
-            {
-                "order": 2,
-                "title": "Contact openemen",
-                "id": {
-                    "development": "aadfea20-7308-4caf-9126-a900f9e6df1f",
-                    "acceptance": "aadfea20-7308-4caf-9126-a900f9e6df1f",
-                    "production": "c8f4d1da-75f3-4ee7-93e8-256b201d6ccf"
-                },
-                "slug": "contact"
-            },
-            {
-                "order": 4,
-                "title": "Uitleg gebruik",
-                "id": {
-                    "development": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
-                    "acceptance": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
-                    "production": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c"
-                },
-                "slug": "wat-kun-je-hier"
-            }
-        ]
-    },
-    "HEADER": {
-        "ABOUT": [
-            {
-                "order": 1,
-                "title": "Onderzoek, Informatie en Statistiek",
-                "id": {
-                    "development": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
-                    "acceptance": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
-                    "production": "8cf61560-0f90-4b81-84bf-900a6755159d"
-                },
-                "slug": "over-ois"
-            },
-            {
-                "order": 2,
-                "title": "Onderzoek",
-                "id": {
-                    "development": "bd25761c-ca8c-4587-bdd8-6f77bd8bd7e3",
-                    "acceptance": "bd25761c-ca8c-4587-bdd8-6f77bd8bd7e3",
-                    "production": "3d7c706a-0898-4adc-b0e8-2c4c195ed7f9"
-                },
-                "slug": "onderzoek-door-ois"
-            },
-            {
-                "order": 3,
-                "title": "Databeleid",
-                "id": {
-                    "development": "29160257-dd4b-4349-a5df-d6f7715615ed",
-                    "acceptance": "29160257-dd4b-4349-a5df-d6f7715615ed",
-                    "production": "8af0598f-12a0-47c5-9327-938fade1159a"
-                },
-                "slug": "amsterdam-en-data"
-            },
-            {
-                "order": 4,
-                "title": "Bronnen",
-                "id": {
-                    "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
-                    "acceptance": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
-                    "production": "6f095138-5e73-4388-8300-489270fdd60a"
-                },
-                "slug": "bronnen"
-            },
-            {
-                "order": 5,
-                "title": "Contact",
-                "id": {
-                    "development": "aadfea20-7308-4caf-9126-a900f9e6df1f",
-                    "acceptance": "aadfea20-7308-4caf-9126-a900f9e6df1f",
-                    "production": "c8f4d1da-75f3-4ee7-93e8-256b201d6ccf"
-                },
-                "slug": "contact"
-            }
-        ],
-        "HELP": {
-            "title": "Help",
-            "id": {
-                "development": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
-                "acceptance": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
-                "production": "de7d3101-354c-44f6-b94d-dde572239090"
-            },
-            "slug": "help"
-        }
-    },
-    "NAVIGATION": {
-        "DATA_IN_TABLES": {
-            "title": "Tabellen",
-            "description": "Selecteer data en sla op als spreadsheet",
-            "id": {
-                "development": "647c0fd0-567e-4157-b7ee-94c7b8504235",
-                "acceptance": "647c0fd0-567e-4157-b7ee-94c7b8504235",
-                "production": "3f5a9b94-a9d8-417d-aac8-45971f4b3a43"
-            },
-            "slug": "tabellen"
-        },
-        "DATA_SERVICES": {
-            "title": "Data services",
-            "description": "Alles over het koppelen van data via APIs",
-            "id": {
-                "development": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
-                "acceptance": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
-                "production": "bb2dddf3-ddd1-4533-bcce-e33ea00a8a60"
-            },
-            "slug": "services"
-        }
-    },
-    "HELP": {
+  "FOOTER": {
+    "COLOFON": [
+      {
+        "order": 1,
+        "title": "Databeleid",
         "id": {
+          "development": "29160257-dd4b-4349-a5df-d6f7715615ed",
+          "acceptance": "29160257-dd4b-4349-a5df-d6f7715615ed",
+          "production": "8af0598f-12a0-47c5-9327-938fade1159a"
+        },
+        "slug": "amsterdam-en-data"
+      },
+      {
+        "order": 2,
+        "title": "Bronnen",
+        "id": {
+          "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+          "acceptance": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+          "production": "6f095138-5e73-4388-8300-489270fdd60a"
+        },
+        "slug": "bronnen"
+      },
+      {
+        "order": 3,
+        "title": "Over deze site",
+        "id": {
+          "development": "6b474539-32fb-4a1c-929a-bbfefadadc08",
+          "acceptance": "6b474539-32fb-4a1c-929a-bbfefadadc08",
+          "production": "a5176bed-cad4-46d2-b501-a628370c9099"
+        },
+        "slug": "over-deze-site"
+      },
+      {
+        "order": 4,
+        "title": "Over OIS",
+        "id": {
+          "development": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
+          "acceptance": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
+          "production": "8cf61560-0f90-4b81-84bf-900a6755159d"
+        },
+        "slug": "over-ois"
+      }
+    ],
+    "SOCIAL": [
+      {
+        "id": 0,
+        "order": 1,
+        "title": "Nieuwsbrief OIS",
+        "href": "https://www.amsterdam.nl/nieuwsbrieven/bestuur-organisatie/dienstverlening/nieuwsbrief-data/nieuwsbrief-data/"
+      },
+      {
+        "id": 1,
+        "order": 2,
+        "title": "Twitter",
+        "href": "https://twitter.com/AmsterdamNL"
+      },
+      {
+        "id": 2,
+        "order": 3,
+        "title": "Facebook",
+        "href": "https://www.facebook.com/gemeenteamsterdam"
+      },
+      {
+        "id": 3,
+        "order": 4,
+        "title": "LinkedIn",
+        "href": "https://www.linkedin.com/company/gemeente-amsterdam"
+      },
+      {
+        "id": 4,
+        "order": 5,
+        "title": "GitHub",
+        "href": "https://github.com/Amsterdam"
+      }
+    ],
+    "HELP": [
+      {
+        "order": 1,
+        "title": "Veelgestelde vragen",
+        "id": {
+          "development": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
+          "acceptance": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
+          "production": "a939afed-ff98-4db1-a927-fe6c9bac1ae6"
+        },
+        "slug": "veelgestelde-vragen"
+      },
+      {
+        "order": 2,
+        "title": "Contact opnemen",
+        "id": {
+          "development": "aadfea20-7308-4caf-9126-a900f9e6df1f",
+          "acceptance": "aadfea20-7308-4caf-9126-a900f9e6df1f",
+          "production": "c8f4d1da-75f3-4ee7-93e8-256b201d6ccf"
+        },
+        "slug": "contact"
+      },
+      {
+        "order": 4,
+        "title": "Uitleg gebruik",
+        "id": {
+          "development": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
+          "acceptance": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
+          "production": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c"
+        },
+        "slug": "wat-kun-je-hier"
+      }
+    ],
+    "PRIVACY": {
+      "title": "Privacy en cookies",
+      "href": "https://www.amsterdam.nl/privacy/"
+    }
+  },
+  "HEADER": {
+    "ABOUT": [
+      {
+        "order": 1,
+        "title": "Onderzoek, Informatie en Statistiek",
+        "id": {
+          "development": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
+          "acceptance": "4dba60f2-7161-4fd8-81e9-03eddb52d259",
+          "production": "8cf61560-0f90-4b81-84bf-900a6755159d"
+        },
+        "slug": "over-ois"
+      },
+      {
+        "order": 2,
+        "title": "Onderzoek",
+        "id": {
+          "development": "bd25761c-ca8c-4587-bdd8-6f77bd8bd7e3",
+          "acceptance": "bd25761c-ca8c-4587-bdd8-6f77bd8bd7e3",
+          "production": "3d7c706a-0898-4adc-b0e8-2c4c195ed7f9"
+        },
+        "slug": "onderzoek-door-ois"
+      },
+      {
+        "order": 3,
+        "title": "Databeleid",
+        "id": {
+          "development": "29160257-dd4b-4349-a5df-d6f7715615ed",
+          "acceptance": "29160257-dd4b-4349-a5df-d6f7715615ed",
+          "production": "8af0598f-12a0-47c5-9327-938fade1159a"
+        },
+        "slug": "amsterdam-en-data"
+      },
+      {
+        "order": 4,
+        "title": "Bronnen",
+        "id": {
+          "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+          "acceptance": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+          "production": "6f095138-5e73-4388-8300-489270fdd60a"
+        },
+        "slug": "bronnen"
+      },
+      {
+        "order": 5,
+        "title": "Contact",
+        "id": {
+          "development": "aadfea20-7308-4caf-9126-a900f9e6df1f",
+          "acceptance": "aadfea20-7308-4caf-9126-a900f9e6df1f",
+          "production": "c8f4d1da-75f3-4ee7-93e8-256b201d6ccf"
+        },
+        "slug": "contact"
+      }
+    ],
+    "HELP": {
+      "title": "Help",
+      "id": {
+        "development": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
+        "acceptance": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
+        "production": "de7d3101-354c-44f6-b94d-dde572239090"
+      },
+      "slug": "help"
+    }
+  },
+  "NAVIGATION": {
+    "DATA_IN_TABLES": {
+      "title": "Tabellen",
+      "description": "Selecteer data en sla op als spreadsheet",
+      "id": {
+        "development": "647c0fd0-567e-4157-b7ee-94c7b8504235",
+        "acceptance": "647c0fd0-567e-4157-b7ee-94c7b8504235",
+        "production": "3f5a9b94-a9d8-417d-aac8-45971f4b3a43"
+      },
+      "slug": "tabellen"
+    },
+    "DATA_SERVICES": {
+      "title": "Data services",
+      "description": "Alles over het koppelen van data via APIs",
+      "id": {
+        "development": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
+        "acceptance": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
+        "production": "bb2dddf3-ddd1-4533-bcce-e33ea00a8a60"
+      },
+      "slug": "services"
+    }
+  },
+  "CONTENT_REDIRECTS": {
+    "ARTICLES": [
+      {
+        "from": "/content/beschikbaarheid-en-kwaliteit-data/",
+        "to": {
+          "id": {
+            "development": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+            "acceptance": "e3bd02bc-ce8a-4ff3-8d2c-4d5138ef0115",
+            "production": "6f095138-5e73-4388-8300-489270fdd60a"
+          },
+          "slug": "bronnen"
+        }
+      },
+      {
+        "from": "/content/apis/",
+        "to": {
+          "id": {
+            "development": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
+            "acceptance": "42e0c7ce-1694-4468-ae45-ce0e63823a50",
+            "production": "bb2dddf3-ddd1-4533-bcce-e33ea00a8a60"
+          },
+          "slug": "services"
+        }
+      },
+      {
+        "from": "/content/help/",
+        "to": {
+          "id": {
             "development": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
             "acceptance": "4e5af47c-a67f-4cbc-be3c-7a0f410a45d6",
             "production": "de7d3101-354c-44f6-b94d-dde572239090"
-        },
-        "slug": "help"
-    }
+          },
+          "slug": "help"
+        }
+      },
+      {
+        "from": "/content/inloggen/",
+        "to": {
+          "id": {
+            "development": "96d46e1f-3610-4eb4-b489-b576fbdc550e",
+            "acceptance": "96d46e1f-3610-4eb4-b489-b576fbdc550e",
+            "production": "cb7275e3-9bbf-4082-ab76-fd6c436a3ab1"
+          },
+          "slug": "alleen-voor-medewerkers"
+        }
+      },
+      {
+        "from": "/content/gegevens/",
+        "to": {
+          "id": {
+            "development": "816ca097-8227-4010-8941-24009030050f",
+            "acceptance": "816ca097-8227-4010-8941-24009030050f",
+            "production": "16fd6ce4-43fc-458d-a91a-010602cb046c"
+          },
+          "slug": "gegevens"
+        }
+      },
+      {
+        "from": "/content/nieuws/",
+        "to": {
+          "id": {
+            "development": "6940c6ff-fecf-4b6f-9359-bc44cadc7004",
+            "acceptance": "6940c6ff-fecf-4b6f-9359-bc44cadc7004",
+            "production": "2653a7b9-49fb-4bcf-a15a-ebe129908281"
+          },
+          "slug": "updates"
+        }
+      },
+      {
+        "from": "/content/bediening/",
+        "to": {
+          "id": {
+            "development": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
+            "acceptance": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
+            "production": "088c348e-73cd-42e0-9998-4123186feded"
+          },
+          "slug": "wat-kun-je-hier"
+        }
+      }
+    ]
+  }
 }
