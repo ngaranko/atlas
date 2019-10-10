@@ -122,7 +122,7 @@ module.exports = () => {
         importWorkboxFrom: 'local',
         clientsClaim: true,
         skipWaiting: true,
-        exclude: [/\.map$/],
+        exclude: [/\.map$/, /\.json$/],
         navigateFallbackBlacklist: [
           // Exclude any URLs whose last part seems to be a file extension
           // as they're likely a resource and not a SPA route.
