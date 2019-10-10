@@ -51,12 +51,10 @@ const normalizeObject = (data, type) => {
     )
   }
 
-  const buildImageUrl = url => `${process.env.CMS_ROOT}${url}`
-
   const imageIsVertical = type === PAGES.PUBLICATIONS
 
-  const teaserImage = teaser_url && buildImageUrl(teaser_url)
-  const coverImage = media_image_url && buildImageUrl(media_image_url)
+  const teaserImage = teaser_url && teaser_url
+  const coverImage = media_image_url && media_image_url
 
   // Construct the file url when the type is PUBLICATION
   let fileUrl

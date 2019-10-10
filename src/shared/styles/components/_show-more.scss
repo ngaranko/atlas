@@ -12,6 +12,7 @@
 }
 
 .c-show-more--less {
+  background-color: $primary-light;
   @extend %link--min;
 }
 
@@ -26,9 +27,14 @@
 
 .c-show-more__container--collapsed {
   &::before {
-    background: linear-gradient(to bottom, $primary-light-alpha00 0%, $primary-light-alpha00 1%, $primary-light 100%);
+    background: linear-gradient(
+      to bottom,
+      $primary-light-alpha00 0%,
+      $primary-light-alpha00 1%,
+      $primary-light 100%
+    );
     bottom: 0;
-    content: "";
+    content: '';
     height: 72px;
     left: 0;
     position: absolute;

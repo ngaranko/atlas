@@ -4,19 +4,18 @@ LABEL maintainer="datapunt@amsterdam.nl"
 
 WORKDIR /app
 
-COPY package.json package-lock.json /app/
+COPY package.json package-lock.json .env.* /app/
 
 # Install all NPM dependencies, and:
 #  * Changing git URL because network is blocking git protocol...
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
-    npm config set registry https://nexus.data.amsterdam.nl/repository/npm-group/ && \
+#    npm config set registry https://nexus.data.amsterdam.nl/repository/npm-group/ && \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     npm --production=false \
         --unsafe-perm \
         --verbose \
-        ci && \
-    npm cache clean --force
+        ci
 
 # Build dependencies
 COPY src /app/src
@@ -31,7 +30,6 @@ COPY .babelrc \
       webpack.* \
       index.ejs \
       favicon.png \
-      .env.* \
       /app/
 
 ARG NODE_ENV=production
