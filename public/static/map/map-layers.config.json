@@ -2843,10 +2843,10 @@
                 "title": "In matige staat"
             },
             {
-                "title": "Redelijk goed"
+                "title": "In redelijk tot goede staat"
             },
             {
-                "title": "percelen",
+                "title": "Bijbehorende kadastrale percelen",
                 "layers": ["percelen"]
             }
         ],
