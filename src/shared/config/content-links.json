@@ -276,5 +276,42 @@
         }
       }
     ]
+  },
+  "HOMEPAGE": {
+    "SPECIALS": {
+      "id": {
+        "development": "9adfc6ee-a3ff-4632-ba75-86834bac5e92",
+        "acceptance": "9adfc6ee-a3ff-4632-ba75-86834bac5e92",
+        "production": "f444a5a7-5434-4b20-90a1-6a1e414c06a2"
+      }
+    },
+    "ORGANIZATION": {
+      "id": {
+        "development": "d1500833-cdac-4e4b-9914-a67f1fbaccbe",
+        "acceptance": "d1500833-cdac-4e4b-9914-a67f1fbaccbe",
+        "production": "c1caec02-b2f4-4e9f-8603-81e562ce4ded"
+      }
+    },
+    "ABOUT_DATA": {
+      "id": {
+        "development": "d9f076f2-74e6-4f5c-94c1-d95f2be1f2e0",
+        "acceptance": "d9f076f2-74e6-4f5c-94c1-d95f2be1f2e0",
+        "production": "721dc4f2-7f29-420a-a890-2a7a655ae647"
+      }
+    },
+    "ABOUT": {
+      "id": {
+        "development": "bb27218f-8fa3-40cc-8c23-8aae8eab445d",
+        "acceptance": "bb27218f-8fa3-40cc-8c23-8aae8eab445d",
+        "production": "ddfaba5c-d235-4d95-ab6d-25352d0e0789"
+      }
+    },
+    "HIGHLIGHT": {
+      "id": {
+        "development": "fffa0199-9a9a-4cce-86c4-7fe7bfed21a0",
+        "acceptance": "fffa0199-9a9a-4cce-86c4-7fe7bfed21a0",
+        "production": "9f02e2cd-b74d-474c-b251-c96e8416979d"
+      }
+    }
   }
 }

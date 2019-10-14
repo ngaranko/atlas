@@ -42,7 +42,7 @@ const navigationLinks = [
       </Icon>
     ),
     title: 'Publicaties',
-    description: 'Download fasctsheets en onderzoeksrapporten',
+    description: 'Download factsheets en onderzoeksrapporten',
   },
   {
     id: 3,
