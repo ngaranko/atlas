@@ -45,7 +45,7 @@ const StyledParagraph = styled(Paragraph)`
 `
 
 const OrganizationCard = ({ loading, title, shortTitle, teaser, intro, to, field_link: link }) => (
-  <StyledCard loading={loading}>
+  <StyledCard isLoading={loading}>
     <StyledCardContent>
       <StyledHeading $as="h4" styleAs="h3">
         {shortTitle || title}

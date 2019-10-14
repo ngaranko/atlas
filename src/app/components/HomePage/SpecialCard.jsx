@@ -86,8 +86,8 @@ const SpecialCard = ({
   teaserImage,
   to,
 }) => (
-  <StyledLink to={to} $as={RouterLink} linkType="blank">
-    <StyledCard horizontal animateLoading={!showError} loading={loading} showError={showError}>
+  <StyledLink {...(to ? { to, $as: RouterLink } : { $as: 'div' })} linkType="blank">
+    <StyledCard horizontal animateLoading={!showError} isLoading={loading} showError={showError}>
       <StyledCardContent>
         <StyledHeading $as="h4" styleAs="h3">
           {shortTitle || title}
@@ -102,7 +102,9 @@ const SpecialCard = ({
         </Paragraph>
       </StyledCardContent>
       <StyledCardMedia>
-        <Image src={getImageFromCms(teaserImage, 160, 160)} alt={shortTitle || title} square />
+        {teaserImage && (
+          <Image src={getImageFromCms(teaserImage, 160, 160)} alt={shortTitle || title} square />
+        )}
       </StyledCardMedia>
     </StyledCard>
   </StyledLink>
@@ -117,7 +119,7 @@ SpecialCard.defaultProps = {
   teaser: '',
   intro: '',
   teaserImage: '',
-  to: {},
+  to: null,
 }
 
 SpecialCard.propTypes = {

@@ -8,12 +8,6 @@ import resolveRedirects from './redirects'
 import ReduxContext from '../store/reduxContext'
 import './sentry'
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-  })
-}
-
 const store = configureStore(routes)
 
 resolveRedirects().then(hasToRedirect => {

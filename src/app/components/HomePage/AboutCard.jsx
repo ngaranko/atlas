@@ -48,8 +48,8 @@ const StyledLink = styled(Link)`
 `
 
 const AboutCard = ({ loading, shortTitle, title, teaser, intro, to }) => (
-  <StyledLink $as={RouterLink} linkType="blank" to={to}>
-    <StyledCard backgroundColor="level2" shadow loading={loading}>
+  <StyledLink {...(to ? { to, $as: RouterLink } : { $as: 'div' })} linkType="blank">
+    <StyledCard backgroundColor="level2" shadow isLoading={loading}>
       <StyledCardContent>
         <Heading $as="h4" styleAs="h3">
           {shortTitle || title}
@@ -66,7 +66,7 @@ AboutCard.defaultProps = {
   title: '',
   teaser: '',
   intro: '',
-  to: {},
+  to: null,
 }
 
 AboutCard.propTypes = {

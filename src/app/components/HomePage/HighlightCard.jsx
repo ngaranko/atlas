@@ -46,10 +46,10 @@ const StyledLink = styled(Link)`
 `
 
 const HighlightCard = ({ loading, showError, title, shortTitle, to, teaserImage, styleAs }) => (
-  <StyledLink to={to} $as={RouterLink} linkType="blank">
+  <StyledLink {...(to ? { to, $as: RouterLink } : { $as: 'div' })} linkType="blank">
     <ImageCard
       backgroundImage={teaserImage}
-      loading={loading || showError}
+      isLoading={loading || showError}
       animateLoading={!showError}
       alt={shortTitle || title}
     >
@@ -68,7 +68,7 @@ HighlightCard.defaultProps = {
   shortTitle: '',
   title: '',
   teaserImage: '',
-  to: {},
+  to: null,
 }
 
 HighlightCard.propTypes = {
