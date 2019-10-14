@@ -48,7 +48,7 @@ const OrganizationBlock = () => {
   }, [])
 
   return (
-    <StyledCardContainer>
+    <StyledCardContainer data-test="organization-block">
       <Row hasMargin={false}>
         <StyledHeading $as="h2" styleAs="h1">
           Onderzoek, Informatie en Statistiek

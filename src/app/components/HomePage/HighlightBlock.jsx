@@ -82,7 +82,7 @@ const HighlightBlock = () => {
 
   return (
     <>
-      <HighlightBlockStyle showError={error}>
+      <HighlightBlockStyle showError={error} data-test="highlight-block">
         {error && <ErrorMessage />}
         <HighlightBlockInnerStyle>
           <ImageCardWrapperLarge>

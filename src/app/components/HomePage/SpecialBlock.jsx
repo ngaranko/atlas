@@ -69,7 +69,7 @@ const SpecialBlock = () => {
       .map((x, i) => i)
 
   return (
-    <CardContainer>
+    <CardContainer data-test="special-block">
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
           <StyledHeading $as="h1">In Beeld</StyledHeading>
