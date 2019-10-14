@@ -5,6 +5,7 @@ exports[`ArticleDetailPage should render the publication when there are results 
   documentTitle="Artikel: This is a title"
   linkAction={null}
   loading={false}
+  title="This is a title"
 >
   <Styled(Row)>
     <Styled(ContentContainer)>

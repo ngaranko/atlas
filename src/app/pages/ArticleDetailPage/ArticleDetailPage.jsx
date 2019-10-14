@@ -117,7 +117,11 @@ const ArticleDetailPage = ({ id }) => {
   const isContentType = articleType === EDITORIAL_FIELD_TYPE_VALUES.CONTENT
 
   return (
-    <EditorialPage {...{ documentTitle, loading, linkAction }} description={intro}>
+    <EditorialPage
+      {...{ documentTitle, loading, linkAction, title }}
+      image={coverImage}
+      description={intro}
+    >
       {!loading && (
         <StyledRow>
           <StyledContentContainer>

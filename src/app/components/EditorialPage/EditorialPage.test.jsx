@@ -16,7 +16,7 @@ describe('EditorialPage', () => {
 
   beforeEach(() => {
     linkAttributesFromAction.mockImplementation(() => ({
-      href: 'https://this.is.alink',
+      href: '/this.is.alink',
     }))
     useDocumentTitle.mockImplementation(() => ({
       setDocumentTitle: mockSetDocumentTitle,
@@ -39,7 +39,7 @@ describe('EditorialPage', () => {
   it('should set the canonical title', () => {
     const link = component.find('link')
     expect(link).toBeTruthy()
-    expect(link.props().href).toBe('https://this.is.alink')
+    expect(link.props().href).toBe(`${process.env.ROOT}this.is.alink`)
   })
 
   it('should set the document title and send to analytics', () => {
