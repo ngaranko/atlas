@@ -5,6 +5,14 @@ LABEL maintainer="datapunt@amsterdam.nl"
 WORKDIR /app
 
 COPY package.json package-lock.json /app/
+COPY sitemap-generator /app/sitemap-generator
+COPY public /app/public
+
+RUN cd /app/sitemap-generator && \
+    npm i && \
+    npm run generate:sitemap && \
+    cd ../
+
 
 # Install all NPM dependencies, and:
 #  * Changing git URL because network is blocking git protocol...
@@ -15,13 +23,11 @@ RUN git config --global url."https://".insteadOf git:// && \
     npm --production=false \
         --unsafe-perm \
         --verbose \
-        ci && \
-    npm cache clean --force
+        ci
 
 # Build dependencies
 COPY src /app/src
 COPY modules /app/modules
-COPY public /app/public
 COPY scripts /app/scripts
 COPY .babelrc \
      .eslintrc.js \
