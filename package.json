@@ -16,6 +16,7 @@
     "clean": "npm run clean:dirs",
     "clean:dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build",
     "deploy-storybook": "storybook-to-ghpages",
+    "generate:sitemap": "node ./sitemap-generator/index.js",
     "lint": "npm run lint:js",
     "lint:js": "eslint --format=node_modules/eslint-formatter-pretty src modules test/e2e/cypress --ext js,jsx",
     "postinstall": "cp .env.development .env",

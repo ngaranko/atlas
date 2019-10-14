@@ -1,17 +1,19 @@
-const express = require('express')
-
-const bodyParser = require('body-parser')
 const buildXML = require('./buildXML')
-const app = express()
-const port = 3000
+const fs = require('fs')
+const path = require('path')
 
-app.use(bodyParser.json())
+const src = path.join(__dirname, '../public/static')
 
-app.get('/sitemap', async (req, res) => {
-  const result = await buildXML()
-  res.setHeader('Content-Type', 'text/xml')
-  res.write(result)
-  res.end()
-})
+buildXML()
+  .then(result => {
+    fs.writeFile(path.join(src, 'sitemap.xml'), result, function(err) {
+      if (err) {
+        return console.log(err)
+      }
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+      console.log('The file was saved!')
+    })
+  })
+  .catch(e => {
+    console.log(e)
+  })

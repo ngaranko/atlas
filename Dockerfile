@@ -8,11 +8,7 @@ COPY package.json package-lock.json .env.* /app/
 COPY sitemap-generator /app/sitemap-generator
 COPY public /app/public
 
-RUN cd /app/sitemap-generator && \
-    npm i && \
-    npm run generate:sitemap && \
-    cd ../
-
+RUN npm run generate:sitemap && \
 
 # Install all NPM dependencies, and:
 #  * Changing git URL because network is blocking git protocol...
