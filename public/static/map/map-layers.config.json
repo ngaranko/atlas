@@ -2831,6 +2831,7 @@
     },
     {
         "category": "MIL_ETC",
+        "authScope": "HR/R",
         "id": "asbest",
         "layers": [
             "daken"
