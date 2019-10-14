@@ -3,7 +3,7 @@ services:
   atlas: # NGINX
     build:
       args:
-        - BUILD_ENV=acc
+        - BUILD_ENV=acceptance
       context: .
     ipc: host
 

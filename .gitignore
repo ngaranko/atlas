@@ -13,3 +13,4 @@ src/shared/styles/config/mixins/_sprites.scss
 phantomjsdriver.log
 .vscode/
 .sb/
+sitemap.xml
