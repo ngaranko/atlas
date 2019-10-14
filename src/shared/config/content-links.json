@@ -81,7 +81,7 @@
         "id": {
           "development": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
           "acceptance": "a939afed-ff98-4db1-a927-fe6c9bac1ae6",
-          "production": "a939afed-ff98-4db1-a927-fe6c9bac1ae6"
+          "production": "e42a6157-6499-48db-95b6-cb271f7999f7"
         },
         "slug": "veelgestelde-vragen"
       },
@@ -101,7 +101,7 @@
         "id": {
           "development": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
           "acceptance": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c",
-          "production": "5a962d67-ae2d-41b5-9c1a-263591eb5b0c"
+          "production": "088c348e-73cd-42e0-9998-4123186feded"
         },
         "slug": "wat-kun-je-hier"
       }
