@@ -12,7 +12,6 @@ import {
   breakpoint,
 } from '@datapunt/asc-ui'
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
-import Helmet from 'react-helmet'
 import { isEditorialPage, isContentPage } from './pages'
 import './_app.scss'
 import {
@@ -116,12 +115,6 @@ const App = ({
   function AppWrapper({ children }) {
     return hasMaxWidth ? (
       <StyledContainer beamColor="valid">
-        <Helmet>
-          <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-          />
-        </Helmet>
         {children}
         <Footer />
       </StyledContainer>

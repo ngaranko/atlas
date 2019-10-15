@@ -103,9 +103,13 @@ const ArticleDetailPage = ({ id }) => {
   `
 
   const StyledContentContainer = styled(ContentContainer)`
-    @media screen and ${breakpoint('max-width', 'tabletM')} {
-      margin-top: 0px;
-    }
+    ${({ hasImage }) =>
+      hasImage &&
+      css`
+        @media screen and ${breakpoint('max-width', 'tabletM')} {
+          margin-top: 0px;
+        }
+      `}
   `
 
   const StyledRow = styled(Row)`
@@ -113,6 +117,10 @@ const ArticleDetailPage = ({ id }) => {
       padding-left: 0px;
       padding-right: 0px;
     }
+  `
+
+  const EditorialBodyStyled = styled(EditorialBody)`
+    width: 100%;
   `
 
   const isContentType = articleType === EDITORIAL_FIELD_TYPE_VALUES.CONTENT
@@ -125,7 +133,7 @@ const ArticleDetailPage = ({ id }) => {
     >
       {!loading && (
         <StyledRow>
-          <StyledContentContainer>
+          <StyledContentContainer hasImage={!!image}>
             <Article image={image}>
               <Row>
                 <EditorialContent>
@@ -135,7 +143,7 @@ const ArticleDetailPage = ({ id }) => {
                     push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                   >
                     <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
-                      <EditorialBody>
+                      <EditorialBodyStyled>
                         <StyledHeading $as="h1" isContentType={!isContentType}>
                           {title}
                         </StyledHeading>
@@ -150,7 +158,7 @@ const ArticleDetailPage = ({ id }) => {
                         {typeof body === 'string' && (
                           <CustomHTMLBlock body={body.replace('http://', 'https://')} />
                         )}
-                      </EditorialBody>
+                      </EditorialBodyStyled>
                     </Column>
                     <Column
                       span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}

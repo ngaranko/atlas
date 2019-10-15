@@ -93,8 +93,10 @@ const MetaText = styled(Paragraph)`
   padding-bottom: ${themeSpacing(4)};
   font-size: 14px;
   line-height: 1.25;
-  text-transform: capitalize;
   margin-top: auto;
+  &::first-letter {
+    text-transform: capitalize;
+  }
 `
 
 const EditorialCard = ({
