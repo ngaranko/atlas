@@ -36,6 +36,7 @@ import getImageFromCms from '../../utils/getImageFromCms'
 const ListItemContent = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   & > * {
     font-weight: 700;
@@ -186,7 +187,7 @@ const ArticleDetailPage = ({ id }) => {
                               {links.map(({ uri, title: linkTitle }) => (
                                 <ListItem key={uri}>
                                   <Link variant="with-chevron" href={`${uri}`}>
-                                    {linkTitle}
+                                    <span>{linkTitle}</span>
                                   </Link>
                                 </ListItem>
                               ))}
