@@ -42,9 +42,6 @@ describe('The dp-data-selection-download-button component', function() {
 
   beforeEach(function() {
     angular.mock.module('dpDataSelection', {
-      sharedConfig: {
-        API_ROOT: 'http://www.example.com/',
-      },
       store: {
         dispatch: angular.noop,
       },
@@ -87,7 +84,7 @@ describe('The dp-data-selection-download-button component', function() {
   it('will generate a download link for the current dataset', function() {
     const component = getComponent('dataset_a', {})
 
-    expect(component.find('a').attr('href')).toBe('http://www.example.com/datasets/a/download/')
+    expect(component.find('a').attr('href')).toContain('/datasets/a/download/')
   })
 
   it('will filters as parameters to the download link', function() {
@@ -98,8 +95,8 @@ describe('The dp-data-selection-download-button component', function() {
       filter_b: 'eenofanderewaarde',
     })
 
-    expect(component.find('a').attr('href')).toBe(
-      'http://www.example.com/datasets/a/download/?filter_b=eenofanderewaarde',
+    expect(component.find('a').attr('href')).toContain(
+      '/datasets/a/download/?filter_b=eenofanderewaarde',
     )
 
     // With two active filters
@@ -108,8 +105,8 @@ describe('The dp-data-selection-download-button component', function() {
       filter_b: 'eenofanderewaarde',
     })
 
-    expect(component.find('a').attr('href')).toBe(
-      'http://www.example.com/datasets/a/download/?filter_a=ingeschakeld&filter_b=eenofanderewaarde',
+    expect(component.find('a').attr('href')).toContain(
+      '/datasets/a/download/?filter_a=ingeschakeld&filter_b=eenofanderewaarde',
     )
   })
 
@@ -120,9 +117,8 @@ describe('The dp-data-selection-download-button component', function() {
       filter_b: 'Waarde met spaties',
     })
 
-    expect(component.find('a').attr('href')).toBe(
-      'http://www.example.com/datasets/a/download/?filter_a=%C3%A4%C3%A9%C3%AB&' +
-        'filter_b=Waarde%20met%20spaties',
+    expect(component.find('a').attr('href')).toContain(
+      '/datasets/a/download/?filter_a=%C3%A4%C3%A9%C3%AB&' + 'filter_b=Waarde%20met%20spaties',
     )
     expect(component.find('a').attr('href')).toContain('filter_a=%C3%A4%C3%A9%C3%AB')
     expect(component.find('a').attr('href')).toContain('filter_b=Waarde%20met%20spaties')
@@ -141,9 +137,7 @@ describe('The dp-data-selection-download-button component', function() {
     component = getComponent(dataset, activeFilters)
     const scope = component.isolateScope()
 
-    expect(component.find('a').attr('href')).toBe(
-      'http://www.example.com/datasets/a/download/?filter_a=hoi',
-    )
+    expect(component.find('a').attr('href')).toContain('/datasets/a/download/?filter_a=hoi')
 
     // Change the dataset and activeFilters
     scope.vm.dataset = 'dataset_b'
@@ -151,16 +145,16 @@ describe('The dp-data-selection-download-button component', function() {
     scope.vm.activeFilters.filter_b = 'hallo'
     component.isolateScope().$digest()
 
-    expect(component.find('a').attr('href')).toBe(
-      'http://www.example.com/datasets/b/download/?filter_b=hallo&dataset=ves',
+    expect(component.find('a').attr('href')).toContain(
+      '/datasets/b/download/?filter_b=hallo&dataset=ves',
     )
 
     component = getComponent(dataset, activeFilters, markers)
 
     component.isolateScope().$digest()
 
-    expect(component.find('a').attr('href')).toBe(
-      'http://www.example.com/datasets/a/download/?filter_b=hallo&shape=[[3,2],[5,4]]',
+    expect(component.find('a').attr('href')).toContain(
+      '/datasets/a/download/?filter_b=hallo&shape=[[3,2],[5,4]]',
     )
   })
 

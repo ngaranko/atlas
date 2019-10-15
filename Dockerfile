@@ -4,14 +4,9 @@ LABEL maintainer="datapunt@amsterdam.nl"
 
 WORKDIR /app
 
-COPY package.json package-lock.json /app/
+COPY package.json package-lock.json .env.* /app/
 COPY sitemap-generator /app/sitemap-generator
 COPY public /app/public
-
-RUN cd /app/sitemap-generator && \
-    npm i && \
-    npm run generate:sitemap && \
-    cd ../
 
 
 # Install all NPM dependencies, and:
@@ -24,6 +19,8 @@ RUN git config --global url."https://".insteadOf git:// && \
         --unsafe-perm \
         --verbose \
         ci
+
+RUN npm run generate:sitemap
 
 # Build dependencies
 COPY src /app/src
@@ -39,9 +36,9 @@ COPY .babelrc \
       favicon.png \
       /app/
 
-ENV NODE_ENV=production
-ARG BUILD_ENV=prod
-RUN npm run build:${BUILD_ENV}
+ARG NODE_ENV=production
+
+RUN npm run build:${NODE_ENV}
 RUN echo "build= `date`" > /app/dist/version.txt
 
 # Test dependencies
@@ -53,7 +50,7 @@ COPY test /app/test
 
 # Web server image
 FROM nginx:1.12.2-alpine
-ARG BUILD_ENV=prod
-COPY nginx-${BUILD_ENV}.conf /etc/nginx/nginx.conf
+ARG NODE_ENV=production
+COPY nginx-${NODE_ENV}.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/
 COPY --from=build-deps /app/dist /usr/share/nginx/html

@@ -264,10 +264,7 @@ describe('The auth service', () => {
       login()
 
       expect(global.location.assign).toHaveBeenCalledWith(
-        'https://acc.api.data.amsterdam.nl/' +
-          'oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata' +
-          `&scope=${encodedScopes}` +
-          '&state=123StateToken&redirect_uri=https%3A%2F%2Fdata.amsterdam.nl%2F',
+        `${process.env.API_ROOT}oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata&scope=${encodedScopes}&state=123StateToken&redirect_uri=https%3A%2F%2Fdata.amsterdam.nl%2F`,
       )
     })
   })

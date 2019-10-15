@@ -1,4 +1,4 @@
-import styled, { css } from '@datapunt/asc-core'
+import styled from '@datapunt/asc-core'
 import {
   breakpoint,
   Heading,
@@ -16,31 +16,11 @@ import { focusOutline } from './services/styles'
 const HighlightCardHeadingStyle = styled(Heading)`
   margin: 0;
 
-  @media screen and ${breakpoint('max-width', 'tabletM')} {
-    // Check why compact theme is not working as expected
-    font-size: 14px;
-    line-height: 17px;
-
-    ${({ large }) =>
-      large &&
-      css`
-        font-size: 20px;
-        line-height: 1.2;
-      `}
-
-  @media screen and ${breakpoint('min-width', 'tabletM')} and ${breakpoint(
-  'max-width',
-  'laptopM',
-)} {
-      // Check why compact theme is not working as expected
-      font-size: 14px;
-      line-height: 17px;
-    }
-
-    @media screen and ${breakpoint('max-width', 'mobileL')} {
-      font-size: 20px;
-      line-height: 1.2;
-    }
+  // Hard overwrite specifically for this component
+  @media screen and ${breakpoint('max-width', 'mobileL')} {
+    font-size: 18px;
+    line-height: 23px;
+  }
 `
 
 const StyledLink = styled(Link)`
@@ -65,16 +45,18 @@ const StyledLink = styled(Link)`
   }
 `
 
-const HighlightCard = ({ loading, showError, title, shortTitle, to, teaserImage }) => (
-  <StyledLink to={to} $as={RouterLink} linkType="blank">
+const HighlightCard = ({ loading, showError, title, shortTitle, to, teaserImage, styleAs }) => (
+  <StyledLink {...(to ? { to, $as: RouterLink } : { $as: 'div' })} linkType="blank">
     <ImageCard
       backgroundImage={teaserImage}
-      loading={loading || showError}
+      isLoading={loading || showError}
       animateLoading={!showError}
       alt={shortTitle || title}
     >
       <ImageCardContent>
-        <HighlightCardHeadingStyle $as="h4">{shortTitle || title}</HighlightCardHeadingStyle>
+        <HighlightCardHeadingStyle $as="h3" styleAs={styleAs || 'h4'}>
+          {shortTitle || title}
+        </HighlightCardHeadingStyle>
       </ImageCardContent>
     </ImageCard>
   </StyledLink>
@@ -86,7 +68,7 @@ HighlightCard.defaultProps = {
   shortTitle: '',
   title: '',
   teaserImage: '',
-  to: {},
+  to: null,
 }
 
 HighlightCard.propTypes = {

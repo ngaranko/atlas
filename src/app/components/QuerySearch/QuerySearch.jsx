@@ -19,7 +19,6 @@ import {
   PublicationSearchContext,
 } from '../EditorialSearch/editorialSearchContexts'
 import { getByUrl } from '../../../shared/services/api/api'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import {
   useArticleSearchDuck,
   usePublicationSearchDuck,
@@ -28,7 +27,7 @@ import {
 const fetchSearchData = async (actions, dispatch, endpoint) => {
   dispatch(actions.request())
   try {
-    const payload = await getByUrl(`${SHARED_CONFIG.API_ROOT}cms_search/search/${endpoint}`)
+    const payload = await getByUrl(`${process.env.API_ROOT}cms_search/search/${endpoint}`)
     dispatch(actions.success(payload))
   } catch (e) {
     dispatch(actions.failure())

@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+const fetch = require('isomorphic-fetch')
 
 const API_ENDPOINT = 'https://api.data.amsterdam.nl/cms_search/search/'
 

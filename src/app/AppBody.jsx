@@ -7,16 +7,15 @@ import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMe
 import { FeedbackModal, InfoModal } from './components/Modal'
 import PAGES, {
   isMapSplitPage,
-  isOldCmsPage,
   isEditorialPage,
   isEditorialOverviewPage,
   isQuerySearchPage,
+  isContentPage,
 } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
-const ContentPage = React.lazy(() => import('./pages/ContentPage'))
-const Home = React.lazy(() => import('./pages/Home'))
+const HomePage = React.lazy(() => import('./pages/HomePage'))
 const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'))
 const QuerySearchPage = React.lazy(() => import('./pages/QuerySearchPage'))
 const DatasetPage = React.lazy(() => import('./pages/DatasetPage'))
@@ -32,11 +31,12 @@ const PublicationDetailPage = React.lazy(() => import('./pages/PublicationDetail
 const SpecialDetailPage = React.lazy(() => import('./pages/SpecialDetailPage'))
 const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverviewPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
-const NotFound = React.lazy(() => import('./pages/NotFound'))
+const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'))
+const MovedPage = React.lazy(() => import('./pages/MovedPage'))
 
 // The Container from @datapunt/asc-ui isnt used here as the margins added do not match the ones in the design
 const Container = styled.div`
-  min-height: 50vh; // Makes sure the loading indicator is displayed inside the page
+  min-height: 50vh; // Makes sure the loading indicator is displayed in the Container
 
   // Should be moved to @datapunt/asc-ui project https://github.com/Amsterdam/amsterdam-styled-components/issues/133
   &::before {
@@ -80,16 +80,21 @@ const AppBody = ({
     'c-dashboard__body--backdrop': state.backdropKeys.length,
   })
 
-  const hasGrid = isEditorialPage(currentPage)
+  const hasGrid = homePage || isEditorialPage(currentPage) || isContentPage(currentPage)
 
   return hasGrid ? (
-    <Container hasBackdrop={state.backdropKeys.length}>
+    <Container hasBackdrop={state.backdropKeys.length} className="main-container">
       <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
+        {homePage && <HomePage />}
         {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
         {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
         {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
         {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
+
+        {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
+        {currentPage === PAGES.MOVED && <MovedPage />}
+        {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
 
         <FeedbackModal id="feedbackModal" />
         <InfoModal id="infoModal" open />
@@ -104,8 +109,6 @@ const AppBody = ({
         ) : (
           <div className="u-grid u-full-height">
             <div className="u-row u-full-height">
-              {homePage && <Home showFooter />}
-
               {isQuerySearchPage(currentPage) && <QuerySearchPage />}
 
               {/* Todo: DP-6391 */}
@@ -115,17 +118,12 @@ const AppBody = ({
                 </div>
               )}
 
-              {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
-
               {isMapSplitPage(currentPage) && <MapSplitPage />}
 
               {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
 
               {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
               {currentPage === PAGES.DATASETS && <DatasetPage />}
-
-              {currentPage === PAGES.NOT_FOUND && <NotFound />}
-              {isOldCmsPage(currentPage) && <ContentPage />}
             </div>
           </div>
         )}

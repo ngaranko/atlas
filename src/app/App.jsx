@@ -13,7 +13,7 @@ import {
 } from '@datapunt/asc-ui'
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
 import Helmet from 'react-helmet'
-import { isOldCmsPage, isEditorialPage } from './pages'
+import { isEditorialPage, isContentPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -32,7 +32,6 @@ import Header from './components/Header'
 import { AppStateProvider } from './utils/useAppReducer'
 import AppBody from './AppBody'
 import main, { initialState } from './react-reducers'
-import { getEnvironment } from '../shared/environment'
 import { MATOMO_CONFIG } from '../store/middleware/matomo/constants'
 import { routing } from './routes'
 import Footer from './components/Footer/Footer'
@@ -53,7 +52,8 @@ const App = ({
   hasEmbedButton,
 }) => {
   const editorialPage = isEditorialPage(currentPage)
-  const hasMaxWidth = homePage || editorialPage || isOldCmsPage(currentPage)
+  const contentPage = isContentPage(currentPage)
+  const hasMaxWidth = homePage || editorialPage || contentPage
 
   // Redirect to the 404 page if currentPage isn't set
   if (currentPage === '' && window) {
@@ -101,20 +101,20 @@ const App = ({
 
   const matomoInstance = createInstance({
     urlBase: MATOMO_CONFIG.BASE_URL,
-    siteId: MATOMO_CONFIG[getEnvironment(window.location.hostname)].SITE_ID,
+    siteId: MATOMO_CONFIG[process.env.NODE_ENV].SITE_ID,
   })
 
   const StyledContainer = styled(Container)`
     background-color: ${themeColor('tint', 'level1')};
-
     position: relative;
+
     @media screen and ${breakpoint('min-width', 'laptopM')} {
       margin: 0 ${themeSpacing(6)};
     }
   `
 
   function AppWrapper({ children }) {
-    return editorialPage ? (
+    return hasMaxWidth ? (
       <StyledContainer beamColor="valid">
         <Helmet>
           <meta
@@ -123,7 +123,7 @@ const App = ({
           />
         </Helmet>
         {children}
-        {!homePage && <Footer />}
+        <Footer />
       </StyledContainer>
     ) : (
       <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>

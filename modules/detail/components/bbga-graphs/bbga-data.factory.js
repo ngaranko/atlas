@@ -1,9 +1,9 @@
 ;(function() {
   angular.module('dpDetail').factory('bbgaDataService', bbgaDataService)
 
-  bbgaDataService.$inject = ['$q', 'api', 'BBGA_CONFIG', 'sharedConfig']
+  bbgaDataService.$inject = ['$q', 'api', 'BBGA_CONFIG']
 
-  function bbgaDataService($q, api, BBGA_CONFIG, sharedConfig) {
+  function bbgaDataService($q, api, BBGA_CONFIG) {
     return {
       getGraphData,
     }

@@ -1,4 +1,3 @@
-import SHARED_CONFIG from '../shared-config/shared-config'
 import { getByUrl } from '../api/api'
 
 /** Matches the key (enum) of a type to a label (enumName) */
@@ -40,6 +39,6 @@ function getCatalogFilters(data) {
 }
 
 export default async function fetchApiSpecification() {
-  const data = await getByUrl(`${SHARED_CONFIG.API_ROOT}dcatd/openapi`)
+  const data = await getByUrl(`${process.env.API_ROOT}dcatd/openapi`)
   return getCatalogFilters(data)
 }

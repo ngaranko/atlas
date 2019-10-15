@@ -11,7 +11,7 @@ import {
 } from '@datapunt/asc-ui'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
-import cmsConfig from '../../../shared/config/cms.config'
+import { cmsConfig } from '../../../shared/config/config'
 import { toSpecialOverview } from '../../../store/redux-first-router/actions'
 import useFromCMS from '../../utils/useFromCMS'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
@@ -69,7 +69,7 @@ const SpecialBlock = () => {
       .map((x, i) => i)
 
   return (
-    <CardContainer>
+    <CardContainer data-test="special-block">
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
           <StyledHeading $as="h1">In Beeld</StyledHeading>

@@ -96,21 +96,21 @@ pipeline {
     // }
 
     stage('Build A') {
-      when { branch 'master' }
+      when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
       steps {
         sh "docker build -t ${IMAGE_BUILD} " +
           "--shm-size 1G " +
-          "--build-arg BUILD_ENV=acc " +
+          "--build-arg NODE_ENV=acceptance " +
           "."
         sh "docker push ${IMAGE_BUILD}"
       }
     }
 
     stage('Deploy A (Master)') {
-      when { branch 'master' }
+      when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
@@ -126,12 +126,12 @@ pipeline {
     }
 
     stage('Build P (Master)') {
-      when { branch 'master' }
+      when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
       steps {
-        // NOTE BUILD_ENV intentionaly not set (using Dockerfile default)
+        // NOTE NODE_ENV intentionaly not set (using Dockerfile default)
         sh "docker build -t ${IMAGE_PRODUCTION} " +
             "--shm-size 1G " +
             "."
@@ -142,7 +142,7 @@ pipeline {
     }
 
     stage('Deploy pre P (Master)') {
-      when { branch 'master' }
+      when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }

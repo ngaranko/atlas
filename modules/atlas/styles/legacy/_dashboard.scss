@@ -28,7 +28,8 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
 
 .c-dashboard__error {
   position: fixed;
-  top: $dashboard-heading-height + $dashboard-heading-shadow-height;
+  top: $dashboard-heading-height;
+  height: $dashboard-error-height;
   width: 100%;
   z-index: $fixed-position-z-index;
 }
@@ -39,8 +40,11 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
   z-index: $body-z-index;
 
   &--error {
-    top: $dashboard-heading-height + $dashboard-error-height;
-    height: calc(100% - #{$dashboard-heading-height + $dashboard-error-height});
+    top: $dashboard-error-height + $dashboard-heading-shadow-height;
+    height: calc(
+      100% - #{$dashboard-heading-height + $dashboard-error-height +
+        $dashboard-heading-shadow-height}
+    );
   }
 
   &--overflow {
@@ -50,7 +54,7 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
   &::before {
     display: block;
     position: fixed;
-    top: 0;
+    top: $site-header-height;
     right: 0;
     bottom: 0;
     left: 0;

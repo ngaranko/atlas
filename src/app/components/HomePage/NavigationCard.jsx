@@ -79,14 +79,16 @@ const StyledCardContent = styled(CardContent)`
 `
 
 const StyledCardActions = styled(CardActions)`
+  width: auto;
   padding-left: 0 !important;
 `
 
 const StyledParagraph = styled(Paragraph)`
-  // Check why compact theme is not working as expected
+  // Hard overwrite specifically for this component
   font-size: 14px;
   line-height: 17px;
   height: 34px; // two times the line-height
+  width: 100%;
   overflow: hidden; // make sure the text doesn't falls outside this Paragraph
 `
 

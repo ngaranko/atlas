@@ -1,6 +1,5 @@
 import mockedApiResponseJson from './data-selection-api-dcatd.factory.test.response.json'
 import * as dataSelectionConfig from './data-selection-config'
-import sharedConfig from '../shared-config/shared-config'
 import { query } from './data-selection-api-dcatd'
 import * as api from '../api/api'
 
@@ -89,10 +88,10 @@ describe('The dataSelectionApiDcatd factory', () => {
     }
     dataSelectionConfig.default = config
     api.getByUrl = jest.fn(url => {
-      if (url === `${sharedConfig.API_ROOT}dcatd/reject`) {
+      if (url === `${process.env.API_ROOT}dcatd/reject`) {
         return Promise.reject()
       }
-      if (url === `${sharedConfig.API_ROOT}dcatd/empty`) {
+      if (url === `${process.env.API_ROOT}dcatd/empty`) {
         return Promise.resolve(mockedEmptyApiResponse)
       }
       return Promise.resolve(mockedApiResponse)
@@ -102,7 +101,7 @@ describe('The dataSelectionApiDcatd factory', () => {
   it('calls the api factory with when no parameters are provided', async () => {
     const output = await query(config, 'CATALOG', {}, 1)
     expect(Object.keys(output.filters).length).toBe(0)
-    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+    expect(api.getByUrl).toHaveBeenCalledWith(process.env.API_ROOT + config.ENDPOINT_PREVIEW, {
       offset: 0,
       limit: config.MAX_ITEMS_PER_PAGE,
     })
@@ -121,7 +120,7 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+    expect(api.getByUrl).toHaveBeenCalledWith(process.env.API_ROOT + config.ENDPOINT_PREVIEW, {
       offset: 0,
       limit: config.MAX_ITEMS_PER_PAGE,
       q: 'searchText',
@@ -143,7 +142,7 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+    expect(api.getByUrl).toHaveBeenCalledWith(process.env.API_ROOT + config.ENDPOINT_PREVIEW, {
       offset: 0,
       limit: config.MAX_ITEMS_PER_PAGE,
       q: 'searchText',
@@ -153,7 +152,7 @@ describe('The dataSelectionApiDcatd factory', () => {
 
     // With another page
     query(config, 'CATALOG', {}, 2, 'searchText', undefined, catalogFilters)
-    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+    expect(api.getByUrl).toHaveBeenCalledWith(process.env.API_ROOT + config.ENDPOINT_PREVIEW, {
       offset: 2,
       limit: config.MAX_ITEMS_PER_PAGE,
       q: 'searchText',
@@ -173,7 +172,7 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+    expect(api.getByUrl).toHaveBeenCalledWith(process.env.API_ROOT + config.ENDPOINT_PREVIEW, {
       offset: 0,
       limit: config.MAX_ITEMS_PER_PAGE,
       q: 'searchText',
@@ -194,7 +193,7 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+    expect(api.getByUrl).toHaveBeenCalledWith(process.env.API_ROOT + config.ENDPOINT_PREVIEW, {
       offset: 0,
       limit: config.MAX_ITEMS_PER_PAGE,
       q: 'searchText',
@@ -215,7 +214,7 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+    expect(api.getByUrl).toHaveBeenCalledWith(process.env.API_ROOT + config.ENDPOINT_PREVIEW, {
       offset: 0,
       limit: config.MAX_ITEMS_PER_PAGE,
       q: 'searchText',
@@ -236,7 +235,7 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+    expect(api.getByUrl).toHaveBeenCalledWith(process.env.API_ROOT + config.ENDPOINT_PREVIEW, {
       offset: 0,
       limit: config.MAX_ITEMS_PER_PAGE,
       q: 'searchText',
@@ -276,7 +275,7 @@ describe('The dataSelectionApiDcatd factory', () => {
       'dct:title': 'Activiteiten',
       _links: {
         self: {
-          href: `${sharedConfig.API_ROOT}dcatd/datasets/642f15c7-8368-4795-9e3d-1a87fa7e562a`,
+          href: `${process.env.API_ROOT}dcatd/datasets/642f15c7-8368-4795-9e3d-1a87fa7e562a`,
         },
       },
     })

@@ -16,26 +16,27 @@ import {
   themeColor,
   Paragraph,
   themeSpacing,
+  breakpoint,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
 import download from 'downloadjs'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
-import './ArticleDetailPage.scss'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
-import cmsConfig from '../../../shared/config/cms.config'
+import { cmsConfig } from '../../../shared/config/config'
 import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
 import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import { EDITORIAL_FIELD_TYPE_VALUES } from '../EditorialOverviewPage/constants'
+import getImageFromCms from '../../utils/getImageFromCms'
 
 const ListItemContent = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   & > * {
     font-weight: 700;
@@ -64,6 +65,8 @@ const ArticleDetailPage = ({ id }) => {
     intro,
     field_type: articleType,
   } = results || {}
+
+  const image = getImageFromCms(coverImage, 1200, 600)
 
   React.useEffect(() => {
     if (error) {
@@ -99,101 +102,112 @@ const ArticleDetailPage = ({ id }) => {
       `}
   `
 
+  const StyledContentContainer = styled(ContentContainer)`
+    @media screen and ${breakpoint('max-width', 'tabletM')} {
+      margin-top: 0px;
+    }
+  `
+
+  const StyledRow = styled(Row)`
+    @media screen and ${breakpoint('max-width', 'tabletM')} {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  `
+
   const isContentType = articleType === EDITORIAL_FIELD_TYPE_VALUES.CONTENT
 
   return (
-    <EditorialPage {...{ documentTitle, loading, linkAction }} description={intro}>
+    <EditorialPage
+      {...{ documentTitle, loading, linkAction, title }}
+      image={coverImage}
+      description={intro}
+    >
       {!loading && (
-        <div className="article">
-          <Row className="article__row">
-            <ContentContainer>
-              <Article
-                {...(coverImage
-                  ? {
-                      image: typeof coverImage === 'string' ? coverImage : undefined,
-                    }
-                  : {})}
-              >
-                <Row className="article__row">
-                  <EditorialContent>
-                    <Column
-                      wrap
-                      span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
-                      push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
-                    >
-                      <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
-                        <EditorialBody>
-                          <StyledHeading $as="h1" isContentType={!isContentType}>
-                            {title}
-                          </StyledHeading>
-                          {isContentType && (
-                            <EditorialMetaList
-                              dateTime={localeDate}
-                              dateFormatted={localeDateFormatted}
-                              fields={byline && [{ id: 1, label: byline }]}
-                            />
-                          )}
-                          <Paragraph strong>{intro}</Paragraph>
-                          <CustomHTMLBlock body={body} />
-                        </EditorialBody>
-                      </Column>
-                      <Column
-                        span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
-                        push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
-                      >
-                        <EditorialSidebar>
-                          {normalizedDownloads && normalizedDownloads.length ? (
-                            <>
-                              <Heading as="h2">Downloads</Heading>
-                              <List>
-                                {normalizedDownloads.map(({ fileName, key, type, size, url }) => (
-                                  <ListItem key={key}>
-                                    <DownloadLink
-                                      $as="button"
-                                      onClick={() => {
-                                        download(`${SHARED_CONFIG.CMS_ROOT}${url}`)
-                                      }}
-                                      variant="with-chevron"
-                                    >
-                                      <ListItemContent>
-                                        <span>{fileName}</span>
-                                        <Typography as="small">({`${type} ${size}`})</Typography>
-                                      </ListItemContent>
-                                    </DownloadLink>
-                                  </ListItem>
-                                ))}
-                              </List>
-                            </>
-                          ) : null}
-                          {links && links.length ? (
-                            <>
-                              <Heading as="h2">Links</Heading>
-                              <List>
-                                {links.map(({ uri, title: linkTitle }) => (
-                                  <ListItem key={uri}>
-                                    <Link variant="with-chevron" href={`${uri}`}>
-                                      {linkTitle}
-                                    </Link>
-                                  </ListItem>
-                                ))}
-                              </List>
-                            </>
-                          ) : null}
-                        </EditorialSidebar>
-                      </Column>
+        <StyledRow>
+          <StyledContentContainer>
+            <Article image={image}>
+              <Row>
+                <EditorialContent>
+                  <Column
+                    wrap
+                    span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
+                    push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
+                  >
+                    <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
+                      <EditorialBody>
+                        <StyledHeading $as="h1" isContentType={!isContentType}>
+                          {title}
+                        </StyledHeading>
+                        {isContentType && (
+                          <EditorialMetaList
+                            dateTime={localeDate}
+                            dateFormatted={localeDateFormatted}
+                            fields={byline && [{ id: 1, label: byline }]}
+                          />
+                        )}
+                        <Paragraph strong>{intro}</Paragraph>
+                        {typeof body === 'string' && (
+                          <CustomHTMLBlock body={body.replace('http://', 'https://')} />
+                        )}
+                      </EditorialBody>
                     </Column>
                     <Column
-                      span={{ small: 1, medium: 2, big: 4, large: 11, xLarge: 11 }}
-                      push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
+                      span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
+                      push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
                     >
-                      <ShareBar topSpacing={6} />
+                      <EditorialSidebar>
+                        {normalizedDownloads && normalizedDownloads.length ? (
+                          <>
+                            <Heading as="h2">Downloads</Heading>
+                            <List>
+                              {normalizedDownloads.map(({ fileName, key, type, size, url }) => (
+                                <ListItem key={key}>
+                                  <DownloadLink
+                                    $as="button"
+                                    onClick={() => {
+                                      download(`${process.env.CMS_ROOT}${url}`)
+                                    }}
+                                    variant="with-chevron"
+                                  >
+                                    <ListItemContent>
+                                      <span>{fileName}</span>
+                                      <Typography as="small">({`${type} ${size}`})</Typography>
+                                    </ListItemContent>
+                                  </DownloadLink>
+                                </ListItem>
+                              ))}
+                            </List>
+                          </>
+                        ) : null}
+                        {links && links.length ? (
+                          <>
+                            <Heading as="h2">Links</Heading>
+                            <List>
+                              {links.map(({ uri, title: linkTitle }) => (
+                                <ListItem key={uri}>
+                                  <Link variant="with-chevron" href={`${uri}`}>
+                                    <span>{linkTitle}</span>
+                                  </Link>
+                                </ListItem>
+                              ))}
+                            </List>
+                          </>
+                        ) : null}
+                      </EditorialSidebar>
                     </Column>
-                  </EditorialContent>
-                </Row>
-              </Article>
-            </ContentContainer>
-          </Row>
-        </div>
+                  </Column>
+                  <Column
+                    span={{ small: 1, medium: 2, big: 4, large: 11, xLarge: 11 }}
+                    push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
+                  >
+                    <ShareBar topSpacing={6} />
+                  </Column>
+                </EditorialContent>
+              </Row>
+            </Article>
+          </StyledContentContainer>
+        </StyledRow>
       )}
     </EditorialPage>
   )

@@ -1,7 +1,6 @@
 // Todo: fix / add tests
 import SEARCH_CONFIG from './search-config'
 import { getByUrl } from '../api/api'
-import SHARED_CONFIG from '../shared-config/shared-config'
 import { formatCategories, formatLinks } from './search-formatter'
 
 function isString(value) {
@@ -20,7 +19,7 @@ export function querySearch(query, categorySlug, user) {
     ) {
       const options = endpoint.options || {}
       queries.push(
-        getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}`, {
+        getByUrl(`${process.env.API_ROOT}${endpoint.uri}`, {
           ...params,
           ...options,
         }).then(data => data, code => ({ type: errorType, code })),

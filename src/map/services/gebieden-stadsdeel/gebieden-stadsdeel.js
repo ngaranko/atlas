@@ -1,8 +1,7 @@
 import { getByUrl } from '../../../shared/services/api/api'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 
 const normalize = async result => {
-  const url = `${SHARED_CONFIG.API_ROOT}grondexploitatie/stadsdeel/${result.code}/`
+  const url = `${process.env.API_ROOT}grondexploitatie/stadsdeel/${result.code}/`
   let grexStadsdeel
 
   try {

@@ -1,4 +1,3 @@
-import sharedConfig from '../shared-config/shared-config'
 import { getByUrl } from '../api/api'
 
 const formatFilters = rawData =>
@@ -16,8 +15,8 @@ const formatFilters = rawData =>
 
 const getDetailEndpoint = (config, rawDataRow) =>
   rawDataRow.dataset === 'mac'
-    ? `${sharedConfig.API_ROOT}handelsregister/maatschappelijkeactiviteit/${rawDataRow.kvk_nummer}/`
-    : `${sharedConfig.API_ROOT}${config.ENDPOINT_DETAIL}${rawDataRow[config.PRIMARY_KEY]}/`
+    ? `${process.env.API_ROOT}handelsregister/maatschappelijkeactiviteit/${rawDataRow.kvk_nummer}/`
+    : `${process.env.API_ROOT}${config.ENDPOINT_DETAIL}${rawDataRow[config.PRIMARY_KEY]}/`
 
 const formatData = (config, rawData) =>
   rawData.map(rawDataRow => {
@@ -31,7 +30,7 @@ const formatData = (config, rawData) =>
   })
 
 export function getMarkers(config, activeFilters) {
-  return getByUrl(sharedConfig.API_ROOT + config.ENDPOINT_MARKERS, activeFilters).then(data => ({
+  return getByUrl(process.env.API_ROOT + config.ENDPOINT_MARKERS, activeFilters).then(data => ({
     clusterMarkers: data.object_list
       // eslint-disable-next-line no-underscore-dangle
       .map(object => object._source.centroid)
@@ -58,7 +57,7 @@ export function query(config, view, activeFilters, page, search, shape = '[]') {
   }
 
   const uri = config.ENDPOINT_PREVIEW[view] || config.ENDPOINT_PREVIEW
-  return getByUrl(sharedConfig.API_ROOT + uri, searchParams).then(data => {
+  return getByUrl(process.env.API_ROOT + uri, searchParams).then(data => {
     const newData = { ...data }
     if (searchPage !== page) {
       // Requested page was out of api reach, dumping data

@@ -7,12 +7,11 @@ set -x
 echo Building $1
 
 echo Build distribution of this branch
-export NODE_ENV=test
 
 rm -rf node_modules
 npm install
 
-npm run build:test
+npm run build:acceptance
 
 echo Publish distribution in web-dir
 OUTDIR=/var/www/html/atlas/builds/$1

@@ -1,5 +1,6 @@
 import PARAMETERS from '../store/parameters'
 import { routing } from './routes'
+import { CONTENT_REDIRECT_LINKS } from '../shared/config/config'
 
 const { VIEW, VIEW_CENTER, LAYERS, LEGEND, ZOOM, EMBED } = PARAMETERS
 
@@ -93,8 +94,12 @@ const shortUrls = [
     to: 'https://amsterdam.github.io/datablog/',
   },
 ]
+const articleUrls = CONTENT_REDIRECT_LINKS.ARTICLES.map(item => ({
+  from: item.from,
+  to: `${routing.articles.path}artikel/${item.to.slug}/${item.to.id[process.env.NODE_ENV]}`,
+}))
 
-export const routesDictionary = [...legacyRoutes, ...shortUrls]
+export const routesDictionary = [...legacyRoutes, ...shortUrls, ...articleUrls]
 
 const resolveRedirects = async () => {
   let routePath = routesDictionary.filter(r => r.from === window.location.pathname)

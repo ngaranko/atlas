@@ -91,71 +91,11 @@ export const routing = {
     useHooks: true, // indicate to skip legacy documentHead and piwik middleware
     page: PAGES.CONSTRUCTION_FILE,
   },
-  nieuws: {
-    title: 'Nieuws',
-    path: `/${MAIN_PATHS.CONTENT}/nieuws/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.NEWS}`,
-    page: PAGES.NEWS,
-  },
-  help: {
-    title: 'Help',
-    path: `/${MAIN_PATHS.CONTENT}/help/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.HELP}`,
-    page: PAGES.HELP,
-  },
-  proclaimer: {
-    title: 'Proclaimer',
-    path: `/${MAIN_PATHS.CONTENT}/proclaimer/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.PROCLAIMER}`,
-    page: PAGES.PROCLAIMER,
-  },
-  bediening: {
-    title: 'Bediening',
-    path: `/${MAIN_PATHS.CONTENT}/bediening/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.CONTROLS}`,
-    page: PAGES.CONTROLS,
-  },
-  gegevens: {
-    title: 'Gegevens',
-    path: `/${MAIN_PATHS.CONTENT}/gegevens/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_INFO}`,
-    page: PAGES.DATA_INFO,
-  },
-  apis: {
-    title: "Api's",
-    path: `/${MAIN_PATHS.CONTENT}/apis/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.ABOUT_API}`,
-    page: PAGES.ABOUT_API,
-  },
   actuality: {
     title: 'Actualiteit',
     path: `/${MAIN_PATHS.CONTENT}/actualiteit/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.ACTUALITY}`,
     page: PAGES.ACTUALITY,
-  },
-  privacy_beveiliging: {
-    title: 'Privacy en informatiebeveiliging',
-    path: `/${MAIN_PATHS.CONTENT}/privacy-en-informatiebeveiliging/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.PRIVACY_SECURITY}`,
-    page: PAGES.PRIVACY_SECURITY,
-  },
-  beschikbaar_kwaliteit: {
-    title: 'Beschikbaarheid en kwaliteit van de data',
-    path: `/${MAIN_PATHS.CONTENT}/beschikbaarheid-en-kwaliteit-data/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.AVAILABILITY_QUALITY}`,
-    page: PAGES.AVAILABILITY_QUALITY,
-  },
-  beheer_werkwijze: {
-    title: 'Technisch beheer en werkwijze',
-    path: `/${MAIN_PATHS.CONTENT}/technisch-beheer-en-werkwijze/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.MANAGEMENT}`,
-    page: PAGES.MANAGEMENT,
-  },
-  statistieken: {
-    title: 'Statistieken',
-    path: `/${MAIN_PATHS.CONTENT}/statistieken/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.STATISTICS}`,
-    page: PAGES.STATISTICS,
   },
   inloggen: {
     title: 'Inloggen',

@@ -6,9 +6,6 @@ export const MATOMO_CONFIG = {
   [ENVIRONMENTS.PRODUCTION]: {
     SITE_ID: 1,
   },
-  [ENVIRONMENTS.PRE_PRODUCTION]: {
-    SITE_ID: 3,
-  },
   [ENVIRONMENTS.ACCEPTANCE]: {
     SITE_ID: 3,
   },

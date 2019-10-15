@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { isEmbedded } from '../../../shared/ducks/ui/ui'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import useDataFetching from '../../utils/useDataFetching'
 import InfoModal from './InfoModal'
 import { createCookie, getCookie } from '../../../shared/services/cookie/cookie'
@@ -14,7 +13,7 @@ const InfoModalWrapper = ({ hide }) => {
     const { fetchData, results } = useDataFetching()
 
     React.useEffect(() => {
-      const endpoint = `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/notification?filter[field_active]=1`
+      const endpoint = `${process.env.CMS_ROOT}jsonapi/node/notification?filter[field_active]=1`
       fetchData(endpoint)
     }, [])
 

@@ -1,7 +1,6 @@
 import queryStringParser from '../query-string-parser/query-string-parser'
 import stateTokenGenerator from '../state-token-generator/state-token-generator'
 import accessTokenParser from '../access-token-parser/access-token-parser'
-import SHARED_CONFIG from '../shared-config/shared-config'
 
 // A map of the error keys, that the OAuth2 authorization service can
 // return, to a full description
@@ -220,7 +219,7 @@ export function login() {
   sessionStorage.setItem(RETURN_PATH, window.location.href)
   sessionStorage.setItem(STATE_TOKEN, stateToken)
   window.location.assign(
-    `${SHARED_CONFIG.API_ROOT}${AUTH_PATH}&state=${encodedStateToken}&redirect_uri=${callback}`,
+    `${process.env.API_ROOT}${AUTH_PATH}&state=${encodedStateToken}&redirect_uri=${callback}`,
   )
 }
 

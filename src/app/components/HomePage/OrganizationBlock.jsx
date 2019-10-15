@@ -13,7 +13,7 @@ import React from 'react'
 import ErrorMessage from './ErrorMessage'
 import OrganizationCard from './OrganizationCard'
 import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/config/cms.config'
+import { cmsConfig } from '../../../shared/config/config'
 
 const StyledCardContainer = styled(CardContainer)`
   background-color: ${themeColor('tint', 'level2')};
@@ -48,7 +48,7 @@ const OrganizationBlock = () => {
   }, [])
 
   return (
-    <StyledCardContainer>
+    <StyledCardContainer data-test="organization-block">
       <Row hasMargin={false}>
         <StyledHeading $as="h2" styleAs="h1">
           Onderzoek, Informatie en Statistiek

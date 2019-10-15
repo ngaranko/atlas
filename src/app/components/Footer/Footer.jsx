@@ -1,8 +1,8 @@
 import React from 'react'
-import RouterLink from 'redux-first-router-link'
+import styled from '@datapunt/asc-core'
 import {
   Link,
-  Footer as AscFooter,
+  Footer as FooterComponent,
   FooterBottom,
   FooterBottomLinkList,
   FooterContent,
@@ -12,77 +12,67 @@ import {
   FooterTop,
   Row,
   Column,
+  CompactThemeProvider,
+  themeSpacing,
 } from '@datapunt/asc-ui'
-import { routing } from '../../routes'
-import FollowLinks from './FollowLinks'
 import HelpLinks from './HelpLinks'
-import ColofonLinks from './ColofonLinks'
+import FooterLinks from './FooterLinks'
 
-const RouterLinkWrapper = ({ to, className, children }) => (
-  <RouterLink to={to} className={className}>
-    {children}
-  </RouterLink>
+import { FOOTER_LINKS } from '../../../shared/config/config'
+
+const StyledLink = styled(Link)`
+  margin-bottom: ${themeSpacing(3)};
+`
+
+const FooterBlock = ({ title, children }) => (
+  <>
+    <FooterToggle title={title} hideAt="tabletM">
+      <FooterContent indent>{children}</FooterContent>
+    </FooterToggle>
+    <FooterContent showAt="tabletM">
+      <FooterHeading $as="h3">{title}</FooterHeading>
+      {children}
+    </FooterContent>
+  </>
 )
 
-const StyledLink = ({ children, ...otherProps }) => (
-  <Link $as={RouterLinkWrapper} linkType="with-chevron" gutterBottom={3} {...otherProps}>
-    {children}
-  </Link>
-)
-
-const Footer = ({ ...otherProps }) => (
-  <AscFooter {...otherProps}>
-    <FooterTop>
-      <Row>
-        <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
-          <FooterToggle title="Colofon" hideAt="tabletM">
-            <FooterContent indent>
-              <ColofonLinks />
-            </FooterContent>
-          </FooterToggle>
-          <FooterContent showAt="tabletM">
-            <FooterHeading $as="h3">Colofon</FooterHeading>
-            <ColofonLinks />
-          </FooterContent>
-        </Column>
-        <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
-          <FooterToggle title="Volg de gemeente" hideAt="tabletM">
-            <FooterContent indent>
-              <FollowLinks />
-            </FooterContent>
-          </FooterToggle>
-          <FooterContent showAt="tabletM">
-            <FooterHeading $as="h3">Volg de gemeente</FooterHeading>
-            <FollowLinks />
-          </FooterContent>
-        </Column>
-        <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
-          <FooterToggle title="Vragen?" hideAt="tabletM">
-            <FooterContent indent>
-              <HelpLinks />
-            </FooterContent>
-          </FooterToggle>
-          <FooterContent showAt="tabletM">
-            <FooterHeading $as="h3" styleAs="h3">
-              Vragen?
-            </FooterHeading>
-            <HelpLinks />
-          </FooterContent>
-        </Column>
-      </Row>
-    </FooterTop>
-    <FooterBottom>
-      <Row>
-        <Column wrap span={{ small: 1, medium: 2, big: 6, large: 10, xLarge: 10 }}>
-          <FooterBottomLinkList>
-            <FooterBottomLinkListItem>
-              <StyledLink to={{ type: routing.proclaimer.type }}>Privacy en cookies</StyledLink>
-            </FooterBottomLinkListItem>
-          </FooterBottomLinkList>
-        </Column>
-      </Row>
-    </FooterBottom>
-  </AscFooter>
+const Footer = () => (
+  <CompactThemeProvider>
+    <FooterComponent>
+      <FooterTop>
+        <Row>
+          <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
+            <FooterBlock title="Colofon">
+              {FOOTER_LINKS && <FooterLinks links={FOOTER_LINKS.COLOFON} />}
+            </FooterBlock>
+          </Column>
+          <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
+            <FooterBlock title="Volg de gemeente">
+              {FOOTER_LINKS && <FooterLinks links={FOOTER_LINKS.SOCIAL} />}
+            </FooterBlock>
+          </Column>
+          <Column wrap span={{ small: 1, medium: 2, big: 2, large: 4, xLarge: 4 }}>
+            <FooterBlock title="Vragen">
+              {FOOTER_LINKS && <HelpLinks links={FOOTER_LINKS.HELP} />}
+            </FooterBlock>
+          </Column>
+        </Row>
+      </FooterTop>
+      <FooterBottom>
+        <Row>
+          <Column wrap span={{ small: 1, medium: 2, big: 6, large: 10, xLarge: 10 }}>
+            <FooterBottomLinkList>
+              <FooterBottomLinkListItem>
+                <StyledLink variant="with-chevron" {...FOOTER_LINKS.PRIVACY}>
+                  {FOOTER_LINKS.PRIVACY.title}
+                </StyledLink>
+              </FooterBottomLinkListItem>
+            </FooterBottomLinkList>
+          </Column>
+        </Row>
+      </FooterBottom>
+    </FooterComponent>
+  </CompactThemeProvider>
 )
 
 export default Footer

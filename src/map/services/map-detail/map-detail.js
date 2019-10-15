@@ -1,10 +1,5 @@
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
-
 import mapFetch from '../map-fetch/map-fetch'
-
 import servicesByEndpointType, { endpointTypes } from '../map-services.config'
-
-export const maxDisplayValuesPerProperty = 5
 
 export const pageEndpointTypeMapping = {
   'explosieven/gevrijwaardgebied/': 'milieuthemas/explosieven/gevrijwaardgebied/',
@@ -15,7 +10,7 @@ export const pageEndpointTypeMapping = {
 
 export const pageTypeToEndpoint = (type, subtype, id) => {
   const endpoinType = pageEndpointTypeMapping[`${type}/${subtype}/`] || `${type}/${subtype}/`
-  return `${SHARED_CONFIG.API_ROOT}${endpoinType}${id}/`
+  return `${process.env.API_ROOT}${endpoinType}${id}/`
 }
 
 export const getEndpointTypeForResult = (endpointType, detail) => {

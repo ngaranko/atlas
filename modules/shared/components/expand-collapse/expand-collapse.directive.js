@@ -40,7 +40,7 @@
               element.css('max-height', `${initialHeight}px`)
             }
 
-            scope.collapsed = !scope.collapsed
+            scope.$apply('collapsed = !collapsed')
             setClass()
           })
 

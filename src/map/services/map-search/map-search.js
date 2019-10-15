@@ -6,8 +6,6 @@ import {
 import { fetchByPandId as fetchMonumentByPandId } from '../monument/monument'
 import { fetchByPandId as fetchVestigingByPandId, fetchByAddressId } from '../vestiging/vestiging'
 
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
-
 import transformResultByType from './transform-result-by-type'
 
 import { createMapSearchResultsModel } from '../map-search-results/map-search-results'
@@ -80,7 +78,7 @@ export const getFeaturesFromResult = (endpointType, result) => {
       properties: {
         display: item.id,
         type: 'parkeervakken/parkeervakken',
-        uri: SHARED_CONFIG.API_ROOT + item._links.self.href.substring(1),
+        uri: process.env.API_ROOT + item._links.self.href.substring(1),
       },
     }))
   }
@@ -135,7 +133,7 @@ export default function search(location, user) {
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
         .join('&')
 
-      const request = getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
+      const request = getByUrl(`${process.env.API_ROOT}${endpoint.uri}?${queryString}`)
         .then(result => ({
           features: getFeaturesFromResult(endpoint.uri, result),
         }))

@@ -2,12 +2,13 @@ import styled from '@datapunt/asc-core'
 import { breakpoint, styles, themeSpacing } from '@datapunt/asc-ui'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
-import cmsConfig from '../../../shared/config/cms.config'
+import { cmsConfig } from '../../../shared/config/config'
 import { toArticleOverview } from '../../../store/redux-first-router/actions'
 import useFromCMS from '../../utils/useFromCMS'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import HighlightCard from './HighlightCard'
 import OverviewLink from './OverviewLink'
+import getImageFromCms from '../../utils/getImageFromCms'
 
 const HighlightBlockStyle = styled.div`
   position: relative;
@@ -81,16 +82,18 @@ const HighlightBlock = () => {
 
   return (
     <>
-      <HighlightBlockStyle showError={error}>
+      <HighlightBlockStyle showError={error} data-test="highlight-block">
         {error && <ErrorMessage />}
         <HighlightBlockInnerStyle>
-          <ImageCardWrapperLarge showError={error}>
+          <ImageCardWrapperLarge>
             <HighlightCard
               loading={loading}
               showError={error}
               {...(results && results[0])}
+              teaserImage={
+                results && results[0] && getImageFromCms(results[0].teaserImage, 900, 900)
+              }
               styleAs="h2"
-              large
             />
           </ImageCardWrapperLarge>
           <ImageCardWrapperSmall>
@@ -103,13 +106,13 @@ const HighlightBlock = () => {
                     loading={loading}
                     showError={error}
                     {...result}
-                    strong
+                    teaserImage={getImageFromCms(result.teaserImage, 500, 500)}
                   />
                 ))}
-            {error && (
+            {(error || loading) && (
               <>
-                <HighlightCard key={0} showError={error} />
-                <HighlightCard key={1} showError={error} />
+                <HighlightCard key={0} loading={loading} showError={error} />
+                <HighlightCard key={1} loading={loading} showError={error} />
               </>
             )}
           </ImageCardWrapperSmall>

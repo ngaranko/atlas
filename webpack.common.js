@@ -11,8 +11,16 @@ const src = path.resolve(root, 'src')
 const legacy = path.resolve(root, 'modules')
 const dist = path.resolve(root, 'dist')
 
-function commonConfig(env) {
-  const buildId = env && env.buildId ? env.buildId : env.nodeEnv
+const dotenv = require('dotenv')
+
+const env = dotenv.config().parsed
+
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next])
+  return prev
+}, {})
+
+function commonConfig() {
   const isDev = env.nodeEnv === 'development'
 
   return {
@@ -194,17 +202,14 @@ function commonConfig(env) {
         },
         sortChunks: 'none',
         lang: 'nl',
+        hash: true,
         title: 'Dataportaal',
         favicon: './favicon.png',
         scripts: ['/mtiFontTrackingCode.min.js'],
       }),
       new webpack.DefinePlugin({
         VERSION: JSON.stringify(require('./package.json').version),
-        __BUILD_ID__: JSON.stringify(buildId),
-        'process.env': {
-          NODE_ENV: JSON.stringify(env.nodeEnv),
-          GIT_COMMIT: JSON.stringify(process.env.GIT_COMMIT),
-        },
+        ...envKeys,
       }),
     ],
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import { Header as HeaderComponent, styles, breakpoint } from '@datapunt/asc-ui'
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer'
 import { useAppReducer } from '../../utils/useAppReducer'
@@ -16,12 +16,20 @@ const HeaderWrapper = styled.section`
   // As position: sticky isn't supported on IE, this is needed to have position the header on top of the other contents
   z-index: 999;
   position: relative;
+
+  // Add position: sticky for supported browsers
+  ${({ isHomePage }) =>
+    !isHomePage &&
+    css`
+      position: sticky;
+      top: 0;
+    `}
 `
 
 const StyledHeader = styled(HeaderComponent)`
   ${styles.HeaderNavigationStyle} {
     // This must be added to the @datapunt/asc-ui project https://github.com/Amsterdam/amsterdam-styled-components/issues/165
-    @media screen and ${breakpoint('min-width', 'laptop')} {
+    @media screen and ${breakpoint('min-width', 'desktop')} {
       margin-left: 29px;
       margin-right: 29px;
     }
@@ -66,10 +74,10 @@ const Header = ({
 
   if (!printOrEmbedMode) {
     return (
-      <HeaderWrapper data-test="header">
+      <HeaderWrapper isHomePage={homePage} data-test="header">
         <StyledHeader
           tall={homePage}
-          title="City Data"
+          title="Data en informatie"
           homeLink="/"
           className="styled-header"
           fullWidth={!hasMaxWidth}

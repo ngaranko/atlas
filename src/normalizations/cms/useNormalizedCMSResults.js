@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/constants'
-import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
 import useSlug from '../../app/utils/useSlug'
 import formatDate from '../../shared/services/date-formatter/date-formatter'
 import PAGES from '../../app/pages'
@@ -41,7 +40,8 @@ const normalizeObject = (data, type) => {
    */
   if (!field_publication_date && (field_publication_year || field_publication_month)) {
     localeDate = new Date(
-      Date.UTC(field_publication_year, field_publication_month || 1, 1, 0, 0, 0),
+      // Month (undefined or a string) - 1, check https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC
+      Date.UTC(field_publication_year, Number(field_publication_month) - 1 || 1, 1, 0, 0, 0),
     )
 
     localeDateFormatted = formatDate(
@@ -52,12 +52,10 @@ const normalizeObject = (data, type) => {
     )
   }
 
-  const buildImageUrl = url => `${SHARED_CONFIG.CMS_ROOT}${url}`
-
   const imageIsVertical = type === PAGES.PUBLICATIONS
 
-  const teaserImage = teaser_url && buildImageUrl(teaser_url)
-  const coverImage = media_image_url && buildImageUrl(media_image_url)
+  const teaserImage = teaser_url && teaser_url
+  const coverImage = media_image_url && media_image_url
 
   // Construct the file url when the type is PUBLICATION
   let fileUrl

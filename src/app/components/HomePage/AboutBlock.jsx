@@ -4,7 +4,7 @@ import React from 'react'
 import AboutCard from './AboutCard'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import useFromCMS from '../../utils/useFromCMS'
-import cmsConfig from '../../../shared/config/cms.config'
+import { cmsConfig } from '../../../shared/config/config'
 
 const AboutBlockStyle = styled.div`
   width: 100%;
@@ -91,7 +91,7 @@ const AboutBlock = () => {
   }, [])
 
   return (
-    <AboutBlockStyle>
+    <AboutBlockStyle data-test="about-block">
       <Row hasMargin={false}>
         <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
           <StyledHeading $as="h2" styleAs="h1">

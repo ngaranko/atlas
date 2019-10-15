@@ -3,19 +3,11 @@ describe('The dp-wkpb-link directive', function() {
   let $rootScope
 
   beforeEach(function() {
-    angular.mock.module(
-      'dpDetail',
-      {
-        sharedConfig: {
-          ROOT: 'http://www.amsterdam.com/',
-        },
-      },
-      function($provide) {
-        $provide.factory('dpLinkDirective', function() {
-          return {}
-        })
-      },
-    )
+    angular.mock.module('dpDetail', function($provide) {
+      $provide.factory('dpLinkDirective', function() {
+        return {}
+      })
+    })
 
     angular.mock.inject(function(_$compile_, _$rootScope_) {
       $compile = _$compile_
@@ -42,7 +34,7 @@ describe('The dp-wkpb-link directive', function() {
     expect(component.find('dp-redux-link').attr('to')).toBe(
       'vm.wkpbEndpoint | detailEndpointAction',
     )
-    expect(scope.vm.wkpbEndpoint).toBe('http://www.amsterdam.com/brk/object-wkpb/abc789/')
+    expect(scope.vm.wkpbEndpoint).toContain('/brk/object-wkpb/abc789/')
   })
 
   it('is spelled WKPB-uittreksel', function() {
