@@ -2834,20 +2834,26 @@
         "authScope": "HR/R",
         "id": "asbest",
         "layers": [
+            "percelen",
             "daken"
         ],
         "legendItems": [
             {
-                "title": "In slechte staat"
+                "title": "In slechte staat",
+                "layers": ["daken"]
             },
             {
-                "title": "In matige staat"
+                "title": "In matige staat",
+                "layers": ["daken"]
             },
             {
-                "title": "In redelijk tot goede staat"
+                "title": "In redelijk tot goede staat",
+                "imageRule": "redelijk goed",
+                "layers": ["daken"]
             },
             {
                 "title": "Bijbehorende kadastrale percelen",
+                "imageRule": "percelen",
                 "layers": ["percelen"]
             }
         ],
