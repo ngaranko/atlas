@@ -2830,46 +2830,6 @@
         }
     },
     {
-        "category": "MIL_ETC",
-        "authScope": "HR/R",
-        "id": "asbest",
-        "layers": [
-            "percelen",
-            "daken"
-        ],
-        "legendItems": [
-            {
-                "title": "In slechte staat",
-                "layers": ["daken"]
-            },
-            {
-                "title": "In matige staat",
-                "layers": ["daken"]
-            },
-            {
-                "title": "In redelijk tot goede staat",
-                "imageRule": "redelijk goed",
-                "layers": ["daken"]
-            },
-            {
-                "title": "Bijbehorende kadastrale percelen",
-                "imageRule": "percelen",
-                "layers": ["percelen"]
-            }
-        ],
-        "title": "Asbestverdachte daken",
-        "url": "/maps/asbest",
-        "detailUrl": "geosearch/search/",
-        "detailItem": "kadastraal_object",
-        "detailIsShape": true,
-        "meta": {
-            "description": null,
-            "theme": null,
-            "datasetId": null,
-            "date": null
-        }
-    },
-    {
         "category": "ECONOMY_HARBOR",
         "id": "biz",
         "layers": [
