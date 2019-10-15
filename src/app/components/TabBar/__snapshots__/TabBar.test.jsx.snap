@@ -3,7 +3,7 @@
 exports[`TabBar should render the component with no results 1`] = `
 <styled.div>
   <Styled(Heading)>
-    Geen resultaten met 'dam'
+    Resultaten met 'dam'
   </Styled(Heading)>
 </styled.div>
 `;

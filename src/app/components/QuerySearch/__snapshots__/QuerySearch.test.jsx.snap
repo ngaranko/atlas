@@ -72,7 +72,9 @@ exports[`QuerySearch should render with results 1`] = `
       <div
         className="qa-data-selection-content"
       >
-        <Connect(TabBar)>
+        <Connect(TabBar)
+          numberOfResults={0}
+        >
           <Tabs
             currentPage="data"
           >

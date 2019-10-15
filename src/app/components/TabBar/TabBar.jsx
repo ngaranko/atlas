@@ -13,10 +13,10 @@ const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(8)};
 `
 
-const TabBar = ({ numberOfDataResults, numberOfDatasetResults, searchQuery, children }) => (
+const TabBar = ({ numberOfResults, searchQuery, children }) => (
   <TabBarWrapperStyle>
     <StyledHeading>
-      {numberOfDataResults === 0 && numberOfDatasetResults === 0
+      {numberOfResults === 0
         ? `Geen resultaten met '${searchQuery}'`
         : `Resultaten met '${searchQuery}'`}
     </StyledHeading>
@@ -31,8 +31,7 @@ TabBar.defaultProps = {
 TabBar.propTypes = {
   searchQuery: PropTypes.string.isRequired,
   children: PropTypes.node,
-  numberOfDataResults: PropTypes.number.isRequired,
-  numberOfDatasetResults: PropTypes.number.isRequired,
+  numberOfResults: PropTypes.number.isRequired,
 }
 
 const mapStateToProps = state => ({

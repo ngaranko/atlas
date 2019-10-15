@@ -73,6 +73,21 @@ const QuerySearch = ({
     publicationDispatch,
   ])
 
+  const resultMapper = () => {
+    switch (currentPage) {
+      case PAGES.DATA_SEARCH_QUERY:
+        return numberOfDataResults
+      case PAGES.PUBLICATION_SEARCH:
+        return publicationSelectors.count(publicationState)
+      case PAGES.DATASET_SEARCH:
+        return numberOfDatasetResults
+      case PAGES.ARTICLE_SEARCH:
+        return articleSelectors.count(articleState)
+      default:
+        return 0
+    }
+  }
+
   React.useEffect(() => {
     ;(async () => {
       await Promise.all([
@@ -89,10 +104,7 @@ const QuerySearch = ({
           {isLoading && <LoadingIndicator />}
           {!isLoading && (
             <div className="qa-data-selection-content">
-              <TabBar
-                numberOfDataResults={numberOfDataResults}
-                numberOfDatasetResults={numberOfDatasetResults}
-              >
+              <TabBar numberOfResults={resultMapper()}>
                 <Tabs currentPage={currentPage}>
                   <Tab
                     label="Data"
