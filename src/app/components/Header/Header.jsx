@@ -10,6 +10,11 @@ import HeaderMenuContainer from './HeaderMenuContainer'
 import EmbedHeader from './EmbedHeader'
 import PrintHeader from './PrintHeader'
 
+const stickyStyle = css`
+  position: sticky;
+  top: 0;
+`
+
 const HeaderWrapper = styled.section`
   width: 100%;
 
@@ -19,11 +24,13 @@ const HeaderWrapper = styled.section`
 
   // Add position: sticky for supported browsers
   ${({ isHomePage }) =>
-    !isHomePage &&
-    css`
-      position: sticky;
-      top: 0;
-    `}
+    isHomePage
+      ? css`
+          @media screen and ${breakpoint('max-width', 'laptopM')} {
+            ${stickyStyle}
+          }
+        `
+      : stickyStyle}
 `
 
 const StyledHeader = styled(HeaderComponent)`
