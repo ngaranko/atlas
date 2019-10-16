@@ -16,7 +16,7 @@ const StyledHeading = styled(Heading)`
 const TabBar = ({ numberOfResults, searchQuery, children }) => (
   <TabBarWrapperStyle>
     <StyledHeading>
-      {numberOfResults === 0
+      {!numberOfResults
         ? `Geen resultaten met '${searchQuery}'`
         : `Resultaten met '${searchQuery}'`}
     </StyledHeading>

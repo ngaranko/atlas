@@ -78,11 +78,11 @@ const QuerySearch = ({
       case PAGES.DATA_SEARCH_QUERY:
         return numberOfDataResults
       case PAGES.PUBLICATION_SEARCH:
-        return publicationSelectors.count(publicationState)
+        return publicationSelectors.count(publicationState) || 0
       case PAGES.DATASET_SEARCH:
         return numberOfDatasetResults
       case PAGES.ARTICLE_SEARCH:
-        return articleSelectors.count(articleState)
+        return articleSelectors.count(articleState) || 0
       default:
         return 0
     }
