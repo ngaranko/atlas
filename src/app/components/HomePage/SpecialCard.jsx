@@ -52,6 +52,7 @@ const StyledCard = styled(Card)`
   align-items: flex-start;
   padding: ${themeSpacing(2)} 0;
   margin: ${themeSpacing(6)} 0;
+  pointer-events: none; /* FF 60 fix */
   @media screen and ${breakpoint('min-width', 'tabletM')} {
     margin: ${themeSpacing(6, 2)};
   }

@@ -17,7 +17,7 @@ import { focusOutline } from './services/styles'
 const StyledCard = styled(Card)`
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  pointer-events: none; /* FF 60 fix */
 `
 
 const StyledCardContent = styled(CardContent)`

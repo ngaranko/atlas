@@ -34,6 +34,7 @@ const StyledCard = styled(Card)`
   width: 100%;
   margin-bottom: 0;
   height: ${themeSpacing(18)};
+  pointer-events: none; /* FF 60 fix */
 `
 
 const StyledLink = styled(Link)`

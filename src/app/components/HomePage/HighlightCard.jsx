@@ -45,9 +45,13 @@ const StyledLink = styled(Link)`
   }
 `
 
+const StyledImageCard = styled(ImageCard)`
+  pointer-events: none; /* FF 60 fix */
+`
+
 const HighlightCard = ({ loading, showError, title, shortTitle, to, teaserImage, styleAs }) => (
   <StyledLink {...(to ? { to, $as: RouterLink } : { $as: 'div' })} linkType="blank">
-    <ImageCard
+    <StyledImageCard
       backgroundImage={teaserImage}
       isLoading={loading || showError}
       animateLoading={!showError}
@@ -58,7 +62,7 @@ const HighlightCard = ({ loading, showError, title, shortTitle, to, teaserImage,
           {shortTitle || title}
         </HighlightCardHeadingStyle>
       </ImageCardContent>
-    </ImageCard>
+    </StyledImageCard>
   </StyledLink>
 )
 
