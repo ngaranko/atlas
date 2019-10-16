@@ -2,18 +2,18 @@ import React from 'react'
 import { Api, Data, DocumentText, Map, Pano, Table } from '@datapunt/asc-assets'
 import { Icon } from '@datapunt/asc-ui'
 import {
-  toMap,
   toPanoramaAndPreserveQuery,
   toPublicationOverview,
   toArticleDetail,
   toDatasets,
+  toMapWithLegendOpen,
 } from '../../../../store/redux-first-router/actions'
 import { NAVIGATION_LINKS } from '../../../../shared/config/config'
 
 const navigationLinks = [
   {
     id: 0,
-    to: toMap(),
+    to: toMapWithLegendOpen(),
     CardIcon: () => (
       <Icon square size={32}>
         <Map />
