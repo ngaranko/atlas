@@ -16,16 +16,13 @@ import { isEditorialPage, isContentPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
-  hasPrintMode,
   isEmbedded,
   isEmbedPreview,
-  isMapActive,
   isPrintMode,
   isPrintModeLandscape,
   isPrintOrEmbedMode,
 } from '../shared/ducks/ui/ui'
 import { hasGlobalError } from '../shared/ducks/error/error-message'
-import { getUser } from '../shared/ducks/user/user'
 import { getPage, isHomepage } from '../store/redux-first-router/selectors'
 import Header from './components/Header'
 import { AppStateProvider } from './utils/useAppReducer'
@@ -46,9 +43,6 @@ const App = ({
   overflowScroll,
   printModeLandscape,
   printOrEmbedMode,
-  user,
-  hasPrintButton,
-  hasEmbedButton,
 }) => {
   const editorialPage = isEditorialPage(currentPage)
   const contentPage = isContentPage(currentPage)
@@ -135,12 +129,9 @@ const App = ({
               <Header
                 homePage={homePage}
                 hasMaxWidth={hasMaxWidth}
-                user={user}
                 printMode={printMode}
                 embedPreviewMode={embedPreviewMode}
                 printOrEmbedMode={printOrEmbedMode}
-                hasPrintButton={hasPrintButton}
-                hasEmbedButton={hasEmbedButton}
               />
             )}
             <AppBody
@@ -176,9 +167,6 @@ App.propTypes = {
   printModeLandscape: PropTypes.bool.isRequired,
   embedPreviewMode: PropTypes.bool.isRequired,
   overflowScroll: PropTypes.bool.isRequired,
-  user: PropTypes.shape({}).isRequired,
-  hasPrintButton: PropTypes.bool.isRequired,
-  hasEmbedButton: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -190,10 +178,7 @@ const mapStateToProps = state => ({
   embedPreviewMode: isEmbedPreview(state),
   overflowScroll: hasOverflowScroll(state),
   printOrEmbedMode: isPrintOrEmbedMode(state),
-  user: getUser(state),
   visibilityError: hasGlobalError(state),
-  hasPrintButton: hasPrintMode(state),
-  hasEmbedButton: isMapActive(state),
 })
 
 const AppContainer = connect(
