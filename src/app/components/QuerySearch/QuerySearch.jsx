@@ -91,8 +91,16 @@ const QuerySearch = ({
   React.useEffect(() => {
     ;(async () => {
       await Promise.all([
-        fetchSearchData(articleActions, articleDispatch, `article?q=${query}`),
-        fetchSearchData(publicationActions, publicationDispatch, `publication?q=${query}`),
+        fetchSearchData(
+          articleActions,
+          articleDispatch,
+          `article?q=${typeof query === 'string' ? query.toLowerCase() : ''}`, // Todo: temporary fix, real fix: DP-7365
+        ),
+        fetchSearchData(
+          publicationActions,
+          publicationDispatch,
+          `publication?q=${typeof query === 'string' ? query.toLowerCase() : ''}`, // Todo: temporary fix, real fix: DP-7365
+        ),
       ])
     })()
   }, [query])
