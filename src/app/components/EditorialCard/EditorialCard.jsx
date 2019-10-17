@@ -129,7 +129,7 @@ const EditorialCard = ({
     `,
   }
   return (
-    <StyledLinkWrapper key={id} to={to} linkType="blank">
+    <StyledLinkWrapper key={id} to={to} title={title} linkType="blank">
       <StyledCard horizontal>
         <StyledCardMedia vertical={imageIsVertical}>
           <Image

@@ -10,7 +10,6 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import RouterLink from 'redux-first-router-link'
 import { focusOutline } from './services/styles'
 
 const HighlightCardHeadingStyle = styled(Heading)`
@@ -49,8 +48,16 @@ const StyledImageCard = styled(ImageCard)`
   pointer-events: none; /* FF 60 fix */
 `
 
-const HighlightCard = ({ loading, showError, title, shortTitle, to, teaserImage, styleAs }) => (
-  <StyledLink {...(to ? { to, $as: RouterLink } : { $as: 'div' })} linkType="blank">
+const HighlightCard = ({
+  loading,
+  showError,
+  title,
+  shortTitle,
+  linkProps,
+  teaserImage,
+  styleAs,
+}) => (
+  <StyledLink {...linkProps} linkType="blank">
     <StyledImageCard
       backgroundImage={teaserImage}
       isLoading={loading || showError}

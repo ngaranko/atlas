@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import RouterLink from 'redux-first-router-link'
 import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/constants'
 import useSlug from '../../app/utils/useSlug'
 import formatDate from '../../shared/services/date-formatter/date-formatter'
@@ -19,6 +20,7 @@ const normalizeObject = (data, type) => {
     field_publication_month,
     field_file,
     media_image_url,
+    field_link,
     ...otherFields
   } = data
 
@@ -29,6 +31,13 @@ const normalizeObject = (data, type) => {
     type === PAGES.SPECIALS
       ? EDITORIAL_DETAIL_ACTIONS[type](uuid, field_special_type, slug)
       : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug)
+
+  // By default use the internal router, fallback on a div if there's no link.
+  // If there's an externalUrl set, override the linkProps.
+  let linkProps = to ? { to, $as: RouterLink } : { $as: 'div' }
+  const externalUrl = field_link && field_link.uri
+  linkProps = externalUrl ? { href: externalUrl, $as: 'a' } : linkProps
+  linkProps = { ...linkProps, title } // Add the title attribute by default
 
   let localeDate = field_publication_date
 
@@ -82,6 +91,7 @@ const normalizeObject = (data, type) => {
     slug,
     to,
     currentPage: type,
+    linkProps,
     ...otherFields,
   }
 }

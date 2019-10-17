@@ -92,7 +92,10 @@ const SpecialBlock = () => {
       </CardRow>
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
-          <OverviewLink to={toSpecialOverview()} as={RouterLink} label="Bekijk overzicht" />
+          <OverviewLink
+            linkProps={{ to: toSpecialOverview(), $as: RouterLink }}
+            label="Bekijk overzicht"
+          />
         </Column>
       </Row>
     </CardContainer>

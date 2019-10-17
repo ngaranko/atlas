@@ -15,7 +15,6 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import RouterLink from 'redux-first-router-link'
 import { focusOutline } from './services/styles'
 import getImageFromCms from '../../utils/getImageFromCms'
 
@@ -85,31 +84,33 @@ const SpecialCard = ({
   teaser,
   intro,
   teaserImage,
-  to,
-}) => (
-  <StyledLink {...(to ? { to, $as: RouterLink } : { $as: 'div' })} linkType="blank">
-    <StyledCard horizontal animateLoading={!showError} isLoading={loading} showError={showError}>
-      <StyledCardContent>
-        <StyledHeading $as="h4" styleAs="h3">
-          {shortTitle || title}
-        </StyledHeading>
-        <Paragraph>
-          {specialType && (
-            <StyledTag colorType="tint" colorSubtype="level3">
-              {specialType}
-            </StyledTag>
+  linkProps,
+}) => {
+  return (
+    <StyledLink {...linkProps} linkType="blank">
+      <StyledCard horizontal animateLoading={!showError} isLoading={loading} showError={showError}>
+        <StyledCardContent>
+          <StyledHeading $as="h4" styleAs="h3">
+            {shortTitle || title}
+          </StyledHeading>
+          <Paragraph>
+            {specialType && (
+              <StyledTag colorType="tint" colorSubtype="level3">
+                {specialType}
+              </StyledTag>
+            )}
+            {teaser || intro}
+          </Paragraph>
+        </StyledCardContent>
+        <StyledCardMedia>
+          {teaserImage && (
+            <Image src={getImageFromCms(teaserImage, 160, 160)} alt={shortTitle || title} square />
           )}
-          {teaser || intro}
-        </Paragraph>
-      </StyledCardContent>
-      <StyledCardMedia>
-        {teaserImage && (
-          <Image src={getImageFromCms(teaserImage, 160, 160)} alt={shortTitle || title} square />
-        )}
-      </StyledCardMedia>
-    </StyledCard>
-  </StyledLink>
-)
+        </StyledCardMedia>
+      </StyledCard>
+    </StyledLink>
+  )
+}
 
 SpecialCard.defaultProps = {
   loading: false,
