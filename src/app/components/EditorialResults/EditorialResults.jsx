@@ -29,14 +29,26 @@ const PageHeading = styled(Heading)`
   border-bottom: 1px solid ${themeColor('tint', 'level3')};
 `
 
-const EditorialResults = ({ page, results, loading, type, links, onClickMore, showTitle }) => {
+const EditorialResults = ({
+  page,
+  headingLevel,
+  results,
+  loading,
+  type,
+  links,
+  onClickMore,
+  showTitle,
+  className,
+}) => {
   return (
-    <EditorialCardContainer>
+    <EditorialCardContainer className={className}>
       {page === 0 && loading ? (
         <LoadingIndicator style={{ position: 'inherit' }} />
       ) : (
         <>
-          {showTitle && <PageHeading $as="h1">{EDITORIAL_TITLES[type]}</PageHeading>}
+          {showTitle && (
+            <PageHeading $as={headingLevel || 'h1'}>{EDITORIAL_TITLES[type]}</PageHeading>
+          )}
           {results && results.map(result => <EditorialCard {...result} />)}
           {page > 0 && loading && <LoadingIndicator />}
           {links &&
