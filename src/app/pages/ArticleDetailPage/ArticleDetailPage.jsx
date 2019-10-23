@@ -179,6 +179,7 @@ const ArticleDetailPage = ({ id }) => {
                               headingLevel="h2"
                               type={PAGES.ARTICLES}
                               results={related}
+                              title="Verder lezen"
                             />
                           </>
                         ) : null}

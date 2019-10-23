@@ -31,6 +31,7 @@ const PageHeading = styled(Heading)`
 
 const EditorialResults = ({
   page,
+  title,
   headingLevel,
   results,
   loading,
@@ -47,7 +48,7 @@ const EditorialResults = ({
       ) : (
         <>
           {showTitle && (
-            <PageHeading $as={headingLevel || 'h1'}>{EDITORIAL_TITLES[type]}</PageHeading>
+            <PageHeading $as={headingLevel || 'h1'}>{title || EDITORIAL_TITLES[type]}</PageHeading>
           )}
           {results && results.map(result => <EditorialCard {...result} />)}
           {page > 0 && loading && <LoadingIndicator />}
