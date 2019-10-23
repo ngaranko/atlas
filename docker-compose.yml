@@ -3,9 +3,18 @@ services:
   atlas: # NGINX
     build:
       args:
-        - BUILD_ENV=acceptance
+        - NODE_ENV=acceptance
       context: .
     ipc: host
+    ports:
+      - 8080:80
+
+  graphql:
+    build:
+      context: ./graphql/
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
 
   test-unit:
     build:
