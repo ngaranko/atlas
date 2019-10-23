@@ -3,7 +3,7 @@ import ReduxContext from '../../store/reduxContext'
 import { routing } from '../routes'
 import { getLocationType } from '../../store/redux-first-router/selectors'
 
-const TITLE = 'Dataportaal'
+const TITLE = 'Data en informatie | Amsterdam'
 
 function useDocumentTitle() {
   const store = React.useContext(ReduxContext)
