@@ -203,7 +203,7 @@ function commonConfig() {
         sortChunks: 'none',
         lang: 'nl',
         hash: true,
-        title: 'Data en informatie | Amsterdam',
+        title: 'Data en informatie - Amsterdam',
         description:
           'Data en informatie is dé website voor iedereen die op zoek is naar objectieve, betrouwbare en actuele data en informatie over Amsterdam.',
         favicon: './favicon.png',
