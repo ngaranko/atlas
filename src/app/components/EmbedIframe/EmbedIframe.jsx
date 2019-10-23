@@ -4,7 +4,7 @@ import './_embedIframe.scss'
 
 const EmbedIframeComponent = () => (
   <iframe
-    title="Grote kaart | Data en informatie | Amsterdam"
+    title="Grote kaart - Data en informatie - Amsterdam"
     id="atlas-iframe-map"
     className="c-embed-iframe"
     width="500"

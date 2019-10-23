@@ -41,7 +41,7 @@ export const datasetDetailDocumentTitle = () => {
 
 export const detailDocumentTitleWithName = action => {
   // We fill the title for details in 2 steps
-  let title = document.title.replace(' - Data en informatie | Amsterdam', '')
+  let title = document.title.replace(' - Data en informatie - Amsterdam', '')
 
   const isDataset = !!get(action, 'payload.data.editDatasetId', null)
   if (isDataset && title.indexOf(':') === -1) {
