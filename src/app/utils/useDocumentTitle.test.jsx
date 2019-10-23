@@ -51,7 +51,7 @@ describe('useDocumentTitle', () => {
     const { hook } = wrapper.find('div').props()
     const { documentTitle } = hook
 
-    expect(documentTitle).toEqual(`${mockTitle} - Dataportaal`)
+    expect(documentTitle).toEqual(`${mockTitle} - Data en informatie | Amsterdam`)
   })
 
   it('should set a new title based on parameters passed to setDocumentTitle', () => {
@@ -64,6 +64,8 @@ describe('useDocumentTitle', () => {
     // Todo: eventually test the documentTitle from the hook! Couldn't get this to work now...
     // ({ hook } = wrapper.find('div').props());
     // const { documentTitle } = hook;
-    expect(documentTitle).toEqual('Overridden Title - Some more - Info - Dataportaal')
+    expect(documentTitle).toEqual(
+      'Overridden Title - Some more - Info - Data en informatie | Amsterdam',
+    )
   })
 })

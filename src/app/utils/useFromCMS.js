@@ -1,9 +1,9 @@
 import React from 'react'
 import { getByUrl } from '../../shared/services/api/api'
-import cmsNormalizer from '../../shared/services/cms/cms-normalizer'
+import cmsJsonApiNormalizer from '../../shared/services/cms/cms-json-api-normalizer'
 import useNormalizedCMSResults from '../../normalizations/cms/useNormalizedCMSResults'
 
-function useFromCMS(config, id = false, normalize = true) {
+function useFromCMS(config, id = false, normalizeFromJSONApi = true) {
   const [results, setResults] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState(false)
@@ -20,11 +20,12 @@ function useFromCMS(config, id = false, normalize = true) {
       const data = await getByUrl(endpoint)
 
       let result = data
-      if (normalize) {
-        result = await cmsNormalizer(data, fields)
+      if (normalizeFromJSONApi) {
+        result = await cmsJsonApiNormalizer(data, fields)
       }
 
-      result = await useNormalizedCMSResults(result, config.type)
+      result = useNormalizedCMSResults(result, config.type)
+
       setResults(result)
     } catch (e) {
       setError(true)

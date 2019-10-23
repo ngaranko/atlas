@@ -8,7 +8,7 @@ const cmsConfig = {
   ARTICLE: {
     type: PAGES.ARTICLES,
     endpoint: id =>
-      `${process.env.CMS_ROOT}jsonapi/node/article/${id}?include=field_cover_image.field_media_image,field_downloads.field_file.field_media_file`,
+      `${process.env.CMS_ROOT}jsonapi/node/article/${id}?include=field_cover_image.field_media_image,field_related.field_teaser_image.field_media_image,field_downloads.field_file.field_media_file`,
     fields: [
       'field_downloads',
       'field_downloads.title',
@@ -19,6 +19,17 @@ const cmsConfig = {
       'field_links',
       'field_byline',
       'field_publication_date',
+      'field_related.id',
+      'field_related.title',
+      'field_related.field_intro',
+      'field_related.field_byline',
+      'field_related.field_publication_date',
+      'field_related.field_teaser_image.field_media_image.uri',
+      'field_related.field_cover_image.field_media_image.uri',
+      'field_related.field_special_type',
+      'field_related.field_short_title',
+      'field_related.field_teaser',
+      'field_related.field_type',
       'field_type',
       ...SHARED_FIELDS,
     ],

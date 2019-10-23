@@ -203,8 +203,11 @@ function commonConfig() {
         sortChunks: 'none',
         lang: 'nl',
         hash: true,
-        title: 'Dataportaal',
+        title: 'Data en informatie | Amsterdam',
+        description:
+          'Data en informatie is dé website voor iedereen die op zoek is naar objectieve, betrouwbare en actuele data en informatie over Amsterdam.',
         favicon: './favicon.png',
+        root: env.ROOT,
         scripts: ['/mtiFontTrackingCode.min.js'],
       }),
       new webpack.DefinePlugin({

@@ -32,6 +32,8 @@ import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import { EDITORIAL_FIELD_TYPE_VALUES } from '../EditorialOverviewPage/constants'
 import getImageFromCms from '../../utils/getImageFromCms'
+import EditorialResults from '../../components/EditorialResults'
+import PAGES from '../../pages'
 
 const ListItemContent = styled.div`
   display: flex;
@@ -64,6 +66,7 @@ const ArticleDetailPage = ({ id }) => {
     slug,
     intro,
     field_type: articleType,
+    related,
   } = results || {}
 
   const image = getImageFromCms(coverImage, 1200, 600)
@@ -123,6 +126,17 @@ const ArticleDetailPage = ({ id }) => {
     width: 100%;
   `
 
+  const Divider = styled.div`
+    width: 200px;
+    height: 3px;
+    background-color: ${themeColor('secondary')};
+    margin: ${themeSpacing(8, 0, 6)};
+  `
+
+  const StyledEditorialResults = styled(EditorialResults)`
+    margin-bottom: ${themeSpacing(25)};
+  `
+
   const isContentType = articleType === EDITORIAL_FIELD_TYPE_VALUES.CONTENT
 
   return (
@@ -158,6 +172,17 @@ const ArticleDetailPage = ({ id }) => {
                         {typeof body === 'string' && (
                           <CustomHTMLBlock body={body.replace('http://', 'https://')} />
                         )}
+                        {related && related.length ? (
+                          <>
+                            <Divider />
+                            <StyledEditorialResults
+                              headingLevel="h2"
+                              type={PAGES.ARTICLES}
+                              results={related}
+                              title="Verder lezen"
+                            />
+                          </>
+                        ) : null}
                       </EditorialBodyStyled>
                     </Column>
                     <Column

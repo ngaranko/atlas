@@ -4,6 +4,7 @@ import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/
 import useSlug from '../../app/utils/useSlug'
 import formatDate from '../../shared/services/date-formatter/date-formatter'
 import PAGES from '../../app/pages'
+import { reformatJSONApiResults } from '../../shared/services/cms/cms-json-api-normalizer'
 
 const normalizeObject = (data, type) => {
   const {
@@ -21,6 +22,7 @@ const normalizeObject = (data, type) => {
     field_file,
     media_image_url,
     field_link,
+    field_related,
     ...otherFields
   } = data
 
@@ -73,6 +75,11 @@ const normalizeObject = (data, type) => {
     fileUrl = url
   }
 
+  let related = []
+  if (field_related) {
+    const reformattedRelatedResults = reformatJSONApiResults({ field_items: field_related })
+    related = reformattedRelatedResults.map(dataItem => normalizeObject(dataItem, type))
+  }
   return {
     key: uuid,
     id: uuid,
@@ -92,6 +99,7 @@ const normalizeObject = (data, type) => {
     to,
     currentPage: type,
     linkProps,
+    related,
     ...otherFields,
   }
 }

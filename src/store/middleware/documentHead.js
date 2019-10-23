@@ -3,8 +3,8 @@ import { routing } from '../../app/routes'
 import titleActionMapping from '../../shared/services/document-title/document-title'
 import { FETCH_DETAIL_SUCCESS } from '../../shared/ducks/detail/constants'
 
-const TITLE_SUFFIX = 'Dataportaal'
-const TITLE_DEFAULT = 'Dataportaal'
+const TITLE_SUFFIX = 'Data en informatie | Amsterdam'
+const TITLE_DEFAULT = 'Data en informatie | Amsterdam'
 
 const getDefaultDocumentTitle = page => () => get(routing, `[${page}].title`, TITLE_DEFAULT)
 

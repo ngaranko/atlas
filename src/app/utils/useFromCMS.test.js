@@ -1,11 +1,11 @@
 import { renderHook } from '@testing-library/react-hooks'
 import useFromCMS from './useFromCMS'
 import { getByUrl } from '../../shared/services/api/api'
-import cmsNormalizer from '../../shared/services/cms/cms-normalizer'
+import cmsJsonApiNormalizer from '../../shared/services/cms/cms-json-api-normalizer'
 import useNormalizedCMSResults from '../../normalizations/cms/useNormalizedCMSResults'
 
 jest.mock('../../shared/services/api/api')
-jest.mock('../../shared/services/cms/cms-normalizer')
+jest.mock('../../shared/services/cms/cms-json-api-normalizer')
 jest.mock('../../normalizations/cms/useNormalizedCMSResults')
 jest.useFakeTimers()
 
@@ -18,13 +18,13 @@ describe('useFromCMS', () => {
 
   beforeEach(() => {
     getByUrl.mockReturnValueOnce(Promise.resolve(mockData))
-    cmsNormalizer.mockReturnValueOnce(Promise.resolve(mockData))
+    cmsJsonApiNormalizer.mockReturnValueOnce(Promise.resolve(mockData))
     useNormalizedCMSResults.mockReturnValueOnce(mockData)
   })
 
   afterEach(() => {
     getByUrl.mockReset()
-    cmsNormalizer.mockReset()
+    cmsJsonApiNormalizer.mockReset()
   })
 
   const mockCMSconfig = {
@@ -77,7 +77,7 @@ describe('useFromCMS', () => {
     await waitForNextUpdate()
 
     // don't handle the normalization
-    expect(cmsNormalizer).not.toHaveBeenCalled()
+    expect(cmsJsonApiNormalizer).not.toHaveBeenCalled()
 
     expect(result.current.loading).toBe(false)
     expect(result.current.results).toEqual(mockData)

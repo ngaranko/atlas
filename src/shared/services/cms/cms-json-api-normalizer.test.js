@@ -1,9 +1,9 @@
 import normalize from 'json-api-normalize'
-import cmsNormalizer from './cms-normalizer'
+import cmsJsonApiNormalizer from './cms-json-api-normalizer'
 
 jest.mock('json-api-normalize')
 
-describe('cmsNormalizer', () => {
+describe('jsonApiNormalizer', () => {
   const mockImageUrl = 'path/to/file'
   let mockData = {
     body: {
@@ -38,7 +38,7 @@ describe('cmsNormalizer', () => {
       get: () => mockData,
     }))
 
-    const normalizedData = cmsNormalizer(mockData, ['field_title', 'field_intro'])
+    const normalizedData = cmsJsonApiNormalizer(mockData, ['field_title', 'field_intro'])
 
     expect(normalizedData).toEqual({
       ...mockData,
@@ -61,7 +61,7 @@ describe('cmsNormalizer', () => {
       get: () => mockData,
     }))
 
-    const normalizedData = cmsNormalizer(mockData, ['field_title', 'field_intro'])
+    const normalizedData = cmsJsonApiNormalizer(mockData, ['field_title', 'field_intro'])
 
     expect(normalizedData).toEqual([
       {
