@@ -1,5 +1,7 @@
+require('dotenv').config()
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
+const expressPlayground = require('graphql-playground-middleware-express').default
 const fetch = require('node-fetch')
 const { buildSchema } = require('graphql')
 const cors = require('cors')
@@ -33,7 +35,7 @@ const schema = buildSchema(`
   }
 `)
 
-const apiRoot = 'https://api.data.amsterdam.nl/'
+const apiRoot = process.env.API_ROOT
 
 const globalNormalize = ({ _links, _display, type, ...otherField }) => ({
   id: _links && _links.self ? _links.self.href.match(/([^\/]*)\/*$/)[1] : null,
@@ -75,13 +77,14 @@ const resolvers = {
 }
 
 app.use(
-  '/',
+  '/graphql',
   graphqlHTTP({
     schema,
     rootValue: resolvers,
-    graphiql: true,
   }),
 )
+
+app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
 
 app.listen(4000)
 console.log('Running a GraphQL API server at localhost:4000')
