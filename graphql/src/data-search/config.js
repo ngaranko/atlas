@@ -1,44 +1,40 @@
 const dataSearchConfig = [
   {
     endpoint: 'atlas/search/openbareruimte',
-    type: 'Openbare Ruimte (Weg)',
+    type: 'openbare_ruimte_weg',
+    label: 'Openbare Ruimte (Weg)',
     params: {
       subtype: 'weg',
     },
   },
   {
     endpoint: 'atlas/search/adres',
-    type: 'Adres',
+    type: 'adres',
+    label: 'Adres',
   },
   {
     endpoint: 'atlas/search/openbareruimte',
-    type: 'Openbare Ruimte',
+    type: 'openbare_ruimte',
+    label: 'Openbare Ruimte',
     params: {
       subtype: 'not_weg',
     },
   },
   {
     endpoint: 'atlas/search/kadastraalobject',
-    type: 'Kadastraal object',
+    type: 'kadastraal_object',
+    label: 'Kadastraal object',
   },
   {
     endpoint: 'meetbouten/search',
-    type: 'Meetbouten',
+    type: 'meetbouten',
+    label: 'Meetbouten',
   },
   {
     endpoint: 'monumenten/search',
-    type: 'Monumenten',
+    type: 'monumenten',
+    label: 'Monumenten',
   },
 ]
 
-const geoSearchApiConfig = [
-  {
-    endpoint: 'geosearch/bag',
-    type: 'bag',
-  },
-]
-
-module.exports = {
-  dataSearchConfig,
-  geoSearchApiConfig,
-}
+module.exports.default = dataSearchConfig

@@ -5,7 +5,7 @@ const { commonConfig, dist } = require('./webpack.common.js')
 module.exports = () =>
   merge(commonConfig(), {
     mode: 'development',
-    devtool: 'source-map',
+    devtool: 'cheap-module-eval-source-map',
     devServer: {
       historyApiFallback: {
         // allow "." character in URL path: https://stackoverflow.com/a/38576357

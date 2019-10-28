@@ -15,7 +15,6 @@ import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndi
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
 const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'))
-const QuerySearchPage = React.lazy(() => import('./pages/QuerySearchPage'))
 const DatasetPage = React.lazy(() => import('./pages/DatasetPage'))
 const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'))
 const DatasetDetailContainer = React.lazy(() =>
@@ -31,6 +30,7 @@ const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverview
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'))
 const MovedPage = React.lazy(() => import('./pages/MovedPage'))
+const SearchPage = React.lazy(() => import('./pages/SearchPage/index'))
 
 // The Container from @datapunt/asc-ui isnt used here as the margins added do not match the ones in the design
 const Container = styled.div`
@@ -75,7 +75,7 @@ const AppBody = ({
         ) : (
           <div className="u-grid u-full-height">
             <div className="u-row u-full-height">
-              {isQuerySearchPage(currentPage) && <QuerySearchPage />}
+              {isQuerySearchPage(currentPage) && <SearchPage />}
 
               {/* Todo: DP-6391 */}
               {currentPage === PAGES.DATA_SEARCH_CATEGORY && (

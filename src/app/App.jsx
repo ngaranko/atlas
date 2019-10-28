@@ -12,7 +12,7 @@ import {
   breakpoint,
 } from '@datapunt/asc-ui'
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
-import { isEditorialPage, isContentPage } from './pages'
+import { isEditorialPage, isContentPage, isQuerySearchPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -44,7 +44,7 @@ const App = ({
 }) => {
   const editorialPage = isEditorialPage(currentPage)
   const contentPage = isContentPage(currentPage)
-  const hasMaxWidth = homePage || editorialPage || contentPage
+  const hasMaxWidth = homePage || editorialPage || contentPage || isQuerySearchPage(currentPage)
 
   // Redirect to the 404 page if currentPage isn't set
   if (currentPage === '' && window) {

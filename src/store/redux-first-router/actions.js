@@ -178,6 +178,16 @@ export const toDatasetSearch = (additionalParams = null, skipSaga = false, force
     additionalParams,
   },
 })
+
+export const toSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
+  type: routing.search.type,
+  meta: {
+    preserve: true,
+    skipSaga,
+    forceSaga,
+    additionalParams,
+  },
+})
 export const toDatasetsWithFilter = (additionalParams = {}, preserve = false) => ({
   type: routing.datasets.type,
   meta: {
