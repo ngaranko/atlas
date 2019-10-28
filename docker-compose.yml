@@ -6,8 +6,6 @@ services:
         - NODE_ENV=acceptance
       context: .
     ipc: host
-    ports:
-      - 8080:80
 
   graphql:
     build:
