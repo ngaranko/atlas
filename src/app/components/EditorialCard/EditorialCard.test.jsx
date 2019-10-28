@@ -45,4 +45,34 @@ describe('EditorialCard', () => {
     expect(tag.exists()).toBeTruthy()
     expect(tag.props().children).toBe('foo')
   })
+
+  it("should display a localeDate there's one provided unless it has a specialType", () => {
+    let component = shallow(
+      <EditorialCard
+        href="link"
+        localeDate="locale"
+        localeDateFormatted="formatted"
+        {...mockDataItem}
+      />,
+    ).dive()
+
+    let metaText = component.find('.metaText')
+
+    expect(metaText.exists()).toBeTruthy()
+    expect(metaText.props().children).toBe('formatted')
+
+    component = shallow(
+      <EditorialCard
+        href="link"
+        localeDate="locale"
+        localeDateFormatted="formatted"
+        specialType="foo"
+        {...mockDataItem}
+      />,
+    ).dive()
+
+    metaText = component.find('.metaText')
+
+    expect(metaText.exists()).toBeFalsy()
+  })
 })
