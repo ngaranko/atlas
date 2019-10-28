@@ -28,6 +28,12 @@ const StyledRow = styled(Row)`
       margin-bottom: ${themeSpacing(8)};
     }
   }
+
+  @media screen and ${breakpoint('max-width', 'mobileL')} {
+    ${/* sc-selector */ styles.ColumnStyle}:nth-child(-n+3) {
+      margin-bottom: ${themeSpacing(8)};
+    }
+  }
 `
 
 const StyledHeading = styled(Heading)`
