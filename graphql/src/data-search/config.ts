@@ -37,4 +37,4 @@ const dataSearchConfig = [
   },
 ]
 
-module.exports.default = dataSearchConfig
+export default dataSearchConfig

@@ -1,5 +1,3 @@
-const { buildSchema } = require('graphql')
-
 const schema = `  
   type DataSearchResult {
     totalCount: Int!
@@ -21,4 +19,4 @@ const schema = `
   }
 `
 
-module.exports.default = schema
+export default schema

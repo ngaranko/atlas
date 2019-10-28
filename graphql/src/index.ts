@@ -1,11 +1,13 @@
 require('dotenv').config()
-const express = require('express')
-const graphqlHTTP = require('express-graphql')
-const expressPlayground = require('graphql-playground-middleware-express').default
-const { buildSchema } = require('graphql')
-const cors = require('cors')
-const dataSearchResolvers = require('./data-search/resolvers').default
-const dataSearchSchema = require('./data-search/schema').default
+
+import express from 'express'
+import graphqlHTTP from 'express-graphql'
+import expressPlayground from 'graphql-playground-middleware-express'
+import { buildSchema } from 'graphql'
+import cors from 'cors'
+import dataSearchResolvers from './data-search/resolvers'
+import dataSearchSchema from './data-search/schema'
+
 const app = express()
 
 app.use(cors())
