@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import queryString from 'querystring'
 
-import { Checkbox } from '../../../shared/components/checkbox'
+import styled from '@datapunt/asc-core'
+import { Checkbox, themeSpacing } from '@datapunt/asc-ui'
 import MAP_CONFIG from '../../services/map.config'
 
 import './_map-legend.scss'
@@ -13,6 +14,11 @@ const isAuthorised = (layer, user) =>
 
 const isInsideZoomLevel = (layer, zoomLevel) =>
   zoomLevel >= layer.minZoom && zoomLevel <= layer.maxZoom
+
+const StyledCheckbox = styled(Checkbox)`
+  padding: 0px;
+  padding-right: ${themeSpacing(2)};
+`
 
 class MapLegend extends React.Component {
   static constructLegendIconUrl(mapLayer, legendItem) {
@@ -88,7 +94,9 @@ class MapLegend extends React.Component {
                     }selectable-legend
                   `}
                 >
-                  <Checkbox
+                  <StyledCheckbox
+                    className="checkbox"
+                    variant="tertiary"
                     checked={layerIsVisible}
                     name={mapLayer.title}
                     onChange={
@@ -136,7 +144,9 @@ class MapLegend extends React.Component {
                             key={legendItemIndex}
                           >
                             {legendItem.selectable && (
-                              <Checkbox
+                              <StyledCheckbox
+                                className="checkbox"
+                                variant="tertiary"
                                 checked={legendItemIsVisible}
                                 name={legendItem.title}
                                 onChange={
