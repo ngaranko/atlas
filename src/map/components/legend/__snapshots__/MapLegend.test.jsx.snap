@@ -20,10 +20,12 @@ exports[`MapLegend should render the component 1`] = `
                     map-legend__category--selectable-legend
                   "
       >
-        <Checkbox
+        <Styled(Checkbox)
           checked={false}
+          className="checkbox"
           name="title"
           onChange={[Function]}
+          variant="tertiary"
         />
         <h4
           className="map-legend__category-title"
@@ -43,10 +45,12 @@ exports[`MapLegend should render the component 1`] = `
           className="map-legend__item"
           key="0"
         >
-          <Checkbox
+          <Styled(Checkbox)
             checked={false}
+            className="checkbox"
             name="legendTitle"
             onChange={[Function]}
+            variant="tertiary"
           />
           <div
             className="
@@ -77,10 +81,12 @@ exports[`MapLegend should render the component 1`] = `
                     map-legend__category--selectable-legend
                   "
       >
-        <Checkbox
+        <Styled(Checkbox)
           checked={true}
+          className="checkbox"
           name="title"
           onChange={[Function]}
+          variant="tertiary"
         />
         <h4
           className="map-legend__category-title"
@@ -100,10 +106,12 @@ exports[`MapLegend should render the component 1`] = `
           className="map-legend__item"
           key="0"
         >
-          <Checkbox
+          <Styled(Checkbox)
             checked={false}
+            className="checkbox"
             name="legendTitle"
             onChange={[Function]}
+            variant="tertiary"
           />
           <div
             className="
