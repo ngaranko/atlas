@@ -56,7 +56,7 @@ describe('EditorialCard', () => {
       />,
     ).dive()
 
-    let metaText = component.find('.metaText')
+    let metaText = component.find("[data-test='metaText']")
 
     expect(metaText.exists()).toBeTruthy()
     expect(metaText.props().children).toBe('formatted')
@@ -71,7 +71,7 @@ describe('EditorialCard', () => {
       />,
     ).dive()
 
-    metaText = component.find('.metaText')
+    metaText = component.find("[data-test='metaText']")
 
     expect(metaText.exists()).toBeFalsy()
   })
