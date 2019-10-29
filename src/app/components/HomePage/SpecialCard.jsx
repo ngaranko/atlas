@@ -73,6 +73,7 @@ const StyledCardMedia = styled(CardMedia)`
 const StyledTag = styled(Tag)`
   display: inline;
   margin-right: ${themeSpacing(1)};
+  line-height: 2em;
 `
 
 const SpecialCard = ({
