@@ -273,7 +273,7 @@
         "legendItems": [
             {
                 "id": "egga",
-                "title": "Gemeente Amsterdam",
+                "title": "Gemeente Ams xterdam",
                 "iconUrl": "/assets/images/map-legend/icon-egdm-cat-1.svg",
                 "params": {
                     "categorie": 1
@@ -2839,19 +2839,24 @@
                 "id": "tariffA",
                 "title": "Tariefgebied A",
                 "params": {
-                    "tarief": "Tariefgebied_A"
+                    "tarief": "A"
                 }
                 
             },
             {
                 "id": "tariffB",
-                "title": "Tariefgebied B"
+                "title": "Tariefgebied B",
+                "params": {
+                    "tarief": "B"
+                }
                 
             },
             {
                 "id": "tariffC",
-                "title": "Tariefgebied C"
-                
+                "title": "Tariefgebied C",
+                "params": {
+                    "tarief": "C"
+                }
             }
         ],
         "title": "Reclamebelastingtarieven",
