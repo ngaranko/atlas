@@ -7,11 +7,18 @@ pipeline {
   environment {
     COMMIT_HASH = GIT_COMMIT.substring(0, 8)
     PROJECT_PREFIX = "${BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
-    IMAGE_BASE = "repo.data.amsterdam.nl/atlas/app"
-    IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
-    IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
-    IMAGE_PRODUCTION = "${IMAGE_BASE}:production"
-    IMAGE_LATEST = "${IMAGE_BASE}:latest"
+
+    IMAGE_GRAPHQL_BASE = "repo.data.amsterdam.nl/atlas/app_graphql"
+    IMAGE_GRAPHQL_BUILD = "${IMAGE_GRAPHQL_BASE}:${BUILD_NUMBER}"
+    IMAGE_GRAPHQL_ACCEPTANCE = "${IMAGE_GRAPHQL_BASE}:acceptance"
+    IMAGE_GRAPHQL_PRODUCTION = "${IMAGE_GRAPHQL_BASE}:production"
+    IMAGE_GRAPHQL_LATEST = "${IMAGE_GRAPHQL_BASE}:latest"
+
+    IMAGE_FRONTEND_BASE = "repo.data.amsterdam.nl/atlas/app"
+    IMAGE_FRONTEND_BUILD = "${IMAGE_FRONTEND_BASE}:${BUILD_NUMBER}"
+    IMAGE_FRONTEND_ACCEPTANCE = "${IMAGE_FRONTEND_BASE}:acceptance"
+    IMAGE_FRONTEND_PRODUCTION = "${IMAGE_FRONTEND_BASE}:production"
+    IMAGE_FRONTEND_LATEST = "${IMAGE_FRONTEND_BASE}:latest"
   }
 
   stages {
@@ -101,23 +108,37 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES')
       }
       steps {
-        sh "docker build -t ${IMAGE_BUILD} " +
+        // GraphQL
+        sh "docker build -f ./graphql/Dockerfile -t ${IMAGE_GRAPHQL_BUILD} " +
+          "--shm-size 1G " +
+          "--build-arg NODE_ENV=acceptance " +
+          "./graphql"
+        sh "docker push ${IMAGE_GRAPHQL_BUILD}"
+
+        // Frontend
+        sh "docker build -t ${IMAGE_FRONTEND_BUILD} " +
           "--shm-size 1G " +
           "--build-arg NODE_ENV=acceptance " +
           "."
-        sh "docker push ${IMAGE_BUILD}"
+        sh "docker push ${IMAGE_FRONTEND_BUILD}"
       }
     }
 
-    stage('Deploy A (Master)') {
+    stage('Deploy A (Master & Develop)') {
       when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
       steps {
-        sh "docker pull ${IMAGE_BUILD}"
-        sh "docker tag ${IMAGE_BUILD} ${IMAGE_ACCEPTANCE}"
-        sh "docker push ${IMAGE_ACCEPTANCE}"
+        // GraphQL
+        sh "docker pull ${IMAGE_GRAPHQL_BUILD}"
+        sh "docker tag ${IMAGE_GRAPHQL_BUILD} ${IMAGE_GRAPHQL_ACCEPTANCE}"
+        sh "docker push ${IMAGE_GRAPHQL_ACCEPTANCE}"
+
+        // Frontend
+        sh "docker pull ${IMAGE_FRONTEND_BUILD}"
+        sh "docker tag ${IMAGE_FRONTEND_BUILD} ${IMAGE_FRONTEND_ACCEPTANCE}"
+        sh "docker push ${IMAGE_FRONTEND_ACCEPTANCE}"
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
           [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml']
@@ -132,16 +153,25 @@ pipeline {
       }
       steps {
         // NOTE NODE_ENV intentionaly not set (using Dockerfile default)
-        sh "docker build -t ${IMAGE_PRODUCTION} " +
+        // GraphQL
+        sh "docker build -f ./graphql/Dockerfile -t ${IMAGE_GRAPHQL_PRODUCTION} " +
+            "--shm-size 1G " +
+            "./graphql"
+        sh "docker tag ${IMAGE_GRAPHQL_PRODUCTION} ${IMAGE_GRAPHQL_LATEST}"
+        sh "docker push ${IMAGE_GRAPHQL_PRODUCTION}"
+        sh "docker push ${IMAGE_GRAPHQL_LATEST}"
+
+        // Frontend
+        sh "docker build -t ${IMAGE_FRONTEND_PRODUCTION} " +
             "--shm-size 1G " +
             "."
-        sh "docker tag ${IMAGE_PRODUCTION} ${IMAGE_LATEST}"
-        sh "docker push ${IMAGE_PRODUCTION}"
-        sh "docker push ${IMAGE_LATEST}"
+        sh "docker tag ${IMAGE_FRONTEND_PRODUCTION} ${IMAGE_FRONTEND_LATEST}"
+        sh "docker push ${IMAGE_FRONTEND_PRODUCTION}"
+        sh "docker push ${IMAGE_FRONTEND_LATEST}"
       }
     }
 
-    stage('Deploy pre P (Master)') {
+    stage('Deploy pre P (Master & Develop)') {
       when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
         timeout(time: 5, unit: 'MINUTES')

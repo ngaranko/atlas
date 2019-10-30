@@ -156,9 +156,9 @@ const EditorialCard = ({
             <IntroText>{teaser || intro}</IntroText>
           </div>
 
-          {localeDate && (
+          {!specialType && localeDate && (
             <div>
-              <MetaText as="time" datetime={localeDate}>
+              <MetaText as="time" data-test="metaText" datetime={localeDate}>
                 {localeDateFormatted}
               </MetaText>
             </div>
