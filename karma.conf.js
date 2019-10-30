@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const { root, dist, src, legacy } = require('./scripts/webpack/webpack.common.js')
+const { root, dist, src, legacy } = require('./webpack.common.js')
 
 const env = require('./test/load-env')
 
