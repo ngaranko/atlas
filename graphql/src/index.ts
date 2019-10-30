@@ -13,8 +13,12 @@ const app = express()
 app.use(cors())
 
 const schema = buildSchema(`
+  input DataSearchInput {
+    limit: Int
+    types: [String!]
+  }
   type Query {
-    dataSearch(q: String!, limit: Int, types: [String!]): DataSearchResult
+    dataSearch(q: String!, input: DataSearchInput!): DataSearchResult
   }
   ${dataSearchSchema}
 `)

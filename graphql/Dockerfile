@@ -15,5 +15,6 @@ EXPOSE 4000
 
 ENTRYPOINT ["npm", "run"]
 
-CMD ["start"]
+CMD ["build"]
+CMD ["serve"]
 

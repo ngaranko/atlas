@@ -16,7 +16,8 @@ const globalNormalize = ({ _links, _display, type, ...otherField }: any): Search
 })
 
 const resolvers = {
-  dataSearch: async ({ q, limit, types }: QueryDataSearchArgs): Promise<DataSearchResult> => {
+  dataSearch: async ({ q, input }: QueryDataSearchArgs): Promise<DataSearchResult> => {
+    const { limit, types } = input
     let filteredDataSearchConfig = dataSearchConfig
 
     if (types) {

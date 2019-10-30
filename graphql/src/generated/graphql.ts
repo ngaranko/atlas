@@ -11,6 +11,11 @@ export type Scalars = {
   Float: number
 }
 
+export type DataSearchInput = {
+  limit?: Maybe<Scalars['Int']>
+  types?: Maybe<Array<Scalars['String']>>
+}
+
 export type DataSearchResult = {
   __typename?: 'DataSearchResult'
   totalCount: Scalars['Int']
@@ -24,8 +29,7 @@ export type Query = {
 
 export type QueryDataSearchArgs = {
   q: Scalars['String']
-  limit?: Maybe<Scalars['Int']>
-  types?: Maybe<Array<Scalars['String']>>
+  input: DataSearchInput
 }
 
 export type SearchResult = {
@@ -126,6 +130,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>
   String: ResolverTypeWrapper<Scalars['String']>
+  DataSearchInput: DataSearchInput
   Int: ResolverTypeWrapper<Scalars['Int']>
   DataSearchResult: ResolverTypeWrapper<DataSearchResult>
   SearchResultType: ResolverTypeWrapper<SearchResultType>
@@ -138,6 +143,7 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Query: {}
   String: Scalars['String']
+  DataSearchInput: DataSearchInput
   Int: Scalars['Int']
   DataSearchResult: DataSearchResult
   SearchResultType: SearchResultType
@@ -162,7 +168,7 @@ export type QueryResolvers<
     Maybe<ResolversTypes['DataSearchResult']>,
     ParentType,
     ContextType,
-    RequireFields<QueryDataSearchArgs, 'q'>
+    RequireFields<QueryDataSearchArgs, 'q' | 'input'>
   >
 }
 

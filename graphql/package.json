@@ -5,10 +5,11 @@
   "license": "MPL-2.0",
   "author": "Datapunt Amsterdam",
   "scripts": {
-    "generate": "graphql-codegen --config codegen.yml",
+    "build": "tsc --build",
+    "serve": "node ./lib/",
+    "generate": "graphql-codegen",
     "postinstall": "cp .env.development .env",
-    "start": "node -r ts-node/register src/index.ts",
-    "start:development": "nodemon src/index.ts"
+    "start": "concurrently \"nodemon --transpile-only src/index.ts\" \"npm run generate -- --watch\""
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -26,6 +27,7 @@
     "@types/node": "^12.11.7",
     "@types/node-fetch": "^2.5.2",
     "awesome-typescript-loader": "^5.2.1",
+    "concurrently": "^5.0.0",
     "dotenv": "^8.2.0",
     "nodemon": "^1.19.4",
     "ts-node": "^8.4.1",
