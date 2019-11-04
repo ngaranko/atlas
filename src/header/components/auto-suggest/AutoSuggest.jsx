@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { constants } from '@datapunt/asc-ui'
 import AutoSuggestCategory, { MORE_RESULTS_INDEX } from './AutoSuggestCategory'
 import './_auto-suggest.scss'
 import Search from './Search'
@@ -212,7 +212,7 @@ class AutoSuggest extends React.Component {
             onSuggestionSelection={this.onSuggestionSelection}
           />
           {suggestions.length > 0 && showSuggestions && (
-            <div className="auto-suggest__dropdown">
+            <div className="auto-suggest__dropdown" style={{ zIndex: constants.BACKDROP_Z_INDEX }}>
               <h3 className="auto-suggest__tip">Enkele suggesties</h3>
               {suggestions.map(category => (
                 <AutoSuggestCategory

@@ -1,6 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { SearchBar, SearchBarToggle, Portal, BackDrop } from '@datapunt/asc-ui'
+import styled from '@datapunt/asc-core'
+import { SearchBar, SearchBarToggle, BackDrop, showAboveBackDrop } from '@datapunt/asc-ui'
+
+const StyledSearchBar = styled(SearchBar)`
+  // ${({ showSuggestions }) => (showSuggestions ? showAboveBackDrop(true) : '')}
+`
 
 const Search = ({
   showSuggestions,
@@ -17,7 +22,7 @@ const Search = ({
   }
 
   React.useEffect(() => {
-    const setBackDropFn = val => setBackDrop(val)
+    const setBackDropFn = visible => setBackDrop(visible)
 
     if (showSuggestions && suggestions.length) {
       setBackDropFn(!!(showSuggestions && suggestions.length))
@@ -26,7 +31,12 @@ const Search = ({
 
   return (
     <React.Fragment>
-      <SearchBar showAt="tabletM" inputProps={inputProps} {...searchBarProps} />
+      <StyledSearchBar
+        showAt="tabletM"
+        inputProps={inputProps}
+        {...searchBarProps}
+        showSuggestions
+      />
       <SearchBarToggle
         hideAt="tabletM"
         onOpen={onOpenSearchToggle}
@@ -36,9 +46,7 @@ const Search = ({
         hasBackDrop
       />
       {showBackdrop && showSuggestions && (
-        <Portal>
-          <BackDrop onClick={() => setBackDrop(false)} />
-        </Portal>
+        <BackDrop onClick={() => setBackDrop(false)} disablePortal />
       )}
     </React.Fragment>
   )
