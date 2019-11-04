@@ -1925,27 +1925,6 @@
         }
     },
     {
-      "category": "SAFETY",
-      "id": "oovvz",
-      "layers": ["vuurwerkvrijezone", "vuurwerkvrijezone_label"],
-      "legendItems": [
-        {
-          "title": "Vuurwerkvrije zone",
-           "imageRule": "vuurwerkvrijezone"
-        }
-      ],
-      "title": "Vuurwerkvrije zones",
-      "url": "/maps/overlastgebieden",
-      "noDetail": true,
-      "disabled": true,
-      "meta": {
-        "description": null,
-        "theme": null,
-        "datasetId": null,
-        "date": null
-    }
-    },
-    {
         "category": "TOURISM",
         "id": "tcmnmt",
         "layers": [
