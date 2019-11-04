@@ -31,6 +31,10 @@ const matomoMiddleware = ({ getState }) => next => action => {
     const { href } = window.location
     const { title } = window.document
 
+    // Matomo uses the document title for tracking pageviews.
+    // We have to convert the title to the 'old' format (Dataportaal) in order to keep the existing data
+    const titleForMatomo = title.replace('Data en informatie - Amsterdam', 'Dataportaal')
+
     if (tracking || location) {
       const customDimensions = [
         ...authCustomDimensions(state),
@@ -44,11 +48,11 @@ const matomoMiddleware = ({ getState }) => next => action => {
             firstAction,
             query,
             state,
-            title,
+            title: titleForMatomo,
             href,
           }),
           href,
-          title,
+          title: titleForMatomo,
           customDimensions,
         })
       })

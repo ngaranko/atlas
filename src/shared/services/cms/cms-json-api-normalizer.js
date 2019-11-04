@@ -1,8 +1,6 @@
 import normalize from 'json-api-normalize'
 
-const cmsNormalizer = (data, fields) => {
-  const normalizedData = normalize(data).get(['id', 'title', 'body', 'created', ...fields])
-
+export const reformatJSONApiResults = normalizedData => {
   // In case of a Drupal collection resource the returned data will include several objects that need to be normalized
   if (normalizedData.field_items) {
     return normalizedData.field_items.map(item => {
@@ -36,4 +34,9 @@ const cmsNormalizer = (data, fields) => {
   }
 }
 
-export default cmsNormalizer
+const cmsJsonApiNormalizer = (data, fields) => {
+  const normalizedData = normalize(data).get(['id', 'title', 'body', 'created', ...fields])
+  return reformatJSONApiResults(normalizedData)
+}
+
+export default cmsJsonApiNormalizer

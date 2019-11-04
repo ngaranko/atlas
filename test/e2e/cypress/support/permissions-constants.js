@@ -23,7 +23,7 @@ const urls = {
 }
 
 const queries = {
-  autoSuggestHeader: '.qa-auto-suggest-header',
+  autoSuggestHeader: 'h4.qa-auto-suggest-header',
   headerTitle: '.o-header__title',
   headerSubTitle: '.o-header__subtitle',
   infoNotification: '.notification--info',

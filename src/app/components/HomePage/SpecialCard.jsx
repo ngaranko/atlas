@@ -15,7 +15,6 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import RouterLink from 'redux-first-router-link'
 import { focusOutline } from './services/styles'
 import getImageFromCms from '../../utils/getImageFromCms'
 
@@ -52,6 +51,7 @@ const StyledCard = styled(Card)`
   align-items: flex-start;
   padding: ${themeSpacing(2)} 0;
   margin: ${themeSpacing(6)} 0;
+  pointer-events: none; /* FF 60 fix */
   @media screen and ${breakpoint('min-width', 'tabletM')} {
     margin: ${themeSpacing(6, 2)};
   }
@@ -73,6 +73,7 @@ const StyledCardMedia = styled(CardMedia)`
 const StyledTag = styled(Tag)`
   display: inline;
   margin-right: ${themeSpacing(1)};
+  line-height: 2em;
 `
 
 const SpecialCard = ({
@@ -84,29 +85,33 @@ const SpecialCard = ({
   teaser,
   intro,
   teaserImage,
-  to,
-}) => (
-  <StyledLink to={to} $as={RouterLink} linkType="blank">
-    <StyledCard horizontal animateLoading={!showError} loading={loading} showError={showError}>
-      <StyledCardContent>
-        <StyledHeading $as="h4" styleAs="h3">
-          {shortTitle || title}
-        </StyledHeading>
-        <Paragraph>
-          {specialType && (
-            <StyledTag colorType="tint" colorSubtype="level3">
-              {specialType}
-            </StyledTag>
+  linkProps,
+}) => {
+  return (
+    <StyledLink {...linkProps} linkType="blank">
+      <StyledCard horizontal animateLoading={!showError} isLoading={loading} showError={showError}>
+        <StyledCardContent>
+          <StyledHeading $as="h4" styleAs="h3">
+            {shortTitle || title}
+          </StyledHeading>
+          <Paragraph>
+            {specialType && (
+              <StyledTag colorType="tint" colorSubtype="level3">
+                {specialType}
+              </StyledTag>
+            )}
+            {teaser || intro}
+          </Paragraph>
+        </StyledCardContent>
+        <StyledCardMedia>
+          {teaserImage && (
+            <Image src={getImageFromCms(teaserImage, 160, 160)} alt={shortTitle || title} square />
           )}
-          {teaser || intro}
-        </Paragraph>
-      </StyledCardContent>
-      <StyledCardMedia>
-        <Image src={getImageFromCms(teaserImage, 160, 160)} alt={shortTitle || title} square />
-      </StyledCardMedia>
-    </StyledCard>
-  </StyledLink>
-)
+        </StyledCardMedia>
+      </StyledCard>
+    </StyledLink>
+  )
+}
 
 SpecialCard.defaultProps = {
   loading: false,
@@ -117,7 +122,7 @@ SpecialCard.defaultProps = {
   teaser: '',
   intro: '',
   teaserImage: '',
-  to: {},
+  to: null,
 }
 
 SpecialCard.propTypes = {

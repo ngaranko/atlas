@@ -1,0 +1,24 @@
+{
+  "name": "dataportaal-graphql",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MPL-2.0",
+  "author": "Datapunt Amsterdam",
+  "scripts": {
+    "postinstall": "cp .env.development .env",
+    "start": "node src/index.js",
+    "start:development": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.5.8",
+    "graphql-playground-middleware-express": "^1.7.12",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^1.19.4"
+  }
+}

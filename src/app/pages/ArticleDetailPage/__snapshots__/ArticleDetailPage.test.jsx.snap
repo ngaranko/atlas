@@ -5,9 +5,12 @@ exports[`ArticleDetailPage should render the publication when there are results 
   documentTitle="Artikel: This is a title"
   linkAction={null}
   loading={false}
+  title="This is a title"
 >
   <Styled(Row)>
-    <Styled(ContentContainer)>
+    <Styled(ContentContainer)
+      hasImage={false}
+    >
       <Article>
         <Row
           debug={false}
@@ -55,7 +58,7 @@ exports[`ArticleDetailPage should render the publication when there are results 
                 }
                 wrap={false}
               >
-                <EditorialBody>
+                <Styled(EditorialBody)>
                   <Styled(Heading)
                     $as="h1"
                     isContentType={true}
@@ -66,13 +69,9 @@ exports[`ArticleDetailPage should render the publication when there are results 
                     strong={true}
                   />
                   <CustomHTMLBlock
-                    body={
-                      Object {
-                        "value": "body text",
-                      }
-                    }
+                    body="<h1><a href=\\"https://nasdkj.com\\">body text</a></h1>"
                   />
-                </EditorialBody>
+                </Styled(EditorialBody)>
               </Column>
               <Column
                 debug={false}

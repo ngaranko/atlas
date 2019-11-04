@@ -56,7 +56,9 @@ function formatData(categories) {
 
 function search(query) {
   const uri =
-    query && query.length >= MIN_QUERY_LENGTH && `${process.env.API_ROOT}typeahead?q=${query}`
+    query &&
+    query.length >= MIN_QUERY_LENGTH &&
+    `${process.env.API_ROOT}typeahead?q=${typeof query === 'string' ? query.toLowerCase() : ''}` // Todo: temporary fix, real fix: DP-7365
 
   if (uri) {
     return fetch(uri, { headers: getAuthHeaders() })

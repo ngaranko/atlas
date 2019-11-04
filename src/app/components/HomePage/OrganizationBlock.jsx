@@ -28,6 +28,12 @@ const StyledRow = styled(Row)`
       margin-bottom: ${themeSpacing(8)};
     }
   }
+
+  @media screen and ${breakpoint('max-width', 'mobileL')} {
+    ${/* sc-selector */ styles.ColumnStyle}:nth-child(-n+3) {
+      margin-bottom: ${themeSpacing(8)};
+    }
+  }
 `
 
 const StyledHeading = styled(Heading)`
@@ -48,7 +54,7 @@ const OrganizationBlock = () => {
   }, [])
 
   return (
-    <StyledCardContainer>
+    <StyledCardContainer data-test="organization-block">
       <Row hasMargin={false}>
         <StyledHeading $as="h2" styleAs="h1">
           Onderzoek, Informatie en Statistiek

@@ -32,10 +32,13 @@ import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import { EDITORIAL_FIELD_TYPE_VALUES } from '../EditorialOverviewPage/constants'
 import getImageFromCms from '../../utils/getImageFromCms'
+import EditorialResults from '../../components/EditorialResults'
+import PAGES from '../../pages'
 
 const ListItemContent = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   & > * {
     font-weight: 700;
@@ -63,6 +66,7 @@ const ArticleDetailPage = ({ id }) => {
     slug,
     intro,
     field_type: articleType,
+    related,
   } = results || {}
 
   const image = getImageFromCms(coverImage, 1200, 600)
@@ -102,9 +106,13 @@ const ArticleDetailPage = ({ id }) => {
   `
 
   const StyledContentContainer = styled(ContentContainer)`
-    @media screen and ${breakpoint('max-width', 'tabletM')} {
-      margin-top: 0px;
-    }
+    ${({ hasImage }) =>
+      hasImage &&
+      css`
+        @media screen and ${breakpoint('max-width', 'tabletM')} {
+          margin-top: 0px;
+        }
+      `}
   `
 
   const StyledRow = styled(Row)`
@@ -114,13 +122,32 @@ const ArticleDetailPage = ({ id }) => {
     }
   `
 
+  const EditorialBodyStyled = styled(EditorialBody)`
+    width: 100%;
+  `
+
+  const Divider = styled.div`
+    width: 200px;
+    height: 3px;
+    background-color: ${themeColor('secondary')};
+    margin: ${themeSpacing(8, 0, 6)};
+  `
+
+  const StyledEditorialResults = styled(EditorialResults)`
+    margin-bottom: ${themeSpacing(25)};
+  `
+
   const isContentType = articleType === EDITORIAL_FIELD_TYPE_VALUES.CONTENT
 
   return (
-    <EditorialPage {...{ documentTitle, loading, linkAction }} description={intro}>
+    <EditorialPage
+      {...{ documentTitle, loading, linkAction, title }}
+      image={coverImage}
+      description={intro}
+    >
       {!loading && (
         <StyledRow>
-          <StyledContentContainer>
+          <StyledContentContainer hasImage={!!image}>
             <Article image={image}>
               <Row>
                 <EditorialContent>
@@ -130,7 +157,7 @@ const ArticleDetailPage = ({ id }) => {
                     push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                   >
                     <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
-                      <EditorialBody>
+                      <EditorialBodyStyled>
                         <StyledHeading $as="h1" isContentType={!isContentType}>
                           {title}
                         </StyledHeading>
@@ -142,8 +169,21 @@ const ArticleDetailPage = ({ id }) => {
                           />
                         )}
                         <Paragraph strong>{intro}</Paragraph>
-                        <CustomHTMLBlock body={body} />
-                      </EditorialBody>
+                        {typeof body === 'string' && (
+                          <CustomHTMLBlock body={body.replace('http://', 'https://')} />
+                        )}
+                        {related && related.length ? (
+                          <>
+                            <Divider />
+                            <StyledEditorialResults
+                              headingLevel="h2"
+                              type={PAGES.ARTICLES}
+                              results={related}
+                              title="Verder lezen"
+                            />
+                          </>
+                        ) : null}
+                      </EditorialBodyStyled>
                     </Column>
                     <Column
                       span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
@@ -180,7 +220,7 @@ const ArticleDetailPage = ({ id }) => {
                               {links.map(({ uri, title: linkTitle }) => (
                                 <ListItem key={uri}>
                                   <Link variant="with-chevron" href={`${uri}`}>
-                                    {linkTitle}
+                                    <span>{linkTitle}</span>
                                   </Link>
                                 </ListItem>
                               ))}

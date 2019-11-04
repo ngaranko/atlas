@@ -1,8 +1,10 @@
 /* eslint-disable camelcase */
+import RouterLink from 'redux-first-router-link'
 import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/constants'
 import useSlug from '../../app/utils/useSlug'
 import formatDate from '../../shared/services/date-formatter/date-formatter'
 import PAGES from '../../app/pages'
+import { reformatJSONApiResults } from '../../shared/services/cms/cms-json-api-normalizer'
 
 const normalizeObject = (data, type) => {
   const {
@@ -19,6 +21,8 @@ const normalizeObject = (data, type) => {
     field_publication_month,
     field_file,
     media_image_url,
+    field_link,
+    field_related,
     ...otherFields
   } = data
 
@@ -30,6 +34,13 @@ const normalizeObject = (data, type) => {
       ? EDITORIAL_DETAIL_ACTIONS[type](uuid, field_special_type, slug)
       : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug)
 
+  // By default use the internal router, fallback on a div if there's no link.
+  // If there's an externalUrl set, override the linkProps.
+  let linkProps = to ? { to, $as: RouterLink } : { $as: 'div' }
+  const externalUrl = field_link && field_link.uri
+  linkProps = externalUrl ? { href: externalUrl, $as: 'a' } : linkProps
+  linkProps = { ...linkProps, title } // Add the title attribute by default
+
   let localeDate = field_publication_date
 
   let localeDateFormatted =
@@ -40,7 +51,8 @@ const normalizeObject = (data, type) => {
    */
   if (!field_publication_date && (field_publication_year || field_publication_month)) {
     localeDate = new Date(
-      Date.UTC(field_publication_year, field_publication_month || 1, 1, 0, 0, 0),
+      // Month (undefined or a string) - 1, check https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC
+      Date.UTC(field_publication_year, Number(field_publication_month) - 1 || 1, 1, 0, 0, 0),
     )
 
     localeDateFormatted = formatDate(
@@ -63,6 +75,11 @@ const normalizeObject = (data, type) => {
     fileUrl = url
   }
 
+  let related = []
+  if (field_related) {
+    const reformattedRelatedResults = reformatJSONApiResults({ field_items: field_related })
+    related = reformattedRelatedResults.map(dataItem => normalizeObject(dataItem, type))
+  }
   return {
     key: uuid,
     id: uuid,
@@ -81,6 +98,8 @@ const normalizeObject = (data, type) => {
     slug,
     to,
     currentPage: type,
+    linkProps,
+    related,
     ...otherFields,
   }
 }

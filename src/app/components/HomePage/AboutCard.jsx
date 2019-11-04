@@ -11,13 +11,12 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import RouterLink from 'redux-first-router-link'
 import { focusOutline } from './services/styles'
 
 const StyledCard = styled(Card)`
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  pointer-events: none; /* FF 60 fix */
 `
 
 const StyledCardContent = styled(CardContent)`
@@ -47,9 +46,9 @@ const StyledLink = styled(Link)`
   }
 `
 
-const AboutCard = ({ loading, shortTitle, title, teaser, intro, to }) => (
-  <StyledLink $as={RouterLink} linkType="blank" to={to}>
-    <StyledCard backgroundColor="level2" shadow loading={loading}>
+const AboutCard = ({ loading, shortTitle, title, teaser, intro, linkProps }) => (
+  <StyledLink {...linkProps} linkType="blank">
+    <StyledCard backgroundColor="level2" shadow isLoading={loading}>
       <StyledCardContent>
         <Heading $as="h4" styleAs="h3">
           {shortTitle || title}
@@ -66,7 +65,7 @@ AboutCard.defaultProps = {
   title: '',
   teaser: '',
   intro: '',
-  to: {},
+  to: null,
 }
 
 AboutCard.propTypes = {

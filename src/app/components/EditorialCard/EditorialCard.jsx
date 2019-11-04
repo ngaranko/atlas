@@ -93,8 +93,10 @@ const MetaText = styled(Paragraph)`
   padding-bottom: ${themeSpacing(4)};
   font-size: 14px;
   line-height: 1.25;
-  text-transform: capitalize;
   margin-top: auto;
+  &::first-letter {
+    text-transform: capitalize;
+  }
 `
 
 const EditorialCard = ({
@@ -127,7 +129,7 @@ const EditorialCard = ({
     `,
   }
   return (
-    <StyledLinkWrapper key={id} to={to} linkType="blank">
+    <StyledLinkWrapper key={id} to={to} title={title} linkType="blank">
       <StyledCard horizontal>
         <StyledCardMedia vertical={imageIsVertical}>
           <Image
@@ -154,9 +156,9 @@ const EditorialCard = ({
             <IntroText>{teaser || intro}</IntroText>
           </div>
 
-          {localeDate && (
+          {!specialType && localeDate && (
             <div>
-              <MetaText as="time" datetime={localeDate}>
+              <MetaText as="time" data-test="metaText" datetime={localeDate}>
                 {localeDateFormatted}
               </MetaText>
             </div>

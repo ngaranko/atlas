@@ -22,7 +22,7 @@ module.exports = () => {
   return merge(commonConfig(), {
     output: {
       filename: '[name].[chunkhash].js',
-      chunkFilename: '[name].[chunkhash].bundle.js',
+      chunkFilename: '[name].bundle.js?id=[chunkhash]',
     },
     mode: 'production',
     devtool: 'source-map',

@@ -73,11 +73,34 @@ const QuerySearch = ({
     publicationDispatch,
   ])
 
+  const resultMapper = () => {
+    switch (currentPage) {
+      case PAGES.DATA_SEARCH_QUERY:
+        return numberOfDataResults
+      case PAGES.PUBLICATION_SEARCH:
+        return publicationSelectors.count(publicationState) || 0
+      case PAGES.DATASET_SEARCH:
+        return numberOfDatasetResults
+      case PAGES.ARTICLE_SEARCH:
+        return articleSelectors.count(articleState) || 0
+      default:
+        return 0
+    }
+  }
+
   React.useEffect(() => {
     ;(async () => {
       await Promise.all([
-        fetchSearchData(articleActions, articleDispatch, `article?q=${query}`),
-        fetchSearchData(publicationActions, publicationDispatch, `publication?q=${query}`),
+        fetchSearchData(
+          articleActions,
+          articleDispatch,
+          `article?q=${typeof query === 'string' ? query.toLowerCase() : ''}`, // Todo: temporary fix, real fix: DP-7365
+        ),
+        fetchSearchData(
+          publicationActions,
+          publicationDispatch,
+          `publication?q=${typeof query === 'string' ? query.toLowerCase() : ''}`, // Todo: temporary fix, real fix: DP-7365
+        ),
       ])
     })()
   }, [query])
@@ -89,10 +112,7 @@ const QuerySearch = ({
           {isLoading && <LoadingIndicator />}
           {!isLoading && (
             <div className="qa-data-selection-content">
-              <TabBar
-                numberOfDataResults={numberOfDataResults}
-                numberOfDatasetResults={numberOfDatasetResults}
-              >
+              <TabBar numberOfResults={resultMapper()}>
                 <Tabs currentPage={currentPage}>
                   <Tab
                     label="Data"
