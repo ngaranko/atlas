@@ -21,7 +21,7 @@ module.exports = () => {
 
   return merge(commonConfig(), {
     output: {
-      filename: '[name].[chunkhash].js',
+      filename: '[name].js?id=[chunkhash]',
       chunkFilename: '[name].bundle.js?id=[chunkhash]',
     },
     mode: 'production',
