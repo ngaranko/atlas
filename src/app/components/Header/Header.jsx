@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import styled, { css } from '@datapunt/asc-core'
-import { Header as HeaderComponent, styles, breakpoint, constants } from '@datapunt/asc-ui'
+import { Header as HeaderComponent, styles, breakpoint, showAboveBackDrop } from '@datapunt/asc-ui'
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer'
 import HeaderMenuContainer from './HeaderMenuContainer'
 
@@ -17,9 +17,10 @@ const stickyStyle = css`
 const HeaderWrapper = styled.section`
   width: 100%;
 
-  // As position: sticky isn't supported on IE, this is needed to have position the header on top of the other contents
-  z-index: ${constants.BACKDROP_Z_INDEX + 1};
+  // As position: sticky isn't supported on IE, this is needed to have position the header on top of the other content
   position: relative;
+
+  ${showAboveBackDrop(true)}
 
   // Add position: sticky for supported browsers
   ${({ isHomePage }) =>

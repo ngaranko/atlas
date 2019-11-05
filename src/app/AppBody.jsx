@@ -48,23 +48,24 @@ const AppBody = ({
   const hasGrid = homePage || isEditorialPage(currentPage) || isContentPage(currentPage)
 
   return hasGrid ? (
-    <Container id="main" className="main-container">
-      <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
-        {homePage && <HomePage />}
-        {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
-        {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
-        {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
+    <>
+      <Container id="main" className="main-container">
+        <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
+          {homePage && <HomePage />}
+          {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
+          {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
+          {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
-        {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
+          {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
 
-        {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
-        {currentPage === PAGES.MOVED && <MovedPage />}
-        {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
-
-        <FeedbackModal id="feedbackModal" />
-        <InfoModal id="infoModal" open />
-      </Suspense>
-    </Container>
+          {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
+          {currentPage === PAGES.MOVED && <MovedPage />}
+          {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
+        </Suspense>
+      </Container>
+      <FeedbackModal id="feedbackModal" />
+      <InfoModal id="infoModal" open />
+    </>
   ) : (
     <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
       <div className={`c-dashboard__body ${bodyClasses}`}>

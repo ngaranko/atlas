@@ -1,11 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from '@datapunt/asc-core'
-import { SearchBar, SearchBarToggle, BackDrop, showAboveBackDrop } from '@datapunt/asc-ui'
-
-const StyledSearchBar = styled(SearchBar)`
-  // ${({ showSuggestions }) => (showSuggestions ? showAboveBackDrop(true) : '')}
-`
+import { SearchBar, SearchBarToggle, BackDrop } from '@datapunt/asc-ui'
 
 const Search = ({
   showSuggestions,
@@ -31,12 +26,7 @@ const Search = ({
 
   return (
     <React.Fragment>
-      <StyledSearchBar
-        showAt="tabletM"
-        inputProps={inputProps}
-        {...searchBarProps}
-        showSuggestions
-      />
+      <SearchBar showAt="tabletM" inputProps={inputProps} {...searchBarProps} showSuggestions />
       <SearchBarToggle
         hideAt="tabletM"
         onOpen={onOpenSearchToggle}
@@ -46,7 +36,7 @@ const Search = ({
         hasBackDrop
       />
       {showBackdrop && showSuggestions && (
-        <BackDrop onClick={() => setBackDrop(false)} disablePortal />
+        <BackDrop onClick={() => setBackDrop(false)} hideOverFlow={false} />
       )}
     </React.Fragment>
   )
