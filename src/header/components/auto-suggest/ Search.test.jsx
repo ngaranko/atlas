@@ -3,35 +3,31 @@ import { shallow } from 'enzyme'
 import Search from './Search'
 
 describe('Search', () => {
-  let component
-  const setBackDropMock = jest.fn()
   const onOpenSearchBarToggleMock = jest.fn()
   const props = {
-    showSuggestions: false,
-    suggestions: [],
+    showBackDrop: false,
     searchBarProps: {},
     openSearchBarToggle: false,
     onOpenSearchBarToggle: onOpenSearchBarToggleMock,
     inputProps: {},
   }
 
-  beforeEach(() => {
-    component = shallow(<Search {...props} />)
+  afterEach(() => {
+    jest.resetAllMocks()
   })
 
   it('should shallow the searchbar and searchtoggle', () => {
-    expect(component.find('SearchBar').exists()).toBe(true)
+    const component = shallow(<Search {...props} />)
+
+    expect(component.find('Styled(SearchBar)').exists()).toBe(true)
     expect(component.find('SearchBarToggle').exists()).toBe(true)
+    expect(component.find('Styled(BackDrop)').exists()).toBe(false)
   })
 
-  it('should set the backdrop when the user clicks the toggle', () => {
-    component
-      .find('SearchBarToggle')
-      .props()
-      .onOpen(true)
+  it('should set the backdrop when the parent component send the correct props', () => {
+    const component = shallow(<Search {...{ ...props, showBackDrop: true }} />)
 
-    expect(onOpenSearchBarToggleMock).toHaveBeenCalledWith(true)
-
-    expect(setBackDropMock).toHaveBeenCalledWith({ payload: { open: true, key: 'search' } })
+    const backDrop = component.find('Styled(BackDrop)')
+    expect(backDrop.exists()).toBe(true)
   })
 })
