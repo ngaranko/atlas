@@ -44,16 +44,6 @@ const StyledHeader = styled(HeaderComponent)`
     @media screen and ${breakpoint('min-width', 'tabletM')} {
       justify-content: space-between;
     }
-
-    fieldset > ${styles.SearchBarStyle} {
-      flex-grow: 1;
-      max-width: 80%;
-
-      ${styles.TextFieldStyle} {
-        flex-grow: 0;
-        width: 100%;
-      }
-    }
   }
 `
 

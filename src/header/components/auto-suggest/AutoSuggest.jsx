@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { constants } from '@datapunt/asc-ui'
 import AutoSuggestCategory, { MORE_RESULTS_INDEX } from './AutoSuggestCategory'
 import './_auto-suggest.scss'
 import Search from './Search'
@@ -180,7 +179,6 @@ class AutoSuggest extends React.Component {
 
     const searchBarProps = {
       onBlur: this.onBlur,
-      onMouseLeave: this.onBlur,
       onFocus: this.onFocus,
       onChange: this.onInput,
       onKeyDown: this.navigateSuggestions,
@@ -197,35 +195,40 @@ class AutoSuggest extends React.Component {
       label: placeHolder,
     }
 
+    const showAutoSuggest = suggestions.length > 0 && showSuggestions
+
     return (
       <form onSubmit={this.onFormSubmit} className="auto-suggest" data-test="search-form">
         <fieldset>
           {legendTitle && <legend className="u-sr-only">{legendTitle}</legend>}
+
           <Search
             {...{
-              showSuggestions,
+              showBackDrop: showAutoSuggest,
               suggestions,
               searchBarProps,
               openSearchBarToggle,
               inputProps,
+              onBlur: this.onBlur,
             }}
             onOpenSearchBarToggle={this.onOpenSearchBarToggle}
             onSuggestionSelection={this.onSuggestionSelection}
-          />
-          {suggestions.length > 0 && showSuggestions && (
-            <div className="auto-suggest__dropdown" style={{ zIndex: constants.BACKDROP_Z_INDEX }}>
-              <h3 className="auto-suggest__tip">Enkele suggesties</h3>
-              {suggestions.map(category => (
-                <AutoSuggestCategory
-                  activeSuggestion={activeSuggestion}
-                  category={category}
-                  key={category.label}
-                  onSuggestionSelection={this.onSuggestionSelection}
-                  query={highlightQuery}
-                />
-              ))}
-            </div>
-          )}
+          >
+            {showAutoSuggest && (
+              <div className="auto-suggest__dropdown">
+                <h3 className="auto-suggest__tip">Enkele suggesties</h3>
+                {suggestions.map(category => (
+                  <AutoSuggestCategory
+                    activeSuggestion={activeSuggestion}
+                    category={category}
+                    key={category.label}
+                    onSuggestionSelection={this.onSuggestionSelection}
+                    query={highlightQuery}
+                  />
+                ))}
+              </div>
+            )}
+          </Search>
         </fieldset>
       </form>
     )
