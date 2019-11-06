@@ -90,6 +90,10 @@ const shortUrls = [
     to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=oovorlv%3A1%7Coovoalco%3A1%7Coovctg%3A1%7Coovodlrs%3A1%7Coovoalg%3A1&${LEGEND}=true`,
   },
   {
+    from: '/themakaart/ondergrond/',
+    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=vezips%3A1%7Cmbgm%3A1%7Cmbs%3A1%7Cmbz%3A1%7Cmbr%3A1%7Cmbaig%3A1%7Cmbgwm%3A1%7Cexin%3A1%7Cmvlpgv%3A1%7Cmvlpga%3A1%7Cmvlpgt%3A1%7Cmvlpgs%3A1%7Cnap%3A1%7Cgbhv%3A1%7Cgbep%3A1%7Cgbgg%3A1%7Cgbgs%3A1%7Cgbos%3A1%7Cgboh%3A1%7Cgbwu%3A1%7Cgbkw%3A1%7Cgbvv%3A1%7Cexvg%3A1%7Cexgg%3A1%7Cexuo%3A1%7Cmvabl%3A1&${LEGEND}=true`,
+  },
+  {
     from: '/datablog/',
     to: 'https://amsterdam.github.io/datablog/',
   },
