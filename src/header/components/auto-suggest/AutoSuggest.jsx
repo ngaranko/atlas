@@ -180,6 +180,7 @@ class AutoSuggest extends React.Component {
 
     const searchBarProps = {
       onBlur: this.onBlur,
+      onMouseLeave: this.onBlur,
       onFocus: this.onFocus,
       onChange: this.onInput,
       onKeyDown: this.navigateSuggestions,
