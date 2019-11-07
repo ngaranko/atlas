@@ -116,9 +116,11 @@ exports[`PublicationDetailPage should render the publication when there are resu
             }
             wrap={false}
           >
-            <DocumentCoverContentStyle
+            <DocumentCover
               description="Download PDF (file size)"
+              loading={false}
               onClick={[Function]}
+              title="This is a title"
             />
           </Column>
           <Column

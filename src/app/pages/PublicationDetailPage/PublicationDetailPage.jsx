@@ -1,12 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import download from 'downloadjs'
+import fileSaver from 'file-saver'
 import {
   Column,
   Row,
   CustomHTMLBlock,
   EditorialMetaList,
-  DocumentCover,
   EditorialContent,
   Paragraph,
   Heading,
@@ -20,9 +19,11 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
 import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import getImageFromCms from '../../utils/getImageFromCms'
+import DocumentCover from '../../components/DocumentCover/DocumentCover'
 
 const PublicationDetailPage = ({ id }) => {
   const { fetchData, results, loading, error } = useFromCMS(cmsConfig.PUBLICATION, id)
+  const [downloadLoading, setDownloadLoading] = React.useState(false)
 
   React.useEffect(() => {
     fetchData()
@@ -39,7 +40,6 @@ const PublicationDetailPage = ({ id }) => {
     localeDateFormatted,
     body,
     coverImage,
-    fileUrl,
     field_file_size: fileSize,
     field_file_type: fileType,
     field_publication_source: source,
@@ -49,6 +49,20 @@ const PublicationDetailPage = ({ id }) => {
 
   const documentTitle = title && `Publicatie: ${title}`
   const linkAction = toPublicationDetail(id, slug)
+
+  const downloadFile = fileUrl => {
+    setDownloadLoading(true)
+
+    const url = `${process.env.CMS_ROOT}${fileUrl && fileUrl.substring(1)}`
+    const fileName = fileUrl.split('/').pop()
+
+    fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        fileSaver(blob, fileName)
+        setDownloadLoading(false)
+      })
+  }
 
   return (
     <EditorialPage {...{ documentTitle, loading, linkAction }} description={intro}>
@@ -78,13 +92,14 @@ const PublicationDetailPage = ({ id }) => {
                     />
                   </EditorialContent>
                 </Column>
+
                 <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                   <DocumentCover
                     imageSrc={getImageFromCms(coverImage, 600, 0, 'fit')}
                     description={`Download PDF (${fileSize})`}
-                    onClick={() => {
-                      download(`${process.env.CMS_ROOT}${fileUrl && fileUrl.substring(1)}`)
-                    }}
+                    loading={downloadLoading}
+                    title={title}
+                    onClick={() => downloadFile(results.fileUrl)}
                   />
                 </Column>
                 <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
