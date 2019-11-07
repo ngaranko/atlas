@@ -95,6 +95,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -119,7 +120,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
             "value": "dam",
           }
         }
-        showBackDrop={false}
         suggestions={
           Array [
             Object {
@@ -283,6 +283,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -307,7 +308,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
             "value": "dam",
           }
         }
-        showBackDrop={false}
         suggestions={
           Array [
             Object {
@@ -468,6 +468,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -492,7 +493,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "value": "dam",
           }
         }
-        showBackDrop={false}
         suggestions={
           Array [
             Object {
@@ -653,6 +653,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -677,7 +678,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "value": "dam",
           }
         }
-        showBackDrop={false}
         suggestions={
           Array [
             Object {
@@ -838,6 +838,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -862,7 +863,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "value": "dam",
           }
         }
-        showBackDrop={false}
         suggestions={
           Array [
             Object {

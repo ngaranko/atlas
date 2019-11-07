@@ -5,7 +5,7 @@ import Search from './Search'
 describe('Search', () => {
   const onOpenSearchBarToggleMock = jest.fn()
   const props = {
-    showBackDrop: false,
+    expanded: false,
     searchBarProps: {},
     openSearchBarToggle: false,
     onOpenSearchBarToggle: onOpenSearchBarToggleMock,
@@ -25,7 +25,7 @@ describe('Search', () => {
   })
 
   it('should set the backdrop when the parent component send the correct props', () => {
-    const component = shallow(<Search {...{ ...props, showBackDrop: true }} />)
+    const component = shallow(<Search {...{ ...props, expanded: true }} />)
 
     const backDrop = component.find('Styled(BackDrop)')
     expect(backDrop.exists()).toBe(true)

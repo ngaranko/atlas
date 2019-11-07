@@ -23,7 +23,7 @@ const StyledSearchBar = styled(SearchBar)`
 `
 
 const Search = ({
-  showBackDrop,
+  expanded,
   onBlur,
   searchBarProps,
   openSearchBarToggle,
@@ -41,9 +41,11 @@ const Search = ({
         showAt="tabletM"
         inputProps={inputProps}
         {...searchBarProps}
+        aria-haspopup="true"
+        aria-expanded={expanded}
         onMouseLeave={onBlur} // the onMouseLeave event is needed here as the MenuInline component has onMouseEnter/onMouseLeave events and we don't want a menu and the AutoSuggest to be opened at the same time
       >
-        {showBackDrop && (
+        {expanded && (
           <StyledBackDrop
             onMouseEnter={onBlur} // The BackDrop is rendered as a Portal, therefore the onMouseLeave event isn't fired when entering it and we must call this event instead
             hideOverFlow={false}
@@ -57,6 +59,8 @@ const Search = ({
         open={openSearchBarToggle}
         inputProps={inputProps}
         searchBarProps={searchBarProps}
+        aria-haspopup="true"
+        aria-expanded={expanded}
         hasBackDrop
       />
     </React.Fragment>
@@ -64,7 +68,7 @@ const Search = ({
 }
 
 Search.propTypes = {
-  showBackDrop: PropTypes.bool.isRequired,
+  expanded: PropTypes.bool.isRequired,
   searchBarProps: PropTypes.shape({}).isRequired,
   inputProps: PropTypes.shape({}).isRequired,
   onOpenSearchBarToggle: PropTypes.func.isRequired,

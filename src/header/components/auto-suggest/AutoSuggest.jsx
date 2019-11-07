@@ -204,7 +204,7 @@ class AutoSuggest extends React.Component {
 
           <Search
             {...{
-              showBackDrop: showAutoSuggest,
+              expanded: showAutoSuggest,
               suggestions,
               searchBarProps,
               openSearchBarToggle,
