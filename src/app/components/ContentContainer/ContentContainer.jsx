@@ -5,13 +5,13 @@ import { breakpoint, themeSpacing } from '@datapunt/asc-ui'
 
 const StyledContainer = styled.div`
   width: 100%;
-  margin-top: ${themeSpacing(4)};
-  margin-bottom: ${themeSpacing(4)};
+  padding-top: ${themeSpacing(4)};
+  padding-bottom: ${themeSpacing(4)};
   background-color: white;
 
   @media screen and ${breakpoint('min-width', 'tabletM')} {
-    margin-top: ${themeSpacing(14)};
-    margin-bottom: ${themeSpacing(18)};
+    padding-top: ${themeSpacing(14)};
+    padding-bottom: ${themeSpacing(18)};
   }
 `
 

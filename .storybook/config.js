@@ -7,7 +7,6 @@ import configureStore from '../src/store/store'
 import routes from '../src/app/routes'
 import ReduxContext from '../src/store/reduxContext'
 import main, { initialState } from '../src/app/react-reducers'
-import { AppStateProvider } from '../src/app/utils/useAppReducer'
 
 addDecorator(withA11y)
 

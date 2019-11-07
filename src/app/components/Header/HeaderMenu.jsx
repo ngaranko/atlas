@@ -17,7 +17,7 @@ const components = {
 const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
   const Menu = components[type]
   return (
-    <Menu {...props}>
+    <Menu {...props} hasBackDrop>
       <MenuFlyOut label="Onderdelen">
         {navigationLinks.map(({ id, title, to }) => (
           <MenuButton $as={RouterLink} iconLeft={<ChevronRight />} key={id} title={title} to={to}>
