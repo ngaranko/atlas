@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import fileSaver from 'file-saver'
 import {
   Column,
   Row,
@@ -20,10 +19,11 @@ import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import getImageFromCms from '../../utils/getImageFromCms'
 import DocumentCover from '../../components/DocumentCover/DocumentCover'
+import useDownload from '../../utils/useDownload'
 
 const PublicationDetailPage = ({ id }) => {
   const { fetchData, results, loading, error } = useFromCMS(cmsConfig.PUBLICATION, id)
-  const [downloadLoading, setDownloadLoading] = React.useState(false)
+  const [downloadLoading, downloadFile] = useDownload()
 
   React.useEffect(() => {
     fetchData()
@@ -40,6 +40,7 @@ const PublicationDetailPage = ({ id }) => {
     localeDateFormatted,
     body,
     coverImage,
+    fileUrl,
     field_file_size: fileSize,
     field_file_type: fileType,
     field_publication_source: source,
@@ -49,20 +50,6 @@ const PublicationDetailPage = ({ id }) => {
 
   const documentTitle = title && `Publicatie: ${title}`
   const linkAction = toPublicationDetail(id, slug)
-
-  const downloadFile = fileUrl => {
-    setDownloadLoading(true)
-
-    const url = `${process.env.CMS_ROOT}${fileUrl && fileUrl.substring(1)}`
-    const fileName = fileUrl.split('/').pop()
-
-    fetch(url)
-      .then(response => response.blob())
-      .then(blob => {
-        fileSaver(blob, fileName)
-        setDownloadLoading(false)
-      })
-  }
 
   return (
     <EditorialPage {...{ documentTitle, loading, linkAction }} description={intro}>
@@ -99,7 +86,9 @@ const PublicationDetailPage = ({ id }) => {
                     description={`Download PDF (${fileSize})`}
                     loading={downloadLoading}
                     title={title}
-                    onClick={() => downloadFile(results.fileUrl)}
+                    onClick={() =>
+                      downloadFile(`${process.env.CMS_ROOT}${fileUrl && fileUrl.substring(1)}`)
+                    }
                   />
                 </Column>
                 <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>

@@ -7,11 +7,12 @@ import PublicationDetailPage from './PublicationDetailPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
+import useDownload from '../../utils/useDownload'
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
-jest.mock('downloadjs')
 jest.mock('../../utils/useDocumentTitle')
+jest.mock('../../utils/useDownload')
 jest.mock('@datapunt/matomo-tracker-react')
 
 describe('PublicationDetailPage', () => {
@@ -39,6 +40,7 @@ describe('PublicationDetailPage', () => {
   }
 
   const mockFetchData = jest.fn()
+  const mockDownloadFile = jest.fn()
 
   let store
   beforeEach(() => {
@@ -48,6 +50,7 @@ describe('PublicationDetailPage', () => {
       href,
     }))
     useMatomo.mockImplementation(() => ({ trackPageView: jest.fn(), href }))
+    useDownload.mockImplementation(() => ['', mockDownloadFile])
 
     store = configureMockStore()({
       location: { payload: { id } },
@@ -95,5 +98,19 @@ describe('PublicationDetailPage', () => {
       .dive()
 
     expect(component).toMatchSnapshot()
+  })
+
+  it('should call the useDownload hook when user tries to download publication', () => {
+    useFromCMS.mockImplementation(() => mockData)
+    const component = shallow(<PublicationDetailPage store={store} />)
+      .dive()
+      .dive()
+    const documentCover = component.find('DocumentCover')
+
+    expect(documentCover.exists()).toBeTruthy()
+
+    documentCover.simulate('click')
+
+    expect(mockDownloadFile).toHaveBeenCalled()
   })
 })
