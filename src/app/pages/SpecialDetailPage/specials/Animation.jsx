@@ -42,9 +42,7 @@ const Animation = ({ contentLink, title, results }) => {
 
         <StyledColumn span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
           {contentLink && contentLink.uri && (
-            // <VideoContainer>
             <Video src={contentLink.uri} showControls />
-            // </VideoContainer>
           )}
         </StyledColumn>
         <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
