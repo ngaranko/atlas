@@ -93,7 +93,6 @@ const normalizeObject = (data, type) => {
     teaser: field_teaser,
     intro,
     specialType: field_special_type,
-    link: field_link,
     fileUrl,
     localeDate,
     localeDateFormatted,
