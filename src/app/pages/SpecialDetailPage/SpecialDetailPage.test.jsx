@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 import SpecialDetailPage from './SpecialDetailPage'
-import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 
@@ -11,7 +10,6 @@ jest.mock('../../utils/useFromCMS')
 jest.mock('../../../shared/services/set-iframe-size/setIframeSize')
 jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('../../utils/useDocumentTitle')
-jest.mock('@datapunt/matomo-tracker-react')
 
 describe('SpecialDetailPage', () => {
   const id = 6
@@ -22,7 +20,6 @@ describe('SpecialDetailPage', () => {
   beforeEach(() => {
     linkAttributesFromAction.mockImplementation(() => ({ href }))
     useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: jest.fn() }))
-    useMatomo.mockImplementation(() => ({ trackPageView: jest.fn() }))
 
     store = configureMockStore()({ location: { payload: { id } } })
   })
