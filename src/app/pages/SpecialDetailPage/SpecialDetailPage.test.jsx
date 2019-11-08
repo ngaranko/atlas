@@ -1,10 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
-import { useMatomo } from '@datapunt/matomo-tracker-react'
 import SpecialDetailPage from './SpecialDetailPage'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
+import useFromCMS from '../../utils/useFromCMS'
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../../shared/services/set-iframe-size/setIframeSize')

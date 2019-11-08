@@ -41,9 +41,7 @@ const Animation = ({ contentLink, title, results }) => {
         </Column>
 
         <StyledColumn span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
-          {contentLink && contentLink.uri && (
-            <Video src={contentLink.uri} showControls />
-          )}
+          {contentLink && contentLink.uri && <Video src={contentLink.uri} showControls />}
         </StyledColumn>
         <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
           <EditorialContent>
