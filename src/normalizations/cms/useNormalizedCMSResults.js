@@ -38,6 +38,7 @@ const normalizeObject = (data, type) => {
   // If there's an externalUrl set, override the linkProps.
   let linkProps = to ? { to, $as: RouterLink } : { $as: 'div' }
   const externalUrl = field_link && field_link.uri
+
   linkProps = externalUrl ? { href: externalUrl, $as: 'a' } : linkProps
   linkProps = { ...linkProps, title } // Add the title attribute by default
 
@@ -92,6 +93,7 @@ const normalizeObject = (data, type) => {
     teaser: field_teaser,
     intro,
     specialType: field_special_type,
+    link: field_link,
     fileUrl,
     localeDate,
     localeDateFormatted,
