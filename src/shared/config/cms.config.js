@@ -65,7 +65,12 @@ const cmsConfig = {
   SPECIAL: {
     type: PAGES.SPECIALS,
     endpoint: id => `${process.env.CMS_ROOT}jsonapi/node/special/${id}`,
-    fields: ['field_content_link', 'field_special_type', 'field_publication_date'],
+    fields: [
+      'field_content_link',
+      'field_special_type',
+      'field_publication_date',
+      ...SHARED_FIELDS,
+    ],
   },
   SPECIALS: {
     type: PAGES.SPECIALS,

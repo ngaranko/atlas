@@ -7,12 +7,15 @@ import {
   Heading,
   EditorialMetaList,
   themeColor,
+  themeSpacing,
 } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import ShareBar from '../../../components/ShareBar/ShareBar'
 import Video from '../../../components/Video/Video'
 
 const StyledColumn = styled(Column)`
+  margin-bottom: ${themeSpacing(5)};
+
   // The video tag is target through the column as the Video component is using a complex SASS setup, this can be changed if that component gets refactored in the future
   & video {
     border: 1px solid ${themeColor('tint', 'level3')};
@@ -20,7 +23,7 @@ const StyledColumn = styled(Column)`
 `
 
 const Animation = ({ contentLink, title, results }) => {
-  const { body, intro, localeDateFormatted } = results
+  const { body, field_intro: intro, localeDateFormatted } = results
 
   return (
     <>

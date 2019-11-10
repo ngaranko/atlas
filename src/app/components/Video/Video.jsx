@@ -65,12 +65,14 @@ Video.defaultProps = {
   play: false,
   position: 0,
   showControls: false,
+  type: '',
+  poster: '',
 }
 
 Video.propTypes = {
   src: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  poster: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  poster: PropTypes.string,
   play: PropTypes.bool,
   showControls: PropTypes.bool,
   position: PropTypes.number,
