@@ -4,6 +4,11 @@ const { HOMEPAGE: HOMEPAGE_LINKS } = require('./content-links.json')
 
 const SHARED_FIELDS = ['field_intro', 'field_cover_image.field_media_image.uri']
 
+export const SPECIAL_TYPES = {
+  ANIMATION: 'animatie',
+  DASHBOARD: 'dashboard',
+}
+
 const cmsConfig = {
   ARTICLE: {
     type: PAGES.ARTICLES,
@@ -60,7 +65,12 @@ const cmsConfig = {
   SPECIAL: {
     type: PAGES.SPECIALS,
     endpoint: id => `${process.env.CMS_ROOT}jsonapi/node/special/${id}`,
-    fields: ['field_iframe_link', 'field_special_type'],
+    fields: [
+      'field_content_link',
+      'field_special_type',
+      'field_publication_date',
+      ...SHARED_FIELDS,
+    ],
   },
   SPECIALS: {
     type: PAGES.SPECIALS,
