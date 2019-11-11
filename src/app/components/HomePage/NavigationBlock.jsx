@@ -42,7 +42,7 @@ const StyledCardContainer = styled.div`
       content: '';
       position: absolute;
       height: 100%;
-      width: calc(100vw - ${themeSpacing(5)});
+      width: 100vw;
       left: -${themeSpacing(5)};
       top: 0;
       background-color: ${themeColor('support', 'valid')};

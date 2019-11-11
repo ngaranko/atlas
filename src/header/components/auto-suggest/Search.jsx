@@ -62,7 +62,9 @@ const Search = ({
         aria-haspopup="true"
         aria-expanded={expanded}
         hasBackDrop
-      />
+      >
+        {children}
+      </SearchBarToggle>
     </React.Fragment>
   )
 }

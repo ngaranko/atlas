@@ -115,11 +115,15 @@ $clear-button-margin: 3px;
     padding-bottom: $base-whitespace * 0.5;
     position: absolute;
     right: $site-header-search-form-height + $base-whitespace * 0.5;
-    top: $site-header-search-form-height - 3px;
+
+    // Makes sure the autosuggest box starts behind the SearchBar
+    top: $site-header-search-form-height - 5px;
 
     @media (max-width: 768px) {
-      top: 120px;
+      top: 70px; // This is the height of the SearchBarMenu from @datapunt/asc-ui
       width: 100%;
+      border-left-width: 0;
+      border-right-width: 0;
     }
 
     @media (min-width: 769px) {
