@@ -3,6 +3,7 @@
 exports[`Video should render 1`] = `
 <video
   className="c-video__element"
+  controls={false}
   data-object-fit={true}
   loop={true}
   muted={true}

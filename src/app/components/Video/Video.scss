@@ -1,4 +1,4 @@
-@import "../../../shared/styles/config";
+@import '../../../shared/styles/config';
 
 .c-video {
   bottom: 0;
@@ -11,7 +11,6 @@
 .c-video__element {
   height: 100%;
   object-fit: cover;
-  padding-bottom: $base-whitespace * 5;
   width: 100%;
 
   video {
@@ -35,4 +34,3 @@
   }
   // sass-lint:enable no-vendor-prefixes
 }
-

@@ -36,7 +36,7 @@ class Video extends React.Component {
   }
 
   render() {
-    const { src, poster, type } = this.props
+    const { src, poster, type, showControls } = this.props
     return (
       <video
         ref={c => {
@@ -48,6 +48,7 @@ class Video extends React.Component {
         className="c-video__element"
         poster={poster}
         loop
+        controls={showControls}
       >
         <source
           {...{
@@ -63,13 +64,17 @@ class Video extends React.Component {
 Video.defaultProps = {
   play: false,
   position: 0,
+  showControls: false,
+  type: '',
+  poster: '',
 }
 
 Video.propTypes = {
   src: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  poster: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  poster: PropTypes.string,
   play: PropTypes.bool,
+  showControls: PropTypes.bool,
   position: PropTypes.number,
 }
 
