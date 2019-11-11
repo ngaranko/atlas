@@ -6,7 +6,6 @@ import { Provider } from 'react-redux'
 import configureStore from '../src/store/store'
 import routes from '../src/app/routes'
 import ReduxContext from '../src/store/reduxContext'
-import main, { initialState } from '../src/app/react-reducers'
 
 addDecorator(withA11y)
 
@@ -24,14 +23,12 @@ function withGlobalStyles(storyFn) {
   return (
     <Provider store={store}>
       <ReduxContext.Provider value={store}>
-        <AppStateProvider initialState={initialState} reducer={main}>
-          <ThemeProvider overrides={extendedTheme}>
-            <>
-              <GlobalStyle />
-              {storyFn()}
-            </>
-          </ThemeProvider>
-        </AppStateProvider>
+        <ThemeProvider overrides={extendedTheme}>
+          <>
+            <GlobalStyle />
+            {storyFn()}
+          </>
+        </ThemeProvider>
       </ReduxContext.Provider>
     </Provider>
   )
