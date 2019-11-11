@@ -7,7 +7,13 @@ import './InfoModal.scss'
 import ModalBlock from './ModalBlock'
 
 const InfoModal = ({ open, handleClose, title, body }) => (
-  <Modal aria-labelledby="feedback" aria-describedby="feedback" open={open} onClose={handleClose}>
+  <Modal
+    aria-labelledby="feedback"
+    aria-describedby="feedback"
+    open={open}
+    onClose={handleClose}
+    hideOverFlow={false}
+  >
     <TopBar>
       <Heading style={{ flexGrow: 1 }} as="h4">
         {title}

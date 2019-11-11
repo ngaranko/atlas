@@ -22,8 +22,12 @@ function withModalBehaviour(WrappedComponent) {
 
     // Hack to open the modal from other libraries than React (now used by angular)
     componentDidMount() {
-      const { id } = this.props
+      const { id, open } = this.props
       window.addEventListener(`openForm_${id}`, this.handleOpen)
+
+      if (open) {
+        this.handleOpen()
+      }
     }
 
     componentDidUpdate(prevProps) {
