@@ -11,7 +11,7 @@ const IFrameContainer = styled.div`
   width: 100%;
 
   & iframe {
-    min-height: 80vh;
+    min-height: 100vh; // this is an arbitrary number as we don't know the size of all iframes that don't send an event message with their height
   }
 `
 
@@ -34,9 +34,7 @@ const Dashboard = ({ contentLink, title }) => {
   React.useEffect(() => {
     window.addEventListener('resize', handleResize)
 
-    return function cleanup() {
-      window.removeEventListener('resize', handleResize)
-    }
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   React.useEffect(() => {
