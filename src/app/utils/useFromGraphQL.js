@@ -1,5 +1,5 @@
-export default (schema, variables) =>
-  fetch(`${process.env.ROOT}graphql/`, {
+export default (endpoint, schema, variables) =>
+  fetch(endpoint, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

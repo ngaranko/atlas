@@ -7,13 +7,6 @@ services:
       context: .
     ipc: host
 
-  graphql:
-    build:
-      context: ./graphql/
-      dockerfile: Dockerfile
-    ports:
-      - 4000:4000
-
   test-unit:
     build:
       context: .

@@ -1,5 +1,6 @@
 import React from 'react'
 import dataSchema from './data.schema'
+import cmsSchema from './cms.schema'
 import useFromGraphQL from '../../utils/useFromGraphQL'
 
 const useGetSearchData = query => {
@@ -11,11 +12,21 @@ const useGetSearchData = query => {
   const fetchInitialData = async (limit = null, types = null) => {
     try {
       error = undefined
-      return await useFromGraphQL(dataSchema.GET_INITIAL_DATA, {
-        q: query,
-        limit,
-        types: types && types.length ? types : null,
-      })
+      const result = await useFromGraphQL(
+        'http://localhost:8000/cms_search/graphql/',
+        `
+          query($q: String!, $limit: Int, $types: [String!]) {
+            ${dataSchema}
+            ${cmsSchema}
+          }
+        `,
+        {
+          q: query,
+          limit,
+          types: types && types.length ? types : null,
+        },
+      )
+      return result
     } catch (e) {
       return e
     }
@@ -26,8 +37,12 @@ const useGetSearchData = query => {
       const { data, error: fetchError } = await fetchInitialData(5)
       error = fetchError
       const results = (data.dataSearch && data.dataSearch.results) || []
+
       setSearchResults(results)
+
       setTotalCount(data.dataSearch.totalCount)
+
+      // Set filters based on count, type and label
       setFilterOptions(
         results.map(({ type, count, label }) => ({
           type,
