@@ -2850,24 +2850,28 @@
     },
     {
         "category": "MIL_ETC",
+        "authScope": "HR/R",
         "id": "asbest",
         "layers": [
-            "daken",
-            "percelen"
+            "percelen",
+            "daken"
         ],
         "legendItems": [
             {
-                "title": "In slechte staat"
+                "title": "In slechte staat",
+                "layers": ["daken"]
             },
             {
-                "title": "In matige staat"
+                "title": "In matige staat",
+                "layers": ["daken"]
             },
             {
                 "title": "In redelijk tot goede staat",
-                "imageRule": "Redelijk goed"
+                "imageRule": "redelijk goed",
+                "layers": ["daken"]
             },
             {
-                "title": "Bijbehorende percelen",
+                "title": "Bijbehorende kadastrale percelen",
                 "imageRule": "percelen",
                 "layers": ["percelen"]
             }
