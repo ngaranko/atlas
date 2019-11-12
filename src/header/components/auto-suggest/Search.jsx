@@ -5,6 +5,8 @@ import { SearchBar, SearchBarToggle, BackDrop, breakpoint } from '@datapunt/asc-
 
 // Actually we don't want the BackDrop to even render the Portal, but having multiple instances of components with BackDrops is stil something that can't be handled better so long the AutoSuggest component is still in this project
 const StyledBackDrop = styled(BackDrop)`
+  ${({ expanded }) => `display: ${expanded ? 'initial' : 'none'};`}
+
   @media screen and ${breakpoint('max-width', 'tabletM')} {
     display: none;
   }
@@ -45,12 +47,11 @@ const Search = ({
         aria-expanded={expanded}
         onMouseLeave={onBlur} // the onMouseLeave event is needed here as the MenuInline component has onMouseEnter/onMouseLeave events and we don't want a menu and the AutoSuggest to be opened at the same time
       >
-        {expanded && (
-          <StyledBackDrop
-            onMouseEnter={onBlur} // The BackDrop is rendered as a Portal, therefore the onMouseLeave event isn't fired when entering it and we must call this event instead
-            hideOverFlow={false}
-          />
-        )}
+        <StyledBackDrop
+          expanded={expanded}
+          onMouseEnter={onBlur} // The BackDrop is rendered as a Portal, therefore the onMouseLeave event isn't fired when entering it and we must call this event instead
+          hideOverFlow={false}
+        />
         {children}
       </StyledSearchBar>
       <SearchBarToggle
