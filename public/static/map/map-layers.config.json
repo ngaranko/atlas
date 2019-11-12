@@ -2852,7 +2852,8 @@
         "category": "MIL_ETC",
         "id": "asbest",
         "layers": [
-            "daken"
+            "daken",
+            "percelen"
         ],
         "legendItems": [
             {
@@ -2862,10 +2863,12 @@
                 "title": "In matige staat"
             },
             {
-                "title": "Redelijk goed"
+                "title": "In redelijk tot goede staat",
+                "imageRule": "Redelijk goed"
             },
             {
-                "title": "percelen",
+                "title": "Bijbehorende percelen",
+                "imageRule": "percelen",
                 "layers": ["percelen"]
             }
         ],
