@@ -3,15 +3,6 @@ import PropTypes from 'prop-types'
 import styled from '@datapunt/asc-core'
 import { SearchBar, SearchBarToggle, BackDrop, breakpoint } from '@datapunt/asc-ui'
 
-// Actually we don't want the BackDrop to even render the Portal, but having multiple instances of components with BackDrops is stil something that can't be handled better so long the AutoSuggest component is still in this project
-const StyledBackDrop = styled(BackDrop)`
-  ${({ expanded }) => `display: ${expanded ? 'initial' : 'none'};`}
-
-  @media screen and ${breakpoint('max-width', 'tabletM')} {
-    display: none;
-  }
-`
-
 const StyledSearchBar = styled(SearchBar)`
   position: relative;
 
@@ -36,6 +27,18 @@ const Search = ({
   const onOpenSearchToggle = open => {
     onOpenSearchBarToggle(open)
   }
+
+  // Actually we don't want the BackDrop to even render the Portal, but having multiple instances of components with BackDrops is stil something that can't be handled better so long the AutoSuggest component is still in this project
+  const StyledBackDrop = React.useMemo(
+    () => styled(BackDrop)`
+      display: ${expanded ? 'initial' : 'none'};
+
+      @media screen and ${breakpoint('max-width', 'tabletM')} {
+        display: none;
+      }
+    `,
+    [expanded], // React should only rerender the BackDrop component when the expanded prop changes
+  )
 
   return (
     <React.Fragment>
