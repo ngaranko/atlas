@@ -28,7 +28,6 @@ describe('Search', () => {
     expect(component.find('SearchBarToggle').exists()).toBe(true)
 
     const backDrop = component.find('Styled(BackDrop)')
-    expect(backDrop).toMatchSnapshot()
     expect(backDrop).toHaveStyleRule('display', 'none')
   })
 
