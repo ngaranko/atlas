@@ -1,42 +1,44 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
+import { ThemeProvider } from '@datapunt/asc-ui'
 import Search from './Search'
-import { useAppReducer } from '../../../app/utils/useAppReducer'
-
-jest.mock('../../../app/utils/useAppReducer')
 
 describe('Search', () => {
-  let component
-  const setBackDropMock = jest.fn()
   const onOpenSearchBarToggleMock = jest.fn()
   const props = {
-    showSuggestions: false,
-    suggestions: [],
+    expanded: false,
     searchBarProps: {},
     openSearchBarToggle: false,
     onOpenSearchBarToggle: onOpenSearchBarToggleMock,
     inputProps: {},
   }
 
-  useAppReducer.mockImplementation(() => ['', { setBackDrop: setBackDropMock }])
-
-  beforeEach(() => {
-    component = shallow(<Search {...props} />)
+  afterEach(() => {
+    jest.resetAllMocks()
   })
 
   it('should shallow the searchbar and searchtoggle', () => {
-    expect(component.find('SearchBar').exists()).toBe(true)
+    const component = mount(
+      <ThemeProvider>
+        <Search {...props} />
+      </ThemeProvider>,
+    )
+
+    expect(component.find('Styled(SearchBar)').exists()).toBe(true)
     expect(component.find('SearchBarToggle').exists()).toBe(true)
+
+    const backDrop = component.find('Styled(BackDrop)')
+    expect(backDrop).toHaveStyleRule('display', 'none')
   })
 
-  it('should set the backdrop when the user clicks the toggle', () => {
-    component
-      .find('SearchBarToggle')
-      .props()
-      .onOpen(true)
+  it('should set the backdrop when the parent component send the correct props', () => {
+    const component = mount(
+      <ThemeProvider>
+        <Search {...{ ...props, expanded: true }} />
+      </ThemeProvider>,
+    )
 
-    expect(onOpenSearchBarToggleMock).toHaveBeenCalledWith(true)
-
-    expect(setBackDropMock).toHaveBeenCalledWith({ payload: { open: true, key: 'search' } })
+    const backDrop = component.find('Styled(BackDrop)')
+    expect(backDrop).toHaveStyleRule('display', 'initial')
   })
 })

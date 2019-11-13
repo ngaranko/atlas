@@ -95,6 +95,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -106,6 +107,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
             "placeholder": "",
           }
         }
+        onBlur={[Function]}
         onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
         openSearchBarToggle={false}
@@ -118,7 +120,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
             "value": "dam",
           }
         }
-        showSuggestions={false}
         suggestions={
           Array [
             Object {
@@ -282,6 +283,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -293,6 +295,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
             "placeholder": "",
           }
         }
+        onBlur={[Function]}
         onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
         openSearchBarToggle={false}
@@ -305,7 +308,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
             "value": "dam",
           }
         }
-        showSuggestions={false}
         suggestions={
           Array [
             Object {
@@ -466,6 +468,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -477,6 +480,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "placeholder": "",
           }
         }
+        onBlur={[Function]}
         onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
         openSearchBarToggle={false}
@@ -489,7 +493,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "value": "dam",
           }
         }
-        showSuggestions={false}
         suggestions={
           Array [
             Object {
@@ -650,6 +653,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -661,6 +665,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "placeholder": "",
           }
         }
+        onBlur={[Function]}
         onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
         openSearchBarToggle={false}
@@ -673,7 +678,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "value": "dam",
           }
         }
-        showSuggestions={false}
         suggestions={
           Array [
             Object {
@@ -834,6 +838,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   >
     <fieldset>
       <Component
+        expanded={false}
         inputProps={
           Object {
             "autoCapitalize": "off",
@@ -845,6 +850,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "placeholder": "",
           }
         }
+        onBlur={[Function]}
         onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
         openSearchBarToggle={false}
@@ -857,7 +863,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "value": "dam",
           }
         }
-        showSuggestions={false}
         suggestions={
           Array [
             Object {

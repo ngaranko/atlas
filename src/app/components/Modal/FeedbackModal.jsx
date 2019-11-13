@@ -46,7 +46,7 @@ const FeedbackModalComponent = ({
     aria-describedby="feedback"
     open={open}
     onClose={handleClose}
-    blurredNodeSelector="#root"
+    hideOverFlow={false}
   >
     <TopBar>
       <Heading $as="h4">

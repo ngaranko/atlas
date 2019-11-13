@@ -20,7 +20,6 @@ import {
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
-import download from 'downloadjs'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
@@ -34,6 +33,7 @@ import { EDITORIAL_FIELD_TYPE_VALUES } from '../EditorialOverviewPage/constants'
 import getImageFromCms from '../../utils/getImageFromCms'
 import EditorialResults from '../../components/EditorialResults'
 import PAGES from '../../pages'
+import useDownload from '../../utils/useDownload'
 
 const ListItemContent = styled.div`
   display: flex;
@@ -49,6 +49,7 @@ const ListItemContent = styled.div`
 /* istanbul ignore next */
 const ArticleDetailPage = ({ id }) => {
   const { fetchData, results, loading, error } = useFromCMS(cmsConfig.ARTICLE, id)
+  const [, downloadFile] = useDownload()
 
   React.useEffect(() => {
     fetchData()
@@ -198,9 +199,7 @@ const ArticleDetailPage = ({ id }) => {
                                 <ListItem key={key}>
                                   <DownloadLink
                                     $as="button"
-                                    onClick={() => {
-                                      download(`${process.env.CMS_ROOT}${url}`)
-                                    }}
+                                    onClick={() => downloadFile(url)}
                                     variant="with-chevron"
                                   >
                                     <ListItemContent>

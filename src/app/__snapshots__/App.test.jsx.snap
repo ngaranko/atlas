@@ -6,34 +6,23 @@ exports[`App should render the homepage 1`] = `
   <MatomoProvider
     value={MatomoTracker {}}
   >
-    <AppStateProvider
-      initialState={
-        Object {
-          "ui": Object {
-            "backdropKeys": Array [],
-          },
-        }
-      }
-      reducer={[Function]}
-    >
-      <AppWrapper>
-        <Connect(Header)
-          embedPreviewMode={false}
-          hasMaxWidth={false}
-          homePage={false}
-          printMode={false}
-          printOrEmbedMode={false}
-        />
-        <AppBody
-          bodyClasses=""
-          currentPage="DATA"
-          embedPreviewMode={false}
-          hasMaxWidth={false}
-          homePage={false}
-          visibilityError={false}
-        />
-      </AppWrapper>
-    </AppStateProvider>
+    <AppWrapper>
+      <Connect(Header)
+        embedPreviewMode={false}
+        hasMaxWidth={false}
+        homePage={false}
+        printMode={false}
+        printOrEmbedMode={false}
+      />
+      <AppBody
+        bodyClasses=""
+        currentPage="DATA"
+        embedPreviewMode={false}
+        hasMaxWidth={false}
+        homePage={false}
+        visibilityError={false}
+      />
+    </AppWrapper>
   </MatomoProvider>
 </ThemeProvider>
 `;
@@ -44,34 +33,23 @@ exports[`App should render the mapview 1`] = `
   <MatomoProvider
     value={MatomoTracker {}}
   >
-    <AppStateProvider
-      initialState={
-        Object {
-          "ui": Object {
-            "backdropKeys": Array [],
-          },
-        }
-      }
-      reducer={[Function]}
-    >
-      <AppWrapper>
-        <Connect(Header)
-          embedPreviewMode={false}
-          hasMaxWidth={false}
-          homePage={false}
-          printMode={false}
-          printOrEmbedMode={false}
-        />
-        <AppBody
-          bodyClasses=""
-          currentPage="DATA"
-          embedPreviewMode={false}
-          hasMaxWidth={false}
-          homePage={false}
-          visibilityError={false}
-        />
-      </AppWrapper>
-    </AppStateProvider>
+    <AppWrapper>
+      <Connect(Header)
+        embedPreviewMode={false}
+        hasMaxWidth={false}
+        homePage={false}
+        printMode={false}
+        printOrEmbedMode={false}
+      />
+      <AppBody
+        bodyClasses=""
+        currentPage="DATA"
+        embedPreviewMode={false}
+        hasMaxWidth={false}
+        homePage={false}
+        visibilityError={false}
+      />
+    </AppWrapper>
   </MatomoProvider>
 </ThemeProvider>
 `;

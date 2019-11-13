@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import styled, { css } from '@datapunt/asc-core'
-import { Header as HeaderComponent, styles, breakpoint } from '@datapunt/asc-ui'
+import { Header as HeaderComponent, styles, breakpoint, showAboveBackDrop } from '@datapunt/asc-ui'
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer'
-import { useAppReducer } from '../../utils/useAppReducer'
 import HeaderMenuContainer from './HeaderMenuContainer'
 
 import EmbedHeader from './EmbedHeader'
@@ -18,9 +17,10 @@ const stickyStyle = css`
 const HeaderWrapper = styled.section`
   width: 100%;
 
-  // As position: sticky isn't supported on IE, this is needed to have position the header on top of the other contents
-  z-index: 999;
+  // As position: sticky isn't supported on IE, this is needed to have position the header on top of the other content
   position: relative;
+
+  ${showAboveBackDrop(true)}
 
   // Add position: sticky for supported browsers
   ${({ isHomePage }) =>
@@ -44,16 +44,6 @@ const StyledHeader = styled(HeaderComponent)`
     @media screen and ${breakpoint('min-width', 'tabletM')} {
       justify-content: space-between;
     }
-
-    fieldset > ${styles.SearchBarStyle} {
-      flex-grow: 1;
-      max-width: 80%;
-
-      ${styles.TextFieldStyle} {
-        flex-grow: 0;
-        width: 100%;
-      }
-    }
   }
 `
 
@@ -69,16 +59,6 @@ const Header = ({
   hidePrintMode,
   hideEmbedMode,
 }) => {
-  const [, actions] = useAppReducer('ui')
-  const setBackDrop = open => {
-    actions.setBackDrop({
-      payload: {
-        open,
-        key: 'menu',
-      },
-    })
-  }
-
   if (!printOrEmbedMode) {
     return (
       <HeaderWrapper isHomePage={homePage} data-test="header">
@@ -91,12 +71,8 @@ const Header = ({
           navigation={
             <React.Fragment>
               <HeaderSearchContainer />
-              <MenuDefault
-                data-test="header-menu-default"
-                showAt="laptopM"
-                onExpand={setBackDrop}
-              />
-              <MenuMobile data-test="header-menu-mobile" hideAt="laptopM" onExpand={setBackDrop} />
+              <MenuDefault data-test="header-menu-default" showAt="laptopM" />
+              <MenuMobile data-test="header-menu-mobile" hideAt="laptopM" />
             </React.Fragment>
           }
         />

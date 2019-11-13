@@ -57,6 +57,7 @@ export const endpointTypes = {
   winkelgebied: 'vsd/winkgeb',
   wkpbBeperking: 'wkpb/beperking',
   wkpbUitreksel: 'brk/object-wkpb',
+  woonplaats: 'bag/woonplaats',
 }
 
 const servicesByEndpointType = {
@@ -727,6 +728,13 @@ const servicesByEndpointType = {
               },
             ],
           },
+  },
+  [endpointTypes.woonplaats]: {
+    mapDetail: result => ({
+      title: 'Woonplaats',
+      subTitle: result._display,
+      items: [],
+    }),
   },
 }
 
