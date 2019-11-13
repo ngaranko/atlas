@@ -1,5 +1,6 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
+import { ThemeProvider } from '@datapunt/asc-ui'
 import Search from './Search'
 
 describe('Search', () => {
@@ -17,17 +18,27 @@ describe('Search', () => {
   })
 
   it('should shallow the searchbar and searchtoggle', () => {
-    const component = shallow(<Search {...props} />)
+    const component = mount(
+      <ThemeProvider>
+        <Search {...props} />
+      </ThemeProvider>,
+    )
 
     expect(component.find('Styled(SearchBar)').exists()).toBe(true)
     expect(component.find('SearchBarToggle').exists()).toBe(true)
-    expect(component.find('Styled(BackDrop)').exists()).toBe(false)
+
+    const backDrop = component.find('Styled(BackDrop)')
+    expect(backDrop).toHaveStyleRule('display', 'none')
   })
 
   it('should set the backdrop when the parent component send the correct props', () => {
-    const component = shallow(<Search {...{ ...props, expanded: true }} />)
+    const component = mount(
+      <ThemeProvider>
+        <Search {...{ ...props, expanded: true }} />
+      </ThemeProvider>,
+    )
 
     const backDrop = component.find('Styled(BackDrop)')
-    expect(backDrop.exists()).toBe(true)
+    expect(backDrop).toHaveStyleRule('display', 'initial')
   })
 })
