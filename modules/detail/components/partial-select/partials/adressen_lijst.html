@@ -24,7 +24,7 @@
 
       <span
         class="muted"
-        ng-if="object.vbo_status.omschrijving !== 'Verblijfsobject in gebruik (niet ingemeten)' &&
+        ng-if="object.vbo_status.omschrijving && object.vbo_status.omschrijving !== 'Verblijfsobject in gebruik (niet ingemeten)' &&
               object.vbo_status.omschrijving !== 'Verblijfsobject in gebruik' &&
               object.vbo_status.status.omschrijving !== 'Verbouwing verblijfsobject'"
       >
