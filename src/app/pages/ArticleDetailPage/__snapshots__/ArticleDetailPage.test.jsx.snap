@@ -3,7 +3,15 @@
 exports[`ArticleDetailPage should render the publication when there are results 1`] = `
 <EditorialPage
   documentTitle="Artikel: This is a title"
-  linkAction={null}
+  linkAction={
+    Object {
+      "payload": Object {
+        "id": 3,
+        "slug": "slug",
+      },
+      "type": "atlasRouter/ARTICLE_DETAIL",
+    }
+  }
   loading={false}
   title="This is a title"
 >

@@ -45,7 +45,7 @@ const PublicationDetailPage = ({ id }) => {
     field_file_type: fileType,
     field_publication_source: source,
     field_intro: intro,
-    field_slug: slug,
+    slug,
   } = results || {}
 
   const documentTitle = title && `Publicatie: ${title}`
