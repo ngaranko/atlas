@@ -8,12 +8,6 @@ pipeline {
     COMMIT_HASH = GIT_COMMIT.substring(0, 8)
     PROJECT_PREFIX = "${BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
 
-    IMAGE_GRAPHQL_BASE = "repo.data.amsterdam.nl/atlas/app_graphql"
-    IMAGE_GRAPHQL_BUILD = "${IMAGE_GRAPHQL_BASE}:${BUILD_NUMBER}"
-    IMAGE_GRAPHQL_ACCEPTANCE = "${IMAGE_GRAPHQL_BASE}:acceptance"
-    IMAGE_GRAPHQL_PRODUCTION = "${IMAGE_GRAPHQL_BASE}:production"
-    IMAGE_GRAPHQL_LATEST = "${IMAGE_GRAPHQL_BASE}:latest"
-
     IMAGE_FRONTEND_BASE = "repo.data.amsterdam.nl/atlas/app"
     IMAGE_FRONTEND_BUILD = "${IMAGE_FRONTEND_BASE}:${BUILD_NUMBER}"
     IMAGE_FRONTEND_ACCEPTANCE = "${IMAGE_FRONTEND_BASE}:acceptance"
@@ -108,13 +102,6 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES')
       }
       steps {
-        // GraphQL
-        sh "docker build -f ./graphql/Dockerfile -t ${IMAGE_GRAPHQL_BUILD} " +
-          "--shm-size 1G " +
-          "--build-arg NODE_ENV=acceptance " +
-          "./graphql"
-        sh "docker push ${IMAGE_GRAPHQL_BUILD}"
-
         // Frontend
         sh "docker build -t ${IMAGE_FRONTEND_BUILD} " +
           "--shm-size 1G " +
@@ -130,11 +117,6 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
       }
       steps {
-        // GraphQL
-        sh "docker pull ${IMAGE_GRAPHQL_BUILD}"
-        sh "docker tag ${IMAGE_GRAPHQL_BUILD} ${IMAGE_GRAPHQL_ACCEPTANCE}"
-        sh "docker push ${IMAGE_GRAPHQL_ACCEPTANCE}"
-
         // Frontend
         sh "docker pull ${IMAGE_FRONTEND_BUILD}"
         sh "docker tag ${IMAGE_FRONTEND_BUILD} ${IMAGE_FRONTEND_ACCEPTANCE}"
@@ -153,14 +135,6 @@ pipeline {
       }
       steps {
         // NOTE NODE_ENV intentionaly not set (using Dockerfile default)
-        // GraphQL
-        sh "docker build -f ./graphql/Dockerfile -t ${IMAGE_GRAPHQL_PRODUCTION} " +
-            "--shm-size 1G " +
-            "./graphql"
-        sh "docker tag ${IMAGE_GRAPHQL_PRODUCTION} ${IMAGE_GRAPHQL_LATEST}"
-        sh "docker push ${IMAGE_GRAPHQL_PRODUCTION}"
-        sh "docker push ${IMAGE_GRAPHQL_LATEST}"
-
         // Frontend
         sh "docker build -t ${IMAGE_FRONTEND_PRODUCTION} " +
             "--shm-size 1G " +

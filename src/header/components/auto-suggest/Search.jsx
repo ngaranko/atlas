@@ -51,6 +51,7 @@ const Search = ({
         onMouseLeave={onBlur} // the onMouseLeave event is needed here as the MenuInline component has onMouseEnter/onMouseLeave events and we don't want a menu and the AutoSuggest to be opened at the same time
       >
         <StyledBackDrop
+          data-test="backDrop"
           expanded={expanded}
           onMouseEnter={onBlur} // The BackDrop is rendered as a Portal, therefore the onMouseLeave event isn't fired when entering it and we must call this event instead
           hideOverFlow={false}
