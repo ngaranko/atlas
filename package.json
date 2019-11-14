@@ -86,7 +86,8 @@
     "redux-first-router-restore-scroll": "1.2.2",
     "redux-saga": "0.16.0",
     "remove-markdown": "0.3.0",
-    "reselect": "4.0.0"
+    "reselect": "4.0.0",
+    "urql": "^1.6.3"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",

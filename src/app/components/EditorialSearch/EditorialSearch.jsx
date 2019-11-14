@@ -34,19 +34,8 @@ const StyledEditorialSearch = styled.div`
   max-width: 792px; // Image width + 600px (design system rule)
 `
 
-const EditorialSearch = ({ type }) => {
-  const [{ results, loading }, dispatch] = useContext(contextMapping[type])
-  const { actions, selectors } = ducksMapping[type]()
-
-  const loadMore = async endpoint => {
-    dispatch(actions.request())
-    try {
-      const payload = await getByUrl(endpoint)
-      dispatch(actions.accumulateResults(payload))
-    } catch (e) {
-      dispatch(actions.failure(e))
-    }
-  }
+const EditorialSearch = ({ type, loading, results }) => {
+  console.log(results)
 
   if (results && !results.results) {
     return (
@@ -73,16 +62,16 @@ const EditorialSearch = ({ type }) => {
     )
   }
 
-  const searchData = useNormalizedCMSResults(selectors.results({ results }), type)
-
   return (
     <StyledEditorialSearch>
       <EditorialResults
         type={type}
         loading={loading}
-        results={searchData}
-        onClickMore={loadMore}
-        links={results._links}
+        results={results && results.results}
+        // onClickMore={loadMore}
+        onClickMore={() => console.log('load more results')}
+        // links={results._links}
+        links={[]}
         showTitle={false}
       />
       <ShareBar topSpacing={6} />

@@ -102,12 +102,15 @@ const MetaText = styled(Paragraph)`
 const EditorialCard = ({
   id,
   title,
+  label, // GraphQL
   shortTitle,
   teaser,
   intro,
   specialType,
   localeDate,
   localeDateFormatted,
+  date, // GraphQL
+  dateLocale, // GraphQL
   teaserImage,
   coverImage,
   currentPage,
@@ -128,6 +131,9 @@ const EditorialCard = ({
     400px
     `,
   }
+
+  console.log(dateLocale)
+
   return (
     <StyledLinkWrapper key={id} to={to} title={title} linkType="blank">
       <StyledCard horizontal>
@@ -141,7 +147,7 @@ const EditorialCard = ({
         </StyledCardMedia>
         <StyledCardContent>
           <div>
-            <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
+            <StyledCardHeading $as="h4">{shortTitle || title || label}</StyledCardHeading>
           </div>
 
           {specialType && (
@@ -156,10 +162,10 @@ const EditorialCard = ({
             <IntroText>{teaser || intro}</IntroText>
           </div>
 
-          {!specialType && localeDate && (
+          {!specialType && (localeDate || date) && (
             <div>
-              <MetaText as="time" data-test="metaText" datetime={localeDate}>
-                {localeDateFormatted}
+              <MetaText as="time" data-test="metaText" datetime={localeDate || date}>
+                {localeDateFormatted || dateLocale}
               </MetaText>
             </div>
           )}

@@ -1,5 +1,6 @@
 import React, { useMemo, useReducer } from 'react'
 import PropTypes from 'prop-types'
+import { useQuery } from 'urql'
 import PAGES from '../../pages'
 import TabBar from '../TabBar'
 import Tabs from '../Tabs/Tabs'
@@ -44,6 +45,50 @@ const QuerySearch = ({
   toSearchPage,
   numberOfDatasetResults,
 }) => {
+  const [res] = useQuery({
+    query: `
+      query CmsSearch($q: String!, $limit: Int, $types: [String!]) {
+        cmsSearch(q: $q, input: {limit: $limit, types: $types}) {
+          totalCount
+          results {
+            type
+            label
+            count
+            results {
+              id
+              label
+              type
+              date
+              slug
+              body
+              dateLocale
+              teaserImage
+              coverImage
+              link {
+                uri
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: { q: query, types: ['article', 'publication'] },
+  })
+
+  console.log(res)
+
+  const { fetching, data, error } = res
+
+  const { results } = data ? data.cmsSearch : {}
+
+  const articles =
+    results && results.length ? results.filter(result => result.type === 'article')[0] : null
+
+  const publications =
+    results && results.length ? results.filter(result => result.type === 'publication')[0] : null
+
+  console.log('articles', articles)
+
   // Article
   const {
     reducer: articleReducer,
@@ -122,7 +167,7 @@ const QuerySearch = ({
                   />
                   <Tab
                     label="Publicaties"
-                    count={publicationSelectors.count(publicationState)}
+                    count={publications && publications.count}
                     onClick={() => toSearchPage(toPublicationSearch, query, filters)}
                     page={PAGES.PUBLICATION_SEARCH}
                   />
@@ -134,7 +179,7 @@ const QuerySearch = ({
                   />
                   <Tab
                     label="Artikelen"
-                    count={articleSelectors.count(articleState)}
+                    count={articles && articles.count}
                     onClick={() => toSearchPage(toArticleSearch, query, filters)}
                     page={PAGES.ARTICLE_SEARCH}
                   />
@@ -146,9 +191,15 @@ const QuerySearch = ({
                   <DataSearchQuery numberOfResults={numberOfDataResults} user={user} />
                 )}
                 {currentPage === PAGES.DATASET_SEARCH && <Dataset />}
-                {currentPage === PAGES.ARTICLE_SEARCH && <EditorialSearch type={PAGES.ARTICLES} />}
+                {currentPage === PAGES.ARTICLE_SEARCH && (
+                  <EditorialSearch type={PAGES.ARTICLES} loading={fetching} results={articles} />
+                )}
                 {currentPage === PAGES.PUBLICATION_SEARCH && (
-                  <EditorialSearch type={PAGES.PUBLICATIONS} />
+                  <EditorialSearch
+                    type={PAGES.PUBLICATIONS}
+                    loading={fetching}
+                    results={publications}
+                  />
                 )}
               </div>
             </div>
