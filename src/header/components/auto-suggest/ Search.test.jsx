@@ -20,14 +20,15 @@ describe('Search', () => {
   it('should shallow the searchbar and searchtoggle', () => {
     const component = mount(
       <ThemeProvider>
-        <Search {...props} />
+        <Search props={props} />
       </ThemeProvider>,
     )
-
     expect(component.find('Styled(SearchBar)').exists()).toBe(true)
     expect(component.find('SearchBarToggle').exists()).toBe(true)
 
-    const backDrop = component.find('Styled(BackDrop)')
+    const backDrop = component.find("[data-test='backDrop']")
+
+    expect(backDrop.exists()).toBe(true)
     expect(backDrop).toHaveStyleRule('display', 'none')
   })
 
@@ -38,7 +39,9 @@ describe('Search', () => {
       </ThemeProvider>,
     )
 
-    const backDrop = component.find('Styled(BackDrop)')
+    const backDrop = component.find("[data-test='backDrop']")
+
+    expect(backDrop.exists()).toBe(true)
     expect(backDrop).toHaveStyleRule('display', 'initial')
   })
 })
