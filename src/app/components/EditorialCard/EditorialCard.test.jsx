@@ -11,6 +11,7 @@ describe('EditorialCard', () => {
     title: 'title',
     intro: 'intro',
     teaserImage: 'thumbnail.jpg',
+    type: 'PUBLICATIONS',
   }
 
   getImageFromCms.mockImplementation(() => 'image.jpg')

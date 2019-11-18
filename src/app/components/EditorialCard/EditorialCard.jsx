@@ -116,11 +116,11 @@ const EditorialCard = ({
   teaserImage,
   coverImage,
   currentPage,
-  imageIsVertical,
   to: toProp,
   type,
 }) => {
   const image = currentPage === PAGES.PUBLICATIONS ? coverImage : teaserImage
+  const imageIsVertical = currentPage === PAGES.PUBLICATIONS
   const resize = currentPage === PAGES.PUBLICATIONS ? 'fit' : 'fill'
   const srcSet = {
     srcSet: `${getImageFromCms(image, 100, 100, resize)} 70w,

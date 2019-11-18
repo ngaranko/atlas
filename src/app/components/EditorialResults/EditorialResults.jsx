@@ -30,7 +30,6 @@ const PageHeading = styled(Heading)`
 `
 
 const EditorialResults = ({
-  page,
   title,
   headingLevel,
   results,
@@ -41,7 +40,7 @@ const EditorialResults = ({
   className,
 }) => (
   <EditorialCardContainer className={className}>
-    {page === 0 && loading ? (
+    {loading ? (
       <LoadingIndicator style={{ position: 'inherit' }} />
     ) : (
       <>
@@ -49,21 +48,16 @@ const EditorialResults = ({
           <PageHeading $as={headingLevel || 'h1'}>{title || EDITORIAL_TITLES[type]}</PageHeading>
         )}
         {results && results.map(result => <EditorialCard {...result} type={type} />)}
-        {page > 0 && loading && <LoadingIndicator />}
-
-        {loading ? (
-          <LoadingIndicator style={{ position: 'inherit' }} />
-        ) : (
-          onClickMore && (
-            <StyledButton
-              variant="primaryInverted"
-              iconLeft={<Enlarge />}
-              iconSize={12}
-              onClick={onClickMore}
-            >
-              Toon meer
-            </StyledButton>
-          )
+        {loading && <LoadingIndicator />}
+        {onClickMore && (
+          <StyledButton
+            variant="primaryInverted"
+            iconLeft={<Enlarge />}
+            iconSize={12}
+            onClick={onClickMore}
+          >
+            Toon meer
+          </StyledButton>
         )}
       </>
     )}

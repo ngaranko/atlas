@@ -1,6 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import QuerySearch from './QuerySearch'
+import usePagination from '../../utils/usePagination'
+
+jest.mock('../../utils/usePagination')
 
 describe('QuerySearch', () => {
   const props = {
@@ -13,6 +16,15 @@ describe('QuerySearch', () => {
     numberOfResults: 0,
     toSearchPage: jest.fn(),
   }
+
+  const fetchMore = jest.fn()
+
+  beforeEach(() => {
+    usePagination.mockImplementation(
+      () => [{ data: [{ results: [] }], fetching: false }],
+      fetchMore,
+    )
+  })
 
   it('should not render while loading', () => {
     const component = shallow(<QuerySearch {...props} />)

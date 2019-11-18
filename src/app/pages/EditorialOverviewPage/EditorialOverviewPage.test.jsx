@@ -1,70 +1,49 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { ThemeProvider } from '@datapunt/asc-ui'
+import { shallow } from 'enzyme'
 import EditorialOverviewPage from './EditorialOverviewPage'
-import useFromCMS from '../../utils/useFromCMS'
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import usePagination from '../../utils/usePagination'
+import PAGES from '../../pages'
+import { MAX_RESULTS } from '../../components/QuerySearch/constants.config'
 
-jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
-jest.mock('../../utils/useFromCMS')
+jest.mock('../../utils/usePagination')
 
 describe('EditorialOverviewPage', () => {
   let component
-  const fetchDataMock = jest.fn()
+  const fetchMore = jest.fn()
 
   beforeEach(() => {
-    linkAttributesFromAction.mockImplementation(() => ({
-      href: 'https://this.is.alink',
-    }))
-    useFromCMS.mockImplementation(() => ({
-      loading: true,
-      fetchData: fetchDataMock,
-    }))
+    usePagination.mockImplementation(() => [{ data: { results: [] }, fetching: false }, fetchMore])
   })
 
   afterEach(() => {
     jest.resetAllMocks()
   })
 
-  it('should display the loading indicator', () => {
-    component = shallow(<EditorialOverviewPage type="ARTICLES" />)
+  it('should call the server with the correct type', () => {
+    component = shallow(<EditorialOverviewPage pageType={PAGES.PUBLICATIONS} />)
 
-    expect(component.find('LoadingIndicator')).toBeTruthy()
+    expect(usePagination).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({
+        types: 'publication',
+      }),
+      expect.any(Number),
+      expect.any(Number),
+    )
   })
 
-  it('should call the fetchData function on mount', () => {
-    component = mount(
-      <ThemeProvider>
-        <EditorialOverviewPage type="ARTICLES" />
-      </ThemeProvider>,
-    )
+  it('should set the onClickMore function', () => {
+    component = shallow(<EditorialOverviewPage pageType={PAGES.PUBLICATIONS} />)
 
-    expect(fetchDataMock).toHaveBeenCalled()
-  })
+    expect(component.find('EditorialResults').props().onClickMore).toBe(false)
 
-  it('should call the fetchData function when clicking the show more button', () => {
-    useFromCMS.mockImplementation(() => ({
-      loading: false,
-      fetchData: fetchDataMock,
-      results: {
-        data: [],
-        links: { next: { href: 'http://link' } },
-      },
-    }))
+    usePagination.mockImplementation(() => [
+      { data: { results: [], count: MAX_RESULTS + 1 }, fetching: false },
+      fetchMore,
+    ])
 
-    component = mount(
-      <ThemeProvider>
-        <EditorialOverviewPage type="ARTICLES" />
-      </ThemeProvider>,
-    )
+    component = shallow(<EditorialOverviewPage pageType={PAGES.PUBLICATIONS} />)
 
-    const button = component.find('Button')
-
-    button.simulate('click')
-
-    expect(fetchDataMock).toHaveBeenCalledTimes(2)
-
-    // This is the second loading indicator at the bottom of the page
-    expect(component.find('LoadingIndicator').at(1)).toBeTruthy()
+    expect(component.find('EditorialResults').props().onClickMore).toBe(fetchMore)
   })
 })

@@ -42,7 +42,7 @@ const EditorialOverviewPage = ({ pageType = '' }) => {
                 results: data && data.results,
                 type: pageType,
                 links: [],
-                onClickMore: fetchMore,
+                onClickMore: data && data.count >= MAX_RESULTS ? fetchMore : false,
               }}
             />
           </Column>
