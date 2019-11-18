@@ -12,7 +12,7 @@ import {
   breakpoint,
 } from '@datapunt/asc-ui'
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
-import { Provider as UrqlProvider, createClient } from 'urql'
+import { Provider as GraphQLProvider, createClient } from 'urql'
 import { isEditorialPage, isContentPage } from './pages'
 import './_app.scss'
 import {
@@ -96,7 +96,7 @@ const App = ({
     siteId: MATOMO_CONFIG[process.env.NODE_ENV].SITE_ID,
   })
 
-  const urlqClient = createClient({
+  const graphQLClient = createClient({
     url: `${process.env.API_ROOT}cms_search/graphql/`,
   })
 
@@ -126,7 +126,7 @@ const App = ({
     <ThemeProvider>
       <GlobalStyle />
       <MatomoProvider value={matomoInstance}>
-        <UrqlProvider value={urlqClient}>
+        <GraphQLProvider value={graphQLClient}>
           <AppWrapper>
             {!embedMode && (
               <Header
@@ -148,7 +148,7 @@ const App = ({
               }}
             />
           </AppWrapper>
-        </UrqlProvider>
+        </GraphQLProvider>
       </MatomoProvider>
     </ThemeProvider>
   )
