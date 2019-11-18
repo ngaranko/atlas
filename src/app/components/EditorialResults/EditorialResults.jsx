@@ -36,47 +36,39 @@ const EditorialResults = ({
   results,
   loading,
   type,
-  links,
   onClickMore,
   showTitle,
   className,
-}) => {
-  return (
-    <EditorialCardContainer className={className}>
-      {page === 0 && loading ? (
-        <LoadingIndicator style={{ position: 'inherit' }} />
-      ) : (
-        <>
-          {showTitle && (
-            <PageHeading $as={headingLevel || 'h1'}>{title || EDITORIAL_TITLES[type]}</PageHeading>
-          )}
-          {results && results.map(result => <EditorialCard {...result} />)}
-          {page > 0 && loading && <LoadingIndicator />}
-          {links &&
-            links.next &&
-            links.next.href !== 'None' &&
-            (loading ? (
-              <LoadingIndicator style={{ position: 'inherit' }} />
-            ) : (
-              <StyledButton
-                variant="primaryInverted"
-                iconLeft={<Enlarge />}
-                iconSize={12}
-                onClick={() => {
-                  // Temporarily replace http:// as no changes will be made to JSON API
-                  const nextHref = links.next.href.replace('http://', 'https://')
+}) => (
+  <EditorialCardContainer className={className}>
+    {page === 0 && loading ? (
+      <LoadingIndicator style={{ position: 'inherit' }} />
+    ) : (
+      <>
+        {showTitle && (
+          <PageHeading $as={headingLevel || 'h1'}>{title || EDITORIAL_TITLES[type]}</PageHeading>
+        )}
+        {results && results.map(result => <EditorialCard {...result} type={type} />)}
+        {page > 0 && loading && <LoadingIndicator />}
 
-                  onClickMore(nextHref)
-                }}
-              >
-                Toon meer
-              </StyledButton>
-            ))}
-        </>
-      )}
-    </EditorialCardContainer>
-  )
-}
+        {loading ? (
+          <LoadingIndicator style={{ position: 'inherit' }} />
+        ) : (
+          onClickMore && (
+            <StyledButton
+              variant="primaryInverted"
+              iconLeft={<Enlarge />}
+              iconSize={12}
+              onClick={onClickMore}
+            >
+              Toon meer
+            </StyledButton>
+          )
+        )}
+      </>
+    )}
+  </EditorialCardContainer>
+)
 
 EditorialResults.defaultProps = {
   showTitle: true,

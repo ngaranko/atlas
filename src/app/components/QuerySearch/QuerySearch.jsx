@@ -1,6 +1,5 @@
-import React, { useMemo, useReducer } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { useQuery } from 'urql'
 import PAGES from '../../pages'
 import TabBar from '../TabBar'
 import Tabs from '../Tabs/Tabs'
@@ -15,25 +14,8 @@ import {
   toPublicationSearch,
 } from '../../../store/redux-first-router/actions'
 import EditorialSearch from '../EditorialSearch'
-import {
-  ArticleSearchContext,
-  PublicationSearchContext,
-} from '../EditorialSearch/editorialSearchContexts'
-import { getByUrl } from '../../../shared/services/api/api'
-import {
-  useArticleSearchDuck,
-  usePublicationSearchDuck,
-} from '../EditorialSearch/editorialSearchHooks'
-
-const fetchSearchData = async (actions, dispatch, endpoint) => {
-  dispatch(actions.request())
-  try {
-    const payload = await getByUrl(`${process.env.API_ROOT}cms_search/search/${endpoint}`)
-    dispatch(actions.success(payload))
-  } catch (e) {
-    dispatch(actions.failure())
-  }
-}
+import cmsQuery, { MAX_RESULTS } from './constants.config'
+import usePagination from '../../utils/usePagination'
 
 const QuerySearch = ({
   isLoading,
@@ -45,168 +27,93 @@ const QuerySearch = ({
   toSearchPage,
   numberOfDatasetResults,
 }) => {
-  const [res] = useQuery({
-    query: `
-      query CmsSearch($q: String!, $limit: Int, $types: [String!]) {
-        cmsSearch(q: $q, input: {limit: $limit, types: $types}) {
-          totalCount
-          results {
-            type
-            label
-            count
-            results {
-              id
-              label
-              type
-              date
-              slug
-              body
-              dateLocale
-              teaserImage
-              coverImage
-              link {
-                uri
-              }
-            }
-          }
-        }
-      }
-    `,
-    variables: { q: query, types: ['article', 'publication'] },
-  })
-
-  console.log(res)
-
-  const { fetching, data, error } = res
-
-  const { results } = data ? data.cmsSearch : {}
-
-  const articles =
-    results && results.length ? results.filter(result => result.type === 'article')[0] : null
-
-  const publications =
-    results && results.length ? results.filter(result => result.type === 'publication')[0] : null
-
-  console.log('articles', articles)
-
-  // Article
-  const {
-    reducer: articleReducer,
-    initState: articleInitState,
-    actions: articleActions,
-    selectors: articleSelectors,
-  } = useArticleSearchDuck()
-  const [articleState, articleDispatch] = useReducer(articleReducer, articleInitState)
-  const articleContextValue = useMemo(() => [articleState, articleDispatch], [
-    articleState,
-    articleDispatch,
-  ])
-
-  // Publication
-  const {
-    reducer: publicationReducer,
-    initState: publicationInitState,
-    actions: publicationActions,
-    selectors: publicationSelectors,
-  } = usePublicationSearchDuck()
-  const [publicationState, publicationDispatch] = useReducer(
-    publicationReducer,
-    publicationInitState,
+  const [{ data: articles, fetching: fetchingArticles }, fetchMoreArticles] = usePagination(
+    cmsQuery,
+    { q: query, types: 'article' },
+    2,
+    0,
   )
-  const publicationContextValue = useMemo(() => [publicationState, publicationDispatch], [
-    publicationState,
-    publicationDispatch,
-  ])
+  const [
+    { data: publications, fetching: fetchingPublications },
+    fetchMorePublications,
+  ] = usePagination(cmsQuery, { q: query, types: 'publication' }, 2, 0)
 
   const resultMapper = () => {
     switch (currentPage) {
       case PAGES.DATA_SEARCH_QUERY:
         return numberOfDataResults
       case PAGES.PUBLICATION_SEARCH:
-        return publicationSelectors.count(publicationState) || 0
+        return (publications && publications.count) || 0
       case PAGES.DATASET_SEARCH:
         return numberOfDatasetResults
       case PAGES.ARTICLE_SEARCH:
-        return articleSelectors.count(articleState) || 0
+        return (articles && articles.count) || 0
       default:
         return 0
     }
   }
 
-  React.useEffect(() => {
-    ;(async () => {
-      await Promise.all([
-        fetchSearchData(
-          articleActions,
-          articleDispatch,
-          `article?q=${typeof query === 'string' ? query.toLowerCase() : ''}`, // Todo: temporary fix, real fix: DP-7365
-        ),
-        fetchSearchData(
-          publicationActions,
-          publicationDispatch,
-          `publication?q=${typeof query === 'string' ? query.toLowerCase() : ''}`, // Todo: temporary fix, real fix: DP-7365
-        ),
-      ])
-    })()
-  }, [query])
-
   return (
-    <ArticleSearchContext.Provider value={articleContextValue}>
-      <PublicationSearchContext.Provider value={publicationContextValue}>
-        <div className="c-data-selection c-dashboard__content">
-          {isLoading && <LoadingIndicator />}
-          {!isLoading && (
-            <div className="qa-data-selection-content">
-              <TabBar numberOfResults={resultMapper()}>
-                <Tabs currentPage={currentPage}>
-                  <Tab
-                    label="Data"
-                    count={numberOfDataResults}
-                    onClick={() => toSearchPage(toDataSearch, query, filters)}
-                    page={PAGES.DATA_SEARCH_QUERY}
-                  />
-                  <Tab
-                    label="Publicaties"
-                    count={publications && publications.count}
-                    onClick={() => toSearchPage(toPublicationSearch, query, filters)}
-                    page={PAGES.PUBLICATION_SEARCH}
-                  />
-                  <Tab
-                    label="Datasets"
-                    count={numberOfDatasetResults}
-                    onClick={() => toSearchPage(toDatasetSearch, query, filters)}
-                    page={PAGES.DATASET_SEARCH}
-                  />
-                  <Tab
-                    label="Artikelen"
-                    count={articles && articles.count}
-                    onClick={() => toSearchPage(toArticleSearch, query, filters)}
-                    page={PAGES.ARTICLE_SEARCH}
-                  />
-                </Tabs>
-              </TabBar>
+    <div className="c-data-selection c-dashboard__content">
+      {isLoading && <LoadingIndicator />}
+      {!isLoading && (
+        <div className="qa-data-selection-content">
+          <TabBar numberOfResults={resultMapper()}>
+            <Tabs currentPage={currentPage}>
+              <Tab
+                label="Data"
+                count={numberOfDataResults}
+                onClick={() => toSearchPage(toDataSearch, query, filters)}
+                page={PAGES.DATA_SEARCH_QUERY}
+              />
+              <Tab
+                label="Publicaties"
+                count={publications && publications.count}
+                onClick={() => toSearchPage(toPublicationSearch, query, filters)}
+                page={PAGES.PUBLICATION_SEARCH}
+              />
+              <Tab
+                label="Datasets"
+                count={numberOfDatasetResults}
+                onClick={() => toSearchPage(toDatasetSearch, query, filters)}
+                page={PAGES.DATASET_SEARCH}
+              />
+              <Tab
+                label="Artikelen"
+                count={articles && articles.count}
+                onClick={() => toSearchPage(toArticleSearch, query, filters)}
+                page={PAGES.ARTICLE_SEARCH}
+              />
+            </Tabs>
+          </TabBar>
 
-              <div className="qa-search-results">
-                {currentPage === PAGES.DATA_SEARCH_QUERY && (
-                  <DataSearchQuery numberOfResults={numberOfDataResults} user={user} />
-                )}
-                {currentPage === PAGES.DATASET_SEARCH && <Dataset />}
-                {currentPage === PAGES.ARTICLE_SEARCH && (
-                  <EditorialSearch type={PAGES.ARTICLES} loading={fetching} results={articles} />
-                )}
-                {currentPage === PAGES.PUBLICATION_SEARCH && (
-                  <EditorialSearch
-                    type={PAGES.PUBLICATIONS}
-                    loading={fetching}
-                    results={publications}
-                  />
-                )}
-              </div>
-            </div>
-          )}
+          <div className="qa-search-results">
+            {currentPage === PAGES.DATA_SEARCH_QUERY && (
+              <DataSearchQuery numberOfResults={numberOfDataResults} user={user} />
+            )}
+            {currentPage === PAGES.DATASET_SEARCH && <Dataset />}
+            {currentPage === PAGES.ARTICLE_SEARCH && (
+              <EditorialSearch
+                type={PAGES.ARTICLES}
+                loading={fetchingArticles}
+                results={articles}
+                fetchMore={articles && articles.count >= MAX_RESULTS ? fetchMoreArticles : false}
+              />
+            )}
+            {currentPage === PAGES.PUBLICATION_SEARCH && (
+              <EditorialSearch
+                type={PAGES.PUBLICATIONS}
+                loading={fetchingPublications}
+                results={publications}
+                fetchMore={
+                  publications && publications.count >= MAX_RESULTS ? fetchMorePublications : false
+                }
+              />
+            )}
+          </div>
         </div>
-      </PublicationSearchContext.Provider>
-    </ArticleSearchContext.Provider>
+      )}
+    </div>
   )
 }
 QuerySearch.defaultProps = {

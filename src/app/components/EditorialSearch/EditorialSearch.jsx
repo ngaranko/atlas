@@ -1,28 +1,14 @@
 /* eslint-disable camelcase */
-import React, { useContext } from 'react'
+import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import { Link } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import NoResultsForSearchType from '../Messages/NoResultsForSearchType'
 import PAGES from '../../pages'
-import { getByUrl } from '../../../shared/services/api/api'
-import { ArticleSearchContext, PublicationSearchContext } from './editorialSearchContexts'
-import { useArticleSearchDuck, usePublicationSearchDuck } from './editorialSearchHooks'
-import useNormalizedCMSResults from '../../../normalizations/cms/useNormalizedCMSResults'
 import EditorialResults from '../EditorialResults'
 import ShareBar from '../ShareBar/ShareBar'
 import { toArticleOverview, toPublicationOverview } from '../../../store/redux-first-router/actions'
 import { EDITORIAL_TITLES } from '../../pages/EditorialOverviewPage/constants'
-
-const contextMapping = {
-  [PAGES.ARTICLES]: ArticleSearchContext,
-  [PAGES.PUBLICATIONS]: PublicationSearchContext,
-}
-
-const ducksMapping = {
-  [PAGES.ARTICLES]: useArticleSearchDuck,
-  [PAGES.PUBLICATIONS]: usePublicationSearchDuck,
-}
 
 const routeMapping = {
   [PAGES.ARTICLES]: toArticleOverview,
@@ -34,9 +20,7 @@ const StyledEditorialSearch = styled.div`
   max-width: 792px; // Image width + 600px (design system rule)
 `
 
-const EditorialSearch = ({ type, loading, results }) => {
-  console.log(results)
-
+const EditorialSearch = ({ type, loading, results, fetchMore }) => {
   if (results && !results.results) {
     return (
       <>
@@ -68,10 +52,7 @@ const EditorialSearch = ({ type, loading, results }) => {
         type={type}
         loading={loading}
         results={results && results.results}
-        // onClickMore={loadMore}
-        onClickMore={() => console.log('load more results')}
-        // links={results._links}
-        links={[]}
+        onClickMore={fetchMore}
         showTitle={false}
       />
       <ShareBar topSpacing={6} />

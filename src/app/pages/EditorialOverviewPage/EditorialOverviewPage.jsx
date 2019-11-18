@@ -2,29 +2,24 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { Column, Container, Row } from '@datapunt/asc-ui'
-import useFromCMS from '../../utils/useFromCMS'
-import { cmsConfig } from '../../../shared/config/config'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import EditorialResults from '../../components/EditorialResults'
 
-const EditorialOverviewPage = ({ type = '' }) => {
-  const { results, fetchData, loading } = useFromCMS(cmsConfig[type], undefined, false)
-  const [aggregatedData, setData] = React.useState([])
-  const [page, setPage] = React.useState(0)
-  const { data, links } = results || {}
+import cmsQuery, { MAX_RESULTS } from '../../components/QuerySearch/constants.config'
+import PAGES from '../../pages'
+import usePagination from '../../utils/usePagination'
 
-  React.useEffect(() => {
-    ;(async () => {
-      await fetchData()
-    })()
-  }, [])
+const EditorialOverviewPage = ({ pageType = '' }) => {
+  const type =
+    // eslint-disable-next-line no-nested-ternary
+    pageType === PAGES.PUBLICATIONS ? 'publication' : PAGES.ARTICLES ? 'article' : 'special'
 
-  React.useEffect(() => {
-    if (data) {
-      setData([...aggregatedData, ...data])
-      setPage(page + 1)
-    }
-  }, [data])
+  const [{ data, fetching: loading }, fetchMore] = usePagination(
+    cmsQuery,
+    { q: '', types: type },
+    MAX_RESULTS,
+    0,
+  )
 
   return (
     <Container>
@@ -43,12 +38,11 @@ const EditorialOverviewPage = ({ type = '' }) => {
           >
             <EditorialResults
               {...{
-                page,
                 loading,
-                results: aggregatedData,
-                type,
-                links,
-                onClickMore: fetchData,
+                results: data && data.results,
+                type: pageType,
+                links: [],
+                onClickMore: fetchMore,
               }}
             />
           </Column>

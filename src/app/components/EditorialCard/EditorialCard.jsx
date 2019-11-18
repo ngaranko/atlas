@@ -15,6 +15,7 @@ import {
 import RouterLink from 'redux-first-router-link'
 import PAGES from '../../pages'
 import getImageFromCms from '../../utils/getImageFromCms'
+import { EDITORIAL_DETAIL_ACTIONS } from '../../pages/EditorialOverviewPage/constants'
 
 const notFoundImage = require('./not_found_thumbnail.jpg')
 
@@ -111,11 +112,13 @@ const EditorialCard = ({
   localeDateFormatted,
   date, // GraphQL
   dateLocale, // GraphQL
+  slug, // GraphQL
   teaserImage,
   coverImage,
   currentPage,
   imageIsVertical,
-  to,
+  to: toProp,
+  type,
 }) => {
   const image = currentPage === PAGES.PUBLICATIONS ? coverImage : teaserImage
   const resize = currentPage === PAGES.PUBLICATIONS ? 'fit' : 'fill'
@@ -132,7 +135,12 @@ const EditorialCard = ({
     `,
   }
 
-  console.log(dateLocale)
+  // The type SPECIALS has a different url structure
+  const to =
+    toProp ||
+    (specialType
+      ? EDITORIAL_DETAIL_ACTIONS[type](id, specialType, slug)
+      : EDITORIAL_DETAIL_ACTIONS[type](id, slug))
 
   return (
     <StyledLinkWrapper key={id} to={to} title={title} linkType="blank">
@@ -162,7 +170,7 @@ const EditorialCard = ({
             <IntroText>{teaser || intro}</IntroText>
           </div>
 
-          {!specialType && (localeDate || date) && (
+          {!specialType && (localeDate || date || dateLocale) && (
             <div>
               <MetaText as="time" data-test="metaText" datetime={localeDate || date}>
                 {localeDateFormatted || dateLocale}
