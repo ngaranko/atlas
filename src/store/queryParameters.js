@@ -86,6 +86,7 @@ const routesWithCmsData = [
   routing.publicationDetail.type,
 ]
 
+/* istanbul ignore next */
 export default paramsRegistry
   .addParameter(PARAMETERS.QUERY, routes => {
     routes.add(routesWithSearch, DATA_SEARCH_REDUCER, 'query', {
