@@ -115,13 +115,13 @@ const EditorialCard = ({
   slug, // GraphQL
   teaserImage,
   coverImage,
-  currentPage,
   to: toProp,
   type,
 }) => {
-  const image = currentPage === PAGES.PUBLICATIONS ? coverImage : teaserImage
-  const imageIsVertical = currentPage === PAGES.PUBLICATIONS
-  const resize = currentPage === PAGES.PUBLICATIONS ? 'fit' : 'fill'
+  const image = type === PAGES.PUBLICATIONS ? coverImage : teaserImage
+  const imageIsVertical = type === PAGES.PUBLICATIONS
+  const resize = type === PAGES.PUBLICATIONS ? 'fit' : 'fill'
+
   const srcSet = {
     srcSet: `${getImageFromCms(image, 100, 100, resize)} 70w,
              ${getImageFromCms(image, 200, 100, resize)} 200w,

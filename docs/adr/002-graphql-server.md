@@ -1,4 +1,4 @@
-# Add storybook for development
+# Create a GraphQL "normalization" server
 
 Date: 18-11-2019
 

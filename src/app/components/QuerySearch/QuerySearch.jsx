@@ -30,7 +30,7 @@ const QuerySearch = ({
   const [{ data: articles, fetching: fetchingArticles }, fetchMoreArticles] = usePagination(
     cmsQuery,
     { q: query, types: 'article' },
-    2,
+    MAX_RESULTS,
     0,
   )
   const [

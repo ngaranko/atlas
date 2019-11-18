@@ -40,7 +40,7 @@ const EditorialResults = ({
   className,
 }) => (
   <EditorialCardContainer className={className}>
-    {loading ? (
+    {!results && loading ? (
       <LoadingIndicator style={{ position: 'inherit' }} />
     ) : (
       <>
@@ -48,8 +48,8 @@ const EditorialResults = ({
           <PageHeading $as={headingLevel || 'h1'}>{title || EDITORIAL_TITLES[type]}</PageHeading>
         )}
         {results && results.map(result => <EditorialCard {...result} type={type} />)}
-        {loading && <LoadingIndicator />}
-        {onClickMore && (
+        {loading && <LoadingIndicator style={{ position: 'inherit' }} />}
+        {!loading && onClickMore && (
           <StyledButton
             variant="primaryInverted"
             iconLeft={<Enlarge />}

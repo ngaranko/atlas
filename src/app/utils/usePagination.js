@@ -38,6 +38,8 @@ const usePagination = (query, input, limit = 50, initialFrom) => {
     setFrom(s => s + limit)
   }, [limit])
 
+  console.log('fetching', fetching)
+
   return [{ data: result, fetching, error }, fetchMore]
 }
 
