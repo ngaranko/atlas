@@ -138,6 +138,11 @@ export const toDetailFromEndpoint = (endpoint, view) => {
   })
 }
 
+export const toDataDetailPage = ({ type, subtype, id }, view) =>
+  toDataDetail([id, type, subtype], {
+    [PARAMETERS.VIEW]: view,
+  })
+
 export const toConstructionFilesFromEndpoint = endpoint => {
   const { id } = getDetailPageData(endpoint)
   return {

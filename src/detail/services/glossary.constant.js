@@ -226,13 +226,7 @@ const GLOSSARY = {
         'daarvan, die bestemd is voor het permanent afmeren van een voor woon-, bedrijfsmatige ' +
         'of recreatieve doeleinden geschikt vaartuig.',
       url: 'https://www.amsterdam.nl/stelselpedia/bag-index/catalogus-bag/objectklasse-1/',
-      meta: [
-        'begin_geldigheid',
-        'document_mutatie',
-        'document_nummer',
-        'ligplaatsidentificatie',
-        'sleutelverzendend',
-      ],
+      meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'ligplaatsidentificatie'],
     },
     MEETBOUT: {
       label_singular: 'Meetbout',
@@ -343,8 +337,6 @@ const GLOSSARY = {
         'document_mutatie',
         'document_nummer',
         'openbare_ruimte_identificatie',
-        'sleutelverzendend',
-        'openbare_ruimte_code',
       ],
     },
     OPLAADPUNTEN: {
@@ -438,13 +430,7 @@ const GLOSSARY = {
         'niet direct en niet duurzaam met de aarde verbonden en voor woon -, bedrijfsmatige, ' +
         'of recreatieve doeleinden geschikte ruimte.',
       url: 'https://www.amsterdam.nl/stelselpedia/bag-index/catalogus-bag/objectklasse-4/',
-      meta: [
-        'begin_geldigheid',
-        'document_mutatie',
-        'document_nummer',
-        'standplaatsidentificatie',
-        'sleutelverzendend',
-      ],
+      meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'standplaatsidentificatie'],
     },
     SUBJECT: {
       label_singular: 'Kadastraal subject',

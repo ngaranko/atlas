@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
-  toDetailFromEndpoint,
+  toDataDetailPage,
   toPanoramaAndPreserveQuery,
   toMapAndPreserveQuery,
 } from '../../../store/redux-first-router/actions'
@@ -10,7 +10,7 @@ import { getDetailLocation } from '../../../store/redux-first-router/selectors'
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers'
 import { selectLatestMapDetail } from '../../ducks/detail/selectors'
 import { isEmbedded, isEmbedPreview, setViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui'
-import { getDetail, getDetailEndpoint } from '../../../shared/ducks/detail/selectors'
+import { getDetail } from '../../../shared/ducks/detail/selectors'
 import MapPreviewPanel from './MapPreviewPanel'
 import { getLocationId } from '../../ducks/map/selectors'
 import { isGeoSearch } from '../../../shared/ducks/selection/selection'
@@ -34,7 +34,6 @@ const mapStateToProps = state => ({
     .map(mapLayer => mapLayer.title)
     .join(', '),
   detail: getDetail(state),
-  detailEndpoint: getDetailEndpoint(state),
   mapDetail: state.mapDetail,
   detailResult: selectLatestMapDetail(state) || null,
   user: state.user,
@@ -51,8 +50,8 @@ const mapDispatchToProps = dispatch => ({
     },
     dispatch,
   ),
-  openPreviewDetail: endpoint => dispatch(toDetailFromEndpoint(endpoint, VIEW_MODE.MAP)),
-  openDetail: endpoint => dispatch(toDetailFromEndpoint(endpoint, VIEW_MODE.SPLIT)),
+  openPreviewDetail: detail => dispatch(toDataDetailPage(detail, VIEW_MODE.MAP)),
+  openDetail: detail => dispatch(toDataDetailPage(detail, VIEW_MODE.SPLIT)),
 })
 
 /* eslint-enable react/no-unused-prop-types */

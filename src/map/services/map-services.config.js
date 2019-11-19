@@ -20,11 +20,11 @@ import {
 } from './normalize/normalize'
 
 export const endpointTypes = {
-  adressenLigplaats: 'bag/ligplaats/',
+  adressenLigplaats: 'bag/v1.1/ligplaats/',
   adressenNummeraanduiding: 'bag/nummeraanduiding/',
-  adressenOpenbareRuimte: 'bag/openbareruimte/',
+  adressenOpenbareRuimte: 'bag/v1.1/openbareruimte/',
   adressenPand: 'bag/pand/',
-  adressenStandplaats: 'bag/standplaats/',
+  adressenStandplaats: 'bag/v1.1/standplaats/',
   adressenVerblijfsobject: 'bag/verblijfsobject/',
   bedrijfsinvesteringszone: 'vsd/biz/',
   bekendmakingen: 'vsd/bekendmakingen/',

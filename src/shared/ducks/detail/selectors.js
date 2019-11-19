@@ -38,21 +38,16 @@ export const getView = createSelector(
   detail => detail && detail.view,
 )
 
-export const getDetailObject = createSelector(
-  getDetail,
-  detail => detail && detail.detailObject,
-)
-
 export const getDetailTemplateUrl = createSelector(
-  getDetailObject,
-  detailObject => detailObject && detailObject.includeSrc,
+  getDetail,
+  detail => detail && detail.includeSrc,
 )
 export const getDetailData = createSelector(
-  getDetailObject,
-  detailObject => detailObject && detailObject.data,
+  getDetail,
+  detail => detail && detail.data,
 )
 
 export const getDetailFilterSelection = createSelector(
-  getDetailObject,
-  detailObject => detailObject && detailObject.filterSelection,
+  getDetail,
+  detail => detail && detail.filterSelection,
 )

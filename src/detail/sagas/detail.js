@@ -1,26 +1,30 @@
 import { select } from 'redux-saga/effects'
 import { getUserScopes } from '../../shared/ducks/user/user'
-import { getParts, getTemplateUrl } from '../services/endpoint-parser/endpoint-parser'
-import { getApiSpecificationData } from '../../shared/ducks/datasets/datasets'
-import formatDetailData from '../services/data-formatter/data-formatter'
 import { getByUrl } from '../../shared/services/api/api'
 import { VIEW_MODE, getViewMode } from '../../shared/ducks/ui/ui'
 import fetchByGeoLocation from '../../map/services/vastgoed/vastgoed'
+import { getDetail } from '../../shared/ducks/detail/selectors'
 
 export default function* getDetailData(endpoint, mapDetail = {}) {
-  const includeSrc = getTemplateUrl(endpoint)
-  const [category, subject] = getParts(endpoint)
+  const { type, subtype } = yield select(getDetail)
 
   const scopes = yield select(getUserScopes)
   const viewMode = yield select(getViewMode)
 
+  // Construct the url to the location of the Angular template file
+  let includeSrc = ''
+
+  if (type && subtype) {
+    includeSrc = `modules/detail/components/detail/templates/${type}/${subtype}.html`
+  }
+
   if (
-    (category === 'brk' && subject === 'subject' && !scopes.includes('BRK/RS')) ||
-    (category === 'handelsregister' && !scopes.includes('HR/R')) ||
-    (category === 'grondexploitatie' && !scopes.includes('GREX/R'))
+    (type === 'brk' && subtype === 'subject' && !scopes.includes('BRK/RS')) ||
+    (type === 'handelsregister' && !scopes.includes('HR/R')) ||
+    (type === 'grondexploitatie' && !scopes.includes('GREX/R'))
   ) {
     // User is not authorized to view
-    //   BRK Kadastrale Subjecten, nor
+    //   BRK Kadastrale subjecten, nor
     //   handelsregister, nor
     //   grondexploitatie
     // so do not fetch data
@@ -34,7 +38,7 @@ export default function* getDetailData(endpoint, mapDetail = {}) {
   if (viewMode !== VIEW_MODE.MAP) {
     // Get data from individual endpoints to construct the detail view for vastgoed
     // Can be decoupled when the detail views use a different normalizer than the map detail views
-    if (category === 'vsd' && subject === 'vastgoed') {
+    if (type === 'vsd' && subtype === 'vastgoed') {
       const units = yield fetchByGeoLocation(mapDetail.location)
 
       const data = {
@@ -49,21 +53,20 @@ export default function* getDetailData(endpoint, mapDetail = {}) {
     }
 
     // TODO console.log('append version=3 to grondexploitaties');
-    const endpointVersion = category === 'grondexploitatie' ? '?version=3' : ''
-    const catalogFilters = yield select(getApiSpecificationData)
+    const endpointVersion = type === 'grondexploitatie' ? '?version=3' : ''
 
-    // TODO replace this call with mapDetail value
+    // When the detail pages for Angular are refactored, the data can be retrieved in a similar fashion as for the MapDetail pages
     const data = yield getByUrl(`${endpoint}${endpointVersion}`)
     const formatedData = {
       ...mapDetail,
-      ...formatDetailData(data, category, subject, catalogFilters, scopes),
+      ...data,
     }
 
     return {
       includeSrc,
       data: formatedData,
       filterSelection: {
-        [subject]: formatedData.naam,
+        [subtype]: formatedData.naam,
       },
     }
   }

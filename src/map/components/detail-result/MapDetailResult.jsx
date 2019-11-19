@@ -31,7 +31,8 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
         )}
 
       <ul className="map-detail-result__list">
-        {result.items.length > 0 &&
+        {result.items &&
+          result.items.length > 0 &&
           result.items.map((item, index) =>
             item.value && Array.isArray(item.value) ? (
               <React.Fragment key={item.label}>

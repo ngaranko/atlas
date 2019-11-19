@@ -18,7 +18,7 @@ import {
 import { getPage } from '../../../store/redux-first-router/selectors'
 import PAGES from '../../pages'
 
-const DetailContainer = React.lazy(() => import('../../containers/DetailContainer/DetailContainer'))
+const DataDetailPage = React.lazy(() => import('../DataDetailPage/DataDetailPage'))
 const LocationSearchContainer = React.lazy(() =>
   import('../../components/LocationSearch/LocationSearchContainer'),
 )
@@ -35,7 +35,7 @@ const PanoramaContainer = React.lazy(() => import('../../../panorama/containers/
   let Component = null
   switch (currentPage) {
     case PAGES.DATA_DETAIL:
-      Component = <DetailContainer />
+      Component = <DataDetailPage />
       mapProps = {
         showPreviewPanel: hasSelection,
       }

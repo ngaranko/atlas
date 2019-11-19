@@ -34,13 +34,12 @@ export const formatData = (data, subject, catalogFilters) => {
   switch (subject) {
     case 'datasets': // dcat data
       return formatCatalogData(data, catalogFilters)
-    case 'evenementen': // use the formating from the saga.
-      return {}
     default:
       return data
   }
 }
 
+// This is incorrectly called formatDetailData as this is only used for datasets....
 const formatDetailData = (rawData, category, subject, catalogFilters, scopes) => {
   let data = formatData(rawData, subject, catalogFilters)
   if (category === 'dcatd' && subject === 'datasets') {

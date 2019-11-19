@@ -6,7 +6,6 @@ import {
   fetchMapDetailSuccess,
   getMapDetail,
 } from '../../ducks/detail/actions'
-import { getCurrentEndpoint } from '../../ducks/detail/selectors'
 import { closeMapPanel, mapLoadingAction } from '../../ducks/map/actions'
 import getDetailData from '../../../detail/sagas/detail'
 import fetchDetail from '../../services/map-detail/map-detail'
@@ -32,7 +31,7 @@ export function* fetchMapDetail() {
   try {
     yield call(waitForAuthentication)
     const user = yield select(getUser)
-    const endpoint = yield select(getCurrentEndpoint)
+    const endpoint = yield select(getDetailEndpoint)
     yield put(clearMapDetail())
 
     const mapDetail = yield call(fetchDetail, endpoint, user)
