@@ -7,14 +7,14 @@
 
         <dl class="c-key-value-list">
             <dt>Gebruiksdoel</dt>
-            <dd ng-if="!apiData.results.gebruiksdoelen[0]"></dd>
-            <dd class="c-key-value-list__multiple-values" ng-repeat="object in apiData.results.gebruiksdoelen">
-                {{ object.omschrijving }}<span ng-if="object.omschrijving_plus">: {{ object.omschrijving_plus }}</span>
+            <dd ng-if="!apiData.results.gebruiksdoel"></dd>
+            <dd class="c-key-value-list__multiple-values" ng-repeat="item in apiData.results.gebruiksdoel">
+                {{ item }}
             </dd>
-            <dt>Feitelijk gebruik</dt>
-            <dd>{{ apiData.results.gebruik.omschrijving }}</dd>
+            <!-- <dt>Feitelijk gebruik</dt>
+            <dd>{{ apiData.results.gebruik.omschrijving }}</dd> -->
             <dt>Status</dt>
-            <dd>{{ apiData.results.status.omschrijving }}</dd>
+            <dd>{{ apiData.results.status }}</dd>
             <dt>Indicatie geconstateerd</dt>
             <dd>{{ apiData.results.indicatie_geconstateerd | yesNo }}</dd>
             <dt>Aanduiding in onderzoek</dt>
@@ -26,14 +26,21 @@
             <dd>{{ apiData.results.aantal_kamers }}</dd>
             <dt>Aantal bouwlagen</dt>
             <dd>{{ apiData.results.bouwlagen }}</dd>
+            <dt>Hoogste bouwlaag</dt>
+            <dd>{{ apiData.results.hoogste_bouwlaag }}</dd>
+            <dt>Laagste bouwlaag</dt>
+            <dd>{{ apiData.results.laagste_bouwlaag }}</dd>
             <dt>Verdieping toegang</dt>
-            <dd>{{ apiData.results.bouwlaag_toegang }}</dd>
+            <dd>{{ apiData.results.verdieping_toegang }}</dd>
             <dt>Reden opvoer</dt>
-            <dd>{{ apiData.results.reden_opvoer.omschrijving }}</dd>
+            <dd>{{ apiData.results.reden_opvoer }}</dd>
             <dt>Eigendomsverhouding</dt>
-            <dd>{{ apiData.results.eigendomsverhouding.omschrijving }}</dd>
+            <dd>{{ apiData.results.eigendomsverhouding }}</dd>
             <dt>Toegang</dt>
-            <dd>{{ apiData.results.toegang.omschrijving }}</dd>
+            <dd ng-if="!apiData.results.toegang"></dd>
+            <dd class="c-key-value-list__multiple-values" ng-repeat="item in apiData.results.toegang">
+                {{ item }}
+            </dd>
             <dt>Coördinaten</dt>
             <dd>{{ apiData.results.geometrie.coordinates | coordinates: 'RD' }}</dd>
         </dl>

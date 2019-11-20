@@ -23,9 +23,9 @@ export const endpointTypes = {
   adressenLigplaats: 'bag/v1.1/ligplaats/',
   adressenNummeraanduiding: 'bag/v1.1/nummeraanduiding/',
   adressenOpenbareRuimte: 'bag/v1.1/openbareruimte/',
-  adressenPand: 'bag/pand/',
+  adressenPand: 'bag/v1.1/pand/',
   adressenStandplaats: 'bag/v1.1/standplaats/',
-  adressenVerblijfsobject: 'bag/verblijfsobject/',
+  adressenVerblijfsobject: 'bag/v1.1/verblijfsobject/',
   bedrijfsinvesteringszone: 'vsd/biz/',
   bekendmakingen: 'vsd/bekendmakingen/',
   explosievenGevrijwaardGebied: 'milieuthemas/explosieven/gevrijwaardgebied/',
@@ -100,13 +100,13 @@ const servicesByEndpointType = {
           value: result.verblijfsobject ? result.verblijfsobject.gebruiksdoelen : false,
           multiLine: true,
         },
-        {
-          label: 'Feitelijk gebruik',
-          value: result.verblijfsobject ? result.verblijfsobject.gebruiksomschrijving : false,
-        },
+        // {
+        //   label: 'Feitelijk gebruik',
+        //   value: result.verblijfsobject ? result.verblijfsobject.gebruiksomschrijving : false,
+        // },
         {
           label: 'Status',
-          value: result.verblijfsobject ? result.verblijfsobject.statusomschrijving : false,
+          value: result.verblijfsobject ? result.verblijfsobject.status : false,
           status: result.verblijfsobject && result.verblijfsobject.statusLevel,
         },
         {
@@ -133,7 +133,7 @@ const servicesByEndpointType = {
         {
           value:
             result.verblijfsobject && result.verblijfsobject.statusLevel
-              ? `Status: ${result.verblijfsobject.statusomschrijving}`
+              ? `Status: ${result.verblijfsobject.status}`
               : false,
           level: result.verblijfsobject && result.verblijfsobject.statusLevel,
         },
@@ -163,13 +163,13 @@ const servicesByEndpointType = {
           value: result.gebruiksdoelen,
           multiLine: true,
         },
-        {
-          label: 'Feitelijk gebruik',
-          value: result.gebruik ? result.gebruik.omschrijving : false,
-        },
+        // {
+        //   label: 'Feitelijk gebruik',
+        //   value: result.gebruik ? result.gebruik.omschrijving : false,
+        // },
         {
           label: 'Status',
-          value: result.status ? result.status.omschrijving : false,
+          value: result.status ? result.status : false,
           status: result.statusLevel,
         },
         {
@@ -194,7 +194,7 @@ const servicesByEndpointType = {
       ],
       notifications: [
         {
-          value: result.statusLevel ? `Status: ${result.status.omschrijving}` : false,
+          value: result.statusLevel ? `Status: ${result.status}` : false,
           level: result.statusLevel,
         },
         {
@@ -235,13 +235,13 @@ const servicesByEndpointType = {
         },
         {
           label: 'Status',
-          value: result.status ? result.status.omschrijving : false,
+          value: result.status ? result.status : false,
           status: result.statusLevel,
         },
       ],
       notifications: [
         {
-          value: result.statusLevel ? result.status.omschrijving : false,
+          value: result.statusLevel ? result.status : false,
           level: result.statusLevel ? result.statusLevel : '',
         },
       ],

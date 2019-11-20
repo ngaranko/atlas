@@ -8,11 +8,10 @@ export const pageEndpointTypeMapping = {
   'explosieven/verdachtgebied/': 'milieuthemas/explosieven/verdachtgebied/',
   'bag/ligplaats/': 'bag/v1.1/ligplaats/',
   'bag/standplaats/': 'bag/v1.1/standplaats/',
-  // "standplaats": "https://api.data.amsterdam.nl/bag/v1.1/standplaats/",
-  // "verblijfsobject": "https://api.data.amsterdam.nl/bag/v1.1/verblijfsobject/",
+  'bag/verblijfsobject/': 'bag/v1.1/verblijfsobject/',
   'bag/openbareruimte/': 'bag/v1.1/openbareruimte/',
   'bag/nummeraanduiding/': 'bag/v1.1/nummeraanduiding/',
-  // "pand": "https://api.data.amsterdam.nl/bag/v1.1/pand/",
+  'bag/pand/': 'bag/v1.1/pand/',
   'bag/woonplaats/': 'bag/v1.1/woonplaats/',
 }
 
@@ -35,7 +34,9 @@ export const getEndpointTypeForResult = (endpointType, detail) => {
 }
 
 export default async function fetchDetail(endpoint, user) {
-  const endpointType = Object.keys(servicesByEndpointType).find(type => endpoint.includes(type))
+  const endpointType = Object.keys(servicesByEndpointType).find(type => {
+    return endpoint.includes(type)
+  })
   const endpointConfig = endpointType && servicesByEndpointType[endpointType]
   const authScope = endpointConfig && endpointConfig.authScope
   const isAuthorized = !authScope || user.scopes.includes(authScope)
