@@ -199,7 +199,7 @@ const ArticleDetailPage = ({ id }) => {
                                 <ListItem key={key}>
                                   <DownloadLink
                                     $as="button"
-                                    onClick={() => downloadFile(url)}
+                                    onClick={() => downloadFile(`${process.env.CMS_ROOT}${url}`)}
                                     variant="with-chevron"
                                   >
                                     <ListItemContent>
