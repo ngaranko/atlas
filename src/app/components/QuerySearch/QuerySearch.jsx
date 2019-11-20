@@ -14,7 +14,7 @@ import {
   toPublicationSearch,
 } from '../../../store/redux-first-router/actions'
 import EditorialSearch from '../EditorialSearch'
-import cmsQuery, { MAX_RESULTS } from './constants.config'
+import cmsQuery, { MAX_RESULTS, TYPES } from './constants.config'
 import usePagination from '../../utils/usePagination'
 
 const QuerySearch = ({
@@ -29,14 +29,14 @@ const QuerySearch = ({
 }) => {
   const [{ data: articles, fetching: fetchingArticles }, fetchMoreArticles] = usePagination(
     cmsQuery,
-    { q: query, types: 'article' },
+    { q: query, types: TYPES.ARTICLE },
     MAX_RESULTS,
     0,
   )
   const [
     { data: publications, fetching: fetchingPublications },
     fetchMorePublications,
-  ] = usePagination(cmsQuery, { q: query, types: 'publication' }, 2, 0)
+  ] = usePagination(cmsQuery, { q: query, types: TYPES.PUBLICATION }, 2, 0)
 
   const resultMapper = () => {
     switch (currentPage) {

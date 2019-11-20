@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import EditorialOverviewPage from './EditorialOverviewPage'
 import usePagination from '../../utils/usePagination'
 import PAGES from '../../pages'
-import { MAX_RESULTS } from '../../components/QuerySearch/constants.config'
+import { MAX_RESULTS, TYPES } from '../../components/QuerySearch/constants.config'
 
 jest.mock('../../utils/usePagination')
 
@@ -25,7 +25,7 @@ describe('EditorialOverviewPage', () => {
     expect(usePagination).toHaveBeenCalledWith(
       expect.any(String),
       expect.objectContaining({
-        types: 'publication',
+        types: TYPES.PUBLICATION,
       }),
       expect.any(Number),
       expect.any(Number),
