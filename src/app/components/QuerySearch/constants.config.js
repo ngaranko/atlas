@@ -14,7 +14,8 @@ export const cmsSearchQuery = `
                     type
                     date
                     slug
-                    body
+                    intro
+                    teaser
                     dateLocale
                     teaserImage
                     coverImage
