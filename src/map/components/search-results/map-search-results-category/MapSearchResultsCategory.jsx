@@ -11,6 +11,8 @@ const getStatusLabel = result =>
 const getPluralLabel = result => categoryLabelsByType[result.type].plural
 
 const MapSearchResultsCategory = ({ category, onItemClick, onShowMoreClick, isSubcategory }) => {
+  console.log(category)
+
   const subCategories = category.subCategories.map(subCategory => (
     <MapSearchResultsCategory
       key={subCategory.categoryLabel}

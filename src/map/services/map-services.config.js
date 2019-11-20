@@ -21,7 +21,7 @@ import {
 
 export const endpointTypes = {
   adressenLigplaats: 'bag/v1.1/ligplaats/',
-  adressenNummeraanduiding: 'bag/nummeraanduiding/',
+  adressenNummeraanduiding: 'bag/v1.1/nummeraanduiding/',
   adressenOpenbareRuimte: 'bag/v1.1/openbareruimte/',
   adressenPand: 'bag/pand/',
   adressenStandplaats: 'bag/v1.1/standplaats/',
@@ -57,7 +57,7 @@ export const endpointTypes = {
   winkelgebied: 'vsd/winkgeb',
   wkpbBeperking: 'wkpb/beperking',
   wkpbUitreksel: 'brk/object-wkpb',
-  woonplaats: 'bag/woonplaats',
+  woonplaats: 'bag/v1.1/woonplaats',
 }
 
 const servicesByEndpointType = {

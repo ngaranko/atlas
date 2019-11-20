@@ -11,9 +11,9 @@ export const pageEndpointTypeMapping = {
   // "standplaats": "https://api.data.amsterdam.nl/bag/v1.1/standplaats/",
   // "verblijfsobject": "https://api.data.amsterdam.nl/bag/v1.1/verblijfsobject/",
   'bag/openbareruimte/': 'bag/v1.1/openbareruimte/',
-  // "nummeraanduiding": "https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/",
+  'bag/nummeraanduiding/': 'bag/v1.1/nummeraanduiding/',
   // "pand": "https://api.data.amsterdam.nl/bag/v1.1/pand/",
-  // "woonplaats": "https://api.data.amsterdam.nl/bag/v1.1/woonplaats/"
+  'bag/woonplaats/': 'bag/v1.1/woonplaats/',
 }
 
 export const pageTypeToEndpoint = (type, subtype, id) => {

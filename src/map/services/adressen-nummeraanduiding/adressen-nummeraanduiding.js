@@ -22,7 +22,7 @@ const normalize = async result => {
           },
         }
       : {}),
-    isNevenadres: !result.hoofdadres,
+    isNevenadres: result.type_adres === 'Nevenadres',
     // eslint-disable-next-line no-underscore-dangle
     geometry: result._geometrie,
   }
