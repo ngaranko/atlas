@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React from 'react'
-import Helmet from 'react-helmet'
 import { Column, Container, Row } from '@datapunt/asc-ui'
 import useFromCMS from '../../utils/useFromCMS'
 import { cmsConfig } from '../../../shared/config/config'
@@ -28,12 +27,6 @@ const EditorialOverviewPage = ({ type = '' }) => {
 
   return (
     <Container>
-      <Helmet>
-        <meta
-          name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-        />
-      </Helmet>
       <Row>
         <ContentContainer>
           <Column
