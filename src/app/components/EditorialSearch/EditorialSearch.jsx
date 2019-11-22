@@ -73,7 +73,7 @@ const EditorialSearch = ({ type }) => {
     )
   }
 
-  const searchData = useNormalizedCMSResults(selectors.results({ results }), type)
+  const searchData = useNormalizedCMSResults(selectors.results({ results }))
 
   return (
     <StyledEditorialSearch>

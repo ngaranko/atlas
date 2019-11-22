@@ -4,6 +4,7 @@ import {
   toPublicationDetail,
   toSpecialDetail,
 } from '../../../store/redux-first-router/actions'
+import { TYPES } from '../../../shared/config/cms.config'
 
 export const EDITORIAL_TITLES = {
   [PAGES.ARTICLES]: 'Artikelen',
@@ -12,9 +13,9 @@ export const EDITORIAL_TITLES = {
 }
 
 export const EDITORIAL_DETAIL_ACTIONS = {
-  [PAGES.ARTICLES]: toArticleDetail,
-  [PAGES.PUBLICATIONS]: toPublicationDetail,
-  [PAGES.SPECIALS]: toSpecialDetail,
+  [TYPES.ARTICLE]: toArticleDetail,
+  [TYPES.PUBLICATION]: toPublicationDetail,
+  [TYPES.SPECIAL]: toSpecialDetail,
 }
 
 // Logic is that we don't show metadata in an editorial detail page

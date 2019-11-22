@@ -1,8 +1,12 @@
-import PAGES from '../../app/pages'
-
 const { HOMEPAGE: HOMEPAGE_LINKS } = require('./content-links.json')
 
 const SHARED_FIELDS = ['field_intro', 'field_cover_image.field_media_image.uri']
+
+export const TYPES = {
+  ARTICLE: 'article',
+  PUBLICATION: 'publication',
+  SPECIAL: 'special',
+}
 
 export const SPECIAL_TYPES = {
   ANIMATION: 'animatie',
@@ -11,7 +15,6 @@ export const SPECIAL_TYPES = {
 
 const cmsConfig = {
   ARTICLE: {
-    type: PAGES.ARTICLES,
     endpoint: id =>
       `${process.env.CMS_ROOT}jsonapi/node/article/${id}?include=field_cover_image.field_media_image,field_related.field_teaser_image.field_media_image,field_downloads.field_file.field_media_file`,
     fields: [
@@ -35,16 +38,15 @@ const cmsConfig = {
       'field_related.field_short_title',
       'field_related.field_teaser',
       'field_related.field_type',
+      'field_related.type',
       'field_type',
       ...SHARED_FIELDS,
     ],
   },
   ARTICLES: {
-    type: PAGES.ARTICLES,
     endpoint: () => `${process.env.API_ROOT}cms_search/search/article`,
   },
   PUBLICATION: {
-    type: PAGES.PUBLICATIONS,
     endpoint: id =>
       `${process.env.CMS_ROOT}jsonapi/node/publication/${id}?include=field_cover_image.field_media_image,field_file.field_media_file`,
     fields: [
@@ -59,11 +61,9 @@ const cmsConfig = {
     ],
   },
   PUBLICATIONS: {
-    type: PAGES.PUBLICATIONS,
     endpoint: () => `${process.env.API_ROOT}cms_search/search/publication`,
   },
   SPECIAL: {
-    type: PAGES.SPECIALS,
     endpoint: id => `${process.env.CMS_ROOT}jsonapi/node/special/${id}`,
     fields: [
       'field_content_link',
@@ -73,11 +73,9 @@ const cmsConfig = {
     ],
   },
   SPECIALS: {
-    type: PAGES.SPECIALS,
     endpoint: () => `${process.env.API_ROOT}cms_search/search/special`,
   },
   HOME_SPECIALS: {
-    type: PAGES.SPECIALS,
     endpoint: () =>
       `${process.env.CMS_ROOT}jsonapi/node/list/${
         HOMEPAGE_LINKS.SPECIALS.id[process.env.NODE_ENV]
@@ -91,10 +89,10 @@ const cmsConfig = {
       'field_items.field_teaser_image.field_media_image.uri',
       'field_items.field_special_type',
       'field_items.field_teaser',
+      'field_items.type',
     ],
   },
   HOME_ORGANIZATION: {
-    type: PAGES.ARTICLES,
     endpoint: () =>
       `${process.env.CMS_ROOT}jsonapi/node/list/${
         HOMEPAGE_LINKS.ORGANIZATION.id[process.env.NODE_ENV]
@@ -106,10 +104,10 @@ const cmsConfig = {
       'field_items.field_short_title',
       'field_items.field_teaser',
       'field_items.field_link',
+      'field_items.type',
     ],
   },
   HOME_ABOUT: {
-    type: PAGES.ARTICLES,
     endpoint: () =>
       `${process.env.CMS_ROOT}jsonapi/node/list/${
         HOMEPAGE_LINKS.ABOUT.id[process.env.NODE_ENV]
@@ -120,10 +118,10 @@ const cmsConfig = {
       'field_items.intro',
       'field_items.field_short_title',
       'field_items.field_teaser',
+      'field_items.type',
     ],
   },
   HOME_ABOUT_DATA: {
-    type: PAGES.ARTICLES,
     endpoint: () =>
       `${process.env.CMS_ROOT}jsonapi/node/list/${
         HOMEPAGE_LINKS.ABOUT_DATA.id[process.env.NODE_ENV]
@@ -134,10 +132,10 @@ const cmsConfig = {
       'field_items.intro',
       'field_items.field_short_title',
       'field_items.field_teaser',
+      'field_items.type',
     ],
   },
   HOME_HIGHLIGHT: {
-    type: PAGES.ARTICLES,
     endpoint: () =>
       `${process.env.CMS_ROOT}jsonapi/node/list/${
         HOMEPAGE_LINKS.HIGHLIGHT.id[process.env.NODE_ENV]
@@ -150,6 +148,7 @@ const cmsConfig = {
       'field_items.field_teaser_image.field_media_image.uri',
       'field_items.field_special_type',
       'field_items.field_teaser',
+      'field_items.type',
     ],
   },
 }
