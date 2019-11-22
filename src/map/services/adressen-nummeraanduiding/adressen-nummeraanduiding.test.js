@@ -49,7 +49,7 @@ describe('The adressen nummeraanduiding resource', () => {
       isNevenadres: false,
       verblijfsobject: {
         gebruiksdoelen: mockVerblijsfobject.gebruiksdoelen,
-        gebruiksomschrijving: mockVerblijsfobject.gebruik,
+        gebruik: mockVerblijsfobject.gebruik,
         statusomschrijving: mockVerblijsfobject.status,
         size: mockVerblijsfobject.size,
         statusLevel: mockVerblijsfobject.statusLevel,

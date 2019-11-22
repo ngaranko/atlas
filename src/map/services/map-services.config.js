@@ -100,10 +100,10 @@ const servicesByEndpointType = {
           value: result.verblijfsobject ? result.verblijfsobject.gebruiksdoelen : false,
           multiLine: true,
         },
-        // {
-        //   label: 'Feitelijk gebruik',
-        //   value: result.verblijfsobject ? result.verblijfsobject.gebruiksomschrijving : false,
-        // },
+        {
+          label: 'Soort object (feitelijk gebruik)',
+          value: result.verblijfsobject ? result.verblijfsobject.gebruik : false,
+        },
         {
           label: 'Status',
           value: result.verblijfsobject ? result.verblijfsobject.status : false,
@@ -163,10 +163,10 @@ const servicesByEndpointType = {
           value: result.gebruiksdoelen,
           multiLine: true,
         },
-        // {
-        //   label: 'Feitelijk gebruik',
-        //   value: result.gebruik ? result.gebruik.omschrijving : false,
-        // },
+        {
+          label: 'Soort object (feitelijk gebruik)',
+          value: result.gebruik || '',
+        },
         {
           label: 'Status',
           value: result.status ? result.status : false,

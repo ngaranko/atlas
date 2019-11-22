@@ -295,7 +295,6 @@ const GLOSSARY = {
         'document_mutatie',
         'document_nummer',
         'nummeraanduidingidentificatie',
-        'sleutelverzendend',
       ],
     },
     OBJECT: {
@@ -354,13 +353,7 @@ const GLOSSARY = {
         'bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is ' +
         'verbonden en betreedbaar en afsluitbaar is.',
       url: 'https://www.amsterdam.nl/stelselpedia/bag-index/catalogus-bag/objectklasse-pand/',
-      meta: [
-        'begin_geldigheid',
-        'document_mutatie',
-        'document_nummer',
-        'pandidentificatie',
-        'sleutelverzendend',
-      ],
+      meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'pandidentificatie'],
     },
     PARKEERZONES: {
       label_singular: 'Parkeervergunninggebied',
@@ -381,13 +374,7 @@ const GLOSSARY = {
         '50.000 zichtbare peilmerken en 250 ondergrondse peilmerken in Nederland, waarvan ongeveer ' +
         '1000 in Amsterdam.',
       url: 'https://www.amsterdam.nl/stelselpedia/geodesie-index/catalogus/',
-      meta: [
-        'begin_geldigheid',
-        'document_mutatie',
-        'document_nummer',
-        'landelijk_id',
-        'sleutelverzendend',
-      ],
+      meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'landelijk_id'],
     },
     PARKEERVAKKEN: {
       label_singular: 'Parkeervak',
@@ -495,7 +482,6 @@ const GLOSSARY = {
         'document_mutatie',
         'document_nummer',
         'verblijfsobjectidentificatie',
-        'sleutelverzendend',
       ],
     },
     VERDACHTGEBIED: {
@@ -534,13 +520,7 @@ const GLOSSARY = {
         'Vanaf 10 januari 2014 bestaat alleen nog de woonplaats Amsterdam met ' +
         'Woonplaatsidentificatie 3594.',
       url: 'https://www.amsterdam.nl/stelselpedia/bag-index/catalogus-bag/objectklasse/',
-      meta: [
-        'begin_geldigheid',
-        'document_mutatie',
-        'document_nummer',
-        'woonplaatsidentificatie',
-        'sleutelverzendend',
-      ],
+      meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'woonplaatsidentificatie'],
     },
     ZAKELIJK_RECHT: {
       label_singular: 'Zakelijk recht',
@@ -614,9 +594,6 @@ const GLOSSARY = {
     },
     pandidentificatie: {
       label: 'Pandidentificatie',
-    },
-    sleutelverzendend: {
-      label: 'Sleutelverzendend',
     },
     stadsdeelidentificatie: {
       label: 'Stadsdeelidentificatie',

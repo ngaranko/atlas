@@ -13,7 +13,7 @@ const normalize = async result => {
       ? {
           verblijfsobject: {
             gebruiksdoelen: verblijfsobject.gebruiksdoelen,
-            gebruiksomschrijving: verblijfsobject.gebruik ? verblijfsobject.gebruik : '',
+            gebruik: verblijfsobject.gebruik || '',
             status: verblijfsobject.status || '',
             size: verblijfsobject.size,
             statusLevel: verblijfsobject.statusLevel,
