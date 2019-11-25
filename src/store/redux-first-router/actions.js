@@ -124,7 +124,10 @@ export const extractIdEndpoint = endpoint => {
   return endpoint.match(/(\w+)\/([\w-]+)\/?$/)
 }
 export const getDetailPageData = endpoint => {
-  const matches = endpoint.match(/(\w+)\/([\w-]+)\/([\w\.-]+)\/?$/) // eslint-disable-line no-useless-escape
+  let matches = endpoint.replace('bag/v1.1/', 'bag/') // Clean URL if this is using the new BAG v1.1 API
+  // eslint-disable-next-line no-useless-escape
+  matches = matches.match(/(\w+)\/([\w-]+)\/([\w\.-]+)\/?$/)
+
   return {
     type: matches[1],
     subtype: matches[2],

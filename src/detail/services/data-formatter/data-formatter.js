@@ -31,12 +31,10 @@ const formatCatalogData = (data, catalogFilters) => {
 }
 
 export const formatData = (data, subject, catalogFilters) => {
-  switch (subject) {
-    case 'datasets': // dcat data
-      return formatCatalogData(data, catalogFilters)
-    default:
-      return data
+  if (subject === 'datasets') {
+    return formatCatalogData(data, catalogFilters) // dcat data
   }
+  return data
 }
 
 // This is incorrectly called formatDetailData as this is only used for datasets....

@@ -4,6 +4,7 @@ import {
   toDataDetailPage,
   toPanoramaAndPreserveQuery,
   toMapAndPreserveQuery,
+  toDetailFromEndpoint,
 } from '../../../store/redux-first-router/actions'
 import { getDetailLocation } from '../../../store/redux-first-router/selectors'
 
@@ -50,7 +51,7 @@ const mapDispatchToProps = dispatch => ({
     },
     dispatch,
   ),
-  openPreviewDetail: detail => dispatch(toDataDetailPage(detail, VIEW_MODE.MAP)),
+  openPreviewDetail: detail => dispatch(toDetailFromEndpoint(detail, VIEW_MODE.MAP)),
   openDetail: detail => dispatch(toDataDetailPage(detail, VIEW_MODE.SPLIT)),
 })
 

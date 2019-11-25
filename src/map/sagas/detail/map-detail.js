@@ -24,6 +24,7 @@ import {
 import PARAMETER from '../../../store/parameters'
 import { toNotFoundPage } from '../../../store/redux-first-router/actions'
 import getGeometry from '../../../shared/services/geometry/geometry'
+import { getCurrentEndpoint } from '../../ducks/detail/selectors'
 
 export function* fetchMapDetail() {
   yield put(fetchDetailRequest())
@@ -31,7 +32,7 @@ export function* fetchMapDetail() {
   try {
     yield call(waitForAuthentication)
     const user = yield select(getUser)
-    const endpoint = yield select(getDetailEndpoint)
+    const endpoint = yield select(getCurrentEndpoint)
     yield put(clearMapDetail())
 
     const mapDetail = yield call(fetchDetail, endpoint, user)
