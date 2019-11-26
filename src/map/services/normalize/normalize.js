@@ -94,6 +94,7 @@ export const adressenVerblijfsobject = result => {
           : 'alert'
         : false,
     isNevenadres: !result.hoofdadres,
+    typeAdres: result.hoofdadres ? result.hoofdadres.type_adres : 'Nevenadres',
     gebruiksdoelen: ((result.gebruiksdoel && result.gebruiksdoel.slice(0, 5)) || [])
       .map(item => item)
       .join('\n'),

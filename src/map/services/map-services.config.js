@@ -110,8 +110,8 @@ const servicesByEndpointType = {
           status: result.verblijfsobject && result.verblijfsobject.statusLevel,
         },
         {
-          label: 'Indicatie hoofdadres',
-          value: result.isNevenadres ? 'Nee' : 'Ja',
+          label: 'Type adres',
+          value: result.type_adres,
           status: result.isNevenadres ? 'info' : '',
         },
         {
@@ -173,8 +173,8 @@ const servicesByEndpointType = {
           status: result.statusLevel,
         },
         {
-          label: 'Indicatie hoofdadres',
-          value: result.isNevenadres ? 'Nee' : 'Ja',
+          label: 'Type adres',
+          value: result.typeAdres,
           status: result.isNevenadres ? 'info' : '',
         },
         {

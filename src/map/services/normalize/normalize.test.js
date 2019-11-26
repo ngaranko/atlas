@@ -200,7 +200,9 @@ describe('normalize', () => {
           code: 22,
           omschrijving: 'a random, not normal status',
         },
-        hoofdadres: true,
+        hoofdadres: {
+          type_adres: 'foo',
+        },
       }
 
       output = adressenVerblijfsobject(input)
@@ -208,6 +210,7 @@ describe('normalize', () => {
       expect(output).toMatchObject({
         statusLevel: 'alert',
         isNevenadres: false,
+        typeAdres: input.hoofdadres.type_adres,
       })
 
       input = {
@@ -219,6 +222,7 @@ describe('normalize', () => {
       expect(output).toMatchObject({
         statusLevel: false,
         isNevenadres: true,
+        typeAdres: 'Nevenadres',
       })
     })
 
