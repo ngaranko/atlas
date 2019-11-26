@@ -28,7 +28,6 @@ describe('EditorialOverviewPage', () => {
         types: TYPES.PUBLICATION,
       }),
       expect.any(Number),
-      expect.any(Number),
     )
   })
 
