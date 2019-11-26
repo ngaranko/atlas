@@ -31,6 +31,7 @@ const PageHeading = styled(Heading)`
 
 const EditorialResults = ({
   title,
+  totalCount,
   headingLevel,
   results,
   loading,
@@ -45,9 +46,12 @@ const EditorialResults = ({
     ) : (
       <>
         {showTitle && (
-          <PageHeading $as={headingLevel || 'h1'}>{title || EDITORIAL_TITLES[type]}</PageHeading>
+          <PageHeading $as={headingLevel || 'h1'}>
+            {title || `${EDITORIAL_TITLES[type]} (${totalCount.toLocaleString('nl-NL')})`}
+          </PageHeading>
         )}
-        {results && results.map(result => <EditorialCard {...result} type={type} />)}
+        {results &&
+          results.map(result => <EditorialCard {...result} key={result.id} type={type} />)}
         {loading && <LoadingIndicator style={{ position: 'inherit' }} />}
         {!loading && onClickMore && (
           <StyledButton
@@ -66,6 +70,7 @@ const EditorialResults = ({
 
 EditorialResults.defaultProps = {
   showTitle: true,
+  totalCount: '',
 }
 
 export default EditorialResults

@@ -4,11 +4,18 @@ import {
   toPublicationDetail,
   toSpecialDetail,
 } from '../../../store/redux-first-router/actions'
+import { TYPES } from '../../components/QuerySearch/constants.config'
 
 export const EDITORIAL_TITLES = {
   [PAGES.ARTICLES]: 'Artikelen',
   [PAGES.PUBLICATIONS]: 'Publicaties',
   [PAGES.SPECIALS]: 'In beeld',
+}
+
+export const EDITORIAL_TYPES = {
+  [PAGES.ARTICLES]: TYPES.ARTICLE,
+  [PAGES.PUBLICATIONS]: TYPES.PUBLICATION,
+  [PAGES.SPECIALS]: TYPES.SPECIAL,
 }
 
 export const EDITORIAL_DETAIL_ACTIONS = {

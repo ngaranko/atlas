@@ -4,18 +4,12 @@ import { Column, Container, Row } from '@datapunt/asc-ui'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import EditorialResults from '../../components/EditorialResults'
 
-import cmsQuery, { MAX_RESULTS, TYPES } from '../../components/QuerySearch/constants.config'
-import PAGES from '../../pages'
+import cmsQuery, { MAX_RESULTS } from '../../components/QuerySearch/constants.config'
 import usePagination from '../../utils/usePagination'
+import { EDITORIAL_TYPES } from './constants'
 
 const EditorialOverviewPage = ({ pageType = '' }) => {
-  const type =
-    // eslint-disable-next-line no-nested-ternary
-    pageType === PAGES.PUBLICATIONS
-      ? TYPES.PUBLICATION
-      : PAGES.ARTICLES
-      ? TYPES.ARTICLE
-      : TYPES.SPECIAL
+  const type = EDITORIAL_TYPES[pageType]
 
   const [{ data, fetching: loading }, fetchMore] = usePagination(
     cmsQuery,
@@ -36,9 +30,10 @@ const EditorialOverviewPage = ({ pageType = '' }) => {
               {...{
                 loading,
                 results: data && data.results,
+                totalCount: data && data.totalCount,
                 type: pageType,
                 links: [],
-                onClickMore: data && data.count >= MAX_RESULTS ? fetchMore : false,
+                onClickMore: data && data.totalCount > MAX_RESULTS ? fetchMore : false,
               }}
             />
           </Column>

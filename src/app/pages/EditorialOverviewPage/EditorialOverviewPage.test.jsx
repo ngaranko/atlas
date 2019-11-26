@@ -37,7 +37,7 @@ describe('EditorialOverviewPage', () => {
     expect(component.find('EditorialResults').props().onClickMore).toBe(false)
 
     usePagination.mockImplementation(() => [
-      { data: { results: [], count: MAX_RESULTS + 1 }, fetching: false },
+      { data: { results: [], totalCount: MAX_RESULTS + 1 }, fetching: false },
       fetchMore,
     ])
 

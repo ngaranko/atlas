@@ -25,6 +25,7 @@ export const cmsSearchQuery = `
                     dateLocale
                     teaserImage
                     coverImage
+                    specialType
                     link {
                         uri
                     }
