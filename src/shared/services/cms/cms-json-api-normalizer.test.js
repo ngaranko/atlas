@@ -1,5 +1,5 @@
 import normalize from 'json-api-normalize'
-import cmsJsonApiNormalizer from './cms-json-api-normalizer'
+import cmsJsonApiNormalizer, { getType } from './cms-json-api-normalizer'
 
 jest.mock('json-api-normalize')
 
@@ -27,10 +27,17 @@ describe('jsonApiNormalizer', () => {
         },
       },
     },
+    type: 'node--article',
   }
 
   afterEach(() => {
     normalize.mockReset()
+  })
+
+  it('should return the correct type', () => {
+    const type = 'node--article'
+
+    expect(getType(type)).toBe('article')
   })
 
   it('should return a normalized json for a single result', () => {
@@ -42,6 +49,7 @@ describe('jsonApiNormalizer', () => {
 
     expect(normalizedData).toEqual({
       ...mockData,
+      type: getType(mockData.type),
       intro: mockData.field_intro,
       uuid: mockData.id,
       media_image_url: mockImageUrl,
@@ -66,6 +74,7 @@ describe('jsonApiNormalizer', () => {
     expect(normalizedData).toEqual([
       {
         ...mockData,
+        type: getType(mockData.field_items[0].type),
         intro: mockData.field_intro,
         uuid: mockData.id,
         short_title: mockData.field_short_title,

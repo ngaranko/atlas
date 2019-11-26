@@ -24,8 +24,7 @@ function useFromCMS(config, id = false, normalizeFromJSONApi = true) {
         result = await cmsJsonApiNormalizer(data, fields)
       }
 
-      result = useNormalizedCMSResults(result, config.type)
-
+      result = useNormalizedCMSResults(result)
       setResults(result)
     } catch (e) {
       setError(true)

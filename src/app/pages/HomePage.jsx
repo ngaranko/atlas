@@ -8,7 +8,6 @@ import {
   breakpoint,
   themeSpacing,
 } from '@datapunt/asc-ui'
-import Helmet from 'react-helmet'
 import HighlightBlock from '../components/HomePage/HighlightBlock'
 import NavigationBlock from '../components/HomePage/NavigationBlock'
 import SpecialBlock from '../components/HomePage/SpecialBlock'
@@ -42,12 +41,6 @@ const StyledRow = styled(Row)`
 
 const HomePage = () => (
   <CompactThemeProvider>
-    <Helmet>
-      <meta
-        name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-      />
-    </Helmet>
     <ContentContainer>
       <StyledRow valign="flex-start">
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>

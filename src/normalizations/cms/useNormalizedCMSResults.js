@@ -3,13 +3,14 @@ import RouterLink from 'redux-first-router-link'
 import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/constants'
 import useSlug from '../../app/utils/useSlug'
 import formatDate from '../../shared/services/date-formatter/date-formatter'
-import PAGES from '../../app/pages'
 import { reformatJSONApiResults } from '../../shared/services/cms/cms-json-api-normalizer'
+import { TYPES } from '../../shared/config/cms.config'
 
-const normalizeObject = (data, type) => {
+const normalizeObject = data => {
   const {
     uuid,
     title,
+    type,
     body,
     teaser_url,
     short_title,
@@ -29,10 +30,12 @@ const normalizeObject = (data, type) => {
   const slug = useSlug(title)
 
   // The type SPECIALS has a different url structure
-  const to =
-    type === PAGES.SPECIALS
+  // eslint-disable-next-line no-nested-ternary
+  const to = EDITORIAL_DETAIL_ACTIONS[type]
+    ? type === TYPES.SPECIAL
       ? EDITORIAL_DETAIL_ACTIONS[type](uuid, field_special_type, slug)
       : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug)
+    : false
 
   // By default use the internal router, fallback on a div if there's no link.
   // If there's an externalUrl set, override the linkProps.
@@ -64,14 +67,14 @@ const normalizeObject = (data, type) => {
     )
   }
 
-  const imageIsVertical = type === PAGES.PUBLICATIONS
+  const imageIsVertical = type === TYPES.PUBLICATION
 
   const teaserImage = teaser_url && teaser_url
   const coverImage = media_image_url && media_image_url
 
   // Construct the file url when the type is PUBLICATION
   let fileUrl
-  if (type === PAGES.PUBLICATIONS) {
+  if (type === TYPES.PUBLICATION) {
     const { url } = field_file ? field_file.field_media_file.uri : {}
     fileUrl = url
   }
@@ -79,12 +82,15 @@ const normalizeObject = (data, type) => {
   let related = []
   if (field_related) {
     const reformattedRelatedResults = reformatJSONApiResults({ field_items: field_related })
+
     related = reformattedRelatedResults.map(dataItem => normalizeObject(dataItem, type))
   }
+
   return {
     key: uuid,
     id: uuid,
     title,
+    type,
     body: body && body.value,
     teaserImage,
     coverImage,
@@ -98,14 +104,13 @@ const normalizeObject = (data, type) => {
     localeDateFormatted,
     slug,
     to,
-    currentPage: type,
     linkProps,
     related,
     ...otherFields,
   }
 }
 
-const useNormalizedCMSResults = (data, type) => {
+const useNormalizedCMSResults = data => {
   // The data can be in the form of an array when used on the homepage or an overview page
   if (data.results || (data && data.length)) {
     const dataArray = data.results || data
@@ -113,14 +118,14 @@ const useNormalizedCMSResults = (data, type) => {
     // Return different format when the data include links to other endpoints
     return data._links
       ? {
-          data: dataArray.map(dataItem => normalizeObject(dataItem, type)),
+          data: dataArray.map(dataItem => normalizeObject(dataItem)),
           links: data._links,
         }
-      : dataArray.map(dataItem => normalizeObject(dataItem, type))
+      : dataArray.map(dataItem => normalizeObject(dataItem))
   }
 
   // Format just a single data object
-  return normalizeObject(data, type)
+  return normalizeObject(data)
 }
 
 export default useNormalizedCMSResults
