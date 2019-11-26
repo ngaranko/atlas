@@ -1,15 +1,7 @@
 import React from 'react'
 import { useQuery } from 'urql'
 
-const usePreviousValue = track => {
-  const ref = React.useRef(track)
-  React.useEffect(() => {
-    ref.current = track
-  })
-  return ref.current
-}
-
-const usePagination = (query, input, limit = 50, initialFrom) => {
+const usePagination = (query, input, limit = 50, initialFrom = 0) => {
   const [result, setResult] = React.useState({})
   const [from, setFrom] = React.useState(initialFrom)
 
@@ -18,27 +10,31 @@ const usePagination = (query, input, limit = 50, initialFrom) => {
     variables: { limit, from, ...input },
   })
 
-  const prevFetching = usePreviousValue(fetching)
+  React.useMemo(() => {
+    // When the input query changes the from value must be resetted
+    setFrom(initialFrom)
+  }, [input.q])
 
   React.useEffect(() => {
-    if (prevFetching === true && fetching === false && !error) {
+    if (fetching === false && !error) {
       const filteredData =
         data && data.cmsSearch
           ? data.cmsSearch.results.filter(item => item.type === input.types)[0]
           : null
 
-      setResult(d => ({
+      setResult(current => ({
         ...filteredData,
-        results: [...(d && d.results ? d.results : []), ...filteredData.results],
+        results: [
+          ...(from > 0 && current && current.results ? current.results : []),
+          ...filteredData.results,
+        ],
       }))
     }
-  }, [fetching, prevFetching, data, error])
+  }, [fetching, data, error, from, input.q])
 
   const fetchMore = React.useCallback(() => {
     setFrom(s => s + limit)
   }, [limit])
-
-  console.log('fetching', fetching)
 
   return [{ data: result, fetching, error }, fetchMore]
 }

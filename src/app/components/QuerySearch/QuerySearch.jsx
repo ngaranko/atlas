@@ -31,12 +31,11 @@ const QuerySearch = ({
     cmsQuery,
     { q: query, types: TYPES.ARTICLE },
     MAX_RESULTS,
-    0,
   )
   const [
     { data: publications, fetching: fetchingPublications },
     fetchMorePublications,
-  ] = usePagination(cmsQuery, { q: query, types: TYPES.PUBLICATION }, 2, 0)
+  ] = usePagination(cmsQuery, { q: query, types: TYPES.PUBLICATION }, MAX_RESULTS)
 
   const resultMapper = () => {
     switch (currentPage) {

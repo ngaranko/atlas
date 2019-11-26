@@ -21,7 +21,6 @@ const EditorialOverviewPage = ({ pageType = '' }) => {
     cmsQuery,
     { q: '', types: type },
     MAX_RESULTS,
-    0,
   )
 
   return (
