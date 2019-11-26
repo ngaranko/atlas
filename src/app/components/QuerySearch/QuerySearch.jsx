@@ -42,11 +42,11 @@ const QuerySearch = ({
       case PAGES.DATA_SEARCH_QUERY:
         return numberOfDataResults
       case PAGES.PUBLICATION_SEARCH:
-        return (publications && publications.count) || 0
+        return (publications && publications.totalCount) || 0
       case PAGES.DATASET_SEARCH:
         return numberOfDatasetResults
       case PAGES.ARTICLE_SEARCH:
-        return (articles && articles.count) || 0
+        return (articles && articles.totalCount) || 0
       default:
         return 0
     }
@@ -67,7 +67,7 @@ const QuerySearch = ({
               />
               <Tab
                 label="Publicaties"
-                count={publications && publications.count}
+                count={publications && publications.totalCount}
                 onClick={() => toSearchPage(toPublicationSearch, query, filters)}
                 page={PAGES.PUBLICATION_SEARCH}
               />
@@ -79,7 +79,7 @@ const QuerySearch = ({
               />
               <Tab
                 label="Artikelen"
-                count={articles && articles.count}
+                count={articles && articles.totalCount}
                 onClick={() => toSearchPage(toArticleSearch, query, filters)}
                 page={PAGES.ARTICLE_SEARCH}
               />
@@ -96,7 +96,9 @@ const QuerySearch = ({
                 type={PAGES.ARTICLES}
                 loading={fetchingArticles}
                 results={articles}
-                fetchMore={articles && articles.count >= MAX_RESULTS ? fetchMoreArticles : false}
+                fetchMore={
+                  articles && articles.totalCount > MAX_RESULTS ? fetchMoreArticles : false
+                }
               />
             )}
             {currentPage === PAGES.PUBLICATION_SEARCH && (
@@ -105,7 +107,9 @@ const QuerySearch = ({
                 loading={fetchingPublications}
                 results={publications}
                 fetchMore={
-                  publications && publications.count >= MAX_RESULTS ? fetchMorePublications : false
+                  publications && publications.totalCount > MAX_RESULTS
+                    ? fetchMorePublications
+                    : false
                 }
               />
             )}

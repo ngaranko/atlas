@@ -13,7 +13,7 @@ export const cmsSearchQuery = `
             results {
                 type
                 label
-                count
+                totalCount
                 results {
                     id
                     label
