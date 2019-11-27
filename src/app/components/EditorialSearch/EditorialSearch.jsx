@@ -8,7 +8,7 @@ import PAGES from '../../pages'
 import EditorialResults from '../EditorialResults'
 import ShareBar from '../ShareBar/ShareBar'
 import { toArticleOverview, toPublicationOverview } from '../../../store/redux-first-router/actions'
-import { EDITORIAL_TITLES } from '../../pages/EditorialOverviewPage/constants'
+import { EDITORIAL_TITLES, EDITORIAL_TYPES } from '../../pages/EditorialOverviewPage/constants'
 
 const routeMapping = {
   [PAGES.ARTICLES]: toArticleOverview,
@@ -20,7 +20,9 @@ const StyledEditorialSearch = styled.div`
   max-width: 792px; // Image width + 600px (design system rule)
 `
 
-const EditorialSearch = ({ type, loading, results, fetchMore }) => {
+const EditorialSearch = ({ pageType, loading, results, fetchMore }) => {
+  const type = EDITORIAL_TYPES[pageType]
+
   if (results && !results.results) {
     return (
       <>
