@@ -6,6 +6,13 @@ export const pageEndpointTypeMapping = {
   'explosieven/inslagen/': 'milieuthemas/explosieven/inslagen/',
   'explosieven/uitgevoerdonderzoek/': 'milieuthemas/explosieven/uitgevoerdonderzoek/',
   'explosieven/verdachtgebied/': 'milieuthemas/explosieven/verdachtgebied/',
+  'bag/ligplaats/': 'bag/v1.1/ligplaats/',
+  'bag/standplaats/': 'bag/v1.1/standplaats/',
+  'bag/verblijfsobject/': 'bag/v1.1/verblijfsobject/',
+  'bag/openbareruimte/': 'bag/v1.1/openbareruimte/',
+  'bag/nummeraanduiding/': 'bag/v1.1/nummeraanduiding/',
+  'bag/pand/': 'bag/v1.1/pand/',
+  'bag/woonplaats/': 'bag/v1.1/woonplaats/',
 }
 
 export const pageTypeToEndpoint = (type, subtype, id) => {

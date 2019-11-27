@@ -6,7 +6,6 @@ import {
   fetchMapDetailSuccess,
   getMapDetail,
 } from '../../ducks/detail/actions'
-import { getCurrentEndpoint } from '../../ducks/detail/selectors'
 import { closeMapPanel, mapLoadingAction } from '../../ducks/map/actions'
 import getDetailData from '../../../detail/sagas/detail'
 import fetchDetail from '../../services/map-detail/map-detail'
@@ -25,6 +24,7 @@ import {
 import PARAMETER from '../../../store/parameters'
 import { toNotFoundPage } from '../../../store/redux-first-router/actions'
 import getGeometry from '../../../shared/services/geometry/geometry'
+import { getCurrentEndpoint } from '../../ducks/detail/selectors'
 
 export function* fetchMapDetail() {
   yield put(fetchDetailRequest())

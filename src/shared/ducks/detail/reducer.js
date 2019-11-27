@@ -65,21 +65,25 @@ export default function detailReducer(state = initialState, action) {
     case FETCH_DETAIL_REQUEST:
       return {
         ...enrichedState,
-        detailObject: {},
+        includeSrc: null,
+        data: {},
+        filterSelection: {},
         isLoading: true,
       }
 
     case FETCH_DETAIL_SUCCESS:
       return {
         ...enrichedState,
-        detailObject: { ...action.payload },
+        ...action.payload,
         isLoading: false,
       }
 
     case FETCH_DETAIL_FAILURE:
       return {
         ...enrichedState,
-        detailObject: {},
+        includeSrc: null,
+        data: {},
+        filterSelection: {},
         isLoading: false,
       }
 
