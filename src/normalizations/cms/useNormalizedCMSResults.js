@@ -35,7 +35,7 @@ const normalizeObject = data => {
     ? type === TYPES.SPECIAL
       ? EDITORIAL_DETAIL_ACTIONS[type](uuid, field_special_type, slug)
       : EDITORIAL_DETAIL_ACTIONS[type](uuid, slug)
-    : false
+    : {}
 
   // By default use the internal router, fallback on a div if there's no link.
   // If there's an externalUrl set, override the linkProps.
