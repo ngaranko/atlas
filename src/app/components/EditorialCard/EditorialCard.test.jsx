@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import EditorialCard from './EditorialCard'
 import getImageFromCms from '../../utils/getImageFromCms'
+import { TYPES } from '../../../shared/config/cms.config'
 
 jest.mock('../../utils/getImageFromCms')
 
@@ -11,7 +12,7 @@ describe('EditorialCard', () => {
     title: 'title',
     intro: 'intro',
     teaserImage: 'thumbnail.jpg',
-    type: 'PUBLICATIONS',
+    type: TYPES.PUBLICATION,
   }
 
   getImageFromCms.mockImplementation(() => 'image.jpg')

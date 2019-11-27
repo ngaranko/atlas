@@ -13,9 +13,9 @@ import {
   themeSpacing,
 } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
-import PAGES from '../../pages'
 import getImageFromCms from '../../utils/getImageFromCms'
 import { EDITORIAL_DETAIL_ACTIONS } from '../../pages/EditorialOverviewPage/constants'
+import { TYPES } from '../../../shared/config/cms.config'
 
 const notFoundImage = require('./not_found_thumbnail.jpg')
 
@@ -118,9 +118,9 @@ const EditorialCard = ({
   to: toProp,
   type,
 }) => {
-  const image = type === PAGES.PUBLICATIONS ? coverImage : teaserImage
-  const imageIsVertical = type === PAGES.PUBLICATIONS
-  const resize = type === PAGES.PUBLICATIONS ? 'fit' : 'fill'
+  const image = type === TYPES.PUBLICATION ? coverImage : teaserImage
+  const imageIsVertical = type === TYPES.PUBLICATION
+  const resize = type === TYPES.PUBLICATION ? 'fit' : 'fill'
 
   const srcSet = {
     srcSet: `${getImageFromCms(image, 100, 100, resize)} 70w,
