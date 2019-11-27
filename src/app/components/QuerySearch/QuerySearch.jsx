@@ -93,7 +93,7 @@ const QuerySearch = ({
             {currentPage === PAGES.DATASET_SEARCH && <Dataset />}
             {currentPage === PAGES.ARTICLE_SEARCH && (
               <EditorialSearch
-                type={PAGES.ARTICLES}
+                pageType={PAGES.ARTICLES}
                 loading={fetchingArticles}
                 results={articles}
                 fetchMore={
@@ -103,7 +103,7 @@ const QuerySearch = ({
             )}
             {currentPage === PAGES.PUBLICATION_SEARCH && (
               <EditorialSearch
-                type={PAGES.PUBLICATIONS}
+                pageType={PAGES.PUBLICATIONS}
                 loading={fetchingPublications}
                 results={publications}
                 fetchMore={
