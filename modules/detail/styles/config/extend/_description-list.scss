@@ -33,6 +33,11 @@
   &:last-of-type {
     min-height: 30px; //anders klapt de hoogte in (lineheight x font-size + border)
   }
+
+  &::first-letter {
+    // Capitalize when the data doesn't do this already
+    text-transform: capitalize;
+  }
 }
 
 %description-list {
