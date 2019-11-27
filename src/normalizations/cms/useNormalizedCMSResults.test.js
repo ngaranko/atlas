@@ -47,10 +47,7 @@ describe('useNormalizedCMSResults', () => {
     localeDate: input.field_publication_date,
     localeDateFormatted: formattedDate,
     slug,
-    to: false,
-    linkProps: {
-      $as: 'div',
-    },
+    to: {},
     related: [],
   }
 
