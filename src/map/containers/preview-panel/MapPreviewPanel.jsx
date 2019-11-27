@@ -34,7 +34,7 @@ class MapPreviewPanel extends React.Component {
             <button
               type="button"
               className="map-preview-panel__button map-preview-panel__button--expand"
-              onClick={openDetailEndpoint}
+              onClick={isDetailLoaded ? openDetailEndpoint : onMaximize}
               title="Volledige weergave tonen"
             >
               <span
