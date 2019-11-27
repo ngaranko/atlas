@@ -14,6 +14,7 @@ import {
 } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
 import getImageFromCms from '../../utils/getImageFromCms'
+import { EDITORIAL_DETAIL_ACTIONS } from '../../pages/EditorialOverviewPage/constants'
 import { TYPES } from '../../../shared/config/cms.config'
 
 const notFoundImage = require('./not_found_thumbnail.jpg')
@@ -102,20 +103,25 @@ const MetaText = styled(Paragraph)`
 const EditorialCard = ({
   id,
   title,
+  label, // GraphQL
   shortTitle,
   teaser,
   intro,
   specialType,
   localeDate,
   localeDateFormatted,
+  date, // GraphQL
+  dateLocale, // GraphQL
+  slug, // GraphQL
   teaserImage,
   coverImage,
+  to: toProp,
   type,
-  imageIsVertical,
-  to,
 }) => {
   const image = type === TYPES.PUBLICATION ? coverImage : teaserImage
+  const imageIsVertical = type === TYPES.PUBLICATION
   const resize = type === TYPES.PUBLICATION ? 'fit' : 'fill'
+
   const srcSet = {
     srcSet: `${getImageFromCms(image, 100, 100, resize)} 70w,
              ${getImageFromCms(image, 200, 100, resize)} 200w,
@@ -128,6 +134,14 @@ const EditorialCard = ({
     400px
     `,
   }
+
+  // The type SPECIALS has a different url structure
+  const to =
+    toProp ||
+    (specialType
+      ? EDITORIAL_DETAIL_ACTIONS[type](id, specialType, slug)
+      : EDITORIAL_DETAIL_ACTIONS[type](id, slug))
+
   return (
     <StyledLinkWrapper key={id} to={to} title={title} linkType="blank">
       <StyledCard horizontal>
@@ -141,7 +155,7 @@ const EditorialCard = ({
         </StyledCardMedia>
         <StyledCardContent>
           <div>
-            <StyledCardHeading $as="h4">{shortTitle || title}</StyledCardHeading>
+            <StyledCardHeading $as="h4">{shortTitle || title || label}</StyledCardHeading>
           </div>
 
           {specialType && (
@@ -156,10 +170,10 @@ const EditorialCard = ({
             <IntroText>{teaser || intro}</IntroText>
           </div>
 
-          {!specialType && localeDate && (
+          {!specialType && (localeDate || date || dateLocale) && (
             <div>
-              <MetaText as="time" data-test="metaText" datetime={localeDate}>
-                {localeDateFormatted}
+              <MetaText as="time" data-test="metaText" datetime={localeDate || date}>
+                {localeDateFormatted || dateLocale}
               </MetaText>
             </div>
           )}

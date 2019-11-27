@@ -12,6 +12,7 @@ import {
   breakpoint,
 } from '@datapunt/asc-ui'
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
+import { Provider as GraphQLProvider, createClient } from 'urql'
 import { isEditorialPage, isContentPage } from './pages'
 import './_app.scss'
 import {
@@ -95,6 +96,10 @@ const App = ({
     siteId: MATOMO_CONFIG[process.env.NODE_ENV].SITE_ID,
   })
 
+  const graphQLClient = createClient({
+    url: `${process.env.API_ROOT}cms_search/graphql/`,
+  })
+
   const StyledContainer = styled(Container)`
     background-color: ${themeColor('tint', 'level1')};
     position: relative;
@@ -121,27 +126,29 @@ const App = ({
     <ThemeProvider>
       <GlobalStyle />
       <MatomoProvider value={matomoInstance}>
-        <AppWrapper>
-          {!embedMode && (
-            <Header
-              homePage={homePage}
-              hasMaxWidth={hasMaxWidth}
-              printMode={printMode}
-              embedPreviewMode={embedPreviewMode}
-              printOrEmbedMode={printOrEmbedMode}
+        <GraphQLProvider value={graphQLClient}>
+          <AppWrapper>
+            {!embedMode && (
+              <Header
+                homePage={homePage}
+                hasMaxWidth={hasMaxWidth}
+                printMode={printMode}
+                embedPreviewMode={embedPreviewMode}
+                printOrEmbedMode={printOrEmbedMode}
+              />
+            )}
+            <AppBody
+              {...{
+                visibilityError,
+                bodyClasses,
+                hasMaxWidth,
+                homePage,
+                currentPage,
+                embedPreviewMode,
+              }}
             />
-          )}
-          <AppBody
-            {...{
-              visibilityError,
-              bodyClasses,
-              hasMaxWidth,
-              homePage,
-              currentPage,
-              embedPreviewMode,
-            }}
-          />
-        </AppWrapper>
+          </AppWrapper>
+        </GraphQLProvider>
       </MatomoProvider>
     </ThemeProvider>
   )

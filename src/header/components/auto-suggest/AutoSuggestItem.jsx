@@ -4,10 +4,12 @@ import escapeStringRegexp from 'escape-string-regexp'
 
 const AutoSuggestItem = props => {
   const { isActive, onSuggestionSelection, query, content } = props
-  const highlightedSuggestion = content.replace(
-    new RegExp(`(${escapeStringRegexp(query.trim())})`, 'gi'),
-    '<span class="auto-suggest__dropdown__highlight">$1</span>',
-  )
+  const highlightedSuggestion =
+    content &&
+    content.replace(
+      new RegExp(`(${escapeStringRegexp(query.trim())})`, 'gi'),
+      '<span class="auto-suggest__dropdown__highlight">$1</span>',
+    )
   const ellipsis = content === '...'
 
   const listItem = (

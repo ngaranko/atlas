@@ -64,7 +64,7 @@ const AppBody = ({
           {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
           {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
-          {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
+          {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage pageType={currentPage} />}
 
           {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
           {currentPage === PAGES.MOVED && <MovedPage />}

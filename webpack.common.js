@@ -35,7 +35,7 @@ function commonConfig() {
       path: dist,
     },
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.mjs', '.js', '.jsx'],
       modules: ['./node_modules'],
       alias: {
         react: path.resolve('./node_modules/react'),

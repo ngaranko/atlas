@@ -29,6 +29,7 @@ import {
 import PARAMETERS from '../../../store/parameters'
 import { getViewMode, isMapPage } from '../../../shared/ducks/ui/ui'
 import HeaderSearch from './HeaderSearch'
+import { TYPES } from '../../../app/components/QuerySearch/constants.config'
 
 const mapStateToProps = state => ({
   activeSuggestion: getActiveSuggestions(state),
@@ -102,7 +103,7 @@ const mapDispatchToProps = dispatch => ({
   openDataSuggestion: (suggestion, view) => dispatch(toDataSuggestion(suggestion, view)),
   openDatasetSuggestion: suggestion => dispatch(toDatasetDetail(suggestion)),
   openEditorialSuggestion: (suggestion, type) =>
-    type === 'article'
+    type === TYPES.ARTICLE
       ? dispatch(toArticleDetail(suggestion.id, suggestion.slug))
       : dispatch(toPublicationDetail(suggestion.id, suggestion.slug)),
 })
