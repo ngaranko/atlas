@@ -73,11 +73,7 @@ export const adressenPand = result => {
   const additionalFields = {
     statusLevel:
       // eslint-disable-next-line no-nested-ternary
-      result.status && result.status.omschrijving
-        ? NORMAL_PAND_STATUSSES.includes(result.status.omschrijving)
-          ? ''
-          : 'info'
-        : false,
+      result.status ? (NORMAL_PAND_STATUSSES.includes(result.status) ? '' : 'info') : false,
     isNevenadres: !result.hoofdadres,
     year:
       result.oorspronkelijk_bouwjaar !== `${YEAR_UNKNOWN}`
@@ -92,17 +88,15 @@ export const adressenVerblijfsobject = result => {
   const additionalFields = {
     statusLevel:
       // eslint-disable-next-line no-nested-ternary
-      result.status && result.status.omschrijving
-        ? NORMAL_VBO_STATUSSES.includes(result.status.omschrijving)
+      result.status && result.status
+        ? NORMAL_VBO_STATUSSES.includes(result.status)
           ? ''
           : 'alert'
         : false,
     isNevenadres: !result.hoofdadres,
-    gebruiksdoelen: ((result.gebruiksdoelen && result.gebruiksdoelen.slice(0, 5)) || [])
-      .map(
-        item =>
-          `${item.omschrijving}${item.omschrijving_plus ? `: ${item.omschrijving_plus}` : ''}`,
-      )
+    typeAdres: result.hoofdadres ? result.hoofdadres.type_adres : 'Nevenadres',
+    gebruiksdoelen: ((result.gebruiksdoel && result.gebruiksdoel.slice(0, 5)) || [])
+      .map(item => item)
       .join('\n'),
     size: result.oppervlakte > 1 ? `${result.oppervlakte.toLocaleString('nl-NL')} m²` : 'onbekend',
   }

@@ -24,9 +24,19 @@
       </dd>
       <dd ng-if="vm.apiData.results.oorspronkelijk_bouwjaar === '1005'">onbekend</dd>
       <dt>Status</dt>
-      <dd>{{ vm.apiData.results.status.omschrijving }}</dd>
+      <dd>{{ vm.apiData.results.status }}</dd>
       <dt>Naam</dt>
       <dd>{{ vm.apiData.results.pandnaam }}</dd>
+      <dt>Type woonobject</dt>
+      <dd>{{ vm.apiData.results.type_woonobject }}</dd>
+      <dt>Ligging</dt>
+      <dd>{{ vm.apiData.results.ligging }}</dd>
+      <dt>Aan­tal bouw­la­gen</dt>
+      <dd>{{ vm.apiData.results.bouwlagen }}</dd>
+      <dt>Hoog­ste bouw­laag</dt>
+      <dd>{{ vm.apiData.results.hoogste_bouwlaag }}</dd>
+      <dt>Laag­ste bouw­laag</dt>
+      <dd>{{ vm.apiData.results.laagste_bouwlaag }}</dd>
     </dl>
   </div>
 

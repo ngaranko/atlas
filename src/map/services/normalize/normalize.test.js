@@ -200,7 +200,9 @@ describe('normalize', () => {
           code: 22,
           omschrijving: 'a random, not normal status',
         },
-        hoofdadres: true,
+        hoofdadres: {
+          type_adres: 'foo',
+        },
       }
 
       output = adressenVerblijfsobject(input)
@@ -208,6 +210,7 @@ describe('normalize', () => {
       expect(output).toMatchObject({
         statusLevel: 'alert',
         isNevenadres: false,
+        typeAdres: input.hoofdadres.type_adres,
       })
 
       input = {
@@ -219,30 +222,31 @@ describe('normalize', () => {
       expect(output).toMatchObject({
         statusLevel: false,
         isNevenadres: true,
+        typeAdres: 'Nevenadres',
       })
     })
 
     it('returns the "gebruiksdoelen', () => {
       input = {
-        gebruiksdoelen: [{ omschrijving: 'omschrijving', omschrijving_plus: 'plus' }],
+        gebruiksdoel: ['omschrijving'],
       }
 
       output = adressenVerblijfsobject(input)
 
       expect(output).toMatchObject({
-        gebruiksdoelen: `${input.gebruiksdoelen[0].omschrijving}: ${input.gebruiksdoelen[0].omschrijving_plus}`,
+        gebruiksdoelen: input.gebruiksdoel[0],
       })
 
       // Checks if multiple lines are used
       input = {
-        gebruiksdoelen: [{ omschrijving: 'omschrijving 1' }, { omschrijving: 'omschrijving 2' }],
+        gebruiksdoel: ['omschrijving 1', 'omschrijving 2'],
       }
 
       output = adressenVerblijfsobject(input)
 
       expect(output).toMatchObject({
-        gebruiksdoelen: `${input.gebruiksdoelen[0].omschrijving}
-${input.gebruiksdoelen[1].omschrijving}`,
+        gebruiksdoelen: `${input.gebruiksdoel[0]}
+${input.gebruiksdoel[1]}`,
       })
 
       input = {}

@@ -6,11 +6,6 @@ describe('The formatData service', () => {
     expect(result).toBe('aap')
   })
 
-  it('returns an empty object for evenementen ', () => {
-    const result = formatData('', 'evenementen')
-    expect(result).toEqual({})
-  })
-
   it('uses catalogFiltes to format dcat data', () => {
     const data = {
       'dcat:title': 'title',
