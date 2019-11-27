@@ -20,6 +20,21 @@ const StyledEditorialSearch = styled.div`
   max-width: 792px; // Image width + 600px (design system rule)
 `
 
+const NoResultsMessage = ({ type, pageType }) => (
+  <>
+    Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
+    <Link
+      variant="inline"
+      $as={RouterLink}
+      to={routeMapping[pageType]()}
+      title={`Overzicht van ${EDITORIAL_TITLES[type]}`}
+    >
+      {EDITORIAL_TITLES[type]}
+    </Link>
+    .
+  </>
+)
+
 const EditorialSearch = ({ pageType, loading, results, fetchMore }) => {
   const type = EDITORIAL_TYPES[pageType]
 
@@ -27,20 +42,7 @@ const EditorialSearch = ({ pageType, loading, results, fetchMore }) => {
     return (
       <>
         <NoResultsForSearchType
-          message={
-            <p>
-              Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
-              <Link
-                variant="inline"
-                $as={RouterLink}
-                to={routeMapping[type]()}
-                title={`Overzicht van ${EDITORIAL_TITLES[type]}`}
-              >
-                {EDITORIAL_TITLES[type]}
-              </Link>
-              .
-            </p>
-          }
+          message={<NoResultsMessage type={type} pageType={pageType} />}
           hideLoginLink
         />
         <ShareBar topSpacing={6} />
