@@ -38,7 +38,7 @@ const NoResultsMessage = ({ type, pageType }) => (
 const EditorialSearch = ({ pageType, loading, results, fetchMore }) => {
   const type = EDITORIAL_TYPES[pageType]
 
-  if (results && !results.results) {
+  if (results && results.totalCount === 0) {
     return (
       <>
         <NoResultsForSearchType
