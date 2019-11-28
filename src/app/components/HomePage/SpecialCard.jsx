@@ -121,7 +121,7 @@ SpecialCard.defaultProps = {
   teaser: '',
   intro: '',
   teaserImage: '',
-  to: null,
+  to: {},
 }
 
 SpecialCard.propTypes = {

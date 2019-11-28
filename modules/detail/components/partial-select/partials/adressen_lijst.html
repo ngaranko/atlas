@@ -24,11 +24,11 @@
 
       <span
         class="muted"
-        ng-if="object.vbo_status.omschrijving !== 'Verblijfsobject in gebruik (niet ingemeten)' &&
-              object.vbo_status.omschrijving !== 'Verblijfsobject in gebruik' &&
-              object.vbo_status.status.omschrijving !== 'Verbouwing verblijfsobject'"
+        ng-if="object.vbo_status && object.vbo_status !== 'Verblijfsobject in gebruik (niet ingemeten)' &&
+              object.vbo_status !== 'Verblijfsobject in gebruik' &&
+              object.vbo_status.status !== 'Verbouwing verblijfsobject'"
       >
-        ({{ object.vbo_status.omschrijving.toLowerCase() }})
+        ({{ object.vbo_status.toLowerCase() }})
       </span>
     </li>
   </ul>

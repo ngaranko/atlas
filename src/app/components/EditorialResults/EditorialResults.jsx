@@ -30,56 +30,47 @@ const PageHeading = styled(Heading)`
 `
 
 const EditorialResults = ({
-  page,
   title,
+  totalCount,
   headingLevel,
   results,
   loading,
   type,
-  links,
   onClickMore,
   showTitle,
   className,
-}) => {
-  return (
-    <EditorialCardContainer className={className}>
-      {page === 0 && loading ? (
-        <LoadingIndicator style={{ position: 'inherit' }} />
-      ) : (
-        <>
-          {showTitle && (
-            <PageHeading $as={headingLevel || 'h1'}>{title || EDITORIAL_TITLES[type]}</PageHeading>
-          )}
-          {results && results.map(result => <EditorialCard {...result} />)}
-          {page > 0 && loading && <LoadingIndicator />}
-          {links &&
-            links.next &&
-            links.next.href !== 'None' &&
-            (loading ? (
-              <LoadingIndicator style={{ position: 'inherit' }} />
-            ) : (
-              <StyledButton
-                variant="primaryInverted"
-                iconLeft={<Enlarge />}
-                iconSize={12}
-                onClick={() => {
-                  // Temporarily replace http:// as no changes will be made to JSON API
-                  const nextHref = links.next.href.replace('http://', 'https://')
-
-                  onClickMore(nextHref)
-                }}
-              >
-                Toon meer
-              </StyledButton>
-            ))}
-        </>
-      )}
-    </EditorialCardContainer>
-  )
-}
+}) => (
+  <EditorialCardContainer className={className}>
+    {!results && loading ? (
+      <LoadingIndicator style={{ position: 'inherit' }} />
+    ) : (
+      <>
+        {showTitle && (
+          <PageHeading $as={headingLevel || 'h1'}>
+            {title || `${EDITORIAL_TITLES[type]} (${totalCount.toLocaleString('nl-NL')})`}
+          </PageHeading>
+        )}
+        {results &&
+          results.map(result => <EditorialCard {...result} key={result.id} type={type} />)}
+        {loading && <LoadingIndicator style={{ position: 'inherit' }} />}
+        {!loading && onClickMore && (
+          <StyledButton
+            variant="primaryInverted"
+            iconLeft={<Enlarge />}
+            iconSize={12}
+            onClick={onClickMore}
+          >
+            Toon meer
+          </StyledButton>
+        )}
+      </>
+    )}
+  </EditorialCardContainer>
+)
 
 EditorialResults.defaultProps = {
   showTitle: true,
+  totalCount: '',
 }
 
 export default EditorialResults

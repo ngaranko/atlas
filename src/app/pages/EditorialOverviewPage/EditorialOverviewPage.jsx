@@ -1,39 +1,24 @@
 /* eslint-disable camelcase */
 import React from 'react'
-import Helmet from 'react-helmet'
 import { Column, Container, Row } from '@datapunt/asc-ui'
-import useFromCMS from '../../utils/useFromCMS'
-import { cmsConfig } from '../../../shared/config/config'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import EditorialResults from '../../components/EditorialResults'
 
-const EditorialOverviewPage = ({ type = '' }) => {
-  const { results, fetchData, loading } = useFromCMS(cmsConfig[type], undefined, false)
-  const [aggregatedData, setData] = React.useState([])
-  const [page, setPage] = React.useState(0)
-  const { data, links } = results || {}
+import cmsQuery, { MAX_RESULTS } from '../../components/QuerySearch/constants.config'
+import usePagination from '../../utils/usePagination'
+import { EDITORIAL_TYPES } from './constants'
 
-  React.useEffect(() => {
-    ;(async () => {
-      await fetchData()
-    })()
-  }, [])
+const EditorialOverviewPage = ({ pageType = '' }) => {
+  const type = EDITORIAL_TYPES[pageType]
 
-  React.useEffect(() => {
-    if (data) {
-      setData([...aggregatedData, ...data])
-      setPage(page + 1)
-    }
-  }, [data])
+  const [{ data, fetching: loading }, fetchMore] = usePagination(
+    cmsQuery,
+    { q: '', types: type },
+    MAX_RESULTS,
+  )
 
   return (
     <Container>
-      <Helmet>
-        <meta
-          name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-        />
-      </Helmet>
       <Row>
         <ContentContainer>
           <Column
@@ -43,12 +28,12 @@ const EditorialOverviewPage = ({ type = '' }) => {
           >
             <EditorialResults
               {...{
-                page,
                 loading,
-                results: aggregatedData,
+                results: data && data.results,
+                totalCount: data && data.totalCount,
                 type,
-                links,
-                onClickMore: fetchData,
+                links: [],
+                onClickMore: data && data.totalCount > MAX_RESULTS ? fetchMore : false,
               }}
             />
           </Column>

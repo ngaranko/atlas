@@ -1,28 +1,14 @@
 /* eslint-disable camelcase */
-import React, { useContext } from 'react'
+import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import { Link } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import NoResultsForSearchType from '../Messages/NoResultsForSearchType'
 import PAGES from '../../pages'
-import { getByUrl } from '../../../shared/services/api/api'
-import { ArticleSearchContext, PublicationSearchContext } from './editorialSearchContexts'
-import { useArticleSearchDuck, usePublicationSearchDuck } from './editorialSearchHooks'
-import useNormalizedCMSResults from '../../../normalizations/cms/useNormalizedCMSResults'
 import EditorialResults from '../EditorialResults'
 import ShareBar from '../ShareBar/ShareBar'
 import { toArticleOverview, toPublicationOverview } from '../../../store/redux-first-router/actions'
-import { EDITORIAL_TITLES } from '../../pages/EditorialOverviewPage/constants'
-
-const contextMapping = {
-  [PAGES.ARTICLES]: ArticleSearchContext,
-  [PAGES.PUBLICATIONS]: PublicationSearchContext,
-}
-
-const ducksMapping = {
-  [PAGES.ARTICLES]: useArticleSearchDuck,
-  [PAGES.PUBLICATIONS]: usePublicationSearchDuck,
-}
+import { EDITORIAL_TITLES, EDITORIAL_TYPES } from '../../pages/EditorialOverviewPage/constants'
 
 const routeMapping = {
   [PAGES.ARTICLES]: toArticleOverview,
@@ -34,38 +20,29 @@ const StyledEditorialSearch = styled.div`
   max-width: 792px; // Image width + 600px (design system rule)
 `
 
-const EditorialSearch = ({ type }) => {
-  const [{ results, loading }, dispatch] = useContext(contextMapping[type])
-  const { actions, selectors } = ducksMapping[type]()
+const NoResultsMessage = ({ type, pageType }) => (
+  <>
+    Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
+    <Link
+      variant="inline"
+      $as={RouterLink}
+      to={routeMapping[pageType]()}
+      title={`Overzicht van ${EDITORIAL_TITLES[type]}`}
+    >
+      {EDITORIAL_TITLES[type]}
+    </Link>
+    .
+  </>
+)
 
-  const loadMore = async endpoint => {
-    dispatch(actions.request())
-    try {
-      const payload = await getByUrl(endpoint)
-      dispatch(actions.accumulateResults(payload))
-    } catch (e) {
-      dispatch(actions.failure(e))
-    }
-  }
+const EditorialSearch = ({ pageType, loading, results, fetchMore }) => {
+  const type = EDITORIAL_TYPES[pageType]
 
-  if (results && !results.results) {
+  if (results && results.totalCount === 0) {
     return (
       <>
         <NoResultsForSearchType
-          message={
-            <p>
-              Tip: maak de zoekcriteria minder specifiek. Of bekijk de lijst{' '}
-              <Link
-                variant="inline"
-                $as={RouterLink}
-                to={routeMapping[type]()}
-                title={`Overzicht van ${EDITORIAL_TITLES[type]}`}
-              >
-                {EDITORIAL_TITLES[type]}
-              </Link>
-              .
-            </p>
-          }
+          message={<NoResultsMessage type={type} pageType={pageType} />}
           hideLoginLink
         />
         <ShareBar topSpacing={6} />
@@ -73,16 +50,13 @@ const EditorialSearch = ({ type }) => {
     )
   }
 
-  const searchData = useNormalizedCMSResults(selectors.results({ results }), type)
-
   return (
     <StyledEditorialSearch>
       <EditorialResults
         type={type}
         loading={loading}
-        results={searchData}
-        onClickMore={loadMore}
-        links={results._links}
+        results={results && results.results}
+        onClickMore={fetchMore}
         showTitle={false}
       />
       <ShareBar topSpacing={6} />

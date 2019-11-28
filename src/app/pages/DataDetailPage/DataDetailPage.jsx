@@ -1,9 +1,24 @@
+import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
 import angular from 'angular'
 import { AngularWrapper } from 'react-angular'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import '../../angularModules'
+import { getUser } from '../../../shared/ducks/user/user'
+import {
+  getPanoramaPreview,
+  isPanoramaPreviewLoading,
+} from '../../../panorama/ducks/preview/panorama-preview'
+import {
+  getDetailData,
+  getDetailEndpoint,
+  getDetailFilterSelection,
+  getDetailTemplateUrl,
+  getID,
+  getSubType,
+  isDetailLoading,
+} from '../../../shared/ducks/detail/selectors'
 
 const Detail = ({
   isLoading,
@@ -71,4 +86,17 @@ Detail.propTypes = {
   detailFilterSelection: PropTypes.shape({}),
 }
 
-export default Detail
+const mapStateToProps = state => ({
+  isLoading: isDetailLoading(state),
+  user: getUser(state),
+  endpoint: getDetailEndpoint(state),
+  subType: getSubType(state),
+  id: getID(state),
+  previewPanorama: getPanoramaPreview(state),
+  isPreviewPanoramaLoading: isPanoramaPreviewLoading(state),
+  detailTemplateUrl: getDetailTemplateUrl(state),
+  detailData: getDetailData(state),
+  detailFilterSelection: getDetailFilterSelection(state),
+})
+
+export default connect(mapStateToProps)(Detail)

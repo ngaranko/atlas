@@ -1,35 +1,3 @@
-// const MapDetailResultItem = ({ label, value, link, hasMultiline, status = '' }) => {
-//   return (
-//     value && (
-//       <li className="map-detail-result__item">
-//         <section className="map-detail-result__item-content">
-//           <div className="map-detail-result__item-label">{label}</div>
-//           <div
-//             className={`map-detail-result__item-value${
-//               hasMultiline ? '--multiline' : ''
-//             }           ${
-//               status && status.length ? `map-detail-result__item-value--${status}` : ''
-//             }`}
-//           >
-//             {link ? (
-//               <a
-//                 className="o-btn o-btn--link map-detail-result__item-value--inline"
-//                 href={link}
-//                 rel="noopener noreferrer"
-//                 target="_blank"
-//               >
-//                 {value}
-//               </a>
-//             ) : (
-//               value
-//             )}
-//           </div>
-//         </section>
-//       </li>
-//     )
-//   )
-// }
-
 import React from 'react'
 import { shallow } from 'enzyme'
 import MapDetailResultItem from './MapDetailResultItem'

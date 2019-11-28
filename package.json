@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/Amsterdam/atlas.git"
   },
-  "version": "3.10.2",
+  "version": "3.10.4",
   "scripts": {
     "build": "npm run build:production",
     "build-storybook": "cp .env.production .env && build-storybook -c .storybook -o .sb",
@@ -20,8 +20,8 @@
     "lint": "npm run lint:js",
     "lint:js": "eslint --format=node_modules/eslint-formatter-pretty src modules test/e2e/cypress --ext js,jsx",
     "postinstall": "cp .env.development .env",
-    "start": "cp .env.development .env && webpack-dev-server --config webpack.development.js",
-    "start:prod": "cp .env.production .env && webpack-dev-server --config ./webpack.development.js",
+    "start": "concurrently \"cp .env.development .env && webpack-dev-server --config webpack.development.js\"",
+    "start:prod": "cp .env.production .env && webpack-dev-server --config webpack.development.js",
     "storybook": "start-storybook -p 6007",
     "test": "concurrently \"karma start\" \"jest\"",
     "test:jest": "jest",
@@ -48,6 +48,7 @@
     "d3": "3.5.17",
     "escape-string-regexp": "1.0.5",
     "file-saver": "^2.0.2",
+    "graphql": "^14.5.8",
     "history": "4.9.0",
     "isomorphic-fetch": "2.2.1",
     "json-api-normalize": "1.1.5",
@@ -86,7 +87,8 @@
     "redux-first-router-restore-scroll": "1.2.2",
     "redux-saga": "0.16.0",
     "remove-markdown": "0.3.0",
-    "reselect": "4.0.0"
+    "reselect": "4.0.0",
+    "urql": "^1.6.3"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",

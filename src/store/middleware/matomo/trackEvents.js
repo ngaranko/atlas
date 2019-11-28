@@ -58,6 +58,7 @@ import PARAMETERS from '../../parameters'
 import { MATOMO_CONSTANTS } from './constants'
 import { FETCH_ARTICLES_SUCCESS, FETCH_PUBLICATIONS_SUCCESS } from '../../../shared/ducks/cms'
 
+/* istanbul ignore next */
 const trackEvents = {
   // NAVIGATION
   // NAVIGATION -> NAVIGATE TO DATA DETAIL

@@ -20,12 +20,12 @@ import {
 } from './normalize/normalize'
 
 export const endpointTypes = {
-  adressenLigplaats: 'bag/ligplaats/',
-  adressenNummeraanduiding: 'bag/nummeraanduiding/',
-  adressenOpenbareRuimte: 'bag/openbareruimte/',
-  adressenPand: 'bag/pand/',
-  adressenStandplaats: 'bag/standplaats/',
-  adressenVerblijfsobject: 'bag/verblijfsobject/',
+  adressenLigplaats: 'bag/v1.1/ligplaats/',
+  adressenNummeraanduiding: 'bag/v1.1/nummeraanduiding/',
+  adressenOpenbareRuimte: 'bag/v1.1/openbareruimte/',
+  adressenPand: 'bag/v1.1/pand/',
+  adressenStandplaats: 'bag/v1.1/standplaats/',
+  adressenVerblijfsobject: 'bag/v1.1/verblijfsobject/',
   bedrijfsinvesteringszone: 'vsd/biz/',
   bekendmakingen: 'vsd/bekendmakingen/',
   explosievenGevrijwaardGebied: 'milieuthemas/explosieven/gevrijwaardgebied/',
@@ -57,7 +57,7 @@ export const endpointTypes = {
   winkelgebied: 'vsd/winkgeb',
   wkpbBeperking: 'wkpb/beperking',
   wkpbUitreksel: 'brk/object-wkpb',
-  woonplaats: 'bag/woonplaats',
+  woonplaats: 'bag/v1.1/woonplaats',
 }
 
 const servicesByEndpointType = {
@@ -101,17 +101,17 @@ const servicesByEndpointType = {
           multiLine: true,
         },
         {
-          label: 'Feitelijk gebruik',
-          value: result.verblijfsobject ? result.verblijfsobject.gebruiksomschrijving : false,
+          label: 'Soort object (feitelijk gebruik)',
+          value: result.verblijfsobject ? result.verblijfsobject.gebruik : false,
         },
         {
           label: 'Status',
-          value: result.verblijfsobject ? result.verblijfsobject.statusomschrijving : false,
+          value: result.verblijfsobject ? result.verblijfsobject.status : false,
           status: result.verblijfsobject && result.verblijfsobject.statusLevel,
         },
         {
-          label: 'Indicatie hoofdadres',
-          value: result.isNevenadres ? 'Nee' : 'Ja',
+          label: 'Type adres',
+          value: result.type_adres,
           status: result.isNevenadres ? 'info' : '',
         },
         {
@@ -133,7 +133,7 @@ const servicesByEndpointType = {
         {
           value:
             result.verblijfsobject && result.verblijfsobject.statusLevel
-              ? `Status: ${result.verblijfsobject.statusomschrijving}`
+              ? `Status: ${result.verblijfsobject.status}`
               : false,
           level: result.verblijfsobject && result.verblijfsobject.statusLevel,
         },
@@ -164,17 +164,17 @@ const servicesByEndpointType = {
           multiLine: true,
         },
         {
-          label: 'Feitelijk gebruik',
-          value: result.gebruik ? result.gebruik.omschrijving : false,
+          label: 'Soort object (feitelijk gebruik)',
+          value: result.gebruik || '',
         },
         {
           label: 'Status',
-          value: result.status ? result.status.omschrijving : false,
+          value: result.status ? result.status : false,
           status: result.statusLevel,
         },
         {
-          label: 'Indicatie hoofdadres',
-          value: result.isNevenadres ? 'Nee' : 'Ja',
+          label: 'Type adres',
+          value: result.typeAdres,
           status: result.isNevenadres ? 'info' : '',
         },
         {
@@ -194,7 +194,7 @@ const servicesByEndpointType = {
       ],
       notifications: [
         {
-          value: result.statusLevel ? `Status: ${result.status.omschrijving}` : false,
+          value: result.statusLevel ? `Status: ${result.status}` : false,
           level: result.statusLevel,
         },
         {
@@ -235,13 +235,13 @@ const servicesByEndpointType = {
         },
         {
           label: 'Status',
-          value: result.status ? result.status.omschrijving : false,
+          value: result.status ? result.status : false,
           status: result.statusLevel,
         },
       ],
       notifications: [
         {
-          value: result.statusLevel ? result.status.omschrijving : false,
+          value: result.statusLevel ? result.status : false,
           level: result.statusLevel ? result.statusLevel : '',
         },
       ],

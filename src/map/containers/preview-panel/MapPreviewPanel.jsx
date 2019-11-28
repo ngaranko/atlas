@@ -24,7 +24,7 @@ class MapPreviewPanel extends React.Component {
     const isLoading = get(props, 'dataSearchQuery.isLoading') || get(props, 'mapDetail.isLoading')
     const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult
 
-    const openDetailEndpoint = () => props.openDetail(props.detailEndpoint)
+    const openDetailEndpoint = () => props.openDetail(props.detail)
     const onMaximize = () => props.onSearchMaximize(VIEW_MODE.SPLIT)
 
     return (
@@ -34,7 +34,7 @@ class MapPreviewPanel extends React.Component {
             <button
               type="button"
               className="map-preview-panel__button map-preview-panel__button--expand"
-              onClick={props.isSearchPreview ? onMaximize : openDetailEndpoint}
+              onClick={isDetailLoaded ? openDetailEndpoint : onMaximize}
               title="Volledige weergave tonen"
             >
               <span
@@ -94,7 +94,6 @@ class MapPreviewPanel extends React.Component {
 MapPreviewPanel.defaultProps = {
   detail: {},
   detailResult: {},
-  detailEndpoint: undefined,
   isEmbed: false,
   mapDetail: {},
   missingLayers: '',
@@ -110,7 +109,6 @@ MapPreviewPanel.defaultProps = {
 MapPreviewPanel.propTypes = {
   detail: PropTypes.shape({}),
   detailResult: PropTypes.shape({}),
-  detailEndpoint: PropTypes.string,
   isEmbed: PropTypes.bool,
   mapDetail: PropTypes.shape({}),
   missingLayers: PropTypes.string,

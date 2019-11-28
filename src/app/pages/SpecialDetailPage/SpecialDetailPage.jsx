@@ -25,9 +25,11 @@ const SpecialDetailPage = ({ id }) => {
     }
   }, [error])
 
-  const { field_content_link: contentLink, field_slug: slug, specialType, title } = results || {}
+  const { field_content_link: contentLink, slug, specialType, title } = results || {}
   const documentTitle = title && `Special: ${title}`
+
   const linkAction = toSpecialDetail(id, specialType, slug)
+
   return (
     <EditorialPage {...{ documentTitle, linkAction }} loading={loading}>
       <Row>

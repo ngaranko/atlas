@@ -11,9 +11,6 @@ import { clearMapDetail } from './actions'
 
 describe('DetailReducer', () => {
   const initialState = {}
-  const stateAfterRequest = {
-    detailObject: { data: 'data' },
-  }
 
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
@@ -34,7 +31,7 @@ describe('DetailReducer', () => {
 
   it(`should set the detail data when ${SHOW_DETAIL} is dispatched`, () => {
     expect(
-      reducer(stateAfterRequest, {
+      reducer(initialState, {
         type: SHOW_DETAIL,
         payload: {
           display: 'display',
@@ -42,7 +39,6 @@ describe('DetailReducer', () => {
         },
       }),
     ).toEqual({
-      detailObject: { data: 'data' },
       display: 'display',
       geometry: 'geometry',
       isLoading: false,
@@ -51,11 +47,13 @@ describe('DetailReducer', () => {
 
   it('should clear any detail data when a route change is initialized', () => {
     expect(
-      reducer(stateAfterRequest, {
+      reducer(initialState, {
         type: FETCH_DETAIL_REQUEST,
       }),
     ).toEqual({
-      detailObject: {},
+      includeSrc: null,
+      data: {},
+      filterSelection: {},
       isLoading: true,
     })
   })
@@ -67,7 +65,7 @@ describe('DetailReducer', () => {
         payload: { data: 'data' },
       }),
     ).toEqual({
-      detailObject: { data: 'data' },
+      data: 'data',
       isLoading: false,
     })
   })
@@ -78,7 +76,9 @@ describe('DetailReducer', () => {
         type: FETCH_DETAIL_FAILURE,
       }),
     ).toEqual({
-      detailObject: {},
+      includeSrc: null,
+      data: {},
+      filterSelection: {},
       isLoading: false,
     })
   })

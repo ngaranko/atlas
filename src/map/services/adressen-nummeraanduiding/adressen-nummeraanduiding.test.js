@@ -22,7 +22,7 @@ describe('The adressen nummeraanduiding resource', () => {
   it('normalizes a nummeraanduiding', async () => {
     const mockNummeraanduiding = {
       _display: 'Address display name 1',
-      hoofdadres: true,
+      type_adres: 'Hoofdadres',
       landelijk_id: 'abc123',
       verblijfsobject: 'https://acc.api.data.amsterdam.nl/bag/adressenVerblijfsobject/345678',
       _geometrie: 'geo',
@@ -30,12 +30,8 @@ describe('The adressen nummeraanduiding resource', () => {
 
     const mockVerblijsfobject = {
       gebruiksdoelen: 'foo',
-      gebruik: {
-        omschrijving: 'gebruik',
-      },
-      status: {
-        omschrijving: 'status',
-      },
+      gebruik: 'gebruik',
+      status: 'status',
       size: 100,
       statusLevel: 'foo',
     }
@@ -53,7 +49,7 @@ describe('The adressen nummeraanduiding resource', () => {
       isNevenadres: false,
       verblijfsobject: {
         gebruiksdoelen: mockVerblijsfobject.gebruiksdoelen,
-        gebruiksomschrijving: mockVerblijsfobject.gebruik,
+        gebruik: mockVerblijsfobject.gebruik,
         statusomschrijving: mockVerblijsfobject.status,
         size: mockVerblijsfobject.size,
         statusLevel: mockVerblijsfobject.statusLevel,
@@ -65,7 +61,7 @@ describe('The adressen nummeraanduiding resource', () => {
   it('fetches a nummeraanduiding without "verblijsobject"', async () => {
     const mockNummeraanduiding = {
       _display: 'Address display name 1',
-      hoofdadres: false,
+      type_adres: 'Nevenadres',
       landelijk_id: 'abc123',
       _geometrie: 'geo',
     }

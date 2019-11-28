@@ -87,54 +87,7 @@ describe('the dp-detail component', () => {
             return q.promise
           },
         },
-        endpointParser: {
-          getParts(endpoint) {
-            let category = ''
-            let subject = ''
 
-            if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/') {
-              category = 'bag'
-              subject = 'nummeraanduiding'
-            } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
-              category = 'brk'
-              subject = 'object'
-            } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
-              category = 'handelsregister'
-              subject = 'vestiging'
-            } else if (endpoint === grondexploitatieEndPoint) {
-              category = 'grondexploitatie'
-              subject = 'project'
-            } else if (endpoint === naturalPersonEndPoint) {
-              category = 'brk'
-              subject = 'subject'
-            } else if (endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
-              subject = 'api'
-            } else if (endpoint === dcatdEndPoint) {
-              category = 'dcatd'
-              subject = 'datasets'
-            }
-
-            return [category, subject]
-          },
-          getTemplateUrl(endpoint) {
-            let templateUrl = 'modules/detail/components/detail/templates/'
-
-            if (
-              endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
-              endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/'
-            ) {
-              templateUrl += 'bag/nummeraanduiding'
-            } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
-              templateUrl += 'brk/object'
-            } else if (endpoint === naturalPersonEndPoint) {
-              templateUrl += 'brk/subject'
-            }
-
-            templateUrl += '.html'
-
-            return templateUrl
-          },
-        },
         dataFormatter: {
           formatData: angular.identity,
         },

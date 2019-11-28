@@ -4,20 +4,24 @@
         class="c-detail__block qa-verblijfsobject"
     >
         <dp-glossary-header definition="VERBLIJFSOBJECT" meta-data="apiData" />
-        <dp-panel is-panel-visible="true" can-close="true" type="attention" class-name="qa-disabled-message c-disabled-message">
-            Enkele kenmerken vervallen of worden gewijzigd. Deze zijn hieronder rood gemarkeerd. <br />
-            Lees verder op <a class="c-link" target="_blank" href="https://www.amsterdam.nl/stelselpedia/bag-index/catalogus-bag/objectklasse-0/" target="_blank" rel="noopener">stelselpedia</a>.
-        </dp-panel>
+
         <dl class="c-key-value-list">
             <dt>Gebruiksdoel</dt>
-            <dd ng-if="!apiData.results.gebruiksdoelen[0]"></dd>
-            <dd class="c-key-value-list__multiple-values" ng-repeat="object in apiData.results.gebruiksdoelen">
-                {{ object.omschrijving }}<span ng-if="object.omschrijving_plus">: {{ object.omschrijving_plus }}</span>
+            <dd ng-if="!apiData.results.gebruiksdoel"></dd>
+            <dd class="c-key-value-list__multiple-values" ng-repeat="item in apiData.results.gebruiksdoel">
+                {{ item }}
             </dd>
-            <dt>Feitelijk gebruik</dt>
-            <dd>{{ apiData.results.gebruik.omschrijving }}</dd>
+            
+            <dt>Gebruiksdoel woonfunctie</dt>
+            <dd>{{ apiData.results.gebruiksdoel_woonfunctie }}</dd>
+            <dt>Gebruiksdoel gezondheidszorgfunctie</dt>
+            <dd>{{ apiData.results.gebruiksdoel_gezondheidszorgfunctie }}</dd>
+            <dt>Aan­tal een­he­den complex</dt>
+            <dd>{{ apiData.results.aantal_eenheden_complex }}</dd>
+            <dt>Soort object (feitelijk gebruik)</dt>
+            <dd>{{ apiData.results.gebruik }}</dd>
             <dt>Status</dt>
-            <dd>{{ apiData.results.status.omschrijving }}</dd>
+            <dd>{{ apiData.results.status }}</dd>
             <dt>Indicatie geconstateerd</dt>
             <dd>{{ apiData.results.indicatie_geconstateerd | yesNo }}</dd>
             <dt>Aanduiding in onderzoek</dt>
@@ -27,30 +31,25 @@
             <dd ng-if="apiData.results.oppervlakte === 1">onbekend</dd>
             <dt>Aantal kamers</dt>
             <dd>{{ apiData.results.aantal_kamers }}</dd>
+            <dt>Verdieping toegang</dt>
+            <dd>{{ apiData.results.verdieping_toegang }}</dd>
+            <dt>Toegang</dt>
+            <dd ng-if="!apiData.results.toegang.length > 0"> &nbsp; </dd>
+            <dd class="c-key-value-list__multiple-values" ng-repeat="item in apiData.results.toegang">
+                {{ item }}
+            </dd>
             <dt>Aantal bouwlagen</dt>
             <dd>{{ apiData.results.bouwlagen }}</dd>
-            <dt>Verdieping toegang</dt>
-            <dd>{{ apiData.results.bouwlaag_toegang }}</dd>
+            <dt>Hoogste bouwlaag</dt>
+            <dd>{{ apiData.results.hoogste_bouwlaag }}</dd>
+            <dt>Laagste bouwlaag</dt>
+            <dd>{{ apiData.results.laagste_bouwlaag }}</dd>
             <dt>Reden opvoer</dt>
-            <dd>{{ apiData.results.reden_opvoer.omschrijving }}</dd>
+            <dd>{{ apiData.results.reden_opvoer }}</dd>
             <dt>Eigendomsverhouding</dt>
-            <dd>{{ apiData.results.eigendomsverhouding.omschrijving }}</dd>
-            <dt>Toegang</dt>
-            <dd>{{ apiData.results.toegang.omschrijving }}</dd>
+            <dd>{{ apiData.results.eigendomsverhouding }}</dd>
             <dt>Coördinaten</dt>
             <dd>{{ apiData.results.geometrie.coordinates | coordinates: 'RD' }}</dd>
-            <dt><i class="c-key-value-list--attention"></i>Type woonobject</dt>
-            <dd>{{ apiData.results.type_woonobject.omschrijving }}</dd>
-            <dt><i class="c-key-value-list--attention"></i>Ligging</dt>
-            <dd>{{ apiData.results.ligging.omschrijving }}</dd>
-            <dt><i class="c-key-value-list--attention"></i>Aantal verhuurbare eenheden</dt>
-            <dd>{{ apiData.results.verhuurbare_eenheden }}</dd>
-            <dt><i class="c-key-value-list--attention"></i>Financieringswijze</dt>
-            <dd>{{ apiData.results.financieringswijze.omschrijving }}</dd>
-            <dt><i class="c-key-value-list--attention"></i>Indicatie woningvoorraad</dt>
-            <dd>{{ apiData.results.woningvoorraad | yesNo }}</dd>
-            <dt><i class="c-key-value-list--attention"></i>Status coördinaten</dt>
-            <dd>{{ apiData.results.status_coordinaat.omschrijving }}</dd>
         </dl>
     </div>
 

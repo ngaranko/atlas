@@ -26,7 +26,7 @@ describe('ArticleDetailPage', () => {
       field_file_type: 'pdf',
       field_publication_source: 'source',
       field_intro: 'intro',
-      field_slug: 'slug',
+      slug: 'slug',
       included: [
         { attributes: { uri: { url: 'https://cover-link' } } },
         { attributes: { uri: { url: 'https://cover-link' } } },

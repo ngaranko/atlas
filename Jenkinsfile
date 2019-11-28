@@ -102,6 +102,7 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES')
       }
       steps {
+        // Frontend
         sh "docker build -t ${IMAGE_FRONTEND_BUILD} " +
           "--shm-size 1G " +
           "--build-arg NODE_ENV=acceptance " +
@@ -116,6 +117,7 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
       }
       steps {
+        // Frontend
         sh "docker pull ${IMAGE_FRONTEND_BUILD}"
         sh "docker tag ${IMAGE_FRONTEND_BUILD} ${IMAGE_FRONTEND_ACCEPTANCE}"
         sh "docker push ${IMAGE_FRONTEND_ACCEPTANCE}"
@@ -133,6 +135,7 @@ pipeline {
       }
       steps {
         // NOTE NODE_ENV intentionaly not set (using Dockerfile default)
+        // Frontend
         sh "docker build -t ${IMAGE_FRONTEND_PRODUCTION} " +
             "--shm-size 1G " +
             "."

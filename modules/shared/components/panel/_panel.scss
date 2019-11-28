@@ -72,30 +72,11 @@ $icon-dimension: 24px;
     }
   }
 
-  &--attention {
-    & section {
-      margin-left: 15px;
-
-      &::before {
-        display: block;
-        position: absolute;
-        top: 12px;
-        left: 8px;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: $red;
-        content: '';
-      }
-    }
-  }
-
   a {
     font-weight: $bold-weight;
     text-decoration: underline;
   }
 
-  &--attention,
   &--info {
     .o-btn--close {
       @include icon-sprite('icon-clear', $primary-dark, $primary-dark, $icon-dimension);

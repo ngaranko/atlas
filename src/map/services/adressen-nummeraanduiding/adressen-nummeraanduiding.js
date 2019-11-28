@@ -13,16 +13,14 @@ const normalize = async result => {
       ? {
           verblijfsobject: {
             gebruiksdoelen: verblijfsobject.gebruiksdoelen,
-            gebruiksomschrijving: verblijfsobject.gebruik
-              ? verblijfsobject.gebruik.omschrijving
-              : '',
-            statusomschrijving: verblijfsobject.status ? verblijfsobject.status.omschrijving : '',
+            gebruik: verblijfsobject.gebruik || '',
+            status: verblijfsobject.status || '',
             size: verblijfsobject.size,
             statusLevel: verblijfsobject.statusLevel,
           },
         }
       : {}),
-    isNevenadres: !result.hoofdadres,
+    isNevenadres: result.type_adres === 'Nevenadres',
     // eslint-disable-next-line no-underscore-dangle
     geometry: result._geometrie,
   }
