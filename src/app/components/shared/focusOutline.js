@@ -1,7 +1,7 @@
 import { css } from '@datapunt/asc-core'
 import { themeColor } from '@datapunt/asc-ui'
 
-export const focusOutline = (width = 4) =>
+const focusOutline = (width = 4) =>
   css`
     ::after {
       content: '';

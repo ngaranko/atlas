@@ -8,15 +8,14 @@ import {
   Image,
   Link,
   Paragraph,
-  styles,
   Tag,
   themeColor,
   themeSpacing,
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { focusOutline } from './services/styles'
 import getImageFromCms from '../../utils/getImageFromCms'
+import focusOutline from '../shared/focusOutline'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(2)};
@@ -31,7 +30,7 @@ const StyledLink = styled(Link)`
   &:hover {
     border-bottom: ${themeColor('secondary')} 1px solid;
 
-    ${styles.HeadingStyle} {
+    ${StyledHeading} {
       color: ${themeColor('secondary')};
       text-decoration: underline;
     }

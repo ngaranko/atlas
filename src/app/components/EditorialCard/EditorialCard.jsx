@@ -19,14 +19,15 @@ import { TYPES } from '../../../shared/config/cms.config'
 
 const notFoundImage = require('./not_found_thumbnail.jpg')
 
-const CardHeading = styled(Heading)`
+const StyledHeading = styled(Heading)`
   border-bottom: 2px solid transparent;
   line-height: 22px;
   margin-bottom: ${themeSpacing(3)};
   width: fit-content;
+  display: inline-block;
 `
 
-const StyledRouterLink = styled(RouterLink)`
+const StyledLink = styled(Link)`
   margin-bottom: ${themeSpacing(4)};
   width: 100%;
 
@@ -34,25 +35,15 @@ const StyledRouterLink = styled(RouterLink)`
   &:focus {
     background-color: inherit;
 
-    ${CardHeading} {
+    ${StyledHeading} {
       color: ${themeColor('secondary')};
       border-color: ${themeColor('secondary')};
     }
   }
 `
 
-const StyledLinkWrapper = ({ children, ...otherProps }) => (
-  <Link $as={StyledRouterLink} {...otherProps}>
-    {children}
-  </Link>
-)
-
 const StyledCard = styled(Card)`
   align-items: stretch;
-`
-
-const StyledCardHeading = styled(CardHeading)`
-  display: inline-block;
 `
 
 const StyledCardMedia = styled(CardMedia)`
@@ -142,8 +133,10 @@ const EditorialCard = ({
       ? EDITORIAL_DETAIL_ACTIONS[type](id, specialType, slug)
       : EDITORIAL_DETAIL_ACTIONS[type](id, slug))
 
+  const displayTitle = shortTitle || title || label
+
   return (
-    <StyledLinkWrapper key={id} to={to} title={title} linkType="blank">
+    <StyledLink $as={RouterLink} key={id} to={to} title={displayTitle} linkType="blank">
       <StyledCard horizontal>
         <StyledCardMedia vertical={imageIsVertical}>
           <Image
@@ -155,7 +148,7 @@ const EditorialCard = ({
         </StyledCardMedia>
         <StyledCardContent>
           <div>
-            <StyledCardHeading $as="h4">{shortTitle || title || label}</StyledCardHeading>
+            <StyledHeading $as="h4">{displayTitle}</StyledHeading>
           </div>
 
           {specialType && (
@@ -179,7 +172,7 @@ const EditorialCard = ({
           )}
         </StyledCardContent>
       </StyledCard>
-    </StyledLinkWrapper>
+    </StyledLink>
   )
 }
 
