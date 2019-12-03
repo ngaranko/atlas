@@ -10,7 +10,7 @@ import {
   themeSpacing,
 } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
-import focusOutline from '../HomePage/services/styles'
+import focusOutline from '../shared/focusOutline'
 
 const StyledHeading = styled(Heading)`
   border-bottom: 2px solid transparent;
@@ -30,7 +30,7 @@ const StyledLink = styled(Link)`
 
     ${StyledHeading} {
       color: ${themeColor('secondary')};
-      text-decoration: underline;
+      border-color: ${themeColor('secondary')};
     }
   }
 
@@ -55,52 +55,54 @@ const StyledCardContent = styled(CardContent)`
   position: relative;
 `
 
-const IntroText = styled(Paragraph)`
+const StyledParagraph = styled(Paragraph)`
+  display: flex;
   padding-bottom: ${themeSpacing(4)};
 `
 
-const MetaText = styled(Paragraph)`
-  display: inline-block;
+const MetaText = styled(StyledParagraph)`
   color: ${themeColor('tint', 'level5')};
-  padding-bottom: ${themeSpacing(4)};
   font-size: 14px;
   line-height: 1.25;
-  margin-top: auto;
-  &::first-letter {
-    text-transform: capitalize;
-  }
+`
+const FormatTag = styled.span`
+  padding: ${themeSpacing(0, 1)};
+  color: ${themeColor('tint', 'level5')};
 `
 
-const DatasetCard = ({
-  id = ' 9',
-  shortTitle = 'De Amsterdam Museum dataset ',
-  teaser = 'De Amsterdam Museum dataset is een beschrijving van de meer dan 70.000 aan Amsterdam gerelateerde objecten die aanwezig zijn in de collectie van het Amsterdam Museum. De dataset is aangeboden als Linked Open Data via PURL urls.',
-  date = '',
-  dateLocale = 'Locale date',
-}) => {
-  const to = {}
+const DatasetCard = ({ id, shortTitle, teaser, lastModified, modified, formats, to }) => (
+  <StyledLink $as={RouterLink} key={id} to={to} title={shortTitle} linkType="blank">
+    <StyledCard horizontal>
+      <StyledCardContent>
+        <div>
+          <StyledHeading $as="h4">{shortTitle}</StyledHeading>
+        </div>
 
-  return (
-    <StyledLink $as={RouterLink} key={id} to={to} title={shortTitle} linkType="blank">
-      <StyledCard horizontal>
-        <StyledCardContent>
-          <div>
-            <StyledHeading $as="h4">{shortTitle}</StyledHeading>
-          </div>
+        <div>
+          <MetaText as="time" data-test="metaText" datetime={modified}>
+            {`Gewijzigd: ${lastModified}`}
+          </MetaText>
+        </div>
 
-          <div>
-            <IntroText>{teaser}</IntroText>
-          </div>
+        <div>
+          <StyledParagraph>{teaser}</StyledParagraph>
+        </div>
 
-          <div>
-            <MetaText as="time" data-test="metaText" datetime={date}>
-              {dateLocale}
-            </MetaText>
-          </div>
-        </StyledCardContent>
-      </StyledCard>
-    </StyledLink>
-  )
-}
+        <div>
+          <MetaText data-test="metaText">
+            {`Formaten: `}
+            {formats.length > 0 &&
+              formats.map(format => (
+                <FormatTag key={format.name} data-test="formatTag">
+                  <strong>{format.name}</strong>
+                  {` x ${format.count}`}
+                </FormatTag>
+              ))}
+          </MetaText>
+        </div>
+      </StyledCardContent>
+    </StyledCard>
+  </StyledLink>
+)
 
 export default DatasetCard

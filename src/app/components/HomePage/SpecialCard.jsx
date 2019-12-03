@@ -14,8 +14,8 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { focusOutline } from './services/styles'
 import getImageFromCms from '../../utils/getImageFromCms'
+import focusOutline from '../shared/focusOutline'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(2)};
