@@ -10,7 +10,7 @@ import {
 } from '@datapunt/asc-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { focusOutline } from './services/styles'
+import focusOutline from '../shared/focusOutline'
 
 const HighlightCardHeadingStyle = styled(Heading)`
   margin: 0;
