@@ -8,7 +8,6 @@ import {
   Image,
   Link,
   Paragraph,
-  styles,
   Tag,
   themeColor,
   themeSpacing,
@@ -31,7 +30,7 @@ const StyledLink = styled(Link)`
   &:hover {
     border-bottom: ${themeColor('secondary')} 1px solid;
 
-    ${styles.HeadingStyle} {
+    ${StyledHeading} {
       color: ${themeColor('secondary')};
       text-decoration: underline;
     }

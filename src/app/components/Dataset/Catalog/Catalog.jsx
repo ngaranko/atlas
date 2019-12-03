@@ -12,6 +12,7 @@ import {
 } from '../../Filters/Filters'
 import useSlug from '../../../utils/useSlug'
 import { toDatasetDetail } from '../../../../store/redux-first-router/actions'
+import DatasetCard from '../../DatasetCard'
 
 const arrayToObject = (array, keyField) =>
   array.reduce(
@@ -62,48 +63,49 @@ const Catalog = ({ content, catalogFilters }) => {
   return (
     <div className="c-data-selection-catalog u-margin__bottom--4">
       {items.map(row => (
-        <div key={row.id} className="c-data-selection-catalog__list">
-          <div className="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation">
-            <RouterLink className="qa-dp-link" to={row.linkTo} tabIndex="-1">
-              <div className="c-data-selection-catalog__header">
-                <h2>{row.header}</h2>
-                <div>{modificationDateFilter(row.modified)}</div>
-              </div>
+        <DatasetCard />
+        // <div key={row.id} className="c-data-selection-catalog__list">
+        //   <div className="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation">
+        //     <RouterLink className="qa-dp-link" to={row.linkTo} tabIndex="-1">
+        //       <div className="c-data-selection-catalog__header">
+        //         <h2>{row.header}</h2>
+        //         <div>{modificationDateFilter(row.modified)}</div>
+        //       </div>
 
-              <span className="c-data-selection-catalog__formats">
-                {row.formats.map((format, i) => (
-                  <div key={i} className="c-data-selection-file-type">
-                    <span
-                      className={`c-data-selection-file-type__name c-data-selection-file-type__format-${kebapCaseFilter(
-                        format.name,
-                      )}`}
-                    >
-                      {format.name}
-                    </span>
-                    <span className="c-data-selection-file-type__x">x</span>
-                    <span className="c-data-selection-file-type__count">{format.count}</span>
-                  </div>
-                ))}
-              </span>
-              <span className="c-data-selection-catalog__tags">
-                {row.tags.map((tag, i) => (
-                  <ul key={i} className="u-inline">
-                    <li className="u-inline">
-                      <div className="dataset-tag-small">
-                        <i className="dataset-tag-small__arrow" />
-                        <span className="dataset-tag-small__label">{ucFirst(tag)}</span>
-                      </div>
-                    </li>
-                  </ul>
-                ))}
-              </span>
+        //       <span className="c-data-selection-catalog__formats">
+        //         {row.formats.map((format, i) => (
+        //           <div key={i} className="c-data-selection-file-type">
+        //             <span
+        //               className={`c-data-selection-file-type__name c-data-selection-file-type__format-${kebapCaseFilter(
+        //                 format.name,
+        //               )}`}
+        //             >
+        //               {format.name}
+        //             </span>
+        //             <span className="c-data-selection-file-type__x">x</span>
+        //             <span className="c-data-selection-file-type__count">{format.count}</span>
+        //           </div>
+        //         ))}
+        //       </span>
+        //       <span className="c-data-selection-catalog__tags">
+        //         {row.tags.map((tag, i) => (
+        //           <ul key={i} className="u-inline">
+        //             <li className="u-inline">
+        //               <div className="dataset-tag-small">
+        //                 <i className="dataset-tag-small__arrow" />
+        //                 <span className="dataset-tag-small__label">{ucFirst(tag)}</span>
+        //               </div>
+        //             </li>
+        //           </ul>
+        //         ))}
+        //       </span>
 
-              <div className="c-data-selection-catalog__description">
-                {truncateHtmlAsTextFilter(row.description)}
-              </div>
-            </RouterLink>
-          </div>
-        </div>
+        //       <div className="c-data-selection-catalog__description">
+        //         {truncateHtmlAsTextFilter(row.description)}
+        //       </div>
+        //     </RouterLink>
+        //   </div>
+        // </div>
       ))}
     </div>
   )
