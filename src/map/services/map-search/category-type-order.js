@@ -30,6 +30,7 @@ const categoryTypeOrder = [
   'vsd/oplaadpunten',
   'vsd/bekendmakingen',
   'vsd/evenementen',
+  'vsd/reclame',
 ]
 
 export default categoryTypeOrder

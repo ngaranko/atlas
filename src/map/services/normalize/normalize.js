@@ -208,4 +208,12 @@ export const monument = result => {
   return { ...result, ...additionalFields }
 }
 
+export const reclame = result => {
+  const additionalFields = {
+    geometry: result.wkb_geometry,
+  }
+
+  return { ...result, ...additionalFields }
+}
+
 export default normalize

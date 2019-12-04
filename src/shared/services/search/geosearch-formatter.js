@@ -9,8 +9,8 @@ const geosearchFormatter = allSearchResults => {
   return SEARCH_CONFIG.COORDINATES_HIERARCHY.map(rawCategory => {
     const formattedCategory = {
       slug: rawCategory.slug || null,
-      label_singular: rawCategory.label_singular,
-      label_plural: rawCategory.label_plural,
+      singular: rawCategory.singular,
+      plural: rawCategory.plural,
       results: allFeaturesFlattened
         .filter(feature => rawCategory.features.indexOf(feature.type) !== -1)
         .sort((featureA, featureB) => {

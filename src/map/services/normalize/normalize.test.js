@@ -9,6 +9,7 @@ import {
   evenementen,
   grondexploitatie,
   vastgoed,
+  reclame,
   societalActivities,
   winkelgebied,
   parkeerzones,
@@ -603,6 +604,22 @@ ${input.gebruiksdoel[1]}`,
 
       expect(output).toMatchObject({
         speed: '0,121',
+      })
+    })
+  })
+
+  describe('normalizes "reclame', () => {
+    let input
+    let output
+    it('returns the geometry', () => {
+      input = {
+        wkb_geometry: 'wkb_geometry',
+      }
+
+      output = reclame(input)
+
+      expect(output).toMatchObject({
+        geometry: input.wkb_geometry,
       })
     })
   })

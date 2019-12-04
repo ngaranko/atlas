@@ -23,7 +23,7 @@ export const mapDocumentTitle = (action, defaultTitle) => {
 export const detailDocumentTitle = (action, defaultTitle = 'UNKNOWN') => {
   const glossaryKey = toGlossaryKey(action.payload.type, action.payload.subtype)
   const glossaryDefinition = GLOSSARY.DEFINITIONS[glossaryKey]
-  let label = glossaryDefinition ? glossaryDefinition.label_singular : defaultTitle
+  let label = glossaryDefinition ? glossaryDefinition.singular : defaultTitle
   const embed = get(action, `meta.query[${PARAMETERS.EMBED}]`, 'false')
 
   if (embed === 'true') {

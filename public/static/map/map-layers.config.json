@@ -2840,7 +2840,8 @@
         ],
         "title": "Reclamebelastingtarieven",
         "url": "/maps/reclame",
-        "noDetail": true,
+        "detailUrl": "geosearch/reclame/",
+        "detailItem": "reclame",
         "meta": {
             "description": null,
             "theme": null,
