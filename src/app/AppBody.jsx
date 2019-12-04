@@ -5,13 +5,7 @@ import Helmet from 'react-helmet'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
-import PAGES, {
-  isMapSplitPage,
-  isEditorialPage,
-  isEditorialOverviewPage,
-  isQuerySearchPage,
-  isContentPage,
-} from './pages'
+import PAGES, { isMapSplitPage, isEditorialOverviewPage, isSearchPage } from './pages'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
@@ -41,13 +35,11 @@ const Container = styled.div`
 const AppBody = ({
   visibilityError,
   bodyClasses,
-  hasMaxWidth,
+  hasGrid,
   homePage,
   currentPage,
   embedPreviewMode,
 }) => {
-  const hasGrid = homePage || isEditorialPage(currentPage) || isContentPage(currentPage)
-
   return hasGrid ? (
     <>
       <Container id="main" className="main-container">
@@ -69,6 +61,7 @@ const AppBody = ({
           {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
           {currentPage === PAGES.MOVED && <MovedPage />}
           {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
+          {isSearchPage(currentPage) && <SearchPage />}
         </Suspense>
       </Container>
       <FeedbackModal id="feedbackModal" />
@@ -84,14 +77,14 @@ const AppBody = ({
       </Helmet>
       <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
         <div className={`c-dashboard__body ${bodyClasses}`}>
-          {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
+          {visibilityError && (
+            <GeneralErrorMessage hasMaxWidth={hasGrid} {...{ isHomePage: homePage }} />
+          )}
           {embedPreviewMode ? (
             <EmbedIframeComponent />
           ) : (
             <div className="u-grid u-full-height">
               <div className="u-row u-full-height">
-                {isQuerySearchPage(currentPage) && <SearchPage />}
-
                 {/* Todo: DP-6391 */}
                 {currentPage === PAGES.DATA_SEARCH_CATEGORY && (
                   <div className="c-search-results u-grid">

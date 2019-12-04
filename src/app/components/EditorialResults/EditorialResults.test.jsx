@@ -15,14 +15,6 @@ describe('EditorialResults', () => {
     expect(component.find('LoadingIndicator').exists()).toBe(false)
   })
 
-  it('should display the title', () => {
-    component = shallow(<EditorialResults showTitle={false} title="Foo" />)
-    expect(component.find('Styled(Heading)').exists()).toBe(false)
-
-    component = shallow(<EditorialResults showTitle title="Foo" />)
-    expect(component.find('Styled(Heading)').exists()).toBe(true)
-  })
-
   it('should call the onClickMore function', () => {
     const onClickMore = jest.fn()
 

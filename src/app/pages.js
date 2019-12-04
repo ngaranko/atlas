@@ -64,7 +64,7 @@ export const isMapSplitPage = page =>
   page === PAGES.DATA_SEARCH_GEO ||
   page === PAGES.CADASTRAL_OBJECTS
 
-export const isQuerySearchPage = page =>
+export const isSearchPage = page =>
   page === PAGES.SEARCH ||
   page === PAGES.DATA_SEARCH_QUERY ||
   page === PAGES.DATASET_SEARCH ||

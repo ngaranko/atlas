@@ -8,12 +8,7 @@ jest.useFakeTimers()
 describe('usePagination', () => {
   const mockResults = [
     {
-      type: 'foo',
-      results: [
-        {
-          field: 'field',
-        },
-      ],
+      field: 'field',
     },
   ]
 
@@ -31,7 +26,12 @@ describe('usePagination', () => {
     ])
 
     const { result } = renderHook(() =>
-      usePagination('query getTest() {}', { q: 'foo', types: 'foo' }, 10, 0),
+      usePagination(
+        { query: 'query getTest() {}', resolver: 'testSearch' },
+        { q: 'foo', types: 'foo' },
+        10,
+        0,
+      ),
     )
 
     const [props] = result.current
@@ -44,7 +44,7 @@ describe('usePagination', () => {
       {
         fetching: false,
         data: {
-          cmsSearch: {
+          testSearch: {
             results: mockResults,
           },
         },
@@ -53,14 +53,18 @@ describe('usePagination', () => {
     ])
 
     const { result } = renderHook(() =>
-      usePagination('query getTest() {}', { q: 'foo', types: 'foo' }, 10, 0),
+      usePagination(
+        { query: 'query getTest() {}', resolver: 'testSearch' },
+        { q: 'foo', types: 'foo' },
+        10,
+        0,
+      ),
     )
 
     const [props] = result.current
 
     expect(props).toEqual({
       data: {
-        type: 'foo',
         results: [{ field: 'field' }],
       },
       error: false,

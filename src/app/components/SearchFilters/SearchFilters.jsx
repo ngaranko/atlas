@@ -1,46 +1,49 @@
 import React from 'react'
 import { Checkbox, Label } from '@datapunt/asc-ui'
-import SearchContext from '../../pages/SearchPage/SearchContext'
 import FilterBox from '../FilterBox'
 
-const SearchFilters = () => {
-  const { fetchDataSearch, setDataSearchResults, dataFilterOptions } = React.useContext(
-    SearchContext,
-  )
-  const activeFilters = React.useMemo(() => new Set(), [])
+const SearchFilters = ({ filters: propFilters, onFilter }) => {
+  const [activeFilters, setActiveFilters] = React.useState([])
+  const { filters, title } = propFilters
 
-  const onChange = async e => {
+  const onChange = e => {
     const { value, checked } = e.target
+
     if (checked) {
-      activeFilters.add(value)
+      setActiveFilters([...activeFilters, value])
     } else {
-      activeFilters.delete(value)
+      setActiveFilters(activeFilters.filter(filter => filter !== value))
     }
-    const { data } = await fetchDataSearch(50, [...activeFilters])
-    setDataSearchResults(data.dataSearch.results)
   }
+
+  React.useEffect(() => {
+    onFilter(activeFilters)
+  }, [activeFilters, onFilter])
+
   return (
-    <>
-      <FilterBox
-        label="Filters"
-        subLabel={activeFilters.size > 0 && `${activeFilters.size} geselecteerd`}
-        showMoreLabel="Toon meer"
-      >
-        {dataFilterOptions && dataFilterOptions.length
-          ? dataFilterOptions.map(({ label, type, count }) => (
-              <Label
-                key={type}
-                htmlFor={`type:${type}`}
-                label={`${label} (${count})`}
-                disabled={count === 0}
-              >
-                <Checkbox onChange={onChange} id={`type:${type}`} value={type} variant="primary" />
-              </Label>
-            ))
-          : null}
-      </FilterBox>
-    </>
+    <FilterBox
+      label={title}
+      subLabel={activeFilters.length > 0 && `${activeFilters.length} geselecteerd`}
+      showMoreLabel="Toon meer"
+    >
+      {filters && filters.length
+        ? filters.map(({ label, type, count }) => (
+            <Label
+              key={type}
+              htmlFor={`type:${type}`}
+              label={`${label} (${count})`}
+              disabled={count === 0}
+            >
+              <Checkbox onChange={onChange} id={`type:${type}`} value={type} variant="primary" />
+            </Label>
+          ))
+        : null}
+    </FilterBox>
   )
+}
+
+SearchFilters.defaultProps = {
+  filters: {},
 }
 
 export default SearchFilters

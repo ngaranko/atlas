@@ -1,12 +1,12 @@
 import React from 'react'
 import { useQuery } from 'urql'
 
-const usePagination = (query, input, limit = 50, initialFrom = 0) => {
+const usePagination = (config, input, limit = 50, initialFrom = 0) => {
   const [result, setResult] = React.useState({})
   const [from, setFrom] = React.useState(initialFrom)
 
   const [{ fetching, data, error }] = useQuery({
-    query,
+    query: config.query,
     variables: { limit, from, ...input },
   })
 
@@ -17,10 +17,7 @@ const usePagination = (query, input, limit = 50, initialFrom = 0) => {
 
   React.useEffect(() => {
     if (fetching === false && !error) {
-      const filteredData =
-        data && data.cmsSearch
-          ? data.cmsSearch.results.filter(item => item.type === input.types)[0]
-          : null
+      const filteredData = data && data[config.resolver] ? data[config.resolver] : null
 
       setResult(current => ({
         ...filteredData,
