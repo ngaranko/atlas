@@ -41,8 +41,8 @@ export function formatCategory(slug, endpointSearchResults) {
   const links = (isObject(endpointSearchResults) && endpointSearchResults.results) || []
 
   return {
-    label_singular: endpointConfig.label_singular,
-    label_plural: endpointConfig.label_plural,
+    singular: endpointConfig.singular,
+    plural: endpointConfig.plural,
     slug: endpointConfig.slug,
     count: (isObject(endpointSearchResults) && endpointSearchResults.count) || 0,
     results: formatLinks(slug, links),

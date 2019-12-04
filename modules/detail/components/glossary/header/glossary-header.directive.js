@@ -38,8 +38,8 @@ import isDefined from '../../../../../src/shared/services/is-defined'
       })
 
       vm.glossaryLabel = vm.usePlural
-        ? GLOSSARY.DEFINITIONS[vm.definition].label_plural
-        : GLOSSARY.DEFINITIONS[vm.definition].label_singular
+        ? GLOSSARY.DEFINITIONS[vm.definition].plural
+        : GLOSSARY.DEFINITIONS[vm.definition].singular
       vm.glossaryDescription = $sce.trustAsHtml(GLOSSARY.DEFINITIONS[vm.definition].description)
       vm.stelselpediaUrl = GLOSSARY.DEFINITIONS[vm.definition].url
 
