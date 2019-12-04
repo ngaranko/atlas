@@ -372,6 +372,7 @@ const servicesByEndpointType = {
       title: categoryLabels.reclame.singular,
       subTitle: result._display,
       items: [
+        { label: 'Tarief per', value: result.localeDate },
         { label: 'Website', value: result.website, link: result.website },
         { label: 'Tarieven', value: result.tarieven, link: result.tarieven },
       ],

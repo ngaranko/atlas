@@ -11,14 +11,7 @@
 
       <div class="c-key-value-item">
         <dt>{{ vm.apiData.results.items[0].label }}</dt>
-        <dd class="c-key-value-list__value--ellipsis">
-          <a
-            class="o-btn o-btn--link c-key-value-list__value-inline"
-            target="_blank"
-            ng-href="{{ vm.apiData.results.items[4].value }}"
-            >{{ vm.apiData.results.items[0].value }}</a
-          >
-        </dd>
+        <dd>{{ vm.apiData.results.items[0].value }}</dd>
       </div>
 
       <div class="c-key-value-item">
@@ -29,6 +22,18 @@
             target="_blank"
             ng-href="{{ vm.apiData.results.items[4].value }}"
             >{{ vm.apiData.results.items[1].value }}</a
+          >
+        </dd>
+      </div>
+
+      <div class="c-key-value-item">
+        <dt>{{ vm.apiData.results.items[2].label }}</dt>
+        <dd class="c-key-value-list__value--ellipsis">
+          <a
+            class="o-btn o-btn--link c-key-value-list__value-inline"
+            target="_blank"
+            ng-href="{{ vm.apiData.results.items[4].value }}"
+            >{{ vm.apiData.results.items[2].value }}</a
           >
         </dd>
       </div>

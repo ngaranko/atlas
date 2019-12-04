@@ -622,5 +622,15 @@ ${input.gebruiksdoel[1]}`,
         geometry: input.wkb_geometry,
       })
     })
+
+    it('returns the localeDate', () => {
+      input = {}
+
+      output = reclame(input)
+
+      expect(output).toMatchObject({
+        localeDate: '1 januari 2020',
+      })
+    })
   })
 })
