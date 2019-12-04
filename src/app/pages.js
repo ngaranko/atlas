@@ -15,6 +15,8 @@ const PAGES = {
   DATA_SEARCH_GEO: 'DATA_SEARCH_GEO',
   DATA_SEARCH_CATEGORY: 'SEARCH_DATA_CATEGORY',
 
+  SEARCH: 'SEARCH',
+
   CONSTRUCTION_FILE: 'CONSTRUCTION_FILE',
 
   // cms pages
@@ -62,7 +64,8 @@ export const isMapSplitPage = page =>
   page === PAGES.DATA_SEARCH_GEO ||
   page === PAGES.CADASTRAL_OBJECTS
 
-export const isQuerySearchPage = page =>
+export const isSearchPage = page =>
+  page === PAGES.SEARCH ||
   page === PAGES.DATA_SEARCH_QUERY ||
   page === PAGES.DATASET_SEARCH ||
   page === PAGES.ARTICLE_SEARCH ||

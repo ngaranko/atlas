@@ -1,9 +1,8 @@
 import React from 'react'
 import { Enlarge } from '@datapunt/asc-assets'
 import styled from '@datapunt/asc-core'
-import { Button, CardContainer, Heading, svgFill, themeColor, themeSpacing } from '@datapunt/asc-ui'
+import { Button, CardContainer, svgFill, themeColor } from '@datapunt/asc-ui'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
-import { EDITORIAL_TITLES } from '../../pages/EditorialOverviewPage/constants'
 import EditorialCard from '../EditorialCard'
 
 const EditorialCardContainer = styled(CardContainer)`
@@ -23,34 +22,14 @@ const StyledButton = styled(Button)`
   }
 `
 
-const PageHeading = styled(Heading)`
-  margin-bottom: ${themeSpacing(4)};
-  padding-bottom: ${themeSpacing(2)};
-  border-bottom: 1px solid ${themeColor('tint', 'level3')};
-`
-
-const EditorialResults = ({
-  title,
-  totalCount,
-  headingLevel,
-  results,
-  loading,
-  type,
-  onClickMore,
-  showTitle,
-  className,
-}) => (
+const EditorialResults = ({ results, loading, type, onClickMore, className }) => (
   <EditorialCardContainer className={className}>
     {!results && loading ? (
       <LoadingIndicator style={{ position: 'inherit' }} />
     ) : (
       <>
-        {showTitle && (
-          <PageHeading $as={headingLevel || 'h1'}>
-            {title || `${EDITORIAL_TITLES[type]} (${totalCount.toLocaleString('nl-NL')})`}
-          </PageHeading>
-        )}
         {results &&
+          !!results.length &&
           results.map(result => <EditorialCard {...result} key={result.id} type={type} />)}
         {loading && <LoadingIndicator style={{ position: 'inherit' }} />}
         {!loading && onClickMore && (
@@ -67,10 +46,5 @@ const EditorialResults = ({
     )}
   </EditorialCardContainer>
 )
-
-EditorialResults.defaultProps = {
-  showTitle: true,
-  totalCount: '',
-}
 
 export default EditorialResults

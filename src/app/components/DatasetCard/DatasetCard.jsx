@@ -91,7 +91,8 @@ const DatasetCard = ({ id, shortTitle, teaser, lastModified, modified, formats, 
         <div>
           <MetaText data-test="metaText">
             {`Formaten: `}
-            {formats.length > 0 &&
+            {formats &&
+              formats.length > 0 &&
               formats.map(format => (
                 <FormatTag key={format.name} data-test="formatTag">
                   <strong>{format.name}</strong>

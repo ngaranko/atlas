@@ -28,7 +28,11 @@ exports[`App should render the homepage 1`] = `
         }
       }
     >
-      <AppWrapper>
+      <AppWrapper
+        currentPage="DATA"
+        hasMaxWidth={false}
+        isFullHeight={false}
+      >
         <Connect(Header)
           embedPreviewMode={false}
           hasMaxWidth={false}
@@ -40,7 +44,7 @@ exports[`App should render the homepage 1`] = `
           bodyClasses=""
           currentPage="DATA"
           embedPreviewMode={false}
-          hasMaxWidth={false}
+          hasGrid={false}
           homePage={false}
           visibilityError={false}
         />
@@ -78,7 +82,11 @@ exports[`App should render the mapview 1`] = `
         }
       }
     >
-      <AppWrapper>
+      <AppWrapper
+        currentPage="DATA"
+        hasMaxWidth={false}
+        isFullHeight={false}
+      >
         <Connect(Header)
           embedPreviewMode={false}
           hasMaxWidth={false}
@@ -90,7 +98,7 @@ exports[`App should render the mapview 1`] = `
           bodyClasses=""
           currentPage="DATA"
           embedPreviewMode={false}
-          hasMaxWidth={false}
+          hasGrid={false}
           homePage={false}
           visibilityError={false}
         />

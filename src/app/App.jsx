@@ -12,8 +12,14 @@ import {
   breakpoint,
 } from '@datapunt/asc-ui'
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
-import { Provider as GraphQLProvider, createClient } from 'urql'
-import { isEditorialPage, isContentPage } from './pages'
+import {
+  Provider as GraphQLProvider,
+  createClient,
+  cacheExchange,
+  fetchExchange,
+  dedupExchange,
+} from 'urql'
+import { isEditorialPage, isContentPage, isSearchPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -31,6 +37,48 @@ import { MATOMO_CONFIG } from '../store/middleware/matomo/constants'
 import { routing } from './routes'
 import Footer from './components/Footer/Footer'
 
+const StyledContainer = styled(Container)`
+  background-color: ${themeColor('tint', 'level1')};
+  position: relative;
+
+  @media screen and ${breakpoint('min-width', 'laptopM')} {
+    margin: 0 ${themeSpacing(6)};
+  }
+`
+
+const matomoInstance = createInstance({
+  urlBase: MATOMO_CONFIG.BASE_URL,
+  siteId: MATOMO_CONFIG[process.env.NODE_ENV].SITE_ID,
+})
+
+const graphQLClient = createClient({
+  // Todo dont forget to change to api
+  url: `${process.env.API_ROOT}cms_search/graphql/`,
+  exchanges: [dedupExchange, cacheExchange, fetchExchange],
+  requestPolicy: 'cache-first',
+})
+
+function AppWrapper({ children, hasMaxWidth, currentPage, isFullHeight }) {
+  const rootClasses = classNames({
+    'c-dashboard--max-width': hasMaxWidth,
+    'c-dashboard--full-height': isFullHeight,
+  })
+
+  // Todo: don't use page types, this will be used
+  const pageTypeClass = currentPage.toLowerCase().replace('_', '-')
+
+  return hasMaxWidth ? (
+    <StyledContainer beamColor="valid">
+      {children}
+      <Footer />
+    </StyledContainer>
+  ) : (
+    <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>
+      {children}
+    </div>
+  )
+}
+
 const App = ({
   isFullHeight,
   visibilityError,
@@ -45,17 +93,13 @@ const App = ({
 }) => {
   const editorialPage = isEditorialPage(currentPage)
   const contentPage = isContentPage(currentPage)
-  const hasMaxWidth = homePage || editorialPage || contentPage
+  const hasMaxWidth = homePage || editorialPage || contentPage || isSearchPage(currentPage)
 
   // Redirect to the 404 page if currentPage isn't set
   if (currentPage === '' && window) {
     window.location.replace(routing.niet_gevonden.path)
   }
 
-  const rootClasses = classNames({
-    'c-dashboard--max-width': hasMaxWidth,
-    'c-dashboard--full-height': isFullHeight,
-  })
   const bodyClasses = classNames({
     'c-dashboard__body--error': visibilityError,
     'c-dashboard__body--overflow': overflowScroll,
@@ -88,60 +132,22 @@ const App = ({
     })
   }
 
-  // Todo: don't use page types, this will be used
-  const pageTypeClass = currentPage.toLowerCase().replace('_', '-')
-
-  const matomoInstance = createInstance({
-    urlBase: MATOMO_CONFIG.BASE_URL,
-    siteId: MATOMO_CONFIG[process.env.NODE_ENV].SITE_ID,
-  })
-
-  const graphQLClient = createClient({
-    url: `${process.env.API_ROOT}cms_search/graphql/`,
-  })
-
-  const StyledContainer = styled(Container)`
-    background-color: ${themeColor('tint', 'level1')};
-    position: relative;
-
-    @media screen and ${breakpoint('min-width', 'laptopM')} {
-      margin: 0 ${themeSpacing(6)};
-    }
-  `
-
-  function AppWrapper({ children }) {
-    return hasMaxWidth ? (
-      <StyledContainer beamColor="valid">
-        {children}
-        <Footer />
-      </StyledContainer>
-    ) : (
-      <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>
-        {children}
-      </div>
-    )
-  }
-
   return (
     <ThemeProvider>
       <GlobalStyle />
       <MatomoProvider value={matomoInstance}>
         <GraphQLProvider value={graphQLClient}>
-          <AppWrapper>
+          <AppWrapper {...{ currentPage, isFullHeight, hasMaxWidth }}>
             {!embedMode && (
               <Header
-                homePage={homePage}
-                hasMaxWidth={hasMaxWidth}
-                printMode={printMode}
-                embedPreviewMode={embedPreviewMode}
-                printOrEmbedMode={printOrEmbedMode}
+                {...{ homePage, hasMaxWidth, printMode, embedPreviewMode, printOrEmbedMode }}
               />
             )}
             <AppBody
+              hasGrid={hasMaxWidth}
               {...{
                 visibilityError,
                 bodyClasses,
-                hasMaxWidth,
                 homePage,
                 currentPage,
                 embedPreviewMode,

@@ -23,7 +23,7 @@ describe('EditorialOverviewPage', () => {
     component = shallow(<EditorialOverviewPage pageType={PAGES.PUBLICATIONS} />)
 
     expect(usePagination).toHaveBeenCalledWith(
-      expect.any(String),
+      expect.any(Object),
       expect.objectContaining({
         types: TYPES.PUBLICATION,
       }),

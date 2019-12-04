@@ -58,6 +58,7 @@ import paramsRegistry from './params-registry'
 import { getFileName } from '../shared/ducks/files/selectors'
 
 const routesWithSearch = [
+  routing.search.type,
   routing.dataSearchQuery.type,
   routing.dataSearchCategory.type,
   routing.datasetSearch.type,

@@ -60,6 +60,12 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATASET_DETAIL}`,
     page: PAGES.DATASET_DETAIL,
   },
+  search: {
+    title: 'Alle zoekresultaten',
+    path: `/zoek/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH}`,
+    page: PAGES.SEARCH,
+  },
   dataSearchQuery: {
     title: 'Data zoekresultaten',
     path: `/${MAIN_PATHS.DATA}/zoek/`,

@@ -57,7 +57,6 @@ const EditorialSearch = ({ pageType, loading, results, fetchMore }) => {
         loading={loading}
         results={results && results.results}
         onClickMore={fetchMore}
-        showTitle={false}
       />
       <ShareBar topSpacing={6} />
     </StyledEditorialSearch>

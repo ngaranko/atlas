@@ -404,6 +404,15 @@ Object {
         "selector": [Function],
         "stateKey": "filters",
       },
+      "atlasRouter/SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Object {},
+        "encode": [Function],
+        "reducerKey": "filter",
+        "selector": [Function],
+        "stateKey": "filters",
+      },
       "atlasRouter/SEARCH_DATA_CATEGORY": Object {
         "addHistory": true,
         "decode": [Function],
@@ -558,6 +567,15 @@ Object {
         "stateKey": "overlays",
       },
       "atlasRouter/PUBLICATION_SEARCH": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "overlays",
+      },
+      "atlasRouter/SEARCH": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [],
@@ -1146,6 +1164,15 @@ Object {
         "selector": [Function],
         "stateKey": "isPrintMode",
       },
+      "atlasRouter/SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": false,
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "isPrintMode",
+      },
       "atlasRouter/SEARCH_DATA_CATEGORY": Object {
         "addHistory": true,
         "decode": [Function],
@@ -1202,6 +1229,15 @@ Object {
         "stateKey": "query",
       },
       "atlasRouter/PUBLICATION_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "",
+        "encode": [Function],
+        "reducerKey": "dataSearch",
+        "selector": [Function],
+        "stateKey": "query",
+      },
+      "atlasRouter/SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": "",
