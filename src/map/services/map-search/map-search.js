@@ -30,6 +30,7 @@ const endpoints = [
   { uri: 'geosearch/oplaadpunten/', radius: 25 },
   { uri: 'geosearch/bekendmakingen/', radius: 25 },
   { uri: 'geosearch/evenementen/', radius: 25 },
+  { uri: 'geosearch/reclamebelasting/', radius: 25 },
 ]
 
 const relatedResourcesByType = {

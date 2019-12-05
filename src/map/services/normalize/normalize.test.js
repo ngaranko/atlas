@@ -9,6 +9,7 @@ import {
   evenementen,
   grondexploitatie,
   vastgoed,
+  reclamebelasting,
   societalActivities,
   winkelgebied,
   parkeerzones,
@@ -603,6 +604,32 @@ ${input.gebruiksdoel[1]}`,
 
       expect(output).toMatchObject({
         speed: '0,121',
+      })
+    })
+  })
+
+  describe('normalizes "reclamebelasting', () => {
+    let input
+    let output
+    it('returns the geometry', () => {
+      input = {
+        wkb_geometry: 'wkb_geometry',
+      }
+
+      output = reclamebelasting(input)
+
+      expect(output).toMatchObject({
+        geometry: input.wkb_geometry,
+      })
+    })
+
+    it('returns the localeDate', () => {
+      input = {}
+
+      output = reclamebelasting(input)
+
+      expect(output).toMatchObject({
+        localeDate: '1 januari 2020',
       })
     })
   })

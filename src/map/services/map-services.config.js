@@ -1,23 +1,24 @@
 import adressenNummeraanduiding from './adressen-nummeraanduiding/adressen-nummeraanduiding'
 import gebiedenStadsdeel from './gebieden-stadsdeel/gebieden-stadsdeel'
-import vestiging from './vestiging/vestiging'
-
 import {
-  oplaadpunten,
-  bekendmakingen,
-  napPeilmerk,
   adressenPand,
   adressenVerblijfsobject,
-  kadastraalObject,
-  explosieven,
+  bekendmakingen,
   evenementen,
+  explosieven,
   grondexploitatie,
+  kadastraalObject,
+  meetbout,
+  monument,
+  napPeilmerk,
+  oplaadpunten,
+  parkeerzones,
+  reclamebelasting,
   vastgoed,
   winkelgebied,
-  parkeerzones,
-  monument,
-  meetbout,
 } from './normalize/normalize'
+import vestiging from './vestiging/vestiging'
+import categoryLabels from './map-search/category-labels'
 
 export const endpointTypes = {
   adressenLigplaats: 'bag/v1.1/ligplaats/',
@@ -33,6 +34,7 @@ export const endpointTypes = {
   explosievenUitgevoerdOnderzoek: 'milieuthemas/explosieven/uitgevoerdonderzoek/',
   explosievenVerdachtGebied: 'milieuthemas/explosieven/verdachtgebied/',
   evenementen: 'vsd/evenementen/',
+  reclamebelasting: 'vsd/reclamebelasting/',
   gebiedenBouwblok: 'gebieden/bouwblok/',
   gebiedenBuurt: 'gebieden/buurt/',
   gebiedenGebiedsgerichtWerken: 'gebieden/gebiedsgerichtwerken/',
@@ -222,7 +224,7 @@ const servicesByEndpointType = {
   [endpointTypes.adressenPand]: {
     normalization: adressenPand,
     mapDetail: result => ({
-      title: ' Pand',
+      title: categoryLabels.pand.singular,
       subTitle: result._display,
       items: [
         {
@@ -277,7 +279,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.bedrijfsinvesteringszone]: {
     mapDetail: result => ({
-      title: 'bedrijfsinvesteringszone',
+      title: categoryLabels.bedrijfsinvesteringszone.singular,
       subTitle: result._display,
       items: [
         { label: 'Type', value: result.biz_type },
@@ -290,7 +292,7 @@ const servicesByEndpointType = {
   [endpointTypes.bekendmakingen]: {
     normalization: bekendmakingen,
     mapDetail: result => ({
-      title: 'Bekendmaking',
+      title: categoryLabels.bekendmakingen.singular,
       subTitle: result._display,
       items: [
         { label: 'Datum', value: result.date },
@@ -354,7 +356,7 @@ const servicesByEndpointType = {
   [endpointTypes.evenementen]: {
     normalization: evenementen,
     mapDetail: result => ({
-      title: 'Evenement',
+      title: categoryLabels.evenementen.singular,
       subTitle: result.titel,
       items: [
         { label: 'Startdatum', value: result.startDate },
@@ -364,9 +366,21 @@ const servicesByEndpointType = {
       ],
     }),
   },
+  [endpointTypes.reclamebelasting]: {
+    normalization: reclamebelasting,
+    mapDetail: result => ({
+      title: categoryLabels.reclamebelasting.singular,
+      subTitle: result._display,
+      items: [
+        { label: 'Tarief per', value: result.localeDate },
+        { label: 'Website', value: result.website, link: result.website },
+        { label: 'Tarieven', value: result.tarieven, link: result.tarieven },
+      ],
+    }),
+  },
   [endpointTypes.gebiedenBouwblok]: {
     mapDetail: result => ({
-      title: 'Bouwblok',
+      title: categoryLabels.bouwblok.singular,
       subTitle: result._display,
       items: [],
     }),
@@ -469,7 +483,7 @@ const servicesByEndpointType = {
   [endpointTypes.kadastraalObject]: {
     normalization: kadastraalObject,
     mapDetail: result => ({
-      title: 'Kadastraal object',
+      title: categoryLabels.kadastraalObject.singular,
       subTitle: result._display,
       items: [
         {
@@ -487,7 +501,7 @@ const servicesByEndpointType = {
   [endpointTypes.meetbout]: {
     normalization: meetbout,
     mapDetail: result => ({
-      title: 'Meetbout',
+      title: categoryLabels.meetbout.singular,
       subTitle: result.meetboutidentificatie,
       items: [
         { label: 'Adres', value: result.adres },
@@ -498,7 +512,7 @@ const servicesByEndpointType = {
   [endpointTypes.monument]: {
     normalization: monument,
     mapDetail: result => ({
-      title: 'Monument',
+      title: categoryLabels.monument.singular,
       subTitle: result._display,
       items: [
         { label: 'Nummer', value: result.monumentnummer },
@@ -510,7 +524,7 @@ const servicesByEndpointType = {
   [endpointTypes.monumentComplex]: {
     normalization: monument,
     mapDetail: result => ({
-      title: 'Monument',
+      title: categoryLabels.monument.singular,
       subTitle: result._display,
       items: [
         { label: 'Nummer', value: result.monumentnummer },
@@ -522,7 +536,7 @@ const servicesByEndpointType = {
   [endpointTypes.napPeilmerk]: {
     normalization: napPeilmerk,
     mapDetail: result => ({
-      title: 'NAP Peilmerk',
+      title: categoryLabels.napPeilmerk.singular,
       subTitle: result.peilmerkidentificatie,
       items: [
         { label: 'Hoogte NAP', value: result.height },
@@ -535,7 +549,7 @@ const servicesByEndpointType = {
   [endpointTypes.oplaadpunten]: {
     normalization: oplaadpunten,
     mapDetail: result => ({
-      title: 'Oplaadpunt',
+      title: categoryLabels.oplaadpunten.singular,
       subTitle: result._display,
       items: [
         { label: 'Adres', value: result.address },
@@ -549,7 +563,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.parkeervak]: {
     mapDetail: result => ({
-      title: 'Parkeervak',
+      title: categoryLabels.parkeervak.singular,
       subTitle: result.id,
       items: [
         { label: 'Straat', value: result.straatnaam },
@@ -561,7 +575,7 @@ const servicesByEndpointType = {
   [endpointTypes.parkeerzones]: {
     normalization: parkeerzones,
     mapDetail: result => ({
-      title: 'Parkeervergunninggebied',
+      title: categoryLabels.parkeerzones.singular,
       subTitle: result._display,
       items: [{ label: 'Omschrijving', value: result.gebied_omschrijving, multiLine: true }],
     }),
@@ -569,7 +583,7 @@ const servicesByEndpointType = {
   [endpointTypes.parkeerzonesUitz]: {
     normalization: parkeerzones,
     mapDetail: result => ({
-      title: 'Uitzondering parkeervergunninggebied',
+      title: categoryLabels.parkeerzonesUitz.singular,
       subTitle: result._display,
       items: [{ label: 'Omschrijving', value: result.omschrijving, multiLine: true }],
     }),
@@ -592,7 +606,7 @@ const servicesByEndpointType = {
     mapDetail: result =>
       result
         ? {
-            title: 'Vestiging',
+            title: categoryLabels.vestiging.singular,
             subTitle: result._display,
             items: [
               {
@@ -643,7 +657,7 @@ const servicesByEndpointType = {
             ],
           }
         : {
-            title: 'Vestiging',
+            title: categoryLabels.vestiging.singular,
             items: [],
             notifications: [
               {
@@ -657,7 +671,7 @@ const servicesByEndpointType = {
   [endpointTypes.winkelgebied]: {
     normalization: winkelgebied,
     mapDetail: result => ({
-      title: 'Winkelgebied',
+      title: categoryLabels.winkelgebied.singular,
       subTitle: result._display,
       notifications: [
         {
@@ -675,7 +689,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.wkpbBeperking]: {
     mapDetail: result => ({
-      title: 'Gemeentelijke beperking',
+      title: categoryLabels.gemeentelijkeBeperking.singular,
       subTitle: result._display,
       items: [],
     }),
@@ -692,12 +706,12 @@ const servicesByEndpointType = {
     mapDetail: result =>
       result
         ? {
-            title: 'Kadastraal subject',
+            title: categoryLabels.kadastraalSubject.singular,
             subTitle: result._display,
             items: [],
           }
         : {
-            title: 'Kadastraal subject',
+            title: categoryLabels.kadastraalSubject.singular,
             items: [],
             notifications: [
               {
@@ -713,12 +727,12 @@ const servicesByEndpointType = {
     mapDetail: result =>
       result
         ? {
-            title: 'Maatschappelijke activiteit',
+            title: categoryLabels.mac.singular,
             subTitle: result._display,
             items: [],
           }
         : {
-            title: 'Maatschappelijke activiteit',
+            title: categoryLabels.mac.singular,
             items: [],
             notifications: [
               {

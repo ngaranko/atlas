@@ -1,67 +1,58 @@
+import categoryLabels from '../../../map/services/map-search/category-labels'
+
 export default {
   QUERY_ENDPOINTS: [
     {
       // The slug variable is used to identify this category in list.component.js
+      ...categoryLabels.straatnamen,
       slug: 'straatnamen',
-      label_singular: 'Straatnamen',
-      label_plural: 'Straatnamen',
       uri: 'atlas/search/openbareruimte/',
       options: { subtype: 'weg' },
     },
     {
-      // The slug variable is used to identify this category in list.component.js
+      ...categoryLabels.address,
       slug: 'adres',
-      label_singular: 'Adres',
-      label_plural: 'Adressen',
       uri: 'atlas/search/adres/',
     },
     {
       // The slug variable is used to identify this category in list.component.js
+      ...categoryLabels.openbareRuimte,
       slug: 'openbareruimte',
-      label_singular: 'Openbare ruimte',
-      label_plural: 'Openbare ruimtes',
       uri: 'atlas/search/openbareruimte/',
       options: { subtype: 'not_weg' },
     },
     {
+      ...categoryLabels.pand,
       slug: 'pand',
-      label_singular: 'Pand',
-      label_plural: 'Panden',
       uri: 'atlas/search/pand/',
     },
     {
+      ...categoryLabels.vestiging,
       slug: 'vestiging',
-      label_singular: 'Vestiging',
-      label_plural: 'Vestigingen',
       uri: 'handelsregister/search/vestiging/',
       authScope: 'HR/R',
     },
     {
+      ...categoryLabels.mac,
       slug: 'mac',
-      label_singular: 'Maatschappelijke activiteit',
-      label_plural: 'Maatschappelijke activiteiten',
       uri: 'handelsregister/search/maatschappelijkeactiviteit/',
       authScope: 'HR/R',
     },
     {
+      ...categoryLabels.kadastraalObject,
       slug: 'object',
-      label_singular: 'Kadastraal object',
-      label_plural: 'Kadastrale objecten',
       uri: 'atlas/search/kadastraalobject/',
     },
     {
+      ...categoryLabels.kadastraalSubject,
       slug: 'subject',
-      label_singular: 'Kadastraal subject',
-      label_plural: 'Kadastrale subjecten',
       uri: 'atlas/search/kadastraalsubject/',
       authScope: 'BRK/RS',
       specialAuthScope: 'BRK/RSN',
     },
     {
-      // The slug variable is used to identify this category in list.component.js
+      ...categoryLabels.gebied,
       slug: 'gebied',
-      label_singular: 'Gebied',
-      label_plural: 'Gebieden',
       uri: 'atlas/search/gebied/',
       subtypes: {
         grootstedelijk: 'grootstedelijk gebied',
@@ -69,15 +60,13 @@ export default {
       },
     },
     {
+      ...categoryLabels.meetbout,
       slug: 'meetbout',
-      label_singular: 'Meetbout',
-      label_plural: 'Meetbouten',
       uri: 'meetbouten/search/',
     },
     {
+      ...categoryLabels.meetbout,
       slug: 'monument',
-      label_singular: 'Monument',
-      label_plural: 'Monumenten',
       uri: 'monumenten/search/',
     },
   ],
@@ -112,49 +101,43 @@ export default {
     { uri: 'geosearch/oplaadpunten/' },
     { uri: 'geosearch/bekendmakingen/', radius: 25 },
     { uri: 'geosearch/evenementen/', radius: 25 },
+    { uri: 'geosearch/reclamebelasting/' },
   ],
   COORDINATES_HIERARCHY: [
     {
       // The slug variable is used to identify this category in list.component.js
+      ...categoryLabels.openbareRuimte,
       slug: 'openbareruimte',
-      label_singular: 'Openbare ruimte',
-      label_plural: 'Openbare ruimtes',
       features: ['bag/openbareruimte'],
     },
     {
+      ...categoryLabels.pand,
       slug: 'pand',
-      label_singular: 'Pand',
-      label_plural: 'Panden',
       features: ['bag/pand'],
     },
     {
+      ...categoryLabels.standplaats,
       slug: 'standplaats',
-      label_singular: 'Adres',
-      label_plural: 'Adressen',
       features: ['bag/standplaats'],
     },
     {
+      ...categoryLabels.ligplaats,
       slug: 'ligplaats',
-      label_singular: 'Adres',
-      label_plural: 'Adressen',
       features: ['bag/ligplaats'],
     },
     {
+      ...categoryLabels.kadastraalObject,
       slug: 'kadastraal-object',
-      label_singular: 'Kadastraal object',
-      label_plural: 'Kadastrale objecten',
       features: ['kadaster/kadastraal_object'],
     },
     {
+      ...categoryLabels.gemeentelijkeBeperking,
       slug: 'gemeentelijke-beperking',
-      label_singular: 'Gemeentelijke beperking',
-      label_plural: 'Gemeentelijke beperkingen',
       features: ['wkpb/beperking'],
     },
     {
+      ...categoryLabels.gebied,
       slug: 'gebied',
-      label_singular: 'Gebied',
-      label_plural: 'Gebieden',
       features: [
         'gebieden/stadsdeel',
         'gebieden/gebiedsgerichtwerken',
@@ -170,27 +153,23 @@ export default {
       },
     },
     {
+      ...categoryLabels.meetbout,
       slug: 'meetbout',
-      label_singular: 'Meetbout',
-      label_plural: 'Meetbouten',
       features: ['meetbouten/meetbout'],
     },
     {
+      ...categoryLabels.napPeilmerk,
       slug: 'nap-peilmerk',
-      label_singular: 'NAP Peilmerk',
-      label_plural: 'NAP Peilmerken',
       features: ['nap/peilmerk'],
     },
     {
+      ...categoryLabels.oplaadpunten,
       slug: 'oplaadpunten',
-      label_singular: 'Oplaadpunt',
-      label_plural: 'Oplaadpunten',
       features: ['vsd/oplaadpunten'],
     },
     {
+      ...categoryLabels.explosief,
       slug: 'explosief',
-      label_singular: 'Explosief',
-      label_plural: 'Explosieven',
       features: [
         'bommenkaart/bominslag',
         'bommenkaart/verdachtgebied',
@@ -205,52 +184,49 @@ export default {
       },
     },
     {
+      ...categoryLabels.monument,
       slug: 'monument',
-      label_singular: 'Monument',
-      label_plural: 'Monumenten',
       features: ['monumenten/monument'],
     },
     {
+      ...categoryLabels.grondexploitatie,
       slug: 'grondexploitatie',
-      label_singular: 'Grondexploitatie',
-      label_plural: 'Grondexploitaties',
       features: ['grex/grondexploitatie'],
     },
     {
+      ...categoryLabels.bedrijfsinvesteringszone,
       slug: 'bedrijfsinvesteringszone',
-      label_singular: 'Bedrijfsinvesteringszone',
-      label_plural: 'Bedrijfsinvesteringszones',
       features: ['vsd/biz'],
     },
     {
+      ...categoryLabels.vastgoed,
       slug: 'vastgoed',
-      label_singular: 'Vastgoed',
-      label_plural: 'Vastgoed',
       features: ['vsd/vastgoed'],
     },
     {
+      ...categoryLabels.winkelgebied,
       slug: 'winkelgebieden',
-      label_singular: 'Winkelgebied',
-      label_plural: 'Winkelgebieden',
       features: ['vsd/winkgeb'],
     },
     {
+      ...categoryLabels.parkeervak,
       slug: 'parkeervakken',
-      label_singular: 'Parkeervak',
-      label_plural: 'Parkeervakken',
       features: ['parkeervakken/parkeervakken'],
     },
     {
+      ...categoryLabels.bekendmakingen,
       slug: 'bekendmakingen',
-      label_singular: 'Bekendmaking',
-      label_plural: 'Bekendmakingen',
       features: ['vsd/bekendmakingen'],
     },
     {
+      ...categoryLabels.evenementen,
       slug: 'evenementen',
-      label_singular: 'Evenement',
-      label_plural: 'Evenementen',
       features: ['vsd/evenementen'],
+    },
+    {
+      ...categoryLabels.reclamebelasting,
+      slug: 'reclamebelasting',
+      features: ['vsd/reclamebelasting'],
     },
   ],
 }
