@@ -13,7 +13,7 @@ import {
   napPeilmerk,
   oplaadpunten,
   parkeerzones,
-  reclame,
+  reclamebelasting,
   vastgoed,
   winkelgebied,
 } from './normalize/normalize'
@@ -34,7 +34,7 @@ export const endpointTypes = {
   explosievenUitgevoerdOnderzoek: 'milieuthemas/explosieven/uitgevoerdonderzoek/',
   explosievenVerdachtGebied: 'milieuthemas/explosieven/verdachtgebied/',
   evenementen: 'vsd/evenementen/',
-  reclame: 'vsd/reclame/',
+  reclamebelasting: 'vsd/reclamebelasting/',
   gebiedenBouwblok: 'gebieden/bouwblok/',
   gebiedenBuurt: 'gebieden/buurt/',
   gebiedenGebiedsgerichtWerken: 'gebieden/gebiedsgerichtwerken/',
@@ -366,10 +366,10 @@ const servicesByEndpointType = {
       ],
     }),
   },
-  [endpointTypes.reclame]: {
-    normalization: reclame,
+  [endpointTypes.reclamebelasting]: {
+    normalization: reclamebelasting,
     mapDetail: result => ({
-      title: categoryLabels.reclame.singular,
+      title: categoryLabels.reclamebelasting.singular,
       subTitle: result._display,
       items: [
         { label: 'Tarief per', value: result.localeDate },

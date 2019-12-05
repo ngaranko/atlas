@@ -139,8 +139,8 @@ const GLOSSARY = {
       url: null,
       meta: [],
     },
-    RECLAME: {
-      ...categoryLabels.reclame,
+    RECLAMEBELASTING: {
+      ...categoryLabels.reclamebelasting,
       description: '',
       url: null,
       meta: [],

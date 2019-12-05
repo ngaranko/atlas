@@ -208,7 +208,7 @@ export const monument = result => {
   return { ...result, ...additionalFields }
 }
 
-export const reclame = result => {
+export const reclamebelasting = result => {
   const additionalFields = {
     geometry: result.wkb_geometry,
     localeDate: '1 januari 2020',

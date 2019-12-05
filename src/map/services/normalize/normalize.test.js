@@ -9,7 +9,7 @@ import {
   evenementen,
   grondexploitatie,
   vastgoed,
-  reclame,
+  reclamebelasting,
   societalActivities,
   winkelgebied,
   parkeerzones,
@@ -608,7 +608,7 @@ ${input.gebruiksdoel[1]}`,
     })
   })
 
-  describe('normalizes "reclame', () => {
+  describe('normalizes "reclamebelasting', () => {
     let input
     let output
     it('returns the geometry', () => {
@@ -616,7 +616,7 @@ ${input.gebruiksdoel[1]}`,
         wkb_geometry: 'wkb_geometry',
       }
 
-      output = reclame(input)
+      output = reclamebelasting(input)
 
       expect(output).toMatchObject({
         geometry: input.wkb_geometry,
@@ -626,7 +626,7 @@ ${input.gebruiksdoel[1]}`,
     it('returns the localeDate', () => {
       input = {}
 
-      output = reclame(input)
+      output = reclamebelasting(input)
 
       expect(output).toMatchObject({
         localeDate: '1 januari 2020',

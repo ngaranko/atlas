@@ -23,7 +23,7 @@ const categoryLabels = {
     singular: 'Evenement',
     plural: 'Evenementen',
   },
-  reclame: {
+  reclamebelasting: {
     singular: 'Reclamebelastingtarief',
     plural: 'Reclamebelastingtarieven',
   },

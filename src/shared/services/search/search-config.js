@@ -101,7 +101,7 @@ export default {
     { uri: 'geosearch/oplaadpunten/' },
     { uri: 'geosearch/bekendmakingen/', radius: 25 },
     { uri: 'geosearch/evenementen/', radius: 25 },
-    { uri: 'geosearch/reclame/' },
+    { uri: 'geosearch/reclamebelasting/' },
   ],
   COORDINATES_HIERARCHY: [
     {
@@ -224,9 +224,9 @@ export default {
       features: ['vsd/evenementen'],
     },
     {
-      ...categoryLabels.reclame,
-      slug: 'reclame',
-      features: ['vsd/reclame'],
+      ...categoryLabels.reclamebelasting,
+      slug: 'reclamebelasting',
+      features: ['vsd/reclamebelasting'],
     },
   ],
 }

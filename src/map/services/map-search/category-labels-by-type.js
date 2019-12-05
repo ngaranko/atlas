@@ -30,7 +30,7 @@ const categoryLabelsByType = {
   'vsd/biz': categoryLabels.bedrijfsinvesteringszone,
   'vsd/evenementen': categoryLabels.evenementen,
   'vsd/oplaadpunten': categoryLabels.oplaadpunten,
-  'vsd/reclame': categoryLabels.reclame,
+  'vsd/reclamebelasting': categoryLabels.reclamebelasting,
   'vsd/vastgoed': categoryLabels.vastgoed,
   'vsd/winkgeb': categoryLabels.winkelgebied,
   'wkpb/beperking': categoryLabels.gemeentelijkeBeperking,
