@@ -1,8 +1,10 @@
+import categoryLabels from '../../map/services/map-search/category-labels'
+
 const GLOSSARY = {
   DEFINITIONS: {
     A_PERCEEL: {
-      label_singular: 'A-perceel',
-      label_plural: 'A-percelen',
+      singular: 'A-perceel',
+      plural: 'A-percelen',
       description:
         'Een appartementsrecht (art. 5:106 Burgerlijk Wetboek) is een onroerende zaak. ' +
         'Onder appartementsrecht wordt verstaan een aandeel in de goederen die in de splitsing zijn ' +
@@ -15,8 +17,8 @@ const GLOSSARY = {
       meta: [],
     },
     AANTEKENING: {
-      label_singular: 'Aantekening',
-      label_plural: 'Aantekeningen',
+      singular: 'Aantekening',
+      plural: 'Aantekeningen',
       description:
         'Een Aantekening Kadastraal Object vormt de relatie tussen een Stukdeel en een ' +
         'Kadastraal Object en geeft aanvullende informatie over een bestaand feit, genoemd in een stuk, ' +
@@ -27,36 +29,33 @@ const GLOSSARY = {
       meta: [],
     },
     ADRES: {
-      label_singular: 'Adres',
-      label_plural: 'Adressen',
+      ...categoryLabels.address,
       description: null,
       url: null,
       meta: [],
     },
     API: {
-      label_singular: 'Dataset',
-      label_plural: 'Datasets',
+      singular: 'Dataset',
+      plural: 'Datasets',
       description: null,
       url: null,
       meta: [],
     },
     BEPERKING: {
-      label_singular: 'Gemeentelijke beperking',
-      label_plural: 'Gemeentelijke beperkingen',
+      ...categoryLabels.gemeentelijkeBeperking,
       description: 'Lijst van beperkingen op een gebruiksrecht.',
       url: 'https://www.amsterdam.nl/stelselpedia/wkpb-index/catalogus/beperking/#objectkenmerken',
       meta: ['datum_in_werking', 'datum_einde'],
     },
     BETROKKEN_BIJ: {
-      label_singular: 'Betrokken bij',
-      label_plural: 'Betrokken bij',
+      singular: 'Betrokken bij',
+      plural: 'Betrokken bij',
       description: 'Kadastraal object is betrokken bij een appartementsrechtsplitsing',
       url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/zakelijk-recht/',
       meta: [],
     },
     BIZ: {
-      label_singular: 'Bedrijfsinvesteringszone',
-      label_plural: 'Bedrijfsinvesteringszones',
+      ...categoryLabels.bedrijfsinvesteringszone,
       description:
         'Een bedrijfsinvesteringszone (BIZ) is een afgebakend gebied zoals ' +
         'een winkelstraat of een bedrijventerrein waarbinnen ondernemers en/of de ' +
@@ -65,8 +64,7 @@ const GLOSSARY = {
         'samen of alleen door eigenaren.',
     },
     BOUWBLOK: {
-      label_singular: 'Bouwblok',
-      label_plural: 'Bouwblokken',
+      ...categoryLabels.bouwblok,
       description:
         'Een bouwblok is het kleinst mogelijk afgrensbare gebied, in zijn geheel ' +
         'tot een buurt behorend, dat geheel of grotendeels door bestaande of aan te leggen wegen ' +
@@ -75,16 +73,16 @@ const GLOSSARY = {
       meta: ['begin_geldigheid', 'bouwblokidentificatie'],
     },
     BRONDOCUMENT: {
-      label_singular: 'Brondocument',
-      label_plural: 'Brondocumenten',
+      singular: 'Brondocument',
+      plural: 'Brondocumenten',
       description: 'Het document dat aan de beperking ten grondslag ligt.',
       url:
         'https://www.amsterdam.nl/stelselpedia/wkpb-index/catalogus/brondocument/#objectkenmerken',
       meta: [],
     },
     BUURT: {
-      label_singular: 'Buurt',
-      label_plural: 'Buurten',
+      singular: 'Buurt',
+      plural: 'Buurten',
       description:
         'Een aaneengesloten gedeelte van een buurt, waarvan de grenzen zo veel mogelijk ' +
         'gebaseerd zijn op topografische elementen.',
@@ -93,8 +91,8 @@ const GLOSSARY = {
     },
     // plural because service call
     COMPLEXEN: {
-      label_singular: 'Complex',
-      label_plural: 'Complexen',
+      singular: 'Complex',
+      plural: 'Complexen',
       description:
         'Een Complex is een verzameling monumenten waarvan de onderlinge samenhang een ' +
         'zekere cultuurhistorische waarde bezit.',
@@ -104,16 +102,15 @@ const GLOSSARY = {
       meta: ['identificerende_sleutel_complex'],
     },
     BEKENDMAKINGEN: {
-      label_singular: 'Bekendmaking',
-      label_plural: 'Bekendmakingen',
+      ...categoryLabels.bekendmakingen,
       description:
         'Bekendmakingen en kennisgevingen van Gemeente Amsterdam zijn bijvoorbeeld aanvragen voor vergunningen en ontheffingen en besluiten hierover, algemene mededelingen van de gemeente of inspraakmogelijkheden.',
       url: null,
       meta: [],
     },
     BUURTCOMBINATIE: {
-      label_singular: 'Wijk',
-      label_plural: 'Wijken',
+      singular: 'Wijk',
+      plural: 'Wijken',
       description:
         'Een aaneengesloten gedeelte van het grondgebied van een gemeente, waarvan ' +
         'de grenzen zo veel mogelijk zijn gebaseerd op sociaal-geografische kenmerken.',
@@ -126,15 +123,14 @@ const GLOSSARY = {
       ],
     },
     DATASETS: {
-      label_singular: 'Dataset',
-      label_plural: 'Datasets',
+      singular: 'Dataset',
+      plural: 'Datasets',
       description: null,
       url: null,
       meta: [],
     },
     EVENEMENTEN: {
-      label_singular: 'Evenement',
-      label_plural: 'Evenementen',
+      ...categoryLabels.evenementen,
       description:
         'Activiteiten en evenementen op het gebied van sport, recreatie, ' +
         'kunst en cultuur in Amsterdam. Veel activiteiten worden door externe organisaties ' +
@@ -143,9 +139,15 @@ const GLOSSARY = {
       url: null,
       meta: [],
     },
+    RECLAMEBELASTING: {
+      ...categoryLabels.reclamebelasting,
+      description: '',
+      url: null,
+      meta: [],
+    },
     FUNCTIEVERVULLING: {
-      label_singular: 'Functievervulling',
-      label_plural: 'Functievervullingen',
+      singular: 'Functievervulling',
+      plural: 'Functievervullingen',
       description:
         'Een FunctieVervulling geeft de relatie weer van de Persoon als functionaris ' +
         'en de Persoon als eigenaar van de Onderneming of MaatschappelijkeActiviteit.',
@@ -153,8 +155,8 @@ const GLOSSARY = {
       meta: [],
     },
     G_PERCEEL: {
-      label_singular: 'G-perceel',
-      label_plural: 'G-percelen',
+      singular: 'G-perceel',
+      plural: 'G-percelen',
       description:
         'Een perceel is een onroerende zaak, kadastraal geïdentificeerd en met ' +
         'kadastrale grenzen begrensd deel van het Nederlands grondgebied.',
@@ -163,8 +165,8 @@ const GLOSSARY = {
       meta: [],
     },
     GEBIEDSGERICHTWERKEN: {
-      label_singular: 'Gebiedsgerichtwerken-gebied',
-      label_plural: 'Gebiedsgerichtwerken-gebieden',
+      singular: 'Gebiedsgerichtwerken-gebied',
+      plural: 'Gebiedsgerichtwerken-gebieden',
       description:
         'Gebiedsgericht werken is een manier van werken om samenwerken in de stad te ' +
         'verbeteren. De samenwerking betreft gemeente, bewoners, ondernemers, (lokale) partners en ' +
@@ -173,8 +175,8 @@ const GLOSSARY = {
       meta: [],
     },
     GEVRIJWAARDGEBIED: {
-      label_singular: 'Gevrijwaard gebied',
-      label_plural: 'Gevrijwaarde gebieden',
+      singular: 'Gevrijwaard gebied',
+      plural: 'Gevrijwaarde gebieden',
       description:
         'Binnen een gevrijwaarde gebied is detectie onderzoek uitgevoerd ' +
         'in de ondergrond. Daarbij is geen niet-gesprongen explosief aangetroffen.',
@@ -182,8 +184,7 @@ const GLOSSARY = {
       meta: [],
     },
     GRONDEXPLOITATIE: {
-      label_singular: 'Grondexploitatie',
-      label_plural: 'Grondexploitaties',
+      ...categoryLabels.grondexploitatie,
       description:
         'Een grondexploitatiebegroting geeft de kosten en opbrengsten ' +
         'weer van een gebiedsontwikkeling. Aan de kostenkant staan de mogelijke ' +
@@ -192,8 +193,8 @@ const GLOSSARY = {
         'grondopbrengsten die voortkomen uit de in erfpacht uit te geven grond.',
     },
     GROOTSTEDELIJKGEBIED: {
-      label_singular: 'Grootstedelijk gebied',
-      label_plural: 'Grootstedelijke gebieden',
+      singular: 'Grootstedelijk gebied',
+      plural: 'Grootstedelijke gebieden',
       description:
         'Grootstedelijke gebieden zijn gebieden binnen de gemeente Amsterdam, waar de ' +
         'gemeenteraad, het college van burgemeester en wethouders of de burgemeester bevoegd is.',
@@ -201,8 +202,8 @@ const GLOSSARY = {
       meta: [],
     },
     INSCHRIJVING: {
-      label_singular: 'Inschrijving',
-      label_plural: 'Inschrijvingen',
+      singular: 'Inschrijving',
+      plural: 'Inschrijvingen',
       description:
         "Een inschrijving is een duurzame 'maatschappelijke activiteit' van een " +
         'Onderneming of Rechtspersoon in het Handelsregister van de Kamer van Koophandel.',
@@ -211,15 +212,15 @@ const GLOSSARY = {
       authLevel: 'EMPLOYEE',
     },
     INSLAGEN: {
-      label_singular: 'Inslag',
-      label_plural: 'Inslagen',
+      singular: 'Inslag',
+      plural: 'Inslagen',
       description: 'Op deze locatie is tijdens de Tweede Wereldoorlog een vliegtuigbom ingeslagen.',
       url: null,
       meta: [],
     },
     LIGPLAATS: {
-      label_singular: 'Ligplaats',
-      label_plural: 'Ligplaatsen',
+      singular: 'Ligplaats',
+      plural: 'Ligplaatsen',
       description:
         'Een door het bevoegde gemeentelijke orgaan als zodanig aangewezen plaats ' +
         'in het water al dan niet aangevuld met een op de oever aanwezig terrein of een gedeelte ' +
@@ -229,8 +230,7 @@ const GLOSSARY = {
       meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'ligplaatsidentificatie'],
     },
     MEETBOUT: {
-      label_singular: 'Meetbout',
-      label_plural: 'Meetbouten',
+      ...categoryLabels.meetbout,
       description:
         'Om zakkingen van panden te kunnen volgen zijn op grote schaal meetbouten geplaatst ' +
         'in Amsterdam. De meetbouten zijn op ongeveer een halve meter van het maaiveld geplaatst in d' +
@@ -239,8 +239,7 @@ const GLOSSARY = {
       meta: [],
     },
     MAATSCHAPPELIJKEACTIVITEIT: {
-      label_singular: 'Maatschappelijke activiteit',
-      label_plural: 'Maatschappelijke activiteiten',
+      ...categoryLabels.mac,
       description:
         'De Maatschappelijke Activiteit is het totaal van alle activiteiten uitgeoefend ' +
         'door een Natuurlijk Persoon of een Niet-natuurlijk Persoon. Een Maatschappelijke Activiteit ' +
@@ -249,8 +248,8 @@ const GLOSSARY = {
       meta: [],
     },
     METING: {
-      label_singular: 'Meting',
-      label_plural: 'Metingen',
+      singular: 'Meting',
+      plural: 'Metingen',
       description:
         'De eerste meting, de zogenaamde nulmeting, is het uitgangspunt voor het beoordelen ' +
         'van eventuele deformatie (zakking). In principe zijn sindsdien drie herhalingsmetingen uitge' +
@@ -261,8 +260,7 @@ const GLOSSARY = {
     },
     // plural because service call
     MONUMENTEN: {
-      label_singular: 'Monument',
-      label_plural: 'Monumenten',
+      ...categoryLabels.monument,
       description:
         'Een monument is een onroerende zaak (fysiek bouwwerk of historische structuur) die ' +
         'beschermd is door middel van een status op grond van de Erfgoedverordening Amsterdam (voor ' +
@@ -273,8 +271,8 @@ const GLOSSARY = {
       meta: ['monument_aanwijzingsdatum', 'identificerende_sleutel_monument'],
     },
     BOUWDOSSIER: {
-      label_singular: 'Bouwdossier',
-      label_plural: 'Bouwdossiers',
+      singular: 'Bouwdossier',
+      plural: 'Bouwdossiers',
       description:
         'Een bouwdossier bevat de behandeling van de aanvraag tot een bouwvergunning ' +
         '(waaronder ook splitsings-, reclame- en sloopvergunningen), de vergunningverlening ervan ' +
@@ -283,8 +281,7 @@ const GLOSSARY = {
       meta: [],
     },
     NUMMERAANDUIDING: {
-      label_singular: 'Adres',
-      label_plural: 'Adressen',
+      ...categoryLabels.address,
       description:
         'Een nummeraanduiding, in de volksmond ook wel adres genoemd, is een door ' +
         'het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een ' +
@@ -298,8 +295,7 @@ const GLOSSARY = {
       ],
     },
     OBJECT: {
-      label_singular: 'Kadastraal object',
-      label_plural: 'Kadastrale objecten',
+      ...categoryLabels.kadastraalObject,
       description:
         'Een Kadastraal Object is een Onroerende zaak of een Teboekgestelde ' +
         'zaak waarvoor bij overdracht of vestiging van rechten inschrijving in de openbare registers van ' +
@@ -309,22 +305,22 @@ const GLOSSARY = {
       meta: ['id'],
     },
     OBJECT_WKPB: {
-      label_singular: 'WKPB-uittreksel',
-      label_plural: null,
+      singular: 'WKPB-uittreksel',
+      plural: null,
       description: null,
       url: null,
       meta: [],
     },
     ONTSTAAN_UIT: {
-      label_singular: 'Ontstaan uit',
-      label_plural: 'Ontstaan uit',
+      singular: 'Ontstaan uit',
+      plural: 'Ontstaan uit',
       description: 'Kadastraal object is ontstaan uit een appartementsrechtsplitsing',
       url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/zakelijk-recht/',
       meta: [],
     },
     OPENBARERUIMTE: {
-      label_singular: 'Openbare ruimte',
-      label_plural: 'Openbare ruimtes',
+      singular: 'Openbare ruimte',
+      plural: 'Openbare ruimtes',
       description:
         'Een openbare ruimte is een door het bevoegde gemeentelijke orgaan als ' +
         'zodanig aangewezen en van een naam voorziene buitenruimte die binnen één woonplaats is gelegen. ' +
@@ -339,15 +335,13 @@ const GLOSSARY = {
       ],
     },
     OPLAADPUNTEN: {
-      label_singular: 'Oplaadpunt',
-      label_plural: 'Oplaadpunten',
+      ...categoryLabels.oplaadpunten,
       description: null,
       url: null,
       meta: [],
     },
     PAND: {
-      label_singular: 'Pand',
-      label_plural: 'Panden',
+      ...categoryLabels.pand,
       description:
         'Een pand is de kleinste bij de totstandkoming functioneel en ' +
         'bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is ' +
@@ -356,18 +350,15 @@ const GLOSSARY = {
       meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'pandidentificatie'],
     },
     PARKEERZONES: {
-      label_singular: 'Parkeervergunninggebied',
-      label_plural: 'Parkeervergunninggebieden',
+      ...categoryLabels.parkeerzones,
       description: '',
     },
     PARKEERZONES_UITZ: {
-      label_singular: 'Uitzondering parkeervergunninggebied',
-      label_plural: 'Uitzondering parkeervergunninggebieden',
+      ...categoryLabels.parkeerzonesUitz,
       description: '',
     },
     PEILMERK: {
-      label_singular: 'NAP peilmerk',
-      label_plural: 'NAP peilmerken',
+      ...categoryLabels.napPeilmerk,
       description:
         'Het Normaal Amsterdams Peil (afgekort tot NAP) is de referentiehoogte ' +
         'waaraan hoogtemetingen in Nederland worden gerelateerd. Het NAP-net bestaat uit ongeveer ' +
@@ -377,16 +368,15 @@ const GLOSSARY = {
       meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'landelijk_id'],
     },
     PARKEERVAKKEN: {
-      label_singular: 'Parkeervak',
-      label_plural: 'Parkeervakken',
+      ...categoryLabels.parkeervak,
       description:
         'Een parkeerplaats of parkeervak is een ruimte die is bestemd voor het parkeren van één voertuig.',
       url: null,
       meta: [],
     },
     ROLLAAG: {
-      label_singular: 'Rollaag',
-      label_plural: 'Rollagen',
+      singular: 'Rollaag',
+      plural: 'Rollagen',
       description:
         'Om de zakking van een heel bouwblok te bepalen worden rollagen gemeten. Een ' +
         'rollaag is een herkenbare laag in de bebouwing. Dit kan een doorlopende voeg zijn of ' +
@@ -395,8 +385,8 @@ const GLOSSARY = {
       meta: [],
     },
     STADSDEEL: {
-      label_singular: 'Stadsdeel',
-      label_plural: 'Stadsdelen',
+      singular: 'Stadsdeel',
+      plural: 'Stadsdelen',
       description:
         'Door de Amsterdamse gemeenteraad vastgestelde begrenzing van een stadsdeel, ' +
         'ressorterend onder een stadsdeelbestuur.',
@@ -409,8 +399,8 @@ const GLOSSARY = {
       ],
     },
     STANDPLAATS: {
-      label_singular: 'Standplaats',
-      label_plural: 'Standplaatsen',
+      singular: 'Standplaats',
+      plural: 'Standplaatsen',
       description:
         'Een standplaats is een door het bevoegde gemeentelijke orgaan als zodanig ' +
         'aangewezen terrein of gedeelte daarvan dat bestemd is voor het permanent plaatsen van een ' +
@@ -420,8 +410,7 @@ const GLOSSARY = {
       meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'standplaatsidentificatie'],
     },
     SUBJECT: {
-      label_singular: 'Kadastraal subject',
-      label_plural: 'Kadastrale subjecten',
+      ...categoryLabels.kadastraalSubject,
       description:
         'Een Kadastraal subject is een persoon die in de kadastrale registratie voorkomt. ' +
         'Het kan hier gaan om een natuurlijk of een niet-natuurlijk persoon.',
@@ -430,8 +419,8 @@ const GLOSSARY = {
       meta: ['id'],
     },
     UITGEVOERDONDERZOEK: {
-      label_singular: 'Reeds uitgevoerd CE onderzoek',
-      label_plural: 'Reeds uitgevoerde CE onderzoeken',
+      singular: 'Reeds uitgevoerd CE onderzoek',
+      plural: 'Reeds uitgevoerde CE onderzoeken',
       description:
         'CE staat voor conventionele explosieven. Binnen dit gebied is al een ' +
         'keer onderzoek gedaan naar mogelijk achtergebleven explosieven uit de Tweede Wereldoorlog. ' +
@@ -452,8 +441,8 @@ const GLOSSARY = {
       meta: [],
     },
     UNESCO: {
-      label_singular: 'UNESCO',
-      label_plural: 'UNESCO',
+      singular: 'UNESCO',
+      plural: 'UNESCO',
       description:
         'De Amsterdamse grachtengordel staat op de UNESCO Werelderfgoedlijst, ' +
         'wat betekent dat er internationale erkenning is van het bijzondere karakter van dit deel ' +
@@ -463,13 +452,12 @@ const GLOSSARY = {
       meta: [],
     },
     VASTGOED: {
-      label_singular: 'Gemeentelijk eigendom',
-      label_plural: 'Gemeentelijk eigendom',
+      ...categoryLabels.vastgoed,
       description: '',
     },
     VERBLIJFSOBJECT: {
-      label_singular: 'Verblijfsobject',
-      label_plural: 'Verblijfsobjecten',
+      singular: 'Verblijfsobject',
+      plural: 'Verblijfsobjecten',
       description:
         'Een verblijfsobject is de kleinste binnen één of meer panden gelegen ' +
         'en voor woon -, bedrijfsmatige, of recreatieve doeleinden geschikte eenheid van gebruik ' +
@@ -485,8 +473,8 @@ const GLOSSARY = {
       ],
     },
     VERDACHTGEBIED: {
-      label_singular: 'Verdacht gebied',
-      label_plural: ' Verdachte gebieden',
+      singular: 'Verdacht gebied',
+      plural: ' Verdachte gebieden',
       description:
         'Het gebied valt binnen een contour van een gebeurtenis in de ' +
         'Tweede Wereldoorlog, bijvoorbeeld een bombardement. Het is niet uit te ' +
@@ -497,8 +485,7 @@ const GLOSSARY = {
       meta: [],
     },
     VESTIGING: {
-      label_singular: 'Vestiging',
-      label_plural: 'Vestigingen',
+      ...categoryLabels.vestiging,
       description:
         'Een Vestiging is gebouw of een complex van gebouwen waar duurzame uitoefening ' +
         'van activiteiten van een Onderneming of Rechtspersoon plaatsvindt.',
@@ -507,13 +494,12 @@ const GLOSSARY = {
       authLevel: 'EMPLOYEE',
     },
     WINKGEB: {
-      label_singular: 'Winkelgebied',
-      label_plural: 'Winkelgebieden',
+      ...categoryLabels.winkelgebied,
       description: '',
     },
     WOONPLAATS: {
-      label_singular: 'Woonplaats',
-      label_plural: 'Woonplaatsen',
+      singular: 'Woonplaats',
+      plural: 'Woonplaatsen',
       description:
         'Een woonplaats is een door het bevoegde gemeentelijke orgaan als zodanig ' +
         'aangewezen en van een naam voorzien gedeelte van het grondgebied van de gemeente. ' +
@@ -523,8 +509,8 @@ const GLOSSARY = {
       meta: ['begin_geldigheid', 'document_mutatie', 'document_nummer', 'woonplaatsidentificatie'],
     },
     ZAKELIJK_RECHT: {
-      label_singular: 'Zakelijk recht',
-      label_plural: 'Zakelijke rechten',
+      singular: 'Zakelijk recht',
+      plural: 'Zakelijke rechten',
       description:
         'Een Zakelijk Recht is een door een complex van rechtsregels verleende ' +
         'en beschermende bevoegdheid van een persoon. Het meest omvattende recht dat een ' +

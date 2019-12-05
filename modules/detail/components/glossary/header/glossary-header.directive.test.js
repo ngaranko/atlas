@@ -7,29 +7,29 @@ describe('The dp-glossary-header directive', function() {
       $provide.constant('GLOSSARY', {
         DEFINITIONS: {
           BOUWBLOK: {
-            label_singular: 'Bouwblok',
-            label_plural: 'Bouwblokken',
+            singular: 'Bouwblok',
+            plural: 'Bouwblokken',
             description: 'Verhaaltje over bouwblokken',
             url: 'http:// www.example.com/bouwblok/',
             meta: ['begin_geldigheid', 'id'],
           },
           BRONDOCUMENT: {
-            label_singular: 'Brondocument',
-            label_plural: 'Brondocumenten',
+            singular: 'Brondocument',
+            plural: 'Brondocumenten',
             description: 'Verhaaltje over brondocumenten.',
             url: 'http:// www.example.com/brondocument/',
             meta: [],
           },
           BEPERKING: {
-            label_singular: 'Gemeentelijke beperking',
-            label_plural: 'Gemeentelijke beperkingen',
+            singular: 'Gemeentelijke beperking',
+            plural: 'Gemeentelijke beperkingen',
             description: 'Lijst van beperkingen op een gebruiksrecht.',
             url: 'http:// www.example.com/gemeentelijkebeperkingen/',
             meta: [],
           },
           INSLAG: {
-            label_singular: 'Inslag',
-            label_plural: 'Inslagen',
+            singular: 'Inslag',
+            plural: 'Inslagen',
             description: null,
             url: null,
             meta: [],

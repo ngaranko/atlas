@@ -45,7 +45,7 @@ const DataSearch = ({
                       {category ? (
                         <div className="o-header u-margin__bottom--3">
                           <h1 className="o-header__title u-margin__bottom--1">
-                            {`${result.label_plural} (${result.count})`}
+                            {`${result.plural} (${result.count})`}
                           </h1>
                           <h2
                             className="
@@ -62,10 +62,10 @@ const DataSearch = ({
                         <div className="o-header">
                           <h2 className="o-header__subtitle qa-search-header">
                             {result.count > 1 && (
-                              <span>{`${result.label_plural} (${result.count})`}</span>
+                              <span>{`${result.plural} (${result.count})`}</span>
                             )}
-                            {result.count === 1 && <span>{result.label_singular}</span>}
-                            {result.count === 0 && <span>{result.label_plural}</span>}
+                            {result.count === 1 && <span>{result.singular}</span>}
+                            {result.count === 0 && <span>{result.plural}</span>}
                           </h2>
                         </div>
                       )}
