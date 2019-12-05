@@ -1924,36 +1924,6 @@
             "date": null
         }
     },
-    // {
-    //     "category": "SAFETY",
-    //     "id": "vwrk",
-    //     "layers": [
-    //         "vuurwerk"
-    //     ],
-    //     "legendItems": [
-    //         {
-    //             "title": "Parken",
-    //              "imageRule": "Vuurwerkvrije zone (Park)"
-    //         },
-    //         {
-    //             "title": "Omgeving ziekenhuizen",
-    //             "imageRule": "Vuurwerkvrije zone (Ziekenhuis)"
-    //         },
-    //         {
-    //             "title": "Omgeving dierenverblijven",
-    //             "imageRule": "Vuurwerkvrije zone (Dierinstelling)"
-    //         }
-    //     ],
-    //     "title": "Vuurwerkvrije zones",
-    //     "url": "/maps/vuurwerk",
-    //     "noDetail": true,
-    //     "meta": {
-    //         "description": null,
-    //         "theme": null,
-    //         "datasetId": null,
-    //         "date": null
-    //     }
-    // },
     {
         "category": "TOURISM",
         "id": "tcmnmt",
