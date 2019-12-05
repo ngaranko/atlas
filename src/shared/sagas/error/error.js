@@ -6,11 +6,7 @@ import {
 import { FETCH_API_SPECIFICATION_FAILURE } from '../../ducks/datasets/apiSpecification/apiSpecification'
 import { ERROR_TYPES, setGlobalError } from '../../ducks/error/error-message'
 import { FETCH_DATASETS_FAILURE } from '../../ducks/datasets/data/data'
-import {
-  FETCH_GEO_SEARCH_RESULTS_FAILURE,
-  FETCH_QUERY_SEARCH_MORE_RESULTS_FAILURE,
-  FETCH_QUERY_SEARCH_RESULTS_FAILURE,
-} from '../../ducks/data-search/constants'
+import { FETCH_GEO_SEARCH_RESULTS_FAILURE } from '../../ducks/data-search/constants'
 import { FETCH_PANORAMA_ERROR } from '../../../panorama/ducks/constants'
 import { FETCH_DETAIL_FAILURE } from '../../ducks/detail/constants'
 
@@ -38,8 +34,6 @@ export default function* watchErrors() {
       FETCH_GEO_SEARCH_RESULTS_FAILURE,
       FETCH_PANORAMA_ERROR,
       FETCH_DETAIL_FAILURE,
-      FETCH_QUERY_SEARCH_RESULTS_FAILURE,
-      FETCH_QUERY_SEARCH_MORE_RESULTS_FAILURE,
     ],
     setErrorsEffect,
   )

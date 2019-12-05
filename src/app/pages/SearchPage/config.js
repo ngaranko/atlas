@@ -4,7 +4,7 @@ import {
   dataSearchQuery,
   datasetSearchQuery,
   publicationSearchQuery,
-} from '../../components/QuerySearch/constants.config'
+} from './constants.config'
 
 export const MAX_RESULTS = 50
 

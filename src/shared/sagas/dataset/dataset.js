@@ -22,7 +22,6 @@ import {
 } from '../../ducks/datasets/apiSpecification/apiSpecification'
 import { getApiSpecificationData, getPage } from '../../ducks/datasets/datasets'
 import getApiSpecification from '../../services/datasets-filters/datasets-filters'
-import { getSearchQuery } from '../../ducks/data-search/selectors'
 import PARAMETERS from '../../../store/parameters'
 import { waitForAuthentication } from '../user/user'
 import { fetchDetailSuccess } from '../../ducks/detail/actions'
@@ -105,7 +104,7 @@ export function* fetchDatasetsEffect(action) {
   const activeFilters = getFilters(state)
   const catalogFilters = getApiSpecificationData(state)
   const page = getPage(state)
-  const searchText = get(action, `meta.query[${PARAMETERS.QUERY}]`) || getSearchQuery(state)
+  const searchText = get(action, `meta.query[${PARAMETERS.QUERY}]`)
   yield put(
     fetchDatasets({
       activeFilters,

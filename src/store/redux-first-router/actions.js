@@ -156,18 +156,6 @@ export const toConstructionFilesFromEndpoint = endpoint => {
   }
 }
 
-export const toDataSearchCategory = (searchQuery, category) => ({
-  type: routing.dataSearchCategory.type,
-  payload: {
-    category,
-  },
-  meta: {
-    additionalParams: {
-      [PARAMETERS.QUERY]: searchQuery,
-    },
-  },
-})
-
 export const toDatasets = (additionalParams = null, preserve = false, forceSaga = true) => ({
   type: routing.datasets.type,
   meta: {

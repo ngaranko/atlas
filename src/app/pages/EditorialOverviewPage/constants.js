@@ -5,10 +5,7 @@ import {
   toSpecialDetail,
 } from '../../../store/redux-first-router/actions'
 import { TYPES } from '../../../shared/config/cms.config'
-import {
-  articleSearchQuery,
-  publicationSearchQuery,
-} from '../../components/QuerySearch/constants.config'
+import { articleSearchQuery, publicationSearchQuery } from '../SearchPage/constants.config'
 
 export const EDITORIAL_TYPES = {
   [PAGES.ARTICLES]: TYPES.ARTICLE,

@@ -78,12 +78,6 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH_GEO}`,
     page: PAGES.DATA_SEARCH_GEO,
   },
-  dataSearchCategory: {
-    title: 'Data zoekresultaten',
-    path: `/${MAIN_PATHS.DATA}/:category/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH_CATEGORY}`,
-    page: PAGES.DATA_SEARCH_CATEGORY,
-  },
   panorama: {
     title: 'Panoramabeeld',
     path: `/${MAIN_PATHS.DATA}/panorama/:id/`,

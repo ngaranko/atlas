@@ -10,7 +10,7 @@ import PAGES from '../../pages'
 import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import EditorialResults from '../../components/EditorialResults'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
-import SearchFilters from '../../components/SearchFilters/SearchFilters'
+import SearchFilters, { TYPES } from '../../components/SearchFilters/SearchFilters'
 import DatasetCard from '../../components/DatasetCard'
 import Panel from '../../components/Panel/Panel'
 
@@ -39,12 +39,11 @@ const ResultColumn = styled(Column)`
   justify-content: flex-start;
 `
 
-const SearchPage = ({ query, currentPage }) => {
+const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => {
   const [currentQuery, setCurrentQuery] = React.useState(SEARCH_PAGE_CONFIG[currentPage].query)
   const [offset, setOffset] = React.useState(0)
   const [currentTitle, setCurrentTitle] = React.useState(0)
-  const [availableFilters, setAvailableFilters] = React.useState(null)
-  const [currentFilters, setCurrentFilters] = React.useState([])
+  const [availableFilterBoxes, setAvailableFilterBoxes] = React.useState([])
   const [currentResults, setCurrentResults] = React.useState([])
 
   const [{ fetching, data, error }] = useQuery({
@@ -53,7 +52,7 @@ const SearchPage = ({ query, currentPage }) => {
       q: query,
       limit: 30,
       from: offset,
-      types: currentFilters.length > 0 ? currentFilters : null,
+      types: activeFilters.length > 0 ? activeFilters : null,
     },
   })
 
@@ -65,16 +64,19 @@ const SearchPage = ({ query, currentPage }) => {
   // Todo: refactor if resolver for data filters are made
   React.useEffect(() => {
     if (currentPage === PAGES.DATA_SEARCH_QUERY && hasResults) {
-      setAvailableFilters({
-        title: 'Soorten data',
-        filters: currentResults.map(({ type, label, count }) => ({
-          type,
-          label,
-          count,
-        })),
-      })
+      setAvailableFilterBoxes([
+        {
+          title: 'Soorten data',
+          type: TYPES.check,
+          filters: currentResults.map(({ type, label, count }) => ({
+            type,
+            label,
+            count,
+          })),
+        },
+      ])
     } else {
-      setAvailableFilters(null)
+      setAvailableFilterBoxes([])
     }
   }, [currentResults])
 
@@ -132,9 +134,9 @@ const SearchPage = ({ query, currentPage }) => {
         <Row>
           <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
             <PageFilterBox currentPage={currentPage} query={query} />
-            {availableFilters && (
-              <SearchFilters filters={availableFilters} onFilter={setCurrentFilters} />
-            )}
+            {availableFilterBoxes.map(availableFilters => (
+              <SearchFilters {...{ activeFilters, setActiveFilters, availableFilters }} />
+            ))}
           </FilterColumn>
           <ResultColumn
             wrap

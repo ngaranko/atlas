@@ -1,6 +1,10 @@
 import { routing } from '../app/routes'
 import { DATA_SEARCH_REDUCER } from '../shared/ducks/data-search/reducer'
-import { initialState as dataSearchInitialState } from '../shared/ducks/data-search/constants'
+import {
+  getActiveFilters,
+  getQuery,
+  REDUCER_KEY as SEARCH_REDUCER,
+} from '../app/pages/SearchPage/ducks'
 import { getDataSelectionPage, getGeometryFilter } from '../shared/ducks/data-selection/selectors'
 import { DATA_SELECTION } from '../shared/ducks/data-selection/reducer'
 import { DATASETS, getPage } from '../shared/ducks/datasets/datasets'
@@ -29,11 +33,7 @@ import {
   getPanoramaPitch,
   getPanoramaTags,
 } from '../panorama/ducks/selectors'
-import {
-  getDataSearchLocation,
-  getSearchCategory,
-  getSearchQuery,
-} from '../shared/ducks/data-search/selectors'
+import { getDataSearchLocation, getSearchCategory } from '../shared/ducks/data-search/selectors'
 import { initialState as dataSelectionInitialState } from '../shared/ducks/data-selection/constants'
 import {
   getFiltersWithoutShape,
@@ -60,7 +60,6 @@ import { getFileName } from '../shared/ducks/files/selectors'
 const routesWithSearch = [
   routing.search.type,
   routing.dataSearchQuery.type,
-  routing.dataSearchCategory.type,
   routing.datasetSearch.type,
   routing.articleSearch.type,
   routing.publicationSearch.type,
@@ -90,9 +89,9 @@ const routesWithCmsData = [
 /* istanbul ignore next */
 export default paramsRegistry
   .addParameter(PARAMETERS.QUERY, routes => {
-    routes.add(routesWithSearch, DATA_SEARCH_REDUCER, 'query', {
-      selector: getSearchQuery,
-      defaultValue: dataSearchInitialState.query,
+    routes.add(routesWithSearch, SEARCH_REDUCER, 'query', {
+      selector: getQuery,
+      defaultValue: '',
     })
   })
   .addParameter(PARAMETERS.PAGE, routes => {
@@ -240,11 +239,8 @@ export default paramsRegistry
     )
   })
   .addParameter(PARAMETERS.FILTERS, routes => {
-    routes.add(
-      [routing.datasets.type, ...routesWithSearch, ...routesWithDataSelection],
-      FILTER,
-      'filters',
-      {
+    routes
+      .add([routing.datasets.type, ...routesWithDataSelection], FILTER, 'filters', {
         defaultValue: filterInitialState.filters,
         decode: val => {
           try {
@@ -256,8 +252,12 @@ export default paramsRegistry
         selector: getFiltersWithoutShape,
         encode: (selectorResult = {}) =>
           Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined,
-      },
-    )
+      })
+      .add(routesWithSearch, SEARCH_REDUCER, 'activeFilters', {
+        selector: getActiveFilters,
+        defaultValue: [],
+        decode: val => [val],
+      })
   })
   .addParameter(PARAMETERS.DETAIL_REFERENCE, routes => {
     routes.add(

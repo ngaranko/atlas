@@ -2,9 +2,13 @@ import React from 'react'
 import { Checkbox, Label } from '@datapunt/asc-ui'
 import FilterBox from '../FilterBox'
 
-const SearchFilters = ({ filters: propFilters, onFilter }) => {
-  const [activeFilters, setActiveFilters] = React.useState([])
-  const { filters, title } = propFilters
+export const TYPES = {
+  check: 'check',
+  radio: 'radio',
+}
+
+const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) => {
+  const { filters, title, type } = availableFilters
 
   const onChange = e => {
     const { value, checked } = e.target
@@ -16,10 +20,6 @@ const SearchFilters = ({ filters: propFilters, onFilter }) => {
     }
   }
 
-  React.useEffect(() => {
-    onFilter(activeFilters)
-  }, [activeFilters, onFilter])
-
   return (
     <FilterBox
       label={title}
@@ -27,14 +27,20 @@ const SearchFilters = ({ filters: propFilters, onFilter }) => {
       showMoreLabel="Toon meer"
     >
       {filters && filters.length
-        ? filters.map(({ label, type, count }) => (
+        ? filters.map(({ label, type: filterType, count }) => (
             <Label
               key={type}
-              htmlFor={`type:${type}`}
+              htmlFor={`type:${filterType}`}
               label={`${label} (${count})`}
               disabled={count === 0}
             >
-              <Checkbox onChange={onChange} id={`type:${type}`} value={type} variant="primary" />
+              <Checkbox
+                checked={activeFilters.includes(filterType)}
+                onChange={onChange}
+                id={`type:${filterType}`}
+                value={filterType}
+                variant="primary"
+              />
             </Label>
           ))
         : null}

@@ -9,7 +9,6 @@ import PAGES, { isMapSplitPage, isEditorialOverviewPage, isSearchPage } from './
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
-const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'))
 const DatasetPage = React.lazy(() => import('./pages/DatasetPage'))
 const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'))
 const DatasetDetailContainer = React.lazy(() =>
@@ -85,13 +84,6 @@ const AppBody = ({
           ) : (
             <div className="u-grid u-full-height">
               <div className="u-row u-full-height">
-                {/* Todo: DP-6391 */}
-                {currentPage === PAGES.DATA_SEARCH_CATEGORY && (
-                  <div className="c-search-results u-grid">
-                    <DataSearchQuery />
-                  </div>
-                )}
-
                 {isMapSplitPage(currentPage) && <MapSplitPage />}
 
                 {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
@@ -112,7 +104,7 @@ const AppBody = ({
 AppBody.propTypes = {
   visibilityError: PropTypes.bool.isRequired,
   bodyClasses: PropTypes.string.isRequired,
-  hasMaxWidth: PropTypes.bool.isRequired,
+  hasGrid: PropTypes.bool.isRequired,
   homePage: PropTypes.bool.isRequired,
   currentPage: PropTypes.string.isRequired,
   embedPreviewMode: PropTypes.bool.isRequired,

@@ -60,28 +60,4 @@ describe('DataSearch', () => {
       .simulate('click')
     expect(toDetailMock).toHaveBeenCalledWith('https://something.com', VIEW_MODE.SPLIT)
   })
-
-  it('should fetch all search results on button click', () => {
-    const setSearchCategoryMock = jest.fn()
-    const extendedProps = {
-      ...props,
-      numberOfResults: 20,
-      setSearchCategory: setSearchCategoryMock,
-      searchResults: [
-        {
-          label_plural: 'foo',
-          count: 20,
-          slug: 'foo',
-        },
-      ],
-      searchQuery: 'foo',
-    }
-    const component = shallow(<DataSearch {...extendedProps} />)
-
-    component
-      .find('button.qa-show-more')
-      .at(0)
-      .simulate('click')
-    expect(setSearchCategoryMock).toHaveBeenCalledWith('foo', 'foo')
-  })
 })

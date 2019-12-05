@@ -12,7 +12,7 @@ import {
 import FilterBox from '../../components/FilterBox'
 import PAGES from '../../pages'
 import { routing } from '../../routes'
-import { categoryFilterBoxQuery } from '../../components/QuerySearch/constants.config'
+import { categoryFilterBoxQuery } from './constants.config'
 import SEARCH_PAGE_CONFIG from './config'
 
 const ACTIVE_LINK_PROPS = { active: true, as: 'div' }

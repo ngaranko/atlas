@@ -34,7 +34,6 @@ export const getApiSpecificationData = getStateOfKey.apiSpec('data')
 export const getResults = getStateOfKey.data('result')
 export const getAuthError = getStateOfKey.data('authError')
 export const getPage = getStateOfKey.data('page')
-export const getSearchText = getStateOfKey.data('searchText')
 export const getFilters = createSelector(
   getResults,
   result => result.filters || [],

@@ -4,7 +4,6 @@ import {
   getResults,
   getFilters,
   getPage,
-  getSearchText,
   getNumberOfResults,
   getApiSpecification,
   getApiSpecificationData,
@@ -36,7 +35,6 @@ describe('datasets selectors', () => {
     expect(getAuthError(state)).toEqual(state[DATASETS][DATA].authError)
     expect(getPage(state)).toEqual(state[DATASETS][DATA].page)
     expect(getResults(state)).toEqual(state[DATASETS][DATA].result)
-    expect(getSearchText(state)).toEqual(state[DATASETS][DATA].searchText)
     expect(getFilters(state)).toEqual(state[DATASETS][DATA].result.filters)
     expect(getNumberOfResults(state)).toEqual(state[DATASETS][DATA].result.numberOfRecords)
   })
