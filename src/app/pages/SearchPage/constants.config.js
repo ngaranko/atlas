@@ -66,6 +66,13 @@ export const dataSearchQuery = `
   query DataSearch($q: String!, $limit: Int, $types: [String!]) {
     dataSearch(q: $q, input: {limit: $limit, types: $types}) {
       totalCount
+      filters {
+        options {
+          id
+          label
+          count
+        }
+      }
       results {
         type
         label

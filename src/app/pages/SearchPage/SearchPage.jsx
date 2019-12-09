@@ -63,18 +63,27 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
 
   // Todo: refactor if resolver for data filters are made
   React.useEffect(() => {
-    if (currentPage === PAGES.DATA_SEARCH_QUERY && hasResults) {
-      setAvailableFilterBoxes([
-        {
-          title: 'Soorten data',
-          type: TYPES.check,
-          filters: currentResults.map(({ type, label, count }) => ({
-            type,
-            label,
-            count,
-          })),
-        },
-      ])
+    const { totalCount, filters } = getResultByKey(SEARCH_PAGE_CONFIG[currentPage].resolver)
+    console.log(filters)
+    if (hasResults) {
+      switch (currentPage) {
+        case PAGES.DATA_SEARCH_QUERY:
+          filters.map(({ options }) =>
+            setAvailableFilterBoxes([
+              {
+                title: 'Soort data',
+                type: TYPES.radio,
+                totalCount,
+                options,
+              },
+            ]),
+          )
+
+          break
+
+        default:
+          setAvailableFilterBoxes([])
+      }
     } else {
       setAvailableFilterBoxes([])
     }
