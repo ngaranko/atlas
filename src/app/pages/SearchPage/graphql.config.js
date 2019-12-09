@@ -57,6 +57,8 @@ export const datasetSearchQuery = `
         header
         description
         modified
+        id
+        tags
         formats {
           name
           count
