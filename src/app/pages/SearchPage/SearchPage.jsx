@@ -63,6 +63,12 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
   const getResultByKey = resolver =>
     data && data[resolver] ? data[resolver] : { totalCount: 0, results: [] }
 
+  React.useEffect(() => {
+    if (fetching) {
+      setCurrentResults([])
+    }
+  }, [fetching])
+
   // Todo: refactor if resolver for data filters are made
   React.useEffect(() => {
     const { totalCount, filters } = getResultByKey(SEARCH_PAGE_CONFIG[currentPage].resolver)
