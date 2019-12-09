@@ -25,12 +25,25 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) =>
     }
   }
 
+  let Wrapper = React.Fragment
+  let WrapperProps = {}
+  let RadioOrCheckbox = Checkbox
+
+  if (type === TYPES.radio) {
+    Wrapper = RadioGroup
+    WrapperProps = {
+      name: `radio-group-${title.toLowerCase()}`,
+    }
+
+    RadioOrCheckbox = Radio
+  }
+
   return (
     <FilterBox label={title}>
-      {type === TYPES.radio ? (
-        <RadioGroup name="group-2">
-          {hasFilters && (
-            <>
+      <Wrapper {...WrapperProps}>
+        {hasFilters && (
+          <>
+            {type === TYPES.radio && (
               <Label htmlFor="type:all" label={`Alles (${totalCount})`}>
                 <Radio
                   checked={!activeFilters.length}
@@ -40,43 +53,27 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) =>
                   id="type:all"
                 />
               </Label>
-              {options.map(({ label, id: filterType, count }) => (
-                <Label
-                  disabled={count === 0}
-                  htmlFor={`type:${filterType}`}
-                  label={`${label} (${count})`}
-                >
-                  <Radio
-                    checked={activeFilters.includes(filterType)}
-                    variant="primary"
-                    value={filterType}
-                    onChange={onChange}
-                    id={`type:${filterType}`}
-                  />
-                </Label>
-              ))}
-            </>
-          )}
-        </RadioGroup>
-      ) : (
-        hasFilters &&
-        options.map(({ label, type: filterType, count }) => (
-          <Label
-            key={type}
-            htmlFor={`type:${filterType}`}
-            label={`${label} (${count})`}
-            disabled={count === 0}
-          >
-            <Checkbox
-              checked={activeFilters.includes(filterType)}
-              onChange={onChange}
-              id={`type:${filterType}`}
-              value={filterType}
-              variant="primary"
-            />
-          </Label>
-        ))
-      )}
+            )}
+            {options.map(({ label, id, count }) => (
+              <Label
+                key={id}
+                tabIndex={-1}
+                disabled={count === 0}
+                htmlFor={`type:${id}`}
+                label={`${label} (${count})`}
+              >
+                <RadioOrCheckbox
+                  checked={activeFilters.includes(id)}
+                  variant="primary"
+                  value={id}
+                  onChange={onChange}
+                  id={`type:${id}`}
+                />
+              </Label>
+            ))}
+          </>
+        )}
+      </Wrapper>
     </FilterBox>
   )
 }
