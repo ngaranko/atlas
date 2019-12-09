@@ -43,7 +43,7 @@ describe('DataSearch', () => {
       toDetail: toDetailMock,
       searchResults: [
         {
-          label_plural: 'foo',
+          plural: 'foo',
           count: 20,
           more: {
             endpoint: 'https://something.com',

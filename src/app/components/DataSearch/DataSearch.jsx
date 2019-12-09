@@ -41,11 +41,9 @@ const DataSearch = ({
                     <div className="c-search-results__block-content">
                       <div className="o-header">
                         <h2 className="o-header__subtitle qa-search-header">
-                          {result.count > 1 && (
-                            <span>{`${result.label_plural} (${result.count})`}</span>
-                          )}
-                          {result.count === 1 && <span>{result.label_singular}</span>}
-                          {result.count === 0 && <span>{result.label_plural}</span>}
+                          {result.count > 1 && <span>{`${result.label} (${result.count})`}</span>}
+                          {result.count === 1 && <span>{result.singular}</span>}
+                          {result.count === 0 && <span>{result.label}</span>}
                         </h2>
                       </div>
                       {!!result.warning && (

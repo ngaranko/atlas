@@ -11,6 +11,10 @@ const categoryLabels = {
     singular: 'Bekendmaking',
     plural: 'Bekendmakingen',
   },
+  bouwblok: {
+    singular: 'Bouwblok',
+    plural: 'Bouwblokken',
+  },
   explosief: {
     singular: 'Explosief',
     plural: 'Explosieven',
@@ -18,6 +22,10 @@ const categoryLabels = {
   evenementen: {
     singular: 'Evenement',
     plural: 'Evenementen',
+  },
+  reclamebelasting: {
+    singular: 'Reclamebelastingtarief',
+    plural: 'Reclamebelastingtarieven',
   },
   gebied: {
     singular: 'Gebied',
@@ -35,6 +43,10 @@ const categoryLabels = {
     singular: 'Kadastraal object',
     plural: 'Kadastrale objecten',
   },
+  kadastraalSubject: {
+    singular: 'Kadastraal subbject',
+    plural: 'Kadastrale subjecten',
+  },
   ligplaats: {
     singular: 'Adres',
     plural: 'Adressen',
@@ -47,7 +59,11 @@ const categoryLabels = {
     singular: 'Monument',
     plural: 'Monumenten',
   },
-  napPijlmerk: {
+  mac: {
+    singular: 'Maatschappelijke activiteit',
+    plural: 'Maatschappelijke activiteiten',
+  },
+  napPeilmerk: {
     singular: 'NAP Peilmerk',
     plural: 'NAP Peilmerken',
   },
@@ -67,9 +83,21 @@ const categoryLabels = {
     singular: 'Parkeervak',
     plural: 'Parkeervakken',
   },
+  parkeerzones: {
+    singular: 'Parkeervergunninggebied',
+    plural: 'Parkeervergunninggebieden',
+  },
+  parkeerzonesUitz: {
+    singular: 'Uitzondering parkeervergunninggebied',
+    plural: 'Uitzondering parkeervergunninggebieden',
+  },
   standplaats: {
     singular: 'Adres',
     plural: 'Adressen',
+  },
+  straatnamen: {
+    singular: 'Straatnaam',
+    plural: 'Straatnamen',
   },
   vastgoed: {
     singular: 'Vastgoed',
