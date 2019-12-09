@@ -33,7 +33,7 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) =>
             <>
               <Label htmlFor="type:all" label={`Alles (${totalCount})`}>
                 <Radio
-                  checked
+                  checked={!activeFilters.length}
                   variant="primary"
                   value="all"
                   onChange={() => setActiveFilters([])}
@@ -47,6 +47,7 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) =>
                   label={`${label} (${count})`}
                 >
                   <Radio
+                    checked={activeFilters.includes(filterType)}
                     variant="primary"
                     value={filterType}
                     onChange={onChange}
