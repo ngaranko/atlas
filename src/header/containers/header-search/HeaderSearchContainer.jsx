@@ -29,7 +29,7 @@ import {
 import PARAMETERS from '../../../store/parameters'
 import { getViewMode, isMapPage } from '../../../shared/ducks/ui/ui'
 import HeaderSearch from './HeaderSearch'
-import { TYPES } from '../../../app/pages/SearchPage/constants.config'
+import { TYPES } from '../../../app/pages/SearchPage/config'
 
 const mapStateToProps = state => ({
   activeSuggestion: getActiveSuggestions(state),

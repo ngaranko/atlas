@@ -62,6 +62,7 @@ const routesWithSearch = [
   routing.dataSearchQuery.type,
   routing.datasetSearch.type,
   routing.articleSearch.type,
+  routing.specialSearch.type,
   routing.publicationSearch.type,
 ]
 
@@ -257,6 +258,7 @@ export default paramsRegistry
         selector: getActiveFilters,
         defaultValue: [],
         decode: val => [val],
+        encode: (selectorResult = []) => (selectorResult.length ? selectorResult : undefined),
       })
   })
   .addParameter(PARAMETERS.DETAIL_REFERENCE, routes => {

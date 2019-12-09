@@ -8,12 +8,15 @@ import {
   toDatasetSearch,
   toPublicationSearch,
   toSearch,
+  toSpecialSearch,
 } from '../../../store/redux-first-router/actions'
 import FilterBox from '../../components/FilterBox'
 import PAGES from '../../pages'
 import { routing } from '../../routes'
-import { categoryFilterBoxQuery } from './constants.config'
 import SEARCH_PAGE_CONFIG from './config'
+import isDefined from '../../../shared/services/is-defined'
+import PARAMETERS from '../../../store/parameters'
+import { categoryFilterBoxQuery } from './graphql.config'
 
 const ACTIVE_LINK_PROPS = { active: true, as: 'div' }
 
@@ -28,24 +31,33 @@ export default ({ currentPage, query }) => {
   let allCategoryCount
   let publicationCount
   let articleCount
+  let specialCount
   let datasetTotalCount
   let dataTotalCount
 
   if (data) {
-    const { articleSearch, publicationSearch, datasetSearch, dataSearch } = data
+    const { articleSearch, publicationSearch, datasetSearch, dataSearch, specialSearch } = data
 
     try {
       datasetTotalCount = datasetSearch.totalCount
       dataTotalCount = dataSearch.totalCount
       publicationCount = publicationSearch.totalCount
       articleCount = articleSearch.totalCount
+      specialCount = specialSearch.totalCount
 
       allCategoryCount = datasetTotalCount + dataTotalCount + publicationCount + articleCount
     } catch (e) {
       // Todo: error handling
+      // eslint-disable-next-line no-console
       console.warn(e)
     }
   }
+
+  const QUERY_PARAMETER = { [PARAMETERS.QUERY]: query }
+
+  // We only want to preserve certain parameters when navigating between "filters" (pages)
+  const CMS_ROUTE_ARGUMENTS = [QUERY_PARAMETER, undefined, undefined, false]
+  const DATASETS_ROUTE_ARGUMENTS = [QUERY_PARAMETER, undefined, undefined, false]
 
   const FILTERS = [
     {
@@ -62,21 +74,27 @@ export default ({ currentPage, query }) => {
     },
     {
       page: PAGES.PUBLICATION_SEARCH,
-      to: toPublicationSearch(),
+      to: toPublicationSearch(...CMS_ROUTE_ARGUMENTS),
       title: routing.publicationSearch.title,
       count: publicationCount,
     },
     {
       page: PAGES.DATASET_SEARCH,
-      to: toDatasetSearch(),
+      to: toDatasetSearch(...DATASETS_ROUTE_ARGUMENTS),
       title: routing.datasetSearch.title,
       count: datasetTotalCount,
     },
     {
       page: PAGES.ARTICLE_SEARCH,
-      to: toArticleSearch(),
+      to: toArticleSearch(...CMS_ROUTE_ARGUMENTS),
       title: routing.articleSearch.title,
       count: articleCount,
+    },
+    {
+      page: PAGES.SPECIAL_SEARCH,
+      to: toSpecialSearch(...CMS_ROUTE_ARGUMENTS),
+      title: routing.specialSearch.title,
+      count: specialCount,
     },
   ]
 
@@ -87,7 +105,7 @@ export default ({ currentPage, query }) => {
           key={page}
           {...(currentPage === page ? ACTIVE_LINK_PROPS : { as: RouterLink, to, title })}
         >
-          {SEARCH_PAGE_CONFIG[page].label} {count && `(${count})`}
+          {SEARCH_PAGE_CONFIG[page].label} {isDefined(count) && `(${count})`}
         </FilterOption>
       ))}
     </FilterBox>

@@ -127,6 +127,7 @@ const EditorialCard = ({
   }
 
   // The type SPECIALS has a different url structure
+
   const to =
     toProp ||
     (specialType

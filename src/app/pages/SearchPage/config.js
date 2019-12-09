@@ -4,9 +4,16 @@ import {
   dataSearchQuery,
   datasetSearchQuery,
   publicationSearchQuery,
-} from './constants.config'
+  specialSearchQuery,
+} from './graphql.config'
 
 export const MAX_RESULTS = 50
+
+export const TYPES = {
+  ARTICLE: 'article',
+  PUBLICATION: 'publication',
+  SPECIAL: 'special',
+}
 
 export default {
   [PAGES.SEARCH]: {
@@ -23,6 +30,11 @@ export default {
     resolver: 'articleSearch',
     query: articleSearchQuery,
     label: 'Artikelen',
+  },
+  [PAGES.SPECIAL_SEARCH]: {
+    resolver: 'specialSearch',
+    query: specialSearchQuery,
+    label: 'In Beeld',
   },
   [PAGES.DATA_SEARCH_QUERY]: {
     resolver: 'dataSearch',

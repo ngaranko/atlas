@@ -46,11 +46,13 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
   const [availableFilterBoxes, setAvailableFilterBoxes] = React.useState([])
   const [currentResults, setCurrentResults] = React.useState([])
 
+  const limit = activeFilters.length > 0 ? undefined : 10 // undefined limit to show all results
+
   const [{ fetching, data, error }] = useQuery({
     query: currentQuery,
     variables: {
       q: query,
-      limit: 30,
+      limit,
       from: offset,
       types: activeFilters.length > 0 ? activeFilters : null,
     },
@@ -105,8 +107,9 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
 
   const Results = () => {
     switch (currentPage) {
+      case PAGES.SPECIAL_SEARCH:
       case PAGES.PUBLICATION_SEARCH:
-      case PAGES.ARTICLE_SEARCH: {
+      case PAGES.ARTICLE_SEARCH:
         return (
           <EditorialResults
             title={SEARCH_PAGE_CONFIG[currentPage].label}
@@ -118,11 +121,11 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
             }}
           />
         )
-      }
-      case PAGES.DATA_SEARCH_QUERY: {
+
+      case PAGES.DATA_SEARCH_QUERY:
         return <DataSearchResults results={currentResults} />
-      }
-      case PAGES.DATASET_SEARCH: {
+
+      case PAGES.DATASET_SEARCH:
         return (
           <div>
             {currentResults.map(({ header, formats }) => (
@@ -130,7 +133,7 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
             ))}
           </div>
         )
-      }
+
       default:
         return null
     }
@@ -143,7 +146,10 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
           <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
             <PageFilterBox currentPage={currentPage} query={query} />
             {availableFilterBoxes.map(availableFilters => (
-              <SearchFilters {...{ activeFilters, setActiveFilters, availableFilters }} />
+              <SearchFilters
+                key={availableFilters.title}
+                {...{ activeFilters, setActiveFilters, availableFilters }}
+              />
             ))}
           </FilterColumn>
           <ResultColumn

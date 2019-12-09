@@ -5,7 +5,11 @@ import {
   toSpecialDetail,
 } from '../../../store/redux-first-router/actions'
 import { TYPES } from '../../../shared/config/cms.config'
-import { articleSearchQuery, publicationSearchQuery } from '../SearchPage/constants.config'
+import {
+  articleSearchQuery,
+  publicationSearchQuery,
+  specialSearchQuery,
+} from '../SearchPage/graphql.config'
 
 export const EDITORIAL_TYPES = {
   [PAGES.ARTICLES]: TYPES.ARTICLE,
@@ -13,6 +17,7 @@ export const EDITORIAL_TYPES = {
   [PAGES.PUBLICATIONS]: TYPES.PUBLICATION,
   [PAGES.PUBLICATION_SEARCH]: TYPES.PUBLICATION,
   [PAGES.SPECIALS]: TYPES.SPECIAL,
+  [PAGES.SPECIAL_SEARCH]: TYPES.SPECIAL,
 }
 
 export const EDITORIAL_TITLES = {
@@ -35,6 +40,10 @@ export const GRAPHQL_CONFIG = {
   [PAGES.PUBLICATIONS]: {
     resolver: 'publicationSearch',
     query: publicationSearchQuery,
+  },
+  [PAGES.SPECIALS]: {
+    resolver: 'specialSearch',
+    query: specialSearchQuery,
   },
 }
 

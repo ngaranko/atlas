@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import EditorialOverviewPage from './EditorialOverviewPage'
 import usePagination from '../../utils/usePagination'
 import PAGES from '../../pages'
-import { MAX_RESULTS, TYPES } from '../SearchPage/constants.config'
+import { TYPES, MAX_RESULTS } from '../SearchPage/config'
 
 jest.mock('../../utils/usePagination')
 

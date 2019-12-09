@@ -139,6 +139,12 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLE_SEARCH}`,
     page: PAGES.ARTICLE_SEARCH,
   },
+  specialSearch: {
+    title: 'In beeld zoekresultaten',
+    path: `/${MAIN_PATHS.SPECIALS}/zoek/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.SPECIAL_SEARCH}`,
+    page: PAGES.SPECIAL_SEARCH,
+  },
   publications: {
     title: 'Publicaties',
     path: `/${MAIN_PATHS.PUBLICATIONS}/`,

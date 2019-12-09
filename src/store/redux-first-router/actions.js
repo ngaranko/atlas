@@ -165,10 +165,15 @@ export const toDatasets = (additionalParams = null, preserve = false, forceSaga 
   },
 })
 
-export const toDatasetSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
+export const toDatasetSearch = (
+  additionalParams = null,
+  skipSaga = false,
+  forceSaga = false,
+  preserve = true,
+) => ({
   type: routing.datasetSearch.type,
   meta: {
-    preserve: true,
+    preserve,
     skipSaga,
     forceSaga,
     additionalParams,
@@ -283,16 +288,6 @@ export const toNotFoundPage = () => ({
 export const toHelpPage = () =>
   toArticleDetail(HEADER_LINKS.HELP.id[process.env.NODE_ENV], HEADER_LINKS.HELP.slug)
 
-export const toArticleSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
-  type: routing.articleSearch.type,
-  meta: {
-    preserve: true,
-    skipSaga,
-    forceSaga,
-    additionalParams,
-  },
-})
-
 export const toArticleOverview = () => ({
   type: routing.articles.type,
 })
@@ -305,16 +300,21 @@ export const toSpecialOverview = () => ({
   type: routing.specials.type,
 })
 
-export const toPublicationSearch = (
+export const toCmsSearch = type => (
   additionalParams = null,
   skipSaga = false,
   forceSaga = false,
+  preserve = true,
 ) => ({
-  type: routing.publicationSearch.type,
+  type,
   meta: {
-    preserve: true,
+    preserve,
     skipSaga,
     forceSaga,
     additionalParams,
   },
 })
+
+export const toPublicationSearch = toCmsSearch(routing.publicationSearch.type)
+export const toArticleSearch = toCmsSearch(routing.articleSearch.type)
+export const toSpecialSearch = toCmsSearch(routing.specialSearch.type)
