@@ -44,14 +44,13 @@ const StyledLink = styled(Link)`
 
 const StyledCard = styled(Card)`
   align-items: stretch;
+  padding: 0;
 `
 
 const StyledCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
   padding: 0;
-  margin: ${themeSpacing(0, 4)};
-  border-bottom: 1px solid ${themeColor('tint', 'level3')};
   position: relative;
 `
 
@@ -70,8 +69,19 @@ const FormatTag = styled.span`
   color: ${themeColor('tint', 'level5')};
 `
 
-const DatasetCard = ({ id, shortTitle, teaser, lastModified, modified, formats, to }) => (
-  <StyledLink $as={RouterLink} key={id} to={to} title={shortTitle} linkType="blank">
+const DatasetCard = ({
+  id,
+  shortTitle,
+  teaser,
+  lastModified,
+  modified,
+  formats,
+  to,
+  ...otherProps
+}) => (
+  <StyledLink
+    {...{ $as: RouterLink, key: id, to, title: shortTitle, linkType: 'blank', ...otherProps }}
+  >
     <StyledCard horizontal>
       <StyledCardContent>
         <div>
@@ -80,7 +90,7 @@ const DatasetCard = ({ id, shortTitle, teaser, lastModified, modified, formats, 
 
         <div>
           <MetaText as="time" data-test="metaText" datetime={modified}>
-            {`Gewijzigd: ${lastModified}`}
+            {lastModified}
           </MetaText>
         </div>
 

@@ -11,10 +11,10 @@ import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import EditorialResults from '../../components/EditorialResults'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import SearchFilters, { TYPES } from '../../components/SearchFilters/SearchFilters'
-import DatasetCard from '../../components/DatasetCard'
 import Panel from '../../components/Panel/Panel'
 
 import SEARCH_PAGE_CONFIG from './config'
+import DatasetSearchResults from './DatasetSearchResults'
 
 const FilterColumn = styled(Column)`
   align-content: flex-start;
@@ -123,13 +123,7 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
         return <DataSearchResults results={currentResults} />
       }
       case PAGES.DATASET_SEARCH: {
-        return (
-          <div>
-            {currentResults.map(({ header, formats }) => (
-              <DatasetCard key={header} href="#" formats={formats} shortTitle={header} />
-            ))}
-          </div>
-        )
+        return <DatasetSearchResults results={currentResults} />
       }
       default:
         return null
