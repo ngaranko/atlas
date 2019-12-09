@@ -15,12 +15,15 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) =>
     const { value, checked } = e.target
 
     if (checked) {
-      setActiveFilters([...activeFilters, value])
+      if (type === TYPES.check) {
+        setActiveFilters([...activeFilters, value])
+      } else {
+        setActiveFilters([value])
+      }
     } else {
       setActiveFilters(activeFilters.filter(filter => filter !== value))
     }
   }
-  console.log(availableFilters)
 
   return (
     <FilterBox label={title}>

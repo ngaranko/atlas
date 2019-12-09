@@ -64,7 +64,6 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
   // Todo: refactor if resolver for data filters are made
   React.useEffect(() => {
     const { totalCount, filters } = getResultByKey(SEARCH_PAGE_CONFIG[currentPage].resolver)
-    console.log(filters)
     if (hasResults) {
       switch (currentPage) {
         case PAGES.DATA_SEARCH_QUERY:
