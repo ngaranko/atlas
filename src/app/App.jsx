@@ -53,7 +53,7 @@ const matomoInstance = createInstance({
 
 const graphQLClient = createClient({
   // Todo dont forget to change to api
-  url: `${process.env.API_ROOT}cms_search/graphql/`,
+  url: `http://localhost:8081/cms_search/graphql/`,
   exchanges: [dedupExchange, cacheExchange, fetchExchange],
   requestPolicy: 'cache-first',
 })

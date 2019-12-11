@@ -257,8 +257,28 @@ export default paramsRegistry
       .add(routesWithSearch, SEARCH_REDUCER, 'activeFilters', {
         selector: getActiveFilters,
         defaultValue: [],
-        decode: val => [val],
-        encode: (selectorResult = []) => (selectorResult.length ? selectorResult : undefined),
+        decode: val =>
+          val
+            ? val.split('|').map(value => {
+                const possibleFilterWithType = value.split('.')
+                if (possibleFilterWithType.length === 2) {
+                  return {
+                    type: possibleFilterWithType[0],
+                    value: possibleFilterWithType[1],
+                  }
+                }
+                return {
+                  type: 'default',
+                  value,
+                }
+              })
+            : [],
+        encode: (selectorResult = []) =>
+          selectorResult.length
+            ? selectorResult
+                .map(({ type, value }) => (type === 'default' ? value : `${type}.${value}`))
+                .join('|')
+            : undefined,
       })
   })
   .addParameter(PARAMETERS.DETAIL_REFERENCE, routes => {

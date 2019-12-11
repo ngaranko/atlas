@@ -10,13 +10,13 @@ import {
   toSearch,
   toSpecialSearch,
 } from '../../../store/redux-first-router/actions'
-import FilterBox from '../../components/FilterBox'
+import FilterBox from '../FilterBox'
 import PAGES from '../../pages'
 import { routing } from '../../routes'
-import SEARCH_PAGE_CONFIG from './config'
+import SEARCH_PAGE_CONFIG from '../../pages/SearchPage/config'
 import isDefined from '../../../shared/services/is-defined'
 import PARAMETERS from '../../../store/parameters'
-import { categoryFilterBoxQuery } from './graphql.config'
+import { categoryFilterBoxQuery } from '../../pages/SearchPage/graphql.config'
 
 const ACTIVE_LINK_PROPS = { active: true, as: 'div' }
 

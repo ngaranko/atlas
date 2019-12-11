@@ -7,21 +7,45 @@ export const TYPES = {
   radio: 'radio',
 }
 
-const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) => {
-  const { options, title, totalCount, type } = availableFilters
-  const hasFilters = options && !!options.length
+const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters, type }) => {
+  const { options, title, totalCount, ui } = availableFilters
 
+  const hasFilters = options && !!options.length
   const onChange = e => {
     const { value, checked } = e.target
 
+    const newFilter = type
+      ? {
+          type,
+          values: [value],
+        }
+      : {
+          type: 'default',
+          value,
+        }
+
     if (checked) {
-      if (type === TYPES.check) {
-        setActiveFilters([...activeFilters, value])
+      if (ui === TYPES.check) {
+        let newFilters = {}
+        console.log(activeFilters)
+        if (Object.entries(activeFilters).length) {
+          newFilters = Object.entries(activeFilters).reduce(
+            (acc, [filterType, filters]) => ({
+              ...acc,
+              [filterType]: [...filters, value],
+            }),
+            {},
+          )
+        } else {
+          newFilters = { [type]: [value] }
+        }
+
+        setActiveFilters(newFilters)
       } else {
-        setActiveFilters([value])
+        setActiveFilters([newFilter])
       }
     } else {
-      setActiveFilters(activeFilters.filter(filter => filter !== value))
+      setActiveFilters(activeFilters.filter(filter => filter.value !== value))
     }
   }
 
@@ -29,7 +53,7 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) =>
   let WrapperProps = {}
   let RadioOrCheckbox = Checkbox
 
-  if (type === TYPES.radio) {
+  if (ui === TYPES.radio) {
     Wrapper = RadioGroup
     WrapperProps = {
       name: `radio-group-${title.toLowerCase()}`,
@@ -43,13 +67,13 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) =>
       <Wrapper {...WrapperProps}>
         {hasFilters && (
           <>
-            {type === TYPES.radio && (
+            {ui === TYPES.radio && (
               <Label htmlFor="type:all" label={`Alles (${totalCount})`}>
                 <Radio
                   checked={!activeFilters.length}
                   variant="primary"
                   value="all"
-                  onChange={() => setActiveFilters([])}
+                  onChange={() => setActiveFilters({})}
                   id="type:all"
                 />
               </Label>
@@ -63,7 +87,7 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters }) =>
                 label={`${label} (${count})`}
               >
                 <RadioOrCheckbox
-                  checked={activeFilters.includes(id)}
+                  checked={activeFilters[type].values.includes(id)}
                   variant="primary"
                   value={id}
                   onChange={onChange}

@@ -4,7 +4,7 @@ import { useQuery } from 'urql'
 import { breakpoint, Column, Container, Row, Heading, themeSpacing } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
-import PageFilterBox from './PageFilterBox'
+import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
 import DataSearchResults from './DataSearchResults'
 import PAGES from '../../pages'
 import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
@@ -46,15 +46,16 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
   const [availableFilterBoxes, setAvailableFilterBoxes] = React.useState([])
   const [currentResults, setCurrentResults] = React.useState([])
 
-  const limit = activeFilters.length > 0 ? undefined : 10 // undefined limit to show all results
+  const limit = Object.keys(activeFilters).length > 0 ? undefined : 10 // undefined limit to show all results
 
+  console.log(activeFilters)
   const [{ fetching, data, error }] = useQuery({
     query: currentQuery,
     variables: {
       q: query,
       limit,
       from: offset,
-      types: activeFilters.length > 0 ? activeFilters : null,
+      // types: Object.keys(activeFilters).length > 0 ? activeFilters : null,
     },
   })
 
@@ -76,14 +77,33 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
       switch (currentPage) {
         case PAGES.DATA_SEARCH_QUERY:
           filters.map(({ options }) =>
-            setAvailableFilterBoxes([
-              {
+            setAvailableFilterBoxes({
+              default: {
                 title: 'Soort data',
-                type: TYPES.radio,
+                ui: TYPES.radio,
                 totalCount,
                 options,
               },
-            ]),
+            }),
+          )
+
+          break
+        case PAGES.DATASET_SEARCH:
+          setAvailableFilterBoxes(
+            filters
+              .filter(({ options }) => options.length > 0)
+              .reduce(
+                (acc, { options, label, type }) => ({
+                  ...acc,
+                  [type]: {
+                    title: label,
+                    ui: TYPES.check,
+                    totalCount,
+                    options,
+                  },
+                }),
+                {},
+              ),
           )
 
           break
@@ -143,10 +163,10 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
         <Row>
           <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
             <PageFilterBox currentPage={currentPage} query={query} />
-            {availableFilterBoxes.map(availableFilters => (
+            {Object.entries(availableFilterBoxes).map(([type, availableFilters]) => (
               <SearchFilters
-                key={availableFilters.title}
-                {...{ activeFilters, setActiveFilters, availableFilters }}
+                key={type}
+                {...{ activeFilters, setActiveFilters, availableFilters, type }}
               />
             ))}
           </FilterColumn>

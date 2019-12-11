@@ -5,7 +5,7 @@ const SEARCH_SET_FILTERS = `${REDUCER_KEY}/SEARCH_SET_FILTERS`
 const SEARCH_SET_QUERY = `${REDUCER_KEY}/SET_QUERY`
 
 const initialState = {
-  activeFilters: [],
+  activeFilters: {},
   query: '',
 }
 
