@@ -38,6 +38,11 @@ export const PANO_LABELS = [
     tags: ['mission-bi', 'mission-2016'],
   },
   {
+    layerId: 'pano2019woz',
+    label: 'Alleen 2019 WOZ',
+    tags: ['mission-woz', 'mission-2019'],
+  },
+  {
     layerId: 'pano2018woz',
     label: 'Alleen 2018 WOZ',
     tags: ['mission-woz', 'mission-2018'],
