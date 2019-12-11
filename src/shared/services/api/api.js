@@ -41,17 +41,14 @@ export const getWithToken = async (url, params, cancel, token, reloadOnUnauthori
   }
 
   const fullUrl = `${url}${params ? `?${generateParams(params)}` : ''}`
-  return logPerf(
-    url,
-    fullUrl,
-    fetch(fullUrl, options).then(response => handleErrors(response, reloadOnUnauthorized)),
-  )
+
+  return fetch(fullUrl, options).then(response => handleErrors(response, reloadOnUnauthorized))
 }
 
 export const getByUrl = async (url, params, cancel, reloadOnUnauthorized) => {
   const token = getAccessToken()
 
-  return Promise.resolve(getWithToken(url, params, cancel, token, reloadOnUnauthorized))
+  return logPerf(url, url, getWithToken(url, params, cancel, token, reloadOnUnauthorized))
 }
 
 export const createUrlWithToken = (url, token) => {
