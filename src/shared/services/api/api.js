@@ -2,6 +2,7 @@ import getState from '../redux/get-state'
 import SHARED_CONFIG from '../shared-config/shared-config'
 import { encodeQueryParams } from '../query-string-parser/query-string-parser'
 import { logout } from '../auth/auth'
+import logPerf from '../../../app/utils/logPerf'
 
 export const getAccessToken = () => getState().user.accessToken
 
@@ -23,7 +24,7 @@ const handleErrors = (response, reloadOnUnauthorized) => {
 
 export const getByUri = uri => fetch(uri).then(response => response.json())
 
-export const getWithToken = (url, params, cancel, token, reloadOnUnauthorized = false) => {
+export const getWithToken = async (url, params, cancel, token, reloadOnUnauthorized = false) => {
   const headers = {}
 
   if (token) {
@@ -40,14 +41,14 @@ export const getWithToken = (url, params, cancel, token, reloadOnUnauthorized = 
   }
 
   const fullUrl = `${url}${params ? `?${generateParams(params)}` : ''}`
-  return fetch(fullUrl, options)
-    .then(response => handleErrors(response, reloadOnUnauthorized))
-    .then(response => response.json())
+
+  return fetch(fullUrl, options).then(response => handleErrors(response, reloadOnUnauthorized))
 }
 
 export const getByUrl = async (url, params, cancel, reloadOnUnauthorized) => {
   const token = getAccessToken()
-  return Promise.resolve(getWithToken(url, params, cancel, token, reloadOnUnauthorized))
+
+  return logPerf(url, url, getWithToken(url, params, cancel, token, reloadOnUnauthorized))
 }
 
 export const createUrlWithToken = (url, token) => {

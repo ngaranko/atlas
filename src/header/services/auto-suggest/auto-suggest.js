@@ -1,4 +1,5 @@
 import { getAuthHeaders } from '../../../shared/services/auth/auth'
+import logPerf from '../../../app/utils/logPerf'
 
 // Minimun length for typeahead query in backend is 3 characters
 const MIN_QUERY_LENGTH = 3
@@ -54,16 +55,18 @@ function formatData(categories) {
   }
 }
 
-function search(query) {
+async function search(query) {
   const uri =
     query &&
     query.length >= MIN_QUERY_LENGTH &&
     `${process.env.API_ROOT}typeahead?q=${typeof query === 'string' ? query.toLowerCase() : ''}` // Todo: temporary fix, real fix: DP-7365
 
   if (uri) {
-    return fetch(uri, { headers: getAuthHeaders() })
-      .then(response => response.json())
-      .then(response => formatData(response))
+    const data = logPerf('typeahead', uri, fetch(uri, { headers: getAuthHeaders() })).then(
+      response => formatData(response),
+    )
+
+    return data
   }
   return {}
 }
