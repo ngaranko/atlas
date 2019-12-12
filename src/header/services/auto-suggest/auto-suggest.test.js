@@ -41,8 +41,7 @@ describe('The auto-suggest service', () => {
 
   afterEach(() => {})
 
-  // Skipped for now because of the usage of logPerf function
-  it.skip('search query must be at least three characters', () => {
+  it('search query must be at least three characters', () => {
     expect(autoSuggestSearch('li')).toEqual({})
   })
 

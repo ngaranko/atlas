@@ -21,8 +21,7 @@ describe('Api service', () => {
       data: 'hello',
     }
 
-    // Skipped for now because of the usage of logPerf function
-    it.skip('should return the response from fetch', async () => {
+    it('should return the response from fetch', async () => {
       fetch.mockResponseOnce(JSON.stringify(response))
 
       const result = await getWithToken(
