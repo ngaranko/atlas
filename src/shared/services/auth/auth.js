@@ -43,6 +43,7 @@ export const SCOPES = {
   'MON/RDM': 'MON/RDM',
   'HR/R': 'HR/R',
   'BD/R': 'BD/R',
+  'BD/X': 'BD/X',
   'GREX/R': 'GREX/R',
 }
 
@@ -71,7 +72,8 @@ const scopes = [
   SCOPES['HR/R'], // Leesrechten
 
   // Bouwdossiers
-  SCOPES['BD/R'],
+  SCOPES['BD/R'], // basis rechten
+  SCOPES['BD/X'], // extra rechten
 
   // Bouwdossiers
   'BD/R',
