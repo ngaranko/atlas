@@ -73,6 +73,35 @@
         }
     },
     {
+      "id": "pano2019woz",
+      "layers": [
+        "panorama_new"
+      ],
+      "legendItems": [
+        {
+          "imageRule": "2019",
+          "title": "2019 WOZ",
+          "params": {
+            "scale": 800
+          }
+        }
+      ],
+      "minZoom": 11,
+      "notClosable": true,
+      "title": "Panoramabeelden",
+      "url": "/maps/panorama",
+      "params": {
+        "mission_year": 2019,
+        "mission_type": "woz"
+      },
+      "meta": {
+        "description": null,
+        "theme": null,
+        "datasetId": null,
+        "date": null
+      }
+    },
+    {
         "id": "pano2018bi",
         "layers": [
             "panorama_new"
@@ -2850,7 +2879,7 @@
                 "params": {
                     "tarief": "A"
                 }
-                
+
             },
             {
                 "id": "tariffB",
@@ -2858,7 +2887,7 @@
                 "params": {
                     "tarief": "B"
                 }
-                
+
             },
             {
                 "id": "tariffC",
