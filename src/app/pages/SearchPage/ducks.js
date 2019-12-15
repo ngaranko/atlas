@@ -16,11 +16,26 @@ function reducer(state = initialState, action) {
   }
 
   switch (action.type) {
-    case SEARCH_SET_FILTERS:
+    case SEARCH_SET_FILTERS: {
+      const { type, filters } = action.payload
+      let activeFilters
+
+      if (filters.length) {
+        activeFilters = {
+          ...enrichedState.activeFilters,
+          [type]: filters,
+        }
+      } else {
+        // Don't mutate enrichedState
+        const currentActiveFilters = { ...enrichedState }
+        delete currentActiveFilters.activeFilters[type]
+        ;({ activeFilters } = currentActiveFilters)
+      }
       return {
         ...enrichedState,
-        activeFilters: action.payload,
+        activeFilters,
       }
+    }
 
     case SEARCH_SET_QUERY:
       return {

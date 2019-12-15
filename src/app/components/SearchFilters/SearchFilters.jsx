@@ -14,38 +14,18 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters, type
   const onChange = e => {
     const { value, checked } = e.target
 
-    const newFilter = type
-      ? {
-          type,
-          values: [value],
-        }
-      : {
-          type: 'default',
-          value,
-        }
-
     if (checked) {
-      if (ui === TYPES.check) {
-        let newFilters = {}
-        console.log(activeFilters)
-        if (Object.entries(activeFilters).length) {
-          newFilters = Object.entries(activeFilters).reduce(
-            (acc, [filterType, filters]) => ({
-              ...acc,
-              [filterType]: [...filters, value],
-            }),
-            {},
-          )
-        } else {
-          newFilters = { [type]: [value] }
-        }
-
-        setActiveFilters(newFilters)
-      } else {
-        setActiveFilters([newFilter])
-      }
+      // Add
+      setActiveFilters({
+        type,
+        filters: ui === TYPES.check ? [...(activeFilters || []), value] : [value],
+      })
     } else {
-      setActiveFilters(activeFilters.filter(filter => filter.value !== value))
+      // Remove
+      setActiveFilters({
+        type,
+        filters: ui === TYPES.check ? activeFilters.filter(filter => filter !== value) : [],
+      })
     }
   }
 
@@ -70,10 +50,15 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters, type
             {ui === TYPES.radio && (
               <Label htmlFor="type:all" label={`Alles (${totalCount})`}>
                 <Radio
-                  checked={!activeFilters.length}
+                  checked={!activeFilters}
                   variant="primary"
                   value="all"
-                  onChange={() => setActiveFilters({})}
+                  onChange={() =>
+                    setActiveFilters({
+                      type,
+                      filters: [],
+                    })
+                  }
                   id="type:all"
                 />
               </Label>
@@ -87,7 +72,7 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters, type
                 label={`${label} (${count})`}
               >
                 <RadioOrCheckbox
-                  checked={activeFilters[type].values.includes(id)}
+                  checked={activeFilters ? activeFilters.includes(id) : false}
                   variant="primary"
                   value={id}
                   onChange={onChange}
@@ -100,10 +85,6 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters, type
       </Wrapper>
     </FilterBox>
   )
-}
-
-SearchFilters.defaultProps = {
-  filters: {},
 }
 
 export default SearchFilters

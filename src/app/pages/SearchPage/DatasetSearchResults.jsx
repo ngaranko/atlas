@@ -15,6 +15,7 @@ export default ({ results }) =>
     <div>
       {results.map(({ header, id, description, modified, formats }) => (
         <StyledDatasetCard
+          key={id}
           {...{
             to: toDatasetDetail({
               id,

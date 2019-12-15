@@ -12,5 +12,5 @@ if [ $CURRENT_BRANCH != "bakkie" ]; then
   git checkout -b bakkie
 fi
 
-git push --set-upstream origin bakkie --force
+git push --no-verify --set-upstream origin bakkie --force
 git checkout $CURRENT_BRANCH

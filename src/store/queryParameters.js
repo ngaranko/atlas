@@ -259,26 +259,34 @@ export default paramsRegistry
         defaultValue: [],
         decode: val =>
           val
-            ? val.split('|').map(value => {
-                const possibleFilterWithType = value.split('.')
-                if (possibleFilterWithType.length === 2) {
+            ? val
+                .split('|')
+                .map(encodedFilters => {
+                  const [filterType, filters] = encodedFilters.split(':')
+                  const decodedFilters = filters.split('.')
+                  // console.log(val)
                   return {
-                    type: possibleFilterWithType[0],
-                    value: possibleFilterWithType[1],
+                    [filterType]: decodedFilters,
                   }
-                }
-                return {
-                  type: 'default',
-                  value,
-                }
-              })
+                })
+                // Make an object
+                .reduce(
+                  (acc, filter) => ({
+                    ...acc,
+                    ...filter,
+                  }),
+                  {},
+                )
             : [],
-        encode: (selectorResult = []) =>
-          selectorResult.length
-            ? selectorResult
-                .map(({ type, value }) => (type === 'default' ? value : `${type}.${value}`))
+        encode: (selectorResult = {}) =>
+          selectorResult
+            ? Object.entries(selectorResult)
+                .map(([filterType, filters]) => {
+                  const encodedFilters = filters.join('.')
+                  return `${filterType}:${encodedFilters}`
+                })
                 .join('|')
-            : undefined,
+            : '',
       })
   })
   .addParameter(PARAMETERS.DETAIL_REFERENCE, routes => {

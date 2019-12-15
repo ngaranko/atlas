@@ -2,7 +2,7 @@ import * as React from 'react'
 import { render, cleanup, fireEvent } from '@testing-library/react'
 import SearchFilters, { TYPES } from './SearchFilters'
 
-const options = [
+const groupOptions = [
   {
     label: 'One',
     id: 'one',
@@ -15,16 +15,16 @@ const options = [
   },
 ]
 
-const availableCheckboxFilters = {
+const groupCheckboxFilters = {
   ui: TYPES.check,
   title: 'Groep',
-  options,
+  options: groupOptions,
 }
 
-const availableRadioFilters = {
+const groupRadioFilters = {
   ui: TYPES.radio,
-  title: 'Groep',
-  options,
+  title: 'Group',
+  options: groupOptions,
 }
 
 describe('SearchFilters', () => {
@@ -32,10 +32,10 @@ describe('SearchFilters', () => {
   it('should render a list with checkbox inputs', () => {
     const { getByLabelText } = render(
       <SearchFilters
-        type="groep"
-        activeFilters={[]}
+        type="group"
+        activeFilters={undefined}
         setActiveFilters={() => {}}
-        availableFilters={availableCheckboxFilters}
+        availableFilters={groupCheckboxFilters}
       />,
     )
 
@@ -46,10 +46,10 @@ describe('SearchFilters', () => {
   it('should render a list with radio inputs', () => {
     const { getByLabelText } = render(
       <SearchFilters
-        type="groep"
-        activeFilters={[]}
+        type="group"
+        activeFilters={undefined}
         setActiveFilters={() => {}}
-        availableFilters={availableRadioFilters}
+        availableFilters={groupRadioFilters}
       />,
     )
 
@@ -62,10 +62,10 @@ describe('SearchFilters', () => {
       const setActiveFiltersMock = jest.fn()
       const { getByLabelText, rerender } = render(
         <SearchFilters
-          type="groep"
-          activeFilters={[]}
+          type="group"
+          activeFilters={undefined}
           setActiveFilters={setActiveFiltersMock}
-          availableFilters={availableCheckboxFilters}
+          availableFilters={groupCheckboxFilters}
         />,
       )
 
@@ -73,34 +73,43 @@ describe('SearchFilters', () => {
       const inputNodeTwo = getByLabelText('Two (5)')
       fireEvent.click(inputNodeOne)
       expect(setActiveFiltersMock).toHaveBeenCalledWith({
-        groep: ['one'],
+        type: 'group',
+        filters: ['one'],
       })
       rerender(
         <SearchFilters
-          type="groep"
-          activeFilters={{ groep: ['one'] }}
+          type="group"
+          activeFilters={['one']}
           setActiveFilters={setActiveFiltersMock}
-          availableFilters={availableCheckboxFilters}
+          availableFilters={groupCheckboxFilters}
         />,
       )
       fireEvent.click(inputNodeTwo)
       expect(setActiveFiltersMock).toHaveBeenCalledWith({
-        groep: ['one', 'two'],
+        type: 'group',
+        filters: ['one', 'two'],
       })
     })
     it('should add only one filter to activeFilters when type is radio', () => {
+      const setActiveFiltersMock = jest.fn()
       const { getByLabelText } = render(
         <SearchFilters
-          activeFilters={[]}
-          setActiveFilters={() => {}}
-          availableFilters={availableRadioFilters}
+          type="group"
+          activeFilters={undefined}
+          setActiveFilters={setActiveFiltersMock}
+          availableFilters={groupRadioFilters}
         />,
       )
 
       const inputNode = getByLabelText('One (10)')
       expect(inputNode.getAttribute('type')).toBe('radio')
-    })
 
-    it('should add a filter to an existing activeFilter', () => {})
+      fireEvent.click(inputNode)
+
+      expect(setActiveFiltersMock).toHaveBeenCalledWith({
+        type: 'group',
+        filters: ['one'],
+      })
+    })
   })
 })

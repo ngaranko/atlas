@@ -48,14 +48,13 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
 
   const limit = Object.keys(activeFilters).length > 0 ? undefined : 10 // undefined limit to show all results
 
-  console.log(activeFilters)
   const [{ fetching, data, error }] = useQuery({
     query: currentQuery,
     variables: {
       q: query,
       limit,
       from: offset,
-      // types: Object.keys(activeFilters).length > 0 ? activeFilters : null,
+      // types: Object.keys(activeFilters).length > 0 ? activeFilters.dataTypes : null,
     },
   })
 
@@ -78,7 +77,7 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
         case PAGES.DATA_SEARCH_QUERY:
           filters.map(({ options }) =>
             setAvailableFilterBoxes({
-              default: {
+              dataTypes: {
                 title: 'Soort data',
                 ui: TYPES.radio,
                 totalCount,
@@ -166,7 +165,8 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
             {Object.entries(availableFilterBoxes).map(([type, availableFilters]) => (
               <SearchFilters
                 key={type}
-                {...{ activeFilters, setActiveFilters, availableFilters, type }}
+                activeFilters={activeFilters[type]}
+                {...{ setActiveFilters, availableFilters, type }}
               />
             ))}
           </FilterColumn>
