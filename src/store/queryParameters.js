@@ -4,7 +4,7 @@ import {
   getActiveFilters,
   getQuery,
   REDUCER_KEY as SEARCH_REDUCER,
-} from '../app/pages/SearchPage/ducks'
+} from '../app/pages/SearchPage/SearchPageDucks'
 import { getDataSelectionPage, getGeometryFilter } from '../shared/ducks/data-selection/selectors'
 import { DATA_SELECTION } from '../shared/ducks/data-selection/reducer'
 import { DATASETS, getPage } from '../shared/ducks/datasets/datasets'

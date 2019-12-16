@@ -1,13 +1,20 @@
 import React from 'react'
 import { Checkbox, Label, RadioGroup, Radio } from '@datapunt/asc-ui'
 import FilterBox from '../FilterBox'
+import { removeAllActiveFilters } from '../../pages/SearchPage/SearchPageDucks'
 
 export const TYPES = {
   check: 'check',
   radio: 'radio',
 }
 
-const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters, type }) => {
+const SearchFilters = ({
+  availableFilters,
+  activeFilters,
+  addActiveFilter,
+  removeActiveFilter,
+  type,
+}) => {
   const { options, title, totalCount, ui } = availableFilters
 
   const hasFilters = options && !!options.length
@@ -15,17 +22,9 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters, type
     const { value, checked } = e.target
 
     if (checked) {
-      // Add
-      setActiveFilters({
-        type,
-        filters: ui === TYPES.check ? [...(activeFilters || []), value] : [value],
-      })
+      addActiveFilter(type, value, ui === TYPES.radio)
     } else {
-      // Remove
-      setActiveFilters({
-        type,
-        filters: ui === TYPES.check ? activeFilters.filter(filter => filter !== value) : [],
-      })
+      removeActiveFilter(type, value)
     }
   }
 
@@ -53,12 +52,7 @@ const SearchFilters = ({ availableFilters, activeFilters, setActiveFilters, type
                   checked={!activeFilters}
                   variant="primary"
                   value="all"
-                  onChange={() =>
-                    setActiveFilters({
-                      type,
-                      filters: [],
-                    })
-                  }
+                  onChange={() => removeAllActiveFilters(type)}
                   id="type:all"
                 />
               </Label>

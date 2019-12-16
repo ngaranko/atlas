@@ -10,7 +10,7 @@ import PAGES from '../../pages'
 import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import EditorialResults from '../../components/EditorialResults'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
-import SearchFilters, { TYPES } from '../../components/SearchFilters/SearchFilters'
+import SearchFilters, { TYPES } from '../../components/SearchFilters'
 import Panel from '../../components/Panel/Panel'
 
 import SEARCH_PAGE_CONFIG from './config'
@@ -55,6 +55,13 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
       limit,
       from: offset,
       // types: Object.keys(activeFilters).length > 0 ? activeFilters.dataTypes : null,
+      filters:
+        Object.keys(activeFilters).length > 0
+          ? Object.entries(activeFilters).map(([type, values]) => ({
+              type,
+              values,
+            }))
+          : null,
     },
   })
 

@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux'
 
 import { LOCATION } from '../store/redux-first-router/constants'
-import { reducer as SearchReducer, REDUCER_KEY as SEARCH } from '../app/pages/SearchPage/ducks'
+import {
+  reducer as SearchReducer,
+  REDUCER_KEY as SEARCH,
+} from '../app/pages/SearchPage/SearchPageDucks'
 import AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest'
 import ErrorMessageReducer, { REDUCER_KEY as ERROR } from '../shared/ducks/error/error-message'
 import UiReducer, { UI } from '../shared/ducks/ui/ui'
