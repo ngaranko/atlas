@@ -44,7 +44,6 @@ export const SCOPES = {
   'HR/R': 'HR/R',
   'BD/R': 'BD/R',
   'BD/X': 'BD/X',
-  'GREX/R': 'GREX/R',
 }
 
 const scopes = [
@@ -77,9 +76,6 @@ const scopes = [
 
   // Bouwdossiers
   'BD/R',
-
-  // Grondexploitatie
-  SCOPES['GREX/R'], // Leesrechten
 
   // Catalogus (Dcatd) admin
   ...dcatdScopes,
