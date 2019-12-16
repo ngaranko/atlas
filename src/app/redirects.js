@@ -123,7 +123,6 @@ const resolveRedirects = async () => {
   }
 
   if (routePath.length) {
-    console.log(routePath[0])
     return setTimeout(() => {
       window.location.replace(routePath[0].to)
       return true
