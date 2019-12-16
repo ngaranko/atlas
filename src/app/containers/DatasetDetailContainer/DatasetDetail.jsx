@@ -22,22 +22,24 @@ const DatasetDetail = ({
         {action && action.href && <link rel="canonical" href={action.href} />}
         {description && <meta name="description" content={description} />}
       </Helmet>
-      <AngularWrapper
-        moduleName="dpDetailWrapper"
-        component="dpDetail"
-        dependencies={['atlas']}
-        angularInstance={angular}
-        bindings={{
-          isLoading,
-          catalogFilters,
-          user,
-          detailTemplateUrl,
-          detailData,
-        }}
-        interpolateBindings={{
-          endpoint,
-        }}
-      />
+      {!isLoading && (
+        <AngularWrapper
+          moduleName="dpDetailWrapper"
+          component="dpDetail"
+          dependencies={['atlas']}
+          angularInstance={angular}
+          bindings={{
+            isLoading,
+            catalogFilters,
+            user,
+            detailTemplateUrl,
+            detailData,
+          }}
+          interpolateBindings={{
+            endpoint,
+          }}
+        />
+      )}
       <div className="u-row">
         <div className="u-col-sm--12">
           <div className="u-margin__left--2 u-margin__bottom--2">
