@@ -56,10 +56,12 @@ export const datasetSearchQuery = `
       filters {
         label
         type
+        filterType
         options {
           id
           count
           label
+          enumType
         }
       }
       results {

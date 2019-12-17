@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import SearchPage from './SearchPage'
 import { getPage } from '../../../store/redux-first-router/selectors'
-import { getQuery, setQuery, getActiveFilters, setActiveFilters } from './SearchPageDucks'
+import { getQuery, setQuery, getActiveFilters } from './SearchPageDucks'
 
 const mapStateToProps = state => ({
   currentPage: getPage(state),
@@ -14,7 +14,6 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setQuery,
-      setActiveFilters,
     },
     dispatch,
   )

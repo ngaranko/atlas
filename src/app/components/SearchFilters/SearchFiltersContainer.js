@@ -3,9 +3,14 @@ import { bindActionCreators } from 'redux'
 import SearchFilters from './SearchFilters'
 import {
   addActiveFilter,
+  getActiveFilters,
   removeActiveFilter,
   removeAllActiveFilters,
 } from '../../pages/SearchPage/SearchPageDucks'
+
+const mapStateToProps = state => ({
+  activeFilters: getActiveFilters(state),
+})
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
@@ -18,6 +23,6 @@ const mapDispatchToProps = dispatch =>
   )
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(SearchFilters)

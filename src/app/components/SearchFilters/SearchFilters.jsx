@@ -1,7 +1,6 @@
 import React from 'react'
 import { Checkbox, Label, RadioGroup, Radio } from '@datapunt/asc-ui'
 import FilterBox from '../FilterBox'
-import { removeAllActiveFilters } from '../../pages/SearchPage/SearchPageDucks'
 
 export const TYPES = {
   check: 'check',
@@ -13,16 +12,20 @@ const SearchFilters = ({
   activeFilters,
   addActiveFilter,
   removeActiveFilter,
+  removeAllActiveFilters,
   type,
 }) => {
-  const { options, title, totalCount, ui } = availableFilters
+  const currentFilters = (activeFilters.find(({ type: _type }) => type === _type) || {}).values
+  const { options, title, totalCount, filterType } = availableFilters
 
   const hasFilters = options && !!options.length
+  const isRadio = filterType === 'string'
+
   const onChange = e => {
     const { value, checked } = e.target
 
     if (checked) {
-      addActiveFilter(type, value, ui === TYPES.radio)
+      addActiveFilter(type, value, isRadio)
     } else {
       removeActiveFilter(type, value)
     }
@@ -32,7 +35,7 @@ const SearchFilters = ({
   let WrapperProps = {}
   let RadioOrCheckbox = Checkbox
 
-  if (ui === TYPES.radio) {
+  if (isRadio) {
     Wrapper = RadioGroup
     WrapperProps = {
       name: `radio-group-${title.toLowerCase()}`,
@@ -46,18 +49,18 @@ const SearchFilters = ({
       <Wrapper {...WrapperProps}>
         {hasFilters && (
           <>
-            {ui === TYPES.radio && (
-              <Label htmlFor="type:all" label={`Alles (${totalCount})`}>
+            {isRadio && (
+              <Label htmlFor={`type:${type}`} label={`Alles (${totalCount})`}>
                 <Radio
-                  checked={!activeFilters}
+                  checked={!currentFilters || !currentFilters.length}
                   variant="primary"
-                  value="all"
+                  value={type}
                   onChange={() => removeAllActiveFilters(type)}
-                  id="type:all"
+                  id={`type:${type}`}
                 />
               </Label>
             )}
-            {options.map(({ label, id, count }) => (
+            {options.map(({ label, id, count, enumType }) => (
               <Label
                 key={id}
                 tabIndex={-1}
@@ -66,10 +69,14 @@ const SearchFilters = ({
                 label={`${label} (${count})`}
               >
                 <RadioOrCheckbox
-                  checked={activeFilters ? activeFilters.includes(id) : false}
+                  checked={
+                    Array.isArray(currentFilters)
+                      ? currentFilters.includes(enumType)
+                      : currentFilters === enumType
+                  }
                   variant="primary"
-                  value={id}
-                  onChange={onChange}
+                  value={enumType || id}
+                  onChange={e => onChange(e, !!enumType)}
                   id={`type:${id}`}
                 />
               </Label>

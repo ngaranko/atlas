@@ -10,7 +10,7 @@ import PAGES from '../../pages'
 import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import EditorialResults from '../../components/EditorialResults'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
-import SearchFilters, { TYPES } from '../../components/SearchFilters'
+import SearchFilters from '../../components/SearchFilters'
 import Panel from '../../components/Panel/Panel'
 
 import SEARCH_PAGE_CONFIG from './config'
@@ -39,14 +39,14 @@ const ResultColumn = styled(Column)`
   justify-content: flex-start;
 `
 
-const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => {
+const SearchPage = ({ query, activeFilters, currentPage }) => {
   const [currentQuery, setCurrentQuery] = React.useState(SEARCH_PAGE_CONFIG[currentPage].query)
   const [offset, setOffset] = React.useState(0)
   const [currentTitle, setCurrentTitle] = React.useState(0)
   const [availableFilterBoxes, setAvailableFilterBoxes] = React.useState([])
   const [currentResults, setCurrentResults] = React.useState([])
 
-  const limit = Object.keys(activeFilters).length > 0 ? undefined : 10 // undefined limit to show all results
+  const limit = activeFilters && activeFilters.length > 0 ? undefined : 10 // undefined limit to show all results
 
   const [{ fetching, data, error }] = useQuery({
     query: currentQuery,
@@ -56,10 +56,11 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
       from: offset,
       // types: Object.keys(activeFilters).length > 0 ? activeFilters.dataTypes : null,
       filters:
-        Object.keys(activeFilters).length > 0
-          ? Object.entries(activeFilters).map(([type, values]) => ({
+        activeFilters.length > 0
+          ? activeFilters.map(({ type, values }) => ({
               type,
-              values,
+              values: Array.isArray(values) ? values : [values],
+              multiSelect: Array.isArray(values),
             }))
           : null,
     },
@@ -86,8 +87,8 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
             setAvailableFilterBoxes({
               dataTypes: {
                 title: 'Soort data',
-                ui: TYPES.radio,
                 totalCount,
+                filterType: 'string',
                 options,
               },
             }),
@@ -99,11 +100,11 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
             filters
               .filter(({ options }) => options.length > 0)
               .reduce(
-                (acc, { options, label, type }) => ({
+                (acc, { options, label, type, filterType }) => ({
                   ...acc,
                   [type]: {
                     title: label,
-                    ui: TYPES.check,
+                    filterType,
                     totalCount,
                     options,
                   },
@@ -170,11 +171,7 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
           <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
             <PageFilterBox currentPage={currentPage} query={query} />
             {Object.entries(availableFilterBoxes).map(([type, availableFilters]) => (
-              <SearchFilters
-                key={type}
-                activeFilters={activeFilters[type]}
-                {...{ setActiveFilters, availableFilters, type }}
-              />
+              <SearchFilters key={type} {...{ availableFilters, type }} />
             ))}
           </FilterColumn>
           <ResultColumn
