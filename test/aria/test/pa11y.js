@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*
  * pa11y.js tests all the URLs in the config file.
  * All URL tests need to succeed for the entire test to succeed.
@@ -48,7 +49,7 @@ console.log('Pa11y: running tests...')
 const actions = tests.map((test, idx) => () => {
   let url = test.url
   if (process.env.BASE_URL) {
-    url = url.replace('http://localhost:8080', process.env.BASE_URL)
+    url = url.replace('http://localhost:3000', process.env.BASE_URL)
   }
 
   const allOptions = {

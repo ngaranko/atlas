@@ -32,6 +32,7 @@ const StyledLink = styled(Link)`
 
     ${StyledHeading} {
       color: ${themeColor('secondary')};
+      text-decoration: underline;
     }
   }
 

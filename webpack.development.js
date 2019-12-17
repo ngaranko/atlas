@@ -9,14 +9,14 @@ module.exports = () =>
     devServer: {
       historyApiFallback: {
         // allow "." character in URL path: https://stackoverflow.com/a/38576357
-        // e.g.: http://localhost:8080/datasets/brk/subject/NL.KAD.Persoon.1234
+        // e.g.: http://localhost:3000/datasets/brk/subject/NL.KAD.Persoon.1234
         disableDotRule: true,
       },
       disableHostCheck: true,
       contentBase: dist,
       compress: true,
       hot: true,
-      port: 8080,
+      port: 3000,
       proxy: {
         '/dcatd_admin': {
           target: 'http://localhost:3000',
