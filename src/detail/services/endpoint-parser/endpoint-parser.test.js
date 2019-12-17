@@ -1,4 +1,4 @@
-import { getParts, toGlossaryKey, getTemplateUrl } from './endpoint-parser'
+import { getParts, getTemplateUrl } from './endpoint-parser'
 
 describe('The endpointParser', () => {
   describe('getParts', () => {
@@ -25,11 +25,6 @@ describe('The endpointParser', () => {
       ])
 
       expect(getParts('https://data.amsterdam.nl/dcatd/datasets/id')).toEqual(['dcatd', 'datasets'])
-    })
-
-    it('should return the grex parts', () => {
-      const endpoint = 'https://acc.api.data.amsterdam.nl/grondexploitatie/project/78701/'
-      expect(getParts(endpoint)).toEqual(['grondexploitatie', 'project'])
     })
 
     it('should return the brk parts', () => {
@@ -78,26 +73,12 @@ describe('The endpointParser', () => {
       )
     })
 
-    it('should return the grex template url', () => {
-      const endpoint = 'https://acc.api.data.amsterdam.nl/grondexploitatie/project/78701/'
-      expect(getTemplateUrl(endpoint)).toEqual(
-        'modules/detail/components/detail/templates/grondexploitatie/project.html',
-      )
-    })
-
     it('should return the brk template url', () => {
       const endpoint =
         'https://acc.api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11460762370000/'
       expect(getTemplateUrl(endpoint)).toEqual(
         'modules/detail/components/detail/templates/brk/object.html',
       )
-    })
-  })
-
-  describe('The toGlossaryKey', () => {
-    it('should return the correct key', () => {
-      expect(toGlossaryKey('brk', 'object')).toEqual('OBJECT')
-      expect(toGlossaryKey('grondexploitatie', 'project')).toEqual('GRONDEXPLOITATIE')
     })
   })
 })

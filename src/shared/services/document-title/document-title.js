@@ -1,5 +1,4 @@
 import get from 'lodash.get'
-import { toGlossaryKey } from '../../../detail/services/endpoint-parser/endpoint-parser'
 import GLOSSARY from '../../../detail/services/glossary.constant'
 import { routing } from '../../../app/routes'
 import { VIEW_MODE } from '../../ducks/ui/ui'
@@ -21,7 +20,8 @@ export const mapDocumentTitle = (action, defaultTitle) => {
 }
 
 export const detailDocumentTitle = (action, defaultTitle = 'UNKNOWN') => {
-  const glossaryKey = toGlossaryKey(action.payload.type, action.payload.subtype)
+  const glossaryKey =
+    action.payload.subtype && action.payload.subtype.toUpperCase().replace(/-/g, '_')
   const glossaryDefinition = GLOSSARY.DEFINITIONS[glossaryKey]
   let label = glossaryDefinition ? glossaryDefinition.singular : defaultTitle
   const embed = get(action, `meta.query[${PARAMETERS.EMBED}]`, 'false')

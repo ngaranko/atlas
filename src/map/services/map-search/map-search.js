@@ -23,7 +23,6 @@ const endpoints = [
       monumenttype: 'isnot_pand_bouwblok',
     },
   },
-  { uri: 'geosearch/grondexploitatie/', authScope: 'GREX/R' },
   { uri: 'geosearch/biz/' },
   { uri: 'geosearch/winkgeb/' },
   { uri: 'parkeervakken/geosearch/' },

@@ -183,15 +183,6 @@ const GLOSSARY = {
       url: null,
       meta: [],
     },
-    GRONDEXPLOITATIE: {
-      ...categoryLabels.grondexploitatie,
-      description:
-        'Een grondexploitatiebegroting geeft de kosten en opbrengsten ' +
-        'weer van een gebiedsontwikkeling. Aan de kostenkant staan de mogelijke ' +
-        'aankoop van vastgoed, eventueel slopen en saneren, het bouw-en woonrijp ' +
-        'maken en de proceskosten. Aan de opbrengsten kant staan de ' +
-        'grondopbrengsten die voortkomen uit de in erfpacht uit te geven grond.',
-    },
     GROOTSTEDELIJKGEBIED: {
       singular: 'Grootstedelijk gebied',
       plural: 'Grootstedelijke gebieden',

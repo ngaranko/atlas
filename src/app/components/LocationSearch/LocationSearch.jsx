@@ -8,7 +8,7 @@ import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system'
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn'
 import ShareBar from '../ShareBar/ShareBar'
 
-const EXCLUDED_RESULTS = 'vestigingen en grondexploitaties'
+const EXCLUDED_RESULTS = 'vestigingen'
 
 /* istanbul ignore next */
 const LocationSearch = ({
