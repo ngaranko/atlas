@@ -1393,7 +1393,7 @@
             }
         ],
         "minZoom": 11,
-        "title": "Parkeervakken - Gereserveerd (logistiek)",
+        "title": "Parkeervakken - Gereserveerd",
         "url": "/maps/parkeervakken",
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
