@@ -12,26 +12,31 @@ import linkAttributesFromAction from '../../../shared/services/link-attributes-f
 import { toDatasetDetail } from '../../../store/redux-first-router/actions'
 import useSlug from '../../utils/useSlug'
 
-const mapStateToProps = state => ({
-  isLoading: isDetailLoading(state),
-  catalogFilters: getApiSpecificationData(state),
-  user: getUser(state),
-  endpoint: `${process.env.API_ROOT}dcatd/datasets/${getLocationPayload(state).id}`,
-  // construct the canonical href and meta description using the result from the api
+const mapStateToProps = state => {
+  const isLoading = isDetailLoading(state)
 
-  action: getDetailData(state)
-    ? linkAttributesFromAction(
-        toDatasetDetail({
-          id: getDetailData(state)['dct:identifier'],
-          slug: useSlug(getDetailData(state)['dct:title']),
-        }),
-      )
-    : false,
-  description: getDetailData(state) ? getDetailData(state)['dct:description'] : false,
+  return {
+    isLoading,
+    catalogFilters: getApiSpecificationData(state),
+    user: getUser(state),
+    endpoint: `${process.env.API_ROOT}dcatd/datasets/${getLocationPayload(state).id}`,
+    // construct the canonical href and meta description using the result from the api
 
-  detailTemplateUrl: getDetailTemplateUrl(state),
-  detailData: getDetailData(state),
-})
+    action:
+      !isLoading && getDetailData(state)
+        ? linkAttributesFromAction(
+            toDatasetDetail({
+              id: getDetailData(state)['dct:identifier'],
+              slug: useSlug(getDetailData(state)['dct:title']),
+            }),
+          )
+        : false,
+    description: getDetailData(state) ? getDetailData(state)['dct:description'] : false,
+
+    detailTemplateUrl: getDetailTemplateUrl(state),
+    detailData: getDetailData(state),
+  }
+}
 
 export default connect(
   mapStateToProps,
