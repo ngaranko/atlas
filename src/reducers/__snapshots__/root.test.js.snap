@@ -2,10 +2,6 @@
 
 exports[`the root reducer combines many reducers 1`] = `
 Object {
-  "SEARCH": Object {
-    "activeFilters": Array [],
-    "query": "",
-  },
   "autoSuggest": "autoSuggest",
   "dataSearch": "dataSearch",
   "dataSelection": "dataSelection",
@@ -27,6 +23,10 @@ Object {
   },
   "panorama": "panorama",
   "panoramaPreview": "panoramaPreview",
+  "search": Object {
+    "activeFilters": Object {},
+    "query": "",
+  },
   "selection": "selection",
   "ui": "ui",
   "user": "user",
