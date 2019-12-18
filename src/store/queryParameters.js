@@ -257,24 +257,25 @@ export default paramsRegistry
       .add(routesWithSearch, SEARCH_REDUCER, 'activeFilters', {
         selector: getActiveFilters,
         defaultValue: [],
-        decode: val => {
-          try {
-            return val ? JSON.parse(atob(val)) : []
-          } catch (e) {
-            // eslint-disable-next-line no-console
-            console.warn(`${e}. Couldn't decode activeFilters.`)
-            return []
-          }
-        },
-        encode: (selectorResult = {}) => {
-          try {
-            return selectorResult.length ? btoa(JSON.stringify(selectorResult)) : undefined
-          } catch (e) {
-            // eslint-disable-next-line no-console
-            console.warn(`${e}. Couldn't encode activeFilters.`)
-            return []
-          }
-        },
+        decode: val =>
+          val
+            ? val.split('|').map(encodedFilters => {
+                const [type, filters] = encodedFilters.split(';')
+                const decodedFilters = filters.split('.')
+                // console.log(val)
+                return {
+                  type,
+                  values: decodedFilters,
+                }
+              })
+            : [],
+        encode: (selectorResult = {}) =>
+          selectorResult
+            .map(({ type, values }) => {
+              const encodedFilters = Array.isArray(values) ? values.join('.') : values
+              return `${type};${encodedFilters}`
+            })
+            .join('|'),
       })
   })
   .addParameter(PARAMETERS.DETAIL_REFERENCE, routes => {

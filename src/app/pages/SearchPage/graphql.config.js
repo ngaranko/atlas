@@ -53,17 +53,6 @@ export const datasetSearchQuery = `
   query DatasetSearch($q: String!, $limit: Int, $filters: [DatasetSearchFilter!]) {
     datasetSearch(q: $q, input: { limit: $limit, filters: $filters}) {
       totalCount
-      filters {
-        label
-        type
-        filterType
-        options {
-          id
-          count
-          label
-          enumType
-        }
-      }
       results {
         header
         description
@@ -72,6 +61,24 @@ export const datasetSearchQuery = `
         tags
         formats {
           name
+          count
+        }
+      }
+    }
+  }
+`
+
+export const datasetFiltersQuery = `
+  query DatasetFilters($q: String!) {
+    getDatasetFilters(q: $q) {
+      filters {
+        type
+        label
+        filterType
+        options {
+          enumType
+          id
+          label
           count
         }
       }

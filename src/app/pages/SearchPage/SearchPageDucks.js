@@ -8,7 +8,6 @@ const SEARCH_SET_QUERY = `${REDUCER_KEY}/SET_QUERY`
 
 const initialState = {
   activeFilters: [],
-  enumList: [],
   query: '',
 }
 
@@ -23,7 +22,7 @@ function reducer(state = initialState, action) {
       const { type, filter, singleValue } = action.payload
       const existingFilter = !!enrichedState.activeFilters.find(({ type: _type }) => _type === type)
 
-      const activeFilters = existingFilter
+      const activeFiltersUnsorted = existingFilter
         ? enrichedState.activeFilters.map(({ type: activeType, values: activeValues }) => {
             const newValues = singleValue ? filter : [...activeValues, filter]
             return {
@@ -38,6 +37,14 @@ function reducer(state = initialState, action) {
               values: singleValue ? filter : [filter],
             },
           ]
+
+      // We need to sort the filters so url's will be consistent and so requests can be cached more efficiently
+      const activeFilters = activeFiltersUnsorted
+        .sort((a, b) => (a.type > b.type ? 1 : -1))
+        .map(({ values, type: activeType }) => ({
+          type: activeType,
+          values: Array.isArray(values) ? values.sort() : values,
+        }))
 
       return {
         ...enrichedState,

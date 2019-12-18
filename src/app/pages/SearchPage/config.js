@@ -9,6 +9,8 @@ import {
 
 export const MAX_RESULTS = 50
 
+export const DATA_FILTERS = 'dataTypes'
+
 export const TYPES = {
   ARTICLE: 'article',
   PUBLICATION: 'publication',
