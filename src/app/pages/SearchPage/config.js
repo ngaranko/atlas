@@ -10,6 +10,8 @@ import {
 
 export const MAX_RESULTS = 50
 
+export const DATA_FILTERS = 'dataTypes'
+
 export const QUERY_TYPES = {
   [PAGES.PUBLICATION_SEARCH]: 'publicationSearch',
   [PAGES.ARTICLE_SEARCH]: 'articleSearch',

@@ -1,14 +1,13 @@
 import paramsRegistry from '../../../store/params-registry'
 
 export const REDUCER_KEY = 'search'
-const SEARCH_SET_FILTERS = `${REDUCER_KEY}/SEARCH_SET_FILTERS`
 const SEARCH_ADD_FILTER = `${REDUCER_KEY}/SEARCH_ADD_FILTER`
 export const SEARCH_REMOVE_FILTER = `${REDUCER_KEY}/SEARCH_REMOVE_FILTER`
 const SEARCH_REMOVE_ALL_FILTERS_FROM_TYPE = `${REDUCER_KEY}/SEARCH_REMOVE_ALL_FILTERS_FROM_TYPE`
 const SEARCH_SET_QUERY = `${REDUCER_KEY}/SET_QUERY`
 
 const initialState = {
-  activeFilters: {},
+  activeFilters: [],
   query: '',
 }
 
@@ -19,32 +18,33 @@ function reducer(state = initialState, action) {
   }
 
   switch (action.type) {
-    case SEARCH_SET_FILTERS: {
-      const { type, filters } = action.payload
-      let activeFilters
-
-      if (filters.length) {
-        activeFilters = {
-          ...enrichedState.activeFilters,
-          [type]: filters,
-        }
-      } else {
-        // Don't mutate enrichedState
-        const currentActiveFilters = { ...enrichedState }
-        delete currentActiveFilters.activeFilters[type]
-        ;({ activeFilters } = currentActiveFilters)
-      }
-      return {
-        ...enrichedState,
-        activeFilters,
-      }
-    }
-
     case SEARCH_ADD_FILTER: {
       const { type, filter, singleValue } = action.payload
-      const activeFilters = Object.assign(enrichedState.activeFilters, {
-        [type]: singleValue ? [filter] : [...(enrichedState.activeFilters[type] || []), filter],
-      })
+      const existingFilter = !!enrichedState.activeFilters.find(({ type: _type }) => _type === type)
+
+      const activeFiltersUnsorted = existingFilter
+        ? enrichedState.activeFilters.map(({ type: activeType, values: activeValues }) => {
+            const newValues = singleValue ? filter : [...activeValues, filter]
+            return {
+              type: activeType,
+              values: activeType === type ? newValues : activeValues,
+            }
+          })
+        : [
+            ...enrichedState.activeFilters,
+            {
+              type,
+              values: singleValue ? filter : [filter],
+            },
+          ]
+
+      // We need to sort the filters so url's will be consistent and so requests can be cached more efficiently
+      const activeFilters = activeFiltersUnsorted
+        .sort((a, b) => (a.type > b.type ? 1 : -1))
+        .map(({ values, type: activeType }) => ({
+          type: activeType,
+          values: Array.isArray(values) ? values.sort() : values,
+        }))
 
       return {
         ...enrichedState,
@@ -54,11 +54,19 @@ function reducer(state = initialState, action) {
 
     case SEARCH_REMOVE_FILTER: {
       const { type, filter } = action.payload
-      const activeFilters = Object.assign(enrichedState.activeFilters, {
-        [type]: (enrichedState.activeFilters[type] || []).filter(
-          currentFilter => currentFilter !== filter,
-        ),
-      })
+      const activeFilters = enrichedState.activeFilters.map(({ type: _type, values: _values }) =>
+        type !== _type
+          ? {
+              type: _type,
+              values: _values,
+            }
+          : {
+              type: _type,
+              values: Array.isArray(_values)
+                ? _values.filter(currentFilter => currentFilter !== filter)
+                : null,
+            },
+      )
       return {
         ...enrichedState,
         activeFilters,
@@ -66,10 +74,9 @@ function reducer(state = initialState, action) {
     }
 
     case SEARCH_REMOVE_ALL_FILTERS_FROM_TYPE: {
-      // Don't mutate enrichedState
-      const currentActiveFilters = { ...enrichedState }
-      delete currentActiveFilters.activeFilters[action.payload]
-      const { activeFilters } = currentActiveFilters
+      const activeFilters = enrichedState.activeFilters.filter(
+        currentFilter => action.payload !== currentFilter.type,
+      )
 
       return {
         ...enrichedState,
@@ -90,11 +97,6 @@ function reducer(state = initialState, action) {
 
 export const setQuery = payload => ({
   type: SEARCH_SET_QUERY,
-  payload,
-})
-
-export const setActiveFilters = payload => ({
-  type: SEARCH_SET_FILTERS,
   payload,
 })
 

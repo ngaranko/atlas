@@ -58,7 +58,6 @@ const dataSearch = `
 const datasetSearch = `
 datasetSearch(q: $q, input: { limit: $limit, filters: $filters}) {
   totalCount
-  ${filters}
   results {
     header
     description
@@ -92,7 +91,24 @@ query search($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: 
  ${cmsSearch('publicationSearch')}
  ${cmsSearch('specialSearch')}
 }
+`
 
+export const datasetFiltersQuery = `
+  query DatasetFilters($q: String!) {
+    getDatasetFilters(q: $q) {
+      filters {
+        type
+        label
+        filterType
+        options {
+          enumType
+          id
+          label
+          count
+        }
+      }
+    }
+  }
 `
 
 export const categoryFilterBoxQuery = `
