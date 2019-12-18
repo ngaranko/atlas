@@ -24,7 +24,7 @@ exports[`App should render the homepage 1`] = `
           "requestPolicy": "cache-first",
           "results$": [Function],
           "suspense": false,
-          "url": "http://localhost:8081/cms_search/graphql/",
+          "url": "http://localhost:8080/cms_search/graphql/",
         }
       }
     >
@@ -78,7 +78,7 @@ exports[`App should render the mapview 1`] = `
           "requestPolicy": "cache-first",
           "results$": [Function],
           "suspense": false,
-          "url": "http://localhost:8081/cms_search/graphql/",
+          "url": "http://localhost:8080/cms_search/graphql/",
         }
       }
     >
