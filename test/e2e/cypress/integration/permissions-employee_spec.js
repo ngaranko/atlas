@@ -200,7 +200,6 @@ describe('employee permissions', () => {
     cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen')
     cy.route('/handelsregister/vestiging/?pand=*').as('getVestigingen')
     cy.route('/panorama/thumbnail/?*').as('getPanorama')
-    cy.route('/geosearch/grondexploitatie/*').as('getGeoSearchGrondexploitatie')
 
     cy.visit(urls.geoSearch)
 
@@ -210,7 +209,6 @@ describe('employee permissions', () => {
     cy.wait('@getNummeraanduidingen')
     cy.wait('@getVestigingen')
     cy.wait('@getPanorama')
-    cy.wait('@getGeoSearchGrondexploitatie')
 
     cy.get(queries.warningPanel).should('not.exist')
     cy.get(queries.headerSubTitle).contains(values.vestigingen)

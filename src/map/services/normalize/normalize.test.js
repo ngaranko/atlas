@@ -7,7 +7,6 @@ import {
   bekendmakingen,
   explosieven,
   evenementen,
-  grondexploitatie,
   vastgoed,
   reclamebelasting,
   societalActivities,
@@ -403,31 +402,6 @@ ${input.gebruiksdoel[1]}`,
       expect(output).toMatchObject({
         startDate: undefined,
         endDate: false,
-      })
-    })
-
-    it('for "grondexploitatie', () => {
-      date = '11 december 2019'
-      formatDate.mockImplementationOnce(() => date)
-
-      input = {
-        startdatum: 'datum',
-      }
-
-      output = grondexploitatie(input)
-
-      expect(output).toMatchObject({
-        startDate: date,
-      })
-
-      formatDate.mockReset()
-
-      input = {}
-
-      output = grondexploitatie(input)
-
-      expect(output).toMatchObject({
-        startDate: undefined,
       })
     })
   })

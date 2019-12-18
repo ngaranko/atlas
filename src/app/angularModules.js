@@ -21,10 +21,6 @@ import '../../modules/detail/components/current-date/current-date.directive'
 import '../../modules/detail/components/data-selection-links/data-selection-links.component'
 import '../../modules/detail/components/date/date.filter'
 import '../../modules/detail/components/detail/detail.component'
-// eslint-disable-next-line max-len
-import '../../modules/detail/components/detail/templates/grondexploitatie/graph-totals/grondexploitatie-graph-totals.component'
-// eslint-disable-next-line max-len
-import '../../modules/detail/components/detail/templates/grondexploitatie/graph-phased/grondexploitatie-graph-phased.component'
 import '../../modules/detail/components/filename/filename.filter'
 import '../../modules/detail/components/option-label/option-label.filter'
 import '../../modules/detail/components/glossary/glossary.constant'

@@ -45,10 +45,10 @@ services:
       - PASSWORD_EMPLOYEE_PLUS
     command: ./test-e2e-aria.sh
 
-  test-health-checks:
-    image: repo.data.amsterdam.nl/datapunt/atlas-health-checks:latest
-    environment:
-      - API_ROOT=https://acc.api.data.amsterdam.nl
-      - USERNAME_EMPLOYEE_PLUS
-      - PASSWORD_EMPLOYEE_PLUS
+  # test-health-checks:
+  #   image: repo.data.amsterdam.nl/datapunt/atlas-health-checks:latest
+  #   environment:
+  #     - API_ROOT=https://acc.api.data.amsterdam.nl
+  #     - USERNAME_EMPLOYEE_PLUS
+  #     - PASSWORD_EMPLOYEE_PLUS
 

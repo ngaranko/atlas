@@ -20,13 +20,10 @@ export default function* getDetailData(endpoint, mapDetail = {}) {
 
   if (
     (type === 'brk' && subtype === 'subject' && !scopes.includes('BRK/RS')) ||
-    (type === 'handelsregister' && !scopes.includes('HR/R')) ||
-    (type === 'grondexploitatie' && !scopes.includes('GREX/R'))
+    (type === 'handelsregister' && !scopes.includes('HR/R'))
   ) {
     // User is not authorized to view
-    //   BRK Kadastrale subjecten, nor
-    //   handelsregister, nor
-    //   grondexploitatie
+    // BRK Kadastrale subjecten or handelsregister
     // so do not fetch data
     return {
       includeSrc,
@@ -52,11 +49,8 @@ export default function* getDetailData(endpoint, mapDetail = {}) {
       }
     }
 
-    // TODO console.log('append version=3 to grondexploitaties');
-    const endpointVersion = type === 'grondexploitatie' ? '?version=3' : ''
-
     // When the detail pages for Angular are refactored, the data can be retrieved in a similar fashion as for the MapDetail pages
-    const data = yield getByUrl(`${endpoint}${endpointVersion}`)
+    const data = yield getByUrl(endpoint)
     const formatedData = {
       ...mapDetail,
       ...data,

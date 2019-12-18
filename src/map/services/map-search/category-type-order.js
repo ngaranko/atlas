@@ -23,7 +23,6 @@ const categoryTypeOrder = [
   'bommenkaart/gevrijwaardgebied',
   'bommenkaart/uitgevoerdonderzoek',
   'monumenten/monument',
-  'grex/grondexploitatie',
   'vsd/biz',
   'vsd/winkgeb',
   'parkeervakken/parkeervakken',

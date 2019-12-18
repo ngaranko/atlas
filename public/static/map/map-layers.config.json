@@ -1393,7 +1393,7 @@
             }
         ],
         "minZoom": 11,
-        "title": "Parkeervakken - Gereserveerd (logistiek)",
+        "title": "Parkeervakken - Gereserveerd",
         "url": "/maps/parkeervakken",
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
@@ -3456,58 +3456,6 @@
         "url": "/maps/handelsregister",
         "detailUrl": "handelsregister/geosearch/",
         "detailItem": "overige",
-        "meta": {
-            "description": null,
-            "theme": null,
-            "datasetId": null,
-            "date": null
-        }
-    },
-    {
-        "authScope": "GREX/R",
-        "id": "grexProjecten",
-        "category": "URBAN",
-        "layers": [
-            "grondexploitatie_polygons"
-        ],
-        "legendItems": [
-            {
-                "title": "Actueel"
-            },
-            {
-                "title": "Toekomstig"
-            }
-        ],
-        "title": "Grondexploitaties - Projecten",
-        "url": "/maps/grondexploitatie",
-        "detailUrl": "geosearch/search/",
-        "detailItem": "grondexploitatie",
-        "detailIsShape": true,
-        "meta": {
-            "description": null,
-            "theme": null,
-            "datasetId": null,
-            "date": null
-        }
-    },
-    {
-        "authScope": "GREX/R",
-        "id": "grexStadsdelen",
-        "category": "URBAN",
-        "layers": [
-            "stadsdeel_polygons"
-        ],
-        "legendItems": [
-            {
-                "title": "Totale begroting baten",
-                "iconUrl": "/assets/images/map-legend/icon-grex-stadsdeel.svg"
-            }
-        ],
-        "title": "Grondexploitaties - Stadsdelen",
-        "url": "/maps/grondexploitatie",
-        "detailUrl": "geosearch/search/",
-        "detailItem": "stadsdeel",
-        "detailIsShape": true,
         "meta": {
             "description": null,
             "theme": null,

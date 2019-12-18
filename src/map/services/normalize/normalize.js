@@ -141,14 +141,6 @@ export const evenementen = result => {
   return normalize(result, additionalFields)
 }
 
-export const grondexploitatie = result => {
-  const additionalFields = {
-    startDate: formatDate(new Date(result.startdatum)),
-  }
-
-  return normalize(result, additionalFields)
-}
-
 export const vastgoed = result => {
   const additionalFields = {
     geometry: result.bag_pand_geometrie,

@@ -111,18 +111,9 @@ describe('mapSearch service', () => {
     })
 
     it('should return results based on user scope', async () => {
-      let data = await search({ latitude: 1, longitude: 0 }, {})
+      const data = await search({ latitude: 1, longitude: 0 }, {})
 
       expect(data.results[0].results.length).toBe(10) // !!!!IMPORTANT: UPDATE WITH +1 WHEN ADDING NEW GEOSEARCH
-
-      data = await search(
-        { latitude: 1, longitude: 0 },
-        {
-          scopes: ['GREX/R'], // Returns more results now
-        },
-      )
-
-      expect(data.results[0].results.length).toBe(11) // !!!!IMPORTANT: UPDATE WITH +1 WHEN ADDING NEW GEOSEARCH
     })
   })
 

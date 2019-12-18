@@ -16,7 +16,6 @@ describe('the dp-detail component', () => {
     coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON',
   }
 
-  const grondexploitatieEndPoint = 'http://www.fake-endpoint.com/grondexploitatie/project/987/'
   const naturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/123/'
   const noneNaturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/456/'
   const dcatdEndPoint = 'http://www.fake-endpoint.com/dcatd/datasets/789/'
@@ -50,11 +49,6 @@ describe('the dp-detail component', () => {
                 _display: 'Een of ander kadastraal object',
                 dummy: 'B',
                 something: -90,
-              })
-            } else if (endpoint === grondexploitatieEndPoint) {
-              q.resolve({
-                _display: 'My grex',
-                dummy: 'G',
               })
             } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
               q.resolve({
