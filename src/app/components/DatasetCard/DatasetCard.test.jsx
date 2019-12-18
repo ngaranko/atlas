@@ -39,7 +39,7 @@ describe('DatasetCard', () => {
 
     expect(metaText.exists()).toBeTruthy()
     expect(metaText.props().datetime).toBe(mockDatasetItem.modified)
-    expect(metaText.props().children).toBe(`Gewijzigd: ${mockDatasetItem.lastModified}`)
+    expect(metaText.props().children).toBe(mockDatasetItem.lastModified)
   })
 
   it('should display the formats', () => {

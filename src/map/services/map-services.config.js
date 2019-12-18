@@ -1,12 +1,10 @@
 import adressenNummeraanduiding from './adressen-nummeraanduiding/adressen-nummeraanduiding'
-import gebiedenStadsdeel from './gebieden-stadsdeel/gebieden-stadsdeel'
 import {
   adressenPand,
   adressenVerblijfsobject,
   bekendmakingen,
   evenementen,
   explosieven,
-  grondexploitatie,
   kadastraalObject,
   meetbout,
   monument,
@@ -42,7 +40,6 @@ export const endpointTypes = {
   gebiedenStadsdeel: 'gebieden/stadsdeel/',
   gebiedenUnesco: 'gebieden/unesco/',
   gebiedenWijk: 'gebieden/buurtcombinatie/',
-  grondexploitatie: 'grondexploitatie/project/',
   kadastraalObject: 'brk/object/',
   kadastraalSubject: 'brk/subject/',
   maatschappelijkeActiviteiten: 'handelsregister/maatschappelijkeactiviteit/',
@@ -407,28 +404,10 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.gebiedenStadsdeel]: {
-    normalization: gebiedenStadsdeel,
     mapDetail: result => ({
       title: 'Stadsdeel',
       subTitle: result._display,
-      items: [
-        { label: 'Code', value: result.code },
-        {
-          label: 'Grondexploitaties',
-          value: result.totaal_baten && [
-            { label: 'Totale begroting baten', value: result.totaal_baten_display },
-            { label: 'Totale begroting kosten', value: result.totaal_lasten_display },
-            { label: 'Verschil', value: result.totaal_resultaat_display },
-          ],
-        },
-      ],
-      notifications: [
-        {
-          value: !result.totaal_baten
-            ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.'
-            : false,
-        },
-      ],
+      items: [{ label: 'Code', value: result.code }],
     }),
   },
   [endpointTypes.gebiedenUnesco]: {
@@ -444,41 +423,6 @@ const servicesByEndpointType = {
       subTitle: result._display,
       items: [{ label: 'Code', value: result.code }],
     }),
-  },
-  [endpointTypes.grondexploitatie]: {
-    normalization: grondexploitatie,
-    authScope: 'GREX/R',
-    mapDetail: result =>
-      result
-        ? {
-            title: 'Grondexploitatie',
-            subTitle: result._display,
-            items: [
-              { label: 'Nummer', value: result.plannr },
-              { label: 'Startdatum', value: result.startDate },
-              { label: 'Fase', value: result.fase },
-              { label: 'Totale begroting baten', value: result.totaal_baten_display },
-              { label: 'Totale begroting kosten', value: result.totaal_kosten_display },
-              { label: 'Verschil', value: result.totaal_resultaat_display },
-            ],
-            notifications: [
-              {
-                value: !result.plannr
-                  ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.'
-                  : false,
-              },
-            ],
-          }
-        : {
-            title: 'Grondexploitatie',
-            items: [],
-            notifications: [
-              {
-                value:
-                  'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.',
-              },
-            ],
-          },
   },
   [endpointTypes.kadastraalObject]: {
     normalization: kadastraalObject,

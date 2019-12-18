@@ -94,7 +94,6 @@ export default {
         monumenttype: 'isnot_pand_bouwblok',
       },
     },
-    { uri: 'geosearch/grondexploitatie/', authScope: 'GREX/R' },
     { uri: 'geosearch/biz/' },
     { uri: 'geosearch/winkgeb/' },
     { uri: 'parkeervakken/geosearch/' },
@@ -187,11 +186,6 @@ export default {
       ...categoryLabels.monument,
       slug: 'monument',
       features: ['monumenten/monument'],
-    },
-    {
-      ...categoryLabels.grondexploitatie,
-      slug: 'grondexploitatie',
-      features: ['grex/grondexploitatie'],
     },
     {
       ...categoryLabels.bedrijfsinvesteringszone,

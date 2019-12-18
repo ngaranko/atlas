@@ -22,7 +22,9 @@ class MapPreviewPanel extends React.Component {
   render() {
     const { props } = this
     const isLoading = get(props, 'dataSearchQuery.isLoading') || get(props, 'mapDetail.isLoading')
-    const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult
+
+    const isDetailPage =
+      !props.isSearchPreview && !isLoading && props.detail && props.mapDetail && props.detailResult
 
     const openDetailEndpoint = () => props.openDetail(props.detail)
     const onMaximize = () => props.onSearchMaximize(VIEW_MODE.SPLIT)
@@ -34,7 +36,7 @@ class MapPreviewPanel extends React.Component {
             <button
               type="button"
               className="map-preview-panel__button map-preview-panel__button--expand"
-              onClick={isDetailLoaded ? openDetailEndpoint : onMaximize}
+              onClick={isDetailPage ? openDetailEndpoint : onMaximize}
               title="Volledige weergave tonen"
             >
               <span
@@ -63,7 +65,7 @@ class MapPreviewPanel extends React.Component {
             `}
           >
             {isLoading && <LoadingIndicator />}
-            {!props.isSearchPreview && isDetailLoaded && (
+            {isDetailPage && (
               <MapDetailResult
                 panoUrl={props.panoPreview.url}
                 onMaximize={openDetailEndpoint}
@@ -71,7 +73,7 @@ class MapPreviewPanel extends React.Component {
                 result={props.detailResult}
               />
             )}
-            {props.isSearchPreview && props.isSearchLoaded && props.searchLocation && (
+            {!isDetailPage && props.isSearchLoaded && props.searchLocation && (
               <MapSearchResults
                 location={props.searchLocation}
                 missingLayers={props.missingLayers}

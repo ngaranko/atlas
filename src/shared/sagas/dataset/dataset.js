@@ -24,7 +24,7 @@ import { getApiSpecificationData, getPage } from '../../ducks/datasets/datasets'
 import getApiSpecification from '../../services/datasets-filters/datasets-filters'
 import PARAMETERS from '../../../store/parameters'
 import { waitForAuthentication } from '../user/user'
-import { fetchDetailSuccess } from '../../ducks/detail/actions'
+import { fetchDetailSuccess, fetchDetailRequest } from '../../ducks/detail/actions'
 import formatDetailData from '../../../detail/services/data-formatter/data-formatter'
 import { getUserScopes } from '../../ducks/user/user'
 import { getParts, getTemplateUrl } from '../../../detail/services/endpoint-parser/endpoint-parser'
@@ -124,6 +124,7 @@ export function* fetchDatasetsEffect(action) {
  */
 export function* fetchDatasetsOptionalEffect(action) {
   yield call(waitForAuthentication)
+  yield put(fetchDetailRequest(true)) // Set the loading state
   const endpoint = `${process.env.API_ROOT}dcatd/datasets/${action.payload.id}`
 
   const detailData = yield call(getDatasetData, endpoint)

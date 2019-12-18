@@ -27,12 +27,3 @@ export const getTemplateUrl = endpoint => {
   const [category, subject] = getParts(endpoint)
   return `modules/detail/components/detail/templates/${category}/${subject}.html`
 }
-
-export const toGlossaryKey = (type, subject) => {
-  let key = subject
-  if (type === 'grondexploitatie') {
-    // grondexploitatie subject === "project", 'grondexploitatie' is more descriptive value.
-    key = type
-  }
-  return key.toUpperCase().replace(/-/g, '_')
-}
