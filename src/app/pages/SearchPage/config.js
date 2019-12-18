@@ -13,11 +13,11 @@ export const MAX_RESULTS = 50
 export const DATA_FILTERS = 'dataTypes'
 
 export const QUERY_TYPES = {
-  [PAGES.PUBLICATION_SEARCH]: 'publicationSearch',
-  [PAGES.ARTICLE_SEARCH]: 'articleSearch',
   [PAGES.SPECIAL_SEARCH]: 'specialSearch',
   [PAGES.DATA_SEARCH]: 'dataSearch',
+  [PAGES.PUBLICATION_SEARCH]: 'publicationSearch',
   [PAGES.DATASET_SEARCH]: 'datasetSearch',
+  [PAGES.ARTICLE_SEARCH]: 'articleSearch',
 }
 
 export default {

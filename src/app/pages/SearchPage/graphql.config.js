@@ -1,40 +1,40 @@
 const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit, from: $from, types: $types}) {
   totalCount
   results {
-      id
-      label
-      type
-      date
-      slug
-      intro
-      teaser
-      dateLocale
-      teaserImage
-      coverImage
-      specialType
-      link {
-          uri
-      }
+    id
+    label
+    type
+    date
+    slug
+    intro
+    teaser
+    dateLocale
+    teaserImage
+    coverImage
+    specialType
+    link {
+        uri
+    }
   }
 }`
 
 const getCmsSearch = resolverName => `
-query CmsSearch($q: String!, $limit: Int, $from: Int, $types: [String!]) {
-        ${cmsSearch(resolverName)}
-    }
+  query CmsSearch($q: String!, $limit: Int, $from: Int, $types: [String!]) {
+    ${cmsSearch(resolverName)}
+  }
 `
 export const articleSearchQuery = getCmsSearch('articleSearch')
 export const publicationSearchQuery = getCmsSearch('publicationSearch')
 export const specialSearchQuery = getCmsSearch('specialSearch')
 
 const filters = `
-filters {
-  options {
-    id
-    label
-    count
+  filters {
+    options {
+      id
+      label
+      count
+    }
   }
-}
 `
 
 const dataSearch = `
@@ -56,20 +56,20 @@ const dataSearch = `
 `
 
 const datasetSearch = `
-datasetSearch(q: $q, input: { limit: $limit, filters: $filters}) {
-  totalCount
-  results {
-    header
-    description
-    modified
-    id
-    tags
-    formats {
-      name
-      count
+  datasetSearch(q: $q, input: { limit: $limit, filters: $filters}) {
+    totalCount
+    results {
+      header
+      description
+      modified
+      id
+      tags
+      formats {
+        name
+        count
+      }
     }
   }
-}
 `
 
 export const dataSearchQuery = `
@@ -84,13 +84,13 @@ export const datasetSearchQuery = `
 `
 
 export const searchQuery = `
-query search($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [DatasetSearchFilter!]) {
-  ${dataSearch}
-  ${datasetSearch}
- ${cmsSearch('articleSearch')}
- ${cmsSearch('publicationSearch')}
- ${cmsSearch('specialSearch')}
-}
+  query search($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [DatasetSearchFilter!]) {
+    ${cmsSearch('specialSearch')}
+    ${dataSearch}
+    ${cmsSearch('publicationSearch')}
+    ${datasetSearch}
+    ${cmsSearch('articleSearch')}
+  }
 `
 
 export const datasetFiltersQuery = `

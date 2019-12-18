@@ -8,7 +8,7 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
 import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
 import PAGES from '../../pages'
 import SearchFilters from '../../components/SearchFilters'
-import SEARCH_PAGE_CONFIG, { DATA_FILTERS } from './config'
+import SEARCH_PAGE_CONFIG, { DATA_FILTERS, QUERY_TYPES } from './config'
 import DatasetFilters from '../../components/SearchFilters/DatasetFilters'
 import SearchPageResults from './SearchPageResults'
 
@@ -51,16 +51,24 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
     },
   })
 
+  function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value)
+  }
+
   const getResultsByKey = resolver => {
-    if (data) {
+    if (data && !fetching) {
       // Check if this logic should be placed elsewhere, like by creating a specific query for the totalsearch
       if (Array.isArray(resolver)) {
         const allCounts = resolver.map(key => data[key] && data[key].totalCount)
         const aggregatedAllCounts = allCounts.reduce((acc, cur) => acc + cur) // Figure out how Datasets can return totalcount when there's a limit on the query
 
-        const allResults = resolver.map(
-          key => data[key] && { type: key, results: data[key].results },
-        )
+        const allResults = resolver.map(key => {
+          const type = getKeyByValue(QUERY_TYPES, key)
+
+          return data[key]
+            ? { type, results: data[key].results, filters: [] }
+            : { type, results: [], filters: [] }
+        })
 
         return {
           totalCount: aggregatedAllCounts,
@@ -83,7 +91,7 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
     // Always reset the filterboxes when currentPage or data has changed
     setAvailableFilterBoxes(null)
     switch (currentPage) {
-      case PAGES.DATA_SEARCH_QUERY:
+      case PAGES.DATA_SEARCH:
         {
           setExtraQuery({
             types: get(activeFilters.find(({ type }) => type === DATA_FILTERS), 'values', null),

@@ -10,47 +10,36 @@ import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import DataSearchResults from './DataSearchResults'
 import DatasetSearchResults from './DatasetSearchResults'
 
+const getResultsComponent = (page, props) => {
+  switch (page) {
+    case PAGES.SPECIAL_SEARCH:
+    case PAGES.PUBLICATION_SEARCH:
+    case PAGES.ARTICLE_SEARCH:
+      return <EditorialResults type={EDITORIAL_TYPES[page]} {...{ ...props }} />
+    case PAGES.DATA_SEARCH:
+      return <DataSearchResults {...{ ...props }} />
+    case PAGES.DATASET_SEARCH:
+      return <DatasetSearchResults {...{ ...props }} />
+    default:
+      return null
+  }
+}
+
 const ResultColumn = styled(Column)`
   flex-direction: column;
   justify-content: flex-start;
 `
 
-const SearchPageResults = ({
-  error,
-  fetching,
-  totalCount,
-  results,
-  currentPage,
-  setOffset,
-  offset,
-}) => {
+const SearchPageResults = ({ error, fetching, totalCount, results, currentPage }) => {
   const hasResults = !fetching && !!results.length
 
-  const Results = () => {
-    switch (currentPage) {
-      case PAGES.SPECIAL_SEARCH:
-      case PAGES.PUBLICATION_SEARCH:
-      case PAGES.ARTICLE_SEARCH:
-        return (
-          <EditorialResults
-            title={SEARCH_PAGE_CONFIG[currentPage].label}
-            results={results}
-            loading={fetching}
-            type={EDITORIAL_TYPES[currentPage]}
-            onClickMore={() => {
-              setOffset(offset + 1)
-            }}
-          />
+  const Results = () =>
+    currentPage === PAGES.SEARCH
+      ? results.length > 0 &&
+        results.map(({ type: resultsType, results: typeResults }) =>
+          getResultsComponent(resultsType, { results: typeResults, loading: fetching }),
         )
-
-      case PAGES.DATA_SEARCH_QUERY:
-        return <DataSearchResults results={results} />
-      case PAGES.DATASET_SEARCH:
-        return <DatasetSearchResults results={results} />
-      default:
-        return null
-    }
-  }
+      : getResultsComponent(currentPage, { results, loading: fetching })
 
   return (
     <ResultColumn

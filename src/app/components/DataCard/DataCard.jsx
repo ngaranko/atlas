@@ -10,10 +10,22 @@ import {
   Paragraph,
 } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
-import { Download } from '@datapunt/asc-assets'
 import RouterLink from 'redux-first-router-link'
 import React from 'react'
 import { toDataDetail } from '../../../store/redux-first-router/actions'
+
+// Check if these icons must be moved to @datapunt/asc-assets
+import { ReactComponent as IconBuilding } from '../../../shared/assets/icons/data/IconBuilding.svg'
+import { ReactComponent as IconChurch } from '../../../shared/assets/icons/data/IconChurch.svg'
+import { ReactComponent as IconFactory } from '../../../shared/assets/icons/data/IconFactory.svg'
+import { ReactComponent as IconHandshake } from '../../../shared/assets/icons/data/IconHandshake.svg'
+import { ReactComponent as IconHouse } from '../../../shared/assets/icons/data/IconHouse.svg'
+import { ReactComponent as IconMap } from '../../../shared/assets/icons/data/IconMap.svg'
+import { ReactComponent as IconMarker } from '../../../shared/assets/icons/data/IconMarker.svg'
+import { ReactComponent as IconMarkerMap } from '../../../shared/assets/icons/data/IconMarkerMap.svg'
+import { ReactComponent as IconOffice } from '../../../shared/assets/icons/data/IconOffice.svg'
+import { ReactComponent as IconPark } from '../../../shared/assets/icons/data/IconPark.svg'
+import { ReactComponent as IconSkyscraper } from '../../../shared/assets/icons/data/IconSkyscraper.svg'
 
 const StyledCard = styled(Card)`
   border: ${themeColor('tint', 'level3')} 1px solid;
@@ -43,6 +55,11 @@ const StyledIcon = styled(Icon)`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  & svg {
+    width: 60px;
+    height: 60px;
+  }
 `
 
 const StyledParagraph = styled(Paragraph)`
@@ -57,12 +74,24 @@ const StyledParagraphLink = styled(Link)`
   color: inherit;
 `
 
+const ICONS = {
+  adressen: <IconMarker />,
+  gebieden: <IconMap />,
+  kadastraal_object: <IconBuilding />,
+  kadastraal_subject: <IconOffice />,
+  maatschappelijke_activiteit: <IconHandshake />,
+  meetbouten: <IconHouse />,
+  monumenten: <IconChurch />,
+  openbare_ruimtes: <IconPark />,
+  panden: <IconSkyscraper />,
+  straatnamen: <IconMarkerMap />,
+  vestiging: <IconFactory />,
+}
+
 const DataCard = ({ type, label, count, results, ...otherProps }) => (
   <StyledCard key={type} horizontal {...otherProps}>
     <StyledCardMedia>
-      <StyledIcon>
-        <Download />
-      </StyledIcon>
+      <StyledIcon>{ICONS[type]}</StyledIcon>
     </StyledCardMedia>
     <StyledCardContent>
       <div>
