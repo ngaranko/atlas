@@ -69,8 +69,8 @@ export const routing = {
   dataSearchQuery: {
     title: 'Data zoekresultaten',
     path: `/${MAIN_PATHS.DATA}/zoek/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH_QUERY}`,
-    page: PAGES.DATA_SEARCH_QUERY,
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH}`,
+    page: PAGES.DATA_SEARCH,
   },
   dataSearchGeo: {
     title: 'Data zoekresultaten op locatie',

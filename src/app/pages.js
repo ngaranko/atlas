@@ -11,7 +11,7 @@ const PAGES = {
 
   DATA: 'DATA',
   DATA_DETAIL: 'DATA_DETAIL',
-  DATA_SEARCH_QUERY: 'DATA_SEARCH_QUERY',
+  DATA_SEARCH: 'DATA_SEARCH',
   DATA_SEARCH_GEO: 'DATA_SEARCH_GEO',
   DATA_SEARCH_CATEGORY: 'SEARCH_DATA_CATEGORY',
 
@@ -67,7 +67,7 @@ export const isMapSplitPage = page =>
 
 export const isSearchPage = page =>
   page === PAGES.SEARCH ||
-  page === PAGES.DATA_SEARCH_QUERY ||
+  page === PAGES.DATA_SEARCH ||
   page === PAGES.DATASET_SEARCH ||
   page === PAGES.ARTICLE_SEARCH ||
   page === PAGES.PUBLICATION_SEARCH ||

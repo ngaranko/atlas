@@ -67,7 +67,7 @@ export default ({ currentPage, query }) => {
       count: allCategoryCount,
     },
     {
-      page: PAGES.DATA_SEARCH_QUERY,
+      page: PAGES.DATA_SEARCH,
       to: toDataSearch(),
       title: routing.dataSearchQuery.title,
       count: dataTotalCount,

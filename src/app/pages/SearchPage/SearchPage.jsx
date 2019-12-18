@@ -67,8 +67,30 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
 
   const hasResults = !fetching && !!currentResults.length
 
-  const getResultByKey = resolver =>
-    data && data[resolver] ? data[resolver] : { totalCount: 0, results: [] }
+  const getResultByKey = resolver => {
+    if (data) {
+      // Check if this logic should be placed elsewhere, like by creating a specific query for the totalsearch
+      if (Array.isArray(resolver)) {
+        const allCounts = resolver.map(key => data[key] && data[key].totalCount)
+        const aggregatedAllCounts = allCounts.reduce((acc, cur) => acc + cur) // Figure out how Datasets can return totalcount when there's a limit on the query
+
+        const allResults = resolver.map(
+          key => data[key] && { type: key, results: data[key].results },
+        )
+
+        return {
+          totalCount: aggregatedAllCounts,
+          results: allResults,
+        }
+      }
+
+      if (data[resolver]) {
+        return data[resolver]
+      }
+    }
+
+    return { totalCount: 0, results: [] }
+  }
 
   React.useEffect(() => {
     if (fetching) {
@@ -81,7 +103,7 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
     const { totalCount, filters } = getResultByKey(SEARCH_PAGE_CONFIG[currentPage].resolver)
     if (hasResults) {
       switch (currentPage) {
-        case PAGES.DATA_SEARCH_QUERY:
+        case PAGES.DATA_SEARCH:
           filters.map(({ options }) =>
             setAvailableFilterBoxes({
               dataTypes: {
@@ -154,7 +176,7 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
           />
         )
 
-      case PAGES.DATA_SEARCH_QUERY:
+      case PAGES.DATA_SEARCH:
         return <DataSearchResults results={currentResults} />
       case PAGES.DATASET_SEARCH:
         return <DatasetSearchResults results={currentResults} />
@@ -169,13 +191,14 @@ const SearchPage = ({ query, activeFilters, currentPage, setActiveFilters }) => 
         <Row>
           <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
             <PageFilterBox currentPage={currentPage} query={query} />
-            {Object.entries(availableFilterBoxes).map(([type, availableFilters]) => (
-              <SearchFilters
-                key={type}
-                activeFilters={activeFilters[type]}
-                {...{ setActiveFilters, availableFilters, type }}
-              />
-            ))}
+            {/* {
+              Object.entries(availableFilterBoxes).map(([type, availableFilters]) => (
+                <SearchFilters
+                  key={type}
+                  activeFilters={activeFilters[type]}
+                  {...{ setActiveFilters, availableFilters, type }}
+                />
+              ))} */}
           </FilterColumn>
           <ResultColumn
             wrap
