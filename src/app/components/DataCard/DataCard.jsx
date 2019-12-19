@@ -1,123 +1,59 @@
-import {
-  Heading,
-  Link,
-  themeColor,
-  themeSpacing,
-  Card,
-  CardContent,
-  CardMedia,
-  Icon,
-  Paragraph,
-} from '@datapunt/asc-ui'
+import React from 'react'
+import { Icon, Heading, Link, themeColor, themeSpacing } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import RouterLink from 'redux-first-router-link'
-import React from 'react'
-import { toDataDetail } from '../../../store/redux-first-router/actions'
+import { DataIcon } from '.'
 
-// Check if these icons must be moved to @datapunt/asc-assets
-import { ReactComponent as IconBuilding } from '../../../shared/assets/icons/data/IconBuilding.svg'
-import { ReactComponent as IconChurch } from '../../../shared/assets/icons/data/IconChurch.svg'
-import { ReactComponent as IconFactory } from '../../../shared/assets/icons/data/IconFactory.svg'
-import { ReactComponent as IconHandshake } from '../../../shared/assets/icons/data/IconHandshake.svg'
-import { ReactComponent as IconHouse } from '../../../shared/assets/icons/data/IconHouse.svg'
-import { ReactComponent as IconMap } from '../../../shared/assets/icons/data/IconMap.svg'
-import { ReactComponent as IconMarker } from '../../../shared/assets/icons/data/IconMarker.svg'
-import { ReactComponent as IconMarkerMap } from '../../../shared/assets/icons/data/IconMarkerMap.svg'
-import { ReactComponent as IconOffice } from '../../../shared/assets/icons/data/IconOffice.svg'
-import { ReactComponent as IconPark } from '../../../shared/assets/icons/data/IconPark.svg'
-import { ReactComponent as IconSkyscraper } from '../../../shared/assets/icons/data/IconSkyscraper.svg'
+const Divider = styled.div`
+  width: 200px;
+  height: 3px;
+  background-color: ${themeColor('support', 'valid')};
+  margin-bottom: ${themeSpacing(4)};
+`
 
-const StyledCard = styled(Card)`
-  border: ${themeColor('tint', 'level3')} 1px solid;
-  justify-content: flex-start;
-  width: inherit;
+const StyledLink = styled(Link)`
   margin: ${themeSpacing(2, 0)};
 `
 
 const StyledHeading = styled(Heading)`
-  cursor: pointer;
-`
-
-const StyledCardContent = styled(CardContent)`
-  padding: ${themeSpacing(2)};
-  min-height: inherit;
-  width: calc(100% - ${themeSpacing(19)});
-`
-
-const StyledCardMedia = styled(CardMedia)`
-  max-width: ${themeSpacing(19)};
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: ${themeSpacing(6)};
 `
 
 const StyledIcon = styled(Icon)`
-  background: ${themeColor('tint', 'level2')};
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: ${themeSpacing(1)};
 
   & svg {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
   }
 `
 
-const StyledParagraph = styled(Paragraph)`
-  white-space: nowrap;
-  overflow: hidden;
-  display: block;
-  text-overflow: ellipsis;
-`
-
-const StyledParagraphLink = styled(Link)`
-  font-weight: normal;
-  color: inherit;
-`
-
-const ICONS = {
-  adressen: <IconMarker />,
-  gebieden: <IconMap />,
-  kadastraal_object: <IconBuilding />,
-  kadastraal_subject: <IconOffice />,
-  maatschappelijke_activiteit: <IconHandshake />,
-  meetbouten: <IconHouse />,
-  monumenten: <IconChurch />,
-  openbare_ruimtes: <IconPark />,
-  panden: <IconSkyscraper />,
-  straatnamen: <IconMarkerMap />,
-  vestiging: <IconFactory />,
-}
-
-const DataCard = ({ type, label, count, results, ...otherProps }) => (
-  <StyledCard key={type} horizontal {...otherProps}>
-    <StyledCardMedia>
-      <StyledIcon>{ICONS[type]}</StyledIcon>
-    </StyledCardMedia>
-    <StyledCardContent>
-      <div>
-        <StyledHeading $as="h4">
-          <Link>{`${label} (${count})`}</Link>
-        </StyledHeading>
-      </div>
-
-      <div>
-        <StyledParagraph>
-          {results.map((location, index) => (
-            <>
-              <StyledParagraphLink
-                // TODO: return correct type and subtype from the api to construct this link
-                to={toDataDetail([location.id, location.type, location.subtype])}
-                $as={RouterLink}
-              >
-                {location.label}
-              </StyledParagraphLink>
-              {index !== results.length - 1 ? `, ` : ''}
-            </>
-          ))}
-        </StyledParagraph>
-      </div>
-    </StyledCardContent>
-  </StyledCard>
+const DataListCard = ({ type, label, results }) => (
+  <div>
+    <Divider />
+    <StyledHeading $as="h2">
+      <StyledIcon>
+        <DataIcon type={type} />
+      </StyledIcon>
+      {label}
+    </StyledHeading>
+    <ul>
+      {results.map(location => (
+        <li key={location.id}>
+          <StyledLink to={{}} $as={RouterLink} variant="with-chevron">
+            {location.label}
+          </StyledLink>
+        </li>
+      ))}
+    </ul>
+  </div>
 )
 
-export default DataCard
+export default DataListCard

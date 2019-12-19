@@ -37,7 +37,11 @@ const SearchPageResults = ({ error, fetching, totalCount, results, currentPage }
     currentPage === PAGES.SEARCH
       ? results.length > 0 &&
         results.map(({ type: resultsType, results: typeResults }) =>
-          getResultsComponent(resultsType, { results: typeResults, loading: fetching }),
+          getResultsComponent(resultsType, {
+            results: typeResults,
+            loading: fetching,
+            compact: true, // Results in the search overview page are compact
+          }),
         )
       : getResultsComponent(currentPage, { results, loading: fetching })
 
