@@ -4,6 +4,7 @@ import styled from '@datapunt/asc-core'
 import RouterLink from 'redux-first-router-link'
 import DataIcon from './DataIcon'
 import SearchHeading from '../SearchHeading/SearchHeading'
+import { toDataDetail } from '../../../store/redux-first-router/actions'
 
 const StyledLink = styled(Link)`
   margin: ${themeSpacing(2, 0)};
@@ -36,7 +37,11 @@ const DataListCard = ({ type, label, results }) => (
     <ul>
       {results.map(location => (
         <li key={location.id}>
-          <StyledLink to={{}} $as={RouterLink} variant="with-chevron">
+          <StyledLink
+            to={toDataDetail([location.id, location.type, location.subtype])}
+            $as={RouterLink}
+            variant="with-chevron"
+          >
             {location.label}
           </StyledLink>
         </li>
