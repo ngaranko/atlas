@@ -33,7 +33,7 @@ describe('transformResultByType', () => {
         type: 'pand/address',
         parent: 'bag/pand',
       },
-      vbo_status: { code: '21', omschrijving: 'Verblijfsobject in gebruik' },
+      vbo_status: 'Verblijfsobject in gebruik',
       _display: 'Singel 190-2',
     }
     expect(transformResultByType(result)).toEqual({
@@ -41,10 +41,7 @@ describe('transformResultByType', () => {
       isNevenadres: false,
       label: 'Singel 190-2',
       parent: 'bag/pand',
-      status: {
-        code: '21',
-        description: 'Verblijfsobject in gebruik',
-      },
+      status: 'Verblijfsobject in gebruik',
       statusLabel: '',
       type: 'pand/address',
       uri: 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200000391071/',
