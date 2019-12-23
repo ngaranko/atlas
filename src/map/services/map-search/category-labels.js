@@ -40,7 +40,7 @@ const categoryLabels = {
     plural: 'Kadastrale objecten',
   },
   kadastraalSubject: {
-    singular: 'Kadastraal subbject',
+    singular: 'Kadastraal subject',
     plural: 'Kadastrale subjecten',
   },
   ligplaats: {
