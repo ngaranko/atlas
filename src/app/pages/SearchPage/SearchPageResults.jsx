@@ -9,6 +9,7 @@ import SEARCH_PAGE_CONFIG from './config'
 import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import DataSearchResults from './DataSearchResults'
 import DatasetSearchResults from './DatasetSearchResults'
+import SearchHeading from '../../components/SearchHeading/SearchHeading'
 
 const getResultsComponent = (page, props) => {
   switch (page) {
@@ -36,13 +37,22 @@ const SearchPageResults = ({ error, fetching, totalCount, results, currentPage }
   const Results = () =>
     currentPage === PAGES.SEARCH
       ? results.length > 0 &&
-        results.map(({ type: resultsType, results: typeResults }) =>
-          getResultsComponent(resultsType, {
-            results: typeResults,
-            loading: fetching,
-            compact: true, // Results in the search overview page are compact
-          }),
-        )
+        results.map(({ type: resultsType, results: typeResults, totalCount: typeTotalCount }) => {
+          return (
+            typeTotalCount > 0 && (
+              <>
+                <SearchHeading
+                  label={`${SEARCH_PAGE_CONFIG[resultsType].label} (${typeTotalCount})`}
+                />
+                {getResultsComponent(resultsType, {
+                  results: typeResults,
+                  loading: fetching,
+                  compact: true, // Results in the search overview page are compact
+                })}
+              </>
+            )
+          )
+        })
       : getResultsComponent(currentPage, { results, loading: fetching })
 
   return (

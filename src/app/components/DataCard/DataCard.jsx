@@ -1,24 +1,12 @@
 import React from 'react'
-import { Icon, Heading, Link, themeColor, themeSpacing } from '@datapunt/asc-ui'
+import { Icon, Link, themeSpacing } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import RouterLink from 'redux-first-router-link'
-import { DataIcon } from '.'
-
-const Divider = styled.div`
-  width: 200px;
-  height: 3px;
-  background-color: ${themeColor('support', 'valid')};
-  margin-bottom: ${themeSpacing(4)};
-`
+import DataIcon from './DataIcon'
+import SearchHeading from '../SearchHeading/SearchHeading'
 
 const StyledLink = styled(Link)`
   margin: ${themeSpacing(2, 0)};
-`
-
-const StyledHeading = styled(Heading)`
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: ${themeSpacing(6)};
 `
 
 const StyledIcon = styled(Icon)`
@@ -37,13 +25,14 @@ const StyledIcon = styled(Icon)`
 
 const DataListCard = ({ type, label, results }) => (
   <div>
-    <Divider />
-    <StyledHeading $as="h2">
-      <StyledIcon>
-        <DataIcon type={type} />
-      </StyledIcon>
-      {label}
-    </StyledHeading>
+    <SearchHeading
+      label={label}
+      icon={
+        <StyledIcon>
+          <DataIcon type={type} />
+        </StyledIcon>
+      }
+    />
     <ul>
       {results.map(location => (
         <li key={location.id}>

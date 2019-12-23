@@ -66,7 +66,7 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
           const type = getKeyByValue(QUERY_TYPES, key)
 
           return data[key]
-            ? { type, results: data[key].results, filters: [] }
+            ? { type, results: data[key].results, totalCount: data[key].totalCount, filters: [] }
             : { type, results: [], filters: [] }
         })
 
