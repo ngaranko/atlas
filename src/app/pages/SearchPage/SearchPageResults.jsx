@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import styled from '@datapunt/asc-core'
-import { Column, Heading } from '@datapunt/asc-ui'
+import { Column, Heading, themeSpacing } from '@datapunt/asc-ui'
 import Panel from '../../components/Panel/Panel'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
@@ -10,6 +10,14 @@ import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import DataSearchResults from './DataSearchResults'
 import DatasetSearchResults from './DatasetSearchResults'
 import SearchHeading from '../../components/SearchHeading/SearchHeading'
+
+const StyledHeading = styled(Heading)`
+  margin-bottom: ${themeSpacing(18)};
+`
+
+const ResultItem = styled.div`
+  margin-bottom: ${themeSpacing(18)};
+`
 
 const getResultsComponent = (page, props) => {
   switch (page) {
@@ -37,22 +45,27 @@ const SearchPageResults = ({ error, fetching, totalCount, results, currentPage }
   const Results = () =>
     currentPage === PAGES.SEARCH
       ? results.length > 0 &&
-        results.map(({ type: resultsType, results: typeResults, totalCount: typeTotalCount }) => {
-          return (
-            typeTotalCount > 0 && (
-              <>
+        results.map(
+          ({
+            type: resultItemType,
+            results: resultItemResults,
+            totalCount: resultItemTotalCount,
+          }) =>
+            resultItemTotalCount > 0 ? (
+              <ResultItem>
                 <SearchHeading
-                  label={`${SEARCH_PAGE_CONFIG[resultsType].label} (${typeTotalCount})`}
+                  label={`${SEARCH_PAGE_CONFIG[resultItemType].label} (${resultItemTotalCount})`}
                 />
-                {getResultsComponent(resultsType, {
-                  results: typeResults,
+                {getResultsComponent(resultItemType, {
+                  results: resultItemResults,
                   loading: fetching,
                   compact: true, // Results in the search overview page are compact
                 })}
-              </>
-            )
-          )
-        })
+              </ResultItem>
+            ) : (
+              ''
+            ),
+        )
       : getResultsComponent(currentPage, { results, loading: fetching })
 
   return (
@@ -70,11 +83,11 @@ const SearchPageResults = ({ error, fetching, totalCount, results, currentPage }
       {fetching && <LoadingIndicator style={{ position: 'inherit' }} />}
       {hasResults && (
         <>
-          <Heading>
+          <StyledHeading>
             {totalCount > 0
               ? `Alle resultaten met categorie \`${SEARCH_PAGE_CONFIG[currentPage].label}\` (${totalCount} resultaten)`
               : 'Geen resultaten'}
-          </Heading>
+          </StyledHeading>
           <Results />
         </>
       )}
