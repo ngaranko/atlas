@@ -37,7 +37,7 @@ export const isHomepage = createSelector(
 )
 export const isDataPage = createSelector(
   getPage,
-  page => page === PAGES.DATA,
+  page => page === PAGES.DATA || page === PAGES.DATA_DETAIL || page === PAGES.DATA_SEARCH,
 )
 export const isPanoPage = createSelector(
   getPage,
@@ -65,9 +65,14 @@ export const isArticlePage = createSelector(
 export const isPublicationPage = createSelector(
   getPage,
   page =>
-    page === PAGES.PUBLICATION ||
+    page === PAGES.PUBLICATIONS ||
     page === PAGES.PUBLICATION_DETAIL ||
     page === PAGES.PUBLICATION_SEARCH,
+)
+
+export const isSpecialPage = createSelector(
+  getPage,
+  page => page === PAGES.SPECIALS || page === PAGES.SPECIAL_DETAIL || page === PAGES.SPECIAL_SEARCH,
 )
 
 export const isDataSelectionPage = createSelector(

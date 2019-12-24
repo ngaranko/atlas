@@ -18,6 +18,7 @@ import {
   toDatasetSearch,
   toArticleSearch,
   toPublicationSearch,
+  toSearch,
   toDataSuggestion,
   toPublicationDetail,
 } from '../../../store/redux-first-router/actions'
@@ -29,7 +30,7 @@ import {
 import PARAMETERS from '../../../store/parameters'
 import { getViewMode, isMapPage } from '../../../shared/ducks/ui/ui'
 import HeaderSearch from './HeaderSearch'
-import { TYPES } from '../../../app/pages/SearchPage/config'
+import { TYPES } from '../../../shared/config/cms.config'
 
 const mapStateToProps = state => ({
   activeSuggestion: getActiveSuggestions(state),
@@ -60,6 +61,16 @@ const mapDispatchToProps = dispatch => ({
     },
     dispatch,
   ),
+  onSearch: query =>
+    dispatch(
+      toSearch(
+        {
+          [PARAMETERS.QUERY]: query,
+        },
+        false,
+        true,
+      ),
+    ),
   onDatasetSearch: query =>
     dispatch(
       toDatasetSearch(
