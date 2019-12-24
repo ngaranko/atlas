@@ -11,7 +11,7 @@ exports[`SearchListItem should render address type verblijfsobject 1`] = `
   <span
     className="qa-search-results__link-extra-info"
   >
-     (nevenadres) (verblijfsobject gevormd)
+     (verblijfsobject gevormd)
   </span>
 </li>
 `;

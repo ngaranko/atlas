@@ -13,10 +13,7 @@ const getDefault = feature => ({
 const getAddress = item => ({
   ...getDefault(item),
   isNevenadres: !item.hoofdadres,
-  status: {
-    code: item.vbo_status.code,
-    description: item.vbo_status.omschrijving,
-  },
+  status: item.vbo_status,
   statusLabel: getStatusLabelAddress(item),
 })
 

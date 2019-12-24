@@ -32,9 +32,11 @@ export const NORMAL_VBO_STATUSSES = [
 ]
 
 const shouldShowStatus = result =>
-  result.vbo_status && !NORMAL_VBO_STATUSSES.includes(result.vbo_status.omschrijving)
+  result.vbo_status && !NORMAL_VBO_STATUSSES.includes(result.vbo_status)
 
 export const getStatusLabelAddress = result =>
-  `${shouldShowStatus(result) ? `${result.vbo_status.omschrijving}` : ''}` +
-  `${shouldShowStatus(result) && !result.hoofdadres ? ' ' : ''}` +
-  `${!result.hoofdadres ? 'Nevenadres' : ''}`
+  `${shouldShowStatus(result) ? `${result.vbo_status}` : ''}` +
+  `${
+    shouldShowStatus(result) && result.type_adres && result.type_adres !== 'Hoofdadres' ? ' ' : ''
+  }` +
+  `${result.type_adres && result.type_adres !== 'Hoofdadres' ? 'Nevenadres' : ''}`

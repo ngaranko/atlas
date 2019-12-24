@@ -27,7 +27,7 @@ export function formatLinks(slug, links) {
 
     return {
       label: formatLabel(item),
-      hoofdadres: item.hoofdadres,
+      type_adres: item.type_adres,
       vbo_status: Array.isArray(item.vbo_status) ? item.vbo_status[0] : item.vbo_status,
       endpoint: item._links.self.href,
       subtype,
