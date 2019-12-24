@@ -18,6 +18,7 @@ import {
   toDatasetSearch,
   toArticleSearch,
   toPublicationSearch,
+  toSearch,
   toDataSuggestion,
   toPublicationDetail,
 } from '../../../store/redux-first-router/actions'
@@ -60,6 +61,16 @@ const mapDispatchToProps = dispatch => ({
     },
     dispatch,
   ),
+  onSearch: query =>
+    dispatch(
+      toSearch(
+        {
+          [PARAMETERS.QUERY]: query,
+        },
+        false,
+        true,
+      ),
+    ),
   onDatasetSearch: query =>
     dispatch(
       toDatasetSearch(

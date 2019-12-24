@@ -74,22 +74,25 @@ class HeaderSearch extends React.Component {
     const {
       activeSuggestion,
       isDatasetPage,
+      isDataPage,
       isArticlePage,
       isPublicationPage,
       typedQuery,
       onCleanDatasetOverview,
       onDatasetSearch,
       onDataSearch,
+      onSearch,
       onArticleSearch,
       onPublicationSearch,
     } = this.props
 
-    const { ARTICLES, DATASETS, PUBLICATIONS } = LABELS
+    const { ARTICLES, DATASETS, PUBLICATIONS, DATA } = LABELS
 
     const searchAction = {
       [DATASETS]: onDatasetSearch,
       [ARTICLES]: onArticleSearch,
       [PUBLICATIONS]: onPublicationSearch,
+      [DATA]: onDataSearch,
     }
 
     if (activeSuggestion.index === -1) {
@@ -100,6 +103,8 @@ class HeaderSearch extends React.Component {
         label ||
         (isDatasetPage
           ? DATASETS
+          : isDataPage
+          ? DATA
           : isArticlePage
           ? ARTICLES
           : isPublicationPage
@@ -109,7 +114,7 @@ class HeaderSearch extends React.Component {
       if (searchAction[searchType]) {
         searchAction[searchType](typedQuery)
       } else {
-        onDataSearch(typedQuery)
+        onSearch(typedQuery)
       }
     }
   }

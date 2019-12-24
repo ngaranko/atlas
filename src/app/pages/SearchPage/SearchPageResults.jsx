@@ -17,6 +17,7 @@ const StyledHeading = styled(Heading)`
 
 const ResultItem = styled.div`
   margin-bottom: ${themeSpacing(18)};
+  width: inherit;
 `
 
 const getResultsComponent = (page, props) => {
