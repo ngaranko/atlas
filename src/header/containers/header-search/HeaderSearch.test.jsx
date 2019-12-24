@@ -11,6 +11,7 @@ jest.mock('../../../app/utils/useSlug')
 
 describe('The HeaderSearch component', () => {
   const typedQuery = 'foo'
+  const mockOnSearch = jest.fn()
   const mockOnDataSearch = jest.fn()
   const mockOnDatasetSearch = jest.fn()
   const mockOnArticleSearch = jest.fn()
@@ -24,6 +25,7 @@ describe('The HeaderSearch component', () => {
     view: 'split',
     isMapActive: false,
     onCleanDatasetOverview: jest.fn(),
+    onSearch: mockOnSearch,
     onDatasetSearch: mockOnDatasetSearch,
     onDataSearch: mockOnDataSearch,
     onArticleSearch: mockOnArticleSearch,
@@ -50,7 +52,7 @@ describe('The HeaderSearch component', () => {
       // execute this.onFormSubmit()
       autosuggest.props().onSubmit()
 
-      expect(mockOnDataSearch).toHaveBeenCalledWith(typedQuery)
+      expect(mockOnSearch).toHaveBeenCalledWith(typedQuery)
     })
 
     it('and opens the dataset search tab', () => {

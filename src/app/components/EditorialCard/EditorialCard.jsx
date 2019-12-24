@@ -14,8 +14,8 @@ import {
 } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
 import getImageFromCms from '../../utils/getImageFromCms'
-import { EDITORIAL_DETAIL_ACTIONS } from '../../pages/EditorialOverviewPage/constants'
 import { TYPES } from '../../../shared/config/cms.config'
+import { EDITORIAL_DETAIL_ACTIONS } from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const notFoundImage = require('./not_found_thumbnail.jpg')
 

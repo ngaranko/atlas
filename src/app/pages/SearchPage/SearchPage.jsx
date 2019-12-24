@@ -30,7 +30,7 @@ const FilterColumn = styled(Column)`
   // }
 `
 
-const SearchPage = ({ query, activeFilters, currentPage }) => {
+const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
   const [currentGraphQLQuery, setCurrentGraphQLQuery] = useState(
     SEARCH_PAGE_CONFIG[currentPage].query,
   )
@@ -142,11 +142,20 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
       <ContentContainer>
         <Row>
           <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
-            <PageFilterBox currentPage={currentPage} query={query} />
+            {!isOverviewPage && <PageFilterBox currentPage={currentPage} query={query} />}
             {availableFilterBoxes}
           </FilterColumn>
           <SearchPageResults
-            {...{ error, fetching, totalCount, results, currentPage, setOffset, offset }}
+            {...{
+              error,
+              fetching,
+              totalCount,
+              results,
+              currentPage,
+              setOffset,
+              offset,
+              isOverviewPage,
+            }}
           />
         </Row>
       </ContentContainer>
