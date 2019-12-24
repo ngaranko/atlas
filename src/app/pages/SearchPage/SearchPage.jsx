@@ -60,7 +60,7 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
       // Check if this logic should be placed elsewhere, like by creating a specific query for the totalsearch
       if (Array.isArray(resolver)) {
         const allCounts = resolver.map(key => data[key] && data[key].totalCount)
-        const aggregatedAllCounts = allCounts.reduce((acc, cur) => acc + cur) // Figure out how Datasets can return totalcount when there's a limit on the query
+        const aggregatedAllCounts = allCounts.reduce((acc, cur) => acc + cur)
 
         const allResults = resolver.map(key => {
           const type = getKeyByValue(QUERY_TYPES, key)
