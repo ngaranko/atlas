@@ -45,10 +45,7 @@ describe('SearchListItem', () => {
         subtypeLabel: 'verblijfsobject',
         linkTo: {},
         hoofdadres: false,
-        vbo_status: {
-          code: '18',
-          omschrijving: 'Verblijfsobject gevormd',
-        },
+        vbo_status: 'Verblijfsobject gevormd',
       },
       category: {
         slug: 'adres',

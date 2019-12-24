@@ -37,7 +37,7 @@ export function fetchByPandId(pandId) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(`${process.env.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(
+  return getByUrl(`${process.env.API_ROOT}bag/v1.1/nummeraanduiding/?${queryString}`).then(
     data => data.results,
   )
 }
@@ -51,7 +51,7 @@ export function fetchByLigplaatsId(ligplaatsId) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(`${process.env.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(data =>
+  return getByUrl(`${process.env.API_ROOT}bag/v1.1/nummeraanduiding/?${queryString}`).then(data =>
     data.results.map(result => ({
       ...result,
       id: result.landelijk_id,
@@ -72,7 +72,7 @@ export function fetchByStandplaatsId(standplaatsId) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(`${process.env.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(data =>
+  return getByUrl(`${process.env.API_ROOT}bag/v1.1/nummeraanduiding/?${queryString}`).then(data =>
     data.results.map(result => ({
       ...result,
       id: result.landelijk_id,

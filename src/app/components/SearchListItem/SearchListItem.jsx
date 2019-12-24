@@ -5,10 +5,6 @@ import { NORMAL_VBO_STATUSSES } from '../../../map/services/map-search/status-la
 
 const isString = value => typeof value === 'string'
 
-function isObject(value) {
-  return value !== null && typeof value === 'object'
-}
-
 const showSubtype = (categorySlug, link) =>
   isString(link.subtype) &&
   (categorySlug === 'ligplaats' ||
@@ -21,15 +17,12 @@ const showSubtype = (categorySlug, link) =>
 
 const getExtraInfo = result => {
   let extraInfo = ''
-  if (result.hoofdadres === false) {
+  if (result.type_adres && result.type_adres !== 'Hoofdadres') {
     extraInfo += ' (nevenadres)'
   }
 
-  if (
-    isObject(result.vbo_status) &&
-    !NORMAL_VBO_STATUSSES.includes(result.vbo_status.omschrijving)
-  ) {
-    extraInfo += ` (${result.vbo_status.omschrijving.toLowerCase()})`
+  if (result.vbo_status && !NORMAL_VBO_STATUSSES.includes(result.vbo_status)) {
+    extraInfo += ` (${result.vbo_status.toLowerCase()})`
   }
 
   return extraInfo

@@ -9,7 +9,7 @@
         link-class="o-btn o-btn--link"
         >{{ object._display }}</dp-redux-link
       >
-      <span class="muted" ng-if="object.hoofdadres === false">
+      <span class="muted" ng-if="object.type_adres !== 'Hoofdadres'">
         (nevenadres)
       </span>
       <span class="muted" ng-if="object.situering_nummeraanduiding === 'Actueel/Bij'">
