@@ -1,5 +1,18 @@
+const filters = `
+  filters {
+    type
+    label
+    options {
+      id
+      label
+      count
+    }
+  }
+`
+
 const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit, from: $from, types: $types}) {
   totalCount
+  ${filters}
   results {
     id
     label
@@ -26,16 +39,6 @@ const getCmsSearch = resolverName => `
 export const articleSearchQuery = getCmsSearch('articleSearch')
 export const publicationSearchQuery = getCmsSearch('publicationSearch')
 export const specialSearchQuery = getCmsSearch('specialSearch')
-
-const filters = `
-  filters {
-    options {
-      id
-      label
-      count
-    }
-  }
-`
 
 const dataSearch = `
   dataSearch(q: $q, input: {limit: $limit, types: $types}) {

@@ -114,6 +114,37 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
         }
         break
 
+      case PAGES.ARTICLE_SEARCH:
+        setExtraQuery({
+          filters:
+            activeFilters.length > 0
+              ? activeFilters.map(({ type, values }) => ({
+                  type,
+                  values: Array.isArray(values) ? values : [values],
+                  multiSelect: Array.isArray(values),
+                }))
+              : null,
+        })
+
+        console.log(filters)
+
+        if (filters && filters.length > 0) {
+          setAvailableFilterBoxes(
+            <>
+              {filters.map(filter => (
+                <SearchFilters
+                  hideCount
+                  availableFilters={filter}
+                  type={filter.type}
+                  key={filter.type}
+                />
+              ))}
+            </>,
+          )
+        }
+
+        break
+
       case PAGES.DATASET_SEARCH:
         setExtraQuery({
           filters:
