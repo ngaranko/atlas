@@ -77,17 +77,17 @@ const DataCard = ({ type, label, count, results, ...otherProps }) => (
 
       <div>
         <StyledParagraph>
-          {results.map((location, index) => (
-            <>
+          {results.map(({ id, type: itemType, subtype, label: itemLabel }, index) => (
+            <React.Fragment key={id}>
               <StyledParagraphLink
                 // TODO: return correct type and subtype from the api to construct this link
-                to={toDataDetail([location.id, location.type, location.subtype])}
+                to={toDataDetail([id, itemType, subtype])}
                 $as={RouterLink}
               >
-                {location.label}
+                {itemLabel}
               </StyledParagraphLink>
               {index !== results.length - 1 ? `, ` : ''}
-            </>
+            </React.Fragment>
           ))}
         </StyledParagraph>
       </div>

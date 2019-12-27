@@ -14,8 +14,8 @@ export default ({ results, compact }) => {
   if (results.length) {
     return results.map(result =>
       result.results && result.results.length ? (
-        <CardWrapper compact={compact}>
-          <Card key={result.type} {...{ ...result }} />
+        <CardWrapper key={result.type} compact={compact}>
+          <Card {...{ ...result }} />
         </CardWrapper>
       ) : null,
     )
