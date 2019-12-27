@@ -10,6 +10,7 @@ import DataSearchResults from './DataSearchResults'
 import DatasetSearchResults from './DatasetSearchResults'
 import SearchHeading from '../../components/SearchHeading/SearchHeading'
 import { EDITORIAL_TYPES } from '../../../shared/config/cms.config'
+import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(18)};
@@ -43,6 +44,28 @@ const ResultColumn = styled(Column)`
   justify-content: flex-start;
 `
 
+const Results = ({ currentPage, results, fetching }) =>
+  currentPage === PAGES.SEARCH
+    ? results.length > 0 &&
+      results.map(
+        ({ type: resultItemType, results: resultItemResults, totalCount: resultItemTotalCount }) =>
+          resultItemTotalCount > 0 ? (
+            <ResultItem key={resultItemType}>
+              <SearchHeading
+                label={`${SEARCH_PAGE_CONFIG[resultItemType].label} (${resultItemTotalCount})`}
+              />
+              {getResultsComponent(resultItemType, {
+                results: resultItemResults,
+                loading: fetching,
+                compact: true, // Results in the search overview page are compact
+              })}
+            </ResultItem>
+          ) : (
+            ''
+          ),
+      )
+    : getResultsComponent(currentPage, { results, loading: fetching })
+
 const SearchPageResults = ({
   error,
   fetching,
@@ -50,34 +73,16 @@ const SearchPageResults = ({
   results,
   currentPage,
   isOverviewPage,
+  hasMore,
+  fetchMore,
+  fetchingMore,
+  showLoadMore,
 }) => {
   const hasResults = !fetching && !!results.length
 
-  const Results = () =>
-    currentPage === PAGES.SEARCH
-      ? results.length > 0 &&
-        results.map(
-          ({
-            type: resultItemType,
-            results: resultItemResults,
-            totalCount: resultItemTotalCount,
-          }) =>
-            resultItemTotalCount > 0 ? (
-              <ResultItem>
-                <SearchHeading
-                  label={`${SEARCH_PAGE_CONFIG[resultItemType].label} (${resultItemTotalCount})`}
-                />
-                {getResultsComponent(resultItemType, {
-                  results: resultItemResults,
-                  loading: fetching,
-                  compact: true, // Results in the search overview page are compact
-                })}
-              </ResultItem>
-            ) : (
-              ''
-            ),
-        )
-      : getResultsComponent(currentPage, { results, loading: fetching })
+  const onLoadMore = () => {
+    fetchMore()
+  }
 
   const setTitle = (label, count) =>
     isOverviewPage
@@ -96,15 +101,16 @@ const SearchPageResults = ({
           Er is een fout opgetreden
         </Panel>
       )}
-      {fetching && <LoadingIndicator style={{ position: 'inherit' }} />}
-      {hasResults && (
+      {fetching && !fetchingMore && <LoadingIndicator style={{ position: 'inherit' }} />}
+      {(hasResults || fetchingMore) && (
         <>
           <StyledHeading>
             {totalCount > 0
               ? setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
               : 'Geen resultaten'}
           </StyledHeading>
-          <Results />
+          <Results {...{ currentPage, results, fetching }} />
+          {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={onLoadMore} />}
         </>
       )}
     </ResultColumn>

@@ -1,16 +1,15 @@
 import React, { memo, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash.get'
-import { useQuery } from 'urql'
 import { breakpoint, Column, Container, Row, themeSpacing } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
 import PAGES from '../../pages'
-import SearchFilters from '../../components/SearchFilters'
-import SEARCH_PAGE_CONFIG, { DATA_FILTERS, QUERY_TYPES } from './config'
-import DatasetFilters from '../../components/SearchFilters/DatasetFilters'
+import SEARCH_PAGE_CONFIG, { DATA_FILTERS } from './config'
 import SearchPageResults from './SearchPageResults'
+import usePagination from '../../utils/usePagination'
+import SearchPageFilters from './SearchPageFilters'
 
 const FilterColumn = styled(Column)`
   align-content: flex-start;
@@ -30,120 +29,52 @@ const FilterColumn = styled(Column)`
   // }
 `
 
+const DEFAULT_LIMIT = 10
+
 const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
-  const [currentGraphQLQuery, setCurrentGraphQLQuery] = useState(
-    SEARCH_PAGE_CONFIG[currentPage].query,
-  )
-  const [offset, setOffset] = useState(0)
-  const [availableFilterBoxes, setAvailableFilterBoxes] = useState([])
   const [extraQuery, setExtraQuery] = useState({})
+  const [showLoadMore, setShowLoadMore] = useState(false)
+  const [limit, setLimit] = useState(DEFAULT_LIMIT)
 
-  // Todo: loadmore logic
-  const limit = activeFilters && activeFilters.length > 0 ? undefined : 10 // undefined limit to show all results
+  const from = 0
 
-  const [{ fetching, data, error }] = useQuery({
-    query: currentGraphQLQuery,
-    variables: {
+  const {
+    fetching,
+    error,
+    totalCount,
+    fetchingMore,
+    results,
+    filters,
+    fetchMore,
+    hasMore,
+  } = usePagination(
+    SEARCH_PAGE_CONFIG[currentPage],
+    {
       q: query,
       limit,
-      from: offset,
       ...extraQuery,
     },
-  })
-
-  function getKeyByValue(object, value) {
-    return Object.keys(object).find(key => object[key] === value)
-  }
-
-  const getResultsByKey = resolver => {
-    if (data && !fetching) {
-      // Check if this logic should be placed elsewhere, like by creating a specific query for the totalsearch
-      if (Array.isArray(resolver)) {
-        const allCounts = resolver.map(key => data[key] && data[key].totalCount)
-        const aggregatedAllCounts = allCounts.reduce((acc, cur) => acc + cur)
-
-        const allResults = resolver.map(key => {
-          const type = getKeyByValue(QUERY_TYPES, key)
-
-          return data[key]
-            ? { type, results: data[key].results, totalCount: data[key].totalCount, filters: [] }
-            : { type, results: [], filters: [] }
-        })
-
-        return {
-          totalCount: aggregatedAllCounts,
-          results: allResults,
-          filters: [],
-        }
-      }
-
-      if (data[resolver]) {
-        return data[resolver]
-      }
-    }
-
-    return { totalCount: 0, results: [], filters: [] }
-  }
-
-  const { totalCount, results, filters } = getResultsByKey(SEARCH_PAGE_CONFIG[currentPage].resolver)
+    limit,
+    from,
+  )
 
   useEffect(() => {
     // Always reset the filterboxes when currentPage or data has changed
-    setAvailableFilterBoxes(null)
     switch (currentPage) {
       case PAGES.DATA_SEARCH:
         {
+          const types = get(activeFilters.find(({ type }) => type === DATA_FILTERS), 'values', null)
           setExtraQuery({
-            types: get(activeFilters.find(({ type }) => type === DATA_FILTERS), 'values', null),
+            types,
           })
 
-          const options = get(filters, '[0].options')
-          if (options) {
-            setAvailableFilterBoxes(
-              <SearchFilters
-                availableFilters={{
-                  label: 'Soort data',
-                  totalCount,
-                  filterType: 'string',
-                  options,
-                  type: DATA_FILTERS,
-                }}
-              />,
-            )
-          }
+          setLimit(types ? undefined : DEFAULT_LIMIT)
+          setShowLoadMore(!!types)
         }
-        break
-
-      case PAGES.ARTICLE_SEARCH:
-        setExtraQuery({
-          filters:
-            activeFilters.length > 0
-              ? activeFilters.map(({ type, values }) => ({
-                  type,
-                  values: Array.isArray(values) ? values : [values],
-                  multiSelect: Array.isArray(values),
-                }))
-              : null,
-        })
-
-        if (filters && filters.length > 0) {
-          setAvailableFilterBoxes(
-            <>
-              {filters.map(filter => (
-                <SearchFilters
-                  hideCount
-                  availableFilters={filter}
-                  type={filter.type}
-                  key={filter.type}
-                />
-              ))}
-            </>,
-          )
-        }
-
         break
 
       case PAGES.DATASET_SEARCH:
+        setShowLoadMore(true)
         setExtraQuery({
           filters:
             activeFilters.length > 0
@@ -154,17 +85,28 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
                 }))
               : null,
         })
-        setAvailableFilterBoxes(<DatasetFilters q={query} />)
+        break
+
+      case PAGES.PUBLICATION_SEARCH:
+      case PAGES.ARTICLE_SEARCH:
+      case PAGES.SPECIAL_SEARCH:
+        setShowLoadMore(true)
+        setExtraQuery({
+          filters:
+            activeFilters.length > 0
+              ? activeFilters.map(({ type, values }) => ({
+                  type,
+                  values: Array.isArray(values) ? values : [values],
+                  multiSelect: Array.isArray(values),
+                }))
+              : null,
+        })
         break
 
       default:
-        setAvailableFilterBoxes(null)
+        setShowLoadMore(false)
     }
-  }, [data, currentPage, activeFilters])
-
-  useEffect(() => {
-    setCurrentGraphQLQuery(SEARCH_PAGE_CONFIG[currentPage].query)
-  }, [currentPage])
+  }, [currentPage, activeFilters])
 
   return (
     <Container>
@@ -172,7 +114,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
         <Row>
           <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
             {!isOverviewPage && <PageFilterBox currentPage={currentPage} query={query} />}
-            {availableFilterBoxes}
+            <SearchPageFilters {...{ currentPage, filters, totalCount, query }} />
           </FilterColumn>
           <SearchPageResults
             {...{
@@ -181,9 +123,11 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
               totalCount,
               results,
               currentPage,
-              setOffset,
-              offset,
               isOverviewPage,
+              hasMore,
+              fetchingMore,
+              fetchMore,
+              showLoadMore,
             }}
           />
         </Row>

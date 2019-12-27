@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Enlarge } from '@datapunt/asc-assets'
 import styled from '@datapunt/asc-core'
 import { Button, CardContainer, svgFill, themeColor } from '@datapunt/asc-ui'
@@ -47,4 +47,4 @@ const EditorialResults = ({ results, loading, type, onClickMore, className }) =>
   </EditorialCardContainer>
 )
 
-export default EditorialResults
+export default memo(EditorialResults, () => false)
