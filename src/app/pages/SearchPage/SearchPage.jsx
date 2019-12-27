@@ -126,8 +126,6 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
               : null,
         })
 
-        console.log(filters)
-
         if (filters && filters.length > 0) {
           setAvailableFilterBoxes(
             <>

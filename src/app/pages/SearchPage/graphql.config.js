@@ -1,8 +1,11 @@
+// TODO: Align format of filters for data with cms and datasets
 const filters = `
   filters {
     type
     label
+    filterType
     options {
+      enumType
       id
       label
       count
@@ -10,7 +13,7 @@ const filters = `
   }
 `
 
-const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit, from: $from, types: $types}) {
+const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit, from: $from, types: $types, filters: $filters}) {
   totalCount
   ${filters}
   results {
@@ -32,7 +35,7 @@ const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit,
 }`
 
 const getCmsSearch = resolverName => `
-  query CmsSearch($q: String!, $limit: Int, $from: Int, $types: [String!]) {
+  query CmsSearch($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [FilterInput!]) {
     ${cmsSearch(resolverName)}
   }
 `
@@ -43,7 +46,15 @@ export const specialSearchQuery = getCmsSearch('specialSearch')
 const dataSearch = `
   dataSearch(q: $q, input: {limit: $limit, types: $types}) {
     totalCount
-    ${filters}
+    filters {
+      type
+      label
+      options {
+        id
+        label
+        count
+      }
+    }
     results {
       type
       label
@@ -81,13 +92,13 @@ export const dataSearchQuery = `
   }
 `
 export const datasetSearchQuery = `
-  query DatasetSearch($q: String!, $limit: Int, $filters: [DatasetSearchFilter!]) {
+  query DatasetSearch($q: String!, $limit: Int, $filters: [FilterInput!]) {
     ${datasetSearch}
   }
 `
 
 export const searchQuery = `
-  query search($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [DatasetSearchFilter!]) {
+  query search($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [FilterInput!]) {
     ${cmsSearch('specialSearch')}
     ${dataSearch}
     ${cmsSearch('publicationSearch')}
@@ -99,17 +110,7 @@ export const searchQuery = `
 export const datasetFiltersQuery = `
   query DatasetFilters($q: String!) {
     getDatasetFilters(q: $q) {
-      filters {
-        type
-        label
-        filterType
-        options {
-          enumType
-          id
-          label
-          count
-        }
-      }
+      ${filters}
     }
   }
 `
