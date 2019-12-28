@@ -34,7 +34,6 @@ const DEFAULT_LIMIT = 10
 const SearchPage = ({ query, activeFilters, currentPage }) => {
   const [extraQuery, setExtraQuery] = useState({})
   const [showLoadMore, setShowLoadMore] = useState(false)
-  const [limit, setLimit] = useState(DEFAULT_LIMIT)
 
   const from = 0
 
@@ -51,10 +50,10 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
     SEARCH_PAGE_CONFIG[currentPage],
     {
       q: query,
-      limit,
+      limit: DEFAULT_LIMIT,
       ...extraQuery,
     },
-    limit,
+    DEFAULT_LIMIT,
     from,
   )
 
@@ -68,7 +67,6 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
             types,
           })
 
-          setLimit(types ? undefined : DEFAULT_LIMIT)
           setShowLoadMore(!!types)
         }
         break

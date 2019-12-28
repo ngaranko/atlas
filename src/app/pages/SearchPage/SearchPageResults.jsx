@@ -76,10 +76,6 @@ const SearchPageResults = ({
 }) => {
   const hasResults = !fetching && !!results.length
 
-  const onLoadMore = () => {
-    fetchMore()
-  }
-
   return (
     <ResultColumn
       wrap
@@ -101,7 +97,7 @@ const SearchPageResults = ({
               : 'Geen resultaten'}
           </StyledHeading>
           <Results {...{ currentPage, results, fetching }} />
-          {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={onLoadMore} />}
+          {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={fetchMore} />}
         </>
       )}
     </ResultColumn>
