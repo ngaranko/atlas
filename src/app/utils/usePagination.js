@@ -90,14 +90,20 @@ const usePagination = (config, input, limit, initialFrom) => {
   })
 
   // Reset the state when changing the query or filters
+  // Todo: consider unify types and filters
   useEffect(() => {
     dispatch({ type: RESET, payload: initialState })
-  }, [config.query, input.filters])
+  }, [config.query, input.types, input.filters])
 
   // Side-effect to show the "show more" button in the UI
+  // Todo: find a better way finding out the count per type / filter vs. totalCount (all results)
   useEffect(() => {
-    dispatch({ type: SET_SHOW_MORE, payload: !(totalCount <= limit + from) })
-  }, [totalCount, limit, from])
+    let count = totalCount
+    if (results.length === 1) {
+      ;[{ count }] = results
+    }
+    dispatch({ type: SET_SHOW_MORE, payload: !(count <= limit + from) })
+  }, [totalCount, limit, from, input.types, input.filters])
 
   const fetchMore = useCallback(() => {
     dispatch({ type: SET_LIMIT, payload: limit })

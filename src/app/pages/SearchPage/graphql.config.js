@@ -44,7 +44,7 @@ export const publicationSearchQuery = getCmsSearch('publicationSearch')
 export const specialSearchQuery = getCmsSearch('specialSearch')
 
 const dataSearch = `
-  dataSearch(q: $q, input: {limit: $limit, types: $types}) {
+  dataSearch(q: $q, input: {limit: $limit, from: $from, types: $types}) {
     totalCount
     filters {
       type
@@ -87,7 +87,7 @@ export const datasetSearch = `
 `
 
 export const dataSearchQuery = `
-  query DataSearch($q: String!, $limit: Int, $types: [String!]) {
+  query DataSearch($q: String!, $limit: Int, $from: Int, $types: [String!]) {
     ${dataSearch}
   }
 `
