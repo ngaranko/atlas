@@ -31,7 +31,7 @@ const FilterColumn = styled(Column)`
 
 const DEFAULT_LIMIT = 10
 
-const SearchPage = ({ query, activeFilters, currentPage }) => {
+const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
   const [extraQuery, setExtraQuery] = useState({})
   const [showLoadMore, setShowLoadMore] = useState(false)
 
@@ -89,6 +89,16 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
       case PAGES.ARTICLE_SEARCH:
       case PAGES.SPECIAL_SEARCH:
         setShowLoadMore(true)
+        setExtraQuery({
+          filters:
+            activeFilters.length > 0
+              ? activeFilters.map(({ type, values }) => ({
+                  type,
+                  values: Array.isArray(values) ? values : [values],
+                  multiSelect: Array.isArray(values),
+                }))
+              : null,
+        })
         break
 
       default:
@@ -101,7 +111,7 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
       <ContentContainer>
         <Row>
           <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
-            <PageFilterBox currentPage={currentPage} query={query} />
+            {!isOverviewPage && <PageFilterBox currentPage={currentPage} query={query} />}
             <SearchPageFilters {...{ currentPage, filters, totalCount, query }} />
           </FilterColumn>
           <SearchPageResults
@@ -111,6 +121,7 @@ const SearchPage = ({ query, activeFilters, currentPage }) => {
               totalCount,
               results,
               currentPage,
+              isOverviewPage,
               hasMore,
               fetchingMore,
               fetchMore,

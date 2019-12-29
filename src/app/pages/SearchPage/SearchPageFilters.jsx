@@ -25,6 +25,24 @@ const SearchPageFilters = ({ currentPage, filters, totalCount, query }) => {
     case PAGES.DATASET_SEARCH:
       return <DatasetFilters q={query} />
 
+    case PAGES.PUBLICATION_SEARCH:
+    case PAGES.ARTICLE_SEARCH:
+    case PAGES.SPECIAL_SEARCH:
+      return filters && filters.length > 0 ? (
+        <>
+          {filters.map(filter => (
+            <SearchFilters
+              hideCount
+              availableFilters={filter}
+              type={filter.type}
+              key={filter.type}
+            />
+          ))}
+        </>
+      ) : (
+        <></>
+      )
+
     default:
       return null
   }

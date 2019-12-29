@@ -6,10 +6,10 @@ import LoadingIndicator from '../../../shared/components/loading-indicator/Loadi
 import PAGES from '../../pages'
 import EditorialResults from '../../components/EditorialResults'
 import SEARCH_PAGE_CONFIG from './config'
-import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import DataSearchResults from './DataSearchResults'
 import DatasetSearchResults from './DatasetSearchResults'
 import SearchHeading from '../../components/SearchHeading/SearchHeading'
+import { EDITORIAL_TYPES } from '../../../shared/config/cms.config'
 import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton'
 
 const StyledHeading = styled(Heading)`
@@ -24,8 +24,11 @@ const ResultItem = styled.div`
 const getResultsComponent = (page, props) => {
   switch (page) {
     case PAGES.SPECIAL_SEARCH:
+    case PAGES.SPECIALS:
     case PAGES.PUBLICATION_SEARCH:
+    case PAGES.PUBLICATIONS:
     case PAGES.ARTICLE_SEARCH:
+    case PAGES.ARTICLES:
       return <EditorialResults type={EDITORIAL_TYPES[page]} {...{ ...props }} />
     case PAGES.DATA_SEARCH:
       return <DataSearchResults {...{ ...props }} />
@@ -69,12 +72,22 @@ const SearchPageResults = ({
   totalCount,
   results,
   currentPage,
+  isOverviewPage,
   hasMore,
   fetchMore,
   fetchingMore,
   showLoadMore,
 }) => {
   const hasResults = !fetching && !!results.length
+
+  const onLoadMore = () => {
+    fetchMore()
+  }
+
+  const setTitle = (label, count) =>
+    isOverviewPage
+      ? `${label} (${count})`
+      : `Alle resultaten met categorie \`${label}\` (${count} resultaten)`
 
   return (
     <ResultColumn
@@ -93,7 +106,7 @@ const SearchPageResults = ({
         <>
           <StyledHeading>
             {totalCount > 0
-              ? `Alle resultaten met categorie \`${SEARCH_PAGE_CONFIG[currentPage].label}\` (${totalCount} resultaten)`
+              ? setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
               : 'Geen resultaten'}
           </StyledHeading>
           <Results {...{ currentPage, results, fetching }} />

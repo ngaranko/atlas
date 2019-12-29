@@ -31,12 +31,27 @@ export default {
     query: publicationSearchQuery,
     label: 'Publicaties',
   },
+  [PAGES.PUBLICATIONS]: {
+    resolver: QUERY_TYPES[PAGES.PUBLICATION_SEARCH],
+    query: publicationSearchQuery,
+    label: 'Publicaties',
+  },
   [PAGES.ARTICLE_SEARCH]: {
     resolver: QUERY_TYPES[PAGES.ARTICLE_SEARCH],
     query: articleSearchQuery,
     label: 'Artikelen',
   },
+  [PAGES.ARTICLES]: {
+    resolver: QUERY_TYPES[PAGES.ARTICLE_SEARCH],
+    query: articleSearchQuery,
+    label: 'Artikelen',
+  },
   [PAGES.SPECIAL_SEARCH]: {
+    resolver: QUERY_TYPES[PAGES.SPECIAL_SEARCH],
+    query: specialSearchQuery,
+    label: 'In Beeld',
+  },
+  [PAGES.SPECIALS]: {
     resolver: QUERY_TYPES[PAGES.SPECIAL_SEARCH],
     query: specialSearchQuery,
     label: 'In Beeld',

@@ -1,3 +1,5 @@
+import PAGES from '../../app/pages'
+
 const { HOMEPAGE: HOMEPAGE_LINKS } = require('./content-links.json')
 
 const SHARED_FIELDS = ['field_intro', 'field_cover_image.field_media_image.uri']
@@ -11,6 +13,15 @@ export const TYPES = {
 export const SPECIAL_TYPES = {
   ANIMATION: 'animatie',
   DASHBOARD: 'dashboard',
+}
+
+export const EDITORIAL_TYPES = {
+  [PAGES.ARTICLES]: TYPES.ARTICLE,
+  [PAGES.ARTICLE_SEARCH]: TYPES.ARTICLE,
+  [PAGES.PUBLICATIONS]: TYPES.PUBLICATION,
+  [PAGES.PUBLICATION_SEARCH]: TYPES.PUBLICATION,
+  [PAGES.SPECIALS]: TYPES.SPECIAL,
+  [PAGES.SPECIAL_SEARCH]: TYPES.SPECIAL,
 }
 
 const cmsConfig = {
