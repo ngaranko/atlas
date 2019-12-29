@@ -110,7 +110,7 @@ const SearchPageResults = ({
               : 'Geen resultaten'}
           </StyledHeading>
           <Results {...{ currentPage, results, fetching }} />
-          {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={onLoadMore} />}
+          {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={fetchMore} />}
         </>
       )}
     </ResultColumn>
