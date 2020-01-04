@@ -1,17 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from '@datapunt/asc-core'
+import { Heading, themeColor, themeSpacing } from '@datapunt/asc-ui'
 import Notification from '../../../shared/components/notification/Notification'
 import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
 
+const StyledNotification = styled(Notification)`
+  padding: ${themeSpacing(6, 5)};
+`
+
+const StyledHeading = styled(Heading)`
+  color: ${themeColor('tint', 'level1')};
+`
+
 const MoreResultsWhenLoggedIn = ({ excludedResults }) => (
-  <Notification type="info">
-    <h3 className="c-panel__title">Meer resultaten na inloggen</h3>
-    <p className="c-panel__paragraph">
+  <StyledNotification type="info">
+    <StyledHeading $as="h3">Meer resultaten na inloggen</StyledHeading>
+    <p>
       {'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om ' +
         `meer te vinden${excludedResults ? `: ${excludedResults}` : ''}. `}
     </p>
     <LoginLinkContainer />
-  </Notification>
+  </StyledNotification>
 )
 
 MoreResultsWhenLoggedIn.defaultProps = {

@@ -63,7 +63,7 @@ export default function AutoSuggestReducer(state = initialState, action) {
       }
 
     // Sets the typedQuery based on the selected tab
-    case routing.dataSearchQuery.type:
+    case routing.dataSearch.type:
     case routing.datasetSearch.type:
     case routing.articleSearch.type:
     case routing.publicationSearch.type:

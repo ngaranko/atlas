@@ -8,6 +8,7 @@ import {
   Paragraph,
   themeColor,
   themeSpacing,
+  Tag,
 } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
 import focusOutline from '../shared/focusOutline'
@@ -64,9 +65,9 @@ const MetaText = styled(StyledParagraph)`
   font-size: 14px;
   line-height: 1.25;
 `
-const FormatTag = styled.span`
-  padding: ${themeSpacing(0, 1)};
-  color: ${themeColor('tint', 'level5')};
+
+const StyledTag = styled(Tag)`
+  margin-right: ${themeSpacing(1)};
 `
 
 const DatasetCard = ({
@@ -75,7 +76,7 @@ const DatasetCard = ({
   teaser,
   lastModified,
   modified,
-  formats,
+  distributionTypes,
   to,
   ...otherProps
 }) => (
@@ -100,14 +101,12 @@ const DatasetCard = ({
 
         <div>
           <MetaText data-test="metaText">
-            {`Formaten: `}
-            {formats &&
-              formats.length > 0 &&
-              formats.map(format => (
-                <FormatTag key={format.name} data-test="formatTag">
-                  <strong>{format.name}</strong>
-                  {` x ${format.count}`}
-                </FormatTag>
+            {distributionTypes &&
+              distributionTypes.length > 0 &&
+              distributionTypes.map(distributionType => (
+                <StyledTag key={distributionType} colorType="tint" colorSubtype="level3">
+                  {distributionType}
+                </StyledTag>
               ))}
           </MetaText>
         </div>

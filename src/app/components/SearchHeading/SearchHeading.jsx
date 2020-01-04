@@ -11,7 +11,7 @@ const Divider = styled.div`
 const StyledHeading = styled(Heading)`
   display: flex;
   justify-content: flex-start;
-  margin-bottom: ${themeSpacing(8)};
+  margin-bottom: ${themeSpacing(6)};
 `
 
 const SearchHeading = ({ label, icon }) => (

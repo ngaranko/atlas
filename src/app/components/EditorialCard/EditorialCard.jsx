@@ -42,10 +42,18 @@ const StyledLink = styled(Link)`
       border-color: ${themeColor('secondary')};
     }
   }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `
 
 const StyledCard = styled(Card)`
   align-items: stretch;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `
 
 const StyledCardMedia = styled(CardMedia)`

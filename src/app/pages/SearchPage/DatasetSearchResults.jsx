@@ -6,14 +6,18 @@ import DatasetCard from '../../components/DatasetCard'
 import useSlug from '../../utils/useSlug'
 import { modificationDateFilter } from '../../components/Filters/Filters'
 
+const DatasetCardContainer = styled.div`
+  margin-bottom: ${themeSpacing(8)};
+`
+
 const StyledDatasetCard = styled(DatasetCard)`
   margin: ${themeSpacing(2, 0)};
 `
 
 export default ({ results }) =>
   results && results.length ? (
-    <div>
-      {results.map(({ header, id, description, modified, formats }) => (
+    <DatasetCardContainer>
+      {results.map(({ header, id, teaser, modified, distributionTypes }) => (
         <StyledDatasetCard
           key={id}
           {...{
@@ -22,12 +26,12 @@ export default ({ results }) =>
               slug: useSlug(header) || '',
             }),
             shortTitle: header,
-            teaser: description,
+            teaser,
             lastModified: modificationDateFilter(modified),
             modified,
-            formats,
+            distributionTypes,
           }}
         />
       ))}
-    </div>
+    </DatasetCardContainer>
   ) : null

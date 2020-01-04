@@ -64,6 +64,7 @@ const dataSearch = `
         label
         type
         subtype
+        endpoint
       }
     }
   }
@@ -74,14 +75,11 @@ export const datasetSearch = `
     totalCount
     results {
       header
-      description
+      teaser
       modified
       id
       tags
-      formats {
-        name
-        count
-      }
+      distributionTypes
     }
   }
 `

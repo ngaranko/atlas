@@ -2,16 +2,7 @@ import React from 'react'
 import { FilterOption } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
 import { useQuery } from 'urql'
-import {
-  toArticleSearch,
-  toDataSearch,
-  toDatasetSearch,
-  toPublicationSearch,
-  toSearch,
-  toSpecialSearch,
-} from '../../../store/redux-first-router/actions'
 import FilterBox from '../FilterBox'
-import PAGES from '../../pages'
 import { routing } from '../../routes'
 import SEARCH_PAGE_CONFIG from '../../pages/SearchPage/config'
 import isDefined from '../../../shared/services/is-defined'
@@ -28,75 +19,45 @@ export default ({ currentPage, query }) => {
     },
   })
 
-  let allCategoryCount
-  let publicationCount
-  let articleCount
-  let specialCount
-  let datasetTotalCount
-  let dataTotalCount
-
-  if (data) {
-    const { articleSearch, publicationSearch, datasetSearch, dataSearch, specialSearch } = data
-
-    try {
-      datasetTotalCount = datasetSearch.totalCount
-      dataTotalCount = dataSearch.totalCount
-      publicationCount = publicationSearch.totalCount
-      articleCount = articleSearch.totalCount
-      specialCount = specialSearch.totalCount
-
-      allCategoryCount = datasetTotalCount + dataTotalCount + publicationCount + articleCount
-    } catch (e) {
-      // Todo: error handling
-      // eslint-disable-next-line no-console
-      console.warn(e)
-    }
-  }
-
   const QUERY_PARAMETER = { [PARAMETERS.QUERY]: query }
 
   // We only want to preserve certain parameters when navigating between "filters" (pages)
-  const CMS_ROUTE_ARGUMENTS = [QUERY_PARAMETER, undefined, undefined, false]
-  const DATASETS_ROUTE_ARGUMENTS = [QUERY_PARAMETER, undefined, undefined, false]
+  const RESET_ROUTE_ARGUMENTS = [QUERY_PARAMETER, undefined, undefined, false]
 
-  const FILTERS = [
-    {
-      page: PAGES.SEARCH,
-      to: toSearch(),
-      title: routing.search.title,
-      count: allCategoryCount,
-    },
-    {
-      page: PAGES.DATA_SEARCH,
-      to: toDataSearch(),
-      title: routing.dataSearchQuery.title,
-      count: dataTotalCount,
-    },
-    {
-      page: PAGES.PUBLICATION_SEARCH,
-      to: toPublicationSearch(...CMS_ROUTE_ARGUMENTS),
-      title: routing.publicationSearch.title,
-      count: publicationCount,
-    },
-    {
-      page: PAGES.DATASET_SEARCH,
-      to: toDatasetSearch(...DATASETS_ROUTE_ARGUMENTS),
-      title: routing.datasetSearch.title,
-      count: datasetTotalCount,
-    },
-    {
-      page: PAGES.ARTICLE_SEARCH,
-      to: toArticleSearch(...CMS_ROUTE_ARGUMENTS),
-      title: routing.articleSearch.title,
-      count: articleCount,
-    },
-    {
-      page: PAGES.SPECIAL_SEARCH,
-      to: toSpecialSearch(...CMS_ROUTE_ARGUMENTS),
-      title: routing.specialSearch.title,
-      count: specialCount,
-    },
+  const AVAILABLE_FILTERS = [
+    routing.search.page,
+    routing.dataSearch.page,
+    routing.datasetSearch.page,
+    routing.publicationSearch.page,
+    routing.articleSearch.page,
+    routing.specialSearch.page,
   ]
+
+  let totalCount = 0
+  const FILTERS = AVAILABLE_FILTERS.map(filterPage => {
+    let count
+
+    if (data) {
+      const filterPageData = data[SEARCH_PAGE_CONFIG[filterPage].resolver]
+
+      try {
+        count = filterPageData.totalCount
+        totalCount += count
+      } catch (e) {
+        // Todo: error handling
+        // eslint-disable-next-line no-console
+        console.warn(e)
+      }
+    }
+
+    return {
+      ...SEARCH_PAGE_CONFIG[filterPage],
+      page: filterPage,
+      title: `Zoekresultaten voor ${SEARCH_PAGE_CONFIG[filterPage].label}`,
+      to: SEARCH_PAGE_CONFIG[filterPage].to(RESET_ROUTE_ARGUMENTS),
+      count,
+    }
+  })
 
   return (
     <FilterBox label="Filters">
@@ -105,7 +66,8 @@ export default ({ currentPage, query }) => {
           key={page}
           {...(currentPage === page ? ACTIVE_LINK_PROPS : { as: RouterLink, to, title })}
         >
-          {SEARCH_PAGE_CONFIG[page].label} {isDefined(count) && `(${count})`}
+          {SEARCH_PAGE_CONFIG[page].label}{' '}
+          {page === routing.search.page ? `(${totalCount})` : isDefined(count) && `(${count})`}
         </FilterOption>
       ))}
     </FilterBox>

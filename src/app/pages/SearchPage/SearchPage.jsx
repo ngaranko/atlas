@@ -6,7 +6,7 @@ import styled from '@datapunt/asc-core'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
 import PAGES from '../../pages'
-import SEARCH_PAGE_CONFIG, { DATA_FILTERS } from './config'
+import SEARCH_PAGE_CONFIG, { DEFAULT_LIMIT, DATA_FILTERS } from './config'
 import SearchPageResults from './SearchPageResults'
 import usePagination from '../../utils/usePagination'
 import SearchPageFilters from './SearchPageFilters'
@@ -29,8 +29,6 @@ const FilterColumn = styled(Column)`
   // }
 `
 
-const DEFAULT_LIMIT = 10
-
 const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
   const [extraQuery, setExtraQuery] = useState({})
   const [showLoadMore, setShowLoadMore] = useState(false)
@@ -39,7 +37,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
 
   const {
     fetching,
-    error,
+    errors,
     totalCount,
     fetchingMore,
     results,
@@ -86,8 +84,11 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
         break
 
       case PAGES.PUBLICATION_SEARCH:
+      case PAGES.PUBLICATIONS:
       case PAGES.ARTICLE_SEARCH:
+      case PAGES.ARTICLES:
       case PAGES.SPECIAL_SEARCH:
+      case PAGES.SPECIALS:
         setShowLoadMore(true)
         setExtraQuery({
           filters:
@@ -116,7 +117,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
           </FilterColumn>
           <SearchPageResults
             {...{
-              error,
+              errors,
               fetching,
               totalCount,
               results,
