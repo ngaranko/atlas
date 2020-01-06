@@ -8,16 +8,7 @@ describe('DatasetCard', () => {
     teaser: 'the teaser text',
     modified: 'modified',
     lastModified: 'last modified',
-    formats: [
-      {
-        name: 'format1',
-        count: 1,
-      },
-      {
-        name: 'format2',
-        count: 3,
-      },
-    ],
+    distributionTypes: ['format1', 'format2'],
   }
 
   it('should display the title and teaser', () => {
@@ -49,19 +40,13 @@ describe('DatasetCard', () => {
 
     expect(metaText.exists()).toBeTruthy()
 
-    const tags = metaText.find("[data-test='formatTag']")
+    const tags = metaText.find('Styled(Tag)')
 
     expect(tags.at(0).exists()).toBe(true)
     expect(tags.at(1).exists()).toBe(true)
 
-    expect(tags.at(0).props().children[0]).toEqual(
-      <strong>{mockDatasetItem.formats[0].name}</strong>,
-    )
-    expect(tags.at(0).props().children[1]).toMatch(mockDatasetItem.formats[0].count.toString())
+    expect(tags.at(0).props().children).toEqual(mockDatasetItem.distributionTypes[0])
 
-    expect(tags.at(1).props().children[0]).toEqual(
-      <strong>{mockDatasetItem.formats[1].name}</strong>,
-    )
-    expect(tags.at(1).props().children[1]).toMatch(mockDatasetItem.formats[1].count.toString())
+    expect(tags.at(1).props().children).toEqual(mockDatasetItem.distributionTypes[1])
   })
 })
