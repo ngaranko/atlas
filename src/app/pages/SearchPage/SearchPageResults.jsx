@@ -11,6 +11,7 @@ import SearchHeading from '../../components/SearchHeading/SearchHeading'
 import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton'
 import SearchLink from '../../components/Links/SearchLink/SearchLink'
 import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
+import NoSearchResults from '../../components/NoSearchResults'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(14)};
@@ -60,37 +61,41 @@ const ResultColumn = styled(Column)`
 /* istanbul ignore next */
 const Results = ({ query, totalCount, currentPage, results, errors, fetching, showLoadMore }) =>
   // eslint-disable-next-line no-nested-ternary
-  currentPage === PAGES.SEARCH
-    ? results.length > 0 && totalCount > 0
-      ? results.map(
-          ({
-            type: resultItemType,
-            results: resultItemResults,
-            totalCount: resultItemTotalCount,
-          }) => {
-            const to = SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].to()
-            const label =
-              SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].label
+  currentPage === PAGES.SEARCH ? (
+    results.length > 0 && totalCount > 0 ? (
+      results.map(
+        ({
+          type: resultItemType,
+          results: resultItemResults,
+          totalCount: resultItemTotalCount,
+        }) => {
+          const to = SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].to()
+          const label =
+            SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].label
 
-            return resultItemTotalCount > 0 ? (
-              <ResultItem key={resultItemType}>
-                <SearchHeading label={`${label} (${resultItemTotalCount})`} />
-                <ResultsComponent>
-                  {getResultsComponent(resultItemType, {
-                    results: resultItemResults,
-                    loading: fetching,
-                    compact: true, // Results in the search overview page are compact
-                  })}
-                </ResultsComponent>
-                <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
-              </ResultItem>
-            ) : (
-              ''
-            )
-          },
-        )
-      : null
-    : getResultsComponent(currentPage, { query, results, errors, loading: fetching, showLoadMore })
+          return resultItemTotalCount > 0 ? (
+            <ResultItem key={resultItemType}>
+              <SearchHeading label={`${label} (${resultItemTotalCount})`} />
+              <ResultsComponent>
+                {getResultsComponent(resultItemType, {
+                  results: resultItemResults,
+                  loading: fetching,
+                  compact: true, // Results in the search overview page are compact
+                })}
+              </ResultsComponent>
+              <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
+            </ResultItem>
+          ) : (
+            ''
+          )
+        },
+      )
+    ) : (
+      <NoSearchResults query={query} />
+    )
+  ) : (
+    getResultsComponent(currentPage, { query, results, errors, loading: fetching, showLoadMore })
+  )
 
 /* istanbul ignore next */
 const SearchPageResults = ({
