@@ -14,19 +14,18 @@ import SearchPageFilters from './SearchPageFilters'
 const FilterColumn = styled(Column)`
   align-content: flex-start;
 
-  // Todo: style mobile filter column
-  // @media screen and ${breakpoint('max-width', 'laptop')} {
-  //   display: none;
-  //   position: fixed;
-  //   overflow-y: auto;
-  //   width: calc(100% - ${themeSpacing(10)});
-  //   max-width: 300px;
-  //   bottom: 0;
-  //   top: 75px;
-  //   right: ${themeSpacing(5)};
-  //   background-color: white;
-  //   z-index: 30;
-  // }
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    display: none;
+    position: fixed;
+    overflow-y: auto;
+    width: calc(100% - ${themeSpacing(10)});
+    max-width: 300px;
+    bottom: 0;
+    top: 75px;
+    right: ${themeSpacing(5)};
+    background-color: white;
+    z-index: 30;
+  }
 `
 
 const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {

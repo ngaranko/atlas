@@ -18,13 +18,13 @@ exports[`App should render the homepage 1`] = `
           "executeQuery": [Function],
           "executeSubscription": [Function],
           "fetch": undefined,
-          "fetchOptions": undefined,
+          "fetchOptions": [Function],
           "operations$": [Function],
           "reexecuteOperation": [Function],
           "requestPolicy": "cache-first",
           "results$": [Function],
           "suspense": false,
-          "url": "http://localhost:8080/cms_search/graphql/",
+          "url": "https://acc.api.data.amsterdam.nl/cms_search/graphql/",
         }
       }
     >
@@ -72,13 +72,13 @@ exports[`App should render the mapview 1`] = `
           "executeQuery": [Function],
           "executeSubscription": [Function],
           "fetch": undefined,
-          "fetchOptions": undefined,
+          "fetchOptions": [Function],
           "operations$": [Function],
           "reexecuteOperation": [Function],
           "requestPolicy": "cache-first",
           "results$": [Function],
           "suspense": false,
-          "url": "http://localhost:8080/cms_search/graphql/",
+          "url": "https://acc.api.data.amsterdam.nl/cms_search/graphql/",
         }
       }
     >
