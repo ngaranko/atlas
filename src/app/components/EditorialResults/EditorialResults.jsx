@@ -4,13 +4,14 @@ import { CardContainer, themeSpacing } from '@datapunt/asc-ui'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import EditorialCard from '../EditorialCard'
 import NoSearchResults from '../NoSearchResults'
+import { EDITORIAL_OVERVIEW_ACTIONS } from '../../pages/EditorialOverviewPage/constants'
 
 const EditorialCardContainer = styled(CardContainer)`
   padding: 0;
   margin-bottom: ${themeSpacing(8)};
 `
 
-const EditorialResults = ({ query, results, label, to, loading, type, className }) => (
+const EditorialResults = ({ query, results, label, loading, type, className }) => (
   <EditorialCardContainer className={className}>
     {!results && loading ? (
       <LoadingIndicator style={{ position: 'inherit' }} />
@@ -19,7 +20,7 @@ const EditorialResults = ({ query, results, label, to, loading, type, className 
         {results && results.length ? (
           results.map(result => <EditorialCard {...result} key={result.id} type={type} />)
         ) : (
-          <NoSearchResults query={query} label={label} to={to} />
+          <NoSearchResults query={query} label={label} to={EDITORIAL_OVERVIEW_ACTIONS[type]} />
         )}
       </>
     )}

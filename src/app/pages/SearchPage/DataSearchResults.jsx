@@ -10,12 +10,12 @@ const CardWrapper = styled.div`
   margin-bottom: ${({ compact }) => (compact ? themeSpacing(2) : themeSpacing(8))};
 `
 
+/* istanbul ignore next */
 export default ({ query, results, errors = [], compact, showLoadMore }) => {
   const Card = compact ? DataCard : DataList
 
   // Get the total count for all data types
-  const totalCount =
-    results.length && results.results ? results.results.reduce((acc, cur) => acc + cur.count) : 0
+  const totalCount = results.length ? [0, ...results].reduce((acc, cur) => acc + cur.count) : 0
 
   // Get all the labels of the type that the user has no access to
   const unauthorized =

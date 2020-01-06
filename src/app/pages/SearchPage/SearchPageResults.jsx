@@ -10,7 +10,7 @@ import DatasetSearchResults from './DatasetSearchResults'
 import SearchHeading from '../../components/SearchHeading/SearchHeading'
 import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton'
 import SearchLink from '../../components/Links/SearchLink/SearchLink'
-import { EDITORIAL_OVERVIEW_ACTIONS, EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
+import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(14)};
@@ -33,23 +33,20 @@ const getResultsComponent = (page, props) => {
     case PAGES.PUBLICATION_SEARCH:
     case PAGES.PUBLICATIONS:
     case PAGES.ARTICLE_SEARCH:
-    case PAGES.ARTICLES: {
-      const type = EDITORIAL_TYPES[page]
+    case PAGES.ARTICLES:
       return (
         <EditorialResults
           {...{
             ...props,
             label: SEARCH_PAGE_CONFIG[page].label,
-            type,
-            to: EDITORIAL_OVERVIEW_ACTIONS[type],
+            type: EDITORIAL_TYPES[page],
           }}
         />
       )
-    }
     case PAGES.DATA_SEARCH:
       return <DataSearchResults {...{ ...props, label: SEARCH_PAGE_CONFIG[page].label }} />
     case PAGES.DATASET_SEARCH:
-      return <DatasetSearchResults {...{ ...props }} />
+      return <DatasetSearchResults {...{ ...props, label: SEARCH_PAGE_CONFIG[page].label }} />
     default:
       return null
   }
@@ -60,6 +57,7 @@ const ResultColumn = styled(Column)`
   justify-content: flex-start;
 `
 
+/* istanbul ignore next */
 const Results = ({ query, totalCount, currentPage, results, errors, fetching, showLoadMore }) =>
   // eslint-disable-next-line no-nested-ternary
   currentPage === PAGES.SEARCH
@@ -94,6 +92,7 @@ const Results = ({ query, totalCount, currentPage, results, errors, fetching, sh
       : null
     : getResultsComponent(currentPage, { query, results, errors, loading: fetching, showLoadMore })
 
+/* istanbul ignore next */
 const SearchPageResults = ({
   query,
   errors,
@@ -124,7 +123,7 @@ const SearchPageResults = ({
       {(hasResults || fetchingMore) && (
         <>
           <StyledHeading>
-            {totalCount > 0
+            {totalCount > 0 && hasResults
               ? setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
               : `Geen resultaten met \`${query}\``}
           </StyledHeading>

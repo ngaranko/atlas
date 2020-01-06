@@ -15,6 +15,7 @@ const StyledDatasetCard = styled(DatasetCard)`
   margin: ${themeSpacing(2, 0)};
 `
 
+/* istanbul ignore next */
 export default ({ query, label, results }) =>
   results && results.length ? (
     <DatasetCardContainer>

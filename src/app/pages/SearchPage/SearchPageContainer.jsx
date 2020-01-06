@@ -6,7 +6,7 @@ import { getQuery, setQuery, getActiveFilters } from './SearchPageDucks'
 
 const mapStateToProps = (state, { currentPage, query, isOverviewPage }) => ({
   currentPage: currentPage || getPage(state),
-  query: query || getQuery(state),
+  query: query ? query.toString() : getQuery(state), // this value must be a string
   activeFilters: getActiveFilters(state),
   isOverviewPage,
 })

@@ -5,6 +5,7 @@ import SearchFilters from '../../components/SearchFilters/SearchFiltersContainer
 import { DATA_FILTERS } from './config'
 import DatasetFilters from '../../components/SearchFilters/DatasetFilters'
 
+/* istanbul ignore next */
 const SearchPageFilters = ({ currentPage, filters, totalCount, query }) => {
   switch (currentPage) {
     case PAGES.DATA_SEARCH: {
