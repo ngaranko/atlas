@@ -125,6 +125,7 @@ const SearchPageResults = ({
       push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
     >
       {fetching && !fetchingMore && <LoadingIndicator style={{ position: 'inherit' }} />}
+
       {(hasResults || fetchingMore) && (
         <>
           <StyledHeading>
@@ -135,7 +136,7 @@ const SearchPageResults = ({
           <Results
             {...{ query, totalCount, currentPage, results, fetching, showLoadMore, errors }}
           />
-          {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={fetchMore} />}
+          {showLoadMore && hasMore && <LoadMoreButton {...{ fetching, onClick: fetchMore }} />}
         </>
       )}
     </ResultColumn>

@@ -113,7 +113,7 @@ const usePagination = (config, input, limit, initialFrom) => {
     if (results.length === 1) {
       ;[{ count }] = results
     }
-    dispatch({ type: SET_SHOW_MORE, payload: !(count <= limit + from) })
+    dispatch({ type: SET_SHOW_MORE, payload: count >= limit + from })
   }, [totalCount, limit, from, input.types, input.filters])
 
   const fetchMore = useCallback(() => {
