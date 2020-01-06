@@ -21,11 +21,11 @@ const ICONS = {
   maatschappelijke_activiteit: <IconHandshake />,
   meetbouten: <IconHouse />,
   monumenten: <IconChurch />,
-  openbare_ruimtes: <IconPark />,
+  openbareruimte: <IconPark />,
   panden: <IconSkyscraper />,
   straatnamen: <IconMarkerMap />,
   vestiging: <IconFactory />,
 }
 
-const DataIcon = ({ type }) => ICONS[type]
+const DataIcon = ({ type }) => (ICONS[type] ? ICONS[type] : <></>)
 export default DataIcon

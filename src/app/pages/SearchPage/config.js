@@ -7,8 +7,18 @@ import {
   specialSearchQuery,
   searchQuery,
 } from './graphql.config'
+import {
+  toSearch,
+  toPublicationSearch,
+  toArticleSearch,
+  toSpecialSearch,
+  toDataSearch,
+  toDatasetSearch,
+} from '../../../store/redux-first-router/actions'
+import { routing } from '../../routes'
 
 export const MAX_RESULTS = 50
+export const DEFAULT_LIMIT = 10
 
 export const DATA_FILTERS = 'dataTypes'
 
@@ -21,49 +31,55 @@ export const QUERY_TYPES = {
 }
 
 export default {
-  [PAGES.SEARCH]: {
+  [routing.search.page]: {
     resolver: Object.values(QUERY_TYPES),
+    to: toSearch,
     query: searchQuery,
-    label: 'Alles',
+    label: routing.search.title,
   },
-  [PAGES.PUBLICATION_SEARCH]: {
+  [routing.publicationSearch.page]: {
     resolver: QUERY_TYPES[PAGES.PUBLICATION_SEARCH],
     query: publicationSearchQuery,
-    label: 'Publicaties',
+    to: toPublicationSearch,
+    label: routing.publications.title,
   },
-  [PAGES.PUBLICATIONS]: {
+  [routing.publications.page]: {
     resolver: QUERY_TYPES[PAGES.PUBLICATION_SEARCH],
     query: publicationSearchQuery,
-    label: 'Publicaties',
+    label: routing.publications.title,
   },
-  [PAGES.ARTICLE_SEARCH]: {
+  [routing.articleSearch.page]: {
     resolver: QUERY_TYPES[PAGES.ARTICLE_SEARCH],
     query: articleSearchQuery,
-    label: 'Artikelen',
+    to: toArticleSearch,
+    label: routing.articles.title,
   },
-  [PAGES.ARTICLES]: {
+  [routing.articles.page]: {
     resolver: QUERY_TYPES[PAGES.ARTICLE_SEARCH],
     query: articleSearchQuery,
-    label: 'Artikelen',
+    label: routing.articles.title,
   },
-  [PAGES.SPECIAL_SEARCH]: {
+  [routing.specialSearch.page]: {
     resolver: QUERY_TYPES[PAGES.SPECIAL_SEARCH],
     query: specialSearchQuery,
-    label: 'In Beeld',
+    to: toSpecialSearch,
+    label: routing.specials.title,
   },
-  [PAGES.SPECIALS]: {
+  [routing.specials.page]: {
     resolver: QUERY_TYPES[PAGES.SPECIAL_SEARCH],
     query: specialSearchQuery,
-    label: 'In Beeld',
+    label: routing.specials.title,
   },
-  [PAGES.DATA_SEARCH]: {
+  [routing.dataSearch.page]: {
     resolver: QUERY_TYPES[PAGES.DATA_SEARCH],
     query: dataSearchQuery,
-    label: 'Data',
+    to: toDataSearch,
+    label: routing.data.title,
   },
-  [PAGES.DATASET_SEARCH]: {
+  [routing.datasetSearch.page]: {
     resolver: QUERY_TYPES[PAGES.DATASET_SEARCH],
     query: datasetSearchQuery,
-    label: 'Datasets',
+    to: toDatasetSearch,
+    label: routing.datasets.title,
   },
 }

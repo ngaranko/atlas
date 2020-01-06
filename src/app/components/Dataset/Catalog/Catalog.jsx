@@ -2,14 +2,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import removeMd from 'remove-markdown'
+import RouterLink from 'redux-first-router-link'
 import {
   aggregateFilter,
+  kebapCaseFilter,
   modificationDateFilter,
   truncateHtmlAsTextFilter,
+  ucFirst,
 } from '../../Filters/Filters'
 import useSlug from '../../../utils/useSlug'
 import { toDatasetDetail } from '../../../../store/redux-first-router/actions'
-import DatasetCard from '../../DatasetCard'
 
 const arrayToObject = (array, keyField) =>
   array.reduce(
@@ -42,25 +44,66 @@ const Catalog = ({ content, catalogFilters }) => {
 
     // Ideally we need to retrieve the slug from the API, but we convert this in the frontend for now
     const id = item['dct:identifier']
-    const to = toDatasetDetail({
+    const linkTo = toDatasetDetail({
       id,
       slug: useSlug(item['dct:title']),
     })
 
     return {
-      shortTitle: item['dct:title'],
-      teaser: truncateHtmlAsTextFilter(removeMd(item['dct:description'])),
+      header: item['dct:title'],
+      description: removeMd(item['dct:description']),
       modified: item['ams:sort_modified'],
-      lastModified: modificationDateFilter(item['ams:sort_modified']),
       formats: aggregateFilter(formats),
-      to,
+      tags: item['dcat:keyword'],
+      linkTo,
       id,
     }
   })
   return (
     <div className="c-data-selection-catalog u-margin__bottom--4">
       {items.map(row => (
-        <DatasetCard key={row.id} {...row} />
+        <div key={row.id} className="c-data-selection-catalog__list">
+          <div className="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation">
+            <RouterLink className="qa-dp-link" to={row.linkTo} tabIndex="-1">
+              <div className="c-data-selection-catalog__header">
+                <h2>{row.header}</h2>
+                <div>{modificationDateFilter(row.modified)}</div>
+              </div>
+
+              <span className="c-data-selection-catalog__formats">
+                {row.formats.map((format, i) => (
+                  <div key={i} className="c-data-selection-file-type">
+                    <span
+                      className={`c-data-selection-file-type__name c-data-selection-file-type__format-${kebapCaseFilter(
+                        format.name,
+                      )}`}
+                    >
+                      {format.name}
+                    </span>
+                    <span className="c-data-selection-file-type__x">x</span>
+                    <span className="c-data-selection-file-type__count">{format.count}</span>
+                  </div>
+                ))}
+              </span>
+              <span className="c-data-selection-catalog__tags">
+                {row.tags.map((tag, i) => (
+                  <ul key={i} className="u-inline">
+                    <li className="u-inline">
+                      <div className="dataset-tag-small">
+                        <i className="dataset-tag-small__arrow" />
+                        <span className="dataset-tag-small__label">{ucFirst(tag)}</span>
+                      </div>
+                    </li>
+                  </ul>
+                ))}
+              </span>
+
+              <div className="c-data-selection-catalog__description">
+                {truncateHtmlAsTextFilter(row.description)}
+              </div>
+            </RouterLink>
+          </div>
+        </div>
       ))}
     </div>
   )

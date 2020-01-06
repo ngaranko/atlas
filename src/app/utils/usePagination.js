@@ -9,6 +9,7 @@ function getKeyByValue(object, value) {
 const getInitialState = (limit = 50, from = 0) => ({
   aggregatedResults: [],
   results: [],
+  errors: [],
   fetchingMore: false,
   hasMore: false,
   from,
@@ -19,6 +20,7 @@ const getInitialState = (limit = 50, from = 0) => ({
 
 const RESET = 'RESET'
 const SET_RESULTS = 'SET_RESULTS'
+const SET_ERRORS = 'SET_ERRORS'
 const SET_SHOW_MORE = 'SET_SHOW_MORE'
 const SET_LIMIT = 'SET_LIMIT'
 
@@ -72,6 +74,15 @@ const reducer = (state, action) => {
       }
     }
 
+    case SET_ERRORS: {
+      const { graphQLErrors } = action.payload
+
+      return {
+        ...state,
+        errors: graphQLErrors.map(({ message, extensions }) => ({ message, ...extensions })),
+      }
+    }
+
     default:
       throw new Error(`Dispatched an unknown action: ${action.type}`)
   }
@@ -79,10 +90,10 @@ const reducer = (state, action) => {
 
 const usePagination = (config, input, limit, initialFrom) => {
   const initialState = getInitialState(limit, initialFrom)
-  const [{ totalCount, hasMore, results, filters, from, fetchingMore }, dispatch] = useReducer(
-    reducer,
-    initialState,
-  )
+  const [
+    { totalCount, hasMore, results, errors, filters, from, fetchingMore },
+    dispatch,
+  ] = useReducer(reducer, initialState)
 
   const [{ fetching, data, error }] = useQuery({
     query: config.query,
@@ -144,12 +155,19 @@ const usePagination = (config, input, limit, initialFrom) => {
           },
         })
       }
+
+      if (error) {
+        dispatch({
+          type: SET_ERRORS,
+          payload: error,
+        })
+      }
     }
   }, [data, fetching, config.resolver])
 
   return {
     fetching,
-    error,
+    errors,
     totalCount,
     results,
     filters,

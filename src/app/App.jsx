@@ -36,6 +36,7 @@ import AppBody from './AppBody'
 import { MATOMO_CONFIG } from '../store/middleware/matomo/constants'
 import { routing } from './routes'
 import Footer from './components/Footer/Footer'
+import getState from '../shared/services/redux/get-state'
 
 const StyledContainer = styled(Container)`
   background-color: ${themeColor('tint', 'level1')};
@@ -54,6 +55,12 @@ const matomoInstance = createInstance({
 const graphQLClient = createClient({
   // Todo dont forget to change to api
   url: `http://localhost:8080/cms_search/graphql/`,
+  fetchOptions: () => {
+    const token = getState().user.accessToken
+    return {
+      headers: { authorization: token ? `Bearer ${token}` : '' },
+    }
+  },
   exchanges: [dedupExchange, cacheExchange, fetchExchange],
   requestPolicy: 'cache-first',
 })

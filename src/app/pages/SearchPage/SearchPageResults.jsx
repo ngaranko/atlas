@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 import styled from '@datapunt/asc-core'
 import { Column, Heading, themeSpacing } from '@datapunt/asc-ui'
-import Panel from '../../components/Panel/Panel'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
 import EditorialResults from '../../components/EditorialResults'
@@ -11,9 +10,15 @@ import DatasetSearchResults from './DatasetSearchResults'
 import SearchHeading from '../../components/SearchHeading/SearchHeading'
 import { EDITORIAL_TYPES } from '../../../shared/config/cms.config'
 import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton'
+import SearchLink from '../../components/Links/SearchLink/SearchLink'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(18)};
+`
+
+const ResultsComponent = styled.div`
+  margin-bottom: ${themeSpacing(8)};
+  width: inherit;
 `
 
 const ResultItem = styled.div`
@@ -44,30 +49,40 @@ const ResultColumn = styled(Column)`
   justify-content: flex-start;
 `
 
-const Results = ({ currentPage, results, fetching }) =>
+const Results = ({ currentPage, results, errors, fetching, showLoadMore }) =>
   currentPage === PAGES.SEARCH
     ? results.length > 0 &&
       results.map(
-        ({ type: resultItemType, results: resultItemResults, totalCount: resultItemTotalCount }) =>
-          resultItemTotalCount > 0 ? (
+        ({
+          type: resultItemType,
+          results: resultItemResults,
+          totalCount: resultItemTotalCount,
+        }) => {
+          const to = SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].to()
+          const label =
+            SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].label
+
+          return resultItemTotalCount > 0 ? (
             <ResultItem key={resultItemType}>
-              <SearchHeading
-                label={`${SEARCH_PAGE_CONFIG[resultItemType].label} (${resultItemTotalCount})`}
-              />
-              {getResultsComponent(resultItemType, {
-                results: resultItemResults,
-                loading: fetching,
-                compact: true, // Results in the search overview page are compact
-              })}
+              <SearchHeading label={`${label} (${resultItemTotalCount})`} />
+              <ResultsComponent>
+                {getResultsComponent(resultItemType, {
+                  results: resultItemResults,
+                  loading: fetching,
+                  compact: true, // Results in the search overview page are compact
+                })}
+              </ResultsComponent>
+              <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
             </ResultItem>
           ) : (
             ''
-          ),
+          )
+        },
       )
-    : getResultsComponent(currentPage, { results, loading: fetching })
+    : getResultsComponent(currentPage, { results, errors, loading: fetching, showLoadMore })
 
 const SearchPageResults = ({
-  error,
+  errors,
   fetching,
   totalCount,
   results,
@@ -80,10 +95,6 @@ const SearchPageResults = ({
 }) => {
   const hasResults = !fetching && !!results.length
 
-  const onLoadMore = () => {
-    fetchMore()
-  }
-
   const setTitle = (label, count) =>
     isOverviewPage
       ? `${label} (${count})`
@@ -95,12 +106,6 @@ const SearchPageResults = ({
       span={{ small: 12, medium: 12, big: 12, large: 7, xLarge: 8 }}
       push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
     >
-      {/* Todo: improve error message */}
-      {error && (
-        <Panel isPanelVisible type="warning">
-          Er is een fout opgetreden
-        </Panel>
-      )}
       {fetching && !fetchingMore && <LoadingIndicator style={{ position: 'inherit' }} />}
       {(hasResults || fetchingMore) && (
         <>
@@ -109,7 +114,7 @@ const SearchPageResults = ({
               ? setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
               : 'Geen resultaten'}
           </StyledHeading>
-          <Results {...{ currentPage, results, fetching }} />
+          <Results {...{ currentPage, results, fetching, showLoadMore, errors }} />
           {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={fetchMore} />}
         </>
       )}

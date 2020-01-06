@@ -59,7 +59,7 @@ import { getFileName } from '../shared/ducks/files/selectors'
 
 const routesWithSearch = [
   routing.search.type,
-  routing.dataSearchQuery.type,
+  routing.dataSearch.type,
   routing.datasetSearch.type,
   routing.articleSearch.type,
   routing.specialSearch.type,
@@ -143,7 +143,7 @@ export default paramsRegistry
     })
   })
   .addParameter(PARAMETERS.CATEGORY, routes => {
-    routes.add(routing.dataSearchQuery.type, DATA_SEARCH_REDUCER, 'category', {
+    routes.add(routing.dataSearch.type, DATA_SEARCH_REDUCER, 'category', {
       defaultValue: dataSelectionInitialState.category,
       selector: getSearchCategory,
     })
@@ -262,7 +262,7 @@ export default paramsRegistry
             ? val.split('|').map(encodedFilters => {
                 const [type, filters] = encodedFilters.split(';')
                 const decodedFilters = filters.split('.')
-                // console.log(val)
+
                 return {
                   type,
                   values: decodedFilters,
