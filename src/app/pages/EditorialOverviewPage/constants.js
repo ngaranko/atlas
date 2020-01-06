@@ -36,9 +36,9 @@ export const EDITORIAL_DETAIL_ACTIONS = {
 }
 
 export const EDITORIAL_OVERVIEW_ACTIONS = {
-  [TYPES.ARTICLE]: toArticles,
-  [TYPES.PUBLICATION]: toPublications,
-  [TYPES.SPECIAL]: toSpecials,
+  [TYPES.ARTICLE]: toArticles(),
+  [TYPES.PUBLICATION]: toPublications(),
+  [TYPES.SPECIAL]: toSpecials(),
 }
 
 export const GRAPHQL_CONFIG = {

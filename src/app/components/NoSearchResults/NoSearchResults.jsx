@@ -18,7 +18,7 @@ const StyledListItem = ({ children }) => <StyledTypgraphy $as="li">{children}</S
 const NoSearchResults = ({ query, label = '', to = false }) => (
   <>
     <Paragraph>
-      {`Er zijn geen resulaten gevonden met \`${query}\``}
+      {`Er zijn geen resultaten gevonden met \`${query}\``}
       {label ? ` binnen de categorie \`${label}\` ` : ''}
     </Paragraph>
     <Heading $as="h3">Zoeksuggesties</Heading>
