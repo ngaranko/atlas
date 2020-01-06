@@ -8,12 +8,12 @@ import SEARCH_PAGE_CONFIG from './config'
 import DataSearchResults from './DataSearchResults'
 import DatasetSearchResults from './DatasetSearchResults'
 import SearchHeading from '../../components/SearchHeading/SearchHeading'
-import { EDITORIAL_TYPES } from '../../../shared/config/cms.config'
 import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton'
 import SearchLink from '../../components/Links/SearchLink/SearchLink'
+import { EDITORIAL_OVERVIEW_ACTIONS, EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 
 const StyledHeading = styled(Heading)`
-  margin-bottom: ${themeSpacing(18)};
+  margin-bottom: ${themeSpacing(14)};
 `
 
 const ResultsComponent = styled.div`
@@ -33,10 +33,21 @@ const getResultsComponent = (page, props) => {
     case PAGES.PUBLICATION_SEARCH:
     case PAGES.PUBLICATIONS:
     case PAGES.ARTICLE_SEARCH:
-    case PAGES.ARTICLES:
-      return <EditorialResults type={EDITORIAL_TYPES[page]} {...{ ...props }} />
+    case PAGES.ARTICLES: {
+      const type = EDITORIAL_TYPES[page]
+      return (
+        <EditorialResults
+          {...{
+            ...props,
+            label: SEARCH_PAGE_CONFIG[page].label,
+            type,
+            to: EDITORIAL_OVERVIEW_ACTIONS[type],
+          }}
+        />
+      )
+    }
     case PAGES.DATA_SEARCH:
-      return <DataSearchResults {...{ ...props }} />
+      return <DataSearchResults {...{ ...props, label: SEARCH_PAGE_CONFIG[page].label }} />
     case PAGES.DATASET_SEARCH:
       return <DatasetSearchResults {...{ ...props }} />
     default:
@@ -49,39 +60,42 @@ const ResultColumn = styled(Column)`
   justify-content: flex-start;
 `
 
-const Results = ({ currentPage, results, errors, fetching, showLoadMore }) =>
+const Results = ({ query, totalCount, currentPage, results, errors, fetching, showLoadMore }) =>
+  // eslint-disable-next-line no-nested-ternary
   currentPage === PAGES.SEARCH
-    ? results.length > 0 &&
-      results.map(
-        ({
-          type: resultItemType,
-          results: resultItemResults,
-          totalCount: resultItemTotalCount,
-        }) => {
-          const to = SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].to()
-          const label =
-            SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].label
+    ? results.length > 0 && totalCount > 0
+      ? results.map(
+          ({
+            type: resultItemType,
+            results: resultItemResults,
+            totalCount: resultItemTotalCount,
+          }) => {
+            const to = SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].to()
+            const label =
+              SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].label
 
-          return resultItemTotalCount > 0 ? (
-            <ResultItem key={resultItemType}>
-              <SearchHeading label={`${label} (${resultItemTotalCount})`} />
-              <ResultsComponent>
-                {getResultsComponent(resultItemType, {
-                  results: resultItemResults,
-                  loading: fetching,
-                  compact: true, // Results in the search overview page are compact
-                })}
-              </ResultsComponent>
-              <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
-            </ResultItem>
-          ) : (
-            ''
-          )
-        },
-      )
-    : getResultsComponent(currentPage, { results, errors, loading: fetching, showLoadMore })
+            return resultItemTotalCount > 0 ? (
+              <ResultItem key={resultItemType}>
+                <SearchHeading label={`${label} (${resultItemTotalCount})`} />
+                <ResultsComponent>
+                  {getResultsComponent(resultItemType, {
+                    results: resultItemResults,
+                    loading: fetching,
+                    compact: true, // Results in the search overview page are compact
+                  })}
+                </ResultsComponent>
+                <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
+              </ResultItem>
+            ) : (
+              ''
+            )
+          },
+        )
+      : null
+    : getResultsComponent(currentPage, { query, results, errors, loading: fetching, showLoadMore })
 
 const SearchPageResults = ({
+  query,
   errors,
   fetching,
   totalCount,
@@ -112,9 +126,11 @@ const SearchPageResults = ({
           <StyledHeading>
             {totalCount > 0
               ? setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
-              : 'Geen resultaten'}
+              : `Geen resultaten met \`${query}\``}
           </StyledHeading>
-          <Results {...{ currentPage, results, fetching, showLoadMore, errors }} />
+          <Results
+            {...{ query, totalCount, currentPage, results, fetching, showLoadMore, errors }}
+          />
           {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={fetchMore} />}
         </>
       )}

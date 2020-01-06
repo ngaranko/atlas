@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Panel from '../Panel/Panel'
-import SearchList from '../SearchList/SearchListContainer'
+import SearchList from '../SearchList'
 import NoResultsForSearchType from '../Messages/NoResultsForSearchType'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 

@@ -70,7 +70,7 @@ const reducer = (state, action) => {
         results,
         totalCount,
         filters,
-        fetchingMore: false,
+        fetchingMore: true,
       }
     }
 

@@ -288,15 +288,15 @@ export const toNotFoundPage = () => ({
 export const toHelpPage = () =>
   toArticleDetail(HEADER_LINKS.HELP.id[process.env.NODE_ENV], HEADER_LINKS.HELP.slug)
 
-export const toArticleOverview = () => ({
+export const toArticles = () => ({
   type: routing.articles.type,
 })
 
-export const toPublicationOverview = () => ({
+export const toPublications = () => ({
   type: routing.publications.type,
 })
 
-export const toSpecialOverview = () => ({
+export const toSpecials = () => ({
   type: routing.specials.type,
 })
 

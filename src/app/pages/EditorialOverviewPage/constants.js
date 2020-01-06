@@ -3,6 +3,9 @@ import {
   toArticleDetail,
   toPublicationDetail,
   toSpecialDetail,
+  toArticles,
+  toPublications,
+  toSpecials,
 } from '../../../store/redux-first-router/actions'
 import { TYPES } from '../../../shared/config/cms.config'
 import {
@@ -30,6 +33,12 @@ export const EDITORIAL_DETAIL_ACTIONS = {
   [TYPES.ARTICLE]: toArticleDetail,
   [TYPES.PUBLICATION]: toPublicationDetail,
   [TYPES.SPECIAL]: toSpecialDetail,
+}
+
+export const EDITORIAL_OVERVIEW_ACTIONS = {
+  [TYPES.ARTICLE]: toArticles,
+  [TYPES.PUBLICATION]: toPublications,
+  [TYPES.SPECIAL]: toSpecials,
 }
 
 export const GRAPHQL_CONFIG = {

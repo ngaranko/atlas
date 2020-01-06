@@ -14,6 +14,9 @@ import {
   toSpecialSearch,
   toDataSearch,
   toDatasetSearch,
+  toPublications,
+  toArticles,
+  toSpecials,
 } from '../../../store/redux-first-router/actions'
 import { routing } from '../../routes'
 
@@ -46,6 +49,7 @@ export default {
   [routing.publications.page]: {
     resolver: QUERY_TYPES[PAGES.PUBLICATION_SEARCH],
     query: publicationSearchQuery,
+    to: toPublications,
     label: routing.publications.title,
   },
   [routing.articleSearch.page]: {
@@ -57,6 +61,7 @@ export default {
   [routing.articles.page]: {
     resolver: QUERY_TYPES[PAGES.ARTICLE_SEARCH],
     query: articleSearchQuery,
+    to: toArticles,
     label: routing.articles.title,
   },
   [routing.specialSearch.page]: {
@@ -68,6 +73,7 @@ export default {
   [routing.specials.page]: {
     resolver: QUERY_TYPES[PAGES.SPECIAL_SEARCH],
     query: specialSearchQuery,
+    to: toSpecials,
     label: routing.specials.title,
   },
   [routing.dataSearch.page]: {
