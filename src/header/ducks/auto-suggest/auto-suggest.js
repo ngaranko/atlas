@@ -17,10 +17,12 @@ export default function AutoSuggestReducer(state = initialState, action) {
   // cleanup the state for this reducer when not on the search routes
   if (
     shouldResetState(action, [
+      PAGES.SEARCH,
       PAGES.DATA_SEARCH,
       PAGES.DATASET_SEARCH,
       PAGES.ARTICLE_SEARCH,
       PAGES.PUBLICATION_SEARCH,
+      PAGES.SPECIAL_SEARCH,
     ])
   ) {
     return initialState
@@ -63,10 +65,12 @@ export default function AutoSuggestReducer(state = initialState, action) {
       }
 
     // Sets the typedQuery based on the selected tab
+    case routing.search.type:
     case routing.dataSearch.type:
     case routing.datasetSearch.type:
     case routing.articleSearch.type:
     case routing.publicationSearch.type:
+    case routing.specialSearch.type:
       return {
         ...enrichedState,
         typedQuery: get(action, `meta.query[${PARAMETERS.QUERY}]`),

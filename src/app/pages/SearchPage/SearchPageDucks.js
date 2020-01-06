@@ -11,6 +11,7 @@ const initialState = {
   query: '',
 }
 
+/* istanbul ignore next */
 function reducer(state = initialState, action) {
   const enrichedState = {
     ...state,
@@ -122,7 +123,7 @@ export const removeAllActiveFilters = type => ({
   payload: type,
 })
 
-export const getQuery = ({ [REDUCER_KEY]: { query } }) => query
+export const getQuery = ({ [REDUCER_KEY]: { query } }) => query && query.toString()
 export const getActiveFilters = ({ [REDUCER_KEY]: { activeFilters } }) => activeFilters
 
 export { reducer }

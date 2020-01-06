@@ -3,7 +3,7 @@ import { Api, Data, DocumentText, Map, Pano, Table } from '@datapunt/asc-assets'
 import { Icon } from '@datapunt/asc-ui'
 import {
   toPanoramaAndPreserveQuery,
-  toPublicationOverview,
+  toPublications,
   toArticleDetail,
   toDatasets,
   toMapWithLegendOpen,
@@ -35,7 +35,7 @@ const navigationLinks = [
   },
   {
     id: 2,
-    to: toPublicationOverview(),
+    to: toPublications(),
     CardIcon: () => (
       <Icon size={36}>
         <DocumentText />

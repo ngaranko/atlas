@@ -116,6 +116,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
           </FilterColumn>
           <SearchPageResults
             {...{
+              query,
               errors,
               fetching,
               totalCount,

@@ -54,15 +54,16 @@ const reducer = (state, action) => {
 
       if (state.fetchingMore) {
         // Results can be an object (direct results) or an array with results.
-        results = state.results[0].results
-          ? state.results.map(dataResult => {
-              const matchedResult = newResults.find(result => result.type === dataResult.type)
-              return {
-                ...dataResult,
-                results: [...dataResult.results, ...matchedResult.results],
-              }
-            })
-          : [...state.results, ...newResults]
+        results =
+          state.results.length > 0 && state.results[0].results
+            ? state.results.map(dataResult => {
+                const matchedResult = newResults.find(result => result.type === dataResult.type)
+                return {
+                  ...dataResult,
+                  results: [...dataResult.results, ...matchedResult.results],
+                }
+              })
+            : [...state.results, ...newResults]
       }
 
       return {
@@ -70,7 +71,7 @@ const reducer = (state, action) => {
         results,
         totalCount,
         filters,
-        fetchingMore: false,
+        fetchingMore: true,
       }
     }
 
@@ -100,11 +101,11 @@ const usePagination = (config, input, limit, initialFrom) => {
     variables: { limit, from, ...input },
   })
 
-  // Reset the state when changing the query or filters
+  // Reset the state when changing the query, searchQuery or filters
   // Todo: consider unify types and filters
   useEffect(() => {
     dispatch({ type: RESET, payload: initialState })
-  }, [config.query, input.types, input.filters])
+  }, [config.query, input.q, input.types, input.filters])
 
   // Side-effect to show the "show more" button in the UI
   // Todo: find a better way finding out the count per type / filter vs. totalCount (all results)
@@ -113,7 +114,7 @@ const usePagination = (config, input, limit, initialFrom) => {
     if (results.length === 1) {
       ;[{ count }] = results
     }
-    dispatch({ type: SET_SHOW_MORE, payload: !(count <= limit + from) })
+    dispatch({ type: SET_SHOW_MORE, payload: count >= limit + from })
   }, [totalCount, limit, from, input.types, input.filters])
 
   const fetchMore = useCallback(() => {
