@@ -131,7 +131,7 @@ const SearchPageResults = ({
   const setTitle = (label, count) =>
     isOverviewPage
       ? `${label} (${count})`
-      : `Alle resultaten met categorie \`${label}\` (${count} resultaten)`
+      : `Alle resultaten met categorie '${label}' (${count} resultaten)`
 
   return (
     <ResultColumn
@@ -146,7 +146,7 @@ const SearchPageResults = ({
           <StyledHeading>
             {totalCount > 0 && hasResults
               ? setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
-              : `Geen resultaten met \`${query}\``}
+              : `Geen resultaten met '${query}'`}
           </StyledHeading>
           <StyledButton variant="primary" onClick={() => setShowFilter(true)}>
             Filteren

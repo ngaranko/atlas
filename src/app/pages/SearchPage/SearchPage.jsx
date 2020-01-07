@@ -60,6 +60,7 @@ const StyledModal = styled(Modal)`
   ${FilterColumn} {
     top: 0;
     width: 100%;
+    min-height: calc(100% - 40px);
     position: relative;
     margin: auto auto ${themeSpacing(20)};
   }
@@ -67,6 +68,7 @@ const StyledModal = styled(Modal)`
   [role='dialog'] {
     position: relative;
     top: ${constants.HEADER_HEIGHT_SMALL}px;
+    height: 100vh;
     max-height: 100%;
     max-width: initial;
     left: 0;
@@ -189,6 +191,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
         break
 
       default:
+        setExtraQuery({})
         setShowLoadMore(false)
     }
   }, [currentPage, activeFilters])
@@ -199,7 +202,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
       wrap
       span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}
     >
-      {!isOverviewPage && <PageFilterBox currentPage={currentPage} query={query} />}
+      {!isOverviewPage && <PageFilterBox {...{ fetching, query, currentPage }} />}
       <SearchPageFilters {...{ currentPage, filters, totalCount, query }} />
     </FilterColumn>
   )
