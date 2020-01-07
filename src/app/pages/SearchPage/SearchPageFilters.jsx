@@ -23,6 +23,7 @@ const SearchPageFilters = ({ currentPage, filters, totalCount, query }) => {
       ) : null
     }
 
+    case PAGES.DATASETS:
     case PAGES.DATASET_SEARCH:
       return <DatasetFilters q={query} />
 

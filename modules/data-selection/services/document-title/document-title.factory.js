@@ -21,15 +21,8 @@ import isDefined from '../../../../src/shared/services/is-defined'
       const VIEW_NAMES = {
         TABLE: 'Tabel',
         LIST: 'Lijst',
-        CATALOG: 'Datasets',
       }
 
-      if (dataSelectionState.view === 'CATALOG' && !Object.keys(filtersState).length) {
-        if (dataSelectionState.query) {
-          return `Datasets met '${dataSelectionState.query}'`
-        }
-        return 'Datasets'
-      }
       const view = VIEW_NAMES[dataSelectionState.view]
       const variant = lowercaseFilter(
         DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].TITLE,
@@ -47,11 +40,7 @@ import isDefined from '../../../../src/shared/services/is-defined'
         })
         .join(', ')
 
-      output = view
-
-      if (variant !== 'catalogus' && variant !== 'dcatd') {
-        output += ` ${variant}`
-      }
+      output = `${view} ${variant}`
 
       if (markers.length || dataSelectionState.query || criteria.length) {
         output += ' met '
@@ -64,14 +53,6 @@ import isDefined from '../../../../src/shared/services/is-defined'
           '²',
         )
         output += `ingetekend (${geometryFilterDescription})`
-      }
-
-      if (dataSelectionState.query) {
-        output += `'${dataSelectionState.query}'`
-      }
-
-      if ((markers.length && criteria.length) || (dataSelectionState.query && criteria.length)) {
-        output += ', '
       }
 
       return `${output}${criteria}`

@@ -126,7 +126,3 @@ export const zipCodeFilter = input => {
   }
   return input
 }
-
-export const kebapCaseFilter = input => (input ? input.toLowerCase().replace(/[: ][ ]*/g, '-') : '')
-
-export const ucFirst = input => input.substring(0, 1).toUpperCase() + input.substring(1)

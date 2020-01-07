@@ -72,3 +72,5 @@ export const isSearchPage = page =>
   page === PAGES.ARTICLE_SEARCH ||
   page === PAGES.PUBLICATION_SEARCH ||
   page === PAGES.SPECIAL_SEARCH
+
+export const isDatasetPage = page => page === PAGES.DATASETS || page === PAGES.DATASET_SEARCH

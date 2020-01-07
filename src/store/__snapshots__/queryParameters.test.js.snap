@@ -985,15 +985,6 @@ Object {
         "selector": [Function],
         "stateKey": "page",
       },
-      "atlasRouter/DATASETS": Object {
-        "addHistory": true,
-        "decode": [Function],
-        "defaultValue": 1,
-        "encode": [Function],
-        "reducerKey": "datasets.datasetData",
-        "selector": [Function],
-        "stateKey": "page",
-      },
       "atlasRouter/ESTABLISHMENTS": Object {
         "addHistory": true,
         "decode": [Function],

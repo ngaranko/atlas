@@ -26,9 +26,8 @@ describe('The dp-dcatd-button component', () => {
     $window.sessionStorage = origSessionStorage
   })
 
-  function getComponent(transcluded, type, id) {
+  function getComponent(transcluded, id) {
     const element = document.createElement('dp-dcatd-button')
-    element.setAttribute('type', type)
     element.setAttribute('id', id)
     element.innerText = transcluded
 
@@ -39,53 +38,27 @@ describe('The dp-dcatd-button component', () => {
     return component
   }
 
-  describe('rendering', () => {
-    it('renders toevoegen button', () => {
-      const component = getComponent('Toevoegen', 'toevoegen', '_')
+  it('renders button', () => {
+    const component = getComponent('Wijzigen', 'id-van-te-wijzigen-dataset')
 
-      expect(component.text().trim()).toBe('Toevoegen')
-    })
-
-    it('renders wijzigen button', () => {
-      const component = getComponent('Wijzigen', 'wijzigen', 'id-van-te-wijzigen-dataset')
-
-      expect(component.text().trim()).toBe('Wijzigen')
-    })
+    expect(component.text().trim()).toBe('Wijzigen')
   })
 
-  describe('events', () => {
-    it('when clicking the toevoegen button', () => {
-      const component = getComponent('Toevoegen', 'toevoegen', '_')
-      component.find('button').click()
+  it('when clicking the button', () => {
+    const component = getComponent('Wijzigen', 'id-van-te-wijzigen-dataset')
+    component.find('button').click()
 
-      expect($window.sessionStorage.setItem).toHaveBeenCalledWith(
-        'DCATD_DETAIL_REDIRECT_URL',
-        jasmine.any(String),
-      )
-      expect($window.sessionStorage.setItem).toHaveBeenCalledWith(
-        'DCATD_LIST_REDIRECT_URL',
-        jasmine.any(String),
-      )
+    expect($window.sessionStorage.setItem).toHaveBeenCalledWith(
+      'DCATD_DETAIL_REDIRECT_URL',
+      jasmine.any(String),
+    )
+    expect($window.sessionStorage.setItem).toHaveBeenCalledWith(
+      'DCATD_LIST_REDIRECT_URL',
+      jasmine.any(String),
+    )
 
-      expect($window.location.assign).toHaveBeenCalledWith('/dcatd_admin#/datasets/_')
-    })
-
-    it('when clicking the wijzigen button', () => {
-      const component = getComponent('Wijzigen', 'wijzigen', 'id-van-te-wijzigen-dataset')
-      component.find('button').click()
-
-      expect($window.sessionStorage.setItem).toHaveBeenCalledWith(
-        'DCATD_DETAIL_REDIRECT_URL',
-        jasmine.any(String),
-      )
-      expect($window.sessionStorage.setItem).toHaveBeenCalledWith(
-        'DCATD_LIST_REDIRECT_URL',
-        jasmine.any(String),
-      )
-
-      expect($window.location.assign).toHaveBeenCalledWith(
-        '/dcatd_admin#/datasets/id-van-te-wijzigen-dataset',
-      )
-    })
+    expect($window.location.assign).toHaveBeenCalledWith(
+      '/dcatd_admin#/datasets/id-van-te-wijzigen-dataset',
+    )
   })
 })

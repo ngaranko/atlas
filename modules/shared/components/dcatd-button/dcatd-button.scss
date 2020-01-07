@@ -1,21 +1,10 @@
 .dcatd-button {
   float: right;
 
-  &--wijzigen {
-    @include header-button("edit", 14px);
+  @include header-button('edit', 14px);
 
-    &::before {
-      margin-top: 6px;
-      margin-right: 5px;
-    }
-  }
-
-  &--toevoegen {
-    @include header-button("add", 14px);
-
-    &::before {
-      margin-top: 6px;
-      margin-right: 5px;
-    }
+  &::before {
+    margin-top: 6px;
+    margin-right: 5px;
   }
 }
