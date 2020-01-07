@@ -55,10 +55,15 @@ export const toGeoSearch = additionalParams =>
     additionalParams,
   )
 
-export const toDataSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
+export const toDataSearch = (
+  additionalParams = null,
+  skipSaga = false,
+  forceSaga = false,
+  preserve = true,
+) => ({
   type: routing.dataSearch.type,
   meta: {
-    preserve: true,
+    preserve,
     skipSaga,
     forceSaga,
     additionalParams,

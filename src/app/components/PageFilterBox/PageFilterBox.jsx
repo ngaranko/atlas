@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { FilterOption } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
 import { useQuery } from 'urql'
@@ -11,7 +11,7 @@ import { categoryFilterBoxQuery } from '../../pages/SearchPage/graphql.config'
 
 const ACTIVE_LINK_PROPS = { active: true, as: 'div' }
 
-export default ({ currentPage, query }) => {
+export default memo(({ currentPage, query }) => {
   const [{ data }] = useQuery({
     query: categoryFilterBoxQuery,
     variables: {
@@ -54,7 +54,7 @@ export default ({ currentPage, query }) => {
       ...SEARCH_PAGE_CONFIG[filterPage],
       page: filterPage,
       title: `Zoekresultaten voor ${SEARCH_PAGE_CONFIG[filterPage].label}`,
-      to: SEARCH_PAGE_CONFIG[filterPage].to(RESET_ROUTE_ARGUMENTS),
+      to: SEARCH_PAGE_CONFIG[filterPage].to(...RESET_ROUTE_ARGUMENTS),
       count,
     }
   })
@@ -72,4 +72,4 @@ export default ({ currentPage, query }) => {
       ))}
     </FilterBox>
   )
-}
+})

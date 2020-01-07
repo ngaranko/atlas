@@ -43,9 +43,7 @@ const SearchPageFilters = ({ currentPage, filters, totalCount, query }) => {
             />
           ))}
         </>
-      ) : (
-        <></>
-      )
+      ) : null
 
     default:
       return null
