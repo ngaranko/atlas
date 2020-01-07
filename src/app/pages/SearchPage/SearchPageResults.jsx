@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import styled from '@datapunt/asc-core'
-import { Column, Heading, themeSpacing } from '@datapunt/asc-ui'
+import { breakpoint, Button, Column, Heading, themeSpacing } from '@datapunt/asc-ui'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
 import EditorialResults from '../../components/EditorialResults'
@@ -15,6 +15,9 @@ import NoSearchResults from '../../components/NoSearchResults'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(14)};
+  @media screen and ${breakpoint('min-width', 'tabletM')} {
+    margin-bottom: ${themeSpacing(12)};
+  }
 `
 
 const ResultsComponent = styled.div`
@@ -25,6 +28,17 @@ const ResultsComponent = styled.div`
 const ResultItem = styled.div`
   margin-bottom: ${themeSpacing(18)};
   width: inherit;
+`
+
+const ResultWrapper = styled.div`
+  margin-top: ${themeSpacing(4)};
+`
+
+const StyledButton = styled(Button)`
+  align-self: flex-start;
+  @media screen and ${breakpoint('min-width', 'laptop')} {
+    display: none;
+  }
 `
 
 const getResultsComponent = (page, props) => {
@@ -110,6 +124,7 @@ const SearchPageResults = ({
   fetchMore,
   fetchingMore,
   showLoadMore,
+  setShowFilter,
 }) => {
   const hasResults = !fetching && !!results.length
 
@@ -133,10 +148,15 @@ const SearchPageResults = ({
               ? setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
               : `Geen resultaten met \`${query}\``}
           </StyledHeading>
-          <Results
-            {...{ query, totalCount, currentPage, results, fetching, showLoadMore, errors }}
-          />
-          {showLoadMore && hasMore && <LoadMoreButton {...{ fetching, onClick: fetchMore }} />}
+          <StyledButton variant="primary" onClick={() => setShowFilter(true)}>
+            Filteren
+          </StyledButton>
+          <ResultWrapper>
+            <Results
+              {...{ query, totalCount, currentPage, results, fetching, showLoadMore, errors }}
+            />
+            {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={fetchMore} />}
+          </ResultWrapper>
         </>
       )}
     </ResultColumn>
