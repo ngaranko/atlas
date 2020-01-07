@@ -40,13 +40,15 @@ export default ({ currentPage, query }) => {
     if (data) {
       const filterPageData = data[SEARCH_PAGE_CONFIG[filterPage].resolver]
 
-      try {
-        count = filterPageData.totalCount
-        totalCount += count
-      } catch (e) {
-        // Todo: error handling
-        // eslint-disable-next-line no-console
-        console.warn(e)
+      if (filterPageData) {
+        try {
+          count = filterPageData.totalCount
+          totalCount += count
+        } catch (e) {
+          // Todo: error handling
+          // eslint-disable-next-line no-console
+          console.warn(e)
+        }
       }
     }
 
@@ -60,7 +62,7 @@ export default ({ currentPage, query }) => {
   })
 
   return (
-    <FilterBox label="Filters">
+    <FilterBox label="Categorieën">
       {FILTERS.map(({ page, to, title, count }) => (
         <FilterOption
           key={page}
