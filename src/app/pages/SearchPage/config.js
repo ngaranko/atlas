@@ -16,6 +16,7 @@ import {
   toPublications,
   toArticles,
   toSpecials,
+  toDatasets,
 } from '../../../store/redux-first-router/actions'
 import { routing } from '../../routes'
 
@@ -94,6 +95,12 @@ export default {
     resolver: QUERY_TYPES[routing.datasetSearch.page],
     query: datasetSearchQuery,
     to: toDatasetSearch,
+    label: routing.datasets.title,
+  },
+  [routing.datasets.page]: {
+    resolver: QUERY_TYPES[routing.datasetSearch.page],
+    query: datasetSearchQuery,
+    to: toDatasets,
     label: routing.datasets.title,
   },
 }

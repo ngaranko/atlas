@@ -9,7 +9,6 @@ import PAGES, { isMapSplitPage, isEditorialOverviewPage, isSearchPage } from './
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
-const DatasetPage = React.lazy(() => import('./pages/DatasetPage'))
 const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'))
 const DatasetDetailContainer = React.lazy(() =>
   import('./containers/DatasetDetailContainer/DatasetDetailContainer'),
@@ -37,8 +36,8 @@ const AppBody = ({
   homePage,
   currentPage,
   embedPreviewMode,
-}) => {
-  return hasGrid ? (
+}) =>
+  hasGrid ? (
     <>
       <Container id="main" className="main-container">
         <Helmet>
@@ -54,7 +53,7 @@ const AppBody = ({
           {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
           {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
-          {isEditorialOverviewPage(currentPage) && (
+          {(isEditorialOverviewPage(currentPage) || currentPage === PAGES.DATASETS) && (
             <SearchPage currentPage={currentPage} isOverviewPage />
           )}
 
@@ -90,7 +89,6 @@ const AppBody = ({
                 {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
 
                 {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
-                {currentPage === PAGES.DATASETS && <DatasetPage />}
               </div>
             </div>
           )}
@@ -100,7 +98,6 @@ const AppBody = ({
       </Suspense>
     </>
   )
-}
 
 AppBody.propTypes = {
   visibilityError: PropTypes.bool.isRequired,

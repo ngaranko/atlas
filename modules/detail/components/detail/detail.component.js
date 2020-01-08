@@ -1,5 +1,5 @@
 import removeMd from 'remove-markdown'
-import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/data/data'
+import { downloadDatasetResource } from '../../../../src/shared/ducks/detail/actions'
 ;(function() {
   angular.module('dpDetail').component('dpDetail', {
     bindings: {

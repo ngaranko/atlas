@@ -1,14 +1,12 @@
-@import "../shared/styles/config";
-
-@import "components/available-filters/available-filters";
-@import "components/sbi-filter/sbi-filter";
-@import "../atlas/styles/legacy/data-selection";
-@import "../atlas/styles/legacy/formatter/bezoekadres";
-@import "../atlas/styles/legacy/formatter/handelsnaam";
-@import "../atlas/styles/legacy/formatter/sbi-omschrijving";
-@import "../atlas/styles/legacy/formatter/file-type";
-@import "../atlas/styles/legacy/formatter/tags";
-@import "components/header/header";
-@import "components/pagination/pagination";
-@import "../atlas/styles/legacy/table";
-@import "../atlas/styles/legacy/catalog";
+@import 'components/available-filters/available-filters';
+@import 'components/sbi-filter/sbi-filter';
+@import '../atlas/styles/legacy/data-selection';
+@import '../atlas/styles/legacy/formatter/bezoekadres';
+@import '../atlas/styles/legacy/formatter/handelsnaam';
+@import '../atlas/styles/legacy/formatter/sbi-omschrijving';
+@import '../atlas/styles/legacy/formatter/file-type';
+@import '../atlas/styles/legacy/formatter/tags';
+@import 'components/header/header';
+@import 'components/pagination/pagination';
+@import '../atlas/styles/legacy/table';
+@import '../atlas/styles/legacy/catalog';

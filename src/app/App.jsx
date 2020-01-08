@@ -19,7 +19,7 @@ import {
   fetchExchange,
   dedupExchange,
 } from 'urql'
-import { isEditorialPage, isContentPage, isSearchPage } from './pages'
+import { isEditorialPage, isContentPage, isSearchPage, isDatasetPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -97,9 +97,12 @@ const App = ({
   printModeLandscape,
   printOrEmbedMode,
 }) => {
-  const editorialPage = isEditorialPage(currentPage)
-  const contentPage = isContentPage(currentPage)
-  const hasMaxWidth = homePage || editorialPage || contentPage || isSearchPage(currentPage)
+  const hasMaxWidth =
+    homePage ||
+    isEditorialPage(currentPage) ||
+    isContentPage(currentPage) ||
+    isSearchPage(currentPage) ||
+    isDatasetPage(currentPage)
 
   // Redirect to the 404 page if currentPage isn't set
   if (currentPage === '' && window) {
@@ -150,8 +153,8 @@ const App = ({
               />
             )}
             <AppBody
-              hasGrid={hasMaxWidth}
               {...{
+                hasGrid: hasMaxWidth,
                 visibilityError,
                 bodyClasses,
                 homePage,

@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect'
 import { getFilters as getDataSelectionFilters, getShapeFilter } from '../data-selection/selectors'
-import { getFilters as getDatasetFilters } from '../datasets/datasets'
 import paramsRegistry from '../../../store/params-registry'
 
 export const REDUCER_KEY = 'filter'
@@ -111,42 +110,6 @@ export const selectDataSelectionFilters = createSelector(
       formattedFilters.push(activeFilters.shape)
     }
 
-    return formattedFilters
-  },
-)
-
-export const selectDatasetFilters = createSelector(
-  getFilters,
-  getDatasetFilters,
-  (activeFilters, availableFilters) => {
-    const formattedFilters = availableFilters
-      .filter(filterSet => activeFilters[filterSet.slug])
-      .map(availableFilter => {
-        const value = activeFilters[availableFilter.slug]
-        const { id, label } = value
-        const filter = { ...availableFilter }
-        // If there are no options but the filter is active, adding the filtered
-        // value as an option with 0 values available
-        if (filter.numberOfOptions === 0) {
-          filter.options = [
-            {
-              id,
-              label,
-              count: 0,
-            },
-          ]
-        }
-
-        const option = filter.options.find(opt => opt.id === value)
-        return {
-          slug: filter.slug,
-          label: filter.label,
-          option: option && option.label,
-        }
-      })
-    if (activeFilters.shape) {
-      formattedFilters.push(activeFilters.shape)
-    }
     return formattedFilters
   },
 )

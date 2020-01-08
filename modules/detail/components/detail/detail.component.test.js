@@ -1,4 +1,4 @@
-import { DOWNLOAD_DATASET_RESOURCE } from '../../../../src/shared/ducks/datasets/data/data'
+import { DOWNLOAD_DATASET_RESOURCE } from '../../../../src/shared/ducks/detail/constants'
 
 describe('the dp-detail component', () => {
   let $compile

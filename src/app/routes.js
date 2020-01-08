@@ -61,7 +61,7 @@ export const routing = {
     page: PAGES.DATASET_DETAIL,
   },
   search: {
-    title: 'Alles',
+    title: 'Alle zoekresultaten',
     path: `/zoek/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH}`,
     page: PAGES.SEARCH,
@@ -164,7 +164,7 @@ export const routing = {
     page: PAGES.PUBLICATION_SEARCH,
   },
   specials: {
-    title: 'Specials',
+    title: 'In beeld',
     path: `/${MAIN_PATHS.SPECIALS}/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.SPECIALS}`,
     page: PAGES.SPECIALS,

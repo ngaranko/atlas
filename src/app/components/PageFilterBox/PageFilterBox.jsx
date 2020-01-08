@@ -33,7 +33,8 @@ export default memo(({ currentPage, query }) => {
     routing.specialSearch.page,
   ]
 
-  let totalCount = 0
+  let totalCount
+
   const FILTERS = AVAILABLE_FILTERS.map(filterPage => {
     let count
 
@@ -43,7 +44,7 @@ export default memo(({ currentPage, query }) => {
       if (filterPageData) {
         try {
           count = filterPageData.totalCount
-          totalCount += count
+          totalCount = (totalCount || 0) + count
         } catch (e) {
           // Todo: error handling
           // eslint-disable-next-line no-console
@@ -69,7 +70,9 @@ export default memo(({ currentPage, query }) => {
           {...(currentPage === page ? ACTIVE_LINK_PROPS : { as: RouterLink, to, title })}
         >
           {SEARCH_PAGE_CONFIG[page].label}{' '}
-          {page === routing.search.page ? `(${totalCount})` : isDefined(count) && `(${count})`}
+          {page === routing.search.page
+            ? isDefined(totalCount) && `(${totalCount})`
+            : isDefined(count) && `(${count})`}
         </FilterOption>
       ))}
     </FilterBox>

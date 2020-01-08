@@ -7,8 +7,6 @@ import {
 } from '../app/pages/SearchPage/SearchPageDucks'
 import { getDataSelectionPage, getGeometryFilter } from '../shared/ducks/data-selection/selectors'
 import { DATA_SELECTION } from '../shared/ducks/data-selection/reducer'
-import { DATASETS, getPage } from '../shared/ducks/datasets/datasets'
-import { DATA, initialState as datasetsDataInitialState } from '../shared/ducks/datasets/data/data'
 import { initialState as mapInitialState, REDUCER_KEY as MAP } from '../map/ducks/map/constants'
 import {
   initialState as filesInitialState,
@@ -60,9 +58,13 @@ import { getFileName } from '../shared/ducks/files/selectors'
 const routesWithSearch = [
   routing.search.type,
   routing.dataSearch.type,
+  routing.datasets.type,
   routing.datasetSearch.type,
+  routing.articles.type,
   routing.articleSearch.type,
+  routing.specials.type,
   routing.specialSearch.type,
+  routing.publications.type,
   routing.publicationSearch.type,
 ]
 
@@ -81,10 +83,9 @@ const routesWithMapActive = [
 ]
 
 const routesWithCmsData = [
-  routing.articles.type,
   routing.articleDetail.type,
-  routing.publications.type,
   routing.publicationDetail.type,
+  routing.specialDetail.type,
 ]
 
 /* istanbul ignore next */
@@ -96,15 +97,10 @@ export default paramsRegistry
     })
   })
   .addParameter(PARAMETERS.PAGE, routes => {
-    routes
-      .add(routesWithDataSelection, DATA_SELECTION, 'page', {
-        defaultValue: dataSelectionInitialState.page,
-        selector: getDataSelectionPage,
-      })
-      .add(routing.datasets.type, `${DATASETS}.${DATA}`, 'page', {
-        defaultValue: datasetsDataInitialState.page,
-        selector: getPage,
-      })
+    routes.add(routesWithDataSelection, DATA_SELECTION, 'page', {
+      defaultValue: dataSelectionInitialState.page,
+      selector: getDataSelectionPage,
+    })
   })
   .addParameter(PARAMETERS.GEO, routes => {
     routes.add(routesWithDataSelection, DATA_SELECTION, 'geometryFilter', {
@@ -241,7 +237,7 @@ export default paramsRegistry
   })
   .addParameter(PARAMETERS.FILTERS, routes => {
     routes
-      .add([routing.datasets.type, ...routesWithDataSelection], FILTER, 'filters', {
+      .add([...routesWithDataSelection], FILTER, 'filters', {
         defaultValue: filterInitialState.filters,
         decode: val => {
           try {
