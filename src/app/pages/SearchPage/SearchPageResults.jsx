@@ -22,15 +22,14 @@ const StyledHeading = styled(Heading)`
 
 const ResultsComponent = styled.div`
   margin-bottom: ${themeSpacing(8)};
-  width: inherit;
 `
 
 const ResultItem = styled.div`
   margin-bottom: ${themeSpacing(18)};
-  width: inherit;
 `
 
 const ResultWrapper = styled.div`
+  width: inherit;
   margin-top: ${themeSpacing(4)};
 `
 
