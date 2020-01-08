@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash.get'
-import { clearAllBodyScrollLocks, enableBodyScroll } from 'body-scroll-lock/lib/bodyScrollLock.es6'
+import { clearAllBodyScrollLocks, enableBodyScroll } from 'body-scroll-lock'
 import {
   breakpoint,
   Column,

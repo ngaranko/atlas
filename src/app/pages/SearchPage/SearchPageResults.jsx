@@ -30,6 +30,9 @@ const ResultItem = styled.div`
 `
 
 const ResultWrapper = styled.div`
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    margin-top: ${themeSpacing(4)};
+  }
   width: inherit;
 `
 
