@@ -69,7 +69,7 @@ const reducer = (state, action) => {
         totalCount,
         filters,
         hasMore: count > state.limit + state.from, // Side-effect to show the "show more" button in the UI
-        fetchingMore: true,
+        fetchingMore: false,
       }
     }
 

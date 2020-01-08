@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import styled from '@datapunt/asc-core'
 import { breakpoint, Button, Column, Heading, themeSpacing } from '@datapunt/asc-ui'
 import { Enlarge } from '@datapunt/asc-assets'
@@ -78,8 +78,9 @@ const ResultColumn = styled(Column)`
 /* istanbul ignore next */
 const Results = ({ query, totalCount, currentPage, results, errors, fetching, showLoadMore }) =>
   // eslint-disable-next-line no-nested-ternary
-  currentPage === PAGES.SEARCH ? (
-    results.length > 0 && totalCount > 0 ? (
+  currentPage === PAGES.SEARCH
+    ? results.length > 0 &&
+      totalCount &&
       results.map(
         ({
           type: resultItemType,
@@ -90,29 +91,24 @@ const Results = ({ query, totalCount, currentPage, results, errors, fetching, sh
           const label =
             SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].label
 
-          return resultItemTotalCount > 0 ? (
-            <ResultItem key={resultItemType}>
-              <SearchHeading label={`${label} (${resultItemTotalCount})`} />
-              <ResultsComponent>
-                {getResultsComponent(resultItemType, {
-                  results: resultItemResults,
-                  loading: fetching,
-                  compact: true, // Results in the search overview page are compact
-                })}
-              </ResultsComponent>
-              <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
-            </ResultItem>
-          ) : (
-            ''
+          return (
+            resultItemTotalCount > 0 && (
+              <ResultItem key={resultItemType}>
+                <SearchHeading label={`${label} (${resultItemTotalCount})`} />
+                <ResultsComponent>
+                  {getResultsComponent(resultItemType, {
+                    results: resultItemResults,
+                    loading: fetching,
+                    compact: true, // Results in the search overview page are compact
+                  })}
+                </ResultsComponent>
+                <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
+              </ResultItem>
+            )
           )
         },
       )
-    ) : (
-      <NoSearchResults query={query} />
-    )
-  ) : (
-    getResultsComponent(currentPage, { query, results, errors, loading: fetching, showLoadMore })
-  )
+    : getResultsComponent(currentPage, { query, results, errors, loading: fetching, showLoadMore })
 
 /* istanbul ignore next */
 const SearchPageResults = ({
@@ -130,7 +126,10 @@ const SearchPageResults = ({
   setShowFilter,
 }) => {
   const initialLoading = fetching && !fetchingMore
-  const hasResults = !initialLoading && !!results.length
+  const showResults = !initialLoading && !!results.length
+
+  // we need to memoize this until the results have been changed (prevents flashing no results content because fetching is set before results)
+  const hasNoResults = useMemo(() => !fetching && !fetchingMore && !results.length, [results])
 
   const setTitle = (label, count) =>
     isOverviewPage
@@ -144,12 +143,10 @@ const SearchPageResults = ({
     >
       {initialLoading && <LoadingIndicator style={{ position: 'inherit' }} />}
 
-      {hasResults && (
+      {showResults ? (
         <>
           <StyledHeading>
-            {totalCount > 0 && fetchingMore && !!results.length
-              ? setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
-              : `Geen resultaten met '${query}'`}
+            {setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)}
           </StyledHeading>
           <StyledButton variant="primary" onClick={() => setShowFilter(true)}>
             Filteren
@@ -162,11 +159,18 @@ const SearchPageResults = ({
               <ActionButton
                 label="Toon meer"
                 iconLeft={<Enlarge />}
-                {...{ fetching, onClick: fetchMore }}
+                {...{ fetching: fetchingMore, onClick: fetchMore }}
               />
             )}
           </ResultWrapper>
         </>
+      ) : (
+        hasNoResults && (
+          <>
+            <StyledHeading>Geen resultaten met &apos;{query}&apos;</StyledHeading>
+            <NoSearchResults query={query} />
+          </>
+        )
       )}
     </ResultColumn>
   )
