@@ -58,9 +58,13 @@ import { getFileName } from '../shared/ducks/files/selectors'
 const routesWithSearch = [
   routing.search.type,
   routing.dataSearch.type,
+  routing.datasets.type,
   routing.datasetSearch.type,
+  routing.articles.type,
   routing.articleSearch.type,
+  routing.specials.type,
   routing.specialSearch.type,
+  routing.publications.type,
   routing.publicationSearch.type,
 ]
 
@@ -79,10 +83,9 @@ const routesWithMapActive = [
 ]
 
 const routesWithCmsData = [
-  routing.articles.type,
   routing.articleDetail.type,
-  routing.publications.type,
   routing.publicationDetail.type,
+  routing.specialDetail.type,
 ]
 
 /* istanbul ignore next */
@@ -234,7 +237,7 @@ export default paramsRegistry
   })
   .addParameter(PARAMETERS.FILTERS, routes => {
     routes
-      .add([routing.datasets.type, ...routesWithDataSelection], FILTER, 'filters', {
+      .add([...routesWithDataSelection], FILTER, 'filters', {
         defaultValue: filterInitialState.filters,
         decode: val => {
           try {
