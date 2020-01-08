@@ -16,15 +16,15 @@ import { ReactComponent as IconSkyscraper } from '../../../shared/assets/icons/d
 const ICONS = {
   adressen: <IconMarker />,
   gebieden: <IconMap />,
-  kadastraal_object: <IconBuilding />,
-  kadastraal_subject: <IconOffice />,
-  maatschappelijke_activiteit: <IconHandshake />,
+  kadastrale_objecten: <IconBuilding />,
+  kadastrale_subjecten: <IconOffice />,
+  maatschappelijkeactiviteit: <IconHandshake />,
   meetbouten: <IconHouse />,
   monumenten: <IconChurch />,
   openbareruimte: <IconPark />,
   panden: <IconSkyscraper />,
   straatnamen: <IconMarkerMap />,
-  vestiging: <IconFactory />,
+  vestigingen: <IconFactory />,
 }
 
 const DataIcon = ({ type }) => (ICONS[type] ? ICONS[type] : <></>)
