@@ -3,15 +3,12 @@ import styled from '@datapunt/asc-core'
 import { breakpoint, Button, Column, Heading, themeSpacing } from '@datapunt/asc-ui'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
-import EditorialResults from '../../components/EditorialResults'
 import SEARCH_PAGE_CONFIG from './config'
-import DataSearchResults from './DataSearchResults'
-import DatasetSearchResults from './DatasetSearchResults'
 import SearchHeading from '../../components/SearchHeading/SearchHeading'
 import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton'
 import SearchLink from '../../components/Links/SearchLink/SearchLink'
-import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import NoSearchResults from '../../components/NoSearchResults'
+import SearchResultsComponent from './SearchResultsComponent'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(14)};
@@ -41,41 +38,24 @@ const StyledButton = styled(Button)`
   }
 `
 
-const getResultsComponent = (page, props) => {
-  switch (page) {
-    case PAGES.SPECIAL_SEARCH:
-    case PAGES.SPECIALS:
-    case PAGES.PUBLICATION_SEARCH:
-    case PAGES.PUBLICATIONS:
-    case PAGES.ARTICLE_SEARCH:
-    case PAGES.ARTICLES:
-      return (
-        <EditorialResults
-          {...{
-            ...props,
-            label: SEARCH_PAGE_CONFIG[page].label,
-            type: EDITORIAL_TYPES[page],
-          }}
-        />
-      )
-    case PAGES.DATA_SEARCH:
-      return <DataSearchResults {...{ ...props, label: SEARCH_PAGE_CONFIG[page].label }} />
-    case PAGES.DATASET_SEARCH:
-      return <DatasetSearchResults {...{ ...props, label: SEARCH_PAGE_CONFIG[page].label }} />
-    default:
-      return null
-  }
-}
-
 const ResultColumn = styled(Column)`
   flex-direction: column;
   justify-content: flex-start;
 `
 
-/* istanbul ignore next */
-const Results = ({ query, totalCount, currentPage, results, errors, fetching, showLoadMore }) =>
+export const Results = ({
+  query,
+  totalCount,
+  currentPage,
+  results,
+  errors,
+  fetching,
+  showLoadMore,
+}) => {
+  console.log(currentPage)
+
   // eslint-disable-next-line no-nested-ternary
-  currentPage === PAGES.SEARCH ? (
+  return currentPage === PAGES.SEARCH ? (
     results.length > 0 && totalCount > 0 ? (
       results.map(
         ({
@@ -91,11 +71,14 @@ const Results = ({ query, totalCount, currentPage, results, errors, fetching, sh
             <ResultItem key={resultItemType}>
               <SearchHeading label={`${label} (${resultItemTotalCount})`} />
               <ResultsComponent>
-                {getResultsComponent(resultItemType, {
-                  results: resultItemResults,
-                  loading: fetching,
-                  compact: true, // Results in the search overview page are compact
-                })}
+                <SearchResultsComponent
+                  page={resultItemType}
+                  {...{
+                    results: resultItemResults,
+                    loading: fetching,
+                    compact: true, // Results in the search overview page are compact
+                  }}
+                />
               </ResultsComponent>
               <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
             </ResultItem>
@@ -105,11 +88,15 @@ const Results = ({ query, totalCount, currentPage, results, errors, fetching, sh
         },
       )
     ) : (
-      <NoSearchResults query={query} />
+      <NoSearchResults data-test="NoSearchResults" query={query} />
     )
   ) : (
-    getResultsComponent(currentPage, { query, results, errors, loading: fetching, showLoadMore })
+    <SearchResultsComponent
+      page={currentPage}
+      {...{ query, results, errors, loading: fetching, showLoadMore }}
+    />
   )
+}
 
 /* istanbul ignore next */
 const SearchPageResults = ({
@@ -127,6 +114,8 @@ const SearchPageResults = ({
   setShowFilter,
 }) => {
   const hasResults = !fetching && !!results.length
+
+  console.log(fetching, results)
 
   const setTitle = (label, count) =>
     isOverviewPage

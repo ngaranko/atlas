@@ -204,6 +204,8 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
     </FilterColumn>
   )
 
+  console.log(currentPage, results)
+
   return (
     <Container>
       <ContentContainer>
