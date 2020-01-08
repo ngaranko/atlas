@@ -20,8 +20,13 @@ import styled from '@datapunt/asc-core'
 import { Close } from '@datapunt/asc-assets'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
-import PAGES from '../../pages'
-import SEARCH_PAGE_CONFIG, { DEFAULT_LIMIT, DATA_FILTERS } from './config'
+import SEARCH_PAGE_CONFIG, {
+  DEFAULT_LIMIT,
+  DATA_FILTERS,
+  DATA_SEARCH_PAGES,
+  DATASET_SEARCH_PAGES,
+  EDITORIAL_SEARCH_PAGES,
+} from './config'
 import SearchPageResults from './SearchPageResults'
 import usePagination from '../../utils/usePagination'
 import SearchPageFilters from './SearchPageFilters'
@@ -146,55 +151,41 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
 
   useEffect(() => {
     // Always reset the filterboxes when currentPage or data has changed
-    switch (currentPage) {
-      case PAGES.DATA_SEARCH:
-        {
-          const types = get(activeFilters.find(({ type }) => type === DATA_FILTERS), 'values', null)
-          setExtraQuery({
-            types,
-          })
+    if (DATA_SEARCH_PAGES.includes(currentPage)) {
+      const types = get(activeFilters.find(({ type }) => type === DATA_FILTERS), 'values', null)
+      setExtraQuery({
+        types,
+      })
 
-          setShowLoadMore(!!types)
-        }
-        break
+      setShowLoadMore(!!types)
+    }
 
-      case PAGES.DATASETS:
-      case PAGES.DATASET_SEARCH:
-        setShowLoadMore(true)
-        setExtraQuery({
-          filters:
-            activeFilters.length > 0
-              ? activeFilters.map(({ type, values }) => ({
-                  type,
-                  values: Array.isArray(values) ? values : [values],
-                  multiSelect: Array.isArray(values),
-                }))
-              : null,
-        })
-        break
+    if (DATASET_SEARCH_PAGES.includes(currentPage)) {
+      setShowLoadMore(true)
+      setExtraQuery({
+        filters:
+          activeFilters.length > 0
+            ? activeFilters.map(({ type, values }) => ({
+                type,
+                values: Array.isArray(values) ? values : [values],
+                multiSelect: Array.isArray(values),
+              }))
+            : null,
+      })
+    }
 
-      case PAGES.PUBLICATION_SEARCH:
-      case PAGES.PUBLICATIONS:
-      case PAGES.ARTICLE_SEARCH:
-      case PAGES.ARTICLES:
-      case PAGES.SPECIAL_SEARCH:
-      case PAGES.SPECIALS:
-        setShowLoadMore(true)
-        setExtraQuery({
-          filters:
-            activeFilters.length > 0
-              ? activeFilters.map(({ type, values }) => ({
-                  type,
-                  values: Array.isArray(values) ? values : [values],
-                  multiSelect: Array.isArray(values),
-                }))
-              : null,
-        })
-        break
-
-      default:
-        setExtraQuery({})
-        setShowLoadMore(false)
+    if (EDITORIAL_SEARCH_PAGES.includes(currentPage)) {
+      setShowLoadMore(true)
+      setExtraQuery({
+        filters:
+          activeFilters.length > 0
+            ? activeFilters.map(({ type, values }) => ({
+                type,
+                values: Array.isArray(values) ? values : [values],
+                multiSelect: Array.isArray(values),
+              }))
+            : null,
+      })
     }
   }, [currentPage, activeFilters])
 

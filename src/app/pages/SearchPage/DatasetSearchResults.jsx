@@ -23,12 +23,13 @@ const StyledActionButton = styled(ActionButton)`
   margin-bottom: ${themeSpacing(8)};
 `
 
-// Check if user has the correct scopes to add or edit datasets
-const canEdit = getState().user ? getState().user.scopes.includes('CAT/W') : false
-
 /* istanbul ignore next */
-export default ({ query, label, results }) =>
-  results && results.length ? (
+export default ({ query, label, results, isOverviewPage }) => {
+  // Check if user has the correct scopes to add or edit datasets
+  const canEdit =
+    getState().user && isOverviewPage ? getState().user.scopes.includes('CAT/W') : false
+
+  return results && results.length ? (
     <DatasetCardContainer>
       {canEdit && (
         <StyledActionButton
@@ -58,3 +59,4 @@ export default ({ query, label, results }) =>
   ) : (
     <NoSearchResults query={query} label={label} to={toDatasets()} />
   )
+}

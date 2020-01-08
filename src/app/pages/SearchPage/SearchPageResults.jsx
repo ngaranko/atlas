@@ -5,25 +5,16 @@ import { Enlarge } from '@datapunt/asc-assets'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
 import SEARCH_PAGE_CONFIG from './config'
-import SearchHeading from '../../components/SearchHeading/SearchHeading'
 import ActionButton from '../../components/ActionButton/ActionButton'
-import SearchLink from '../../components/Links/SearchLink/SearchLink'
 import NoSearchResults from '../../components/NoSearchResults'
 import SearchResultsComponent from './SearchResultsComponent'
+import SearchResults from './SearchResults'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(14)};
   @media screen and ${breakpoint('min-width', 'tabletM')} {
     margin-bottom: ${themeSpacing(12)};
   }
-`
-
-const ResultsComponent = styled.div`
-  margin-bottom: ${themeSpacing(8)};
-`
-
-const ResultItem = styled.div`
-  margin-bottom: ${themeSpacing(18)};
 `
 
 const ResultWrapper = styled.div`
@@ -44,57 +35,6 @@ const ResultColumn = styled(Column)`
   flex-direction: column;
   justify-content: flex-start;
 `
-
-export const Results = ({
-  query,
-  totalCount,
-  currentPage,
-  results,
-  errors,
-  fetching,
-  showLoadMore,
-}) => {
-  // eslint-disable-next-line no-nested-ternary
-  return currentPage === PAGES.SEARCH ? (
-    results.length > 0 &&
-      totalCount &&
-      results.map(
-        ({
-          type: resultItemType,
-          results: resultItemResults,
-          totalCount: resultItemTotalCount,
-        }) => {
-          const to = SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].to()
-          const label =
-            SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].label
-
-          return (
-            resultItemTotalCount > 0 && (
-              <ResultItem key={resultItemType}>
-                <SearchHeading label={`${label} (${resultItemTotalCount})`} />
-                <ResultsComponent>
-                  <SearchResultsComponent
-                    page={resultItemType}
-                    {...{
-                      results: resultItemResults,
-                      loading: fetching,
-                      compact: true, // Results in the search overview page are compact
-                    }}
-                  />
-                </ResultsComponent>
-                <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
-              </ResultItem>
-            )
-          )
-        },
-      )
-  ) : (
-    <SearchResultsComponent
-      page={currentPage}
-      {...{ query, results, errors, loading: fetching, showLoadMore }}
-    />
-  )
-}
 
 /* istanbul ignore next */
 const SearchPageResults = ({
@@ -138,9 +78,21 @@ const SearchPageResults = ({
             Filteren
           </StyledButton>
           <ResultWrapper>
-            <Results
-              {...{ query, totalCount, currentPage, results, fetching, showLoadMore, errors }}
-            />
+            {currentPage === PAGES.SEARCH ? (
+              <SearchResults {...{ query, totalCount, results, loading: fetching }} />
+            ) : (
+              <SearchResultsComponent
+                {...{
+                  page: currentPage,
+                  query,
+                  results,
+                  errors,
+                  loading: fetching,
+                  showLoadMore,
+                  isOverviewPage,
+                }}
+              />
+            )}
             {showLoadMore && hasMore && (
               <ActionButton
                 label="Toon meer"

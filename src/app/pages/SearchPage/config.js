@@ -27,19 +27,22 @@ export const DATA_FILTERS = 'dataTypes'
 
 export const QUERY_TYPES = {
   [routing.specialSearch.page]: 'specialSearch',
-  [routing.datasets.page]: 'dataSearch',
+  [routing.dataSearch.page]: 'dataSearch',
   [routing.publicationSearch.page]: 'publicationSearch',
   [routing.datasetSearch.page]: 'datasetSearch',
   [routing.articleSearch.page]: 'articleSearch',
 }
 
 export const EDITORIAL_SEARCH_PAGES = [
+  routing.publications.page,
   routing.publicationSearch.page,
+  routing.specials.page,
   routing.specialSearch.page,
+  routing.articles.page,
   routing.articleSearch.page,
 ]
 
-export const DATASET_SEARCH_PAGES = [routing.datasetSearch.page]
+export const DATASET_SEARCH_PAGES = [routing.datasets.page, routing.datasetSearch.page]
 export const DATA_SEARCH_PAGES = [routing.dataSearch.page]
 
 export default {
