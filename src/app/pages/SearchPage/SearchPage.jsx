@@ -200,7 +200,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
 
   const Filters = (
     <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
-      {!isOverviewPage && <PageFilterBox {...{ fetching, query, currentPage }} />}
+      {!isOverviewPage && <PageFilterBox {...{ query, currentPage }} />}
       <SearchPageFilters {...{ currentPage, filters, totalCount, query }} />
     </FilterColumn>
   )

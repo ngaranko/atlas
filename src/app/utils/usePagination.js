@@ -21,7 +21,6 @@ const getInitialState = (limit = 50, from = 0) => ({
 const RESET = 'RESET'
 const SET_RESULTS = 'SET_RESULTS'
 const SET_ERRORS = 'SET_ERRORS'
-const SET_SHOW_MORE = 'SET_SHOW_MORE'
 const SET_LIMIT = 'SET_LIMIT'
 
 const reducer = (state, action) => {
@@ -41,12 +40,6 @@ const reducer = (state, action) => {
       }
     }
 
-    case SET_SHOW_MORE:
-      return {
-        ...state,
-        hasMore: action.payload,
-      }
-
     case SET_RESULTS: {
       const { totalCount, results: newResults, filters } = action.payload
 
@@ -65,12 +58,17 @@ const reducer = (state, action) => {
               })
             : [...state.results, ...newResults]
       }
+      let count = totalCount
+      if (results.length === 1) {
+        ;[{ count }] = results
+      }
 
       return {
         ...state,
         results,
         totalCount,
         filters,
+        hasMore: count > state.limit + state.from, // Side-effect to show the "show more" button in the UI
         fetchingMore: true,
       }
     }
@@ -106,16 +104,6 @@ const usePagination = (config, input, limit, initialFrom) => {
   useEffect(() => {
     dispatch({ type: RESET, payload: initialState })
   }, [config.query, input.q, input.types, input.filters])
-
-  // Side-effect to show the "show more" button in the UI
-  // Todo: find a better way finding out the count per type / filter vs. totalCount (all results)
-  useEffect(() => {
-    let count = totalCount
-    if (results.length === 1) {
-      ;[{ count }] = results
-    }
-    dispatch({ type: SET_SHOW_MORE, payload: count >= limit + from })
-  }, [totalCount, limit, from, input.types, input.filters])
 
   const fetchMore = useCallback(() => {
     dispatch({ type: SET_LIMIT, payload: limit })

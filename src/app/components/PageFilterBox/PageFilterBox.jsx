@@ -11,7 +11,7 @@ import { categoryFilterBoxQuery } from '../../pages/SearchPage/graphql.config'
 
 const ACTIVE_LINK_PROPS = { active: true, as: 'div' }
 
-export default memo(({ currentPage, query, fetching }) => {
+export default memo(({ currentPage, query }) => {
   const [{ data }] = useQuery({
     query: categoryFilterBoxQuery,
     variables: {
@@ -33,7 +33,8 @@ export default memo(({ currentPage, query, fetching }) => {
     routing.specialSearch.page,
   ]
 
-  let totalCount = 0
+  let totalCount
+
   const FILTERS = AVAILABLE_FILTERS.map(filterPage => {
     let count
 
@@ -43,7 +44,7 @@ export default memo(({ currentPage, query, fetching }) => {
       if (filterPageData) {
         try {
           count = filterPageData.totalCount
-          totalCount += count
+          totalCount = (totalCount || 0) + count
         } catch (e) {
           // Todo: error handling
           // eslint-disable-next-line no-console
@@ -69,8 +70,9 @@ export default memo(({ currentPage, query, fetching }) => {
           {...(currentPage === page ? ACTIVE_LINK_PROPS : { as: RouterLink, to, title })}
         >
           {SEARCH_PAGE_CONFIG[page].label}{' '}
-          {!fetching &&
-            (page === routing.search.page ? `(${totalCount})` : isDefined(count) && `(${count})`)}
+          {page === routing.search.page
+            ? isDefined(totalCount) && `(${totalCount})`
+            : isDefined(count) && `(${count})`}
         </FilterOption>
       ))}
     </FilterBox>
