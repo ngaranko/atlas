@@ -65,7 +65,7 @@ export default {
       uri: 'meetbouten/search/',
     },
     {
-      ...categoryLabels.meetbout,
+      ...categoryLabels.monument,
       slug: 'monument',
       uri: 'monumenten/search/',
     },
