@@ -68,11 +68,4 @@ describe('SearchResults', () => {
       })
     })
   })
-
-  // describe('other search pages', () => {
-  //   getResultsComponent.mockImplementation(() => {})
-  //   ;[...DATA_SEARCH_PAGES, ...DATASET_SEARCH_PAGES, ...EDITORIAL_SEARCH_PAGES].map(page => {
-  //     expect(getResultsComponent).toHaveBeenCalledWith(page)
-  //   })
-  // })
 })
