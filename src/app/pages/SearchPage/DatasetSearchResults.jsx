@@ -10,6 +10,7 @@ import { modificationDateFilter } from '../../components/Filters/Filters'
 import NoSearchResults from '../../components/NoSearchResults'
 import ActionButton from '../../components/ActionButton/ActionButton'
 import getState from '../../../shared/services/redux/get-state'
+import { dcatdScopes } from '../../../shared/services/auth/auth'
 
 const DatasetCardContainer = styled.div`
   margin-bottom: ${themeSpacing(8)};
@@ -27,7 +28,9 @@ const StyledActionButton = styled(ActionButton)`
 export default ({ query, label, results, isOverviewPage }) => {
   // Check if user has the correct scopes to add or edit datasets
   const canEdit =
-    getState().user && isOverviewPage ? getState().user.scopes.includes('CAT/W') : false
+    getState().user && isOverviewPage
+      ? getState().user.scopes.some(scope => dcatdScopes.includes(scope))
+      : false
 
   return results && results.length ? (
     <DatasetCardContainer>
