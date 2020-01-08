@@ -24,7 +24,6 @@ const StyledActionButton = styled(ActionButton)`
   margin-bottom: ${themeSpacing(8)};
 `
 
-/* istanbul ignore next */
 export default ({ query, label, results, isOverviewPage }) => {
   // Check if user has the correct scopes to add or edit datasets
   const canEdit =
@@ -36,6 +35,7 @@ export default ({ query, label, results, isOverviewPage }) => {
     <DatasetCardContainer>
       {canEdit && (
         <StyledActionButton
+          data-test="ActionButton"
           onClick={() => redirectToDcatd('_')}
           label="Toevoegen"
           iconLeft={<Enlarge />}
@@ -44,8 +44,9 @@ export default ({ query, label, results, isOverviewPage }) => {
 
       {results.map(({ header, id, teaser, modified, distributionTypes }) => (
         <StyledDatasetCard
-          key={id}
+          data-test="DatasetCard"
           {...{
+            key: id,
             to: toDatasetDetail({
               id,
               slug: useSlug(header) || '',

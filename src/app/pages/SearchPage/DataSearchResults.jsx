@@ -10,7 +10,6 @@ const CardWrapper = styled.div`
   margin-bottom: ${({ compact }) => (compact ? themeSpacing(2) : themeSpacing(8))};
 `
 
-/* istanbul ignore next */
 export default ({ query, results, errors = [], compact, showLoadMore }) => {
   const Card = compact ? DataCard : DataList
 
