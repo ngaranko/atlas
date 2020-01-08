@@ -158,6 +158,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
         }
         break
 
+      case PAGES.DATASETS:
       case PAGES.DATASET_SEARCH:
         setShowLoadMore(true)
         setExtraQuery({

@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import styled from '@datapunt/asc-core'
 import { breakpoint, Button, Column, Heading, themeSpacing } from '@datapunt/asc-ui'
+import { Enlarge } from '@datapunt/asc-assets'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
 import EditorialResults from '../../components/EditorialResults'
@@ -8,7 +9,7 @@ import SEARCH_PAGE_CONFIG from './config'
 import DataSearchResults from './DataSearchResults'
 import DatasetSearchResults from './DatasetSearchResults'
 import SearchHeading from '../../components/SearchHeading/SearchHeading'
-import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton'
+import ActionButton from '../../components/ActionButton/ActionButton'
 import SearchLink from '../../components/Links/SearchLink/SearchLink'
 import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 import NoSearchResults from '../../components/NoSearchResults'
@@ -30,7 +31,6 @@ const ResultItem = styled.div`
 
 const ResultWrapper = styled.div`
   width: inherit;
-  margin-top: ${themeSpacing(4)};
 `
 
 const StyledButton = styled(Button)`
@@ -59,6 +59,7 @@ const getResultsComponent = (page, props) => {
       )
     case PAGES.DATA_SEARCH:
       return <DataSearchResults {...{ ...props, label: SEARCH_PAGE_CONFIG[page].label }} />
+    case PAGES.DATASETS:
     case PAGES.DATASET_SEARCH:
       return <DatasetSearchResults {...{ ...props, label: SEARCH_PAGE_CONFIG[page].label }} />
     default:
@@ -154,7 +155,13 @@ const SearchPageResults = ({
             <Results
               {...{ query, totalCount, currentPage, results, fetching, showLoadMore, errors }}
             />
-            {showLoadMore && hasMore && <LoadMoreButton {...{ fetching }} onClick={fetchMore} />}
+            {showLoadMore && hasMore && (
+              <ActionButton
+                label="Toon meer"
+                iconLeft={<Enlarge />}
+                {...{ fetching, onClick: fetchMore }}
+              />
+            )}
           </ResultWrapper>
         </>
       )}

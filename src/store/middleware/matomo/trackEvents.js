@@ -6,7 +6,6 @@ import {
   isDatasetPage,
   isPanoPage,
 } from '../../redux-first-router/selectors'
-import { DOWNLOAD_DATASET_RESOURCE } from '../../../shared/ducks/datasets/data/data'
 import { DOWNLOAD_DATA_SELECTION } from '../../../shared/ducks/data-selection/constants'
 import {
   AUTHENTICATE_USER_REQUEST,
@@ -47,6 +46,7 @@ import {
 import PAGES from '../../../app/pages'
 import PARAMETERS from '../../parameters'
 import { MATOMO_CONSTANTS } from './constants'
+import { DOWNLOAD_DATASET_RESOURCE } from '../../../shared/ducks/detail/constants'
 
 /* istanbul ignore next */
 const trackEvents = {

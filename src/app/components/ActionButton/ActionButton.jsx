@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from '@datapunt/asc-core'
 import { Button, svgFill, themeColor } from '@datapunt/asc-ui'
-import { Enlarge } from '@datapunt/asc-assets'
 
 const StyledButton = styled(Button)`
   border-color: ${themeColor('tint', 'level7')};
@@ -17,16 +16,17 @@ const StyledButton = styled(Button)`
   }
 `
 
-const LoadMoreButton = ({ fetching, onClick }) => (
+const ApplicationButton = ({ fetching, onClick, iconLeft, label, ...otherProps }) => (
   <StyledButton
     disabled={fetching}
     variant="primaryInverted"
-    iconLeft={<Enlarge />}
+    iconLeft={iconLeft}
     iconSize={12}
     onClick={onClick}
+    {...otherProps}
   >
-    Toon meer
+    {label}
   </StyledButton>
 )
 
-export default LoadMoreButton
+export default ApplicationButton
