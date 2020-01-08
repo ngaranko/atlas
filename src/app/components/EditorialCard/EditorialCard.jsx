@@ -105,10 +105,11 @@ const getImageSize = (image, resize) => {
       0.5}w,
              ${getImageFromCms(image, IMAGE_SIZE, IMAGE_SIZE, resize)} ${IMAGE_SIZE}w`,
   }
+
   const sizes = {
     sizes: `
-    (max-width: ${ascDefaultTheme.breakpoints.mobileL}px) ${IMAGE_SIZE * 0.5}px,
-    (max-width: ${ascDefaultTheme.breakpoints.tabletM}px) ${IMAGE_SIZE}px,
+      ${ascDefaultTheme.breakpoints.mobileL('max-width')} ${IMAGE_SIZE * 0.5}px,
+      ${ascDefaultTheme.breakpoints.tabletM('max-width')} ${IMAGE_SIZE}px,
     `,
   }
 
