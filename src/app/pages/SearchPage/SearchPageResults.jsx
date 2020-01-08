@@ -23,11 +23,13 @@ const StyledHeading = styled(Heading)`
 
 const ResultsComponent = styled.div`
   margin-bottom: ${themeSpacing(8)};
-  width: inherit;
 `
 
 const ResultItem = styled.div`
   margin-bottom: ${themeSpacing(18)};
+`
+
+const ResultWrapper = styled.div`
   width: inherit;
 `
 
@@ -129,7 +131,7 @@ const SearchPageResults = ({
   const setTitle = (label, count) =>
     isOverviewPage
       ? `${label} (${count})`
-      : `Alle resultaten met categorie \`${label}\` (${count} resultaten)`
+      : `Alle resultaten met categorie '${label}' (${count} resultaten)`
 
   return (
     <ResultColumn
@@ -144,12 +146,12 @@ const SearchPageResults = ({
           <StyledHeading>
             {totalCount > 0 && hasResults
               ? setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
-              : `Geen resultaten met \`${query}\``}
+              : `Geen resultaten met '${query}'`}
           </StyledHeading>
           <StyledButton variant="primary" onClick={() => setShowFilter(true)}>
             Filteren
           </StyledButton>
-          <div>
+          <ResultWrapper>
             <Results
               {...{ query, totalCount, currentPage, results, fetching, showLoadMore, errors }}
             />
@@ -160,7 +162,7 @@ const SearchPageResults = ({
                 {...{ fetching, onClick: fetchMore }}
               />
             )}
-          </div>
+          </ResultWrapper>
         </>
       )}
     </ResultColumn>

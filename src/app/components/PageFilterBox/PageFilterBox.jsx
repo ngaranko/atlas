@@ -11,7 +11,7 @@ import { categoryFilterBoxQuery } from '../../pages/SearchPage/graphql.config'
 
 const ACTIVE_LINK_PROPS = { active: true, as: 'div' }
 
-export default memo(({ currentPage, query }) => {
+export default memo(({ currentPage, query, fetching }) => {
   const [{ data }] = useQuery({
     query: categoryFilterBoxQuery,
     variables: {
@@ -69,7 +69,8 @@ export default memo(({ currentPage, query }) => {
           {...(currentPage === page ? ACTIVE_LINK_PROPS : { as: RouterLink, to, title })}
         >
           {SEARCH_PAGE_CONFIG[page].label}{' '}
-          {page === routing.search.page ? `(${totalCount})` : isDefined(count) && `(${count})`}
+          {!fetching &&
+            (page === routing.search.page ? `(${totalCount})` : isDefined(count) && `(${count})`)}
         </FilterOption>
       ))}
     </FilterBox>
