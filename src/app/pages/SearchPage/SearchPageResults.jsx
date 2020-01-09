@@ -6,7 +6,6 @@ import LoadingIndicator from '../../../shared/components/loading-indicator/Loadi
 import PAGES from '../../pages'
 import SEARCH_PAGE_CONFIG from './config'
 import ActionButton from '../../components/ActionButton/ActionButton'
-import NoSearchResults from '../../components/NoSearchResults'
 import SearchResultsComponent from './SearchResultsComponent'
 import SearchResults from './SearchResults'
 
@@ -52,10 +51,9 @@ const SearchPageResults = ({
   setShowFilter,
 }) => {
   const initialLoading = fetching && !fetchingMore
-  const showResults = !initialLoading && !!results.length
 
   // we need to memoize this until the results have been changed (prevents flashing no results content because fetching is set before results)
-  const hasNoResults = useMemo(() => !fetching && !fetchingMore && !results.length, [results])
+  const hasNoResults = useMemo(() => !fetching && !fetchingMore && !totalCount, [results])
 
   const setTitle = (label, count) =>
     isOverviewPage
@@ -67,16 +65,20 @@ const SearchPageResults = ({
       span={{ small: 12, medium: 12, big: 12, large: 7, xLarge: 8 }}
       push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
     >
-      {initialLoading && <LoadingIndicator style={{ position: 'inherit' }} />}
-
-      {showResults ? (
+      {initialLoading ? (
+        <LoadingIndicator style={{ position: 'inherit' }} />
+      ) : (
         <>
           <StyledHeading>
-            {setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)}
+            {hasNoResults
+              ? `Geen resultaten met '${query}'`
+              : setTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)}
           </StyledHeading>
-          <StyledButton variant="primary" onClick={() => setShowFilter(true)}>
-            Filteren
-          </StyledButton>
+          {!hasNoResults && (
+            <StyledButton variant="primary" onClick={() => setShowFilter(true)}>
+              Filteren
+            </StyledButton>
+          )}
           <ResultWrapper>
             {currentPage === PAGES.SEARCH ? (
               <SearchResults {...{ query, totalCount, results, loading: fetching }} />
@@ -102,13 +104,6 @@ const SearchPageResults = ({
             )}
           </ResultWrapper>
         </>
-      ) : (
-        hasNoResults && (
-          <>
-            <StyledHeading>Geen resultaten met &apos;{query}&apos;</StyledHeading>
-            <NoSearchResults query={query} />
-          </>
-        )
       )}
     </ResultColumn>
   )
