@@ -9,7 +9,6 @@ describe('SearchResults', () => {
 
     it('when no results', () => {
       component = shallow(<SearchResults results={[]} />)
-      expect(component).toMatchSnapshot()
 
       expect(component.find(`[data-test='NoSearchResults']`).exists()).toBeTruthy()
     })

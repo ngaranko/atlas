@@ -36,7 +36,6 @@ const ResultColumn = styled(Column)`
   justify-content: flex-start;
 `
 
-/* istanbul ignore next */
 const SearchPageResults = ({
   query,
   errors,
