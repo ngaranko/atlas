@@ -60,7 +60,7 @@ const AppBody = ({
           {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
           {currentPage === PAGES.MOVED && <MovedPage />}
           {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
-          {isSearchPage(currentPage) && <SearchPage />}
+          {isSearchPage(currentPage) && <SearchPage currentPage={currentPage} />}
         </Suspense>
       </Container>
       <FeedbackModal id="feedbackModal" />

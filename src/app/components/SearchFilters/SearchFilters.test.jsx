@@ -1,6 +1,14 @@
 import * as React from 'react'
 import { render, cleanup, fireEvent } from '@testing-library/react'
 import SearchFilters from './SearchFilters'
+import * as ducks from '../../pages/SearchPage/SearchPageDucks'
+
+jest.mock('../../pages/SearchPage/SearchPageDucks')
+const mockDispatch = jest.fn()
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(() => []),
+  useDispatch: () => mockDispatch,
+}))
 
 const groupOptions = [
   {
@@ -61,24 +69,16 @@ describe('SearchFilters', () => {
 
   describe('adding and removing filters', () => {
     it('should add and remove a filter', () => {
-      const addActiveFilterMock = jest.fn()
-      const removeActiveFilterMock = jest.fn()
       const { getByLabelText } = render(
-        <SearchFilters
-          type="group"
-          activeFilters={[]}
-          removeActiveFilter={removeActiveFilterMock}
-          addActiveFilter={addActiveFilterMock}
-          availableFilters={groupCheckboxFilters}
-        />,
+        <SearchFilters type="group" availableFilters={groupCheckboxFilters} />,
       )
 
       const inputNodeOne = getByLabelText('One (10)')
       fireEvent.click(inputNodeOne)
-      expect(addActiveFilterMock).toHaveBeenCalledWith('group', 'one', false)
+      expect(ducks.addActiveFilter).toHaveBeenCalledWith('group', 'one', false)
 
       fireEvent.click(inputNodeOne)
-      expect(removeActiveFilterMock).toHaveBeenCalledWith('group', 'one')
+      expect(ducks.removeActiveFilter).toHaveBeenCalledWith('group', 'one')
     })
   })
 })

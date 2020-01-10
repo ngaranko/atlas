@@ -1,6 +1,6 @@
 import React from 'react'
 import get from 'lodash.get'
-import SearchFilters from '../../components/SearchFilters/SearchFiltersContainer'
+import SearchFilters from '../../components/SearchFilters'
 import {
   DATA_FILTERS,
   DATA_SEARCH_PAGES,

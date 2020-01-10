@@ -13,7 +13,7 @@ const filters = `
   }
 `
 
-const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit, from: $from, types: $types, filters: $filters}) {
+const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit, from: $from, types: $types, filters: $filters, sort: $sort}) {
   totalCount
   ${filters}
   results {
@@ -35,7 +35,7 @@ const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit,
 }`
 
 const getCmsSearch = resolverName => `
-  query CmsSearch($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [FilterInput!]) {
+  query CmsSearch($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [FilterInput!], $sort: CMSSortInput) {
     ${cmsSearch(resolverName)}
   }
 `
@@ -96,7 +96,7 @@ export const datasetSearchQuery = `
 `
 
 export const searchQuery = `
-  query search($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [FilterInput!]) {
+  query search($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [FilterInput!], $sort: CMSSortInput) {
     ${cmsSearch('specialSearch')}
     ${dataSearch}
     ${cmsSearch('publicationSearch')}

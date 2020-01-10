@@ -1,5 +1,6 @@
 export default {
   QUERY: 'term',
+  SORT: 'sortering',
   MAP_BACKGROUND: 'achtergrond',
   PAGE: 'pagina',
   GEO: 'geo',

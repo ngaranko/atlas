@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchFilters from './SearchFiltersContainer'
+import SearchFilters from './SearchFilters'
 
 const EditorialFilters = ({ filters }) =>
   filters && filters.length > 0 ? (

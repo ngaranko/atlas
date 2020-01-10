@@ -74,7 +74,7 @@ describe('DatasetSearchResults', () => {
   })
 
   it('shows the no results component', () => {
-    const component = shallow(<DatasetSearchResults results={[]} />)
+    const component = shallow(<DatasetSearchResults />)
 
     expect(component.find('NoSearchResults').exists()).toBeTruthy()
   })

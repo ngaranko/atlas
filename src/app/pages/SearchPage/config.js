@@ -44,6 +44,11 @@ export const EDITORIAL_SEARCH_PAGES = [
 
 export const DATASET_SEARCH_PAGES = [routing.datasets.page, routing.datasetSearch.page]
 export const DATA_SEARCH_PAGES = [routing.dataSearch.page]
+export const CMS_SEARCH_PAGES = [
+  routing.articleSearch.page,
+  routing.specialSearch.page,
+  routing.publicationSearch.page,
+]
 
 export default {
   [routing.search.page]: {

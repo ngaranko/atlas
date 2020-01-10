@@ -25,7 +25,7 @@ export const SearchResultsOverview = ({ query, totalCount, results, loading }) =
         return (
           resultItemTotalCount > 0 && (
             <ResultItem key={resultItemType}>
-              <SearchHeading label={`${label} (${resultItemTotalCount})`} />
+              <SearchHeading label={`${label} (${resultItemTotalCount.toLocaleString('nl-NL')})`} />
               <ResultsComponent>
                 <SearchResultsComponent
                   data-test={resultItemType}

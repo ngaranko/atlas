@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import get from 'lodash.get'
 import { clearAllBodyScrollLocks, enableBodyScroll } from 'body-scroll-lock'
 import {
@@ -31,6 +30,8 @@ import SearchPageResults from './SearchPageResults'
 import usePagination from '../../utils/usePagination'
 import SearchPageFilters from './SearchPageFilters'
 import useCompare from '../../utils/useCompare'
+import useSelectors from '../../utils/useSelectors'
+import { getActiveFilters, getQuery, getSort } from './SearchPageDucks'
 
 const FilterColumn = styled(Column)`
   align-content: flex-start;
@@ -109,11 +110,11 @@ const ApplyFiltersButton = styled(Button)`
 
 /* TODO: Write tests for the Hooks used in this component */
 /* istanbul ignore next */
-const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
+const SearchPage = ({ isOverviewPage, currentPage }) => {
   const [extraQuery, setExtraQuery] = useState({})
   const [showLoadMore, setShowLoadMore] = useState(false)
-  const [showFilter, setShowFilter] = React.useState(false)
-
+  const [showFilter, setShowFilter] = useState(false)
+  const [query, sort, activeFilters] = useSelectors([getQuery, getSort, getActiveFilters])
   const from = 0
 
   const {
@@ -132,6 +133,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
       limit: DEFAULT_LIMIT,
       ...extraQuery,
     },
+    sort,
     DEFAULT_LIMIT,
     from,
   )
@@ -160,9 +162,10 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
       })
 
       setShowLoadMore(!!types)
-    }
-
-    if (DATASET_SEARCH_PAGES.includes(currentPage)) {
+    } else if (
+      EDITORIAL_SEARCH_PAGES.includes(currentPage) ||
+      DATASET_SEARCH_PAGES.includes(currentPage)
+    ) {
       setShowLoadMore(true)
       setExtraQuery({
         filters:
@@ -174,20 +177,9 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
               }))
             : null,
       })
-    }
-
-    if (EDITORIAL_SEARCH_PAGES.includes(currentPage)) {
-      setShowLoadMore(true)
-      setExtraQuery({
-        filters:
-          activeFilters.length > 0
-            ? activeFilters.map(({ type, values }) => ({
-                type,
-                values: Array.isArray(values) ? values : [values],
-                multiSelect: Array.isArray(values),
-              }))
-            : null,
-      })
+    } else {
+      setExtraQuery({})
+      setShowLoadMore(false)
     }
   }, [currentPage, activeFilters])
 
@@ -245,6 +237,7 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
               fetchingMore,
               fetchMore,
               showLoadMore,
+              sort,
               setShowFilter,
             }}
           />
@@ -252,10 +245,6 @@ const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
       </ContentContainer>
     </Container>
   )
-}
-
-SearchPage.propTypes = {
-  query: PropTypes.string.isRequired,
 }
 
 export default memo(SearchPage)

@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from 'urql'
 import get from 'lodash.get'
 import { datasetFiltersQuery } from '../../pages/SearchPage/graphql.config'
-import SearchFilters from './SearchFiltersContainer'
+import SearchFilters from './SearchFilters'
 
 const DatasetFilters = ({ q }) => {
   const [{ fetching, data, error }] = useQuery({

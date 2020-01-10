@@ -47,7 +47,7 @@ const showSubtype = (type, subtype) =>
 const DataList = ({ type, label, count, results, showLoadMore }) => (
   <div>
     <SearchHeading
-      label={`${label} (${count})`}
+      label={`${label} (${count.toLocaleString('nl-NL')})`}
       icon={
         <StyledIcon>
           <DataIcon type={type} />

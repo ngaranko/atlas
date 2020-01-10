@@ -71,8 +71,8 @@ export default memo(({ currentPage, query }) => {
         >
           {SEARCH_PAGE_CONFIG[page].label}{' '}
           {page === routing.search.page
-            ? isDefined(totalCount) && `(${totalCount})`
-            : isDefined(count) && `(${count})`}
+            ? isDefined(totalCount) && `(${totalCount.toLocaleString('nl-NL')})`
+            : isDefined(count) && `(${count.toLocaleString('nl-NL')})`}
         </FilterOption>
       ))}
     </FilterBox>

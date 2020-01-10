@@ -1,21 +1,23 @@
 import React, { memo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Checkbox, Label, RadioGroup, Radio } from '@datapunt/asc-ui'
 import FilterBox from '../FilterBox'
+import {
+  addActiveFilter,
+  getActiveFilters,
+  removeActiveFilter,
+  removeAllActiveFilters,
+} from '../../pages/SearchPage/SearchPageDucks'
 
 export const TYPES = {
   check: 'check',
   radio: 'radio',
 }
 
-const SearchFilters = ({
-  availableFilters,
-  activeFilters,
-  addActiveFilter,
-  removeActiveFilter,
-  removeAllActiveFilters,
-  hideCount,
-}) => {
+const SearchFilters = ({ availableFilters, hideCount }) => {
   const { options, label, totalCount, filterType, type } = availableFilters
+  const dispatch = useDispatch()
+  const activeFilters = useSelector(getActiveFilters)
 
   const currentFilters = (activeFilters.find(({ type: _type }) => type === _type) || {}).values
 
@@ -26,9 +28,9 @@ const SearchFilters = ({
     const { value, checked } = e.target
 
     if (checked) {
-      addActiveFilter(type, value, isRadio)
+      dispatch(addActiveFilter(type, value, isRadio))
     } else {
-      removeActiveFilter(type, value)
+      dispatch(removeActiveFilter(type, value))
     }
   }
 
@@ -68,7 +70,7 @@ const SearchFilters = ({
                   checked={!currentFilters || !currentFilters.length}
                   variant="primary"
                   value={type}
-                  onChange={() => removeAllActiveFilters(type)}
+                  onChange={() => dispatch(removeAllActiveFilters(type))}
                   id={`type:${type}`}
                 />
               </Label>

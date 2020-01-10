@@ -88,7 +88,7 @@ const DataCard = ({ type, label, count, results, ...otherProps }) => (
               false,
               true,
             )}
-          >{`${label} (${count})`}</StyledLink>
+          >{`${label} (${count.toLocaleString('nl-NL')})`}</StyledLink>
         </Heading>
       </div>
 
