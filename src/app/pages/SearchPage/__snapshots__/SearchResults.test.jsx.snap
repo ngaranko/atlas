@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SearchResults should render the correct results component for the search page  when no results 1`] = `
-<NoSearchResults
-  data-test="NoSearchResults"
-/>
-`;

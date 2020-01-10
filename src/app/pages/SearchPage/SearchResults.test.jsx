@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import SearchResults from './SearchResults'
-import PAGES from '../../pages'
 import SEARCH_PAGE_CONFIG, { EDITORIAL_SEARCH_PAGES, DATA_SEARCH_PAGES } from './config'
 
 describe('SearchResults', () => {
@@ -10,7 +9,6 @@ describe('SearchResults', () => {
 
     it('when no results', () => {
       component = shallow(<SearchResults results={[]} />)
-      expect(component).toMatchSnapshot()
 
       expect(component.find(`[data-test='NoSearchResults']`).exists()).toBeTruthy()
     })

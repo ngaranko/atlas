@@ -107,6 +107,8 @@ const ApplyFiltersButton = styled(Button)`
   justify-content: center;
 `
 
+/* TODO: Write tests for the Hooks used in this component */
+/* istanbul ignore next */
 const SearchPage = ({ query, activeFilters, currentPage, isOverviewPage }) => {
   const [extraQuery, setExtraQuery] = useState({})
   const [showLoadMore, setShowLoadMore] = useState(false)
