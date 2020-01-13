@@ -1,2 +1,1 @@
-export { default } from './SearchFiltersContainer'
-export { TYPES } from './SearchFilters'
+export { default, TYPES } from './SearchFilters'

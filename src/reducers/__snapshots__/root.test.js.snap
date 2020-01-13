@@ -26,6 +26,7 @@ Object {
   "search": Object {
     "activeFilters": Array [],
     "query": "",
+    "sort": null,
   },
   "selection": "selection",
   "ui": "ui",

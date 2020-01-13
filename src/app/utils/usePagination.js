@@ -87,16 +87,25 @@ const reducer = (state, action) => {
   }
 }
 
-const usePagination = (config, input, limit, initialFrom) => {
+const usePagination = (config, input, sortString, limit, initialFrom) => {
   const initialState = getInitialState(limit, initialFrom)
   const [
     { totalCount, hasMore, results, errors, filters, from, fetchingMore },
     dispatch,
   ] = useReducer(reducer, initialState)
 
+  let sort
+  if (sortString && sortString.length) {
+    const [field, order] = sortString.split(':')
+    sort = {
+      field,
+      order,
+    }
+  }
+
   const [{ fetching, data, error }] = useQuery({
     query: config.query,
-    variables: { limit, from, ...input },
+    variables: { limit, from, sort, ...input },
   })
 
   // Reset the state when changing the query, searchQuery or filters

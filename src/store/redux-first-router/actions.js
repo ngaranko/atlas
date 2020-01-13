@@ -243,6 +243,24 @@ export const toAdresses = () => ({
   },
 })
 
+export const toCadastralObjects = () => ({
+  type: routing.cadastralObjects.type,
+  meta: {
+    query: {
+      [PARAMETERS.VIEW]: VIEW_MODE.FULL,
+    },
+  },
+})
+
+export const toEstablishments = () => ({
+  type: routing.establishments.type,
+  meta: {
+    query: {
+      [PARAMETERS.VIEW]: VIEW_MODE.FULL,
+    },
+  },
+})
+
 export const toArticleDetail = (id, slug = '') => ({
   type: routing.articleDetail.type,
   payload: {

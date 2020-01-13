@@ -5,10 +5,12 @@ export const SEARCH_ADD_FILTER = `${REDUCER_KEY}/SEARCH_ADD_FILTER`
 export const SEARCH_REMOVE_FILTER = `${REDUCER_KEY}/SEARCH_REMOVE_FILTER`
 export const SEARCH_REMOVE_ALL_FILTERS_FROM_TYPE = `${REDUCER_KEY}/SEARCH_REMOVE_ALL_FILTERS_FROM_TYPE`
 export const SEARCH_SET_QUERY = `${REDUCER_KEY}/SET_QUERY`
+export const SET_SORT = `${REDUCER_KEY}/SET_SORT`
 
 export const initialState = {
   activeFilters: [],
   query: '',
+  sort: null,
 }
 
 function reducer(state = initialState, action) {
@@ -104,6 +106,13 @@ function reducer(state = initialState, action) {
         query: action.payload,
       }
 
+    case SET_SORT: {
+      return {
+        ...enrichedState,
+        sort: action.payload,
+      }
+    }
+
     default:
       return enrichedState
   }
@@ -111,6 +120,11 @@ function reducer(state = initialState, action) {
 
 export const setQuery = payload => ({
   type: SEARCH_SET_QUERY,
+  payload,
+})
+
+export const setSort = payload => ({
+  type: SET_SORT,
   payload,
 })
 
@@ -137,6 +151,7 @@ export const removeAllActiveFilters = type => ({
 })
 
 export const getQuery = ({ [REDUCER_KEY]: { query } }) => query && query.toString()
+export const getSort = ({ [REDUCER_KEY]: { sort } }) => sort
 export const getActiveFilters = ({ [REDUCER_KEY]: { activeFilters } }) => activeFilters
 
 export { reducer }
