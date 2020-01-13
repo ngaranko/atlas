@@ -45,9 +45,8 @@ const SearchSort = ({ sort }) => {
           value={sort}
           onChange={e => dispatch(setSort(e.target.value))}
         >
-          <option value="">Relevantie</option>
+          <option value="">Publicatiedatum aflopend</option>
           <option value="date:asc">Publicatiedatum oplopend</option>
-          <option value="date:desc">Publicatiedatum aflopend</option>
           <option value="title:asc">Titel A-Z</option>
           <option value="title:desc">Titel Z-A</option>
         </StyledSelect>
