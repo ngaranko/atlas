@@ -32,7 +32,7 @@
   "dependencies": {
     "@datapunt/asc-assets": "^0.17.8-alpha.18",
     "@datapunt/asc-core": "^0.17.8-alpha.22",
-    "@datapunt/asc-ui": "^0.17.8-alpha.25",
+    "@datapunt/asc-ui": "^0.17.8-alpha.27",
     "@datapunt/matomo-tracker-js": "0.0.16",
     "@datapunt/matomo-tracker-react": "0.0.16",
     "@sentry/browser": "5.6.1",

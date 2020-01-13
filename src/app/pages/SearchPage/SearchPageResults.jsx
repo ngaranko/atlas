@@ -73,15 +73,15 @@ const SearchPageResults = ({
   sort,
 }) => {
   // we need to memoize this until the results have been changed (prevents flashing no results content because fetching is set before results)
-  const [initialLoading, showResults] = useMemo(
+  const [initialLoading, doneLoading] = useMemo(
     () => [fetching && !fetchingMore, !fetching && !fetchingMore],
     [results],
   )
 
+  const allResultsPageActive = currentPage === PAGES.SEARCH
+
   const setTitle = (label, count) =>
-    isOverviewPage
-      ? `${label} (${count})`
-      : `Alle resultaten met categorie '${label}' (${count} resultaten)`
+    isOverviewPage ? `${label} (${count})` : `${label} met '${query}' (${count} resultaten)`
 
   return (
     <ResultColumn
@@ -95,7 +95,7 @@ const SearchPageResults = ({
         <>
           {!initialLoading && (
             <StyledHeading>
-              {showResults
+              {doneLoading && totalCount !== 0
                 ? setTitle(
                     SEARCH_PAGE_CONFIG[currentPage].label,
                     totalCount.toLocaleString('nl-NL'),
@@ -103,7 +103,7 @@ const SearchPageResults = ({
                 : `Geen resultaten met '${query}'`}
             </StyledHeading>
           )}
-          {showResults && (
+          {doneLoading && (
             <>
               <FilterWrapper>
                 <FilterButton variant="primary" onClick={() => setShowFilter(true)}>
@@ -112,33 +112,31 @@ const SearchPageResults = ({
                 {CMS_SEARCH_PAGES.includes(currentPage) && <SearchSort sort={sort} />}
               </FilterWrapper>
               {CMS_SEARCH_PAGES.includes(currentPage) && <StyledDivider />}
+              <ResultWrapper>
+                {allResultsPageActive ? (
+                  <SearchResults {...{ query, totalCount, results, loading: fetching }} />
+                ) : (
+                  <SearchResultsComponent
+                    {...{
+                      page: currentPage,
+                      query,
+                      results,
+                      errors,
+                      loading: fetching,
+                      showLoadMore,
+                      isOverviewPage,
+                    }}
+                  />
+                )}
+                {showLoadMore && hasMore && (
+                  <ActionButton
+                    label="Toon meer"
+                    iconLeft={<Enlarge />}
+                    {...{ fetching: fetchingMore, onClick: fetchMore }}
+                  />
+                )}
+              </ResultWrapper>
             </>
-          )}
-          {showResults && (
-            <ResultWrapper>
-              {currentPage === PAGES.SEARCH ? (
-                <SearchResults {...{ query, totalCount, results, loading: fetching }} />
-              ) : (
-                <SearchResultsComponent
-                  {...{
-                    page: currentPage,
-                    query,
-                    results,
-                    errors,
-                    loading: fetching,
-                    showLoadMore,
-                    isOverviewPage,
-                  }}
-                />
-              )}
-              {showLoadMore && hasMore && (
-                <ActionButton
-                  label="Toon meer"
-                  iconLeft={<Enlarge />}
-                  {...{ fetching: fetchingMore, onClick: fetchMore }}
-                />
-              )}
-            </ResultWrapper>
           )}
         </>
       )}
