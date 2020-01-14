@@ -4,7 +4,7 @@ import { breakpoint, Button, Column, Heading, themeSpacing, Divider } from '@dat
 import { Enlarge } from '@datapunt/asc-assets'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
-import SEARCH_PAGE_CONFIG, { CMS_SEARCH_PAGES } from './config'
+import SEARCH_PAGE_CONFIG, { EDITORIAL_SEARCH_PAGES } from './config'
 import ActionButton from '../../components/ActionButton/ActionButton'
 import SearchResultsComponent from './SearchResultsComponent'
 import SearchResults from './SearchResults'
@@ -109,9 +109,11 @@ const SearchPageResults = ({
                 <FilterButton variant="primary" onClick={() => setShowFilter(true)}>
                   Filteren
                 </FilterButton>
-                {CMS_SEARCH_PAGES.includes(currentPage) && <SearchSort sort={sort} />}
+                {EDITORIAL_SEARCH_PAGES.includes(currentPage) && (
+                  <SearchSort isOverviewPage={isOverviewPage} sort={sort} />
+                )}
               </FilterWrapper>
-              {CMS_SEARCH_PAGES.includes(currentPage) && <StyledDivider />}
+              {EDITORIAL_SEARCH_PAGES.includes(currentPage) && <StyledDivider />}
               <ResultWrapper>
                 {allResultsPageActive ? (
                   <SearchResults {...{ query, totalCount, results, loading: fetching }} />

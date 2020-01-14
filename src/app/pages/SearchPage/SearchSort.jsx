@@ -34,7 +34,7 @@ const StyledLabel = styled(Label)`
   }
 `
 
-const SearchSort = ({ sort }) => {
+const SearchSort = ({ sort, isOverviewPage }) => {
   const dispatch = useDispatch()
 
   return (
@@ -45,7 +45,8 @@ const SearchSort = ({ sort }) => {
           value={sort}
           onChange={e => dispatch(setSort(e.target.value))}
         >
-          <option value="">Publicatiedatum aflopend</option>
+          {!isOverviewPage && <option value="">Relevantie</option>}
+          <option value={!isOverviewPage ? 'date:desc' : ''}>Publicatiedatum aflopend</option>
           <option value="date:asc">Publicatiedatum oplopend</option>
           <option value="title:asc">Titel A-Z</option>
           <option value="title:desc">Titel Z-A</option>

@@ -116,6 +116,7 @@ const SearchPage = ({ isOverviewPage, currentPage }) => {
   const [showFilter, setShowFilter] = useState(false)
   const [query, sort, activeFilters] = useSelectors([getQuery, getSort, getActiveFilters])
   const from = 0
+  const defaultSort = isOverviewPage ? 'date:desc' : ''
 
   const {
     fetching,
@@ -133,7 +134,7 @@ const SearchPage = ({ isOverviewPage, currentPage }) => {
       limit: DEFAULT_LIMIT,
       ...extraQuery,
     },
-    sort,
+    sort || defaultSort,
     DEFAULT_LIMIT,
     from,
   )
