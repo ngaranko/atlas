@@ -44,24 +44,12 @@ function withModalBehaviour(WrappedComponent) {
 
     handleOpen() {
       this.setState({ open: true })
-
-      // Make sure all the elements on the page are overruled by the backdrop
-      const rootElement = window.document.querySelector('#root')
-      if (rootElement) {
-        rootElement.setAttribute('style', 'z-index: -1')
-      }
     }
 
     handleClose() {
       const { closeModalAction } = this.props
       this.setState({ open: false })
       closeModalAction()
-
-      // Make sure all the elements on the page get their z-index back
-      const rootElement = window.document.querySelector('#root')
-      if (rootElement) {
-        rootElement.removeAttribute('style', 'z-index')
-      }
     }
 
     render() {

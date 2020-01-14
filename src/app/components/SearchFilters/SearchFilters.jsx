@@ -81,7 +81,9 @@ const SearchFilters = ({ availableFilters, hideCount }) => {
                 tabIndex={-1}
                 disabled={count === 0}
                 htmlFor={`type:${id}`}
-                label={`${optionLabel} ${!!count && !hideCount ? `(${count})` : ''}`}
+                label={`${optionLabel} ${
+                  !!count && !hideCount ? `(${count.toLocaleString('nl-NL')})` : ''
+                }`}
               >
                 <RadioOrCheckbox
                   checked={isChecked(enumType || id)}
