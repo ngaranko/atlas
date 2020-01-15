@@ -22,11 +22,19 @@ const notFoundImage = require('./not_found_thumbnail.jpg')
 const IMAGE_SIZE = 160
 
 const StyledHeading = styled(Heading)`
-  border-bottom: 2px solid transparent;
   line-height: 22px;
   margin-bottom: ${themeSpacing(3)};
   width: fit-content;
   display: inline-block;
+`
+
+const StyledCardContent = styled(CardContent)`
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin-left: ${themeSpacing(4)};
+  border-bottom: 1px solid ${themeColor('tint', 'level3')};
+  position: relative;
 `
 
 const StyledLink = styled(Link)`
@@ -39,6 +47,10 @@ const StyledLink = styled(Link)`
 
     ${StyledHeading} {
       color: ${themeColor('secondary')};
+      text-decoration: underline;
+    }
+
+    ${StyledCardContent} {
       border-color: ${themeColor('secondary')};
     }
   }
@@ -65,15 +77,6 @@ const StyledCardMedia = styled(CardMedia)`
   &::before {
     padding-top: ${({ vertical }) => (vertical ? '145%' : '100%')};
   }
-`
-
-const StyledCardContent = styled(CardContent)`
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: ${themeSpacing(0, 4)};
-  border-bottom: 1px solid ${themeColor('tint', 'level3')};
-  position: relative;
 `
 
 const StyledTag = styled(Tag)`
