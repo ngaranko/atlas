@@ -7,17 +7,18 @@ import SEARCH_PAGE_CONFIG, {
 } from './config'
 import DataSearchResults from './DataSearchResults'
 import DatasetSearchResults from './DatasetSearchResults'
-import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
 
 const SearchResultsComponent = ({ page, ...props }) => {
   if (EDITORIAL_SEARCH_PAGES.includes(page)) {
+    const { label, type } = SEARCH_PAGE_CONFIG[page]
+
     return (
       <EditorialResults
         data-test={page}
         {...{
           ...props,
-          label: SEARCH_PAGE_CONFIG[page].label,
-          type: EDITORIAL_TYPES[page],
+          label,
+          type,
         }}
       />
     )
