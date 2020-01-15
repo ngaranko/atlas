@@ -1,6 +1,14 @@
 import React, { memo, useMemo } from 'react'
 import styled from '@datapunt/asc-core'
-import { breakpoint, Button, Column, Heading, themeSpacing, Divider } from '@datapunt/asc-ui'
+import {
+  breakpoint,
+  Button,
+  Column,
+  Heading,
+  themeSpacing,
+  Divider,
+  themeColor,
+} from '@datapunt/asc-ui'
 import { Enlarge } from '@datapunt/asc-assets'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
@@ -48,12 +56,16 @@ const ResultColumn = styled(Column)`
 `
 
 const StyledDivider = styled(Divider)`
+  height: 2px;
+  width: 100%;
+  background-color: ${themeColor('tint', 'level3')};
   margin-bottom: ${themeSpacing(5)};
 `
 
 const FilterWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-right: ${themeSpacing(4)};
 `
 
 const SearchPageResults = ({
@@ -111,8 +123,8 @@ const SearchPageResults = ({
                 {EDITORIAL_SEARCH_PAGES.includes(currentPage) && (
                   <SearchSort isOverviewPage={isOverviewPage} sort={sort} />
                 )}
+                {EDITORIAL_SEARCH_PAGES.includes(currentPage) && <StyledDivider />}
               </FilterWrapper>
-              {EDITORIAL_SEARCH_PAGES.includes(currentPage) && <StyledDivider />}
               <ResultWrapper>
                 {allResultsPageActive ? (
                   <SearchResults {...{ query, totalCount, results, loading: fetching }} />

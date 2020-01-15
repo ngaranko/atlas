@@ -153,6 +153,7 @@ const EditorialCard = ({
       : EDITORIAL_DETAIL_ACTIONS[type](id, slug))
 
   const displayTitle = shortTitle || title || label
+  const summary = teaser || intro
 
   return (
     <StyledLink $as={RouterLink} key={id} to={to} title={displayTitle} linkType="blank">
@@ -178,9 +179,11 @@ const EditorialCard = ({
             </div>
           )}
 
-          <div>
-            <IntroText>{teaser || intro}</IntroText>
-          </div>
+          {summary && (
+            <div>
+              <IntroText>{summary}</IntroText>
+            </div>
+          )}
 
           {!specialType && (localeDate || date || dateLocale) && (
             <div>
