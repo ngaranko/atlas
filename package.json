@@ -19,6 +19,7 @@
     "generate:sitemap": "node ./sitemap-generator/index.js",
     "lint": "npm run lint:js",
     "lint:js": "eslint --format=node_modules/eslint-formatter-pretty src modules test/e2e/cypress --ext js,jsx",
+    "postinstall": "cp .env.development .env",
     "start": "webpack-dev-server --config webpack.development.js",
     "start:prod": "cp .env.production .env && webpack-dev-server --config webpack.development.js",
     "storybook": "start-storybook -p 6007",
