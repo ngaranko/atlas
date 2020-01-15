@@ -91,7 +91,7 @@ describe('AutoSuggestReducer Reducer', () => {
 
   it('should set the query from meta data', () => {
     const tabRoutes = [
-      routing.dataSearchQuery.type,
+      routing.dataSearch.type,
       routing.datasetSearch.type,
       routing.articleSearch.type,
       routing.publicationSearch.type,

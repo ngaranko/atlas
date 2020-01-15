@@ -10,6 +10,7 @@ module.exports = {
     jasmine: true,
   },
   rules: {
+    'no-console': 'error',
     'prettier/prettier': 'error',
     'no-underscore-dangle': [
       'error',

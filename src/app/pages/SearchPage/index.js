@@ -1,1 +1,1 @@
-export { default } from './SearchPageContainer'
+export { default } from './SearchPage'

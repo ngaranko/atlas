@@ -1,37 +1,6 @@
 // Todo: fix / add tests
-import SEARCH_CONFIG from './search-config'
 import { getByUrl } from '../api/api'
-import { formatCategories, formatLinks } from './search-formatter'
-
-function isString(value) {
-  return typeof value === 'string'
-}
-
-export function querySearch(query, categorySlug, user) {
-  const queries = []
-  const errorType = 'error'
-  const params = { q: query }
-  SEARCH_CONFIG.QUERY_ENDPOINTS.forEach(endpoint => {
-    if (
-      (!isString(categorySlug) || categorySlug === endpoint.slug) &&
-      endpoint.uri &&
-      (!endpoint.authScope || user.scopes.includes(endpoint.authScope))
-    ) {
-      const options = endpoint.options || {}
-      queries.push(
-        getByUrl(`${process.env.API_ROOT}${endpoint.uri}`, {
-          ...params,
-          ...options,
-        }).then(data => data, code => ({ type: errorType, code })),
-      )
-    }
-  })
-
-  return Promise.all(queries).then(results => ({
-    results: formatCategories(results, user, categorySlug),
-    errors: results.some(result => result && result.type === errorType),
-  }))
-}
+import { formatLinks } from './search-formatter'
 
 export function loadMore(category) {
   return getByUrl(category.next).then(nextPageData => {
@@ -64,14 +33,6 @@ export function replaceBuurtcombinatie(searchResults) {
   })
 
   return results
-}
-
-export function hasLoadMore(category, searchResults, isLoadMoreLoading) {
-  return (
-    isString(category) &&
-    searchResults[0].count > searchResults[0].results.length &&
-    !isLoadMoreLoading
-  )
 }
 
 export function getNumberOfResults(searchResults) {

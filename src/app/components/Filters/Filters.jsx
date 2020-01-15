@@ -64,7 +64,7 @@ export const modificationDateFilter = input => {
       ago = 'in de toekomst'
     }
 
-    return ago
+    return `${ago} gewijzigd`
   }
   return input
 }

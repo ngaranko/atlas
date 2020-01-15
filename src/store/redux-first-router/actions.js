@@ -55,10 +55,15 @@ export const toGeoSearch = additionalParams =>
     additionalParams,
   )
 
-export const toDataSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
-  type: routing.dataSearchQuery.type,
+export const toDataSearch = (
+  additionalParams = null,
+  skipSaga = false,
+  forceSaga = false,
+  preserve = true,
+) => ({
+  type: routing.dataSearch.type,
   meta: {
-    preserve: true,
+    preserve,
     skipSaga,
     forceSaga,
     additionalParams,
@@ -156,18 +161,6 @@ export const toConstructionFilesFromEndpoint = endpoint => {
   }
 }
 
-export const toDataSearchCategory = (searchQuery, category) => ({
-  type: routing.dataSearchCategory.type,
-  payload: {
-    category,
-  },
-  meta: {
-    additionalParams: {
-      [PARAMETERS.QUERY]: searchQuery,
-    },
-  },
-})
-
 export const toDatasets = (additionalParams = null, preserve = false, forceSaga = true) => ({
   type: routing.datasets.type,
   meta: {
@@ -177,20 +170,30 @@ export const toDatasets = (additionalParams = null, preserve = false, forceSaga 
   },
 })
 
-export const toDatasetSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
+export const toDatasetSearch = (
+  additionalParams = null,
+  skipSaga = false,
+  forceSaga = false,
+  preserve = true,
+) => ({
   type: routing.datasetSearch.type,
   meta: {
-    preserve: true,
+    preserve,
     skipSaga,
     forceSaga,
     additionalParams,
   },
 })
 
-export const toSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
+export const toSearch = (
+  additionalParams = null,
+  skipSaga = false,
+  forceSaga = false,
+  preserve = true,
+) => ({
   type: routing.search.type,
   meta: {
-    preserve: true,
+    preserve,
     skipSaga,
     forceSaga,
     additionalParams,
@@ -233,6 +236,24 @@ export const toDatasetDetail = payload => ({
 
 export const toAdresses = () => ({
   type: routing.addresses.type,
+  meta: {
+    query: {
+      [PARAMETERS.VIEW]: VIEW_MODE.FULL,
+    },
+  },
+})
+
+export const toCadastralObjects = () => ({
+  type: routing.cadastralObjects.type,
+  meta: {
+    query: {
+      [PARAMETERS.VIEW]: VIEW_MODE.FULL,
+    },
+  },
+})
+
+export const toEstablishments = () => ({
+  type: routing.establishments.type,
   meta: {
     query: {
       [PARAMETERS.VIEW]: VIEW_MODE.FULL,
@@ -295,38 +316,33 @@ export const toNotFoundPage = () => ({
 export const toHelpPage = () =>
   toArticleDetail(HEADER_LINKS.HELP.id[process.env.NODE_ENV], HEADER_LINKS.HELP.slug)
 
-export const toArticleSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
-  type: routing.articleSearch.type,
-  meta: {
-    preserve: true,
-    skipSaga,
-    forceSaga,
-    additionalParams,
-  },
-})
-
-export const toArticleOverview = () => ({
+export const toArticles = () => ({
   type: routing.articles.type,
 })
 
-export const toPublicationOverview = () => ({
+export const toPublications = () => ({
   type: routing.publications.type,
 })
 
-export const toSpecialOverview = () => ({
+export const toSpecials = () => ({
   type: routing.specials.type,
 })
 
-export const toPublicationSearch = (
+export const toCmsSearch = type => (
   additionalParams = null,
   skipSaga = false,
   forceSaga = false,
+  preserve = true,
 ) => ({
-  type: routing.publicationSearch.type,
+  type,
   meta: {
-    preserve: true,
+    preserve,
     skipSaga,
     forceSaga,
     additionalParams,
   },
 })
+
+export const toPublicationSearch = toCmsSearch(routing.publicationSearch.type)
+export const toArticleSearch = toCmsSearch(routing.articleSearch.type)
+export const toSpecialSearch = toCmsSearch(routing.specialSearch.type)

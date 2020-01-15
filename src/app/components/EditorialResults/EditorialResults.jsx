@@ -1,50 +1,30 @@
-import React from 'react'
-import { Enlarge } from '@datapunt/asc-assets'
+import React, { memo } from 'react'
 import styled from '@datapunt/asc-core'
-import { Button, CardContainer, svgFill, themeColor } from '@datapunt/asc-ui'
+import { CardContainer, themeSpacing } from '@datapunt/asc-ui'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import EditorialCard from '../EditorialCard'
+import NoSearchResults from '../NoSearchResults'
+import { EDITORIAL_OVERVIEW_ACTIONS } from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const EditorialCardContainer = styled(CardContainer)`
   padding: 0;
+  margin-bottom: ${themeSpacing(8)};
 `
 
-const StyledButton = styled(Button)`
-  border-color: ${themeColor('tint', 'level7')};
-  color: ${themeColor('tint', 'level7')};
-  background: ${themeColor('tint', 'level1')};
-  ${svgFill('tint', 'level7')};
-
-  &:hover,
-  &:focus {
-    outline: 0;
-    background: ${themeColor('tint', 'level3')};
-  }
-`
-
-const EditorialResults = ({ results, loading, type, onClickMore, className }) => (
+const EditorialResults = ({ query, results, label, loading, type, className }) => (
   <EditorialCardContainer className={className}>
     {!results && loading ? (
       <LoadingIndicator style={{ position: 'inherit' }} />
     ) : (
       <>
-        {results &&
-          !!results.length &&
-          results.map(result => <EditorialCard {...result} key={result.id} type={type} />)}
-        {loading && <LoadingIndicator style={{ position: 'inherit' }} />}
-        {!loading && onClickMore && (
-          <StyledButton
-            variant="primaryInverted"
-            iconLeft={<Enlarge />}
-            iconSize={12}
-            onClick={onClickMore}
-          >
-            Toon meer
-          </StyledButton>
+        {results && results.length ? (
+          results.map(result => <EditorialCard {...result} key={result.id} type={type} />)
+        ) : (
+          <NoSearchResults query={query} label={label} to={EDITORIAL_OVERVIEW_ACTIONS[type]()} />
         )}
       </>
     )}
   </EditorialCardContainer>
 )
 
-export default EditorialResults
+export default memo(EditorialResults, () => false)

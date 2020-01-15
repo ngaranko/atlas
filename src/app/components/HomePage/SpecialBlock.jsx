@@ -12,7 +12,7 @@ import {
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import { cmsConfig } from '../../../shared/config/config'
-import { toSpecialOverview } from '../../../store/redux-first-router/actions'
+import { toSpecials } from '../../../store/redux-first-router/actions'
 import useFromCMS from '../../utils/useFromCMS'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import OverviewLink from './OverviewLink'
@@ -93,7 +93,7 @@ const SpecialBlock = () => {
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
           <OverviewLink
-            linkProps={{ to: toSpecialOverview(), $as: RouterLink }}
+            linkProps={{ to: toSpecials(), $as: RouterLink }}
             label="Bekijk overzicht"
           />
         </Column>

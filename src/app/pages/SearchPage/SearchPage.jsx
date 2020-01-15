@@ -1,168 +1,251 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useQuery } from 'urql'
-import { breakpoint, Column, Container, Row, Heading, themeSpacing } from '@datapunt/asc-ui'
+import React, { memo, useEffect, useState } from 'react'
+import get from 'lodash.get'
+import { clearAllBodyScrollLocks, enableBodyScroll } from 'body-scroll-lock'
+import {
+  breakpoint,
+  Column,
+  Container,
+  Row,
+  Modal,
+  themeSpacing,
+  TopBar,
+  Button,
+  Heading,
+  Spinner,
+  styles,
+  constants,
+} from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
+import { Close } from '@datapunt/asc-assets'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
-import PageFilterBox from './PageFilterBox'
-import DataSearchResults from './DataSearchResults'
-import PAGES from '../../pages'
-import { EDITORIAL_TYPES } from '../EditorialOverviewPage/constants'
-import EditorialResults from '../../components/EditorialResults'
-import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
-import SearchFilters from '../../components/SearchFilters/SearchFilters'
-import DatasetCard from '../../components/DatasetCard'
-import Panel from '../../components/Panel/Panel'
-
-import SEARCH_PAGE_CONFIG from './config'
+import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
+import SEARCH_PAGE_CONFIG, {
+  DEFAULT_LIMIT,
+  DATA_FILTERS,
+  DATA_SEARCH_PAGES,
+  DATASET_SEARCH_PAGES,
+  EDITORIAL_SEARCH_PAGES,
+} from './config'
+import SearchPageResults from './SearchPageResults'
+import usePagination from '../../utils/usePagination'
+import SearchPageFilters from './SearchPageFilters'
+import useCompare from '../../utils/useCompare'
+import useSelectors from '../../utils/useSelectors'
+import { getActiveFilters, getQuery, getSort } from './SearchPageDucks'
 
 const FilterColumn = styled(Column)`
   align-content: flex-start;
 
-  // Todo: style mobile filter column
-  // @media screen and ${breakpoint('max-width', 'laptop')} {
-  //   display: none;
-  //   position: fixed;
-  //   overflow-y: auto;
-  //   width: calc(100% - ${themeSpacing(10)});
-  //   max-width: 300px;
-  //   bottom: 0;
-  //   top: 75px;
-  //   right: ${themeSpacing(5)};
-  //   background-color: white;
-  //   z-index: 30;
-  // }
+  @media screen and ${breakpoint('max-width', 'laptop')} {
+    display: none;
+  }
 `
 
-const ResultColumn = styled(Column)`
-  flex-direction: column;
-  justify-content: flex-start;
-`
+const StyledModal = styled(Modal)`
+  @media screen and ${breakpoint('min-width', 'mobileL')} {
+    width: calc(100% - ${themeSpacing(10)});
+    max-width: calc(400px + ${themeSpacing(12)});
+  }
 
-const SearchPage = ({ query, currentPage }) => {
-  const [currentQuery, setCurrentQuery] = React.useState(SEARCH_PAGE_CONFIG[currentPage].query)
-  const [offset, setOffset] = React.useState(0)
-  const [currentTitle, setCurrentTitle] = React.useState(0)
-  const [availableFilters, setAvailableFilters] = React.useState(null)
-  const [currentFilters, setCurrentFilters] = React.useState([])
-  const [currentResults, setCurrentResults] = React.useState([])
+  ${FilterColumn} {
+    top: 0;
+    width: 100%;
+    position: relative;
+    margin-bottom: ${themeSpacing(20)};
+    display: block;
+    overflow-y: auto;
+    left: 0;
+    right: ${themeSpacing(5)};
 
-  const [{ fetching, data, error }] = useQuery({
-    query: currentQuery,
-    variables: {
-      q: query,
-      limit: 30,
-      from: offset,
-      types: currentFilters.length > 0 ? currentFilters : null,
-    },
-  })
-
-  const hasResults = !fetching && !!currentResults.length
-
-  const getResultByKey = resolver =>
-    data && data[resolver] ? data[resolver] : { totalCount: 0, results: [] }
-
-  // Todo: refactor if resolver for data filters are made
-  React.useEffect(() => {
-    if (currentPage === PAGES.DATA_SEARCH_QUERY && hasResults) {
-      setAvailableFilters({
-        title: 'Soorten data',
-        filters: currentResults.map(({ type, label, count }) => ({
-          type,
-          label,
-          count,
-        })),
-      })
-    } else {
-      setAvailableFilters(null)
+    @media screen and ${breakpoint('max-width', 'mobileL')} {
+      ${styles.FilterBoxStyle} {
+        border-right: transparent;
+        border-left: transparent;
+      }
     }
-  }, [currentResults])
-
-  React.useEffect(() => {
-    setCurrentQuery(SEARCH_PAGE_CONFIG[currentPage].query)
-
-    const { totalCount, results } = getResultByKey(SEARCH_PAGE_CONFIG[currentPage].resolver)
-
-    setCurrentResults(results)
-
-    // Todo: improve no results message
-    setCurrentTitle(
-      totalCount > 0
-        ? `Alle resultaten met categorie \`${SEARCH_PAGE_CONFIG[currentPage].label}\` (${totalCount} resultaten)`
-        : 'Geen resultaten',
-    )
-  }, [data, currentPage])
-
-  const Results = () => {
-    switch (currentPage) {
-      case PAGES.PUBLICATION_SEARCH:
-      case PAGES.ARTICLE_SEARCH: {
-        return (
-          <EditorialResults
-            title={SEARCH_PAGE_CONFIG[currentPage].label}
-            results={currentResults}
-            loading={fetching}
-            type={EDITORIAL_TYPES[currentPage]}
-            onClickMore={() => {
-              setOffset(offset + 1)
-            }}
-          />
-        )
-      }
-      case PAGES.DATA_SEARCH_QUERY: {
-        return <DataSearchResults results={currentResults} />
-      }
-      case PAGES.DATASET_SEARCH: {
-        return (
-          <div>
-            {currentResults.map(({ header, formats }) => (
-              <DatasetCard key={header} href="#" formats={formats} shortTitle={header} />
-            ))}
-          </div>
-        )
-      }
-      default:
-        return null
+    @media screen and ${breakpoint('min-width', 'mobileL')} {
+      padding: 0 ${themeSpacing(5)};
     }
   }
+
+  [role='dialog'] {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    top: ${constants.HEADER_HEIGHT_SMALL}px;
+    height: 100vh;
+    max-height: 100%;
+    max-width: initial;
+    left: 0;
+    bottom: 0;
+    transform: initial;
+  }
+`
+
+const ModalCloseButton = styled(Button)`
+  margin-left: auto;
+`
+
+const ApplyFilters = styled.div`
+  position: sticky;
+  bottom: ${constants.HEADER_HEIGHT_SMALL}px;
+  left: 0;
+  z-index: 30; // Todo: implement better z-index strategy
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: ${themeSpacing(4)};
+  background-color: #fff;
+  box-shadow: 0 0 ${themeSpacing(2)} 1px black;
+  margin-top: auto;
+`
+
+const ApplyFiltersButton = styled(Button)`
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+`
+
+/* TODO: Write tests for the Hooks used in this component */
+/* istanbul ignore next */
+const SearchPage = ({ isOverviewPage, currentPage }) => {
+  const [extraQuery, setExtraQuery] = useState({})
+  const [showLoadMore, setShowLoadMore] = useState(false)
+  const [showFilter, setShowFilter] = useState(false)
+  const [query, sort, activeFilters] = useSelectors([getQuery, getSort, getActiveFilters])
+  const from = 0
+  const defaultSort = isOverviewPage ? 'date:desc' : ''
+
+  const {
+    fetching,
+    errors,
+    totalCount,
+    fetchingMore,
+    results,
+    filters,
+    fetchMore,
+    hasMore,
+  } = usePagination(
+    SEARCH_PAGE_CONFIG[currentPage],
+    {
+      q: query,
+      limit: DEFAULT_LIMIT,
+      ...extraQuery,
+    },
+    sort || defaultSort,
+    DEFAULT_LIMIT,
+    from,
+  )
+
+  const currentPageHasChanged = useCompare(currentPage)
+
+  // Close the filterbox when changing the page
+  useEffect(() => {
+    if (currentPageHasChanged) {
+      setShowFilter(false)
+    }
+  }, [currentPage])
+
+  // Enable / disable body lock when opening the filter on mobile
+  useEffect(() => {
+    const action = showFilter || currentPageHasChanged ? clearAllBodyScrollLocks : enableBodyScroll
+    action()
+  }, [showFilter, currentPage])
+
+  useEffect(() => {
+    // Always reset the filterboxes when currentPage or data has changed
+    if (DATA_SEARCH_PAGES.includes(currentPage)) {
+      const types = get(activeFilters.find(({ type }) => type === DATA_FILTERS), 'values', null)
+      setExtraQuery({
+        types,
+      })
+
+      setShowLoadMore(!!types)
+    } else if (
+      EDITORIAL_SEARCH_PAGES.includes(currentPage) ||
+      DATASET_SEARCH_PAGES.includes(currentPage)
+    ) {
+      setShowLoadMore(true)
+      setExtraQuery({
+        filters:
+          activeFilters.length > 0
+            ? activeFilters.map(({ type, values }) => ({
+                type,
+                values: Array.isArray(values) ? values : [values],
+                multiSelect: Array.isArray(values),
+              }))
+            : null,
+      })
+    } else {
+      setExtraQuery({})
+      setShowLoadMore(false)
+    }
+  }, [currentPage, activeFilters])
+
+  const Filters = (
+    <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
+      {!isOverviewPage && <PageFilterBox {...{ query, currentPage }} />}
+      <SearchPageFilters {...{ currentPage, filters, totalCount, query }} />
+    </FilterColumn>
+  )
 
   return (
     <Container>
       <ContentContainer>
         <Row>
-          <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
-            <PageFilterBox currentPage={currentPage} query={query} />
-            {availableFilters && (
-              <SearchFilters filters={availableFilters} onFilter={setCurrentFilters} />
-            )}
-          </FilterColumn>
-          <ResultColumn
-            wrap
-            span={{ small: 12, medium: 12, big: 12, large: 7, xLarge: 8 }}
-            push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
+          {!showFilter && Filters}
+          <StyledModal
+            aria-labelledby="filters"
+            aria-describedby="filters"
+            open={showFilter}
+            onClose={() => setShowFilter(false)}
+            hideOverFlow={false}
           >
-            {/* Todo: improve error message */}
-            {error && (
-              <Panel isPanelVisible type="warning">
-                Er is een fout opgetreden
-              </Panel>
-            )}
-            {fetching && <LoadingIndicator style={{ position: 'inherit' }} />}
-            {hasResults && (
-              <>
-                <Heading>{currentTitle}</Heading>
-                <Results />
-              </>
-            )}
-          </ResultColumn>
+            <TopBar>
+              <Heading style={{ flexGrow: 1 }} as="h4">
+                <ModalCloseButton
+                  variant="blank"
+                  type="button"
+                  size={30}
+                  onClick={() => setShowFilter(false)}
+                  icon={<Close />}
+                />
+              </Heading>
+            </TopBar>
+            {Filters}
+            <ApplyFilters>
+              <ApplyFiltersButton
+                iconLeft={fetching && <Spinner />}
+                onClick={() => setShowFilter(false)}
+                variant="primary"
+              >
+                {!fetching && `${totalCount} resultaten tonen`}
+              </ApplyFiltersButton>
+            </ApplyFilters>
+          </StyledModal>
+          <SearchPageResults
+            {...{
+              query,
+              errors,
+              fetching,
+              totalCount,
+              results,
+              currentPage,
+              isOverviewPage,
+              hasMore,
+              fetchingMore,
+              fetchMore,
+              showLoadMore,
+              sort,
+              setShowFilter,
+            }}
+          />
         </Row>
       </ContentContainer>
     </Container>
   )
 }
 
-SearchPage.propTypes = {
-  query: PropTypes.string.isRequired,
-}
-
-export default SearchPage
+export default memo(SearchPage)

@@ -21,7 +21,11 @@ window.reducer = rootReducer
 const configureStore = (routesMap, storybook = false) => {
   const routingOptions = {
     querySerializer: queryString,
-    restoreScroll: restoreScroll(),
+    restoreScroll: restoreScroll({
+      shouldUpdateScroll: (prev, locationState) => {
+        return prev.type !== locationState.type
+      },
+    }),
     initialDispatch: false,
     createHistory: createBrowserHistory,
   }

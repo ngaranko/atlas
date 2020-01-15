@@ -5,7 +5,7 @@ import {
 } from './actions'
 import { REDUCER_KEY } from './constants'
 import reducer from './reducer'
-import { getMapPanelResults, getSearchQuery } from './selectors'
+import { getMapPanelResults } from './selectors'
 
 describe('mapSearch reducer', () => {
   it('sets the initial state', () => {
@@ -34,15 +34,6 @@ describe('mapSearch reducer', () => {
 })
 
 describe('data-search selectors', () => {
-  it('getSearchQuery', () => {
-    const state = {
-      [REDUCER_KEY]: {
-        query: 'foo',
-      },
-    }
-    expect(getSearchQuery(state)).toEqual(state[REDUCER_KEY].query)
-  })
-
   describe('getMapPanelResults', () => {
     it('should return state.resultsMap as a array', () => {
       const state = {

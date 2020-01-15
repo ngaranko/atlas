@@ -19,7 +19,7 @@ import {
   fetchExchange,
   dedupExchange,
 } from 'urql'
-import { isEditorialPage, isContentPage, isSearchPage } from './pages'
+import { isEditorialPage, isContentPage, isSearchPage, isDatasetPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -36,6 +36,7 @@ import AppBody from './AppBody'
 import { MATOMO_CONFIG } from '../store/middleware/matomo/constants'
 import { routing } from './routes'
 import Footer from './components/Footer/Footer'
+import getState from '../shared/services/redux/get-state'
 
 const StyledContainer = styled(Container)`
   background-color: ${themeColor('tint', 'level1')};
@@ -52,8 +53,13 @@ const matomoInstance = createInstance({
 })
 
 const graphQLClient = createClient({
-  // Todo dont forget to change to api
-  url: `${process.env.API_ROOT}cms_search/graphql/`,
+  url: `${process.env.GRAPHQL_ENDPOINT}`,
+  fetchOptions: () => {
+    const token = getState().user.accessToken
+    return {
+      headers: { authorization: token ? `Bearer ${token}` : '' },
+    }
+  },
   exchanges: [dedupExchange, cacheExchange, fetchExchange],
   requestPolicy: 'cache-first',
 })
@@ -91,9 +97,12 @@ const App = ({
   printModeLandscape,
   printOrEmbedMode,
 }) => {
-  const editorialPage = isEditorialPage(currentPage)
-  const contentPage = isContentPage(currentPage)
-  const hasMaxWidth = homePage || editorialPage || contentPage || isSearchPage(currentPage)
+  const hasMaxWidth =
+    homePage ||
+    isEditorialPage(currentPage) ||
+    isContentPage(currentPage) ||
+    isSearchPage(currentPage) ||
+    isDatasetPage(currentPage)
 
   // Redirect to the 404 page if currentPage isn't set
   if (currentPage === '' && window) {
@@ -144,8 +153,8 @@ const App = ({
               />
             )}
             <AppBody
-              hasGrid={hasMaxWidth}
               {...{
+                hasGrid: hasMaxWidth,
                 visibilityError,
                 bodyClasses,
                 homePage,

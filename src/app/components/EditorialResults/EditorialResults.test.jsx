@@ -1,43 +1,25 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import EditorialResults from './EditorialResults'
-
-jest.mock('../../utils/usePagination')
+import { TYPES } from '../../../shared/config/cms.config'
 
 describe('EditorialResults', () => {
   let component
 
   it('should display the loading indicator', () => {
-    component = shallow(<EditorialResults loading />)
+    component = shallow(<EditorialResults type={TYPES.ARTICLE} loading />)
     expect(component.find('LoadingIndicator').exists()).toBe(true)
 
-    component = shallow(<EditorialResults loading={false} />)
+    component = shallow(<EditorialResults type={TYPES.ARTICLE} loading={false} />)
     expect(component.find('LoadingIndicator').exists()).toBe(false)
   })
 
-  it('should call the onClickMore function', () => {
-    const onClickMore = jest.fn()
-
-    component = shallow(<EditorialResults />)
-    expect(component.find('Styled(Button)').exists()).toBe(false)
-
-    // There should be a button here to load more content
-    component = shallow(<EditorialResults onClickMore={onClickMore} />)
-
-    const button = component.find('Styled(Button)')
-    expect(button.exists()).toBe(true)
-
-    button.simulate('click')
-
-    expect(onClickMore).toHaveBeenCalled()
-  })
-
   it('should render the cards', () => {
-    component = shallow(<EditorialResults results={[]} />)
+    component = shallow(<EditorialResults type={TYPES.ARTICLE} results={[]} />)
     expect(component.find('EditorialCard').exists()).toBe(false)
 
     // Should render two cards
-    component = shallow(<EditorialResults results={[{}, {}]} />)
+    component = shallow(<EditorialResults type={TYPES.ARTICLE} results={[{}, {}]} />)
     expect(component.find('EditorialCard').exists()).toBe(true)
     expect(component.find('EditorialCard')).toHaveLength(2)
   })

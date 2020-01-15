@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from '@datapunt/asc-core'
-import { Link, styles, svgFill, themeColor, Typography } from '@datapunt/asc-ui'
+import { Link, styles, svgFill, themeColor } from '@datapunt/asc-ui'
 import { connect } from 'react-redux'
 import { authenticateRequest } from '../../../../shared/ducks/user/user'
 
@@ -29,7 +29,7 @@ const StyledLink = styled(Link)`
 `
 
 export const LoginLink = ({ login, linkType, children, inverted }) => (
-  <Typography $as="p" className="c-panel__paragraph">
+  <div>
     {inverted ? (
       <StyledLinkInverted $as="button" onClick={login} linkType={linkType}>
         {children || 'Inloggen'}
@@ -39,7 +39,7 @@ export const LoginLink = ({ login, linkType, children, inverted }) => (
         {children || 'Inloggen'}
       </StyledLink>
     )}
-  </Typography>
+  </div>
 )
 
 LoginLink.defaultProps = {

@@ -14,17 +14,27 @@ import {
 } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
 import getImageFromCms from '../../utils/getImageFromCms'
-import { EDITORIAL_DETAIL_ACTIONS } from '../../pages/EditorialOverviewPage/constants'
 import { TYPES } from '../../../shared/config/cms.config'
+import { EDITORIAL_DETAIL_ACTIONS } from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const notFoundImage = require('./not_found_thumbnail.jpg')
 
+const IMAGE_SIZE = 160
+
 const StyledHeading = styled(Heading)`
-  border-bottom: 2px solid transparent;
   line-height: 22px;
   margin-bottom: ${themeSpacing(3)};
   width: fit-content;
   display: inline-block;
+`
+
+const StyledCardContent = styled(CardContent)`
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin-left: ${themeSpacing(4)};
+  border-bottom: 1px solid ${themeColor('tint', 'level3')};
+  position: relative;
 `
 
 const StyledLink = styled(Link)`
@@ -37,35 +47,36 @@ const StyledLink = styled(Link)`
 
     ${StyledHeading} {
       color: ${themeColor('secondary')};
+      text-decoration: underline;
+    }
+
+    ${StyledCardContent} {
       border-color: ${themeColor('secondary')};
     }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
   }
 `
 
 const StyledCard = styled(Card)`
   align-items: stretch;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `
 
 const StyledCardMedia = styled(CardMedia)`
   flex: 1 0 auto;
   border: 1px solid ${themeColor('tint', 'level3')};
-  height: 0%; // fix to reset the height given by the parent's display: flex;
-  min-width: ${themeSpacing(12)};
-  max-width: ${themeSpacing(40)};
-  width: 20%;
+  max-width: ${({ vertical }) => (vertical ? IMAGE_SIZE * 0.7 : IMAGE_SIZE)}px;
+  max-height: ${IMAGE_SIZE}px;
 
   &::before {
     padding-top: ${({ vertical }) => (vertical ? '145%' : '100%')};
   }
-`
-
-const StyledCardContent = styled(CardContent)`
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: ${themeSpacing(0, 4)};
-  border-bottom: 1px solid ${themeColor('tint', 'level3')};
-  position: relative;
 `
 
 const StyledTag = styled(Tag)`
@@ -91,6 +102,26 @@ const MetaText = styled(Paragraph)`
   }
 `
 
+const getImageSize = (image, resize) => {
+  const srcSet = {
+    srcSet: `${getImageFromCms(image, IMAGE_SIZE * 0.5, IMAGE_SIZE * 0.5, resize)} ${IMAGE_SIZE *
+      0.5}w,
+             ${getImageFromCms(image, IMAGE_SIZE, IMAGE_SIZE, resize)} ${IMAGE_SIZE}w`,
+  }
+
+  const sizes = {
+    sizes: `
+      ${ascDefaultTheme.breakpoints.mobileL('max-width')} ${IMAGE_SIZE * 0.5}px,
+      ${ascDefaultTheme.breakpoints.tabletM('max-width')} ${IMAGE_SIZE}px,
+    `,
+  }
+
+  return {
+    srcSet,
+    sizes,
+  }
+}
+
 const EditorialCard = ({
   id,
   title,
@@ -111,20 +142,8 @@ const EditorialCard = ({
 }) => {
   const image = type === TYPES.PUBLICATION ? coverImage : teaserImage
   const imageIsVertical = type === TYPES.PUBLICATION
-  const resize = type === TYPES.PUBLICATION ? 'fit' : 'fill'
 
-  const srcSet = {
-    srcSet: `${getImageFromCms(image, 100, 100, resize)} 70w,
-             ${getImageFromCms(image, 200, 100, resize)} 200w,
-             ${getImageFromCms(image, 400, 400, resize)} 400w`,
-  }
-  const sizes = {
-    sizes: `
-    (max-width: ${ascDefaultTheme.breakpoints.mobileL}px) 70px,
-    (max-width: ${ascDefaultTheme.breakpoints.tabletM}px) 200px,
-    400px
-    `,
-  }
+  const { srcSet, sizes } = getImageSize(image, type === TYPES.PUBLICATION ? 'fit' : 'fill')
 
   // The type SPECIALS has a different url structure
   const to =
@@ -134,6 +153,7 @@ const EditorialCard = ({
       : EDITORIAL_DETAIL_ACTIONS[type](id, slug))
 
   const displayTitle = shortTitle || title || label
+  const summary = teaser || intro
 
   return (
     <StyledLink $as={RouterLink} key={id} to={to} title={displayTitle} linkType="blank">
@@ -159,9 +179,11 @@ const EditorialCard = ({
             </div>
           )}
 
-          <div>
-            <IntroText>{teaser || intro}</IntroText>
-          </div>
+          {summary && (
+            <div>
+              <IntroText>{summary}</IntroText>
+            </div>
+          )}
 
           {!specialType && (localeDate || date || dateLocale) && (
             <div>

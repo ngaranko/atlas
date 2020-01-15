@@ -6,7 +6,7 @@ import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 import Panel from '../Panel/Panel'
 import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
 
-const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, userScopes }) => {
+const SearchList = ({ categoryResults, limit, userScopes }) => {
   const results =
     categoryResults && categoryResults.results
       ? categoryResults.results.map(result => ({
@@ -39,28 +39,12 @@ const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, use
           />
         ))}
       </ul>
-      {hasLoadMore && (
-        <button
-          type="button"
-          className="c-show-more c-show-more--gray qa-show-more"
-          onClick={fetchMoreResults}
-          tabIndex="0"
-        >
-          Toon meer
-        </button>
-      )}
     </div>
   )
 }
 
-SearchList.defaultProps = {
-  hasLoadMore: false,
-}
-
 SearchList.propTypes = {
   categoryResults: PropTypes.shape({}).isRequired,
-  hasLoadMore: PropTypes.bool,
-  fetchMoreResults: PropTypes.func.isRequired,
   userScopes: PropTypes.arrayOf(PropTypes.string).isRequired,
   limit: PropTypes.number.isRequired,
 }

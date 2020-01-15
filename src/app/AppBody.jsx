@@ -9,8 +9,6 @@ import PAGES, { isMapSplitPage, isEditorialOverviewPage, isSearchPage } from './
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
-const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'))
-const DatasetPage = React.lazy(() => import('./pages/DatasetPage'))
 const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'))
 const DatasetDetailContainer = React.lazy(() =>
   import('./containers/DatasetDetailContainer/DatasetDetailContainer'),
@@ -21,7 +19,6 @@ const ConstructionFilesContainer = React.lazy(() =>
 const ArticleDetailPage = React.lazy(() => import('./pages/ArticleDetailPage'))
 const PublicationDetailPage = React.lazy(() => import('./pages/PublicationDetailPage'))
 const SpecialDetailPage = React.lazy(() => import('./pages/SpecialDetailPage'))
-const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverviewPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'))
 const MovedPage = React.lazy(() => import('./pages/MovedPage'))
@@ -39,8 +36,8 @@ const AppBody = ({
   homePage,
   currentPage,
   embedPreviewMode,
-}) => {
-  return hasGrid ? (
+}) =>
+  hasGrid ? (
     <>
       <Container id="main" className="main-container">
         <Helmet>
@@ -56,12 +53,14 @@ const AppBody = ({
           {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
           {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
-          {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage pageType={currentPage} />}
+          {(isEditorialOverviewPage(currentPage) || currentPage === PAGES.DATASETS) && (
+            <SearchPage currentPage={currentPage} isOverviewPage />
+          )}
 
           {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
           {currentPage === PAGES.MOVED && <MovedPage />}
           {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
-          {isSearchPage(currentPage) && <SearchPage />}
+          {isSearchPage(currentPage) && <SearchPage currentPage={currentPage} />}
         </Suspense>
       </Container>
       <FeedbackModal id="feedbackModal" />
@@ -85,19 +84,11 @@ const AppBody = ({
           ) : (
             <div className="u-grid u-full-height">
               <div className="u-row u-full-height">
-                {/* Todo: DP-6391 */}
-                {currentPage === PAGES.DATA_SEARCH_CATEGORY && (
-                  <div className="c-search-results u-grid">
-                    <DataSearchQuery />
-                  </div>
-                )}
-
                 {isMapSplitPage(currentPage) && <MapSplitPage />}
 
                 {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
 
                 {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
-                {currentPage === PAGES.DATASETS && <DatasetPage />}
               </div>
             </div>
           )}
@@ -107,12 +98,11 @@ const AppBody = ({
       </Suspense>
     </>
   )
-}
 
 AppBody.propTypes = {
   visibilityError: PropTypes.bool.isRequired,
   bodyClasses: PropTypes.string.isRequired,
-  hasMaxWidth: PropTypes.bool.isRequired,
+  hasGrid: PropTypes.bool.isRequired,
   homePage: PropTypes.bool.isRequired,
   currentPage: PropTypes.string.isRequired,
   embedPreviewMode: PropTypes.bool.isRequired,

@@ -1,49 +1,44 @@
-import { Heading, Link, themeColor, themeSpacing } from '@datapunt/asc-ui'
-import styled from '@datapunt/asc-core'
-import RouterLink from 'redux-first-router-link'
 import React from 'react'
-import { toDataDetail } from '../../../store/redux-first-router/actions'
+import { themeSpacing } from '@datapunt/asc-ui'
+import styled from '@datapunt/asc-core'
+import DataCard, { DataList } from '../../components/DataCard'
+import MoreResultsWhenLoggedIn from '../../components/PanelMessages/MoreResultsWhenLoggedIn'
+import { NoDataSearchResults } from '../../components/NoSearchResults'
 
-const Divider = styled.div`
-  width: 200px;
-  height: 3px;
-  background-color: ${themeColor('secondary')};
-  margin: ${themeSpacing(8, 0, 6)};
+const CardWrapper = styled.div`
+  width: 100%;
+  margin-bottom: ${({ compact }) => (compact ? themeSpacing(2) : themeSpacing(8))};
 `
 
-const StyledLink = styled(Link)`
-  margin: ${themeSpacing(2, 0)};
-`
+export default ({ query, results, errors = [], compact, showLoadMore }) => {
+  const Card = compact ? DataCard : DataList
 
-/**
- * Todo: loading state
- * @param results
- * @returns {*}
- */
+  // Get the total count for all data types
+  const totalCount = results.length ? [0, ...results].reduce((acc, cur) => acc + cur.count) : 0
 
-export default ({ results }) => {
-  if (results.length) {
-    return results.map(result =>
-      result.results && result.results.length ? (
-        <div key={result.type}>
-          <Divider />
-          <Heading $as="h2">{result.label}</Heading>
-          <ul>
-            {result.results.map(location => (
-              <li key={location.id}>
-                <StyledLink
-                  to={toDataDetail([location.id, 'bag', 'nummeraanduiding'])}
-                  $as={RouterLink}
-                  variant="with-chevron"
-                >
-                  {location.label}
-                </StyledLink>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null,
-    )
-  }
-  return null
+  // Get all the labels of the type that the user has no access to
+  const unauthorized =
+    errors.length &&
+    errors
+      .filter(({ code }) => code && code === 'UNAUTHORIZED')
+      .map(({ label }) => label && label.toLowerCase())
+
+  return totalCount > 0 ? (
+    <>
+      {results.map(result =>
+        result.results && result.results.length ? (
+          <CardWrapper key={result.type} compact={compact}>
+            <Card {...{ ...result, showLoadMore }} />
+          </CardWrapper>
+        ) : null,
+      )}
+      <>
+        {unauthorized ? (
+          <MoreResultsWhenLoggedIn excludedResults={unauthorized.join(', ')} />
+        ) : null}
+      </>
+    </>
+  ) : (
+    <NoDataSearchResults query={query} unauthorized={unauthorized} />
+  )
 }

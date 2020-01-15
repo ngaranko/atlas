@@ -20,22 +20,22 @@
     "lint": "npm run lint:js",
     "lint:js": "eslint --format=node_modules/eslint-formatter-pretty src modules test/e2e/cypress --ext js,jsx",
     "postinstall": "cp .env.development .env",
-    "start": "concurrently \"cp .env.development .env && webpack-dev-server --config webpack.development.js\"",
+    "start": "webpack-dev-server --config webpack.development.js",
     "start:prod": "cp .env.production .env && webpack-dev-server --config webpack.development.js",
     "storybook": "start-storybook -p 6007",
     "test": "concurrently \"karma start\" \"jest\"",
-    "test:jest": "jest",
-    "test:jest:watch": "npm run test:jest -- --watch --onlyChanged --coverage",
+    "test:jest": "jest --coverage",
+    "test:jest:watch": "npm run test:jest -- --watch --onlyChanged",
     "test:karma": "karma start",
     "test:karma:watch": "npm run test:karma -- --no-single-run",
     "prettier": "prettier --write \"./**/*.{js,jsx,scss,css}\""
   },
   "dependencies": {
-    "@datapunt/asc-assets": "^0.17.7",
-    "@datapunt/asc-core": "^0.17.7",
-    "@datapunt/asc-ui": "^0.17.6-alpha.16",
-    "@datapunt/matomo-tracker-js": "0.0.11",
-    "@datapunt/matomo-tracker-react": "0.0.11",
+    "@datapunt/asc-assets": "^0.17.8-alpha.18",
+    "@datapunt/asc-core": "^0.17.8-alpha.22",
+    "@datapunt/asc-ui": "^0.17.8-alpha.28",
+    "@datapunt/matomo-tracker-js": "0.0.16",
+    "@datapunt/matomo-tracker-react": "0.0.16",
     "@sentry/browser": "5.6.1",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
@@ -158,7 +158,7 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "3.0.5",
     "mini-css-extract-plugin": "0.8.0",
-    "node-sass": "4.11.0",
+    "node-sass": "4.13.0",
     "postcss-loader": "3.0.0",
     "prettier": "1.18.2",
     "react-test-renderer": "16.8.6",
@@ -178,7 +178,7 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "engines": {
-    "node": ">=8 <12"
+    "node": ">=8 <=12"
   },
   "husky": {
     "hooks": {

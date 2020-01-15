@@ -92,7 +92,7 @@ const FeedbackModalComponent = ({
     </ModalBlock>
     <Divider transparent />
     <ModalBlock>
-      <Link linkType="inline" to={toHelpPage} $as={RouterLink}>
+      <Link variant="inline" to={toHelpPage()} onClick={handleClose} $as={RouterLink}>
         Hulp nodig?
       </Link>
     </ModalBlock>
