@@ -98,7 +98,7 @@ export default {
     query: specialSearchQuery,
     to: toSpecialSearch,
     label: routing.specials.title,
-    type: TYPES.SPECIAL,
+    type: EDITORIAL_TYPES.SPECIAL,
   },
   [routing.specials.page]: {
     resolver: QUERY_TYPES[routing.specialSearch.page],
