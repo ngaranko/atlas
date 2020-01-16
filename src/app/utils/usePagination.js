@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useReducer } from 'react'
 import { useQuery } from 'urql'
-import { useSelector } from 'react-redux'
 import { QUERY_TYPES } from '../pages/SearchPage/config'
-import { getPage } from '../../store/redux-first-router/selectors'
 
 function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value)
@@ -110,13 +108,11 @@ const usePagination = (config, input, sortString, limit, initialFrom) => {
     variables: { limit, from, sort, ...input },
   })
 
-  const currentPage = useSelector(getPage)
-
-  // Since we currentPage is attached to redux, it will update before resetting the hook reducer state.
-  // Therefore we need to use "useLayoutEffect" to reset the state synchronously when the DOM mutates
+  // Reset the state when changing the query, searchQuery or filters
+  // Todo: consider unify types and filters
   useLayoutEffect(() => {
     dispatch({ type: RESET, payload: initialState })
-  }, [currentPage])
+  }, [config.query, input.q, input.types, input.filters])
 
   const fetchMore = useCallback(() => {
     dispatch({ type: SET_LIMIT, payload: limit })
