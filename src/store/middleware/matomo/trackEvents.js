@@ -152,24 +152,6 @@ const trackEvents = {
         ]
     }
   },
-  // SITE SEARCH -> ARTICLES SWITCH TAB
-  [routing.articleSearch.type]: ({ firstAction = null, query }) => {
-    // TODO DP-7130
-    const searchQuery = 'articleSearch'
-    const numberOfResults = 0
-    return firstAction && (searchQuery && searchQuery.length > 0) && query.term === searchQuery
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'articles', numberOfResults]
-      : []
-  },
-  // SITE SEARCH -> PUBLICATIONS SWITCH TAB
-  [routing.publicationSearch.type]: ({ firstAction = null, query }) => {
-    // TODO DP-7130
-    const searchQuery = 'publicationSearch'
-    const numberOfResults = 0
-    return firstAction && (searchQuery && searchQuery.length > 0) && query.term === searchQuery
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'publications', numberOfResults]
-      : []
-  },
   // DATASETS
   // DATASETS -> CLICK RESOURCE ON DATASET_DETAIL
   [DOWNLOAD_DATASET_RESOURCE]: ({ tracking }) => [

@@ -1,17 +1,13 @@
-import React from 'react'
-import ReduxContext from '../../store/reduxContext'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { routing } from '../routes'
 import { getLocationType } from '../../store/redux-first-router/selectors'
 
 const TITLE = 'Data en informatie - Amsterdam'
 
 function useDocumentTitle() {
-  const store = React.useContext(ReduxContext)
-  const state = store.getState()
-
-  const { title: storeTitle } = Object.values(routing).find(
-    value => value.type === getLocationType(state),
-  )
+  const locationType = useSelector(getLocationType)
+  const { title: storeTitle } = Object.values(routing).find(value => value.type === locationType)
 
   const [documentTitle, setTitle] = React.useState(`${storeTitle} - ${TITLE}`)
 
@@ -22,6 +18,10 @@ function useDocumentTitle() {
 
     return newTitle
   }
+
+  useEffect(() => {
+    setDocumentTitle(storeTitle)
+  }, [setDocumentTitle, storeTitle])
 
   return {
     documentTitle,
