@@ -13,9 +13,8 @@ import {
   Heading,
   Spinner,
   styles,
-  constants,
 } from '@datapunt/asc-ui'
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import { Close } from '@datapunt/asc-assets'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
@@ -41,21 +40,26 @@ const FilterColumn = styled(Column)`
   }
 `
 
-const StyledModal = styled(Modal)`
+const FILTER_BOX_WIDTH_CSS = css`
   @media screen and ${breakpoint('min-width', 'mobileL')} {
     width: calc(100% - ${themeSpacing(10)});
     max-width: calc(400px + ${themeSpacing(12)});
   }
+`
+
+const StyledModal = styled(Modal)`
+  ${FILTER_BOX_WIDTH_CSS}
 
   ${FilterColumn} {
     top: 0;
     width: 100%;
     position: relative;
-    margin-bottom: ${themeSpacing(20)};
     display: block;
     overflow-y: auto;
     left: 0;
     right: ${themeSpacing(5)};
+    flex-grow: 1;
+    padding-bottom: ${themeSpacing(24)};
 
     @media screen and ${breakpoint('max-width', 'mobileL')} {
       ${styles.FilterBoxStyle} {
@@ -64,7 +68,8 @@ const StyledModal = styled(Modal)`
       }
     }
     @media screen and ${breakpoint('min-width', 'mobileL')} {
-      padding: 0 ${themeSpacing(5)};
+      padding-left: ${themeSpacing(5)};
+      padding-right: ${themeSpacing(5)};
     }
   }
 
@@ -73,12 +78,13 @@ const StyledModal = styled(Modal)`
     flex-direction: column;
     justify-content: flex-start;
     position: relative;
-    top: ${constants.HEADER_HEIGHT_SMALL}px;
     height: 100vh;
     max-height: 100%;
     max-width: initial;
+    top: 0;
     left: 0;
     bottom: 0;
+    pointer-events: all;
     transform: initial;
   }
 `
@@ -88,8 +94,8 @@ const ModalCloseButton = styled(Button)`
 `
 
 const ApplyFilters = styled.div`
-  position: sticky;
-  bottom: ${constants.HEADER_HEIGHT_SMALL}px;
+  position: fixed;
+  bottom: 0;
   left: 0;
   z-index: 30; // Todo: implement better z-index strategy
   width: 100%;
@@ -99,6 +105,8 @@ const ApplyFilters = styled.div`
   background-color: #fff;
   box-shadow: 0 0 ${themeSpacing(2)} 1px black;
   margin-top: auto;
+
+  ${FILTER_BOX_WIDTH_CSS}
 `
 
 const ApplyFiltersButton = styled(Button)`
