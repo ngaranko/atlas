@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState } from 'react'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 import get from 'lodash.get'
 import { clearAllBodyScrollLocks, enableBodyScroll } from 'body-scroll-lock'
 import {
@@ -32,6 +33,7 @@ import SearchPageFilters from './SearchPageFilters'
 import useCompare from '../../utils/useCompare'
 import useSelectors from '../../utils/useSelectors'
 import { getActiveFilters, getQuery, getSort } from './SearchPageDucks'
+import useDocumentTitle from '../../utils/useDocumentTitle'
 
 const FilterColumn = styled(Column)`
   align-content: flex-start;
@@ -117,6 +119,15 @@ const SearchPage = ({ isOverviewPage, currentPage }) => {
   const [query, sort, activeFilters] = useSelectors([getQuery, getSort, getActiveFilters])
   const from = 0
   const defaultSort = isOverviewPage ? 'date:desc' : ''
+
+  const { documentTitle } = useDocumentTitle()
+  const { trackPageView } = useMatomo()
+
+  useEffect(() => {
+    if (documentTitle) {
+      trackPageView({ documentTitle })
+    }
+  }, [documentTitle])
 
   const {
     fetching,

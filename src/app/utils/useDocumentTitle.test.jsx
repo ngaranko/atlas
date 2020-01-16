@@ -1,9 +1,11 @@
 import React from 'react'
+import * as reactRedux from 'react-redux'
 import { shallow } from 'enzyme'
 import useDocumentTitle from './useDocumentTitle'
 import * as routes from '../routes'
 import { getLocationType } from '../../store/redux-first-router/selectors'
 
+jest.mock('react-redux')
 jest.mock('../routes')
 jest.mock('../../store/redux-first-router/selectors')
 
@@ -17,6 +19,8 @@ describe('useDocumentTitle', () => {
   let realUseContext
   let useContextMock
   const mockTitle = 'The title!'
+
+  reactRedux.useSelector.mockImplementation(() => 'SOME_TYPE')
 
   beforeEach(() => {
     realUseContext = React.useContext

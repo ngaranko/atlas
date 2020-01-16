@@ -3,6 +3,8 @@ import { useQuery } from 'urql'
 import usePagination from './usePagination'
 
 jest.mock('urql')
+jest.mock('react-redux')
+
 jest.useFakeTimers()
 
 describe('usePagination', () => {
