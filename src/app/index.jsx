@@ -5,7 +5,6 @@ import App from './App'
 import configureStore from '../store/store'
 import routes from './routes'
 import resolveRedirects from './redirects'
-import ReduxContext from '../store/reduxContext'
 import './sentry'
 
 if ('serviceWorker' in navigator) {
@@ -23,9 +22,7 @@ resolveRedirects().then(hasToRedirect => {
 
     ReactDOM.render(
       <Provider store={store}>
-        <ReduxContext.Provider value={store}>
-          <App />
-        </ReduxContext.Provider>
+        <App />
       </Provider>,
       document.getElementById('root'),
     )

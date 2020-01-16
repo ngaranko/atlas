@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@datapunt/asc-core'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 import { breakpoint, Label, Select, themeColor, themeSpacing } from '@datapunt/asc-ui'
 import { useDispatch } from 'react-redux'
 import { setSort } from './SearchPageDucks'
@@ -36,6 +37,7 @@ const StyledLabel = styled(Label)`
 
 const SearchSort = ({ sort, isOverviewPage }) => {
   const dispatch = useDispatch()
+  const { trackEvent } = useMatomo()
 
   return (
     <SelectboxWrapper>
@@ -43,7 +45,14 @@ const SearchSort = ({ sort, isOverviewPage }) => {
         <StyledSelect
           id="sort-select"
           value={sort}
-          onChange={e => dispatch(setSort(e.target.value))}
+          onChange={e => {
+            trackEvent({
+              category: 'search',
+              action: 'sort',
+              name: e.target.value,
+            })
+            dispatch(setSort(e.target.value))
+          }}
         >
           {!isOverviewPage && <option value="">Relevantie</option>}
           <option value={!isOverviewPage ? 'date:desc' : ''}>Publicatiedatum aflopend</option>

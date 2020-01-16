@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Checkbox, Label, RadioGroup, Radio } from '@datapunt/asc-ui'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 import FilterBox from '../FilterBox'
 import {
   addActiveFilter,
@@ -18,6 +19,7 @@ const SearchFilters = ({ availableFilters, hideCount }) => {
   const { options, label, totalCount, filterType, type } = availableFilters
   const dispatch = useDispatch()
   const activeFilters = useSelector(getActiveFilters)
+  const { trackEvent } = useMatomo()
 
   const currentFilters = (activeFilters.find(({ type: _type }) => type === _type) || {}).values
 
@@ -28,8 +30,18 @@ const SearchFilters = ({ availableFilters, hideCount }) => {
     const { value, checked } = e.target
 
     if (checked) {
+      trackEvent({
+        category: 'search',
+        action: 'enable-filter',
+        name: `${type}-${value}`,
+      })
       dispatch(addActiveFilter(type, value, isRadio))
     } else {
+      trackEvent({
+        category: 'search',
+        action: 'disable-filter',
+        name: `${type}-${value}`,
+      })
       dispatch(removeActiveFilter(type, value))
     }
   }

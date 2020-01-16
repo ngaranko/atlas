@@ -69,6 +69,12 @@ delete views[routing.datasetDetail.type]
 delete views[routing.articleDetail.type]
 delete views[routing.publicationDetail.type]
 delete views[routing.specialDetail.type]
+delete views[routing.specialSearch.type]
+delete views[routing.publicationSearch.type]
+delete views[routing.articleSearch.type]
+delete views[routing.dataSearch.type]
+delete views[routing.search.type]
+delete views[routing.datasetSearch.type]
 
 const trackViews = views
 
