@@ -61,7 +61,7 @@ const StyledModal = styled(Modal)`
     left: 0;
     right: ${themeSpacing(5)};
     flex-grow: 1;
-    padding-bottom: ${themeSpacing(24)};
+    margin-bottom: ${themeSpacing(19)};
 
     @media screen and ${breakpoint('max-width', 'mobileL')} {
       ${styles.FilterBoxStyle} {
