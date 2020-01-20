@@ -63,7 +63,7 @@ const NoDataSearchResults = ({ query, unauthorized }) => {
       <br />
       <br />
       <Heading $as="h2">Ingelogde medewerkers</Heading>
-      {unauthorized && (
+      {!!unauthorized && (
         <Paragraph>
           Medewerkers/ketenpartners van Gemeente Amsterdam kunnen{' '}
           <Link variant="inline" $as="button" onClick={handleLogin}>

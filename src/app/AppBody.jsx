@@ -2,11 +2,14 @@ import React, { Suspense } from 'react'
 import PropTypes from 'prop-types'
 import styled from '@datapunt/asc-core'
 import Helmet from 'react-helmet'
+import { useSelector } from 'react-redux'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
 import PAGES, { isMapSplitPage, isEditorialOverviewPage, isSearchPage } from './pages'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
+import { getQuery } from './pages/SearchPage/SearchPageDucks'
+import NoQueryPage from './pages/SearchPage/NoQueryPage'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
 const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'))
@@ -25,8 +28,9 @@ const MovedPage = React.lazy(() => import('./pages/MovedPage'))
 const SearchPage = React.lazy(() => import('./pages/SearchPage/index'))
 
 // The Container from @datapunt/asc-ui isnt used here as the margins added do not match the ones in the design
-const Container = styled.div`
-  min-height: 50vh; // Makes sure the loading indicator is displayed in the Container
+const AppContainer = styled.div`
+  flex-grow: 1;
+  min-height: 50vh; // IE11: Makes sure the loading indicator is displayed in the Container
 `
 
 const AppBody = ({
@@ -36,10 +40,11 @@ const AppBody = ({
   homePage,
   currentPage,
   embedPreviewMode,
-}) =>
-  hasGrid ? (
+}) => {
+  const query = useSelector(getQuery)
+  return hasGrid ? (
     <>
-      <Container id="main" className="main-container">
+      <AppContainer id="main" className="main-container">
         <Helmet>
           <meta
             name="viewport"
@@ -60,9 +65,10 @@ const AppBody = ({
           {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
           {currentPage === PAGES.MOVED && <MovedPage />}
           {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
-          {isSearchPage(currentPage) && <SearchPage currentPage={currentPage} />}
+          {isSearchPage(currentPage) &&
+            (query ? <SearchPage currentPage={currentPage} query={query} /> : <NoQueryPage />)}
         </Suspense>
-      </Container>
+      </AppContainer>
       <FeedbackModal id="feedbackModal" />
       <InfoModal id="infoModal" open />
     </>
@@ -98,6 +104,7 @@ const AppBody = ({
       </Suspense>
     </>
   )
+}
 
 AppBody.propTypes = {
   visibilityError: PropTypes.bool.isRequired,
