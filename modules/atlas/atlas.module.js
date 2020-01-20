@@ -5,8 +5,6 @@ import 'angular-sanitize'
 ;(function() {
   const moduleDependencies = [
     // Main modules
-    'dpHeader',
-    'dpPage',
     'dpDetail',
     'dpDataSelection',
 
