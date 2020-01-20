@@ -57,6 +57,38 @@ describe('DataSearchResults', () => {
     })
   })
 
+  it('adds a prop to the DataList component when a type cannot be loaded', () => {
+    const component = shallow(
+      <DataSearchResults
+        errors={[{ code: 'GATEWAY_TIMEOUT', type: 'foo' }, { code: 'ERROR', type: 'abc' }]}
+        results={[
+          {
+            count: 1,
+            type: 'foo',
+            results: [],
+          },
+          {
+            count: 3,
+            type: 'abc',
+            results: [],
+          },
+        ]}
+      />,
+    )
+
+    const dataList = component.find('DataList')
+
+    expect(dataList.at(0).exists()).toBeTruthy()
+    expect(dataList.at(0).props()).toMatchObject({
+      hasLoadingError: true,
+    })
+
+    expect(dataList.at(1).exists()).toBeTruthy()
+    expect(dataList.at(1).props()).toMatchObject({
+      hasLoadingError: true,
+    })
+  })
+
   it('shows the no results component', () => {
     let component
     component = shallow(<DataSearchResults results={[]} />)
