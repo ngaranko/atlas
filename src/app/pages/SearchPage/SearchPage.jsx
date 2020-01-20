@@ -221,6 +221,7 @@ const SearchPage = ({ isOverviewPage, currentPage }) => {
             open={showFilter}
             onClose={() => setShowFilter(false)}
             hideOverFlow={false}
+            zIndexOffset={1}
           >
             <TopBar>
               <Heading style={{ flexGrow: 1 }} as="h4">
