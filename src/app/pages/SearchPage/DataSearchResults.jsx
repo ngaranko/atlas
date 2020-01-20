@@ -23,15 +23,22 @@ export default ({ query, results, errors = [], compact, showLoadMore }) => {
       .filter(({ code }) => code && code === 'UNAUTHORIZED')
       .map(({ label }) => label && label.toLowerCase())
 
+  const loadingErrors =
+    errors.length &&
+    errors.filter(({ code }) => code && (code === 'GATEWAY_TIMEOUT' || code === 'ERROR'))
+
   return totalCount > 0 ? (
     <>
-      {results.map(result =>
-        result.results && result.results.length ? (
+      {results.map(result => {
+        const hasLoadingError =
+          loadingErrors.length && loadingErrors.find(({ type }) => type === result.type)
+
+        return (result.results && result.results.length > 0) || hasLoadingError ? (
           <CardWrapper key={result.type} compact={compact}>
-            <Card {...{ ...result, showLoadMore }} />
+            <Card {...{ ...result, showLoadMore, hasLoadingError: !!hasLoadingError }} />
           </CardWrapper>
-        ) : null,
-      )}
+        ) : null
+      })}
       <>
         {unauthorized ? (
           <MoreResultsWhenLoggedIn excludedResults={unauthorized.join(', ')} />

@@ -42,8 +42,12 @@ export const ErrorBackgroundCSS = css`
   }
 `
 
-const ErrorMessage = ({ onClick = () => window.location.reload(), absolute = true }) => (
-  <ErrorMessageStyle absolute={absolute}>
+const ErrorMessage = ({
+  onClick = () => window.location.reload(),
+  absolute = false,
+  ...otherProps
+}) => (
+  <ErrorMessageStyle absolute={absolute} {...otherProps}>
     <Paragraph>Er is een fout opgetreden bij het laden van dit blok.</Paragraph>
     <Button type="button" onClick={onClick} variant="primary" taskflow={false}>
       Probeer opnieuw

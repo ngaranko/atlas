@@ -99,7 +99,7 @@ const AboutBlock = () => {
           </StyledHeading>
 
           <StyledRow hasMargin={false} showError={errorAboutData}>
-            {errorAboutData && <ErrorMessage onClick={() => {}} absolute={false} />}
+            {errorAboutData && <ErrorMessage onClick={() => {}} />}
             {resultsAboutData &&
               resultsAboutData.map((aboutData, index) => (
                 <StyledCardColumn
@@ -118,7 +118,7 @@ const AboutBlock = () => {
           </StyledHeading>
 
           <StyledRow hasMargin={false} showError={errorAbout}>
-            {errorAbout && <ErrorMessage onClick={() => {}} absolute={false} />}
+            {errorAbout && <ErrorMessage onClick={() => {}} />}
             {resultsAbout &&
               resultsAbout.map((about, index) => (
                 <StyledCardColumn

@@ -1,5 +1,5 @@
 import styled from '@datapunt/asc-core'
-import { Icon, Link, themeSpacing } from '@datapunt/asc-ui'
+import { Icon, Link, themeSpacing, breakpoint } from '@datapunt/asc-ui'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import { toDataSearch, toDetailFromEndpoint } from '../../../store/redux-first-router/actions'
@@ -9,6 +9,7 @@ import SearchHeading from '../SearchHeading/SearchHeading'
 import DataIcon from './DataIcon'
 import PARAMETERS from '../../../store/parameters'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
+import ErrorMessage from '../HomePage/ErrorMessage'
 
 const List = styled.ul`
   margin-bottom: ${({ showLoadMore }) => !showLoadMore && themeSpacing(6)};
@@ -35,6 +36,12 @@ const StyledIcon = styled(Icon)`
     height: 40px;
   }
 `
+const StyledErrorMessage = styled(ErrorMessage)`
+  @media screen and ${breakpoint('min-width', 'mobileL')} {
+    width: 50%;
+  }
+`
+
 const showSubtype = (type, subtype) =>
   type === 'ligplaats' ||
   type === 'standplaats' ||
@@ -54,20 +61,25 @@ const DataList = ({ type, label, count, results, showLoadMore }) => (
         </StyledIcon>
       }
     />
-    <List showLoadMore={showLoadMore}>
-      {results.map(location => (
-        <li key={location.id}>
-          <StyledLink
-            to={toDetailFromEndpoint(location.endpoint, VIEW_MODE.SPLIT)}
-            $as={RouterLink}
-            variant="with-chevron"
-          >
-            {location.label}
-            {showSubtype(location.type, location.subtype) ? ` (${location.subtype})` : ''}
-          </StyledLink>
-        </li>
-      ))}
-    </List>
+
+    {results ? (
+      <List showLoadMore={showLoadMore}>
+        {results.map(location => (
+          <li key={location.id}>
+            <StyledLink
+              to={toDetailFromEndpoint(location.endpoint, VIEW_MODE.SPLIT)}
+              $as={RouterLink}
+              variant="with-chevron"
+            >
+              {location.label}
+              {showSubtype(location.type, location.subtype) ? ` (${location.subtype})` : ''}
+            </StyledLink>
+          </li>
+        ))}
+      </List>
+    ) : (
+      <StyledErrorMessage />
+    )}
     {!showLoadMore && count > DEFAULT_LIMIT && (
       <SearchLink
         to={toDataSearch(

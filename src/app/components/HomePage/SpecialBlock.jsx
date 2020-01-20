@@ -76,7 +76,7 @@ const SpecialBlock = () => {
         </Column>
       </Row>
       <CardRow showError={error}>
-        {error && <ErrorMessage />}
+        {error && <ErrorMessage absolute />}
         <StyledRow hasMargin={false}>
           {specials &&
             specials.map((special, index) => (
