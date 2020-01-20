@@ -31,7 +31,7 @@ import usePagination from '../../utils/usePagination'
 import SearchPageFilters from './SearchPageFilters'
 import useCompare from '../../utils/useCompare'
 import useSelectors from '../../utils/useSelectors'
-import { getActiveFilters, getQuery, getSort } from './SearchPageDucks'
+import { getActiveFilters, getSort } from './SearchPageDucks'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 
 const FilterColumn = styled(Column)`
@@ -120,11 +120,11 @@ const ApplyFiltersButton = styled(Button)`
 
 /* TODO: Write tests for the Hooks used in this component */
 /* istanbul ignore next */
-const SearchPage = ({ isOverviewPage, currentPage }) => {
+const SearchPage = ({ isOverviewPage, currentPage, query }) => {
   const [extraQuery, setExtraQuery] = useState({})
   const [showLoadMore, setShowLoadMore] = useState(false)
   const [showFilter, setShowFilter] = useState(false)
-  const [query, sort, activeFilters] = useSelectors([getQuery, getSort, getActiveFilters])
+  const [sort, activeFilters] = useSelectors([getSort, getActiveFilters])
   const from = 0
   const defaultSort = isOverviewPage ? 'date:desc' : ''
 

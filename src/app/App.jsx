@@ -39,8 +39,11 @@ import Footer from './components/Footer/Footer'
 import getState from '../shared/services/redux/get-state'
 
 const StyledContainer = styled(Container)`
+  min-height: 100%;
   background-color: ${themeColor('tint', 'level1')};
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   @media screen and ${breakpoint('min-width', 'laptopM')} {
     margin: 0 ${themeSpacing(6)};
