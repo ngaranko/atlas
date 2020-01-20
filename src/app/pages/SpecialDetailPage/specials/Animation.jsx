@@ -15,6 +15,7 @@ import Video from '../../../components/Video/Video'
 
 const StyledColumn = styled(Column)`
   margin-bottom: ${themeSpacing(5)};
+  align-self: flex-start;
 
   // The video tag is target through the column as the Video component is using a complex SASS setup, this can be changed if that component gets refactored in the future
   & video {
