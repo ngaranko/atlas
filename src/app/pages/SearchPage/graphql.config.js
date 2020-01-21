@@ -13,7 +13,7 @@ const filters = `
   }
 `
 
-const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit, from: $from, types: $types, filters: $filters, sort: $sort}) {
+export const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit, from: $from, types: $types, filters: $filters, sort: $sort}) {
   totalCount
   ${filters}
   results {

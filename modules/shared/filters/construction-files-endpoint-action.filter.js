@@ -11,8 +11,7 @@ import { toConstructionFilesFromEndpoint } from '../../../src/store/redux-first-
       if (!endpoint) {
         return
       }
-      const action = toConstructionFilesFromEndpoint(endpoint)
-      return action
+      return toConstructionFilesFromEndpoint(endpoint)
     }
   }
 })()

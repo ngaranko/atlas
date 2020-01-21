@@ -16,7 +16,7 @@
     </div>
 
     <!-- Vestiging -->
-    <div ng-if-"apiData.results.hoofdadres.landelijk_id" class="c-detail__block">
+    <div ng-if="apiData.results.hoofdadres.landelijk_id" class="c-detail__block">
         <dp-glossary-header definition="VESTIGING" use-plural="true" />
 
         <dp-panel is-panel-visible="!user.scopes.includes('HR/R')" can-close="true" type="warning">
