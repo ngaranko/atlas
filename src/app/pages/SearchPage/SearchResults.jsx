@@ -4,7 +4,7 @@ import { themeSpacing } from '@datapunt/asc-ui'
 import SEARCH_PAGE_CONFIG from './config'
 import SearchHeading from '../../components/SearchHeading/SearchHeading'
 import SearchLink from '../../components/Links/SearchLink/SearchLink'
-import SearchResultsComponent from './SearchResultsComponent'
+import SearchResults, { SearchResultsSkeleton } from './SearchResultsComponent'
 import NoSearchResults from '../../components/NoSearchResults'
 import ErrorMessage from '../../components/HomePage/ErrorMessage'
 
@@ -16,7 +16,7 @@ const ResultItem = styled.div`
   margin-bottom: ${themeSpacing(18)};
 `
 
-export const SearchResultsOverview = ({ query, totalCount, results, errors, loading }) =>
+const SearchResultsOverview = ({ query, totalCount, results, errors, loading }) =>
   results.length > 0 && totalCount ? (
     results.map(
       ({ type: resultItemType, results: resultItemResults, totalCount: resultItemTotalCount }) => {
@@ -41,7 +41,7 @@ export const SearchResultsOverview = ({ query, totalCount, results, errors, load
             />
             <ResultsComponent>
               {hasResults ? (
-                <SearchResultsComponent
+                <SearchResults
                   data-test={resultItemType}
                   {...{
                     page: resultItemType,
@@ -66,5 +66,29 @@ export const SearchResultsOverview = ({ query, totalCount, results, errors, load
   ) : (
     <NoSearchResults data-test="NoSearchResults" query={query} />
   )
+
+const PLACEHOLDER_RESULTS = [
+  { type: 'SPECIALS_SEARCH' },
+  { type: 'DATA_SEARCH' },
+  { type: 'PUBLICATION_SEARCH' },
+  { type: 'DATASET_SEARCH' },
+  { type: 'ARTICLE_SEARCH' },
+]
+
+export const SearchResultsOverviewSkeleton = () =>
+  PLACEHOLDER_RESULTS.map(({ type: resultItemType }) => {
+    const to = SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].to()
+    const label = SEARCH_PAGE_CONFIG[resultItemType] && SEARCH_PAGE_CONFIG[resultItemType].label
+
+    return (
+      <ResultItem key={resultItemType}>
+        <SearchHeading label={label} />
+        <ResultsComponent>
+          <SearchResultsSkeleton />
+        </ResultsComponent>
+        <SearchLink to={to} label={`Resultaten tonen binnen de categorie '${label}'`} />
+      </ResultItem>
+    )
+  })
 
 export default SearchResultsOverview

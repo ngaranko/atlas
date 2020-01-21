@@ -1,4 +1,6 @@
 import React from 'react'
+import styled from '@datapunt/asc-core'
+import { CardContainer, Card } from '@datapunt/asc-ui'
 import EditorialResults from '../../components/EditorialResults'
 import SEARCH_PAGE_CONFIG, {
   EDITORIAL_SEARCH_PAGES,
@@ -8,7 +10,9 @@ import SEARCH_PAGE_CONFIG, {
 import DataSearchResults from './DataSearchResults'
 import DatasetSearchResults from './DatasetSearchResults'
 
-const SearchResultsComponent = ({ page, ...props }) => {
+const MAX_ITEMS = 5
+
+const SearchResults = ({ page, ...props }) => {
   if (EDITORIAL_SEARCH_PAGES.includes(page)) {
     const { label, type } = SEARCH_PAGE_CONFIG[page]
 
@@ -45,4 +49,18 @@ const SearchResultsComponent = ({ page, ...props }) => {
   return <></>
 }
 
-export default SearchResultsComponent
+const SkeletonCard = styled(Card)`
+  min-height: 160px;
+`
+
+export const SearchResultsSkeleton = ({ page }) => {
+  return (
+    <CardContainer>
+      {[...Array(MAX_ITEMS).keys()].map(index => (
+        <SkeletonCard key={`${page}-${index}`} isLoading />
+      ))}
+    </CardContainer>
+  )
+}
+
+export default SearchResults

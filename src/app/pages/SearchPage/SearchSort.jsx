@@ -35,7 +35,7 @@ const StyledLabel = styled(Label)`
   }
 `
 
-const SearchSort = ({ sort, isOverviewPage }) => {
+const SearchSort = ({ sort, isOverviewPage, disabled }) => {
   const dispatch = useDispatch()
   const { trackEvent } = useMatomo()
 
@@ -45,6 +45,7 @@ const SearchSort = ({ sort, isOverviewPage }) => {
         <StyledSelect
           id="sort-select"
           value={sort}
+          disabled={disabled}
           onChange={e => {
             trackEvent({
               category: 'search',
