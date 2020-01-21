@@ -127,7 +127,7 @@ const SearchPageResults = ({
               </FilterWrapper>
               <ResultWrapper>
                 {allResultsPageActive ? (
-                  <SearchResults {...{ query, totalCount, results, loading: fetching }} />
+                  <SearchResults {...{ query, totalCount, results, errors, loading: fetching }} />
                 ) : (
                   <SearchResultsComponent
                     {...{
