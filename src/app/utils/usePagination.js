@@ -78,7 +78,11 @@ const reducer = (state, action) => {
 
       return {
         ...state,
-        errors: graphQLErrors.map(({ message, extensions }) => ({ message, ...extensions })),
+        errors: graphQLErrors.map(({ message, path, extensions }) => ({
+          message,
+          query: path[0],
+          ...extensions,
+        })),
       }
     }
 

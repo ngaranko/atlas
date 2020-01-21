@@ -20,7 +20,7 @@ const ErrorMessageStyle = styled.div`
   z-index: 1;
   background-color: white;
   padding: ${themeSpacing(5)};
-  border: 1px solid ${themeColor('tint', 'level4')};
+  border: 1px solid ${themeColor('tint', 'level3')};
   text-align: center;
 `
 
