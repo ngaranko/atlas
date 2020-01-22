@@ -117,10 +117,7 @@ module.exports = () => {
       runtimeChunk: true,
     },
     plugins: [
-      new MiniCssExtractPlugin({
-        filename: 'main.[name].css',
-        chunkFilename: '[id].css?id=[chunkhash]',
-      }),
+      new MiniCssExtractPlugin('main.[contenthash].css'),
       new GenerateSW({
         importWorkboxFrom: 'local',
         clientsClaim: true,
