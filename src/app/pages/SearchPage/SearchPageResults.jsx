@@ -10,12 +10,11 @@ import {
   themeColor,
 } from '@datapunt/asc-ui'
 import { Enlarge } from '@datapunt/asc-assets'
-import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
 import SEARCH_PAGE_CONFIG, { EDITORIAL_SEARCH_PAGES } from './config'
 import ActionButton from '../../components/ActionButton/ActionButton'
-import SearchResultsComponent from './SearchResultsComponent'
-import SearchResults from './SearchResults'
+import SearchResults, { SearchResultsSkeleton } from './SearchResultsComponent'
+import SearchResultsOverview, { SearchResultsOverviewSkeleton } from './SearchResults'
 import SearchSort from './SearchSort'
 
 const StyledHeading = styled(Heading)`
@@ -91,8 +90,21 @@ const SearchPageResults = ({
 
   const allResultsPageActive = currentPage === PAGES.SEARCH
 
-  const setTitle = (label, count) =>
-    isOverviewPage ? `${label} (${count})` : `${label} met '${query}' (${count} resultaten)`
+  const formatTitle = (label, count = null) => {
+    if (count === 0) {
+      return `Geen resultaten met '${query}'`
+    }
+
+    if (count === null) {
+      return isOverviewPage ? label : `${label} met '${query}'`
+    }
+
+    const countFormatted = count.toLocaleString('nl-NL')
+
+    return isOverviewPage
+      ? `${label} (${countFormatted})`
+      : `${label} met '${query}' (${countFormatted} resultaten)`
+  }
 
   return (
     <ResultColumn
@@ -100,58 +112,50 @@ const SearchPageResults = ({
       span={{ small: 12, medium: 12, big: 12, large: 7, xLarge: 8 }}
       push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
     >
-      {initialLoading ? (
-        <LoadingIndicator style={{ position: 'inherit' }} />
-      ) : (
-        <>
-          {!initialLoading && (
-            <StyledHeading>
-              {doneLoading && totalCount !== 0
-                ? setTitle(
-                    SEARCH_PAGE_CONFIG[currentPage].label,
-                    totalCount.toLocaleString('nl-NL'),
-                  )
-                : `Geen resultaten met '${query}'`}
-            </StyledHeading>
+      <StyledHeading>
+        {doneLoading
+          ? formatTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
+          : formatTitle(SEARCH_PAGE_CONFIG[currentPage].label)}
+      </StyledHeading>
+      <FilterWrapper>
+        <FilterButton variant="primary" onClick={() => setShowFilter(true)} disabled={!doneLoading}>
+          Filteren
+        </FilterButton>
+        {EDITORIAL_SEARCH_PAGES.includes(currentPage) && (
+          <SearchSort isOverviewPage={isOverviewPage} sort={sort} disabled={!doneLoading} />
+        )}
+        {EDITORIAL_SEARCH_PAGES.includes(currentPage) && <StyledDivider />}
+      </FilterWrapper>
+      {initialLoading && (
+        <ResultWrapper>
+          {allResultsPageActive ? <SearchResultsOverviewSkeleton /> : <SearchResultsSkeleton />}
+        </ResultWrapper>
+      )}
+      {doneLoading && (
+        <ResultWrapper>
+          {allResultsPageActive ? (
+            <SearchResultsOverview {...{ query, totalCount, results, errors, loading: fetching }} />
+          ) : (
+            <SearchResults
+              {...{
+                page: currentPage,
+                query,
+                results,
+                errors,
+                loading: fetching,
+                showLoadMore,
+                isOverviewPage,
+              }}
+            />
           )}
-          {doneLoading && (
-            <>
-              <FilterWrapper>
-                <FilterButton variant="primary" onClick={() => setShowFilter(true)}>
-                  Filteren
-                </FilterButton>
-                {EDITORIAL_SEARCH_PAGES.includes(currentPage) && (
-                  <SearchSort isOverviewPage={isOverviewPage} sort={sort} />
-                )}
-                {EDITORIAL_SEARCH_PAGES.includes(currentPage) && <StyledDivider />}
-              </FilterWrapper>
-              <ResultWrapper>
-                {allResultsPageActive ? (
-                  <SearchResults {...{ query, totalCount, results, errors, loading: fetching }} />
-                ) : (
-                  <SearchResultsComponent
-                    {...{
-                      page: currentPage,
-                      query,
-                      results,
-                      errors,
-                      loading: fetching,
-                      showLoadMore,
-                      isOverviewPage,
-                    }}
-                  />
-                )}
-                {showLoadMore && hasMore && (
-                  <ActionButton
-                    label="Toon meer"
-                    iconLeft={<Enlarge />}
-                    {...{ fetching: fetchingMore, onClick: fetchMore }}
-                  />
-                )}
-              </ResultWrapper>
-            </>
+          {showLoadMore && hasMore && (
+            <ActionButton
+              label="Toon meer"
+              iconLeft={<Enlarge />}
+              {...{ fetching: fetchingMore, onClick: fetchMore }}
+            />
           )}
-        </>
+        </ResultWrapper>
       )}
     </ResultColumn>
   )

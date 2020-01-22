@@ -1,21 +1,21 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import SearchResults from './SearchResults'
+import SearchResultsOverview from './SearchResults'
 import SEARCH_PAGE_CONFIG, { EDITORIAL_SEARCH_PAGES, DATA_SEARCH_PAGES } from './config'
 
-describe('SearchResults', () => {
+describe('SearchResultsOverview', () => {
   describe('should render the correct results component for the search page ', () => {
     let component
 
     it('when no results', () => {
-      component = shallow(<SearchResults results={[]} />)
+      component = shallow(<SearchResultsOverview results={[]} />)
 
       expect(component.find(`[data-test='NoSearchResults']`).exists()).toBeTruthy()
     })
 
     it('when no results for each type', () => {
       component = shallow(
-        <SearchResults
+        <SearchResultsOverview
           results={[
             {
               results: [],
@@ -37,7 +37,7 @@ describe('SearchResults', () => {
       }))
 
       it('renders correct number of components', () => {
-        component = shallow(<SearchResults results={mockResults} totalCount={1} />)
+        component = shallow(<SearchResultsOverview results={mockResults} totalCount={1} />)
 
         expect(component.length).toBe(mockTypes.length)
       })
