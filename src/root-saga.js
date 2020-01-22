@@ -14,6 +14,7 @@ import watchFetchDatasets from './shared/sagas/dataset/dataset'
 import watchAuthenticationRequest from './shared/sagas/user/user'
 import routeSaga from './store/redux-first-router/routeSaga'
 import watchErrors from './shared/sagas/error/error'
+import { watchSearchPage } from './app/pages/SearchPage/SearchPageSaga'
 
 export default function* rootSaga() {
   yield all([
@@ -32,6 +33,7 @@ export default function* rootSaga() {
     fork(watchFetchDataSelection),
     fork(watchFetchDatasets),
     fork(routeSaga),
+    fork(watchSearchPage),
     fork(watchErrors),
   ])
 }

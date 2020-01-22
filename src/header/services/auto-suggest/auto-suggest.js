@@ -8,6 +8,7 @@ export const LABELS = {
   PUBLICATIONS: 'Publicaties',
   DATASETS: 'Datasets',
   ARTICLES: 'Artikelen',
+  DATA: 'Data',
 }
 
 /**

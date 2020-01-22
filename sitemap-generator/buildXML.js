@@ -1,6 +1,6 @@
 const fetch = require('isomorphic-fetch')
 
-const API_ENDPOINT = 'https://api.data.amsterdam.nl/cms_search/search/'
+const API_ENDPOINT = `https://${process.env.API_ROOT}cms_search/graphql/`
 
 function useSlug(text) {
   return text
@@ -16,33 +16,60 @@ function useSlug(text) {
 function buildUrlPart(results, urlPart) {
   return results.reduce(
     (acc, result) =>
-      result.slug && result.uuid
+      result.slug && result.id
         ? `${acc}<url><loc>https://data.amsterdam.nl/${urlPart}/${useSlug(result.slug)}/${
-            result.uuid
-          }/</loc><lastmod>${new Date(result.changed).toISOString()}</lastmod></url>`
+            result.id
+          }/</loc><lastmod>${new Date(result.date * 1000).toISOString()}</lastmod></url>`
         : '',
     '',
   )
 }
 
 module.exports = async () => {
-  const { results: articleResults } = await fetch(`${API_ENDPOINT}article?page_size=9999`).then(
-    data => data.json(),
-  )
-  const { results: publicationResults } = await fetch(
-    `${API_ENDPOINT}publication?page_size=9999`,
-  ).then(data => data.json())
-  const { results: specialResults } = await fetch(`${API_ENDPOINT}special?page_size=9999`).then(
-    data => data.json(),
-  )
+  const { data } = await fetch(API_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `
+      query CmsSearch($q: String!) {
+        articleSearch(q: $q, input: {}){
+          results {
+            id
+            slug
+            date
+          }
+        }
+        publicationSearch(q: $q, input: {}){
+          results {
+            id
+            slug
+            date
+          }
+        }
+        specialSearch(q: $q, input: {}){
+          results {
+            id
+            slug
+            date
+          }
+        }
+      }
+    `,
+      variables: {
+        q: '',
+      },
+    }),
+  }).then(res => res.json())
 
   let result =
     '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 
-  if (articleResults && publicationResults) {
-    result += buildUrlPart(articleResults, 'artikelen/artikel')
-    result += buildUrlPart(publicationResults, 'publicaties/publicatie')
-    result += buildUrlPart(specialResults, 'specials/special')
+  const { articleSearch, publicationSearch, specialSearch } = data || {}
+
+  if (articleSearch && publicationSearch && specialSearch) {
+    result += buildUrlPart(data.articleSearch.results, 'artikelen/artikel')
+    result += buildUrlPart(data.publicationSearch.results, 'publicaties/publicatie')
+    result += buildUrlPart(data.specialSearch.results, 'specials/special')
   }
 
   result += '</urlset>'

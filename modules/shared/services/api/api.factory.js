@@ -118,7 +118,7 @@ import SHARED_CONFIG from '../../../../src/shared/services/shared-config/shared-
     }
 
     function getByUri(uri, params) {
-      return getByUrl(process.env.API_ROOT + uri, params)
+      return getByUrl(process.env.API_ROOT + uri, params, undefined)
     }
   }
 })()

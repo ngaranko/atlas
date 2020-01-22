@@ -60,23 +60,23 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATASET_DETAIL}`,
     page: PAGES.DATASET_DETAIL,
   },
-  dataSearchQuery: {
+  search: {
+    title: 'Alle zoekresultaten',
+    path: `/zoek/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH}`,
+    page: PAGES.SEARCH,
+  },
+  dataSearch: {
     title: 'Data zoekresultaten',
     path: `/${MAIN_PATHS.DATA}/zoek/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH_QUERY}`,
-    page: PAGES.DATA_SEARCH_QUERY,
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH}`,
+    page: PAGES.DATA_SEARCH,
   },
   dataSearchGeo: {
     title: 'Data zoekresultaten op locatie',
     path: `/${MAIN_PATHS.DATA}/geozoek/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH_GEO}`,
     page: PAGES.DATA_SEARCH_GEO,
-  },
-  dataSearchCategory: {
-    title: 'Data zoekresultaten',
-    path: `/${MAIN_PATHS.DATA}/:category/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH_CATEGORY}`,
-    page: PAGES.DATA_SEARCH_CATEGORY,
   },
   panorama: {
     title: 'Panoramabeeld',
@@ -139,6 +139,12 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLE_SEARCH}`,
     page: PAGES.ARTICLE_SEARCH,
   },
+  specialSearch: {
+    title: 'In beeld zoekresultaten',
+    path: `/${MAIN_PATHS.SPECIALS}/zoek/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.SPECIAL_SEARCH}`,
+    page: PAGES.SPECIAL_SEARCH,
+  },
   publications: {
     title: 'Publicaties',
     path: `/${MAIN_PATHS.PUBLICATIONS}/`,
@@ -158,7 +164,7 @@ export const routing = {
     page: PAGES.PUBLICATION_SEARCH,
   },
   specials: {
-    title: 'Specials',
+    title: 'In beeld',
     path: `/${MAIN_PATHS.SPECIALS}/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.SPECIALS}`,
     page: PAGES.SPECIALS,

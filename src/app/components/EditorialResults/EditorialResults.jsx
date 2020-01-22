@@ -1,76 +1,30 @@
-import React from 'react'
-import { Enlarge } from '@datapunt/asc-assets'
+import React, { memo } from 'react'
 import styled from '@datapunt/asc-core'
-import { Button, CardContainer, Heading, svgFill, themeColor, themeSpacing } from '@datapunt/asc-ui'
+import { CardContainer, themeSpacing } from '@datapunt/asc-ui'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
-import { EDITORIAL_TITLES } from '../../pages/EditorialOverviewPage/constants'
 import EditorialCard from '../EditorialCard'
+import NoSearchResults from '../NoSearchResults'
+import { EDITORIAL_OVERVIEW_ACTIONS } from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const EditorialCardContainer = styled(CardContainer)`
   padding: 0;
+  margin-bottom: ${themeSpacing(8)};
 `
 
-const StyledButton = styled(Button)`
-  border-color: ${themeColor('tint', 'level7')};
-  color: ${themeColor('tint', 'level7')};
-  background: ${themeColor('tint', 'level1')};
-  ${svgFill('tint', 'level7')};
-
-  &:hover,
-  &:focus {
-    outline: 0;
-    background: ${themeColor('tint', 'level3')};
-  }
-`
-
-const PageHeading = styled(Heading)`
-  margin-bottom: ${themeSpacing(4)};
-  padding-bottom: ${themeSpacing(2)};
-  border-bottom: 1px solid ${themeColor('tint', 'level3')};
-`
-
-const EditorialResults = ({
-  title,
-  totalCount,
-  headingLevel,
-  results,
-  loading,
-  type,
-  onClickMore,
-  showTitle,
-  className,
-}) => (
+const EditorialResults = ({ query, results, label, loading, type, className }) => (
   <EditorialCardContainer className={className}>
     {!results && loading ? (
       <LoadingIndicator style={{ position: 'inherit' }} />
     ) : (
       <>
-        {showTitle && (
-          <PageHeading $as={headingLevel || 'h1'}>
-            {title || `${EDITORIAL_TITLES[type]} (${totalCount.toLocaleString('nl-NL')})`}
-          </PageHeading>
-        )}
-        {results &&
-          results.map(result => <EditorialCard {...result} key={result.id} type={type} />)}
-        {loading && <LoadingIndicator style={{ position: 'inherit' }} />}
-        {!loading && onClickMore && (
-          <StyledButton
-            variant="primaryInverted"
-            iconLeft={<Enlarge />}
-            iconSize={12}
-            onClick={onClickMore}
-          >
-            Toon meer
-          </StyledButton>
+        {results && results.length ? (
+          results.map(result => <EditorialCard {...result} key={result.id} type={type} />)
+        ) : (
+          <NoSearchResults query={query} label={label} to={EDITORIAL_OVERVIEW_ACTIONS[type]()} />
         )}
       </>
     )}
   </EditorialCardContainer>
 )
 
-EditorialResults.defaultProps = {
-  showTitle: true,
-  totalCount: '',
-}
-
-export default EditorialResults
+export default memo(EditorialResults, () => false)

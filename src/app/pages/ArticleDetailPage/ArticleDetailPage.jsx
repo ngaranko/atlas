@@ -29,11 +29,11 @@ import { cmsConfig } from '../../../shared/config/config'
 import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
 import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
-import { EDITORIAL_FIELD_TYPE_VALUES } from '../EditorialOverviewPage/constants'
 import getImageFromCms from '../../utils/getImageFromCms'
 import EditorialResults from '../../components/EditorialResults'
 import PAGES from '../../pages'
 import useDownload from '../../utils/useDownload'
+import { EDITORIAL_FIELD_TYPE_VALUES } from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const ListItemContent = styled.div`
   display: flex;

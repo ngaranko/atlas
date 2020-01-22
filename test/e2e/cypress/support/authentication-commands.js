@@ -42,7 +42,7 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
     .its('sessionStorage')
     .invoke('setItem', 'stateToken', stateToken)
 
-  const redirectUri = 'http://localhost:8080/'
+  const redirectUri = 'http://localhost:3000/'
   const url = [
     Cypress.env('API_ROOT'),
     '/oauth2/authorize?',
@@ -98,7 +98,7 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
 
       // Return to the application
       .then(response => {
-        // Replace redirect URI from earlier (localhost:8080) with baseUrl
+        // Replace redirect URI from earlier (localhost:3000) with baseUrl
         const originalUrl = response.headers.location
         const returnUrl = originalUrl.replace(redirectUri, baseUrl)
         return cy.visit(returnUrl)

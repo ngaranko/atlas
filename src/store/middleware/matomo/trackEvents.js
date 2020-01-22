@@ -6,17 +6,7 @@ import {
   isDatasetPage,
   isPanoPage,
 } from '../../redux-first-router/selectors'
-import {
-  DOWNLOAD_DATASET_RESOURCE,
-  FETCH_DATASETS_SUCCESS,
-} from '../../../shared/ducks/datasets/data/data'
-import {
-  getNumberOfResults as getNumberOfDatasetsResults,
-  getSearchText as getDatasetsSearchQuery,
-} from '../../../shared/ducks/datasets/datasets'
 import { DOWNLOAD_DATA_SELECTION } from '../../../shared/ducks/data-selection/constants'
-import { FETCH_QUERY_SEARCH_RESULTS_SUCCESS } from '../../../shared/ducks/data-search/constants'
-import { getNumberOfResults, getSearchQuery } from '../../../shared/ducks/data-search/selectors'
 import {
   AUTHENTICATE_USER_REQUEST,
   AUTHENTICATE_USER_SUCCESS,
@@ -56,7 +46,7 @@ import {
 import PAGES from '../../../app/pages'
 import PARAMETERS from '../../parameters'
 import { MATOMO_CONSTANTS } from './constants'
-import { FETCH_ARTICLES_SUCCESS, FETCH_PUBLICATIONS_SUCCESS } from '../../../shared/ducks/cms'
+import { DOWNLOAD_DATASET_RESOURCE } from '../../../shared/ducks/detail/constants'
 
 /* istanbul ignore next */
 const trackEvents = {
@@ -161,66 +151,6 @@ const trackEvents = {
           null,
         ]
     }
-  },
-  // SITE SEARCH
-  // SITE SEARCH -> DATA SWITCH TAB
-  [routing.dataSearchQuery.type]: ({ firstAction = null, query, state }) => {
-    const searchQuery = getSearchQuery(state)
-    const numberOfResults = getNumberOfResults(state)
-    return firstAction && (searchQuery && searchQuery.length > 0) && query.term === searchQuery
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'data', numberOfResults]
-      : []
-  },
-  // SITE SEARCH -> DATA INITIAL LOAD
-  [FETCH_QUERY_SEARCH_RESULTS_SUCCESS]: function trackDataSearch({ tracking, state }) {
-    return getPage(state) === PAGES.DATA_SEARCH_QUERY
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, tracking.query, 'data', tracking.numberOfResults]
-      : []
-  },
-  // SITE SEARCH -> DATASETS SWITCH TAB
-  [routing.datasetSearch.type]: ({ firstAction = null, query, state }) => {
-    const searchQuery = getDatasetsSearchQuery(state)
-    const numberOfResults = getNumberOfDatasetsResults(state)
-    return firstAction && (searchQuery && searchQuery.length > 0) && query.term === searchQuery
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'datasets', numberOfResults]
-      : []
-  },
-  // SITE SEARCH -> DATASETS INITIAL LOAD
-  [FETCH_DATASETS_SUCCESS]: function trackDatasetSearch({ tracking, state }) {
-    return getPage(state) === PAGES.DATASET_SEARCH
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, tracking.query, 'datasets', tracking.numberOfResults]
-      : []
-  },
-
-  // SITE SEARCH -> ARTICLES SWITCH TAB
-  [routing.articleSearch.type]: ({ firstAction = null, query }) => {
-    // TODO DP-7130
-    const searchQuery = 'articleSearch'
-    const numberOfResults = 0
-    return firstAction && (searchQuery && searchQuery.length > 0) && query.term === searchQuery
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'articles', numberOfResults]
-      : []
-  },
-  // SITE SEARCH -> ARTICLES INITIAL LOAD
-  [FETCH_ARTICLES_SUCCESS]: function trackDatasetSearch({ tracking, state }) {
-    return getPage(state) === PAGES.ARTICLE_SEARCH
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, tracking.query, 'articles', tracking.numberOfResults]
-      : []
-  },
-  // SITE SEARCH -> PUBLICATIONS SWITCH TAB
-  [routing.publicationSearch.type]: ({ firstAction = null, query }) => {
-    // TODO DP-7130
-    const searchQuery = 'publicationSearch'
-    const numberOfResults = 0
-    return firstAction && (searchQuery && searchQuery.length > 0) && query.term === searchQuery
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'publications', numberOfResults]
-      : []
-  },
-  // SITE SEARCH -> PUBLICATIONS INITIAL LOAD
-  [FETCH_PUBLICATIONS_SUCCESS]: function trackDatasetSearch({ tracking, state }) {
-    return getPage(state) === PAGES.PUBLICATION_SEARCH
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, tracking.query, 'publications', tracking.numberOfResults]
-      : []
   },
   // DATASETS
   // DATASETS -> CLICK RESOURCE ON DATASET_DETAIL

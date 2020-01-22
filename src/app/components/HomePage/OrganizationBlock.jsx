@@ -61,7 +61,7 @@ const OrganizationBlock = () => {
         </StyledHeading>
       </Row>
       <StyledRow hasMargin={false} showError={error}>
-        {error && <ErrorMessage absolute={false} />}
+        {error && <ErrorMessage />}
         {results &&
           results.map(result => (
             <Column

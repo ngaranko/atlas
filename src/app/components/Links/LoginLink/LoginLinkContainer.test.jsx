@@ -21,7 +21,7 @@ describe('LoginLinkContainer', () => {
 describe('LoginLink', () => {
   it('should call the login when clicked', () => {
     const login = jest.fn()
-    const component = shallow(<LoginLink login={login} />).dive()
+    const component = shallow(<LoginLink login={login} />)
     const StyledLink = component.find('Styled(Link)').at(0)
 
     StyledLink.simulate('click')

@@ -5,12 +5,11 @@ import { withA11y } from '@storybook/addon-a11y'
 import { Provider } from 'react-redux'
 import configureStore from '../src/store/store'
 import routes from '../src/app/routes'
-import ReduxContext from '../src/store/reduxContext'
 
 addDecorator(withA11y)
 
-// automatically import all files ending in *.stories.js
-const req = require.context('../src', true, /\.stories\.jsx$/)
+// automatically import all files ending in *.stories.jsx or *.stories.tsx
+const req = require.context('../src', true, /\.stories\.(j|t)sx$/)
 
 const store = configureStore(routes, true)
 
@@ -22,14 +21,12 @@ const extendedTheme = {
 function withGlobalStyles(storyFn) {
   return (
     <Provider store={store}>
-      <ReduxContext.Provider value={store}>
-        <ThemeProvider overrides={extendedTheme}>
-          <>
-            <GlobalStyle />
-            {storyFn()}
-          </>
-        </ThemeProvider>
-      </ReduxContext.Provider>
+      <ThemeProvider overrides={extendedTheme}>
+        <>
+          <GlobalStyle />
+          {storyFn()}
+        </>
+      </ThemeProvider>
     </Provider>
   )
 }

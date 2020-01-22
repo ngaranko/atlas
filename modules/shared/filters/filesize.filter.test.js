@@ -27,7 +27,7 @@ describe('The filesize filter', function() {
   it('indicates all small sizes as < 0,1 MB', () => {
     expect(filesizeFilter(0)).toEqual('< 0,1 MB')
     expect(filesizeFilter(1)).toEqual('< 0,1 MB')
-    expect(filesizeFilter(1.0 * KB)).toEqual('< 0,1 MB')
+    expect(filesizeFilter(KB)).toEqual('< 0,1 MB')
   })
 
   it('uses MB units to show range between <0.1 MB and 1 MB', () => {
@@ -37,19 +37,19 @@ describe('The filesize filter', function() {
   })
 
   it('shows MB to one decimal precision', () => {
-    expect(filesizeFilter(1.0 * MB)).toEqual('1,0 MB')
+    expect(filesizeFilter(MB)).toEqual('1,0 MB')
     expect(filesizeFilter(1.5 * MB)).toEqual('1,5 MB')
     expect(filesizeFilter(120 * MB)).toEqual('120,0 MB')
   })
 
   it('shows GB to one decimal precision', () => {
-    expect(filesizeFilter(1.0 * GB)).toEqual('1,0 GB')
+    expect(filesizeFilter(GB)).toEqual('1,0 GB')
     expect(filesizeFilter(1.1 * GB)).toEqual('1,1 GB')
     expect(filesizeFilter(0.1 * TB)).toEqual('102,4 GB')
   })
 
   it('shows TB to one decimal precision', () => {
-    expect(filesizeFilter(1.0 * TB)).toEqual('1,0 TB')
+    expect(filesizeFilter(TB)).toEqual('1,0 TB')
     expect(filesizeFilter(1.5 * TB)).toEqual('1,5 TB')
   })
 

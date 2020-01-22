@@ -16,10 +16,10 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      statements: 77,
+      statements: 75,
       branches: 50,
       functions: 69,
-      lines: 77,
+      lines: 76,
     },
   },
   coverageReporters: process.env.CI ? ['html', 'text'] : ['lcov'],
@@ -33,7 +33,7 @@ module.exports = {
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testMatch: ['**/*.test.js?(x)'],
   setupFilesAfterEnv: ['./test/mocks.js'],
-  testURL: 'http://localhost:8080/',
+  testURL: 'http://localhost:3000/',
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/modules/', '/node_modules/', '/test/'],
   watchPathIgnorePatterns: ['/modules/'],

@@ -1,27 +1,23 @@
-@import "../shared/styles/config";
-@import "styles/config";
-@import "styles/utilities/fixed";
-@import "styles/utilities/full-height";
-@import "styles/utilities/gutter";
-@import "styles/objects/max-width";
-@import "styles/legacy/dashboard";
-@import "styles/legacy/active-filters";
-@import "styles/legacy/search-results";
-@import "styles/legacy/api-error";
+@import 'styles/utilities/fixed';
+@import 'styles/utilities/full-height';
+@import 'styles/utilities/gutter';
+@import 'styles/objects/max-width';
+@import 'styles/legacy/dashboard';
+@import 'styles/legacy/active-filters';
+@import 'styles/legacy/search-results';
 
 .is-print-mode {
-  @import "styles/legacy/dashboard-print";
+  @import 'styles/legacy/dashboard-print';
 }
 
 .is-embed {
-  @import "styles/legacy/dashboard-embed";
+  @import 'styles/legacy/dashboard-embed';
 }
 
-@import "styles/legacy/dashboard-embed-preview";
+@import 'styles/legacy/dashboard-embed-preview';
 
 .is-print-mode,
 .is-embed-preview,
 .is-embed {
-  @import "styles/utilities/page-break";
+  @import 'styles/utilities/page-break';
 }
-

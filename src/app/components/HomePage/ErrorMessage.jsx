@@ -20,7 +20,7 @@ const ErrorMessageStyle = styled.div`
   z-index: 1;
   background-color: white;
   padding: ${themeSpacing(5)};
-  border: 1px solid ${themeColor('tint', 'level4')};
+  border: 1px solid ${themeColor('tint', 'level3')};
   text-align: center;
 `
 
@@ -42,8 +42,12 @@ export const ErrorBackgroundCSS = css`
   }
 `
 
-const ErrorMessage = ({ onClick = () => window.location.reload(), absolute = true }) => (
-  <ErrorMessageStyle absolute={absolute}>
+const ErrorMessage = ({
+  onClick = () => window.location.reload(),
+  absolute = false,
+  ...otherProps
+}) => (
+  <ErrorMessageStyle absolute={absolute} {...otherProps}>
     <Paragraph>Er is een fout opgetreden bij het laden van dit blok.</Paragraph>
     <Button type="button" onClick={onClick} variant="primary" taskflow={false}>
       Probeer opnieuw

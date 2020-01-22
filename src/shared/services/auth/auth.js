@@ -71,7 +71,8 @@ const scopes = [
   SCOPES['HR/R'], // Leesrechten
 
   // Bouwdossiers
-  SCOPES['BD/R'],
+  SCOPES['BD/R'], // basis rechten
+  SCOPES['BD/X'], // extra rechten
 
   // Bouwdossiers
   'BD/R',

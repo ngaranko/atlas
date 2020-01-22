@@ -1,5 +1,6 @@
 export default {
   QUERY: 'term',
+  SORT: 'sortering',
   MAP_BACKGROUND: 'achtergrond',
   PAGE: 'pagina',
   GEO: 'geo',
@@ -12,6 +13,7 @@ export default {
   PANORAMA_TAGS: 'tags',
   PITCH: 'pitch',
   FILTERS: 'filters',
+  SEARCH_FILTERS: 'zoek-filters',
   DETAIL_REFERENCE: 'detail-ref',
   PAGE_REFERENCE: 'page-ref',
   EMBED_PREVIEW: 'embed-preview',

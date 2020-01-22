@@ -1,2 +1,2 @@
-export { default as DataSearchQuery } from './DataSearchQuery'
+// eslint-disable-next-line import/prefer-default-export
 export { default as DataSearchLocation } from './DataSearchLocation'

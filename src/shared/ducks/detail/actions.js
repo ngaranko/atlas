@@ -5,6 +5,7 @@ import {
   FETCH_DETAIL_REQUEST,
   FETCH_DETAIL_SUCCESS,
   FETCH_DETAIL_FAILURE,
+  DOWNLOAD_DATASET_RESOURCE,
 } from './constants'
 
 export const clearMapDetail = payload => ({
@@ -38,4 +39,11 @@ export const fetchDetailSuccess = payload => ({
 export const fetchDetailFailure = payload => ({
   type: FETCH_DETAIL_FAILURE,
   payload,
+})
+
+export const downloadDatasetResource = payload => ({
+  type: DOWNLOAD_DATASET_RESOURCE,
+  meta: {
+    tracking: payload,
+  },
 })

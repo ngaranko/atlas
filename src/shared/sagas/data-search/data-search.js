@@ -1,4 +1,4 @@
-import { call, fork, put, select, takeLatest } from 'redux-saga/effects'
+import { call, put, select, takeLatest } from 'redux-saga/effects'
 import { getUser } from '../../ducks/user/user'
 import search from '../../../map/services/map-search/map-search'
 import geosearch from '../../services/search/geosearch'
@@ -7,26 +7,12 @@ import {
   fetchMapSearchResultsRequest,
   fetchMapSearchResultsSuccessList,
   fetchMapSearchResultsSuccessPanel,
-  fetchMoreResultsSuccess,
-  fetchSearchResultsByQuery,
-  showSearchResults,
 } from '../../ducks/data-search/actions'
-import {
-  FETCH_GEO_SEARCH_RESULTS_REQUEST,
-  FETCH_QUERY_SEARCH_MORE_RESULTS_REQUEST,
-  SET_QUERY_CATEGORY,
-} from '../../ducks/data-search/constants'
-import {
-  getDataSearchLocation,
-  getSearchCategory,
-  getSearchQuery,
-  getSearchQueryResults,
-} from '../../ducks/data-search/selectors'
+import { FETCH_GEO_SEARCH_RESULTS_REQUEST } from '../../ducks/data-search/constants'
+import { getDataSearchLocation } from '../../ducks/data-search/selectors'
 import {
   getNumberOfResults as getNrOfSearchResults,
   getNumberOfResultsPanel,
-  loadMore as vanillaLoadMore,
-  querySearch,
   replaceBuurtcombinatie,
 } from '../../services/search/search'
 import { getPage } from '../../../store/redux-first-router/selectors'
@@ -34,7 +20,6 @@ import { getMapZoom } from '../../../map/ducks/map/selectors'
 import ActiveOverlaysClass from '../../services/active-overlays/active-overlays'
 import { waitForAuthentication } from '../user/user'
 import { SELECTION_TYPE, setSelection } from '../../ducks/selection/selection'
-import { fetchDatasetsEffect } from '../dataset/dataset'
 import { getViewMode, isMapPage, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui'
 import PAGES from '../../../app/pages'
 import { ERROR_TYPES, setGlobalError } from '../../ducks/error/error-message'
@@ -67,34 +52,6 @@ export function* fetchMapSearchResults() {
   }
 }
 
-function isString(value) {
-  return typeof value === 'string'
-}
-
-export function* setSearchResults(searchResults) {
-  const numberOfResults = getNrOfSearchResults(searchResults)
-  const query = yield select(getSearchQuery)
-  const result = replaceBuurtcombinatie(searchResults)
-
-  yield put(showSearchResults(result, query, numberOfResults))
-}
-
-export function* fetchQuerySearchResults() {
-  const query = yield select(getSearchQuery)
-  const category = yield select(getSearchCategory)
-  yield put(fetchSearchResultsByQuery(query))
-  yield call(waitForAuthentication)
-  const user = yield select(getUser)
-  if (query) {
-    const categorySlug = isString(category) && category.length ? category : undefined
-    const { results, errors } = yield call(querySearch, query, categorySlug, user)
-    if (errors) {
-      yield put(setGlobalError(ERROR_TYPES.GENERAL_ERROR))
-    }
-    yield call(setSearchResults, results)
-  }
-}
-
 export function* fetchGeoSearchResultsEffect() {
   const location = yield select(getDataSearchLocation)
   const isMap = yield select(isMapPage)
@@ -105,26 +62,7 @@ export function* fetchGeoSearchResultsEffect() {
   }
 }
 
-export function* fetchQuerySearchResultsEffect() {
-  const query = yield select(getSearchQuery)
-  const category = yield select(getSearchCategory)
-  yield call(fetchQuerySearchResults, query, category)
-}
-
-function* loadMore() {
-  const storedResults = yield select(getSearchQueryResults)
-  const results = yield vanillaLoadMore(storedResults[0])
-  yield put(fetchMoreResultsSuccess([results]))
-}
-
-export function* fetchQuerySearchEffect() {
-  yield fork(fetchQuerySearchResultsEffect)
-  yield fork(fetchDatasetsEffect)
-}
-
 export default function* watchDataSearch() {
   yield takeLatest(FETCH_GEO_SEARCH_RESULTS_REQUEST, fetchMapSearchResults)
-  yield takeLatest(FETCH_QUERY_SEARCH_MORE_RESULTS_REQUEST, loadMore)
   yield takeLatest(SET_VIEW_MODE, fetchGeoSearchResultsEffect)
-  yield takeLatest(SET_QUERY_CATEGORY, fetchQuerySearchResultsEffect)
 }

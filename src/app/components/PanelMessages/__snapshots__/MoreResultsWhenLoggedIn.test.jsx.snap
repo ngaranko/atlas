@@ -1,22 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MoreResultsWhenLoggedIn should render everything 1`] = `
-<Notification
-  canClose={true}
-  className=""
-  level="info"
+<Styled(Notification)
   type="info"
 >
-  <h3
-    className="c-panel__title"
+  <Styled(Heading)
+    $as="h3"
   >
     Meer resultaten na inloggen
-  </h3>
-  <p
-    className="c-panel__paragraph"
-  >
+  </Styled(Heading)>
+  <p>
     Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden. 
   </p>
   <Connect(LoginLink) />
-</Notification>
+</Styled(Notification)>
 `;

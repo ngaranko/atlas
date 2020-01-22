@@ -8,8 +8,7 @@ import { VIEW_MODE } from '../../../src/shared/ducks/ui/ui'
       if (!endpoint) {
         return
       }
-      const action = toDetailFromEndpoint(endpoint, VIEW_MODE.SPLIT)
-      return action
+      return toDetailFromEndpoint(endpoint, VIEW_MODE.SPLIT)
     }
   }
 })()

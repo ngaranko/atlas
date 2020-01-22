@@ -45,10 +45,6 @@ export const dateFilter = input => {
 // indicatie will be used in the template as a condition however.
 export const hrBezoekAdresFilter = input => input.bezoekadres_volledig_adres
 
-export const kebapCaseFilter = input => (input ? input.toLowerCase().replace(/[: ][ ]*/g, '-') : '')
-
-export const ucFirst = input => input.substring(0, 1).toUpperCase() + input.substring(1)
-
 export const modificationDateFilter = input => {
   if (typeof input === 'string') {
     const last = new Date(input)

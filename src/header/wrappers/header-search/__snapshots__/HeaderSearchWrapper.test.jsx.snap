@@ -19,6 +19,7 @@ exports[`HeaderSearchWrapper should render 1`] = `
   onDatasetSearch={[Function]}
   onGetSuggestions={[Function]}
   onPublicationSearch={[Function]}
+  onSearch={[Function]}
   onSuggestionActivate={[Function]}
   openDataSuggestion={[Function]}
   openDatasetSuggestion={[Function]}

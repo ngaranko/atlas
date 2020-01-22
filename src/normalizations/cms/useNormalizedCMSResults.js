@@ -1,10 +1,34 @@
 /* eslint-disable camelcase */
 import RouterLink from 'redux-first-router-link'
-import { EDITORIAL_DETAIL_ACTIONS } from '../../app/pages/EditorialOverviewPage/constants'
 import useSlug from '../../app/utils/useSlug'
 import formatDate from '../../shared/services/date-formatter/date-formatter'
 import { reformatJSONApiResults } from '../../shared/services/cms/cms-json-api-normalizer'
 import { TYPES } from '../../shared/config/cms.config'
+import {
+  toArticleDetail,
+  toPublicationDetail,
+  toSpecialDetail,
+  toArticles,
+  toPublications,
+  toSpecials,
+} from '../../store/redux-first-router/actions'
+
+export const EDITORIAL_DETAIL_ACTIONS = {
+  [TYPES.ARTICLE]: toArticleDetail,
+  [TYPES.PUBLICATION]: toPublicationDetail,
+  [TYPES.SPECIAL]: toSpecialDetail,
+}
+
+export const EDITORIAL_OVERVIEW_ACTIONS = {
+  [TYPES.ARTICLE]: toArticles,
+  [TYPES.PUBLICATION]: toPublications,
+  [TYPES.SPECIAL]: toSpecials,
+}
+
+// Logic is that we don't show metadata in an editorial detail page
+export const EDITORIAL_FIELD_TYPE_VALUES = {
+  CONTENT: 'content',
+}
 
 const normalizeObject = data => {
   const {

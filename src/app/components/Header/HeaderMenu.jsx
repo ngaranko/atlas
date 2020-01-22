@@ -15,9 +15,10 @@ const components = {
 }
 
 const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
+  const [menuOpen, setMenuOpen] = React.useState(false)
   const Menu = components[type]
   return (
-    <Menu {...props} hasBackDrop>
+    <Menu {...props} open={menuOpen} hasBackDrop onExpand={setMenuOpen}>
       <MenuFlyOut label="Onderdelen">
         {navigationLinks.map(({ id, title, to }) => (
           <MenuButton $as={RouterLink} iconLeft={<ChevronRight />} key={id} title={title} to={to}>
@@ -45,7 +46,13 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
           })}
       </MenuFlyOut>
       <MenuItem>
-        <MenuButton type="button" onClick={showFeedbackForm}>
+        <MenuButton
+          type="button"
+          onClick={async () => {
+            await setMenuOpen(false)
+            showFeedbackForm()
+          }}
+        >
           Feedback
         </MenuButton>
       </MenuItem>

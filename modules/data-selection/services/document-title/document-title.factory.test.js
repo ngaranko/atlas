@@ -4,11 +4,10 @@ describe('The dpDataSelectionDocumentTitle factory', function() {
   let dpDataSelectionDocumentTitle
   let mockedBagState
   let mockedHrState
-  let mockedCatalogusState
   let mockedFilters
 
   beforeEach(function() {
-    const config = {
+    dataSelectionConfig.default = {
       datasets: {
         bag: {
           TITLE: 'Adressen',
@@ -33,20 +32,8 @@ describe('The dpDataSelectionDocumentTitle factory', function() {
           TITLE_TAB: 'Handelsregister',
           FILTERS: [],
         },
-        dcatd: {
-          TITLE: 'Catalogus',
-          TITLE_TAB: 'Catalogus',
-          FILTERS: [
-            {
-              slug: 'groups',
-              label: "Thema's",
-            },
-          ],
-        },
       },
     }
-
-    dataSelectionConfig.default = config
     angular.mock.module('dpDataSelection')
 
     angular.mock.inject(function(_dpDataSelectionDocumentTitle_) {
@@ -65,13 +52,6 @@ describe('The dpDataSelectionDocumentTitle factory', function() {
       geometryFilter: {},
     }
 
-    mockedCatalogusState = {
-      dataset: 'dcatd',
-      view: 'CATALOG',
-      query: 'my query',
-      geometryFilter: {},
-    }
-
     mockedFilters = {}
   })
 
@@ -80,26 +60,6 @@ describe('The dpDataSelectionDocumentTitle factory', function() {
 
     mockedBagState.view = 'LIST'
     expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toMatch(/^Lijst/)
-  })
-
-  it('shows a special title when showing all datasets', function() {
-    delete mockedCatalogusState.query
-    expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters)).toBe(
-      'Datasets',
-    )
-  })
-
-  it('shows a the datasets query for text search in datasets', function() {
-    expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters)).toBe(
-      "Datasets met 'my query'",
-    )
-  })
-
-  it('shows both the query and the active filter', function() {
-    mockedFilters.groups = 'bestuur-en-organisatie'
-    expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters)).toBe(
-      "Datasets met 'my query', Thema's: bestuur-en-organisatie",
-    )
   })
 
   it('shows the surface of the current selection', function() {

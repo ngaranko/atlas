@@ -9,7 +9,15 @@ module.exports = {
     jsdom: true,
     jasmine: true,
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.ts', '.tsx', '.mjs', '.js', '.jsx'],
+      },
+    },
+  },
   rules: {
+    'no-console': 'error',
     'prettier/prettier': 'error',
     'no-underscore-dangle': [
       'error',
@@ -37,5 +45,6 @@ module.exports = {
         ],
       },
     ],
+    'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
   },
 }

@@ -193,19 +193,19 @@ describe('Filters', () => {
     })
 
     it('shows the time as since created: today / 0 days', () => {
-      expect(modificationDateFilter('2018-10-05')).toBe('vandaag gewijzigd')
+      expect(modificationDateFilter('2018-10-05')).toContain('vandaag')
     })
 
     it('shows the time as since created: yesterday / 1 days', () => {
-      expect(modificationDateFilter('2018-10-04')).toBe('gisteren gewijzigd')
+      expect(modificationDateFilter('2018-10-04')).toContain('gisteren')
     })
 
     it('shows the time as since created: 4 days', () => {
-      expect(modificationDateFilter('2018-10-01')).toBe('4 dagen geleden gewijzigd')
+      expect(modificationDateFilter('2018-10-01')).toContain('4 dagen geleden')
     })
 
     it('shows the time as since created: future time', () => {
-      expect(modificationDateFilter('2018-11-04')).toBe('in de toekomst gewijzigd')
+      expect(modificationDateFilter('2018-11-04')).toContain('in de toekomst')
     })
   })
 

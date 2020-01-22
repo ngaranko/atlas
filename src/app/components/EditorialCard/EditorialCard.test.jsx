@@ -9,7 +9,8 @@ jest.mock('../../utils/getImageFromCms')
 describe('EditorialCard', () => {
   const mockDataItem = {
     id: 1,
-    title: 'title',
+    title: 'long title',
+    shortTitle: 'title',
     intro: 'intro',
     teaserImage: 'thumbnail.jpg',
     type: TYPES.PUBLICATION,
@@ -24,6 +25,23 @@ describe('EditorialCard', () => {
 
     expect(image.exists()).toBeTruthy()
     expect(image.props().src).toBe('image.jpg')
+  })
+
+  it('should display the correct title', () => {
+    let component = shallow(<EditorialCard href="link" {...mockDataItem} />).dive()
+
+    let heading = component.find('Styled(Heading)')
+
+    expect(heading.exists()).toBeTruthy()
+    expect(heading.props().children).toBe(mockDataItem.shortTitle)
+
+    component = shallow(
+      <EditorialCard href="link" {...{ ...mockDataItem, shortTitle: false }} />,
+    ).dive()
+    heading = component.find('Styled(Heading)')
+
+    expect(heading.exists()).toBeTruthy()
+    expect(heading.props().children).toBe(mockDataItem.title)
   })
 
   it("should display a placeholder when there's no cover image", () => {

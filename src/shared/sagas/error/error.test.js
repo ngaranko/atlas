@@ -1,11 +1,6 @@
 import { testSaga } from 'redux-saga-test-plan'
 import watchErrors, { excludeUnauthorizedErrorEffect, setErrorsEffect } from './error'
-import { FETCH_DATASETS_FAILURE } from '../../ducks/datasets/data/data'
-import {
-  FETCH_GEO_SEARCH_RESULTS_FAILURE,
-  FETCH_QUERY_SEARCH_RESULTS_FAILURE,
-  FETCH_QUERY_SEARCH_MORE_RESULTS_FAILURE,
-} from '../../ducks/data-search/constants'
+import { FETCH_GEO_SEARCH_RESULTS_FAILURE } from '../../ducks/data-search/constants'
 import { FETCH_PANORAMA_ERROR } from '../../../panorama/ducks/constants'
 import { FETCH_DETAIL_FAILURE } from '../../ducks/detail/constants'
 import { FETCH_API_SPECIFICATION_FAILURE } from '../../ducks/datasets/apiSpecification/apiSpecification'
@@ -25,12 +20,9 @@ describe('watchErrors', () => {
         [
           FETCH_MARKERS_FAILURE,
           FETCH_API_SPECIFICATION_FAILURE,
-          FETCH_DATASETS_FAILURE,
           FETCH_GEO_SEARCH_RESULTS_FAILURE,
           FETCH_PANORAMA_ERROR,
           FETCH_DETAIL_FAILURE,
-          FETCH_QUERY_SEARCH_RESULTS_FAILURE,
-          FETCH_QUERY_SEARCH_MORE_RESULTS_FAILURE,
         ],
         setErrorsEffect,
       )
