@@ -12,7 +12,7 @@ const DatasetFilters = ({ q }) => {
     },
   })
 
-  const datasetFilters = get(data, 'getDatasetFilters.filters')
+  const datasetFilters = get(data, 'datasetFilters.filters')
 
   if (!fetching && datasetFilters) {
     const filters = datasetFilters.filter(({ options }) => options.length > 0)
