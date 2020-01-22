@@ -7,7 +7,7 @@ describe('The dpDataSelectionDocumentTitle factory', function() {
   let mockedFilters
 
   beforeEach(function() {
-    const config = {
+    dataSelectionConfig.default = {
       datasets: {
         bag: {
           TITLE: 'Adressen',
@@ -34,8 +34,6 @@ describe('The dpDataSelectionDocumentTitle factory', function() {
         },
       },
     }
-
-    dataSelectionConfig.default = config
     angular.mock.module('dpDataSelection')
 
     angular.mock.inject(function(_dpDataSelectionDocumentTitle_) {

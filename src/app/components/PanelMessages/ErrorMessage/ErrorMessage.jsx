@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import Panel from '../../Panel/Panel'
+import './ErrorMessage.scss'
 
 const ErrorMessage = ({ hasMaxWidth, isHomePage, dismissError, errorMessage }) => (
   <div className="c-dashboard__error">

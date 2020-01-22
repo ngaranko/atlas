@@ -29,7 +29,7 @@ import isDefined from '../../../../src/shared/services/is-defined'
       scope.click = clickHandler
 
       function getAction() {
-        const action = isDefined(scope.payload)
+        return isDefined(scope.payload)
           ? {
               type: scope.type,
               payload: scope.payload,
@@ -37,8 +37,6 @@ import isDefined from '../../../../src/shared/services/is-defined'
           : {
               type: scope.type,
             }
-
-        return action
       }
 
       function clickHandler() {

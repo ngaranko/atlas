@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <circle id="Oval" fill-opacity="0.25" fill="#004699" cx="14" cy="14" r="14"></circle>
-    <path d="M14,22 C18.418278,22 22,18.418278 22,14 C22,9.581722 18.418278,6 14,6 C9.581722,6 6,9.581722 6,14 C6,18.418278 9.581722,22 14,22 Z M14,20.4 C10.4653776,20.4 7.6,17.5346224 7.6,14 C7.6,10.4653776 10.4653776,7.6 14,7.6 C17.5346224,7.6 20.4,10.4653776 20.4,14 C20.4,17.5346224 17.5346224,20.4 14,20.4 Z" id="Oval" fill="#FFFFFF" fill-rule="nonzero"></path>
-    <circle id="Oval" fill="#004699" cx="14" cy="14" r="6.4"></circle>
-</svg>
