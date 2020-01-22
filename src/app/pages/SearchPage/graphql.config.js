@@ -107,7 +107,7 @@ export const searchQuery = `
 
 export const datasetFiltersQuery = `
   query DatasetFilters($q: String!) {
-    getDatasetFilters(q: $q) {
+    datasetFilters(q: $q) {
       ${filters}
     }
   }
