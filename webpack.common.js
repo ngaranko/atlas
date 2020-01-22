@@ -35,7 +35,7 @@ function commonConfig() {
       path: dist,
     },
     resolve: {
-      extensions: ['.mjs', '.js', '.jsx'],
+      extensions: ['.ts', '.tsx', '.mjs', '.js', '.jsx'],
       modules: ['./node_modules'],
       alias: {
         react: path.resolve('./node_modules/react'),
@@ -45,10 +45,10 @@ function commonConfig() {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.(t|j)sx?$/,
           include: [src, legacy],
           use: 'babel-loader',
-          exclude: /\.stories\.jsx$/,
+          exclude: /\.stories\.(j|t)sx$/,
         },
         {
           test: /\.scss$/,

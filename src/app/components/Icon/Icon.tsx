@@ -1,9 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import './Icon.scss'
 
-const Icon = ({ icon }) => (
+export interface IconProps {
+  icon: string
+}
+
+const Icon: React.FC<IconProps> = ({ icon }) => (
   <span
     className={`
       rc-icon
@@ -11,9 +13,5 @@ const Icon = ({ icon }) => (
     `}
   />
 )
-
-Icon.propTypes = {
-  icon: PropTypes.string.isRequired,
-}
 
 export default Icon
