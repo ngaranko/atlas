@@ -35,7 +35,7 @@ export const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: 
 }`
 
 const getCmsSearch = resolverName => `
-  query CmsSearch($q: String!, $limit: Int, $from: Int, $types: [String!], $filters: [FilterInput!], $sort: CMSSortInput) {
+  query CmsSearch($q: String, $limit: Int, $from: Int, $types: [String!], $filters: [FilterInput!], $sort: CMSSortInput) {
     ${cmsSearch(resolverName)}
   }
 `
@@ -90,7 +90,7 @@ export const dataSearchQuery = `
   }
 `
 export const datasetSearchQuery = `
-  query DatasetSearch($q: String!, $limit: Int, $from: Int, $filters: [FilterInput!]) {
+  query DatasetSearch($q: String, $limit: Int, $from: Int, $filters: [FilterInput!]) {
     ${datasetSearch}
   }
 `
@@ -106,7 +106,7 @@ export const searchQuery = `
 `
 
 export const datasetFiltersQuery = `
-  query DatasetFilters($q: String!) {
+  query DatasetFilters($q: String) {
     datasetFilters(q: $q) {
       ${filters}
     }
