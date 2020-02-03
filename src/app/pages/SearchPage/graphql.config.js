@@ -1,11 +1,9 @@
-// TODO: Align format of filters for data with cms and datasets
 const filters = `
   filters {
     type
     label
     filterType
     options {
-      enumType
       id
       label
       count
@@ -44,17 +42,9 @@ export const publicationSearchQuery = getCmsSearch('publicationSearch')
 export const specialSearchQuery = getCmsSearch('specialSearch')
 
 const dataSearch = `
-  dataSearch(q: $q, input: {limit: $limit, from: $from, types: $types}) {
+  dataSearch(q: $q, input: { limit: $limit, from: $from, filters: $filters}) {
     totalCount
-    filters {
-      type
-      label
-      options {
-        id
-        label
-        count
-      }
-    }
+    ${filters}
     results {
       type
       label
@@ -73,6 +63,7 @@ const dataSearch = `
 export const datasetSearch = `
   datasetSearch(q: $q, input: { limit: $limit, from: $from, filters: $filters}) {
     totalCount
+    ${filters}
     results {
       header
       teaser
@@ -85,7 +76,7 @@ export const datasetSearch = `
 `
 
 export const dataSearchQuery = `
-  query DataSearch($q: String!, $limit: Int, $from: Int, $types: [String!]) {
+  query DatasetSearch($q: String, $limit: Int, $from: Int, $filters: [FilterInput!]) {
     ${dataSearch}
   }
 `
