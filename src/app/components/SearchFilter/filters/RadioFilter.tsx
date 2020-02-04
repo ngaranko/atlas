@@ -26,18 +26,29 @@ const RadioFilter: React.FC<FilterProps> = ({
   return (
     <RadioGroup name={type}>
       <Label htmlFor={allControlId} label={formatAllOptionLabel(totalCount, hideCount)}>
-        <Radio id={allControlId} value="" checked={selection.length === 0} onChange={onChange} />
+        <Radio
+          id={allControlId}
+          value=""
+          variant="primary"
+          checked={selection.length === 0}
+          onChange={onChange}
+        />
       </Label>
       {options.map(option => {
         const controlId = `${type}-${option.id}`
 
         return (
-          <Label key={controlId} htmlFor={controlId} label={formatOptionLabel(option, hideCount)}>
+          <Label
+            key={controlId}
+            htmlFor={controlId}
+            label={formatOptionLabel(option, hideCount)}
+            disabled={option.count === 0}
+          >
             <Radio
               id={controlId}
               value={option.id}
+              variant="primary"
               checked={selection.includes(option.id)}
-              disabled={option.count === 0}
               onChange={onChange}
             />
           </Label>

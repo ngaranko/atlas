@@ -25,12 +25,17 @@ const CheckboxFilter: React.FC<FilterProps> = ({
         const controlId = `${type}-${option.id}`
 
         return (
-          <Label key={controlId} htmlFor={controlId} label={formatOptionLabel(option, hideCount)}>
+          <Label
+            key={controlId}
+            htmlFor={controlId}
+            label={formatOptionLabel(option, hideCount)}
+            disabled={option.count === 0}
+          >
             <Checkbox
               id={controlId}
               value={option.id}
+              variant="primary"
               checked={selection.includes(option.id)}
-              disabled={option.count === 0}
               onChange={onChange}
             />
           </Label>

@@ -30,12 +30,7 @@ const SelectFilter: React.FC<FilterProps> = ({
         const controlId = `${type}-${option.id}`
 
         return (
-          <option
-            key={controlId}
-            value={option.id}
-            selected={selection.includes(option.id)}
-            disabled={option.count === 0}
-          >
+          <option key={controlId} value={option.id} selected={selection.includes(option.id)}>
             {formatOptionLabel(option, hideCount)}
           </option>
         )
