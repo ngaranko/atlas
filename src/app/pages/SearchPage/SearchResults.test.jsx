@@ -1,69 +1,23 @@
-import { shallow } from 'enzyme'
 import React from 'react'
-import SearchResultsOverview from './SearchResults'
-import SEARCH_PAGE_CONFIG, { EDITORIAL_SEARCH_PAGES, DATA_SEARCH_PAGES } from './config'
+import { shallow } from 'enzyme'
+import SearchResults from './SearchResults'
+import PAGES from '../../pages'
+import { EDITORIAL_SEARCH_PAGES, DATASET_SEARCH_PAGES, DATA_SEARCH_PAGES } from './config'
 
-describe('SearchResultsOverview', () => {
-  describe('should render the correct results component for the search page ', () => {
-    let component
+describe('SearchResults', () => {
+  describe('should return the correct results component based on page', () => {
+    it('for search pages', () => {
+      ;[...EDITORIAL_SEARCH_PAGES, ...DATASET_SEARCH_PAGES, ...DATA_SEARCH_PAGES].map(page => {
+        const component = shallow(<SearchResults page={page} />)
 
-    it('when no results', () => {
-      component = shallow(<SearchResultsOverview results={[]} />)
-
-      expect(component.find(`[data-test='NoSearchResults']`).exists()).toBeTruthy()
+        return expect(component.props()).toMatchObject({ 'data-test': page })
+      })
     })
 
-    it('when no results for each type', () => {
-      component = shallow(
-        <SearchResultsOverview
-          results={[
-            {
-              results: [],
-            },
-          ]}
-        />,
-      )
+    it('for other pages', () => {
+      const component = shallow(<SearchResults page={PAGES.SEARCH} />)
 
       expect(component).toEqual({})
-    })
-
-    describe('when results for each type', () => {
-      const mockTypes = [...DATA_SEARCH_PAGES, ...EDITORIAL_SEARCH_PAGES]
-
-      const mockResults = mockTypes.map(type => ({
-        type,
-        totalCount: 1,
-        results: [{ id: 'foo ' }],
-      }))
-
-      it('renders correct number of components', () => {
-        component = shallow(<SearchResultsOverview results={mockResults} totalCount={1} />)
-
-        expect(component.length).toBe(mockTypes.length)
-      })
-
-      it('renders the components for each type', () => {
-        const pageType = mockTypes[mockTypes.length - 1]
-
-        const page = SEARCH_PAGE_CONFIG[pageType]
-        const pageComponent = component.at(mockTypes.length - 1)
-        const pageResults = mockResults.find(result => result.type === pageType)
-
-        // Heading
-        expect(pageComponent.find('SearchHeading').exists()).toBeTruthy()
-        expect(pageComponent.find('SearchHeading').props()).toMatchObject({
-          label: `${page.label} (${pageResults.totalCount})`,
-        })
-
-        // Results body
-        expect(pageComponent.find(`[data-test="${pageType}"]`).exists()).toBeTruthy()
-
-        // Link
-        expect(pageComponent.find('SearchLink').exists()).toBeTruthy()
-        expect(pageComponent.find('SearchLink').props().to).toMatchObject({
-          type: expect.stringContaining(pageType),
-        })
-      })
     })
   })
 })

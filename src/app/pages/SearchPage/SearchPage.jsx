@@ -23,6 +23,7 @@ import SEARCH_PAGE_CONFIG, {
   DATA_SEARCH_PAGES,
   DATASET_SEARCH_PAGES,
   EDITORIAL_SEARCH_PAGES,
+  DATA_FILTERS,
 } from './config'
 import SearchPageResults from './SearchPageResults'
 import usePagination from '../../utils/usePagination'
@@ -172,14 +173,16 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
   }, [showFilter, currentPage])
 
   useEffect(() => {
-    const isSearchPage = [
-      ...EDITORIAL_SEARCH_PAGES,
-      ...DATASET_SEARCH_PAGES,
-      ...DATA_SEARCH_PAGES,
-    ].includes(currentPage)
+    const isSearchPage = [...EDITORIAL_SEARCH_PAGES, ...DATASET_SEARCH_PAGES].includes(currentPage)
+    const isDataSearchPage = DATA_SEARCH_PAGES.includes(currentPage)
 
     if (isSearchPage) {
       setShowLoadMore(true)
+      setExtraQuery({ filters: activeFilters })
+    } else if (isDataSearchPage) {
+      const activeDataFilter = activeFilters.find(filter => filter.type === DATA_FILTERS) || null
+
+      setShowLoadMore(activeDataFilter !== null)
       setExtraQuery({ filters: activeFilters })
     } else {
       setExtraQuery({})
@@ -190,7 +193,11 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
   const Filters = (
     <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
       {!isOverviewPage && <PageFilterBox {...{ query, currentPage }} />}
-      <SearchPageFilters filters={filters} totalCount={totalCount} />
+      <SearchPageFilters
+        filters={filters}
+        totalCount={totalCount}
+        hideCount={!DATA_SEARCH_PAGES.includes(currentPage)}
+      />
     </FilterColumn>
   )
 
