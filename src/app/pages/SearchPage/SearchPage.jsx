@@ -12,9 +12,9 @@ import {
   Button,
   Heading,
   Spinner,
-  styles,
+  themeColor,
 } from '@datapunt/asc-ui'
-import styled, { css } from '@datapunt/asc-core'
+import styled from '@datapunt/asc-core'
 import { Close } from '@datapunt/asc-assets'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
@@ -41,47 +41,29 @@ const FilterColumn = styled(Column)`
   }
 `
 
-const FILTER_BOX_WIDTH_CSS = css`
-  @media screen and ${breakpoint('min-width', 'mobileL')} {
-    width: calc(100% - ${themeSpacing(10)});
-    max-width: calc(400px + ${themeSpacing(12)});
-  }
+const ModalCloseButton = styled(Button)`
+  margin-left: auto;
 `
 
 const StyledModal = styled(Modal)`
-  ${FILTER_BOX_WIDTH_CSS}
-
   ${FilterColumn} {
     top: 0;
     width: 100%;
-    position: relative;
     display: block;
-    overflow-y: auto;
+    overflow-y: scroll;
     left: 0;
     right: ${themeSpacing(5)};
+    padding: ${themeSpacing(5)};
     flex-grow: 1;
-    margin-bottom: ${themeSpacing(19)};
-
-    @media screen and ${breakpoint('max-width', 'mobileL')} {
-      ${styles.FilterBoxStyle} {
-        border-right: transparent;
-        border-left: transparent;
-      }
-    }
-    @media screen and ${breakpoint('min-width', 'mobileL')} {
-      padding-left: ${themeSpacing(5)};
-      padding-right: ${themeSpacing(5)};
-    }
   }
 
   [role='dialog'] {
+    max-width: calc(400px + ${themeSpacing(12)});
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    position: relative;
-    height: 100vh;
+    position: absolute;
     max-height: 100%;
-    max-width: initial;
     top: 0;
     left: 0;
     bottom: 0;
@@ -90,24 +72,16 @@ const StyledModal = styled(Modal)`
   }
 `
 
-const ModalCloseButton = styled(Button)`
-  margin-left: auto;
-`
-
 const ApplyFilters = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 30; // Todo: implement better z-index strategy
   width: 100%;
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
   padding: ${themeSpacing(4)};
   background-color: #fff;
   box-shadow: 0 0 ${themeSpacing(2)} 1px black;
   margin-top: auto;
-
-  ${FILTER_BOX_WIDTH_CSS}
+  position: relative; // No idea why, but this will make sure the box-shadow overlaps the borders of the sibling components
 `
 
 const ApplyFiltersButton = styled(Button)`
@@ -115,6 +89,10 @@ const ApplyFiltersButton = styled(Button)`
   display: flex;
   text-align: center;
   justify-content: center;
+`
+
+const StyledTopBar = styled(TopBar)`
+  border-bottom: 2px solid ${themeColor('tint', 'level3')};
 `
 
 /* TODO: Write tests for the Hooks used in this component */
@@ -135,6 +113,17 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
       trackPageView({ documentTitle })
     }
   }, [documentTitle])
+
+  // Hide filter when orientation changes to prevent layout issues.
+  useEffect(() => {
+    function onOrientationChange() {
+      setShowFilter(false)
+    }
+
+    window.addEventListener('orientationchange', onOrientationChange)
+
+    return () => window.removeEventListener('orientationchange', onOrientationChange)
+  }, [])
 
   const {
     fetching,
@@ -214,7 +203,7 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
             hideOverFlow={false}
             zIndexOffset={1}
           >
-            <TopBar>
+            <StyledTopBar>
               <Heading style={{ flexGrow: 1 }} as="h4">
                 <ModalCloseButton
                   variant="blank"
@@ -224,7 +213,7 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
                   icon={<Close />}
                 />
               </Heading>
-            </TopBar>
+            </StyledTopBar>
             {Filters}
             <ApplyFilters>
               <ApplyFiltersButton
