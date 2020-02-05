@@ -2,18 +2,16 @@ import styled from '@datapunt/asc-core'
 import { Icon, Link, themeSpacing, breakpoint } from '@datapunt/asc-ui'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
-import { toDataSearch, toDetailFromEndpoint } from '../../../store/redux-first-router/actions'
-import { DEFAULT_LIMIT, DATA_FILTERS } from '../../pages/SearchPage/config'
+import { toDataSearchType, toDetailFromEndpoint } from '../../../store/redux-first-router/actions'
 import SearchLink from '../Links/SearchLink/SearchLink'
 import SearchHeading from '../SearchHeading/SearchHeading'
 import DataIcon from './DataIcon'
-import PARAMETERS from '../../../store/parameters'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 import ErrorMessage from '../HomePage/ErrorMessage'
 import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
 
 const List = styled.ul`
-  margin-bottom: ${({ showLoadMore }) => !showLoadMore && themeSpacing(6)};
+  margin-bottom: ${({ hasMarginBottom }) => hasMarginBottom && themeSpacing(6)};
 `
 
 const StyledLink = styled(Link)`
@@ -52,7 +50,7 @@ const showSubtype = (type, subtype) =>
   type === 'explosief' ||
   (type === 'monument' && subtype === 'complex')
 
-const DataList = ({ type, label, count, results, showLoadMore }) => (
+const DataList = ({ type, label, count, results, withPagination }) => (
   <div>
     <SearchHeading
       label={`${label} (${count.toLocaleString(DEFAULT_LOCALE)})`}
@@ -64,7 +62,7 @@ const DataList = ({ type, label, count, results, showLoadMore }) => (
     />
 
     {results ? (
-      <List showLoadMore={showLoadMore}>
+      <List hasMarginBottom={!withPagination}>
         {results.map(location => (
           <li key={location.id}>
             <StyledLink
@@ -81,20 +79,9 @@ const DataList = ({ type, label, count, results, showLoadMore }) => (
     ) : (
       <StyledErrorMessage />
     )}
-    {!showLoadMore && count > DEFAULT_LIMIT && (
+    {!withPagination && count > results.length && (
       <SearchLink
-        to={toDataSearch(
-          {
-            [PARAMETERS.FILTERS]: [
-              {
-                type: DATA_FILTERS,
-                values: [type],
-              },
-            ],
-          },
-          false,
-          true,
-        )}
+        to={toDataSearchType(type)}
         label={`Alle ${label && label.toLowerCase()} tonen`}
       />
     )}

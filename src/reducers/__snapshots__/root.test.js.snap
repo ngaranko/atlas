@@ -25,6 +25,7 @@ Object {
   "panoramaPreview": "panoramaPreview",
   "search": Object {
     "activeFilters": Array [],
+    "page": 1,
     "query": "",
     "sort": null,
   },
