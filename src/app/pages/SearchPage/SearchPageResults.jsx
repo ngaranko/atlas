@@ -65,7 +65,6 @@ const StyledDivider = styled(Divider)`
 const FilterWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-right: ${themeSpacing(4)};
 `
 
 const SearchPageResults = ({
