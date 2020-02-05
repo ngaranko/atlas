@@ -114,6 +114,17 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
     }
   }, [documentTitle])
 
+  // Hide filter when orientation changes to prevent layout issues.
+  useEffect(() => {
+    function onOrientationChange() {
+      setShowFilter(false)
+    }
+
+    window.addEventListener('orientationchange', onOrientationChange)
+
+    return () => window.removeEventListener('orientationchange', onOrientationChange)
+  }, [])
+
   const {
     fetching,
     errors,
