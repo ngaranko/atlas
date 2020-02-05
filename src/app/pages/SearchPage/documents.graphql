@@ -49,10 +49,7 @@ query publicationSearchQuery(
   $sort: CMSSortInput
   $withPagination: Boolean!
 ) {
-  publicationSearch(
-    q: $q
-    input: { limit: $limit, page: $page, filters: $filters, sort: $sort }
-  ) {
+  publicationSearch(q: $q, input: { limit: $limit, page: $page, filters: $filters, sort: $sort }) {
     ...CMSFields
     ...FilterFields
     ...PageInfoFields
@@ -80,6 +77,15 @@ query searchQuery($q: String!, $limit: Int) {
   }
   datasetSearch(q: $q, input: { limit: $limit }) {
     ...DatasetFields
+  }
+  articleSearch(q: $q, input: { limit: $limit }) {
+    ...CMSFields
+  }
+  publicationSearch(q: $q, input: { limit: $limit }) {
+    ...CMSFields
+  }
+  specialSearch(q: $q, input: { limit: $limit }) {
+    ...CMSFields
   }
 }
 

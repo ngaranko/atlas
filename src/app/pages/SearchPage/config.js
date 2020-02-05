@@ -63,8 +63,7 @@ export const CMS_SEARCH_PAGES = [
 
 export default {
   [routing.search.page]: {
-    // resolver: Object.values(QUERY_TYPES),
-    resolver: ['dataSearch', 'datasetSearch'],
+    resolver: ['dataSearch', 'datasetSearch', 'articleSearch'],
     to: toSearch,
     query: searchQuery,
     label: routing.search.title,

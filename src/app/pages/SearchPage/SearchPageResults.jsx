@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import styled from '@datapunt/asc-core'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   breakpoint,
   Button,
@@ -99,8 +99,8 @@ const SearchPageResults = ({
   sort,
   page,
   pageInfo,
-  dispatch, // Added by the HOC connect()
 }) => {
+  const dispatch = useDispatch()
   const allResultsPageActive = currentPage === PAGES.SEARCH
 
   const formatTitle = (label, count = null) => {
@@ -119,8 +119,8 @@ const SearchPageResults = ({
       : `${label} met '${query}' (${countFormatted} resultaten)`
   }
 
-  const ResultsComponent = (SEARCH_PAGE_CONFIG[currentPage] &&
-    SEARCH_PAGE_CONFIG[currentPage].component) || <></>
+  const ResultsComponent =
+    (SEARCH_PAGE_CONFIG[currentPage] && SEARCH_PAGE_CONFIG[currentPage].component) || null
 
   return (
     <ResultColumn
@@ -196,4 +196,4 @@ const SearchPageResults = ({
   )
 }
 
-export default connect()(memo(SearchPageResults))
+export default memo(SearchPageResults)

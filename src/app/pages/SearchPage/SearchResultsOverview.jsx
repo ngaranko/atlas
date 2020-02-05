@@ -26,7 +26,7 @@ const SearchResultsOverview = ({ query, totalCount, results, errors, loading }) 
       const resultItemType = getKeyByValue(QUERY_TYPES, key)
 
       if (resultItemType) {
-        const { label, component: ResultComponent, to } = SEARCH_PAGE_CONFIG[resultItemType]
+        const { label, component: ResultComponent, to, type } = SEARCH_PAGE_CONFIG[resultItemType]
 
         const hasLoadingError =
           errors &&
@@ -52,6 +52,7 @@ const SearchResultsOverview = ({ query, totalCount, results, errors, loading }) 
                 <ResultComponent
                   data-test={resultItemType}
                   {...{
+                    type,
                     page: resultItemType,
                     results: resultItemResults,
                     loading,
@@ -66,11 +67,9 @@ const SearchResultsOverview = ({ query, totalCount, results, errors, loading }) 
               <SearchLink to={to()} label={`Resultaten tonen binnen de categorie '${label}'`} />
             )}
           </ResultItem>
-        ) : (
-          <></>
-        )
+        ) : null
       }
-      return <></>
+      return null
     })
   ) : (
     <NoSearchResults data-test="NoSearchResults" query={query} />
