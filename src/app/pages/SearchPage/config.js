@@ -1,11 +1,12 @@
 import {
-  articleSearchQuery,
   dataSearchQuery,
   datasetSearchQuery,
+  searchQuery,
+  articleSearchQuery,
   publicationSearchQuery,
   specialSearchQuery,
-  searchQuery,
-} from './graphql.config'
+} from './documents.graphql'
+
 import {
   toSearch,
   toPublicationSearch,
@@ -20,6 +21,9 @@ import {
 } from '../../../store/redux-first-router/actions'
 import { routing } from '../../routes'
 import { TYPES as EDITORIAL_TYPES } from '../../../shared/config/cms.config'
+import EditorialResults from '../../components/EditorialResults'
+import DataSearchResults from './DataSearchResults'
+import DatasetSearchResults from './DatasetSearchResults'
 
 export const MAX_RESULTS = 50
 export const DEFAULT_LIMIT = 10
@@ -59,7 +63,8 @@ export const CMS_SEARCH_PAGES = [
 
 export default {
   [routing.search.page]: {
-    resolver: Object.values(QUERY_TYPES),
+    // resolver: Object.values(QUERY_TYPES),
+    resolver: ['dataSearch', 'datasetSearch'],
     to: toSearch,
     query: searchQuery,
     label: routing.search.title,
@@ -71,6 +76,7 @@ export default {
     to: toPublicationSearch,
     label: routing.publications.title,
     type: EDITORIAL_TYPES.PUBLICATION,
+    component: EditorialResults,
   },
   [routing.publications.page]: {
     resolver: QUERY_TYPES[routing.publicationSearch.page],
@@ -78,6 +84,7 @@ export default {
     to: toPublications,
     label: routing.publications.title,
     type: EDITORIAL_TYPES.PUBLICATION,
+    component: EditorialResults,
   },
   [routing.articleSearch.page]: {
     resolver: QUERY_TYPES[routing.articleSearch.page],
@@ -85,6 +92,7 @@ export default {
     to: toArticleSearch,
     label: routing.articles.title,
     type: EDITORIAL_TYPES.ARTICLE,
+    component: EditorialResults,
   },
   [routing.articles.page]: {
     resolver: QUERY_TYPES[routing.articleSearch.page],
@@ -92,6 +100,7 @@ export default {
     to: toArticles,
     label: routing.articles.title,
     type: EDITORIAL_TYPES.ARTICLE,
+    component: EditorialResults,
   },
   [routing.specialSearch.page]: {
     resolver: QUERY_TYPES[routing.specialSearch.page],
@@ -99,6 +108,7 @@ export default {
     to: toSpecialSearch,
     label: routing.specials.title,
     type: EDITORIAL_TYPES.SPECIAL,
+    component: EditorialResults,
   },
   [routing.specials.page]: {
     resolver: QUERY_TYPES[routing.specialSearch.page],
@@ -106,6 +116,7 @@ export default {
     to: toSpecials,
     label: routing.specials.title,
     type: EDITORIAL_TYPES.SPECIAL,
+    component: EditorialResults,
   },
   [routing.dataSearch.page]: {
     resolver: QUERY_TYPES[routing.dataSearch.page],
@@ -113,6 +124,7 @@ export default {
     to: toDataSearch,
     label: routing.data.title,
     type: TYPES.DATA,
+    component: DataSearchResults,
   },
   [routing.datasetSearch.page]: {
     resolver: QUERY_TYPES[routing.datasetSearch.page],
@@ -120,6 +132,7 @@ export default {
     to: toDatasetSearch,
     label: routing.datasets.title,
     type: TYPES.DATASET,
+    component: DatasetSearchResults,
   },
   [routing.datasets.page]: {
     resolver: QUERY_TYPES[routing.datasetSearch.page],
@@ -127,5 +140,6 @@ export default {
     to: toDatasets,
     label: routing.datasets.title,
     type: TYPES.DATASET,
+    component: DatasetSearchResults,
   },
 }

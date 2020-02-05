@@ -10,7 +10,7 @@ const CardWrapper = styled.div`
   margin-bottom: ${({ compact }) => (compact ? themeSpacing(2) : themeSpacing(8))};
 `
 
-export default ({ query, results, errors = [], compact, showLoadMore }) => {
+export default ({ query, results, errors = [], compact, showPagination }) => {
   const Card = compact ? DataCard : DataList
 
   // Get the total count for all data types
@@ -35,7 +35,7 @@ export default ({ query, results, errors = [], compact, showLoadMore }) => {
 
         return (result.results && result.results.length > 0) || hasLoadingError ? (
           <CardWrapper key={result.type} compact={compact}>
-            <Card {...{ ...result, showLoadMore, hasLoadingError: !!hasLoadingError }} />
+            <Card {...{ ...result, showPagination, hasLoadingError: !!hasLoadingError }} />
           </CardWrapper>
         ) : null
       })}

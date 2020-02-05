@@ -13,7 +13,7 @@ import ErrorMessage from '../HomePage/ErrorMessage'
 import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
 
 const List = styled.ul`
-  margin-bottom: ${({ showLoadMore }) => !showLoadMore && themeSpacing(6)};
+  margin-bottom: ${({ marginBottom }) => marginBottom && themeSpacing(6)};
 `
 
 const StyledLink = styled(Link)`
@@ -52,7 +52,7 @@ const showSubtype = (type, subtype) =>
   type === 'explosief' ||
   (type === 'monument' && subtype === 'complex')
 
-const DataList = ({ type, label, count, results, showLoadMore }) => (
+const DataList = ({ type, label, count, results, showPagination }) => (
   <div>
     <SearchHeading
       label={`${label} (${count.toLocaleString(DEFAULT_LOCALE)})`}
@@ -64,7 +64,7 @@ const DataList = ({ type, label, count, results, showLoadMore }) => (
     />
 
     {results ? (
-      <List showLoadMore={showLoadMore}>
+      <List marginBottom={!showPagination}>
         {results.map(location => (
           <li key={location.id}>
             <StyledLink
@@ -81,7 +81,7 @@ const DataList = ({ type, label, count, results, showLoadMore }) => (
     ) : (
       <StyledErrorMessage />
     )}
-    {!showLoadMore && count > DEFAULT_LIMIT && (
+    {!showPagination && count > DEFAULT_LIMIT && (
       <SearchLink
         to={toDataSearch(
           {

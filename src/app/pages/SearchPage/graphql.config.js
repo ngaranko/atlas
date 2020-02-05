@@ -10,6 +10,13 @@ const filters = `
     }
   }
 `
+const pageInfo = `
+  pageInfo {
+    hasLimitedResults
+    hasNextPage
+    totalPages
+  }
+`
 
 export const cmsSearch = resolverName => `${resolverName}(q: $q, input: {limit: $limit, from: $from, types: $types, filters: $filters, sort: $sort}) {
   totalCount
@@ -42,9 +49,10 @@ export const publicationSearchQuery = getCmsSearch('publicationSearch')
 export const specialSearchQuery = getCmsSearch('specialSearch')
 
 const dataSearch = `
-  dataSearch(q: $q, input: { limit: $limit, from: $from, filters: $filters}) {
+  dataSearch(q: $q, input: { limit: $limit, page: $page, filters: $filters}) {
     totalCount
     ${filters}
+    ${pageInfo}
     results {
       type
       label
@@ -76,7 +84,7 @@ export const datasetSearch = `
 `
 
 export const dataSearchQuery = `
-  query DatasetSearch($q: String, $limit: Int, $from: Int, $filters: [FilterInput!]) {
+  query DataSearch($q: String, $limit: Int, $page: Int, $filters: [FilterInput!]) {
     ${dataSearch}
   }
 `

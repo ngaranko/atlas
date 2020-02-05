@@ -1,5 +1,6 @@
-import React, { memo, useMemo } from 'react'
+import React, { memo } from 'react'
 import styled from '@datapunt/asc-core'
+import { connect } from 'react-redux'
 import {
   breakpoint,
   Button,
@@ -8,15 +9,16 @@ import {
   themeSpacing,
   Divider,
   themeColor,
+  CompactPager,
 } from '@datapunt/asc-ui'
-import { Enlarge } from '@datapunt/asc-assets'
+import PARAMETERS from '../../../store/parameters'
 import PAGES from '../../pages'
 import SEARCH_PAGE_CONFIG, { EDITORIAL_SEARCH_PAGES } from './config'
-import ActionButton from '../../components/ActionButton/ActionButton'
-import SearchResults, { SearchResultsSkeleton } from './SearchResults'
-import SearchResultsOverview, { SearchResultsOverviewSkeleton } from './SearchResultsOverview'
+import { SearchResultsSkeleton, SearchResultsOverviewSkeleton } from './SearchResultsSkeleton'
+import SearchResultsOverview from './SearchResultsOverview'
 import SearchSort from './SearchSort'
 import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
+import MaxSearchPageMessage from '../../components/PanelMessages/MaxSearchPageMessage'
 
 const StyledHeading = styled(Heading)`
   margin-bottom: ${themeSpacing(4)};
@@ -66,6 +68,24 @@ const FilterWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
 `
+const SearchResultsWrapper = styled.div`
+  @media screen and ${breakpoint('min-width', 'laptop')} {
+    margin-bottom: ${themeSpacing(14)};
+  }
+
+  margin-bottom: ${themeSpacing(10)};
+`
+
+const StyledErrorMessage = styled(MaxSearchPageMessage)`
+  margin-bottom: ${themeSpacing(10)};
+`
+
+const StyledCompactPager = styled(CompactPager)`
+  @media screen and ${breakpoint('min-width', 'laptop')} {
+    width: 240px;
+  }
+  width: 100%;
+`
 
 const SearchPageResults = ({
   query,
@@ -75,19 +95,12 @@ const SearchPageResults = ({
   results,
   currentPage,
   isOverviewPage,
-  hasMore,
-  fetchMore,
-  fetchingMore,
-  showLoadMore,
   setShowFilter,
   sort,
+  page,
+  pageInfo,
+  dispatch, // Added by the HOC connect()
 }) => {
-  // we need to memoize this until the results have been changed (prevents flashing no results content because fetching is set before results)
-  const [initialLoading, doneLoading] = useMemo(
-    () => [fetching && !fetchingMore, !fetching && !fetchingMore],
-    [results],
-  )
-
   const allResultsPageActive = currentPage === PAGES.SEARCH
 
   const formatTitle = (label, count = null) => {
@@ -106,6 +119,9 @@ const SearchPageResults = ({
       : `${label} met '${query}' (${countFormatted} resultaten)`
   }
 
+  const ResultsComponent = (SEARCH_PAGE_CONFIG[currentPage] &&
+    SEARCH_PAGE_CONFIG[currentPage].component) || <></>
+
   return (
     <ResultColumn
       wrap
@@ -113,46 +129,65 @@ const SearchPageResults = ({
       push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
     >
       <StyledHeading>
-        {doneLoading
-          ? formatTitle(SEARCH_PAGE_CONFIG[currentPage].label, totalCount)
-          : formatTitle(SEARCH_PAGE_CONFIG[currentPage].label)}
+        {formatTitle(SEARCH_PAGE_CONFIG[currentPage].label, !fetching ? totalCount : null)}
       </StyledHeading>
       <FilterWrapper>
-        <FilterButton variant="primary" onClick={() => setShowFilter(true)} disabled={!doneLoading}>
+        <FilterButton variant="primary" onClick={() => setShowFilter(true)} disabled={fetching}>
           Filteren
         </FilterButton>
         {EDITORIAL_SEARCH_PAGES.includes(currentPage) && (
-          <SearchSort isOverviewPage={isOverviewPage} sort={sort} disabled={!doneLoading} />
+          <>
+            <SearchSort isOverviewPage={isOverviewPage} sort={sort} disabled={fetching} />
+            <StyledDivider />
+          </>
         )}
-        {EDITORIAL_SEARCH_PAGES.includes(currentPage) && <StyledDivider />}
       </FilterWrapper>
-      {initialLoading && (
+      {fetching && (
         <ResultWrapper>
           {allResultsPageActive ? <SearchResultsOverviewSkeleton /> : <SearchResultsSkeleton />}
         </ResultWrapper>
       )}
-      {doneLoading && (
+      {!fetching && (
         <ResultWrapper>
           {allResultsPageActive ? (
             <SearchResultsOverview {...{ query, totalCount, results, errors, loading: fetching }} />
           ) : (
-            <SearchResults
-              {...{
-                page: currentPage,
-                query,
-                results,
-                errors,
-                loading: fetching,
-                showLoadMore,
-                isOverviewPage,
-              }}
-            />
+            <SearchResultsWrapper>
+              <ResultsComponent
+                {...{
+                  page: currentPage,
+                  query,
+                  results,
+                  errors,
+                  showPagination: pageInfo,
+                  loading: fetching,
+                  isOverviewPage,
+                  label: SEARCH_PAGE_CONFIG[currentPage].label,
+                  type: SEARCH_PAGE_CONFIG[currentPage].type,
+                }}
+              />
+            </SearchResultsWrapper>
           )}
-          {showLoadMore && hasMore && (
-            <ActionButton
-              label="Toon meer"
-              iconLeft={<Enlarge />}
-              {...{ fetching: fetchingMore, onClick: fetchMore }}
+          {pageInfo && pageInfo.hasLimitedResults && !pageInfo.hasNextPage && (
+            <StyledErrorMessage />
+          )}
+          {pageInfo && results.length > 0 && (
+            // TODO: Check if the CompactPager component is structured correctly..
+            <StyledCompactPager
+              page={page}
+              pageSize={Math.ceil(totalCount / pageInfo.totalPages)}
+              collectionSize={totalCount}
+              onPageChange={pageNumber => {
+                dispatch(
+                  SEARCH_PAGE_CONFIG[currentPage].to(
+                    {
+                      [PARAMETERS.PAGE]: pageNumber,
+                    },
+                    false,
+                    true,
+                  ),
+                )
+              }}
             />
           )}
         </ResultWrapper>
@@ -161,4 +196,4 @@ const SearchPageResults = ({
   )
 }
 
-export default memo(SearchPageResults)
+export default connect()(memo(SearchPageResults))

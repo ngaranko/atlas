@@ -1,0 +1,171 @@
+query dataSearchQuery(
+  $q: String
+  $limit: Int
+  $page: Int
+  $filters: [FilterInput!]
+  $withPagination: Boolean!
+) {
+  dataSearch(q: $q, input: { limit: $limit, page: $page, filters: $filters }) {
+    ...DataFields
+    ...FilterFields
+    ...PageInfoFields
+  }
+}
+
+query datasetSearchQuery(
+  $q: String
+  $limit: Int
+  $page: Int
+  $filters: [FilterInput!]
+  $withPagination: Boolean!
+) {
+  datasetSearch(q: $q, input: { limit: $limit, page: $page, filters: $filters }) {
+    ...DatasetFields
+    ...FilterFields
+    ...PageInfoFields
+  }
+}
+
+query articleSearchQuery(
+  $q: String
+  $limit: Int
+  $types: [String!]
+  $filters: [FilterInput!]
+  $sort: CMSSortInput
+  $withPagination: Boolean!
+) {
+  articleSearch(q: $q, input: { limit: $limit, types: $types, filters: $filters, sort: $sort }) {
+    ...CMSFields
+    ...FilterFields
+    ...PageInfoFields
+  }
+}
+
+query publicationSearchQuery(
+  $q: String
+  $limit: Int
+  $types: [String!]
+  $filters: [FilterInput!]
+  $sort: CMSSortInput
+  $withPagination: Boolean!
+) {
+  publicationSearch(
+    q: $q
+    input: { limit: $limit, types: $types, filters: $filters, sort: $sort }
+  ) {
+    ...CMSFields
+    ...FilterFields
+    ...PageInfoFields
+  }
+}
+
+query specialSearchQuery(
+  $q: String
+  $limit: Int
+  $types: [String!]
+  $filters: [FilterInput!]
+  $sort: CMSSortInput
+  $withPagination: Boolean!
+) {
+  specialSearch(q: $q, input: { limit: $limit, types: $types, filters: $filters, sort: $sort }) {
+    ...CMSFields
+    ...FilterFields
+    ...PageInfoFields
+  }
+}
+
+query searchQuery($q: String!, $limit: Int) {
+  dataSearch(q: $q, input: { limit: $limit }) {
+    ...DataFields
+  }
+  datasetSearch(q: $q, input: { limit: $limit }) {
+    ...DatasetFields
+  }
+}
+
+query totalCountSearch($q: String!, $limit: Int) {
+  datasetSearch(q: $q, input: { limit: $limit }) {
+    totalCount
+  }
+  dataSearch(q: $q, input: { limit: $limit }) {
+    totalCount
+  }
+  articleSearch(q: $q, input: { limit: $limit }) {
+    totalCount
+  }
+  publicationSearch(q: $q, input: { limit: $limit }) {
+    totalCount
+  }
+  specialSearch(q: $q, input: { limit: $limit }) {
+    totalCount
+  }
+}
+
+fragment DataFields on DataSearchResult {
+  totalCount
+  results {
+    type
+    label
+    count
+    results {
+      id
+      label
+      type
+      subtype
+      endpoint
+    }
+  }
+}
+
+fragment DatasetFields on DatasetSearchResult {
+  totalCount
+  results {
+    header
+    teaser
+    modified
+    id
+    tags
+    distributionTypes
+  }
+}
+
+fragment CMSFields on CMSSearchResult {
+  totalCount
+  results {
+    id
+    label
+    type
+    date
+    slug
+    intro
+    teaser
+    dateLocale
+    teaserImage
+    coverImage
+    specialType
+    link {
+      uri
+    }
+  }
+}
+
+fragment FilterFields on SearchResult {
+  filters {
+    type
+    label
+    filterType
+    options {
+      id
+      label
+      count
+    }
+  }
+}
+
+fragment PageInfoFields on SearchResult {
+  pageInfo @include(if: $withPagination) {
+    hasLimitedResults
+    hasNextPage
+    totalPages
+  }
+}

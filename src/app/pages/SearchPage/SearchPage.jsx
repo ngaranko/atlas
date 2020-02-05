@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 import { clearAllBodyScrollLocks, enableBodyScroll } from 'body-scroll-lock'
+<<<<<<< HEAD
 import {
   breakpoint,
   Column,
@@ -16,8 +17,10 @@ import {
 } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import { Close } from '@datapunt/asc-assets'
+=======
+import { Container, Row } from '@datapunt/asc-ui'
+>>>>>>> Add pagination to the searchpages, deleted unused filed, refactored search results to be less confusing
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
-import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
 import SEARCH_PAGE_CONFIG, {
   DEFAULT_LIMIT,
   DATA_SEARCH_PAGES,
@@ -26,12 +29,12 @@ import SEARCH_PAGE_CONFIG, {
   DATA_FILTERS,
 } from './config'
 import SearchPageResults from './SearchPageResults'
-import usePagination from '../../utils/usePagination'
 import SearchPageFilters from './SearchPageFilters'
 import useCompare from '../../utils/useCompare'
 import useSelectors from '../../utils/useSelectors'
-import { getActiveFilters, getSort } from './SearchPageDucks'
+import { getActiveFilters, getSort, getPage } from './SearchPageDucks'
 import useDocumentTitle from '../../utils/useDocumentTitle'
+<<<<<<< HEAD
 
 const FilterColumn = styled(Column)`
   align-content: flex-start;
@@ -90,6 +93,21 @@ const ApplyFiltersButton = styled(Button)`
   text-align: center;
   justify-content: center;
 `
+=======
+import usePagination from './usePagination'
+
+function getSortIntput(sortString) {
+  let sort
+  if (sortString && sortString.length) {
+    const [field, order] = sortString.split(':')
+    sort = {
+      field,
+      order,
+    }
+  }
+  return sort
+}
+>>>>>>> Add pagination to the searchpages, deleted unused filed, refactored search results to be less confusing
 
 const StyledTopBar = styled(TopBar)`
   border-bottom: 2px solid ${themeColor('tint', 'level3')};
@@ -98,15 +116,22 @@ const StyledTopBar = styled(TopBar)`
 /* TODO: Write tests for the Hooks used in this component */
 /* istanbul ignore next */
 const SearchPage = ({ isOverviewPage, currentPage, query }) => {
-  const [extraQuery, setExtraQuery] = useState({})
-  const [showLoadMore, setShowLoadMore] = useState(false)
+  const [initialLoading, setInitialLoading] = useState(true)
   const [showFilter, setShowFilter] = useState(false)
-  const [sort, activeFilters] = useSelectors([getSort, getActiveFilters])
-  const from = 0
+  const [sort, page, activeFilters] = useSelectors([getSort, getPage, getActiveFilters])
   const defaultSort = isOverviewPage ? 'date:desc' : ''
 
   const { documentTitle } = useDocumentTitle()
   const { trackPageView } = useMatomo()
+
+  const isSearchPage = [...EDITORIAL_SEARCH_PAGES, ...DATASET_SEARCH_PAGES].includes(currentPage)
+  const isDataSearchPage = DATA_SEARCH_PAGES.includes(currentPage)
+
+  // Pagination is needed on the search pages with a single query unless the dataSearchQuery which also needs activeFilters
+  const withPagination =
+    isSearchPage ||
+    !!(isDataSearchPage && activeFilters.find(filter => filter.type === DATA_FILTERS)) ||
+    false
 
   useEffect(() => {
     if (documentTitle) {
@@ -114,6 +139,7 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
     }
   }, [documentTitle])
 
+<<<<<<< HEAD
   // Hide filter when orientation changes to prevent layout issues.
   useEffect(() => {
     function onOrientationChange() {
@@ -136,14 +162,19 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
     hasMore,
   } = usePagination(
     SEARCH_PAGE_CONFIG[currentPage],
+=======
+  const { fetching, errors, totalCount, filters, results, pageInfo } = usePagination(
+    SEARCH_PAGE_CONFIG[currentPage].query,
+>>>>>>> Add pagination to the searchpages, deleted unused filed, refactored search results to be less confusing
     {
       q: query,
-      limit: DEFAULT_LIMIT,
-      ...extraQuery,
+      page: withPagination ? page : null, // In case the pagination doesn't gets deleted when changing routes
+      sort: getSortIntput(sort || defaultSort),
+      limit: !withPagination ? DEFAULT_LIMIT : null,
+      withPagination, // Without this no PageInfo will be returned, so the CompactPager won't be rendered
+      filters: activeFilters,
     },
-    sort || defaultSort,
-    DEFAULT_LIMIT,
-    from,
+    SEARCH_PAGE_CONFIG[currentPage].resolver,
   )
 
   const currentPageHasChanged = useCompare(currentPage)
@@ -161,39 +192,23 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
     action()
   }, [showFilter, currentPage])
 
+  // Only the initial loading state should render the skeleton components, this prevents unwanted flickering when changing query variables
   useEffect(() => {
-    const isSearchPage = [...EDITORIAL_SEARCH_PAGES, ...DATASET_SEARCH_PAGES].includes(currentPage)
-    const isDataSearchPage = DATA_SEARCH_PAGES.includes(currentPage)
-
-    if (isSearchPage) {
-      setShowLoadMore(true)
-      setExtraQuery({ filters: activeFilters })
-    } else if (isDataSearchPage) {
-      const activeDataFilter = activeFilters.find(filter => filter.type === DATA_FILTERS) || null
-
-      setShowLoadMore(activeDataFilter !== null)
-      setExtraQuery({ filters: activeFilters })
-    } else {
-      setExtraQuery({})
-      setShowLoadMore(false)
+    if (currentPageHasChanged) {
+      // If the page changes, the skeleton components must be rendered
+      setInitialLoading(true)
     }
-  }, [currentPage, activeFilters])
 
-  const Filters = (
-    <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
-      {!isOverviewPage && <PageFilterBox {...{ query, currentPage }} />}
-      <SearchPageFilters
-        filters={filters}
-        totalCount={totalCount}
-        hideCount={!DATA_SEARCH_PAGES.includes(currentPage)}
-      />
-    </FilterColumn>
-  )
+    if (!!results && !fetching) {
+      setInitialLoading(false)
+    }
+  }, [currentPage, results, fetching])
 
   return (
     <Container>
       <ContentContainer>
         <Row>
+<<<<<<< HEAD
           {!showFilter && Filters}
           <StyledModal
             aria-labelledby="filters"
@@ -225,21 +240,33 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
               </ApplyFiltersButton>
             </ApplyFilters>
           </StyledModal>
+=======
+          <SearchPageFilters
+            filters={filters}
+            isOverviewPage={isOverviewPage}
+            totalCount={totalCount}
+            hideCount={!DATA_SEARCH_PAGES.includes(currentPage)}
+            setShowFilter={setShowFilter}
+            query={query}
+            currentPage={currentPage}
+            fetching={fetching}
+            showFilter={showFilter}
+          />
+
+>>>>>>> Add pagination to the searchpages, deleted unused filed, refactored search results to be less confusing
           <SearchPageResults
             {...{
               query,
               errors,
-              fetching,
+              fetching: initialLoading,
               totalCount,
               results,
               currentPage,
               isOverviewPage,
-              hasMore,
-              fetchingMore,
-              fetchMore,
-              showLoadMore,
               sort,
+              page,
               setShowFilter,
+              pageInfo,
             }}
           />
         </Row>

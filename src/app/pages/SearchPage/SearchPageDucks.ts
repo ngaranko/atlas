@@ -3,12 +3,14 @@ import { typedAction } from '../../utils/typedAction'
 
 export const REDUCER_KEY = 'search'
 export const SET_SORT = 'search/SET_SORT'
+export const SET_PAGE = 'search/SET_PAGE'
 export const SET_FILTER_VALUES = 'search/SET_FILTER_VALUES'
 
 interface SearchPageState {
   activeFilters: ActiveFilter[]
   query: string
   sort: string | null
+  page: number
 }
 
 interface ActiveFilter {
@@ -17,15 +19,18 @@ interface ActiveFilter {
 }
 
 export const setSort = (sort: string) => typedAction(SET_SORT, sort)
+export const setPage = (page: number) => typedAction(SET_PAGE, page)
+
 export const setFilterValues = (type: string, values: string[]) =>
   typedAction(SET_FILTER_VALUES, { type, values })
 
-type SearchPageAction = ReturnType<typeof setSort | typeof setFilterValues>
+type SearchPageAction = ReturnType<typeof setSort | typeof setPage | typeof setFilterValues>
 
 export const initialState: SearchPageState = {
   activeFilters: [],
   query: '',
   sort: null,
+  page: 1,
 }
 
 export default function reducer(state = initialState, action: SearchPageAction): SearchPageState {
@@ -72,6 +77,15 @@ export default function reducer(state = initialState, action: SearchPageAction):
       }
     }
 
+    case SET_PAGE: {
+      const page = action.payload > 0 ? action.payload : initialState.page
+
+      return {
+        ...enrichedState,
+        page,
+      }
+    }
+
     default:
       return enrichedState
   }
@@ -82,6 +96,7 @@ type StoreValue = { [REDUCER_KEY]: SearchPageState }
 export const getQuery = ({ [REDUCER_KEY]: { query } }: StoreValue) => query && query.toString()
 
 export const getSort = ({ [REDUCER_KEY]: { sort } }: StoreValue) => sort
+export const getPage = ({ [REDUCER_KEY]: { page } }: StoreValue) => page
 
 export const getActiveFilters = ({ [REDUCER_KEY]: { activeFilters } }: StoreValue) => activeFilters
 

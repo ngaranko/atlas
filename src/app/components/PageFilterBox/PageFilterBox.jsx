@@ -7,14 +7,14 @@ import { routing } from '../../routes'
 import SEARCH_PAGE_CONFIG from '../../pages/SearchPage/config'
 import isDefined from '../../../shared/services/is-defined'
 import PARAMETERS from '../../../store/parameters'
-import { categoryFilterBoxQuery } from '../../pages/SearchPage/graphql.config'
 import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
+import { totalCountSearch } from '../../pages/SearchPage/documents.graphql'
 
 const ACTIVE_LINK_PROPS = { active: true, as: 'div' }
 
 export default memo(({ currentPage, query }) => {
   const [{ data }] = useQuery({
-    query: categoryFilterBoxQuery,
+    query: totalCountSearch,
     variables: {
       q: query,
     },
