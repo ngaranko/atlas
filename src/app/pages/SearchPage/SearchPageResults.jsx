@@ -159,7 +159,7 @@ const SearchPageResults = ({
                   query,
                   results,
                   errors,
-                  showPagination: pageInfo,
+                  withPagination: pageInfo,
                   loading: fetching,
                   isOverviewPage,
                   label: SEARCH_PAGE_CONFIG[currentPage].label,
