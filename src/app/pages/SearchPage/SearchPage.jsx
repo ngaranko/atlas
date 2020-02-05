@@ -8,7 +8,6 @@ import SEARCH_PAGE_CONFIG, {
   DATA_SEARCH_PAGES,
   DATASET_SEARCH_PAGES,
   EDITORIAL_SEARCH_PAGES,
-  DATA_FILTERS,
 } from './config'
 import SearchPageResults from './SearchPageResults'
 import SearchPageFilters from './SearchPageFilters'
@@ -45,10 +44,7 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
   const isDataSearchPage = DATA_SEARCH_PAGES.includes(currentPage)
 
   // Pagination is needed on the search pages with a single query unless the dataSearchQuery which also needs activeFilters
-  const withPagination =
-    isSearchPage ||
-    !!(isDataSearchPage && activeFilters.find(filter => filter.type === DATA_FILTERS)) ||
-    false
+  const withPagination = isSearchPage || !!(isDataSearchPage && activeFilters.length > 0) || false
 
   useEffect(() => {
     if (documentTitle) {

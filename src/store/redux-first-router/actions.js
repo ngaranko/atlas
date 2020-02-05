@@ -70,6 +70,20 @@ export const toDataSearch = (
   },
 })
 
+export const toDataSearchType = type =>
+  toDataSearch(
+    {
+      [PARAMETERS.FILTERS]: [
+        {
+          type: 'dataTypes',
+          values: [type],
+        },
+      ],
+    },
+    false,
+    true,
+  )
+
 export const toMap = (preserve = false, forceSaga = true) => ({
   type: routing.data.type,
   meta: {

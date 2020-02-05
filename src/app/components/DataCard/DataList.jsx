@@ -2,12 +2,10 @@ import styled from '@datapunt/asc-core'
 import { Icon, Link, themeSpacing, breakpoint } from '@datapunt/asc-ui'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
-import { toDataSearch, toDetailFromEndpoint } from '../../../store/redux-first-router/actions'
-import { DEFAULT_LIMIT, DATA_FILTERS } from '../../pages/SearchPage/config'
+import { toDataSearchType, toDetailFromEndpoint } from '../../../store/redux-first-router/actions'
 import SearchLink from '../Links/SearchLink/SearchLink'
 import SearchHeading from '../SearchHeading/SearchHeading'
 import DataIcon from './DataIcon'
-import PARAMETERS from '../../../store/parameters'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 import ErrorMessage from '../HomePage/ErrorMessage'
 import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
@@ -81,20 +79,9 @@ const DataList = ({ type, label, count, results, withPagination }) => (
     ) : (
       <StyledErrorMessage />
     )}
-    {!withPagination && count > DEFAULT_LIMIT && (
+    {!withPagination && count > results.length && (
       <SearchLink
-        to={toDataSearch(
-          {
-            [PARAMETERS.FILTERS]: [
-              {
-                type: DATA_FILTERS,
-                values: [type],
-              },
-            ],
-          },
-          false,
-          true,
-        )}
+        to={toDataSearchType(type)}
         label={`Alle ${label && label.toLowerCase()} tonen`}
       />
     )}
