@@ -29,12 +29,12 @@ query datasetSearchQuery(
 query articleSearchQuery(
   $q: String
   $limit: Int
-  $types: [String!]
+  $page: Int
   $filters: [FilterInput!]
   $sort: CMSSortInput
   $withPagination: Boolean!
 ) {
-  articleSearch(q: $q, input: { limit: $limit, types: $types, filters: $filters, sort: $sort }) {
+  articleSearch(q: $q, input: { limit: $limit, page: $page, filters: $filters, sort: $sort }) {
     ...CMSFields
     ...FilterFields
     ...PageInfoFields
@@ -44,14 +44,14 @@ query articleSearchQuery(
 query publicationSearchQuery(
   $q: String
   $limit: Int
-  $types: [String!]
+  $page: Int
   $filters: [FilterInput!]
   $sort: CMSSortInput
   $withPagination: Boolean!
 ) {
   publicationSearch(
     q: $q
-    input: { limit: $limit, types: $types, filters: $filters, sort: $sort }
+    input: { limit: $limit, page: $page, filters: $filters, sort: $sort }
   ) {
     ...CMSFields
     ...FilterFields
@@ -62,12 +62,12 @@ query publicationSearchQuery(
 query specialSearchQuery(
   $q: String
   $limit: Int
-  $types: [String!]
+  $page: Int
   $filters: [FilterInput!]
   $sort: CMSSortInput
   $withPagination: Boolean!
 ) {
-  specialSearch(q: $q, input: { limit: $limit, types: $types, filters: $filters, sort: $sort }) {
+  specialSearch(q: $q, input: { limit: $limit, page: $page, filters: $filters, sort: $sort }) {
     ...CMSFields
     ...FilterFields
     ...PageInfoFields
