@@ -1,7 +1,23 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import SearchResultsOverview from './SearchResults'
-import SEARCH_PAGE_CONFIG, { EDITORIAL_SEARCH_PAGES, DATA_SEARCH_PAGES } from './config'
+import SearchResultsOverview from './SearchResultsOverview'
+
+jest.mock('./config', () => ({
+  foo: {
+    label: 'This is foo',
+    to: jest.fn(),
+    resolver: 'foo',
+  },
+  foo2: {
+    label: 'This is foo2',
+    to: jest.fn(),
+    resolver: 'foo2',
+  },
+  QUERY_TYPES: {
+    foo: 'foo',
+    foo2: 'foo2',
+  },
+}))
 
 describe('SearchResultsOverview', () => {
   describe('should render the correct results component for the search page ', () => {
@@ -28,12 +44,12 @@ describe('SearchResultsOverview', () => {
     })
 
     describe('when results for each type', () => {
-      const mockTypes = [...DATA_SEARCH_PAGES, ...EDITORIAL_SEARCH_PAGES]
+      const mockTypes = ['foo', 'foo2']
 
       const mockResults = mockTypes.map(type => ({
-        type,
+        key: type,
         totalCount: 1,
-        results: [{ id: 'foo ' }],
+        results: [{ id: 'foo' }],
       }))
 
       it('renders correct number of components', () => {
@@ -45,24 +61,37 @@ describe('SearchResultsOverview', () => {
       it('renders the components for each type', () => {
         const pageType = mockTypes[mockTypes.length - 1]
 
-        const page = SEARCH_PAGE_CONFIG[pageType]
         const pageComponent = component.at(mockTypes.length - 1)
-        const pageResults = mockResults.find(result => result.type === pageType)
+        const pageResults = mockResults.find(result => result.key === pageType)
 
         // Heading
         expect(pageComponent.find('SearchHeading').exists()).toBeTruthy()
-        expect(pageComponent.find('SearchHeading').props()).toMatchObject({
-          label: `${page.label} (${pageResults.totalCount})`,
-        })
+        expect(pageComponent.find('SearchHeading').props().label).toContain(pageType)
+        expect(pageComponent.find('SearchHeading').props().label).toContain(pageResults.totalCount)
 
         // Results body
         expect(pageComponent.find(`[data-test="${pageType}"]`).exists()).toBeTruthy()
 
         // Link
         expect(pageComponent.find('SearchLink').exists()).toBeTruthy()
-        expect(pageComponent.find('SearchLink').props().to).toMatchObject({
-          type: expect.stringContaining(pageType),
-        })
+        expect(pageComponent.find('SearchLink').props().label).toContain(pageType)
+      })
+
+      it('renders an error message when needed', () => {
+        const mockErrors = [{ query: 'foo2', code: 'ERROR' }]
+
+        // Totalcount must also be zero
+        const mockResultsWithError = [...mockResults, { key: 'foo2', totalCount: 0, results: [] }]
+
+        component = shallow(
+          <SearchResultsOverview
+            results={mockResultsWithError}
+            errors={mockErrors}
+            totalCount={1}
+          />,
+        )
+
+        expect(component.find('ErrorMessage').exists()).toBeTruthy()
       })
     })
   })

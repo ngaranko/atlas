@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import styled from '@datapunt/asc-core'
-import { CardContainer, themeSpacing } from '@datapunt/asc-ui'
+import { CardContainer } from '@datapunt/asc-ui'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import EditorialCard from '../EditorialCard'
 import NoSearchResults from '../NoSearchResults'
@@ -8,7 +8,6 @@ import { EDITORIAL_OVERVIEW_ACTIONS } from '../../../normalizations/cms/useNorma
 
 const EditorialCardContainer = styled(CardContainer)`
   padding: 0;
-  margin-bottom: ${themeSpacing(8)};
 `
 
 const EditorialResults = ({ query, results, label, loading, type, className }) => (

@@ -12,11 +12,10 @@ import {
 import styled from '@datapunt/asc-core'
 import RouterLink from 'redux-first-router-link'
 import React from 'react'
-import { toDataSearch, toDetailFromEndpoint } from '../../../store/redux-first-router/actions'
+import { toDataSearchType, toDetailFromEndpoint } from '../../../store/redux-first-router/actions'
 import DataIcon from './DataIcon'
-import PARAMETERS from '../../../store/parameters'
-import { DATA_FILTERS } from '../../pages/SearchPage/config'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
+import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
 
 const StyledLink = styled(Link)`
   cursor: pointer;
@@ -76,19 +75,8 @@ const DataCard = ({ type, label, count, results, ...otherProps }) => (
         <Heading $as="h4">
           <StyledLink
             $as={RouterLink}
-            to={toDataSearch(
-              {
-                [PARAMETERS.FILTERS]: [
-                  {
-                    type: DATA_FILTERS,
-                    values: [type],
-                  },
-                ],
-              },
-              false,
-              true,
-            )}
-          >{`${label} (${count.toLocaleString('nl-NL')})`}</StyledLink>
+            to={toDataSearchType(type)}
+          >{`${label} (${count.toLocaleString(DEFAULT_LOCALE)})`}</StyledLink>
         </Heading>
       </div>
 

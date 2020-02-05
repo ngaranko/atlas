@@ -4,6 +4,7 @@ import {
   getActiveFilters,
   getQuery,
   getSort,
+  getPage,
   REDUCER_KEY as SEARCH_REDUCER,
 } from '../app/pages/SearchPage/SearchPageDucks'
 import { getDataSelectionPage, getGeometryFilter } from '../shared/ducks/data-selection/selectors'
@@ -104,10 +105,15 @@ export default paramsRegistry
     })
   })
   .addParameter(PARAMETERS.PAGE, routes => {
-    routes.add(routesWithDataSelection, DATA_SELECTION, 'page', {
-      defaultValue: dataSelectionInitialState.page,
-      selector: getDataSelectionPage,
-    })
+    routes
+      .add(routesWithDataSelection, DATA_SELECTION, 'page', {
+        defaultValue: dataSelectionInitialState.page,
+        selector: getDataSelectionPage,
+      })
+      .add(routesWithSearch, SEARCH_REDUCER, 'page', {
+        selector: getPage,
+        defaultValue: 1,
+      })
   })
   .addParameter(PARAMETERS.GEO, routes => {
     routes.add(routesWithDataSelection, DATA_SELECTION, 'geometryFilter', {
