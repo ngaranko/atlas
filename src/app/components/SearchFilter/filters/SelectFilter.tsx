@@ -21,16 +21,18 @@ const SelectFilter: React.FC<FilterProps> = ({
     }
   }
 
+  const currentValue = selection.length > 0 ? selection[0] : ''
+
   return (
-    <Select id={type} onChange={onChange}>
-      <option key={`${type}-all`} value="" selected={selection.length === 0}>
+    <Select id={type} onChange={onChange} value={currentValue}>
+      <option key={`${type}-all`} value="">
         {formatAllOptionLabel(totalCount, hideCount)}
       </option>
       {options.map(option => {
         const controlId = `${type}-${option.id}`
 
         return (
-          <option key={controlId} value={option.id} selected={selection.includes(option.id)}>
+          <option key={controlId} value={option.id}>
             {formatOptionLabel(option, hideCount)}
           </option>
         )
