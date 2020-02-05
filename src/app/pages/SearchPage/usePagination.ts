@@ -1,7 +1,7 @@
 import { useQuery } from 'urql'
 import { DocumentNode, GraphQLError } from 'graphql'
 
-const usePagination2 = (query: DocumentNode, variables: Object, resolver: string | string[]) => {
+const usePagination = (query: DocumentNode, variables: Object, resolver: string | string[]) => {
   const [result] = useQuery({
     query,
     variables,
@@ -36,4 +36,4 @@ const usePagination2 = (query: DocumentNode, variables: Object, resolver: string
   return { fetching, errors, totalCount, filters, results, pageInfo }
 }
 
-export default usePagination2
+export default usePagination
