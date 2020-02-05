@@ -79,7 +79,7 @@ const DataList = ({ type, label, count, results, withPagination }) => (
     ) : (
       <StyledErrorMessage />
     )}
-    {!withPagination && count > results.length && (
+    {!withPagination && results && count > results.length && (
       <SearchLink
         to={toDataSearchType(type)}
         label={`Alle ${label && label.toLowerCase()} tonen`}
