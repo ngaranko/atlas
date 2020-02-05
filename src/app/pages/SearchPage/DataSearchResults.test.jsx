@@ -2,6 +2,12 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import DataSearchResults from './DataSearchResults'
 
+// This file contains imports from a .graphql and must therefore be mocked
+jest.mock('./config.js', () => ({
+  DEFAULT_LIMIT: 1,
+  DATA_FILTERS: {},
+}))
+
 describe('DataSearchResults', () => {
   it('shows the compact card component', () => {
     const component = shallow(

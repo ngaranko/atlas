@@ -27,6 +27,7 @@ const SearchResultsOverview = ({ query, totalCount, results, errors, loading }) 
 
       if (resultItemType) {
         const { label, component: ResultComponent, to } = SEARCH_PAGE_CONFIG[resultItemType]
+
         const hasLoadingError =
           errors &&
           errors.find(
@@ -34,6 +35,7 @@ const SearchResultsOverview = ({ query, totalCount, results, errors, loading }) 
               errorResolver === SEARCH_PAGE_CONFIG[resultItemType].resolver &&
               code !== 'UNAUTHORIZED',
           )
+
         const hasResults = resultItemTotalCount > 0
 
         return hasResults || !!hasLoadingError ? (
