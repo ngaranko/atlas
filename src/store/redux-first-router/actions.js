@@ -330,18 +330,6 @@ export const toNotFoundPage = () => ({
 export const toHelpPage = () =>
   toArticleDetail(HEADER_LINKS.HELP.id[process.env.NODE_ENV], HEADER_LINKS.HELP.slug)
 
-export const toArticles = () => ({
-  type: routing.articles.type,
-})
-
-export const toPublications = () => ({
-  type: routing.publications.type,
-})
-
-export const toSpecials = () => ({
-  type: routing.specials.type,
-})
-
 export const toCmsSearch = type => (
   additionalParams = null,
   skipSaga = false,
@@ -360,3 +348,8 @@ export const toCmsSearch = type => (
 export const toPublicationSearch = toCmsSearch(routing.publicationSearch.type)
 export const toArticleSearch = toCmsSearch(routing.articleSearch.type)
 export const toSpecialSearch = toCmsSearch(routing.specialSearch.type)
+
+// TODO: This can be deleted when the CMS overview pages are deleted and redirected
+export const toArticles = toCmsSearch(routing.articles.type)
+export const toPublications = toCmsSearch(routing.publications.type)
+export const toSpecials = toCmsSearch(routing.specials.type)
