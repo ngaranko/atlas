@@ -38,12 +38,7 @@ const RadioFilter: React.FC<FilterProps> = ({
         const controlId = `${type}-${option.id}`
 
         return (
-          <Label
-            key={controlId}
-            htmlFor={controlId}
-            label={formatOptionLabel(option, hideCount)}
-            disabled={option.count === 0}
-          >
+          <Label key={controlId} htmlFor={controlId} label={formatOptionLabel(option, hideCount)}>
             <Radio
               id={controlId}
               value={option.id}
