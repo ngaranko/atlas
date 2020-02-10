@@ -217,7 +217,8 @@ class ParamsRegistry {
 
     // the history should be changed only when the url string is changed
     // this check prevents recording history changes on every action.
-    const recordHistory = searchQuery !== window.location.search.substring(1)
+    // We need to decode both query's, because we cannot be sure if the queries contains encoded characters
+    const recordHistory = decodeURI(searchQuery) !== decodeURI(window.location.search.substring(1))
     if (recordHistory && this.history) {
       this.history.replace(`${currentPath}?${searchQuery}`)
     }
