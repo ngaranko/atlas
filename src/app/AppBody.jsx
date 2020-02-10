@@ -6,10 +6,9 @@ import { useSelector } from 'react-redux'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
-import PAGES, { isMapSplitPage, isEditorialOverviewPage, isSearchPage } from './pages'
+import PAGES, { isMapSplitPage, isSearchPage } from './pages'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 import { getQuery } from './pages/SearchPage/SearchPageDucks'
-import NoQueryPage from './pages/SearchPage/NoQueryPage'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
 const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'))
@@ -57,16 +56,10 @@ const AppBody = ({
           {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
           {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
           {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
-
-          {(isEditorialOverviewPage(currentPage) || currentPage === PAGES.DATASETS) && (
-            <SearchPage currentPage={currentPage} isOverviewPage />
-          )}
-
           {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
           {currentPage === PAGES.MOVED && <MovedPage />}
           {currentPage === PAGES.NOT_FOUND && <NotFoundPage />}
-          {isSearchPage(currentPage) &&
-            (query ? <SearchPage currentPage={currentPage} query={query} /> : <NoQueryPage />)}
+          {isSearchPage(currentPage) && <SearchPage currentPage={currentPage} query={query} />}
         </Suspense>
       </AppContainer>
       <FeedbackModal id="feedbackModal" />

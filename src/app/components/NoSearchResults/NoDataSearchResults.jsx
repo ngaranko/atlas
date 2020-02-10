@@ -9,6 +9,7 @@ import {
   toCadastralObjects,
   toEstablishments,
 } from '../../../store/redux-first-router/actions'
+import { formatNoResultsMessage } from './utils'
 
 const NoDataSearchResults = ({ query, unauthorized }) => {
   const dispatch = useDispatch()
@@ -18,7 +19,7 @@ const NoDataSearchResults = ({ query, unauthorized }) => {
   }
   return (
     <div>
-      <Paragraph>{`Er zijn geen resultaten gevonden met '${query}' binnen de categorie 'Data'.`}</Paragraph>
+      <Paragraph>{formatNoResultsMessage(query, 'Data')}</Paragraph>
       <Heading $as="h2">Algemene zoeksuggesties</Heading>
       <Paragraph>Maak de zoekcriteria eventueel minder specifiek. </Paragraph>
       <Paragraph>Zoeken binnen ‘Data’ kan op de volgende onderdelen:</Paragraph>

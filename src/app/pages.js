@@ -5,7 +5,6 @@ const PAGES = {
   CADASTRAL_OBJECTS: 'CADASTRAL_OBJECTS',
   PANORAMA: 'PANORAMA',
 
-  DATASETS: 'DATASETS',
   DATASET_DETAIL: 'DATASET_DETAIL',
   DATASET_SEARCH: 'DATASET_SEARCH',
 
@@ -20,13 +19,10 @@ const PAGES = {
   CONSTRUCTION_FILE: 'CONSTRUCTION_FILE',
 
   // cms pages
-  ARTICLES: 'ARTICLES',
   ARTICLE_DETAIL: 'ARTICLE_DETAIL',
   ARTICLE_SEARCH: 'ARTICLE_SEARCH',
   SPECIAL_SEARCH: 'SPECIALS_SEARCH',
-  SPECIALS: 'SPECIALS',
   SPECIAL_DETAIL: 'SPECIAL_DETAIL',
-  PUBLICATIONS: 'PUBLICATIONS',
   PUBLICATION_DETAIL: 'PUBLICATION_DETAIL',
   PUBLICATION_SEARCH: 'PUBLICATION_SEARCH',
 
@@ -51,11 +47,6 @@ export const isEditorialDetailPage = page =>
   page === PAGES.PUBLICATION_DETAIL ||
   page === PAGES.SPECIAL_DETAIL
 
-export const isEditorialOverviewPage = page =>
-  page === PAGES.ARTICLES || page === PAGES.PUBLICATIONS || page === PAGES.SPECIALS
-
-export const isEditorialPage = page => isEditorialDetailPage(page) || isEditorialOverviewPage(page)
-
 export const isMapSplitPage = page =>
   page === PAGES.DATA ||
   page === PAGES.PANORAMA ||
@@ -73,4 +64,4 @@ export const isSearchPage = page =>
   page === PAGES.PUBLICATION_SEARCH ||
   page === PAGES.SPECIAL_SEARCH
 
-export const isDatasetPage = page => page === PAGES.DATASETS || page === PAGES.DATASET_SEARCH
+export const isDatasetPage = page => page === PAGES.DATASET_SEARCH

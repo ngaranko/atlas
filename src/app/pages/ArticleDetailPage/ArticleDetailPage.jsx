@@ -31,9 +31,9 @@ import { routing } from '../../routes'
 import ShareBar from '../../components/ShareBar/ShareBar'
 import getImageFromCms from '../../utils/getImageFromCms'
 import EditorialResults from '../../components/EditorialResults'
-import PAGES from '../../pages'
 import useDownload from '../../utils/useDownload'
 import { EDITORIAL_FIELD_TYPE_VALUES } from '../../../normalizations/cms/useNormalizedCMSResults'
+import { TYPES } from '../../../shared/config/cms.config'
 
 const ListItemContent = styled.div`
   display: flex;
@@ -178,7 +178,7 @@ const ArticleDetailPage = ({ id }) => {
                             <Divider />
                             <StyledEditorialResults
                               headingLevel="h2"
-                              type={PAGES.ARTICLES}
+                              type={TYPES.ARTICLE}
                               results={related}
                               title="Verder lezen"
                             />

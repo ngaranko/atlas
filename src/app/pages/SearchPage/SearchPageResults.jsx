@@ -104,19 +104,23 @@ const SearchPageResults = ({
   const allResultsPageActive = currentPage === PAGES.SEARCH
 
   const formatTitle = (label, count = null) => {
+    const hasQuery = query.trim().length > 0
+
+    // Handle an empty result.
     if (count === 0) {
-      return `Geen resultaten met '${query}'`
+      return hasQuery ? `Geen resultaten met '${query}'` : 'Geen resultaten'
     }
 
+    // Handle pages without a count (usually the loading state).
     if (count === null) {
-      return isOverviewPage ? label : `${label} met '${query}'`
+      return hasQuery ? `${label} met '${query}'` : label
     }
 
     const countFormatted = count.toLocaleString(DEFAULT_LOCALE)
 
-    return isOverviewPage
-      ? `${label} (${countFormatted})`
-      : `${label} met '${query}' (${countFormatted} resultaten)`
+    return hasQuery
+      ? `${label} met '${query}' (${countFormatted} resultaten)`
+      : `${label} (${countFormatted} resultaten)`
   }
 
   const ResultsComponent =

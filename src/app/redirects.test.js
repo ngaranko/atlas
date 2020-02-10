@@ -2,7 +2,7 @@
  * @jest-environment jsdom-global
  */
 
-import resolveRedirects, { routesDictionary } from './redirects'
+import resolveRedirects, { REDIRECTS } from './redirects'
 
 jest.useFakeTimers()
 
@@ -20,26 +20,37 @@ describe('redirects', () => {
     window.location.replace = replace
   })
 
-  it('should call window.location.replace if route needs to be redirected', () => {
-    routesDictionary.forEach(route => {
+  it('should redirect matched routes', () => {
+    REDIRECTS.forEach(route => {
       jsdom.reconfigure({ url: `https://www.someurl.com${route.from}` })
       resolveRedirects()
-
-      jest.runAllTimers() // mocks the timeout that try to prevent cancelling the Matomo requests
+      jest.runAllTimers()
 
       expect(window.location.replace).toHaveBeenCalledWith(route.to)
     })
   })
 
-  it('should not call window.location.replace if route does not match the config', () => {
+  it('should redirect matched routes (without a trailing slash)', () => {
+    REDIRECTS.forEach(route => {
+      const from = route.from.endsWith('/') ? route.from.slice(0, -1) : route.from
+      jsdom.reconfigure({ url: `https://www.someurl.com${from}` })
+      resolveRedirects()
+      jest.runAllTimers()
+
+      expect(window.location.replace).toHaveBeenCalledWith(route.to)
+    })
+  })
+
+  it('should not redirect unmatched routes', () => {
     jsdom.reconfigure({ url: 'https://www.someurl.com#a-hash-url' })
     resolveRedirects()
+    jest.runAllTimers()
+
     expect(window.location.replace).not.toHaveBeenCalled()
 
     jsdom.reconfigure({ url: 'https://www.someurl.com/foo/bar' })
     resolveRedirects()
-
-    jest.runAllTimers() // mocks the timeout that try to prevent cancelling the Matomo requests
+    jest.runAllTimers()
 
     expect(window.location.replace).not.toHaveBeenCalled()
   })

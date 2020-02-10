@@ -1,5 +1,5 @@
 import PARAMETERS from '../store/parameters'
-import { routing } from './routes'
+import { routing, MAIN_PATHS } from './routes'
 import { CONTENT_REDIRECT_LINKS } from '../shared/config/config'
 
 const { VIEW, VIEW_CENTER, LAYERS, LEGEND, ZOOM, EMBED } = PARAMETERS
@@ -102,34 +102,43 @@ const shortUrls = [
     to: 'https://amsterdam.github.io/datablog/',
   },
 ]
+
 const articleUrls = CONTENT_REDIRECT_LINKS.ARTICLES.map(item => ({
   from: item.from,
-  to: `${routing.articles.path}artikel/${item.to.slug}/${item.to.id[process.env.NODE_ENV]}`,
+  to: routing.articleDetail.path
+    .replace(':slug', item.to.slug)
+    .replace(':id', item.to.id[process.env.NODE_ENV]),
 }))
 
-export const routesDictionary = [...legacyRoutes, ...shortUrls, ...articleUrls]
+const overviewPaths = [
+  MAIN_PATHS.ARTICLES,
+  MAIN_PATHS.PUBLICATIONS,
+  MAIN_PATHS.SPECIALS,
+  MAIN_PATHS.DATASETS,
+]
 
-const resolveRedirects = async () => {
-  let routePath = routesDictionary.filter(r => r.from === window.location.pathname)
-  if (window.location.hash.match(/#\?/g)) {
-    routePath = routesDictionary.filter(r => r.from === window.location.hash)
+const overviewUrls = overviewPaths.map(pathName => ({
+  from: `/${pathName}/`,
+  to: `/${pathName}/zoek/`,
+}))
 
-    return setTimeout(() => {
-      window.location.replace(
-        routePath.length && routePath[0].to ? routePath[0].to : '/verplaatst/',
-      )
-      return true
-    }, 600) // Tries to prevent cancelling the network request to Matomo from the middleware, arbitrary number that allows Matomo some time to load
+export const REDIRECTS = [...legacyRoutes, ...shortUrls, ...articleUrls, ...overviewUrls]
+
+export default function resolveRedirects() {
+  const isHash = window.location.hash.match(/#\?/g)
+  const currentPath = normalizePath(isHash ? window.location.hash : window.location.pathname)
+  const matchingRedirect = REDIRECTS.find(({ from }) => normalizePath(from) === currentPath)
+
+  if (!matchingRedirect) {
+    return false
   }
 
-  if (routePath.length) {
-    return setTimeout(() => {
-      window.location.replace(routePath[0].to)
-      return true
-    }, 600) // Tries to prevent cancelling the network request to Matomo from the middleware, arbitrary number that allows Matomo some time to load
-  }
+  // Tries to prevent cancelling the network request to Matomo from the middleware, arbitrary number that allows Matomo some time to load
+  window.setTimeout(() => window.location.replace(matchingRedirect.to), 600)
 
-  return false
+  return true
 }
 
-export default resolveRedirects
+function normalizePath(path) {
+  return path.endsWith('/') ? path.slice(0, -1) : path
+}

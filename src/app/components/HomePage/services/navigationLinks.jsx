@@ -3,10 +3,10 @@ import { Api, Data, DocumentText, Map, Pano, Table } from '@datapunt/asc-assets'
 import { Icon } from '@datapunt/asc-ui'
 import {
   toPanoramaAndPreserveQuery,
-  toPublications,
   toArticleDetail,
-  toDatasets,
+  toDatasetSearch,
   toMapWithLegendOpen,
+  toPublicationSearch,
 } from '../../../../store/redux-first-router/actions'
 import { NAVIGATION_LINKS } from '../../../../shared/config/config'
 
@@ -35,7 +35,7 @@ const navigationLinks = [
   },
   {
     id: 2,
-    to: toPublications(),
+    to: toPublicationSearch(),
     CardIcon: () => (
       <Icon size={36}>
         <DocumentText />
@@ -46,7 +46,7 @@ const navigationLinks = [
   },
   {
     id: 3,
-    to: toDatasets(),
+    to: toDatasetSearch(),
     CardIcon: () => (
       <Icon size={32}>
         <Data />

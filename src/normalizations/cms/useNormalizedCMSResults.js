@@ -8,21 +8,12 @@ import {
   toArticleDetail,
   toPublicationDetail,
   toSpecialDetail,
-  toArticles,
-  toPublications,
-  toSpecials,
 } from '../../store/redux-first-router/actions'
 
 export const EDITORIAL_DETAIL_ACTIONS = {
   [TYPES.ARTICLE]: toArticleDetail,
   [TYPES.PUBLICATION]: toPublicationDetail,
   [TYPES.SPECIAL]: toSpecialDetail,
-}
-
-export const EDITORIAL_OVERVIEW_ACTIONS = {
-  [TYPES.ARTICLE]: toArticles,
-  [TYPES.PUBLICATION]: toPublications,
-  [TYPES.SPECIAL]: toSpecials,
 }
 
 // Logic is that we don't show metadata in an editorial detail page
