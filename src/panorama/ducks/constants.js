@@ -17,6 +17,7 @@ export const PANO_LABELS = [
     label: 'Meest recent',
     tags: ['mission-bi'],
   },
+
   {
     layerId: 'pano2019bi',
     label: 'Alleen 2019',
@@ -36,6 +37,11 @@ export const PANO_LABELS = [
     layerId: 'pano2016bi',
     label: 'Alleen 2016',
     tags: ['mission-bi', 'mission-2016'],
+  },
+  {
+    layerId: 'pano2020woz',
+    label: 'Alleen 2020 WOZ',
+    tags: ['mission-woz', 'mission-2020'],
   },
   {
     layerId: 'pano2019woz',
