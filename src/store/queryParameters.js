@@ -60,13 +60,9 @@ import { getFileName } from '../shared/ducks/files/selectors'
 const routesWithSearch = [
   routing.search.type,
   routing.dataSearch.type,
-  routing.datasets.type,
   routing.datasetSearch.type,
-  routing.articles.type,
   routing.articleSearch.type,
-  routing.specials.type,
   routing.specialSearch.type,
-  routing.publications.type,
   routing.publicationSearch.type,
 ]
 

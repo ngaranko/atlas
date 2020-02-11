@@ -24,12 +24,6 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA}`,
     page: PAGES.DATA,
   },
-  datasets: {
-    title: 'Datasets',
-    path: `/${MAIN_PATHS.DATASETS}/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`,
-    page: PAGES.DATASETS,
-  },
   addresses: {
     title: 'Adressen',
     path: `/${MAIN_PATHS.DATA}/bag/adressen/`,
@@ -49,7 +43,7 @@ export const routing = {
     page: PAGES.CADASTRAL_OBJECTS,
   },
   datasetSearch: {
-    title: 'Datasets zoekresultaten',
+    title: 'Datasets',
     path: `/${MAIN_PATHS.DATASETS}/zoek/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.DATASET_SEARCH}`,
     page: PAGES.DATASET_SEARCH,
@@ -67,7 +61,7 @@ export const routing = {
     page: PAGES.SEARCH,
   },
   dataSearch: {
-    title: 'Data zoekresultaten',
+    title: 'Data',
     path: `/${MAIN_PATHS.DATA}/zoek/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH}`,
     page: PAGES.DATA_SEARCH,
@@ -121,12 +115,6 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_DETAIL}`,
     page: PAGES.DATA_DETAIL,
   },
-  articles: {
-    title: 'Artikelen',
-    path: `/${MAIN_PATHS.ARTICLES}/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLES}`,
-    page: PAGES.ARTICLES,
-  },
   articleDetail: {
     title: 'Artikel',
     path: `/${MAIN_PATHS.ARTICLES}/artikel/:slug/:id/`,
@@ -134,22 +122,16 @@ export const routing = {
     page: PAGES.ARTICLE_DETAIL,
   },
   articleSearch: {
-    title: 'Artikelen zoekresultaten',
+    title: 'Artikelen',
     path: `/${MAIN_PATHS.ARTICLES}/zoek/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLE_SEARCH}`,
     page: PAGES.ARTICLE_SEARCH,
   },
   specialSearch: {
-    title: 'In beeld zoekresultaten',
+    title: 'In beeld',
     path: `/${MAIN_PATHS.SPECIALS}/zoek/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.SPECIAL_SEARCH}`,
     page: PAGES.SPECIAL_SEARCH,
-  },
-  publications: {
-    title: 'Publicaties',
-    path: `/${MAIN_PATHS.PUBLICATIONS}/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATIONS}`,
-    page: PAGES.PUBLICATIONS,
   },
   publicationDetail: {
     title: 'Publicatie',
@@ -158,16 +140,10 @@ export const routing = {
     page: PAGES.PUBLICATION_DETAIL,
   },
   publicationSearch: {
-    title: 'Publicaties zoekresultaten',
+    title: 'Publicaties',
     path: `/${MAIN_PATHS.PUBLICATIONS}/zoek/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATION_SEARCH}`,
     page: PAGES.PUBLICATION_SEARCH,
-  },
-  specials: {
-    title: 'In beeld',
-    path: `/${MAIN_PATHS.SPECIALS}/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.SPECIALS}`,
-    page: PAGES.SPECIALS,
   },
   specialDetail: {
     title: 'Special',

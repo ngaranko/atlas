@@ -19,7 +19,7 @@ import {
   fetchExchange,
   dedupExchange,
 } from 'urql'
-import { isEditorialPage, isContentPage, isSearchPage, isDatasetPage } from './pages'
+import { isContentPage, isSearchPage, isDatasetPage, isEditorialDetailPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -102,7 +102,7 @@ const App = ({
 }) => {
   const hasMaxWidth =
     homePage ||
-    isEditorialPage(currentPage) ||
+    isEditorialDetailPage(currentPage) ||
     isContentPage(currentPage) ||
     isSearchPage(currentPage) ||
     isDatasetPage(currentPage)

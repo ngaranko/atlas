@@ -54,25 +54,22 @@ export const isDatasetDetailPage = createSelector(
 
 export const isDatasetPage = createSelector(
   getPage,
-  page => page === PAGES.DATASETS || page === PAGES.DATASET_DETAIL || page === PAGES.DATASET_SEARCH,
+  page => page === PAGES.DATASET_DETAIL || page === PAGES.DATASET_SEARCH,
 )
 
 export const isArticlePage = createSelector(
   getPage,
-  page => page === PAGES.ARTICLES || page === PAGES.ARTICLE_DETAIL || page === PAGES.ARTICLE_SEARCH,
+  page => page === PAGES.ARTICLE_DETAIL || page === PAGES.ARTICLE_SEARCH,
 )
 
 export const isPublicationPage = createSelector(
   getPage,
-  page =>
-    page === PAGES.PUBLICATIONS ||
-    page === PAGES.PUBLICATION_DETAIL ||
-    page === PAGES.PUBLICATION_SEARCH,
+  page => page === PAGES.PUBLICATION_DETAIL || page === PAGES.PUBLICATION_SEARCH,
 )
 
 export const isSpecialPage = createSelector(
   getPage,
-  page => page === PAGES.SPECIALS || page === PAGES.SPECIAL_DETAIL || page === PAGES.SPECIAL_SEARCH,
+  page => page === PAGES.SPECIAL_DETAIL || page === PAGES.SPECIAL_SEARCH,
 )
 
 export const isDataSelectionPage = createSelector(
