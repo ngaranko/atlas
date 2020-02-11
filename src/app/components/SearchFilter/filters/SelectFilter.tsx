@@ -24,7 +24,7 @@ const SelectFilter: React.FC<FilterProps> = ({
   const currentValue = selection.length > 0 ? selection[0] : ''
 
   return (
-    <Select id={type} onChange={onChange} value={currentValue}>
+    <Select id={type} data-testid={type} onChange={onChange} value={currentValue}>
       <option key={`${type}-all`} value="">
         {formatAllOptionLabel(totalCount, hideCount)}
       </option>

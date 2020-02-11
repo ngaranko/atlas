@@ -1,8 +1,10 @@
+import * as matomo from '@datapunt/matomo-tracker-react'
+import { cleanup, fireEvent, render } from '@testing-library/react'
 import * as React from 'react'
-import { render, cleanup, fireEvent } from '@testing-library/react'
-import SearchFilter from './SearchFilter'
+import * as reactRedux from 'react-redux'
+import { Filter, FilterOption, FilterType } from '../../models'
 import * as ducks from '../../pages/SearchPage/SearchPageDucks'
-import { Filter, FilterType, FilterOption } from '../../models'
+import SearchFilter, { getFilterComponent } from './SearchFilter'
 
 jest.mock('../../pages/SearchPage/SearchPageDucks')
 
@@ -84,7 +86,7 @@ describe('SearchFilter', () => {
     expect(selectNode.tagName).toBe('OPTION')
   })
 
-  it('should handle changes in selection', () => {
+  it('should handle changes in selection for checkboxes', () => {
     const { getByLabelText } = render(
       <SearchFilter filter={checkboxFilter} hideCount={false} totalCount={totalCount} />,
     )
@@ -93,5 +95,90 @@ describe('SearchFilter', () => {
 
     fireEvent.click(inputNodeOne)
     expect(ducks.setFilterValues).toBeCalledWith('group', ['one'])
+  })
+
+  it('should handle changes in selection for radio buttons', () => {
+    const { getByLabelText } = render(
+      <SearchFilter filter={radioFilter} hideCount={false} totalCount={totalCount} />,
+    )
+
+    const inputNodeOne = getByLabelText('One (10)')
+
+    fireEvent.click(inputNodeOne)
+    expect(ducks.setFilterValues).toBeCalledWith('group', ['one'])
+  })
+
+  it('should handle changes in selection for a select', () => {
+    const { getByText } = render(
+      <SearchFilter filter={selectFilter} hideCount={false} totalCount={totalCount} />,
+    )
+
+    const inputNodeOne = getByText('One (10)')
+
+    fireEvent.click(inputNodeOne)
+    expect(ducks.setFilterValues).toBeCalledWith('group', ['one'])
+  })
+
+  describe('getFilterComponent', () => {
+    it('should get a component for all possible types', () => {
+      Object.values(FilterType).forEach(type => {
+        expect(getFilterComponent(type)).toBeDefined()
+      })
+    })
+  })
+
+  describe('Matomo tracking', () => {
+    let trackEventMock: jest.Mock
+    let useMatomoSpy: jest.SpyInstance
+
+    beforeEach(() => {
+      trackEventMock = jest.fn()
+      useMatomoSpy = jest.spyOn(matomo, 'useMatomo').mockImplementation(
+        () =>
+          ({
+            trackEvent: trackEventMock,
+          } as any),
+      )
+    })
+
+    afterEach(() => {
+      useMatomoSpy.mockClear()
+      trackEventMock.mockClear()
+    })
+
+    it('should track changes added to selection using Matomo', () => {
+      const { getByLabelText } = render(
+        <SearchFilter filter={checkboxFilter} hideCount={false} totalCount={totalCount} />,
+      )
+
+      const inputNodeOne = getByLabelText('One (10)')
+
+      fireEvent.click(inputNodeOne)
+
+      expect(trackEventMock).toHaveBeenCalledWith({
+        category: 'search',
+        action: 'enable-filter',
+        name: 'group-one',
+      })
+    })
+
+    it('should track changes removed from selection using Matomo', () => {
+      const useSelectorSpy = jest.spyOn(reactRedux, 'useSelector').mockImplementation(() => ['one'])
+      const { getByLabelText } = render(
+        <SearchFilter filter={checkboxFilter} hideCount={false} totalCount={totalCount} />,
+      )
+
+      const inputNodeOne = getByLabelText('One (10)')
+
+      fireEvent.click(inputNodeOne)
+
+      expect(trackEventMock).toHaveBeenCalledWith({
+        category: 'search',
+        action: 'disable-filter',
+        name: 'group-one',
+      })
+
+      useSelectorSpy.mockClear()
+    })
   })
 })
