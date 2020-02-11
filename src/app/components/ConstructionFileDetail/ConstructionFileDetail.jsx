@@ -10,12 +10,14 @@ import { toDataDetail } from '../../../store/redux-first-router/actions'
 const ConstructionFileDetail = ({ results }) => {
   const {
     titel: title,
-    subdossiers,
+    documenten: documents,
+    stadsdeel: district,
     datering: date,
     dossier_type: fileType,
     dossiernr: fileNumber,
-    stadsdeel: district,
   } = results
+
+  const id = `${district}${fileNumber}`
 
   return (
     <div className="c-construction-files">
@@ -67,17 +69,20 @@ const ConstructionFileDetail = ({ results }) => {
         </div>
       </div>
 
-      {subdossiers &&
-        subdossiers.length &&
-        subdossiers.map(({ bestanden: files, titel: subdossierTitle }) => (
-          <Gallery
-            id={`${district}${fileNumber}`}
-            key={subdossierTitle}
-            title={subdossierTitle}
-            allThumbnails={files}
-            max={6}
-          />
-        ))}
+      {documents &&
+        documents.length &&
+        documents.map(
+          ({ barcode, bestanden: files, subdossier_titel: subdossierTitle, access }) => (
+            <Gallery
+              key={barcode}
+              id={id}
+              title={subdossierTitle}
+              allThumbnails={files}
+              max={6}
+              access={access}
+            />
+          ),
+        )}
       {withGrid(
         <>
           <Heading className="c-construction-files__subtitle" as="h3">
@@ -107,7 +112,7 @@ const ConstructionFileDetail = ({ results }) => {
 ConstructionFileDetail.propTypes = {
   results: PropTypes.shape({
     titel: PropTypes.string.isRequired,
-    subdossiers: PropTypes.arrayOf(PropTypes.shape({})),
+    documents: PropTypes.arrayOf(PropTypes.shape({})),
     datering: PropTypes.string.isRequired,
     dossier_type: PropTypes.string.isRequired,
     dossiernr: PropTypes.number.isRequired,

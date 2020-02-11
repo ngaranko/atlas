@@ -123,7 +123,7 @@
              ng-include="'modules/detail/components/detail/templates/bouwdossiers/unauthorized.html'">
         </div>
         <div ng-if="user.scopes.includes('BD/R')">
-            <dp-api-call endpoint="{{apiUrl}}stadsarchief/bouwdossier/?{{subType}}={{id}}&page_size=25" partial="bouwdossiers" user="vm.user"></dp-api-call>
+            <dp-api-call endpoint="{{apiUrl}}stadsarchief/bouwdossier/?nummeraanduiding={{id}}&page_size=25" partial="bouwdossiers" user="vm.user"></dp-api-call>
         </div>
     </div>
 </div>

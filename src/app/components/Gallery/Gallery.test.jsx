@@ -25,11 +25,11 @@ describe('Gallery', () => {
   })
 
   it('should show max 6 results initially', () => {
-    expect(component.find('.c-gallery__item')).toHaveLength(6)
+    expect(component.find('ConstructionFilesThumbnail')).toHaveLength(6)
   })
 
   it('should be able toggle between showing 6 or all results', () => {
-    component.find('.c-gallery__button').simulate('click')
+    component.find('ActionButton').simulate('click')
     expect(setState).toHaveBeenCalledWith(fullArrayOfThumbnails)
   })
 })
