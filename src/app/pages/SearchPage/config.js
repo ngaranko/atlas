@@ -48,7 +48,7 @@ export const EDITORIAL_SEARCH_PAGES = [
 
 export default {
   [routing.search.page]: {
-    resolver: ['dataSearch', 'datasetSearch', 'articleSearch'],
+    resolver: Object.values(QUERY_TYPES),
     to: toSearch,
     query: searchQuery,
     label: routing.search.title,
