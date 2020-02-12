@@ -17,7 +17,11 @@ export const PANO_LABELS = [
     label: 'Meest recent',
     tags: ['mission-bi'],
   },
-
+  {
+    layerId: 'pano2020bi',
+    label: 'Alleen 2020',
+    tags: ['mission-bi', 'mission-2020'],
+  },
   {
     layerId: 'pano2019bi',
     label: 'Alleen 2019',

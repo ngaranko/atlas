@@ -77,6 +77,33 @@
             "datasetId": null,
             "date": null
         }
+    },{
+        "id": "pano2020bi",
+        "layers": [
+            "panorama_new"
+        ],
+        "legendItems": [
+            {
+                "title": "2020",
+                "params": {
+                    "scale": 800
+                }
+            }
+        ],
+        "minZoom": 11,
+        "title": "Panoramabeelden",
+        "notClosable": true,
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2020,
+            "mission_type": "bi"
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
   {
         "id": "pano2019bi",
