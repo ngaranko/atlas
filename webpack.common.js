@@ -191,12 +191,8 @@ function commonConfig() {
           to: 'assets',
         },
         {
-          from: './node_modules/@datapunt/asc-assets/lib/assets/Fonts',
-          to: 'Fonts',
-        },
-        {
-          from: './node_modules/@datapunt/asc-assets/lib/assets/scripts',
-          to: './',
+          from: './node_modules/@datapunt/asc-assets/static/fonts',
+          to: 'fonts',
         },
       ]),
       new HtmlWebpackPlugin({
@@ -213,7 +209,7 @@ function commonConfig() {
           'Data en informatie is dé website voor iedereen die op zoek is naar objectieve, betrouwbare en actuele data en informatie over Amsterdam.',
         favicon: './favicon.png',
         root: env.ROOT,
-        scripts: ['/mtiFontTrackingCode.min.js'],
+        scripts: ['/fonts/mtiFontTrackingCode.min.js'],
       }),
       new webpack.DefinePlugin({
         VERSION: JSON.stringify(require('./package.json').version),
