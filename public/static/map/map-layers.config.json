@@ -247,42 +247,16 @@
         "category": "GEOGRAPHY_ONR",
         "legendItems": [
             {
-                "id": "bgem",
-                "title": "Burgerlijke gemeente",
-                "layers": [
-                    "burgerlijke_gemeente",
-                    "burgerlijke_gemeente_label"
-                ],
-                "noDetail": true
+                "id": "bgem"
             },
             {
-                "id": "kgem",
-                "title": "Kadastrale gemeente",
-                "layers": [
-                    "kadastrale_gemeente",
-                    "kadastrale_gemeente_label"
-                ],
-                "noDetail": true
+                "id": "kgem"
             },
             {
-                "id": "ksec",
-                "title": "Kadastrale sectie",
-                "layers": [
-                    "kadastrale_sectie",
-                    "kadastrale_sectie_label"
-                ],
-                "noDetail": true
+                "id": "ksec"
             },
             {
-                "id": "kot",
-                "title": "Kadastraal object",
-                "layers": [
-                    "kadastraal_object",
-                    "kadastraal_object_label"
-                ],
-                "detailUrl": "geosearch/search/",
-                "detailItem": "kadastraal_object",
-                "detailIsShape": true
+                "id": "kot"
             }
         ],
         "title": "Kadastrale perceelsgrenzen",

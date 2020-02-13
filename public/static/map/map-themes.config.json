@@ -14,5 +14,17 @@
   "MIL_SAFETY": "Milieu: externe veiligheid",
   "MIL_ZONES": "Milieu: zones",
   "MIL_ETC": "Milieu: overig",
-  "URBAN": "Stedelijke ontwikkeling"
+  "URBAN": "Stedelijke ontwikkeling",
+  "bestuur": "Bestuur",
+  "bevolking": "Bevolking",
+  "cultuur-en-recreatie": "Cultuur en recreatie",
+  "duurzaamheid-en-milieu": "Duurzaamheid en milieu",
+  "economie-en-toerisme": "Economie en toerisme",
+  "onderwijs-en-wetenschap": "Onderwijs en wetenschap",
+  "openbare-orde-en-veiligheid": "Openbare orde en veiligheid",
+  "ruimte-en-topografie": "Ruimte en topografie",
+  "verkeer": "Verkeer",
+  "werk-en-sociale-zekerheid": "Werk en sociale zekerheid",
+  "wonen": "Wonen",
+  "zorg-en-welzijn": "Zorg en welzijn"
 }
