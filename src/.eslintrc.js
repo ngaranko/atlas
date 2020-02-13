@@ -31,6 +31,7 @@ module.exports = {
         },
       },
     ],
+    'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
     'react/prop-types': [0],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',

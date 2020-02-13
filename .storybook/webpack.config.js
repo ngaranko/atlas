@@ -49,7 +49,7 @@ module.exports = ({ config }) => {
   config.plugins.push(
     new CopyWebpackPlugin([
       {
-        from: './node_modules/@datapunt/asc-assets/lib/assets',
+        from: './node_modules/@datapunt/asc-assets/static',
         to: './',
       },
     ]),
