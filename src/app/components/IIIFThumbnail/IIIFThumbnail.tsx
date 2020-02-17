@@ -2,7 +2,6 @@ import React from 'react'
 import styled from '@datapunt/asc-core'
 import { Card, CardMedia, Image, CardContent, themeSpacing } from '@datapunt/asc-ui'
 import getState from '../../../shared/services/redux/get-state'
-import { getByUrl } from '../../../shared/services/api/api'
 
 type Thumbnail = {
   src: string
