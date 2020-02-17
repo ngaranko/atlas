@@ -133,7 +133,7 @@
     "eslint-config-standard": "14.1.0",
     "eslint-formatter-pretty": "3.0.1",
     "eslint-plugin-angular": "4.0.1",
-    "eslint-plugin-cypress": "2.9.0",
+    "eslint-plugin-cypress": "2.10.1",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jasmine": "4.1.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
