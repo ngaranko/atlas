@@ -71,20 +71,30 @@ query specialSearchQuery(
   }
 }
 
-query searchQuery($q: String!, $limit: Int) {
+query searchQuery($q: String!, $limit: Int, $filters: [FilterInput!]) {
+  filters {
+    type
+    label
+    filterType
+    options {
+      id
+      label
+      count
+    }
+  }
   dataSearch(q: $q, input: { limit: $limit }) {
     ...DataFields
   }
-  datasetSearch(q: $q, input: { limit: $limit }) {
+  datasetSearch(q: $q, input: { limit: $limit, filters: $filters }) {
     ...DatasetFields
   }
-  articleSearch(q: $q, input: { limit: $limit }) {
+  articleSearch(q: $q, input: { limit: $limit, filters: $filters }) {
     ...CMSFields
   }
-  publicationSearch(q: $q, input: { limit: $limit }) {
+  publicationSearch(q: $q, input: { limit: $limit, filters: $filters }) {
     ...CMSFields
   }
-  specialSearch(q: $q, input: { limit: $limit }) {
+  specialSearch(q: $q, input: { limit: $limit, filters: $filters }) {
     ...CMSFields
   }
 }
