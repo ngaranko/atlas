@@ -42,7 +42,7 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div ref={viewerRef} className="c-image-viewer" />
       {viewer && (
         <ViewerControls
@@ -83,7 +83,7 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
           bottomLeftComponent={contextMenu}
         />
       )}
-    </React.Fragment>
+    </>
   )
 }
 
@@ -108,7 +108,4 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   )
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(ImageViewer)
+export default connect(null, mapDispatchToProps)(ImageViewer)

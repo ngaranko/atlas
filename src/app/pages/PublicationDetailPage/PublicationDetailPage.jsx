@@ -116,7 +116,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  null,
-)(PublicationDetailPage)
+export default connect(mapStateToProps, null)(PublicationDetailPage)

@@ -34,7 +34,4 @@ MapEmbedButton.propTypes = {
   toggleEmbedButton: PropTypes.func.isRequired,
 }
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(MapEmbedButton)
+export default connect(null, mapDispatchToProps)(MapEmbedButton)

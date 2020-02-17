@@ -132,7 +132,10 @@ describe('The dp-data-selection-download-button component', function() {
       filter_a: 'hoi',
     }
 
-    const markers = [[2, 3], [4, 5]]
+    const markers = [
+      [2, 3],
+      [4, 5],
+    ]
 
     component = getComponent(dataset, activeFilters)
     const scope = component.isolateScope()

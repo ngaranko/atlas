@@ -19,7 +19,7 @@ button {
 }
 
 input {
-  &[type="number"] {
+  &[type='number'] {
     appearance: textfield;
 
     &::inner-spin-button,
@@ -34,6 +34,7 @@ input {
   outline: none;
 }
 
-::-moz-focus-inner { // sass-lint:disable-line no-vendor-prefixes
+::-moz-focus-inner {
+  // sass-lint:disable-line no-vendor-prefixes
   border: none;
 }

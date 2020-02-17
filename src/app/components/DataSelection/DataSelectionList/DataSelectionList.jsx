@@ -54,7 +54,4 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   )
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(DataSelectionList)
+export default connect(null, mapDispatchToProps)(DataSelectionList)

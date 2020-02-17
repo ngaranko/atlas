@@ -132,22 +132,10 @@ export const toggleMapPanelHandle = () => ({ type: TOGGLE_MAP_PANEL_HANDLE })
 
 // Selectors
 const getUIState = state => state[REDUCER_KEY]
-export const isEmbedded = createSelector(
-  getUIState,
-  ui => ui.isEmbed,
-)
-export const isEmbedPreview = createSelector(
-  getUIState,
-  ui => ui.isEmbedPreview,
-)
-export const isPrintMode = createSelector(
-  getUIState,
-  ui => ui.isPrintMode,
-)
-export const getViewMode = createSelector(
-  getUIState,
-  ui => ui.viewMode,
-)
+export const isEmbedded = createSelector(getUIState, ui => ui.isEmbed)
+export const isEmbedPreview = createSelector(getUIState, ui => ui.isEmbedPreview)
+export const isPrintMode = createSelector(getUIState, ui => ui.isPrintMode)
+export const getViewMode = createSelector(getUIState, ui => ui.viewMode)
 export const isPrintOrEmbedMode = createSelector(
   isEmbedded,
   isPrintMode,
@@ -159,18 +147,9 @@ export const hasOverflowScroll = createSelector(
   isDataSelectionPage,
   (viewMode, isDataSelection) => viewMode === VIEW_MODE.FULL && isDataSelection,
 )
-export const isMapLayersVisible = createSelector(
-  getUIState,
-  ui => ui.isMapLayersVisible,
-)
-export const isMapPanelHandleVisible = createSelector(
-  getUIState,
-  ui => ui.isMapPanelHandleVisible,
-)
-export const isMapLinkVisible = createSelector(
-  getUIState,
-  ui => ui.isMapLinkVisible,
-)
+export const isMapLayersVisible = createSelector(getUIState, ui => ui.isMapLayersVisible)
+export const isMapPanelHandleVisible = createSelector(getUIState, ui => ui.isMapPanelHandleVisible)
+export const isMapLinkVisible = createSelector(getUIState, ui => ui.isMapLinkVisible)
 
 export const isMapPage = createSelector(
   isDataPage,

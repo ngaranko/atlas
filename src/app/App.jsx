@@ -202,9 +202,6 @@ const mapStateToProps = state => ({
   visibilityError: hasGlobalError(state),
 })
 
-const AppContainer = connect(
-  mapStateToProps,
-  null,
-)(App)
+const AppContainer = connect(mapStateToProps, null)(App)
 
 export default AppContainer

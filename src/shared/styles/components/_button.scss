@@ -5,7 +5,7 @@ $icon-height: 24px;
   @include icon-label-right($name, $primary-light, $secondary-gray20);
 
   height: 32px;
-  margin-left: .5 * $base-whitespace;
+  margin-left: 0.5 * $base-whitespace;
   padding: 4px 8px;
 
   &::before {
@@ -56,7 +56,7 @@ $icon-height: 24px;
   color: $primary-light;
 
   &::before {
-    @include icon-button("link-arrow", $primary-light);
+    @include icon-button('link-arrow', $primary-light);
     height: $icon-size;
     width: $icon-size;
   }
@@ -72,7 +72,7 @@ $icon-height: 24px;
   &:hover,
   &:focus {
     &::before {
-      @include icon-button("link-arrow", $primary-light);
+      @include icon-button('link-arrow', $primary-light);
       height: $icon-size;
       width: $icon-size;
     }
@@ -94,11 +94,11 @@ $icon-height: 24px;
 }
 
 .o-btn--block {
-  @include icon-button-text-left("forward", "gray")
+  @include icon-button-text-left('forward', 'gray');
 }
 
 .o-btn--inverted-block {
-  @include icon-button-text-left("forward", "gray-inverted")
+  @include icon-button-text-left('forward', 'gray-inverted');
 }
 
 %o-btn {
@@ -161,7 +161,7 @@ $icon-height: 24px;
 
 .o-btn--close {
   @extend %btn-close;
-  @include icon-sprite("icon-clear", $primary-light, $primary-dark, $icon-height);
+  @include icon-sprite('icon-clear', $primary-light, $primary-dark, $icon-height);
   height: $icon-height;
   position: absolute;
   right: 4px;
@@ -174,7 +174,7 @@ $icon-height: 24px;
   }
 
   &--info {
-    @include icon-sprite("icon-clear", $primary-dark, $primary-dark, $icon-height);
+    @include icon-sprite('icon-clear', $primary-dark, $primary-dark, $icon-height);
 
     &:hover,
     &:focus {

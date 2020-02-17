@@ -99,7 +99,7 @@ const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
     errorMessage ? (
       <ErrorMessage errorMessage={errorMessage} />
     ) : (
-      <React.Fragment>
+      <>
         {imageViewerActive && (
           <ImageViewer
             {...{ fileName, title }}
@@ -110,7 +110,7 @@ const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
         {!loading &&
           !fileName &&
           (results ? <ConstructionFileDetail results={results} /> : noResultsTemplate)}
-      </React.Fragment>
+      </>
     )
   ) : (
     notAuthorizedTemplate
@@ -132,7 +132,4 @@ const mapStateToProps = state => ({
   user: getUser(state),
 })
 
-export default connect(
-  mapStateToProps,
-  null,
-)(ConstructionFilesContainer)
+export default connect(mapStateToProps, null)(ConstructionFilesContainer)

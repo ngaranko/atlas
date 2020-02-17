@@ -119,7 +119,4 @@ const mapDispatchToProps = dispatch => ({
       : dispatch(toPublicationDetail(suggestion.id, suggestion.slug)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(HeaderSearch)
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearch)

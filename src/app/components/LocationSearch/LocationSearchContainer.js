@@ -23,7 +23,4 @@ const mapStateToProps = state => ({
   layerWarning: getDataSearchError(state),
 })
 
-export default connect(
-  mapStateToProps,
-  null,
-)(LocationSearch)
+export default connect(mapStateToProps, null)(LocationSearch)

@@ -1,4 +1,4 @@
-@import "../../../shared/styles/config";
+@import '../../../shared/styles/config';
 $spinner-height: 36px;
 
 .loading-indicator {
@@ -10,7 +10,7 @@ $spinner-height: 36px;
   width: 100%;
 
   & > .icon {
-    @include icon-sprite("icon-spinner", $secondary-gray60, $secondary-gray60, $spinner-height);
+    @include icon-sprite('icon-spinner', $secondary-gray60, $secondary-gray60, $spinner-height);
     animation: rotating-spinner 1s linear infinite;
     height: $spinner-height;
     width: $spinner-height;

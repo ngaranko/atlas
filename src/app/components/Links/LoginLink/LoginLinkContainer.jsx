@@ -61,9 +61,6 @@ export const mapDispatchToProps = dispatch => ({
   },
 })
 
-const LoginLinkContainer = connect(
-  null,
-  mapDispatchToProps,
-)(LoginLink)
+const LoginLinkContainer = connect(null, mapDispatchToProps)(LoginLink)
 
 export default LoginLinkContainer

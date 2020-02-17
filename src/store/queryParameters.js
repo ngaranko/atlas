@@ -250,7 +250,7 @@ export default paramsRegistry
         defaultValue: filterInitialState.filters,
         decode: val => {
           try {
-            return Object.assign({}, JSON.parse(val))
+            return JSON.parse(val)
           } catch (e) {
             return filterInitialState.filters
           }

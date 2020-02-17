@@ -103,7 +103,4 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   )
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(ConstructionFiles)
+export default connect(null, mapDispatchToProps)(ConstructionFiles)

@@ -25,7 +25,4 @@ const mapStateToProps = state => ({
   hasEmbedButton: isMapActive(state),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

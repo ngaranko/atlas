@@ -9,7 +9,7 @@ $data-selection-available-filters-item-height: 32px;
   margin-bottom: 2.5 * $base-whitespace;
   padding-top: 2 * $base-whitespace;
   padding-right: 2 * $base-whitespace;
-  padding-bottom: .5 * $base-whitespace;
+  padding-bottom: 0.5 * $base-whitespace;
   padding-left: 2 * $base-whitespace;
   border-bottom: 1px solid $secondary-gray20;
 
@@ -33,11 +33,12 @@ $data-selection-available-filters-item-height: 32px;
 
     &::before {
       display: inline-block;
-      content: "(geen)";
+      content: '(geen)';
     }
 
     .o-btn--link:hover &,  // sass-lint:disable-line force-pseudo-nesting
-    .o-btn--link:focus & { // sass-lint:disable-line force-pseudo-nesting
+    .o-btn--link:focus & {
+      // sass-lint:disable-line force-pseudo-nesting
       &::before {
         text-decoration: underline;
       }

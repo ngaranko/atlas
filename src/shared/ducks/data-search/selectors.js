@@ -2,11 +2,7 @@ import { createSelector } from 'reselect'
 import { REDUCER_KEY } from './constants'
 
 export const getDataSearch = state => state[REDUCER_KEY]
-const getStateOfKey = key => state =>
-  createSelector(
-    getDataSearch,
-    data => data[key],
-  )(state)
+const getStateOfKey = key => state => createSelector(getDataSearch, data => data[key])(state)
 
 // Data to search for
 export const getDataSearchLocation = getStateOfKey('geoSearch')

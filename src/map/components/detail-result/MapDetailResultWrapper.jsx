@@ -83,7 +83,4 @@ const mapStateToProps = state => ({
   isEmbed: isEmbedded(state),
 })
 
-export default connect(
-  mapStateToProps,
-  null,
-)(MapDetailResultWrapper)
+export default connect(mapStateToProps, null)(MapDetailResultWrapper)

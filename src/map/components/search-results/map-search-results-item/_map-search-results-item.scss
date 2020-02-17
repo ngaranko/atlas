@@ -45,12 +45,12 @@
 
     &::before,
     &::after {
-      content: "\00a0\00a0";
+      content: '\00a0\00a0';
     }
   }
 
   &__arrow {
-    @include icon-sprite("icon-arrow-right", $secondary-gray60, $secondary-gray60, 24px);
+    @include icon-sprite('icon-arrow-right', $secondary-gray60, $secondary-gray60, 24px);
 
     flex-shrink: 0;
     height: 24px;

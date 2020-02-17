@@ -61,10 +61,7 @@ export const fetchPanoramaPreviewFailure = error => ({
 const getPanoramaPreviewState = state => state[REDUCER_KEY]
 
 const getStateOfKey = key => state =>
-  createSelector(
-    getPanoramaPreviewState,
-    data => data[key],
-  )(state)
+  createSelector(getPanoramaPreviewState, data => data[key])(state)
 
 export const getPanoramaPreview = getStateOfKey('preview')
 export const isPanoramaPreviewLoading = getStateOfKey('isLoading')
