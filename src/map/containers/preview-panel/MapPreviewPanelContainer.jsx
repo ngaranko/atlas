@@ -56,7 +56,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 /* eslint-enable react/no-unused-prop-types */
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(MapPreviewPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanel)

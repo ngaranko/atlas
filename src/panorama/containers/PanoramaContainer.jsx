@@ -220,7 +220,4 @@ PanoramaContainer.propTypes = {
   fetchPanoramaById: PropTypes.func.isRequired,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PanoramaContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(PanoramaContainer)

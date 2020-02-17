@@ -2,5 +2,6 @@ node_modules
 /scripts
 /test/dyson
 /public
+/dist
 coverage
 coverage-legacy

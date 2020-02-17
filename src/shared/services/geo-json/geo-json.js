@@ -9,15 +9,13 @@ function getCoordinates(coordinates) {
   }
 
   // We have to go deeper recursively; two levels for Polygons, three levels for MultiPolygons
-  return coordinates
-    .map(getCoordinates)
-    .reduce(
-      (accumulator, values) => [
-        [...accumulator[0], ...values[0]],
-        [...accumulator[1], ...values[1]],
-      ],
-      [[], []],
-    )
+  return coordinates.map(getCoordinates).reduce(
+    (accumulator, values) => [
+      [...accumulator[0], ...values[0]],
+      [...accumulator[1], ...values[1]],
+    ],
+    [[], []],
+  )
 }
 
 /* This thing has support for Point, Polygon en MultiPolygon. The thing is CRS agnostic.

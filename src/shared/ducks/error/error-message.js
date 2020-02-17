@@ -58,7 +58,4 @@ export const getMessage = createSelector(
     ERROR_MESSAGES[Object.entries(error.types).map(([type, value]) => value && type)[0]] ||
     ERROR_MESSAGES[ERROR_TYPES.GENERAL_ERROR],
 )
-export const hasGlobalError = createSelector(
-  getErrorState,
-  error => error.hasErrors,
-)
+export const hasGlobalError = createSelector(getErrorState, error => error.hasErrors)

@@ -1,4 +1,4 @@
-@mixin icon($name, $state: "#666", $hover-state: "#000", $tall: "") {
+@mixin icon($name, $state: '#666', $hover-state: '#000', $tall: '') {
   @include icon-sprite($name, $state, $hover-state);
 
   background-color: $primary-light;
@@ -8,7 +8,7 @@
   position: relative;
   width: $button-size;
 
-  @if $tall == "tall" {
+  @if $tall == 'tall' {
     height: $button-tall-size;
   } @else {
     height: $button-size;
@@ -21,7 +21,7 @@
   }
 
   &::before {
-    content: "";
+    content: '';
     display: block;
     height: $button-size;
     width: $button-size;
@@ -33,14 +33,14 @@
   font-weight: $bold-weight;
 }
 
-@mixin icon-label-left($icon, $state: "", $hover-state: "red", $tall: "") {
+@mixin icon-label-left($icon, $state: '', $hover-state: 'red', $tall: '') {
   @extend %icon-label;
   @include icon($icon, $state, $hover-state, $tall);
 
   padding-left: $base-whitespace;
   width: auto;
 
-  @if $tall == "tall" {
+  @if $tall == 'tall' {
     padding-bottom: 4px;
     padding-top: 4px;
   }
@@ -50,14 +50,14 @@
   }
 }
 
-@mixin icon-label-right($icon, $state: "", $hover-state: "red", $tall: "") {
+@mixin icon-label-right($icon, $state: '', $hover-state: 'red', $tall: '') {
   @extend %icon-label;
   @include icon($icon, $state, $hover-state, $tall);
 
   padding-right: $base-whitespace;
   width: auto;
 
-  @if $tall == "tall" {
+  @if $tall == 'tall' {
     padding-bottom: 4px;
     padding-top: 4px;
   }
@@ -70,7 +70,7 @@
 %border-after {
   border: 1px solid $secondary-gray20;
   bottom: 0;
-  content: "";
+  content: '';
   left: 0;
   position: absolute;
   right: 0;
@@ -147,8 +147,13 @@
   box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
 }
 
-@mixin icon-sprite($name, $fill: "#FFF", $hover-fill: "", $size: auto 100%) {
-  @include sprite($name, (fill: $fill));
+@mixin icon-sprite($name, $fill: '#FFF', $hover-fill: '', $size: auto 100%) {
+  @include sprite(
+    $name,
+    (
+      fill: $fill,
+    )
+  );
 
   @if $size {
     background-size: $size;
@@ -157,7 +162,12 @@
   @if $hover-fill {
     &:hover,
     &:focus {
-      @include sprite($name, (fill: $hover-fill));
+      @include sprite(
+        $name,
+        (
+          fill: $hover-fill,
+        )
+      );
 
       @if $size {
         background-size: $size;

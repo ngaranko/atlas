@@ -1,4 +1,4 @@
-@mixin icon-button($name, $state: "", $hover-state: "") {
+@mixin icon-button($name, $state: '', $hover-state: '') {
   @include icon-sprite($name, $state, $hover-state);
 
   height: $button-size;
@@ -20,19 +20,19 @@
 }
 
 %icon-button-text-extra {
-  content: "";
+  content: '';
   display: inline-block;
   height: $button-size;
   vertical-align: middle;
   width: $button-size + 1px;
 }
 
-@mixin icon-button-text-left($icon, $state: "", $hover-state: "red") {
+@mixin icon-button-text-left($icon, $state: '', $hover-state: 'red') {
   @extend %icon-button-text;
 
   &::after {
     @extend %icon-button-text-extra;
-    @include sprite(#{$icon + if(str-length($state) > 0, "-", "") + $state});
+    @include sprite(#{$icon + if(str-length($state) > 0, '-', '') + $state});
 
     margin-left: $base-whitespace;
   }
@@ -40,17 +40,17 @@
   &:hover,
   &:focus {
     &::after {
-      @include sprite(#{$icon + if(str-length($hover-state) > 0, "-", "") + $hover-state});
+      @include sprite(#{$icon + if(str-length($hover-state) > 0, '-', '') + $hover-state});
     }
   }
 }
 
-@mixin icon-button-text-right($icon, $state: "", $hover-state: "red") {
+@mixin icon-button-text-right($icon, $state: '', $hover-state: 'red') {
   @extend %icon-button-text;
 
   &::before {
     @extend %icon-button-text-extra;
-    @include sprite(#{$icon + if(str-length($state) > 0, "-", "") + $state});
+    @include sprite(#{$icon + if(str-length($state) > 0, '-', '') + $state});
 
     margin-right: $base-whitespace;
   }
@@ -58,7 +58,7 @@
   &:hover,
   &:focus {
     &::before {
-      @include sprite(#{$icon + if(str-length($hover-state) > 0, "-", "") + $hover-state});
+      @include sprite(#{$icon + if(str-length($hover-state) > 0, '-', '') + $hover-state});
     }
   }
 }

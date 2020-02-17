@@ -66,7 +66,10 @@ describe('DataSearchResults', () => {
   it('adds a prop to the DataList component when a type cannot be loaded', () => {
     const component = shallow(
       <DataSearchResults
-        errors={[{ code: 'GATEWAY_TIMEOUT', type: 'foo' }, { code: 'ERROR', type: 'abc' }]}
+        errors={[
+          { code: 'GATEWAY_TIMEOUT', type: 'foo' },
+          { code: 'ERROR', type: 'abc' },
+        ]}
         results={[
           {
             count: 1,

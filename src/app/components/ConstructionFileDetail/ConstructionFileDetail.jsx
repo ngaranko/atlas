@@ -20,14 +20,14 @@ const ConstructionFileDetail = ({ results }) => {
   return (
     <div className="c-construction-files">
       {withGrid(
-        <React.Fragment>
+        <>
           <Heading className="c-construction-files__subtitle" color="secondary" as="h3">
             Bouwdossier
           </Heading>
           <Heading className="c-construction-files__title" as="h1">
             {title}
           </Heading>
-        </React.Fragment>,
+        </>,
       )}
 
       <div className="c-ds-table">
@@ -79,7 +79,7 @@ const ConstructionFileDetail = ({ results }) => {
           />
         ))}
       {withGrid(
-        <React.Fragment>
+        <>
           <Heading className="c-construction-files__subtitle" as="h3">
             Adressen
           </Heading>
@@ -98,7 +98,7 @@ const ConstructionFileDetail = ({ results }) => {
               </li>
             ))}
           </ul>
-        </React.Fragment>,
+        </>,
       )}
     </div>
   )

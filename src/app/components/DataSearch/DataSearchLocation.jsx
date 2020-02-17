@@ -6,7 +6,4 @@ const mapStateToProps = state => ({
   searchResults: getMapListResults(state),
 })
 
-export default connect(
-  mapStateToProps,
-  null,
-)(DataSearchContainer)
+export default connect(mapStateToProps, null)(DataSearchContainer)

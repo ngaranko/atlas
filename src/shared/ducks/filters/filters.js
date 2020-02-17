@@ -60,10 +60,7 @@ export const emptyFilters = () => ({ type: EMPTY_FILTERS })
 
 // Selectors
 const getReducerState = state => state[REDUCER_KEY]
-export const getFiltersWithoutShape = createSelector(
-  getReducerState,
-  ({ filters }) => filters,
-)
+export const getFiltersWithoutShape = createSelector(getReducerState, ({ filters }) => filters)
 export const getFilters = createSelector(
   getFiltersWithoutShape,
   getShapeFilter,

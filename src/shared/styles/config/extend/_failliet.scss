@@ -2,10 +2,10 @@
   &::after {
     background-color: $primary-contrast;
     border-radius: 50%;
-    content: "";
+    content: '';
     display: inline-block;
     height: 10px;
-    margin-left: .5 * $base-whitespace;
+    margin-left: 0.5 * $base-whitespace;
     width: 10px;
   }
 }

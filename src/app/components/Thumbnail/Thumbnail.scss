@@ -1,4 +1,4 @@
-@import "../../../shared/styles/config";
+@import '../../../shared/styles/config';
 
 .thumbnail {
   animation: perceived-performance-animation 3s infinite;
@@ -22,7 +22,7 @@
   }
 
   img {
-    transition: transform .3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     vertical-align: top;
     width: 100%;
 

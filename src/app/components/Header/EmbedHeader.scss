@@ -1,4 +1,4 @@
-@import "../../../shared/styles/config";
+@import '../../../shared/styles/config';
 
 $embed-header-height: 211px;
 $embed-header-padding: 46px;
@@ -10,7 +10,7 @@ $embed-header-padding-icon: 4px;
   }
 
   &__close {
-    @include icon-button("icon-clear", $primary-dark, $primary-dark);
+    @include icon-button('icon-clear', $primary-dark, $primary-dark);
 
     background-color: $primary-light;
     position: absolute;

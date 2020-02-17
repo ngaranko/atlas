@@ -14,11 +14,7 @@ export default combineReducers({
 export const getApiSpecification = state => state[REDUCER_KEY][API_SPECIFICATION]
 
 const getStateOfKey = {
-  apiSpec: key => state =>
-    createSelector(
-      getApiSpecification,
-      data => data[key],
-    )(state),
+  apiSpec: key => state => createSelector(getApiSpecification, data => data[key])(state),
 }
 
 export const getApiSpecificationData = getStateOfKey.apiSpec('data')

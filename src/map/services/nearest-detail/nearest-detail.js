@@ -33,14 +33,16 @@ const retrieveLayers = (detailItems, detailIsShape) =>
 
 export default async function fetchNearestDetail(location, layers, zoom) {
   const results = sortResults(
-    (await Promise.all(
-      layers.map(async layer => {
-        const params = generateParams(layer, location, zoom)
-        const result = await getByUrl(process.env.API_ROOT + layer.detailUrl, params)
-        const features = getFeaturesFromResult(layer.detailUrl, result)
-        return retrieveLayers(features, layer.detailIsShape)
-      }),
-    )).reduce(/* istanbul ignore next */ (a, b) => [...a, ...b]),
+    (
+      await Promise.all(
+        layers.map(async layer => {
+          const params = generateParams(layer, location, zoom)
+          const result = await getByUrl(process.env.API_ROOT + layer.detailUrl, params)
+          const features = getFeaturesFromResult(layer.detailUrl, result)
+          return retrieveLayers(features, layer.detailIsShape)
+        }),
+      )
+    ).reduce(/* istanbul ignore next */ (a, b) => [...a, ...b]),
   )
   return results[0] ? results[0] : ''
 }

@@ -1,4 +1,4 @@
-@import "../../../shared/styles/config";
+@import '../../../shared/styles/config';
 
 $offset: 10px;
 
@@ -55,13 +55,13 @@ $offset: 10px;
 
   // Split to seperate component
   &__meta {
-    $meta-bg: rgba(255, 255, 255, .67);
+    $meta-bg: rgba(255, 255, 255, 0.67);
 
     align-items: center;
     box-shadow: 0 2px 0 0 $secondary-gray40;
     display: flex;
     flex-direction: row;
-    margin-right: $offset * -.5;
+    margin-right: $offset * -0.5;
     max-width: 70vw;
     overflow: hidden;
     width: 100%;

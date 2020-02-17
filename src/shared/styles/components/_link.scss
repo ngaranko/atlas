@@ -37,7 +37,6 @@
     display: inline-block;
   }
 
-
   &::before {
     display: none;
   }
@@ -63,7 +62,8 @@
   }
 }
 
-.c-panel--warning .c-link__wrapper--inine-block { // sass-lint:disable-line force-element-nesting
+.c-panel--warning .c-link__wrapper--inine-block {
+  // sass-lint:disable-line force-element-nesting
   a {
     color: $primary-light;
 

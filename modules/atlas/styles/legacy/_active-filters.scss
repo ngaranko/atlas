@@ -20,7 +20,7 @@ $filter-padding: 4px;
 }
 
 .c-data-selection-active-filters--remove-filter {
-  @include icon-button("icon-clear", $primary-dark, $primary-dark);
+  @include icon-button('icon-clear', $primary-dark, $primary-dark);
 
   position: absolute;
   top: $filter-padding;
@@ -37,6 +37,6 @@ $filter-padding: 4px;
 
   &::before {
     display: inline-block;
-    content: "(geen)";
+    content: '(geen)';
   }
 }

@@ -1,6 +1,6 @@
-@import "../../../shared/styles/config";
+@import '../../../shared/styles/config';
 
-$statusbar-background: rgba(255, 255, 255, .67);
+$statusbar-background: rgba(255, 255, 255, 0.67);
 $tatusbar-shadow: 1px 0 0 0 #999;
 
 .c-panorama-status-bar {
@@ -21,10 +21,10 @@ $tatusbar-shadow: 1px 0 0 0 #999;
 
   &__history {
     border-right: 1px solid $secondary-gray20;
-    padding: 0 (.5 * $base-whitespace);
+    padding: 0 (0.5 * $base-whitespace);
   }
 
   &__coordinates {
-    padding: 0 (.5 * $base-whitespace);
+    padding: 0 (0.5 * $base-whitespace);
   }
 }
