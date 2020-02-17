@@ -7,7 +7,7 @@ import { GridContainer, GridItem, Heading, themeSpacing, themeColor, Link } from
 import { Minimise, Enlarge } from '@datapunt/asc-assets'
 import { toConstructionFileViewer } from '../../../store/redux-first-router/actions'
 import ActionButton from '../ActionButton/ActionButton'
-import ConstructionFilesThumbnail from '../ConstructionFilesThumbnail/ConstructionFilesThumbnail'
+import IIIFThumbnail from '../IIIFThumbnail/IIIFThumbnail'
 import Notification from '../../../shared/components/notification/Notification'
 
 const GalleryGridContainer = styled(GridContainer)`
@@ -100,7 +100,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength, access }) => {
                       to={toConstructionFileViewer(id, fileName)}
                       title={fileTitle}
                     >
-                      <ConstructionFilesThumbnail
+                      <IIIFThumbnail
                         src={`${process.env.IIIF_ROOT}iiif/2/edepot:${fileName}/square/500,500/0/default.jpg`}
                         title={fileTitle}
                       />
