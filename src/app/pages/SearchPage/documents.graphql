@@ -26,6 +26,18 @@ query datasetSearchQuery(
   }
 }
 
+query filtersQuery {
+  filters {
+    type
+    label
+    filterType
+    options {
+      id
+      label
+    }
+  }
+}
+
 query articleSearchQuery(
   $q: String
   $limit: Int
@@ -82,7 +94,7 @@ query searchQuery($q: String!, $limit: Int, $filters: [FilterInput!]) {
       count
     }
   }
-  dataSearch(q: $q, input: { limit: $limit }) {
+  dataSearch(q: $q, input: { limit: $limit, filters: $filters }) {
     ...DataFields
   }
   datasetSearch(q: $q, input: { limit: $limit, filters: $filters }) {

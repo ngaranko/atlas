@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState } from 'react'
+import { useQuery } from 'urql'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 import { clearAllBodyScrollLocks, enableBodyScroll } from 'body-scroll-lock'
 import { Container, Row } from '@datapunt/asc-ui'
@@ -12,6 +13,7 @@ import { getActiveFilters, getSort, getPage } from './SearchPageDucks'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import usePagination from './usePagination'
 import PAGES from '../../pages'
+import { filtersQuery } from './documents.graphql'
 
 function getSortIntput(sortString) {
   let sort
@@ -37,6 +39,7 @@ const SEARCH_PAGES = [
 const SearchPage = ({ currentPage, query }) => {
   const [initialLoading, setInitialLoading] = useState(true)
   const [showFilter, setShowFilter] = useState(false)
+  const [themeFilter, setThemeFilter] = useState([])
   const [sort, page, activeFilters] = useSelectors([getSort, getPage, getActiveFilters])
 
   const hasQuery = query.trim().length > 0
@@ -71,6 +74,21 @@ const SearchPage = ({ currentPage, query }) => {
     },
     SEARCH_PAGE_CONFIG[currentPage].resolver,
   )
+
+  const [filterResults] = useQuery({
+    query: filtersQuery,
+  })
+
+  // Set the ThemeFilters on the main search page
+  useEffect(() => {
+    if (currentPage === PAGES.SEARCH) {
+      if (filterResults?.data?.filters) {
+        setThemeFilter(filterResults.data.filters)
+      }
+    } else {
+      setThemeFilter([])
+    }
+  }, [filterResults, currentPage])
 
   const currentPageHasChanged = useCompare(currentPage)
 
