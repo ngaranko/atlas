@@ -21,7 +21,6 @@ interface SearchPageFiltersProps {
   totalCount: number
   hideCount: boolean
   setShowFilter: Function
-  isOverviewPage: boolean
   query: string
   currentPage: string
   showFilter: boolean
@@ -93,7 +92,6 @@ const SearchPageFilters: React.FC<SearchPageFiltersProps> = ({
   totalCount,
   hideCount,
   setShowFilter,
-  isOverviewPage,
   query,
   currentPage,
   showFilter,
@@ -101,7 +99,7 @@ const SearchPageFilters: React.FC<SearchPageFiltersProps> = ({
 }) => {
   const Filters: ReactElement = (
     <FilterColumn wrap span={{ small: 0, medium: 0, big: 0, large: 4, xLarge: 3 }}>
-      {!isOverviewPage && <PageFilterBox {...{ query, currentPage }} />}
+      <PageFilterBox {...{ query, currentPage }} />
       <>
         {filters.length > 0 &&
           filters.map(filter => (
