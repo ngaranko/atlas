@@ -6,12 +6,6 @@
         ],
         "legendItems": [
             {
-                "title": "2020",
-                "params": {
-                    "scale": 800
-                }
-            },
-            {
                 "title": "2019",
                 "params": {
                     "scale": 800
@@ -51,62 +45,6 @@
         }
     },
     {
-        "id": "pano2020woz",
-        "layers": [
-            "panorama_new"
-        ],
-        "legendItems": [
-            {
-                "title": "2020",
-                "params": {
-                    "scale": 800
-                }
-            }
-        ],
-        "minZoom": 11,
-        "title": "Panoramabeelden",
-        "notClosable": true,
-        "url": "/maps/panorama",
-        "params": {
-            "mission_year": 2020,
-            "mission_type": "woz"
-        },
-        "meta": {
-            "description": null,
-            "theme": null,
-            "datasetId": null,
-            "date": null
-        }
-    },
-    {
-        "id": "pano2020bi",
-        "layers": [
-            "panorama_new"
-        ],
-        "legendItems": [
-            {
-                "title": "2020",
-                "params": {
-                    "scale": 800
-                }
-            }
-        ],
-        "minZoom": 11,
-        "title": "Panoramabeelden",
-        "notClosable": true,
-        "url": "/maps/panorama",
-        "params": {
-            "mission_year": 2020,
-            "mission_type": "bi"
-        },
-        "meta": {
-            "description": null,
-            "theme": null,
-            "datasetId": null,
-            "date": null
-        }
-    },
-    {
         "id": "pano2019bi",
         "layers": [
             "panorama_new"
@@ -135,33 +73,33 @@
         }
     },
     {
-        "id": "pano2019woz",
-        "layers": [
-            "panorama_new"
-        ],
-        "legendItems": [
-            {
-                "imageRule": "2019",
-                "title": "2019 WOZ",
-                "params": {
-                    "scale": 800
-                }
-            }
-        ],
-        "minZoom": 11,
-        "notClosable": true,
-        "title": "Panoramabeelden",
-        "url": "/maps/panorama",
-        "params": {
-            "mission_year": 2019,
-            "mission_type": "woz"
-        },
-        "meta": {
-            "description": null,
-            "theme": null,
-            "datasetId": null,
-            "date": null
+      "id": "pano2019woz",
+      "layers": [
+        "panorama_new"
+      ],
+      "legendItems": [
+        {
+          "imageRule": "2019",
+          "title": "2019 WOZ",
+          "params": {
+            "scale": 800
+          }
         }
+      ],
+      "minZoom": 11,
+      "notClosable": true,
+      "title": "Panoramabeelden",
+      "url": "/maps/panorama",
+      "params": {
+        "mission_year": 2019,
+        "mission_type": "woz"
+      },
+      "meta": {
+        "description": null,
+        "theme": null,
+        "datasetId": null,
+        "date": null
+      }
     },
     {
         "id": "pano2018bi",
@@ -309,19 +247,46 @@
         "category": "GEOGRAPHY_ONR",
         "legendItems": [
             {
-                "id": "bgem"
+                "id": "bgem",
+                "title": "Burgerlijke gemeente",
+                "layers": [
+                    "burgerlijke_gemeente",
+                    "burgerlijke_gemeente_label"
+                ],
+                "noDetail": true
             },
             {
-                "id": "kgem"
+                "id": "kgem",
+                "title": "Kadastrale gemeente",
+                "layers": [
+                    "kadastrale_gemeente",
+                    "kadastrale_gemeente_label"
+                ],
+                "noDetail": true
             },
             {
-                "id": "ksec"
+                "id": "ksec",
+                "title": "Kadastrale sectie",
+                "layers": [
+                    "kadastrale_sectie",
+                    "kadastrale_sectie_label"
+                ],
+                "noDetail": true
             },
             {
-                "id": "kot"
+                "id": "kot",
+                "title": "Kadastraal object",
+                "layers": [
+                    "kadastraal_object",
+                    "kadastraal_object_label"
+                ],
+                "detailUrl": "geosearch/search/",
+                "detailItem": "kadastraal_object",
+                "detailIsShape": true
             }
         ],
         "title": "Kadastrale perceelsgrenzen",
+        "url": "/maps/brk",
         "meta": {
             "description": null,
             "theme": null,
@@ -331,39 +296,96 @@
     },
     {
         "category": "GEOGRAPHY_ONR",
+        "layers": [
+            "eigendommen"
+        ],
         "legendItems": [
             {
-                "id": "egga"
+                "id": "egga",
+                "title": "Gemeente Amsterdam",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-1.svg",
+                "params": {
+                    "categorie": 1
+                }
             },
             {
-                "id": "egog"
+                "id": "egog",
+                "title": "Overige gemeenten",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-2.svg",
+                "params": {
+                    "categorie": 2
+                }
             },
             {
-                "id": "egst"
+                "id": "egst",
+                "title": "Staat",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-3.svg",
+                "params": {
+                    "categorie": 3
+                }
             },
             {
-                "id": "egpr"
+                "id": "egpr",
+                "title": "Provincies",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-4.svg",
+                "params": {
+                    "categorie": 4
+                }
             },
             {
-                "id": "egwa"
+                "id": "egwa",
+                "title": "Waterschappen",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-5.svg",
+                "params": {
+                    "categorie": 5
+                }
             },
             {
-                "id": "egwo"
+                "id": "egwo",
+                "title": "Woningbouwcorporaties",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-6.svg",
+                "params": {
+                    "categorie": 6
+                }
             },
             {
-                "id": "egve"
+                "id": "egve",
+                "title": "Verenigingen van eigenaren",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-7.svg",
+                "params": {
+                    "categorie": 7
+                }
             },
             {
-                "id": "egsp"
+                "id": "egsp",
+                "title": "Spoorwegen/ProRail",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-8.svg",
+                "params": {
+                    "categorie": 8
+                }
             },
             {
-                "id": "egnnp"
+                "id": "egnnp",
+                "title": "Overige niet-natuurlijke personen",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-9.svg",
+                "params": {
+                    "categorie": 9
+                }
             },
             {
-                "id": "egnp"
+                "id": "egnp",
+                "title": "Overige natuurlijke personen",
+                "iconUrl": "/assets/images/map-legend/icon-egdm-cat-10.svg",
+                "params": {
+                    "categorie": 10
+                }
             }
         ],
         "title": "Kadastrale eigenaren",
+        "url": "/maps/eigendommen",
+        "detailUrl": "geosearch/search/",
+        "detailItem": "kadastraal_object",
+        "detailIsShape": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -373,15 +395,32 @@
     },
     {
         "category": "GEOGRAPHY_ONR",
+        "layers": [
+            "erfpacht"
+        ],
         "legendItems": [
             {
-                "id": "efga"
+                "id": "efga",
+                "title": "Gemeente Amsterdam",
+                "iconUrl": "/assets/images/map-legend/icon-erf-cat-1.svg",
+                "params": {
+                    "categorie": 1
+                }
             },
             {
-                "id": "efov"
+                "id": "efov",
+                "title": "Overig",
+                "iconUrl": "/assets/images/map-legend/icon-erf-cat-2.svg",
+                "params": {
+                    "categorie": 2
+                }
             }
         ],
         "title": "Kadastrale erfpachtuitgevers",
+        "url": "/maps/erfpacht",
+        "detailUrl": "geosearch/search/",
+        "detailItem": "kadastraal_object",
+        "detailIsShape": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -391,15 +430,32 @@
     },
     {
         "category": "GEOGRAPHY_ONR",
+        "layers": [
+            "vastgoed"
+        ],
         "legendItems": [
             {
-                "id": "vge"
+                "id": "vge",
+                "title": "Volledig eigendom",
+                "imageRule": "vastgoed",
+                "layers": [
+                    "vastgoed_eigendom"
+                ]
             },
             {
-                "id": "vga"
+                "id": "vga",
+                "title": "Appartementsrecht",
+                "imageRule": "vastgoed",
+                "layers": [
+                    "vastgoed_appartementsrecht"
+                ]
             }
         ],
         "title": "Gemeentelijk eigendom",
+        "url": "/maps/vastgoed",
+        "detailUrl": "geosearch/vastgoed/",
+        "detailItem": "vastgoed",
+        "detailIsShape": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -411,34 +467,72 @@
         "category": "GEOGRAPHY_ONR",
         "legendItems": [
             {
-                "id": "gbvv"
+                "id": "gbvv",
+                "layers": [
+                    "beperking-VV"
+                ],
+                "title": "(voorlopige) aanwijzing WVG"
             },
             {
-                "id": "gbkw"
+                "id": "gbkw",
+                "layers": [
+                    "beperking-KW"
+                ],
+                "title": "Wet bodembescherming"
             },
             {
-                "id": "gbwu"
+                "id": "gbwu",
+                "layers": [
+                    "beperking-WU"
+                ],
+                "title": "Woningwet"
             },
             {
-                "id": "gboh"
+                "id": "gboh",
+                "layers": [
+                    "beperking-OH"
+                ],
+                "title": "WABO bestuursdwang / dwangsom"
             },
             {
-                "id": "gbos"
+                "id": "gbos",
+                "layers": [
+                    "beperking-OS"
+                ],
+                "title": "Sluiting o.b.v. Opiumwet"
             },
             {
-                "id": "gbgs"
+                "id": "gbgs",
+                "layers": [
+                    "beperking-GS"
+                ],
+                "title": "Sluiting v. woning/lokaal/erf"
             },
             {
-                "id": "gbgg"
+                "id": "gbgg",
+                "layers": [
+                    "beperking-GG"
+                ],
+                "title": "Gemeentelijk monument"
             },
             {
-                "id": "gbep"
+                "id": "gbep",
+                "layers": [
+                    "beperking-EP"
+                ],
+                "title": "Exploitatieplan"
             },
             {
-                "id": "gbhv"
+                "id": "gbhv",
+                "layers": [
+                    "beperking-HV"
+                ],
+                "title": "Vordering tot woonruimte"
             }
         ],
+        "minZoom": 13,
         "title": "Gemeentelijke beperkingen (WKPB)",
+        "url": "/maps/wkpb",
         "meta": {
             "description": null,
             "theme": null,
@@ -450,16 +544,32 @@
         "category": "GEOGRAPHY_GEB",
         "legendItems": [
             {
-                "id": "buurt"
+                "id": "buurt",
+                "layers": [
+                    "buurt",
+                    "buurt_label"
+                ],
+                "title": "Buurt"
             },
             {
-                "id": "bc"
+                "id": "bc",
+                "layers": [
+                    "buurtcombinatie",
+                    "buurtcombinatie_label"
+                ],
+                "title": "Wijk"
             },
             {
-                "id": "sd"
+                "id": "sd",
+                "layers": [
+                    "stadsdeel",
+                    "stadsdeel_label"
+                ],
+                "title": "Stadsdeel"
             }
         ],
         "title": "Bestuurlijke gebieden",
+        "url": "/maps/gebieden",
         "meta": {
             "description": null,
             "theme": null,
@@ -469,12 +579,22 @@
     },
     {
         "category": "GEOGRAPHY_GEB",
+        "id": "bbn",
+        "layers": [
+            "bouwblok",
+            "bouwblok_label"
+        ],
         "legendItems": [
             {
-                "id": "bbn"
+                "title": "Bouwblok"
             }
         ],
+        "minZoom": 12,
         "title": "Bouwblokken",
+        "url": "/maps/gebieden",
+        "detailUrl": "geosearch/search/",
+        "detailItem": "bouwblok",
+        "detailIsShape": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -486,13 +606,26 @@
         "category": "GEOGRAPHY_GEB",
         "legendItems": [
             {
-                "id": "ggwg"
+                "id": "ggwg",
+                "layers": [
+                    "gebiedsgerichtwerken",
+                    "gebiedsgerichtwerken_label"
+                ],
+                "title": "Gebiedsgerichtwerken-gebied"
             },
             {
-                "id": "ggwpg"
+                "id": "ggwpg",
+                "layers": [
+                    "gebiedsgerichtwerkenpraktijkgebieden",
+                    "gebiedsgerichtwerkenpraktijkgebieden_label"
+                ],
+                "title": "Gebiedsgerichtwerken-praktijkgebied",
+                "noDetail": true
             }
         ],
+        "minZoom": 6,
         "title": "Gebiedsgericht werken",
+        "url": "/maps/gebieden",
         "meta": {
             "description": null,
             "theme": null,
@@ -504,13 +637,22 @@
         "category": "GEOGRAPHY_GEB",
         "legendItems": [
             {
-                "id": "ggra"
+                "id": "ggra",
+                "layers": [
+                    "grootstedelijk_regio_amsterdam"
+                ],
+                "title": "Regie Gemeente Amsterdam"
             },
             {
-                "id": "ggro"
+                "id": "ggro",
+                "layers": [
+                    "grootstedelijk_regio_omgevingsdienst"
+                ],
+                "title": "Regie Omgevingsdienst"
             }
         ],
         "title": "Grootstedelijke gebieden, projecten en belangen",
+        "url": "/maps/gebieden",
         "meta": {
             "description": null,
             "theme": null,
@@ -599,6 +741,7 @@
         "title": "Terreinmodel (DTM AHN)",
         "url": "https://geodata.nationaalgeoregister.nl/ahn3/wms?",
         "external": true,
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -662,6 +805,7 @@
         "title": "Oppervlaktemodel (DSM AHN)",
         "url": "https://geodata.nationaalgeoregister.nl/ahn3/wms?",
         "external": true,
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -803,6 +947,7 @@
         "minZoom": 12,
         "title": "Meetbouten - Referentiepunten",
         "url": "/maps/meetbouten",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -825,6 +970,7 @@
             "publieke-werken"
         ],
         "url": "https://{s}.data.amsterdam.nl/publieke-werken-1909-rd/{z}/{x}/{y}.png",
+        "noDetail": true,
         "external": true,
         "bounds": [
             [
@@ -858,6 +1004,7 @@
             "publieke-werken"
         ],
         "url": "https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png",
+        "noDetail": true,
         "external": true,
         "bounds": [
             [
@@ -891,6 +1038,7 @@
             "publieke-werken"
         ],
         "url": "https://{s}.data.amsterdam.nl/publieke-werken-1943-2500-rd/{z}/{x}/{y}.png",
+        "noDetail": true,
         "external": true,
         "bounds": [
             [
@@ -924,6 +1072,7 @@
             "publieke-werken"
         ],
         "url": "https://{s}.data.amsterdam.nl/publieke-werken-1985-rd/{z}/{x}/{y}.png",
+        "noDetail": true,
         "external": true,
         "bounds": [
             [
@@ -946,13 +1095,23 @@
         "category": "TRAFFIC",
         "legendItems": [
             {
-                "id": "mtr"
+                "id": "mtr",
+                "layers": [
+                    "metrolijnen"
+                ],
+                "title": "Metrolijn"
             },
             {
-                "id": "trm"
+                "id": "trm",
+                "layers": [
+                    "tramlijnen"
+                ],
+                "title": "Tramlijn"
             }
         ],
         "title": "Metro en tram - Spoorlijnen",
+        "url": "/maps/trm",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -974,6 +1133,7 @@
         ],
         "title": "Milieuzones - Bestelauto",
         "url": "/maps/milieuzones",
+        "noDetail": true,
         "params": {
             "id": 63363
         },
@@ -998,6 +1158,7 @@
         ],
         "title": "Milieuzones - Brom- en snorfiets",
         "url": "/maps/milieuzones",
+        "noDetail": true,
         "params": {
             "id": 63324
         },
@@ -1022,6 +1183,7 @@
         ],
         "title": "Milieuzones - Taxi",
         "url": "/maps/milieuzones",
+        "noDetail": true,
         "params": {
             "id": 63360
         },
@@ -1046,6 +1208,7 @@
         ],
         "title": "Milieuzones - Touringcar",
         "url": "/maps/milieuzones",
+        "noDetail": true,
         "params": {
             "id": 63361
         },
@@ -1070,6 +1233,7 @@
         ],
         "title": "Milieuzones - Vrachtauto",
         "url": "/maps/milieuzones",
+        "noDetail": true,
         "params": {
             "id": 63362
         },
@@ -1084,13 +1248,26 @@
         "category": "TRAFFIC",
         "legendItems": [
             {
-                "id": "slpb"
+                "id": "slpb",
+                "imageRule": "Snel beschikbaar",
+                "layers": [
+                    "snel_beschikbaar"
+                ],
+                "title": "Snellaadpunt (beschikbaar, ±15 min. geleden)"
             },
             {
-                "id": "slpnb"
+                "id": "slpnb",
+                "imageRule": "Snel niet beschikbaar",
+                "layers": [
+                    "snel_niet_beschikbaar"
+                ],
+                "title": "Snellaadpunt (niet beschikbaar, ±15 min. geleden)"
             }
         ],
         "title": "Oplaadpunten - Snel laden",
+        "url": "/maps/oplaadpunten",
+        "detailUrl": "geosearch/search/",
+        "detailItem": "oplaadpunten",
         "meta": {
             "description": null,
             "theme": null,
@@ -1102,13 +1279,26 @@
         "category": "TRAFFIC",
         "legendItems": [
             {
-                "id": "nlpb"
+                "id": "nlpb",
+                "imageRule": "Normaal beschikbaar",
+                "layers": [
+                    "normaal_beschikbaar"
+                ],
+                "title": "Gewoon laadpunt (beschikbaar, ±15 min. geleden)"
             },
             {
-                "id": "nlpnb"
+                "id": "nlpnb",
+                "imageRule": "Normaal niet beschikbaar",
+                "layers": [
+                    "normaal_niet_beschikbaar"
+                ],
+                "title": "Gewoon laadpunt (niet beschikbaar, ±15 min. geleden)"
             }
         ],
         "title": "Oplaadpunten - Gewoon laden",
+        "url": "/maps/oplaadpunten",
+        "detailUrl": "geosearch/search/",
+        "detailItem": "oplaadpunten",
         "meta": {
             "description": null,
             "theme": null,
@@ -1171,16 +1361,43 @@
         "category": "TRAFFIC",
         "legendItems": [
             {
-                "id": "pvrts"
+                "id": "pvrts",
+                "layers": [
+                    "parkeervakken_reservering"
+                ],
+                "title": "Taxistandplaats",
+                "params": {
+                    "categorie": "taxistandplaats"
+                }
             },
             {
-                "id": "pvrll"
+                "id": "pvrll",
+                "layers": [
+                    "parkeervakken_reservering"
+                ],
+                "title": "Laden en lossen",
+                "imageRule": "Laden lossen",
+                "params": {
+                    "categorie": "laden_lossen"
+                }
             },
             {
-                "id": "pvrpr"
+                "id": "pvrpr",
+                "layers": [
+                    "parkeervakken_reservering"
+                ],
+                "title": "Kiss & Ride",
+                "params": {
+                    "categorie": "kiss_ride"
+                }
             }
         ],
+        "minZoom": 11,
         "title": "Parkeervakken - Gereserveerd",
+        "url": "/maps/parkeervakken",
+        "detailUrl": "parkeervakken/geosearch/",
+        "detailItem": "parkeervak",
+        "detailIsShape": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1190,30 +1407,66 @@
     },
     {
         "category": "TRAFFIC",
+        "layers": [
+            "parkeervakken_reservering"
+        ],
         "legendItems": [
             {
-                "id": "pvrf"
+                "id": "pvrf",
+                "title": "Fiscaal",
+                "params": {
+                    "categorie": "fiscaal"
+                }
             },
             {
-                "id": "pvrpv"
+                "id": "pvrpv",
+                "title": "Parkeerverbod",
+                "params": {
+                    "categorie": "parkeerverbod"
+                }
             },
             {
-                "id": "pvrga"
+                "id": "pvrga",
+                "title": "Gehandicaptenplaats algemeen",
+                "params": {
+                    "categorie": "gehandicapten_algemeen"
+                }
             },
             {
-                "id": "pvrgk"
+                "id": "pvrgk",
+                "title": "Gehandicaptenplaats kenteken",
+                "params": {
+                    "categorie": "gehandicapten_kenteken"
+                }
             },
             {
-                "id": "pvrsv"
+                "id": "pvrsv",
+                "title": "Specifieke voertuigcategorie",
+                "params": {
+                    "categorie": "specifiek_voertuig"
+                }
             },
             {
-                "id": "pvrvh"
+                "id": "pvrvh",
+                "title": "Vergunninghouders",
+                "params": {
+                    "categorie": "vergunning_houders"
+                }
             },
             {
-                "id": "pvrbz"
+                "id": "pvrbz",
+                "title": "Blauwe zone",
+                "params": {
+                    "categorie": "blauwe_zone"
+                }
             }
         ],
+        "minZoom": 11,
         "title": "Parkeervakken - Gereserveerd (overige)",
+        "url": "/maps/parkeervakken",
+        "detailUrl": "parkeervakken/geosearch/",
+        "detailItem": "parkeervak",
+        "detailIsShape": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1225,13 +1478,30 @@
         "category": "TRAFFIC",
         "legendItems": [
             {
-                "id": "uitzpvg"
+                "id": "uitzpvg",
+                "title": "Uitzondering parkeervergunninggebied",
+                "imageRule": "Parkeerzones uitzonderingen",
+                "layers": [
+                    "parkeerzones_uitz"
+                ],
+                "detailItem": "parkeerzones_uitz",
+                "detailUrl": "geosearch/parkeerzones_uitz/",
+                "url": "/maps/parkeerzones_uitz"
             },
             {
-                "id": "pvg"
+                "id": "pvg",
+                "title": "Parkeervergunninggebied",
+                "iconUrl": "/assets/images/map-legend/icon-parkeerzones.svg",
+                "layers": [
+                    "parkeerzones"
+                ],
+                "detailItem": "parkeerzones",
+                "detailUrl": "geosearch/parkeerzones/",
+                "url": "/maps/parkeerzones"
             }
         ],
         "title": "Parkeervergunninggebieden",
+        "detailIsShape": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1243,13 +1513,25 @@
         "category": "TRAFFIC",
         "legendItems": [
             {
-                "id": "bgt"
+                "id": "bgt",
+                "imageRule": "Busbaan geen taxi",
+                "layers": [
+                    "busbaan_geen_taxi"
+                ],
+                "title": "Verbod lijnbusbaan"
             },
             {
-                "id": "tar"
+                "id": "tar",
+                "imageRule": "Taxiroutes",
+                "layers": [
+                    "taxiroutes"
+                ],
+                "title": "Hoofdroutes taxi's"
             }
         ],
         "title": "Routes - Taxi",
+        "url": "/maps/hoofdroutes",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1271,6 +1553,7 @@
         ],
         "title": "Routes - Vrachtauto",
         "url": "/maps/hoofdroutes",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1291,6 +1574,7 @@
         ],
         "title": "Verzinkbare palen",
         "url": "/maps/vezips",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1300,66 +1584,148 @@
     },
     {
         "category": "ORGANISATION",
+        "layers": [
+            "bekendmakingen"
+        ],
         "legendItems": [
             {
-                "id": "bespla"
+                "id": "bespla",
+                "title": "Bestemmingsplan",
+                "params": {
+                    "onderwerp": "bestemmingsplan"
+                }
             },
             {
-                "id": "drahor"
+                "id": "drahor",
+                "title": "Drank- en horecavergunning",
+                "params": {
+                    "onderwerp": "drank_en_horecavergunning"
+                }
             },
             {
-                "id": "evever"
+                "id": "evever",
+                "title": "Evenementenvergunning",
+                "params": {
+                    "onderwerp": "evenementenvergunning"
+                }
             },
             {
-                "id": "exploi"
+                "id": "exploi",
+                "title": "Exploitatievergunning",
+                "params": {
+                    "onderwerp": "exploitatievergunning"
+                }
             },
             {
-                "id": "inspra"
+                "id": "inspra",
+                "title": "Inspraak",
+                "params": {
+                    "onderwerp": "inspraak"
+                }
             },
             {
-                "id": "kapver"
+                "id": "kapver",
+                "title": "Kapvergunning",
+                "params": {
+                    "onderwerp": "kapvergunning"
+                }
             },
             {
-                "id": "ligpla"
+                "id": "ligpla",
+                "title": "Ligplaatsvergunning",
+                "params": {
+                    "onderwerp": "ligplaatsvergunning"
+                }
             },
             {
-                "id": "medede"
+                "id": "medede",
+                "title": "Mededelingen",
+                "params": {
+                    "onderwerp": "mededelingen"
+                }
             },
             {
-                "id": "meldin"
+                "id": "meldin",
+                "title": "Meldingen",
+                "params": {
+                    "onderwerp": "meldingen"
+                }
             },
             {
-                "id": "omgver"
+                "id": "omgver",
+                "title": "Omgevingsvergunning",
+                "params": {
+                    "onderwerp": "omgevingsvergunning"
+                }
             },
             {
-                "id": "onttre"
+                "id": "onttre",
+                "title": "Onttrekkingsvergunning",
+                "params": {
+                    "onderwerp": "onttrekkingsvergunning"
+                }
             },
             {
-                "id": "optijd"
+                "id": "optijd",
+                "title": "Openingstijden",
+                "params": {
+                    "onderwerp": "openingstijden"
+                }
             },
             {
-                "id": "rectif"
+                "id": "rectif",
+                "title": "Rectificatie",
+                "params": {
+                    "onderwerp": "rectificatie"
+                }
             },
             {
-                "id": "speela"
+                "id": "speela",
+                "title": "Speelautomatenvergunning",
+                "params": {
+                    "onderwerp": "speelautomatenvergunning"
+                }
             },
             {
-                "id": "splits"
+                "id": "splits",
+                "title": "Splitsingsvergunning",
+                "params": {
+                    "onderwerp": "splitsingsvergunning"
+                }
             },
             {
-                "id": "terras"
+                "id": "terras",
+                "title": "Terrasvergunning",
+                "params": {
+                    "onderwerp": "terrasvergunning"
+                }
             },
             {
-                "id": "verbes"
+                "id": "verbes",
+                "title": "Verkeersbesluit",
+                "params": {
+                    "onderwerp": "verkeersbesluit"
+                }
             },
             {
-                "id": "verreg"
+                "id": "verreg",
+                "title": "Verordeningen en reglementen",
+                "params": {
+                    "onderwerp": "verordeningen_en_reglementen"
+                }
             },
             {
-                "id": "overig"
+                "id": "overig",
+                "title": "Overig",
+                "params": {
+                    "onderwerp": "overig"
+                }
             }
         ],
         "title": "Gemeentelijke bekendmakingen",
+        "url": "/maps/bekendmakingen",
+        "detailUrl": "geosearch/search/",
+        "detailItem": "bekendmakingen",
         "meta": {
             "description": null,
             "theme": null,
@@ -1371,25 +1737,81 @@
         "category": "LIVING_ENV",
         "legendItems": [
             {
-                "id": "wlorst"
+                "id": "wlorst",
+                "layers": [
+                    "rest_coordinaten"
+                ],
+                "title": "Restafval",
+                "imageRule": "Restcontainer",
+                "params": {
+                    "width": 30,
+                    "height": 30
+                }
             },
             {
-                "id": "wloppr"
+                "id": "wloppr",
+                "layers": [
+                    "papier_coordinaten"
+                ],
+                "title": "Papier",
+                "imageRule": "Papiercontainer",
+                "params": {
+                    "width": 30,
+                    "height": 30
+                }
             },
             {
-                "id": "wlogls"
+                "id": "wlogls",
+                "layers": [
+                    "glas_coordinaten"
+                ],
+                "title": "Glas",
+                "imageRule": "Glascontainer",
+                "params": {
+                    "width": 30,
+                    "height": 30
+                }
             },
             {
-                "id": "wlopls"
+                "id": "wlopls",
+                "layers": [
+                    "plastic_coordinaten"
+                ],
+                "title": "Plastic",
+                "imageRule": "Plasticcontainer",
+                "params": {
+                    "width": 30,
+                    "height": 30
+                }
             },
             {
-                "id": "wlotxtl"
+                "id": "wlotxtl",
+                "layers": [
+                    "textiel_coordinaten"
+                ],
+                "title": "Textiel",
+                "imageRule": "Textielcontainer",
+                "params": {
+                    "width": 30,
+                    "height": 30
+                }
             },
             {
-                "id": "wlokca"
+                "id": "wlokca",
+                "layers": [
+                    "gfe_coordinaten"
+                ],
+                "title": "GFE",
+                "imageRule": "Gfecontainer",
+                "params": {
+                    "width": 30,
+                    "height": 30
+                }
             }
         ],
         "title": "Afvalcontainers",
+        "url": "/maps/afval",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1406,6 +1828,7 @@
         ],
         "title": "Algemene overlastgebieden",
         "url": "/maps/overlastgebieden",
+        "noDetail": true,
         "legendItems": [
             {
                 "title": "Algemeen overlastgebied"
@@ -1427,6 +1850,7 @@
         ],
         "title": "Dealeroverlastgebieden",
         "url": "/maps/overlastgebieden",
+        "noDetail": true,
         "legendItems": [
             {
                 "title": "Dealeroverlastgebied"
@@ -1453,6 +1877,7 @@
         ],
         "title": "Cameratoezichtgebieden",
         "url": "/maps/overlastgebieden",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1474,6 +1899,7 @@
         ],
         "title": "Alcoholverbodsgebieden",
         "url": "/maps/overlastgebieden",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1490,6 +1916,7 @@
         ],
         "title": "Rondleidingverbodsgebieden",
         "url": "/maps/overlastgebieden",
+        "noDetail": true,
         "legendItems": [
             {
                 "title": "Rondleidingverbodsgebied",
@@ -1518,6 +1945,7 @@
         ],
         "title": "Omgeving taxistandplaatsen",
         "url": "/maps/overlastgebieden",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1534,7 +1962,7 @@
         "legendItems": [
             {
                 "title": "Parken",
-                "imageRule": "Vuurwerkvrije zone (Park)"
+                 "imageRule": "Vuurwerkvrije zone (Park)"
             },
             {
                 "title": "Omgeving ziekenhuizen",
@@ -1547,6 +1975,7 @@
         ],
         "title": "Vuurwerkvrije zones",
         "url": "/maps/vuurwerk",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1556,15 +1985,30 @@
     },
     {
         "category": "TOURISM",
+        "id": "tcmnmt",
+        "layers": [
+            "monument_coordinaten",
+            "monument_coordinaten_nopand"
+        ],
         "legendItems": [
             {
-                "id": "tcmnmt"
+                "layers": [
+                    "monument_coordinaten"
+                ],
+                "title": "Monument (pandgerelateerd)"
             },
             {
-                "id": "tcmnmtov"
+                "layers": [
+                    "monument_coordinaten_nopand"
+                ],
+                "title": "Monument (overige)"
             }
         ],
+        "minZoom": 12,
         "title": "Monumenten",
+        "url": "/maps/monumenten",
+        "detailUrl": "geosearch/search/",
+        "detailItem": "monument",
         "meta": {
             "description": null,
             "theme": null,
@@ -1618,6 +2062,7 @@
         "minZoom": 11,
         "title": "Grondmonsters",
         "url": "/maps/bodem",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1648,6 +2093,7 @@
         "minZoom": 11,
         "title": "Grondmonsters asbest",
         "url": "/maps/bodem",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1677,6 +2123,7 @@
         ],
         "title": "Grondwatermonsters",
         "url": "/maps/bodem",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1811,6 +2258,7 @@
         "title": "Geotechnische sonderingen (CPT BRO)",
         "url": "https://geodata.nationaalgeoregister.nl/brocpt/wms?",
         "external": true,
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1820,18 +2268,36 @@
     },
     {
         "category": "MIL_SAFETY",
+        "id": "mvlpgv",
         "legendItems": [
             {
-                "id": "mvlpgv105"
+                "layers": [
+                    "lpgvulpuntplaatsgebondenrisico105"
+                ],
+                "title": "Plaatsgebonden risico 10-5"
             },
             {
-                "id": "mvlpgv106"
+                "layers": [
+                    "lpgvulpuntplaatsgebondenrisico106"
+                ],
+                "title": "Plaatsgebonden risico 10-6"
             },
             {
-                "id": "mvlpgvgeb"
+                "layers": [
+                    "lpgvulpuntinvloedsgebied"
+                ],
+                "title": "Invloedsgebied groepsrisico"
             }
         ],
+        "layers": [
+            "lpgvulpuntinvloedsgebied",
+            "lpgvulpuntplaatsgebondenrisico106",
+            "lpgvulpuntplaatsgebondenrisico105",
+            "lpgvulpuntlocaties"
+        ],
         "title": "LPG-vulpunten - Risicozones",
+        "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1841,15 +2307,28 @@
     },
     {
         "category": "MIL_SAFETY",
+        "id": "mvlpga",
+        "layers": [
+            "lpgafleverzuilplaatsgebondenrisico",
+            "lpgafleverzuillocaties"
+        ],
         "legendItems": [
             {
-                "id": "mvlpga"
+                "layers": [
+                    "lpgafleverzuillocaties"
+                ],
+                "title": "Locatie LPG-afleverzuil"
             },
             {
-                "id": "mvlpgeb"
+                "layers": [
+                    "lpgafleverzuilplaatsgebondenrisico"
+                ],
+                "title": "Plaatsgebonden risico (15 m)"
             }
         ],
         "title": "LPG-afleverzuilen - Risicozones",
+        "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1859,18 +2338,37 @@
     },
     {
         "category": "MIL_SAFETY",
+        "id": "mvlpgt",
+        "layers": [
+            "lpgtankligging",
+            "lpgtankplaatsgebondenrisico",
+            "lpgtankinvloedsgebied"
+        ],
         "legendItems": [
             {
-                "id": "mvlpgt"
+                "layers": [
+                    "lpgtankligging"
+                ],
+                "title": "Ligging LPG-tank"
             },
             {
-                "id": "mvlpgtris"
+                "layers": [
+                    "lpgtankplaatsgebondenrisico"
+                ],
+                "title": "Plaatsgebondenrisico (25/120 m)"
             },
             {
-                "id": "mvlpgtgrp"
+                "layers": [
+                    "lpgtankinvloedsgebied",
+                    "lpgtankplaatsgebondenrisico",
+                    "lpgtankligging"
+                ],
+                "title": "Invloedsgebied groepsrisico"
             }
         ],
         "title": "LPG-tanks - Risicozones",
+        "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1880,15 +2378,29 @@
     },
     {
         "category": "MIL_SAFETY",
+        "id": "mvlpgs",
+        "layers": [
+            "lpgstationcontouren",
+            "lpgstationslocaties"
+        ],
         "legendItems": [
             {
-                "id": "mvlpgs"
+                "layers": [
+                    "lpgstationslocaties"
+                ],
+                "title": "Locatie LPG-station"
             },
             {
-                "id": "mvlpgst"
+                "layers": [
+                    "lpgstationcontouren",
+                    "lpgstationslocaties"
+                ],
+                "title": "Contouren LPG-station"
             }
         ],
         "title": "LPG-stations - Risicozones",
+        "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1898,15 +2410,28 @@
     },
     {
         "category": "MIL_SAFETY",
+        "id": "mvbr",
+        "layers": [
+            "overigerisicobedrijfplaatsgebondenrisico106",
+            "overigerisicobedrijfsbronnen"
+        ],
         "legendItems": [
             {
-                "id": "mvbrgb"
+                "layers": [
+                    "overigerisicobedrijfplaatsgebondenrisico106"
+                ],
+                "title": "Plaatsgebonden risico 10-6"
             },
             {
-                "id": "mvbr"
+                "layers": [
+                    "overigerisicobedrijfsbronnen"
+                ],
+                "title": "Bron"
             }
         ],
         "title": "Bedrijven - Bronnen en risicozones",
+        "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1928,6 +2453,7 @@
         ],
         "title": "Bedrijven - Invloedsgebieden",
         "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1937,15 +2463,28 @@
     },
     {
         "category": "MIL_SAFETY",
+        "id": "mvbd",
+        "layers": [
+            "overigerisicobedrijfslocaties",
+            "overigerisicobedrijfscontouren"
+        ],
         "legendItems": [
             {
-                "id": "mvbdl"
+                "layers": [
+                    "overigerisicobedrijfslocaties"
+                ],
+                "title": "Bedrijf"
             },
             {
-                "id": "mvbdc"
+                "layers": [
+                    "overigerisicobedrijfscontouren"
+                ],
+                "title": "Terrein"
             }
         ],
         "title": "Bedrijven - Terreingrenzen",
+        "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -1962,7 +2501,6 @@
         "legendItems": [
             {
                 "layers": [
-                    "milieu_veiligheid_aardgasbuisleidingen",
                     "milieu_veiligheid_aardgasbuisleidingen_legenda"
                 ],
                 "title": "Aardgasleiding"
@@ -1994,6 +2532,7 @@
         ],
         "title": "Aardgasbuisleidingen - Risicozones",
         "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2014,6 +2553,7 @@
         ],
         "title": "Spoorwegen - Risicozones",
         "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2034,6 +2574,7 @@
         ],
         "title": "Vaarwegen - Risicozones",
         "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2054,6 +2595,7 @@
         ],
         "title": "Wegen - Risicozones",
         "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2065,25 +2607,51 @@
         "category": "MIL_SAFETY",
         "legendItems": [
             {
-                "id": "mvvo"
+                "id": "mvvo",
+                "layers": [
+                    "milieu_veiligheid_vuurwerk"
+                ],
+                "title": "Vuurwerkopslag"
             },
             {
-                "id": "mvmo"
+                "id": "mvmo",
+                "layers": [
+                    "milieu_veiligheid_munitie"
+                ],
+                "title": "Munitieopslag"
             },
             {
-                "id": "mvgms"
+                "id": "mvgms",
+                "layers": [
+                    "milieu_veiligheid_gasdrukregel_meetstation"
+                ],
+                "title": "Gasdrukregel- en meetstation"
             },
             {
-                "id": "mvsls"
+                "id": "mvsls",
+                "layers": [
+                    "milieu_veiligheid_sluis"
+                ],
+                "title": "Sluis"
             },
             {
-                "id": "mvwp"
+                "id": "mvwp",
+                "layers": [
+                    "milieu_veiligheid_wachtplaats"
+                ],
+                "title": "Wachtplaats"
             },
             {
-                "id": "mvbs"
+                "id": "mvbs",
+                "layers": [
+                    "milieu_veiligheid_bunkerschepen"
+                ],
+                "title": "Bunkerschip"
             }
         ],
         "title": "Veiligheidsafstanden",
+        "url": "/maps/externeveiligheid",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2093,15 +2661,28 @@
     },
     {
         "category": "MIL_ZONES",
+        "id": "mgpind",
         "legendItems": [
             {
-                "id": "mgpindg"
+                "layers": [
+                    "gezoneerdindustrieterrein"
+                ],
+                "title": "Gezoneerd industrieterrein"
             },
             {
-                "id": "mgpindgz"
+                "layers": [
+                    "geluidzoneindustrieterrein"
+                ],
+                "title": "Geluidzone industrieterrein"
             }
         ],
+        "layers": [
+            "geluidzoneindustrieterrein",
+            "gezoneerdindustrieterrein"
+        ],
         "title": "Industrie - Geluidszones",
+        "url": "/maps/planologischegeluidszones",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2122,6 +2703,7 @@
         ],
         "title": "Spoorwegen - Geluidszones",
         "url": "/maps/planologischegeluidszones",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2142,6 +2724,7 @@
         ],
         "title": "Metro - Geluidszones",
         "url": "/maps/planologischegeluidszones",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2165,6 +2748,7 @@
         ],
         "title": "Schiphol - Ruimtelijke beperkingen",
         "url": "/maps/planologischezonesschiphol",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2209,6 +2793,7 @@
         ],
         "title": "Schiphol - Maatgevende toetshoogte",
         "url": "/maps/planologischezonesschiphol",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2253,6 +2838,7 @@
         ],
         "title": "Schiphol - Toetshoogte i.v.m. radar",
         "url": "/maps/planologischezonesschiphol",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2273,6 +2859,7 @@
         ],
         "title": "Schiphol - Vogelvrijwaringsgebied",
         "url": "/maps/planologischezonesschiphol",
+        "noDetail": true,
         "meta": {
             "description": null,
             "theme": null,
@@ -2282,18 +2869,38 @@
     },
     {
         "category": "ECONOMY_HARBOR",
+        "layers": [
+            "reclamebelasting"
+        ],
         "legendItems": [
             {
-                "id": "tariffA"
+                "id": "tariffA",
+                "title": "Tariefgebied A",
+                "params": {
+                    "tarief": "A"
+                }
+
             },
             {
-                "id": "tariffB"
+                "id": "tariffB",
+                "title": "Tariefgebied B",
+                "params": {
+                    "tarief": "B"
+                }
+
             },
             {
-                "id": "tariffC"
+                "id": "tariffC",
+                "title": "Tariefgebied C",
+                "params": {
+                    "tarief": "C"
+                }
             }
         ],
         "title": "Reclamebelastingtarieven",
+        "url": "/maps/reclame",
+        "detailUrl": "geosearch/reclamebelasting/",
+        "detailItem": "reclamebelasting",
         "meta": {
             "description": null,
             "theme": null,
