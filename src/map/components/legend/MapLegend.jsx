@@ -59,9 +59,10 @@ class MapLegend extends React.Component {
 
   toggleLayerVisibility(mapLayer, isVisible) {
     const { onLayerVisibilityToggle } = this.props
-    return mapLayer.id
-      ? onLayerVisibilityToggle(mapLayer.id, isVisible)
-      : mapLayer.legendItems.map(legendItem => onLayerVisibilityToggle(legendItem.id, isVisible))
+
+    return mapLayer.legendItems.length > 0
+      ? mapLayer.legendItems.map(legendItem => onLayerVisibilityToggle(legendItem.id, isVisible))
+      : onLayerVisibilityToggle(mapLayer.id, isVisible)
   }
 
   render() {
@@ -80,6 +81,10 @@ class MapLegend extends React.Component {
         <ul className="map-legend">
           {activeMapLayers.map((mapLayer, mapLayerIndex) => {
             const layerIsVisible = this.determineLayerVisibility(mapLayer)
+
+            // If there are no legend items, the layer itself will be used as legend item as the current design does not support one-level map layers
+            const legendItems = mapLayer.legendItems.length > 0 ? mapLayer.legendItems : [mapLayer]
+
             return (
               <li
                 className="map-legend__map-layer"
@@ -135,7 +140,7 @@ class MapLegend extends React.Component {
                   isInsideZoomLevel(mapLayer, zoomLevel) &&
                   !mapLayer.disabled && (
                     <ul className="map-legend__items">
-                      {mapLayer.legendItems.map((legendItem, legendItemIndex) => {
+                      {legendItems.map((legendItem, legendItemIndex) => {
                         const legendItemIsVisible = this.determineLegendItemVisibility(legendItem)
                         return !legendItemIsVisible && printMode ? null : (
                           <li

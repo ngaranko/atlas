@@ -23,16 +23,30 @@ export const getActiveMapLayers = state =>
     )
 const getPanelLayers = state => state.mapLayers.panelLayers
 
-export const getMapPanelLayers = createSelector(
+// Selector to get the collections from the redux state
+export const getMapPanelCollections = createSelector(
   getPanelLayers,
   panelLayers => panelLayers.items || [],
+)
+
+// Selector to get the mapLayers from the collections
+export const getMapPanelLayers = createSelector(getMapPanelCollections, panelCollections =>
+  panelCollections.length > 0
+    ? panelCollections.reduce((acc, cur) => {
+        if (cur.mapLayers) {
+          return [...acc, ...cur.mapLayers]
+        }
+        return cur
+      }, [])
+    : [],
 )
 
 export const selectActivePanelLayers = createSelector(
   [getMapPanelLayers, getMapOverlays],
   (panelLayers, overlays) => {
     const mapLayerIds = overlays.map(mapLayer => mapLayer.id)
-    return panelLayers
+
+    const activeLayers = panelLayers
       .filter(mapLayer =>
         [mapLayer.id, ...mapLayer.legendItems.map(legendItem => legendItem.id)]
           .filter(mapLayerId => Boolean(mapLayerId))
@@ -43,6 +57,8 @@ export const selectActivePanelLayers = createSelector(
         const bId = b.id || b.legendItems[0].id
         return mapLayerIds.indexOf(bId) - mapLayerIds.indexOf(aId)
       })
+
+    return activeLayers
   },
 )
 
@@ -75,6 +91,7 @@ export const getLayers = createSelector(
           panelLayer.id === layer.id ||
           panelLayer.legendItems.some(legendItem => legendItem.id === layer.id),
       )
+
       return (
         matchingPanelLayer &&
         zoom <= matchingPanelLayer.maxZoom &&

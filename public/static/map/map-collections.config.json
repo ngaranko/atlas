@@ -1,0 +1,113 @@
+[
+    {
+        "id": "id1",
+        "title": "Onroerende zaken",
+        "mapLayers": [
+            {
+                "id": "kdstrl"
+            },
+            {
+                "id": "kdsteg"
+            },
+            {
+                "id": "kdsterf"
+            },
+            {
+                "id": "gemeig"
+            },
+            {
+                "id": "gembep"
+            }
+        ],
+        "meta": {
+            "description": null,
+            "theme": [],
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "id2",
+        "title": "Gebiedsindeling",
+        "mapLayers": [
+            {
+                "id": "buurt"
+            },
+            {
+                "id": "bc"
+            },
+            {
+                "id": "sd"
+            },
+            {
+                "id": "bbn"
+            },
+            {
+                "id": "ggw"
+            },
+            {
+                "id": "ggr"
+            }
+        ],
+        "meta": {
+            "description": null,
+            "theme": [],
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "id3",
+        "title": "Hoogte",
+        "mapLayers": [
+            {
+                "id": "dtm"
+            }, 
+            {
+                "id": "dsm"
+            },
+            {
+                "id": "nap"
+            },
+            {
+                "id": "mbs"
+            },
+            {
+                "id": "mbz"
+            },
+            {
+                "id": "mbr"
+            }
+        ],
+        "meta": {
+            "description": null,
+            "theme": [],
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "id4",
+        "title": "Historische kaarten",
+        "mapLayers": [
+            {
+                "id": "pw1909"
+            },
+            {
+                "id": "pw1943"
+            },
+            {
+                "id": "pw1943-2500"
+            },
+            {
+                "id": "pw1985"
+            }
+        ],
+        "meta": {
+            "description": null,
+            "theme": [],
+            "datasetId": null,
+            "date": null
+        }
+    }
+]

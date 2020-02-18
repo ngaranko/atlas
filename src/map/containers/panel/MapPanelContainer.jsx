@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
-  getMapPanelLayers,
+  getMapPanelCollections,
   selectActivePanelLayers,
 } from '../../ducks/panel-layers/map-panel-layers'
 import { getBaseLayers } from '../../ducks/base-layers/map-base-layers'
@@ -31,7 +31,8 @@ const mapStateToProps = state => ({
   activeMapLayers: selectActivePanelLayers(state),
   isMapPanelHandleVisible: !state.map.overlays.length || isMapPanelHandleVisible(state),
   mapBaseLayers: getBaseLayers(state),
-  mapLayers: getMapPanelLayers(state),
+  mapLayers: getMapPanelCollections(state),
+  mapCollections: getMapPanelCollections(state),
   overlays: getMapOverlays(state),
   zoomLevel: getMapZoom(state),
   user: getUser(state),

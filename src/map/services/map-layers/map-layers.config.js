@@ -20,7 +20,6 @@
         "detailUrl": {String} "Relative endpoint for GeoSearch",
         "detailItem": {String} "Identifier for GeoSearch",
         "detailIsShape": {Boolean} "True when GeoSearch is a GeoJSON and not a location point (Default: false)",
-        "noDetail": {Boolean} "True when the GeoSearch result has no a Detail Page (Default: false)"
       }
     ],
     "disabled": {Boolean} "Hides the legenda for this layer when set to TRUE",
@@ -31,7 +30,6 @@
     "detailUrl": {String} "Relative endpoint for GeoSearch",
     "detailItem": {String} "Identifier for GeoSearch",
     "detailIsShape": {Boolean} "True when GeoSearch is a GeoJSON and not a location point (Default: false)",
-    "noDetail": {Boolean} "True when the GeoSearch result has no a Detail Page (Default: false)"
     "meta": { // Describes more detailed information about a map layer
       "description": {String} "Detailed description of a map layer"
       "theme": {Number} "Theme ID matching with content type from the CMS"
@@ -47,69 +45,87 @@
 import MAP_CONFIG from '../map.config'
 
 const mapLayers = require('../../../../public/static/map/map-layers.config.json')
+const mapCollections = require('../../../../public/static/map/map-collections.config.json')
 const mapThemes = require('../../../../public/static/map/map-themes.config.json')
 const mapBaseLayers = require('../../../../public/static/map/map-base-layers.config.json')
 const mapLayerTypes = require('../../../../public/static/map/map-layer-types.config.json')
 
-const mapPanelLayers = [
-  ...mapLayers.map(
-    ({
-      authScope,
-      category,
-      disabled,
-      id = false,
-      layers = [],
-      legendItems,
-      maxZoom = MAP_CONFIG.MAX_ZOOM,
-      minZoom = MAP_CONFIG.MIN_ZOOM,
-      noDetail,
-      title,
-      url,
-    }) => ({
-      authScope,
-      category: category ? mapThemes[category] : null,
-      disabled,
-      id,
-      layers,
-      legendItems: [
-        ...legendItems.map(legendItem => ({
-          ...legendItem,
-          selectable: !!legendItem.id,
-          noDetail: !!noDetail || !!legendItem.noDetail,
-        })),
-      ],
-      maxZoom,
-      minZoom,
-      noDetail,
-      title,
-      url,
+// Creates the panel layers as shown in the MapPanel and MapLegend component
+const mapPanelLayers = mapCollections.map(mapCollection => {
+  return {
+    ...mapCollection,
+    mapLayers: mapCollection.mapLayers.map(({ id }) => {
+      const {
+        authScope = '',
+        category,
+        disabled,
+        layers = [],
+        legendItems,
+        maxZoom = MAP_CONFIG.MAX_ZOOM,
+        minZoom = MAP_CONFIG.MIN_ZOOM,
+        detailUrl,
+        iconUrl = '',
+        title,
+        url,
+      } = mapLayers.find(mapLayer => mapLayer.id === id)
+
+      return {
+        authScope,
+        category: category ? mapThemes[category] : null,
+        disabled,
+        id,
+        layers,
+        maxZoom,
+        minZoom,
+        noDetail: !detailUrl,
+        iconUrl,
+        title,
+        url,
+
+        legendItems: legendItems
+          ? legendItems.map(legendItem => {
+              const legendItemLayer = mapLayers.find(mapLayer => mapLayer.id === legendItem.id)
+
+              return {
+                ...(legendItemLayer || legendItem),
+                selectable: !!legendItem.notSelectable || legendItem.id,
+                noDetail: !legendItem.detailUrl,
+              }
+            })
+          : [],
+      }
     }),
-  ),
-]
+  }
+})
 
 export { mapBaseLayers, mapPanelLayers, mapLayerTypes }
 
+// Creates the set of map layers that are used to fetch the maps from the server
 export default [
-  ...mapLayers.map(mapLayer =>
-    Object.prototype.hasOwnProperty.call(mapLayer, 'id')
+  ...mapLayers.map(mapLayer => {
+    const { id, type } = mapLayer
+
+    return id
       ? {
           ...mapLayer,
-          ...(mapLayer.type ? { type: mapLayerTypes[mapLayer.type] } : {}),
+          ...(type ? { type: mapLayerTypes[type] } : {}),
         }
-      : mapLayer.legendItems.map(legendItem =>
-          Object.prototype.hasOwnProperty.call(legendItem, 'id')
+      : mapLayer.legendItems.map(legendItem => {
+          if (legendItem.id) {
+            const legendItemLayer = mapLayers.find(
+              ({ id: mapLayerId }) => mapLayerId === legendItem.id,
+            )
+            return legendItemLayer
+          }
+
+          return Object.prototype.hasOwnProperty.call(legendItem, 'id')
             ? {
-                layers: mapLayer.layers,
-                url: mapLayer.url,
-                detailUrl: mapLayer.detailUrl,
-                detailItem: mapLayer.detailItem,
-                detailIsShape: mapLayer.detailIsShape,
-                minZoom: mapLayer.minZoom,
-                ...(mapLayer.type ? { type: mapLayerTypes[mapLayer.type] } : {}),
+                ...mapLayer,
+                ...(type ? { type: mapLayerTypes[type] } : {}),
                 ...legendItem,
               }
-            : null,
-        ),
-  ),
+            : null
+        })
+  }),
 ].reduce((acc, val) => acc.concat(val), []) // Alternative to .flat()
 /* eslint-enable max-len */

@@ -45,7 +45,10 @@ export const setMapBaseLayer = payload => ({
 export const toggleMapOverlay = payload => ({
   type: TOGGLE_MAP_OVERLAY,
   payload: {
-    mapLayers: payload.id ? [payload.id] : payload.legendItems.map(overlay => overlay.id),
+    mapLayers:
+      payload.legendItems.some(({ selectable }) => selectable) && payload.legendItems.length > 0
+        ? payload.legendItems.map(overlay => overlay.id)
+        : [payload.id],
   },
   meta: {
     tracking: payload,
@@ -62,6 +65,7 @@ export const toggleMapOverlayVisibility = (mapLayerId, isVisible) => ({
   mapLayerId,
   isVisible: !isVisible,
 })
+
 export const updatePan = payload => ({
   type: MAP_PAN,
   payload: {

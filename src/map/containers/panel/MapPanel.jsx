@@ -12,6 +12,7 @@ const MapPanel = ({
   mapBaseLayers,
   onBaseLayerToggle,
   mapLayers,
+  mapCollections,
   onMapPanelHandleToggle,
   activeMapLayers,
   onMapPanelToggle,
@@ -92,6 +93,7 @@ const MapPanel = ({
           />
           <MapLayers
             activeMapLayers={activeMapLayers}
+            mapCollections={mapCollections}
             layers={mapLayers}
             onLayerToggle={onLayerToggle}
           />
@@ -107,6 +109,7 @@ MapPanel.defaultProps = {
   map: {},
   mapBaseLayers: {},
   mapLayers: [],
+  mapCollections: [],
   user: {},
   zoomLevel: 0,
 }
@@ -120,6 +123,7 @@ MapPanel.propTypes = {
   map: PropTypes.object, // eslint-disable-line
   mapBaseLayers: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.arrayOf(PropTypes.object),
+  mapCollections: PropTypes.arrayOf(PropTypes.object),
   onBaseLayerToggle: PropTypes.func.isRequired,
   onLayerToggle: PropTypes.func.isRequired,
   onLayerVisibilityToggle: PropTypes.func.isRequired,
