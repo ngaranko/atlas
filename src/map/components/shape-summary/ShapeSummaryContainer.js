@@ -11,7 +11,4 @@ const mapDispatchToProps = dispatch => ({
   onClearDrawing: () => dispatch(cancelDrawing()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ShapeSummary)
+export default connect(mapStateToProps, mapDispatchToProps)(ShapeSummary)

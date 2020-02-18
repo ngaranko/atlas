@@ -7,7 +7,7 @@
 
   &__name {
     display: inline-block;
-    padding: 0 $base-whitespace * .5;
+    padding: 0 $base-whitespace * 0.5;
     background-color: $secondary-gray20;
     color: $primary-dark;
     line-height: 1;
@@ -15,7 +15,7 @@
 
   &__count {
     display: inline-block;
-    padding-right: $base-whitespace * .7;
+    padding-right: $base-whitespace * 0.7;
   }
 
   &__format {

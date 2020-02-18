@@ -1,8 +1,8 @@
 const merge = require('webpack-merge')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { commonConfig } = require('./webpack.common.js')
 const { GenerateSW } = require('workbox-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = () => {
   const CHUNKS = {
@@ -12,7 +12,7 @@ module.exports = () => {
     STYLED: 'styled-components|polished|style-loader|css-loader|sass-loader|postcss-loader',
     PANORAMA: 'marzipano',
     POLYFILL: '@babel/polyfill|objectFitPolyfill',
-    ANGULAR: 'angular|angular-aria|angular-i18n|angular-sanitize|react-angular',
+    ANGULAR: 'angular|angular-aria|angular-sanitize|react-angular',
     REACT:
       'react|react-dom|redux-first-router|redux-first-router-link|redux-first-router-restore-scroll|reselect|redux|@?redux-saga|react-redux|react-helmet|prop-types',
   }
@@ -27,14 +27,7 @@ module.exports = () => {
     mode: 'production',
     devtool: 'source-map',
     optimization: {
-      minimizer: [
-        new UglifyJSPlugin({
-          // Do not minify our legacy code (app.bundle.js); this doesn't work with
-          // angular dependancy injection
-          exclude: /modules/,
-          sourceMap: true,
-        }),
-      ],
+      minimizer: [new TerserPlugin()],
       splitChunks: {
         chunks: 'all',
         minSize: 30000,
@@ -119,11 +112,10 @@ module.exports = () => {
     plugins: [
       new MiniCssExtractPlugin('main.[contenthash].css'),
       new GenerateSW({
-        importWorkboxFrom: 'local',
         clientsClaim: true,
         skipWaiting: true,
         exclude: [/\.map$/, /\.json$/],
-        navigateFallbackBlacklist: [
+        navigateFallbackDenylist: [
           // Exclude any URLs whose last part seems to be a file extension
           // as they're likely a resource and not a SPA route.
           // URLs containing a "?" character won't be blacklisted as they're likely

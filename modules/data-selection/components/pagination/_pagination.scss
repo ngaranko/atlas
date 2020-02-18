@@ -36,7 +36,7 @@
 
 .c-data-selection-pagination__button {
   @extend %icon--border-hover;
-  @include icon-label-left("forward", "", "");
+  @include icon-label-left('forward', '', '');
 
   padding-right: $base-whitespace;
   color: $secondary-gray60;
@@ -75,17 +75,17 @@
 
 .c-data-selection-pagination-link--first {
   @extend %icon--border-hover;
-  @include icon-label-right("first", "", "");
+  @include icon-label-right('first', '', '');
   margin-right: $base-whitespace;
 
   &::before {
-    @include icon("first", $secondary-gray60);
+    @include icon('first', $secondary-gray60);
   }
 
   &:hover,
   &:focus {
     &::before {
-      @include icon("first", $primary-dark);
+      @include icon('first', $primary-dark);
       background-color: $secondary-gray20;
     }
 
@@ -97,17 +97,17 @@
 
 .c-data-selection-pagination-link--last {
   @extend %icon--border-hover;
-  @include icon-label-left("last", "", "");
+  @include icon-label-left('last', '', '');
   margin-left: $base-whitespace;
 
   &::before {
-    @include icon("last", $secondary-gray60);
+    @include icon('last', $secondary-gray60);
   }
 
   &:hover,
   &:focus {
     &::before {
-      @include icon("last", $primary-dark);
+      @include icon('last', $primary-dark);
       background-color: $secondary-gray20;
     }
 
@@ -119,16 +119,16 @@
 
 .c-data-selection-pagination-link--previous {
   @extend %icon--border-hover;
-  @include icon-label-right("previous", "", "");
+  @include icon-label-right('previous', '', '');
 
   &::before {
-    @include icon("previous", $secondary-gray60);
+    @include icon('previous', $secondary-gray60);
   }
 
   &:hover,
   &:focus {
     &::before {
-      @include icon("previous", $primary-dark);
+      @include icon('previous', $primary-dark);
       background-color: $secondary-gray20;
     }
 
@@ -140,16 +140,16 @@
 
 .c-data-selection-pagination-link--next {
   @extend %icon--border-hover;
-  @include icon-label-left("next", "", "");
+  @include icon-label-left('next', '', '');
 
   &::before {
-    @include icon("next", $secondary-gray60);
+    @include icon('next', $secondary-gray60);
   }
 
   &:hover,
   &:focus {
     &::before {
-      @include icon("next", $primary-dark);
+      @include icon('next', $primary-dark);
       background-color: $secondary-gray20;
     }
 

@@ -100,7 +100,4 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   )
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(PanoramaToggle)
+export default connect(null, mapDispatchToProps)(PanoramaToggle)

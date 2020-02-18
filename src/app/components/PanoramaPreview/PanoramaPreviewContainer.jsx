@@ -10,7 +10,4 @@ const mapStateToProps = state => ({
   isLoading: isPanoramaPreviewLoading(state),
 })
 
-export default connect(
-  mapStateToProps,
-  null,
-)(PanoramaPreview)
+export default connect(mapStateToProps, null)(PanoramaPreview)

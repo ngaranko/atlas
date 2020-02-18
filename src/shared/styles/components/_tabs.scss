@@ -14,7 +14,7 @@ $tab-v-padding: 7px;
   &::after {
     background-color: $secondary-gray20;
     bottom: 0;
-    content: "";
+    content: '';
     display: block;
     height: 1px;
     left: 0;
@@ -37,7 +37,8 @@ $tab-v-padding: 7px;
     float: left;
     height: $tab-height;
 
-    &:not(.is-active) { // sass-lint:disable-line nesting-depth
+    &:not(.is-active) {
+      // sass-lint:disable-line nesting-depth
       a {
         background-color: $secondary-gray4;
 
@@ -55,7 +56,7 @@ $tab-v-padding: 7px;
       &::after {
         background-color: $primary-light;
         bottom: 0;
-        content: "";
+        content: '';
         height: 1px;
         left: 0;
         position: absolute;
@@ -76,7 +77,6 @@ $tab-v-padding: 7px;
   display: block;
   padding: $tab-v-padding (2 * $base-whitespace);
 }
-
 
 .o-tabs__tab--link {
   color: $primary-dark;

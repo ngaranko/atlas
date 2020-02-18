@@ -25,7 +25,6 @@ const notExpiredTimestamp = () => Math.floor(new Date().getTime() / 1000) + 1000
 describe('The auth service', () => {
   const noop = () => {}
 
-  let origSessionStorage
   let queryObject
   let savedAccessToken
   let savedReturnPath
@@ -34,7 +33,6 @@ describe('The auth service', () => {
   let notExpiredAccesToken
 
   beforeEach(() => {
-    origSessionStorage = global.sessionStorage
     Object.defineProperty(window, 'sessionStorage', {
       value: {
         getItem: key => {
@@ -55,9 +53,6 @@ describe('The auth service', () => {
       },
     })
 
-    jest.spyOn(global.history, 'replaceState').mockImplementation(noop)
-    jest.spyOn(global.location, 'assign').mockImplementation(noop)
-    jest.spyOn(global.location, 'reload').mockImplementation(noop)
     jest.spyOn(global.sessionStorage, 'getItem')
     jest.spyOn(global.sessionStorage, 'removeItem')
     jest.spyOn(global.sessionStorage, 'setItem')
@@ -73,13 +68,6 @@ describe('The auth service', () => {
     savedStateToken = ''
     savedReturnPath = ''
     savedAccessToken = ''
-  })
-
-  afterEach(() => {
-    global.history.replaceState.mockRestore()
-    global.location.assign.mockRestore()
-    global.location.reload.mockRestore()
-    Object.defineProperty(window, 'sessionStorage', origSessionStorage)
   })
 
   describe('init funtion', () => {
@@ -182,6 +170,12 @@ describe('The auth service', () => {
       })
 
       it('Deletes the sessionStorage when token is expired', () => {
+        const { location } = window
+        delete window.location
+        window.location = {
+          reload: jest.fn(),
+        }
+
         parseAccessToken.mockImplementation(() => ({ expiresAt: 0 }))
         global.sessionStorage.getItem.mockReturnValueOnce('123AccessToken')
         const queryString =
@@ -198,7 +192,8 @@ describe('The auth service', () => {
 
         initAuth()
         expect(global.sessionStorage.clear).toHaveBeenCalled()
-        expect(global.location.reload).toHaveBeenCalledWith()
+        expect(window.location.reload).toHaveBeenCalledWith()
+        window.location = location
       })
 
       it('Works when receiving unexpected parameters', () => {
@@ -259,13 +254,22 @@ describe('The auth service', () => {
     })
 
     it('Redirects to the auth service', () => {
-      jsdom.reconfigure({ url: 'https://data.amsterdam.nl/the/current/path' })
+      const { location } = window
+      delete window.location
+      const assignMock = jest.fn()
+      window.location = {
+        reload: jest.fn(),
+        assign: assignMock,
+        protocol: 'https:',
+        host: 'data.amsterdam.nl',
+      }
 
       login()
 
-      expect(global.location.assign).toHaveBeenCalledWith(
+      expect(assignMock).toHaveBeenCalledWith(
         `${process.env.API_ROOT}oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata&scope=${encodedScopes}&state=123StateToken&redirect_uri=https%3A%2F%2Fdata.amsterdam.nl%2F`,
       )
+      window.location = location
     })
   })
 
@@ -276,8 +280,12 @@ describe('The auth service', () => {
     })
 
     it('Reloads the app', () => {
+      const { location } = window
+      delete window.location
+      window.location = { reload: jest.fn() }
       logout()
-      expect(global.location.reload).toHaveBeenCalledWith()
+      expect(window.location.reload).toHaveBeenCalledWith()
+      window.location = location
     })
   })
 

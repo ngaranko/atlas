@@ -134,7 +134,4 @@ MapSplitPage.propTypes = {
   printMode: PropTypes.bool.isRequired,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(MapSplitPage)
+export default connect(mapStateToProps, mapDispatchToProps)(MapSplitPage)

@@ -41,7 +41,4 @@ const mapStateToProps = state => ({
   hide: isEmbedded(state),
 })
 
-export default connect(
-  mapStateToProps,
-  null,
-)(InfoModalWrapper)
+export default connect(mapStateToProps, null)(InfoModalWrapper)

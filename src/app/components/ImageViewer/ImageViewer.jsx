@@ -8,11 +8,14 @@ import { Close, Enlarge, Minimise } from '@datapunt/asc-assets'
 import ViewerControls from '../ViewerControls/ViewerControls'
 import { setCurrentFile } from '../../../shared/ducks/files/actions'
 import './ImageViewer.scss'
+import getState from '../../../shared/services/redux/get-state'
 
 /* istanbul ignore next */
 const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
   const viewerRef = React.createRef()
   const [viewer, setViewerInstance] = React.useState(null)
+
+  const { accessToken } = getState().user
 
   React.useEffect(() => {
     // Todo: retrieve the document title from the filename (filter)
@@ -25,6 +28,10 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
       sequenceMode: true,
       showNavigationControl: false,
       showSequenceControl: false,
+      loadTilesWithAjax: true,
+      ajaxHeaders: {
+        authorization: `Bearer ${accessToken || ''}`,
+      },
       tileSources: [`${process.env.IIIF_ROOT}iiif/2/edepot:${fileName}/info.json`],
     }).addHandler('open', ({ eventSource }) => {
       setViewerInstance(eventSource)
@@ -42,7 +49,7 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div ref={viewerRef} className="c-image-viewer" />
       {viewer && (
         <ViewerControls
@@ -83,7 +90,7 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
           bottomLeftComponent={contextMenu}
         />
       )}
-    </React.Fragment>
+    </>
   )
 }
 
@@ -108,7 +115,4 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   )
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(ImageViewer)
+export default connect(null, mapDispatchToProps)(ImageViewer)

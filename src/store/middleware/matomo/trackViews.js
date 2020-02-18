@@ -43,7 +43,7 @@ views = {
     tracking,
   }) {
     // eslint-disable-next-line no-nested-ternary
-    return !firstAction && (tracking && tracking.id !== getDetail(state).id)
+    return !firstAction && tracking && tracking.id !== getDetail(state).id
       ? [
           MATOMO_CONSTANTS.TRACK_VIEW,
           title, // PAGEVIEW -> DETAIL VIEW CLICK THROUGH VIEWS

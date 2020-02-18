@@ -38,7 +38,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  null,
-)(DatasetDetail)
+export default connect(mapStateToProps, null)(DatasetDetail)

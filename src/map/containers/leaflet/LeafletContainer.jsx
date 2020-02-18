@@ -219,7 +219,4 @@ LeafletContainer.propTypes = {
   onFetchPanelLayers: PropTypes.func.isRequired,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LeafletContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(LeafletContainer)

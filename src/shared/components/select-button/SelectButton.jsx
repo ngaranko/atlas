@@ -33,7 +33,8 @@ class SelectButton extends React.Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { value } = this.state
     let state = { isDisabled: nextProps.isDisabled }
 

@@ -324,7 +324,11 @@ describe('DataSelection api', () => {
       const output = await getMarkers(config, {})
 
       expect(output).toEqual({
-        clusterMarkers: [[52.1, 4.1], [52.2, 4.2], [52.3, 4.3]],
+        clusterMarkers: [
+          [52.1, 4.1],
+          [52.2, 4.2],
+          [52.3, 4.3],
+        ],
       })
     })
   })

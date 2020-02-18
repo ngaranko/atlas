@@ -56,13 +56,15 @@ describe('Api service', () => {
     it('should pass a signal: true to fetch options and add the token to the header', async () => {
       fetch.mockResponseOnce(JSON.stringify(response))
 
+      const controller = new AbortController()
+      const { signal } = controller
       await getWithToken(
         'http://localhost/',
         {
           entryOne: 'foo',
           entryTwo: 'bar',
         },
-        true,
+        signal,
         'token12345',
       )
 

@@ -37,7 +37,12 @@ export function getMarkers(config, activeFilters, zoomLevel, boundingBox) {
           },
           {
             geoJson: {
-              coordinates: [[[data.extent[0], data.extent[1]], [data.extent[2], data.extent[3]]]],
+              coordinates: [
+                [
+                  [data.extent[0], data.extent[1]],
+                  [data.extent[2], data.extent[3]],
+                ],
+              ],
               type: 'Polygon',
             },
             id: generateId(),

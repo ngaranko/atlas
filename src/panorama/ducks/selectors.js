@@ -6,15 +6,10 @@ import {
 import { PANO_LABELS, REDUCER_KEY } from './constants'
 
 export const getPanorama = state => state[REDUCER_KEY] || {}
-export const getPanoramaLocation = createSelector(
-  getPanorama,
-  panorama => (panorama ? panorama.location : []),
+export const getPanoramaLocation = createSelector(getPanorama, panorama =>
+  panorama ? panorama.location : [],
 )
-const getStateOfKey = key => state =>
-  createSelector(
-    getPanorama,
-    data => data[key],
-  )(state)
+const getStateOfKey = key => state => createSelector(getPanorama, data => data[key])(state)
 
 export const getPanoramaHeading = getStateOfKey('heading')
 export const getPanoramaMarkers = createSelector(

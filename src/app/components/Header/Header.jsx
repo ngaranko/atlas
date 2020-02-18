@@ -69,11 +69,11 @@ const Header = ({
           className="styled-header"
           fullWidth={!hasMaxWidth}
           navigation={
-            <React.Fragment>
+            <>
               <HeaderSearchContainer />
               <MenuDefault data-test="header-menu-default" showAt="laptopM" />
               <MenuMobile data-test="header-menu-mobile" hideAt="laptopM" />
-            </React.Fragment>
+            </>
           }
         />
       </HeaderWrapper>

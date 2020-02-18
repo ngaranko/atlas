@@ -396,7 +396,10 @@ describe('draw-tool service', () => {
     })
 
     describe('finnishPolygon', () => {
-      latLngsArray = [[52.3745924, 4.8887719], [52.374557, 4.8887248]]
+      latLngsArray = [
+        [52.3745924, 4.8887719],
+        [52.374557, 4.8887248],
+      ]
       latLngsPolygon = latLngsArray.map(latLng => ({
         lat: latLng[0],
         lng: latLng[1],
