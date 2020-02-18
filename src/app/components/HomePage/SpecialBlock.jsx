@@ -1,19 +1,11 @@
 import styled from '@datapunt/asc-core'
-import {
-  breakpoint,
-  CardContainer,
-  Column,
-  Heading,
-  Row,
-  styles,
-  themeColor,
-  themeSpacing,
-} from '@datapunt/asc-ui'
+import { breakpoint, CardContainer, Column, Row, styles, themeColor } from '@datapunt/asc-ui'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import { cmsConfig } from '../../../shared/config/config'
 import { toSpecialSearch } from '../../../store/redux-first-router/actions'
 import useFromCMS from '../../utils/useFromCMS'
+import BlockHeading from './BlockHeading'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import OverviewLink from './OverviewLink'
 import SpecialCard from './SpecialCard'
@@ -43,16 +35,6 @@ const CardRow = styled.div`
   }
 `
 
-const StyledHeading = styled(Heading)`
-  @media screen and ${breakpoint('max-width', 'laptopL')} {
-    margin-bottom: ${themeSpacing(4)};
-  }
-
-  @media screen and ${breakpoint('min-width', 'laptopL')} {
-    margin-bottom: ${themeSpacing(6)};
-  }
-`
-
 const SpecialBlock = () => {
   const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_SPECIALS, undefined)
 
@@ -72,7 +54,7 @@ const SpecialBlock = () => {
     <CardContainer data-test="special-block">
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <StyledHeading $as="h1">In Beeld</StyledHeading>
+          <BlockHeading $as="h1">In Beeld</BlockHeading>
         </Column>
       </Row>
       <CardRow showError={error}>
