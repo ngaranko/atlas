@@ -7,7 +7,7 @@ jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFr
 describe('ConstructionFileDetail', () => {
   let mockResults = {
     titel: 'title',
-    subdossiers: null,
+    documenten: null,
     datering: 'date',
     dossier_type: 'fileType',
     dossiernr: 1,
@@ -43,7 +43,7 @@ describe('ConstructionFileDetail', () => {
   it('should render the subfiles', () => {
     mockResults = {
       ...mockResults,
-      subdossiers: [{ titel: 'subdossiers', bestanden: [] }],
+      documenten: [{ subdossier_titel: 'documenten', bestanden: [] }],
     }
 
     component = shallow(<ConstructionFileDetail results={mockResults} />)
@@ -59,7 +59,7 @@ describe('ConstructionFileDetail', () => {
         .find('Gallery')
         .at(0)
         .props().title,
-    ).toBe(mockResults.subdossiers[0].titel)
+    ).toBe(mockResults.documenten[0].subdossier_titel)
   })
 
   it('should render the addresses', () => {
