@@ -16,7 +16,7 @@ const StyledButton = styled(Button)`
   }
 `
 
-const ApplicationButton = ({ fetching, onClick, iconLeft, label, ...otherProps }) => (
+const ActionButton = ({ fetching, onClick, iconLeft, label, ...otherProps }) => (
   <StyledButton
     disabled={fetching}
     variant="primaryInverted"
@@ -29,4 +29,4 @@ const ApplicationButton = ({ fetching, onClick, iconLeft, label, ...otherProps }
   </StyledButton>
 )
 
-export default ApplicationButton
+export default ActionButton

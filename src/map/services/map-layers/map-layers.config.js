@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 /**
-
  const mapLayers = [
  {
     (X) "id": {String} "Unique identifier for this layer, only required when other layers in group are NOT selectable",
@@ -41,10 +40,8 @@
     }
   }
  ]
-
  (*) Are required fields
  (X) Are required fields for either the mapLayer objects or legendaItem objects
-
  */
 
 import MAP_CONFIG from '../map.config'

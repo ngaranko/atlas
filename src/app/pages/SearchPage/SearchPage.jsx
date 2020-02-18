@@ -92,9 +92,7 @@ const SearchPage = ({ currentPage, query }) => {
     if (currentPageHasChanged) {
       // If the page changes, the skeleton components must be rendered
       setInitialLoading(true)
-    }
-
-    if (!!results && !fetching) {
+    } else if (!!results && !fetching) {
       setInitialLoading(false)
     }
   }, [currentPage, results, fetching])
@@ -105,7 +103,6 @@ const SearchPage = ({ currentPage, query }) => {
         <Row>
           <SearchPageFilters
             filters={filters}
-            isOverviewPage={isOverviewPage}
             totalCount={totalCount}
             hideCount={!isDataSearchPage}
             setShowFilter={setShowFilter}
