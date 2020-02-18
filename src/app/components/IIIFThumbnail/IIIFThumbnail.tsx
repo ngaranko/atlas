@@ -33,9 +33,10 @@ const IIIFThumbnail = ({ src, title }: Thumbnail) => {
         .then(response => {
           if (!response.ok) {
             setError(true)
+            return null
           }
 
-          return response.blob
+          return response.blob()
         })
         .then(images => {
           setLoading(false)

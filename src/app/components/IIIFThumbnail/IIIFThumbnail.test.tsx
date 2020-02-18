@@ -50,11 +50,11 @@ describe('IIIFThumbnail', () => {
     expect(image.src).toContain('not_found_thumbnail.jpg')
   })
 
-  it('should call the fetch method with the user token', async () => {
+  it('should call the fetch method with the user token and display the image', async () => {
     const mockFetch = (fetch as jest.Mock).mockReturnValueOnce(
       Promise.resolve({
         ok: true,
-        blob: new Blob(),
+        blob: () => Promise.resolve(new Blob()),
       }),
     )
     const src = 'this.a.endpoint'
