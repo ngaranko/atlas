@@ -2,7 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import styled, { css } from '@datapunt/asc-core'
-import { Header as HeaderComponent, styles, breakpoint, showAboveBackDrop } from '@datapunt/asc-ui'
+import {
+  AmsterdamLogo,
+  Header as HeaderComponent,
+  styles,
+  breakpoint,
+  showAboveBackDrop,
+} from '@datapunt/asc-ui'
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer'
 import HeaderMenuContainer from './HeaderMenuContainer'
 
@@ -68,6 +74,7 @@ const Header = ({
           homeLink="/"
           className="styled-header"
           fullWidth={!hasMaxWidth}
+          logo={AmsterdamLogo}
           navigation={
             <>
               <HeaderSearchContainer />
