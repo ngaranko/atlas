@@ -19,6 +19,7 @@ const StyledColumn = styled(Column)`
 
   // The video tag is target through the column as the Video component is using a complex SASS setup, this can be changed if that component gets refactored in the future
   & video {
+    max-width: 100%;
     border: 1px solid ${themeColor('tint', 'level3')};
   }
 `
