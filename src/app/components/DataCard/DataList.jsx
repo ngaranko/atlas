@@ -41,15 +41,6 @@ const StyledErrorMessage = styled(ErrorMessage)`
   }
 `
 
-const showSubtype = (type, subtype) =>
-  type === 'ligplaats' ||
-  type === 'standplaats' ||
-  (type === 'openbare_ruimte' && subtype !== 'weg') ||
-  (type === 'adres' && subtype !== 'verblijfsobject') ||
-  type === 'gebied' ||
-  type === 'explosief' ||
-  (type === 'monument' && subtype === 'complex')
-
 const DataList = ({ type, label, count, results, withPagination }) => (
   <div>
     <SearchHeading
@@ -71,7 +62,6 @@ const DataList = ({ type, label, count, results, withPagination }) => (
               variant="with-chevron"
             >
               {location.label}
-              {showSubtype(location.type, location.subtype) ? ` (${location.subtype})` : ''}
             </StyledLink>
           </li>
         ))}
