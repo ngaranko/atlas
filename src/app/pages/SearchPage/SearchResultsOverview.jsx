@@ -36,9 +36,18 @@ const SearchResultsOverview = ({ query, totalCount, results, errors, loading }) 
               code !== 'UNAUTHORIZED',
           )
 
+        const hasNoMatchingFilters =
+          errors &&
+          !!errors.find(
+            ({ query: errorResolver, message }) =>
+              errorResolver === SEARCH_PAGE_CONFIG[resultItemType].resolver &&
+              // Todo: add code to error in cms_search
+              message === 'The entered type(s) does not exist',
+          )
+
         const hasResults = resultItemTotalCount > 0
 
-        return hasResults || !!hasLoadingError ? (
+        return hasResults || (!!hasLoadingError && !hasNoMatchingFilters) ? (
           <ResultItem key={resultItemType}>
             <SearchHeading
               label={`${label}${
