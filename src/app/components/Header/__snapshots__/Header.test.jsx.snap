@@ -25,6 +25,7 @@ exports[`Header should render the main header 1`] = `
     className="styled-header"
     fullWidth={false}
     homeLink="/"
+    logo={[Function]}
     navigation={
       <React.Fragment>
         <Memo(Connect(HeaderSearch)) />
