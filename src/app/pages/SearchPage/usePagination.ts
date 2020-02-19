@@ -17,6 +17,7 @@ const usePagination = (query: DocumentNode, variables: Object, resolver: string 
     const allCounts = resolver.map(key => data[key] && data[key].totalCount)
 
     totalCount = allCounts.reduce((acc, cur) => acc + cur)
+    filters = data.filters ? data.filters : []
     results = resolver.map(key => {
       const { results: dataResults = [], totalCount: dataTotalCount } = data[key] || {}
 
