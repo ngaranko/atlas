@@ -15,6 +15,7 @@ import OrganizationBlock from '../components/HomePage/OrganizationBlock'
 import AboutBlock from '../components/HomePage/AboutBlock'
 import ShareBar from '../components/ShareBar/ShareBar'
 import ContentContainer from '../components/ContentContainer/ContentContainer'
+import ThemesBlock from '../components/HomePage/ThemesBlock'
 
 const HighlightColumn = styled(Column)`
   // aligns the HighlightsBlock with the NavigationBlock
@@ -56,6 +57,11 @@ const HomePage = () => (
       <StyledRow>
         <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
           <SpecialBlock />
+        </Column>
+      </StyledRow>
+      <StyledRow>
+        <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
+          <ThemesBlock />
         </Column>
       </StyledRow>
       <StyledRow fullWidth>
