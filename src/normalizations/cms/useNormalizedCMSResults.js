@@ -69,11 +69,12 @@ const normalizeObject = data => {
    * Then we need to convert it to a locale date that only shows the year or year and month
    */
   if (!field_publication_date && (field_publication_year || field_publication_month)) {
-    localeDate = new Date(
-      // Month (undefined or a string) - 1, check https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC
-      Date.UTC(field_publication_year, Number(field_publication_month) - 1 || 1, 1, 0, 0, 0),
-    )
-
+    // Month (undefined or a string) - 1, check https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC
+    const month =
+      typeof field_publication_month === 'number' && field_publication_month > 1
+        ? field_publication_month - 1
+        : 1
+    localeDate = new Date(Date.UTC(field_publication_year, month, 1, 0, 0, 0))
     localeDateFormatted = formatDate(
       localeDate,
       false,
