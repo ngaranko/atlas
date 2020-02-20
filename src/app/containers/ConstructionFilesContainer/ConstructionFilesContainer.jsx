@@ -11,7 +11,6 @@ import ConstructionFileDetail from '../../components/ConstructionFileDetail/Cons
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import ErrorMessage from '../../components/PanelMessages/ErrorMessage/ErrorMessage'
-import { getByUrl } from '../../../shared/services/api/api'
 import './ConstructionFilesContainer.scss'
 import { ConstructionFiles as ContextMenu } from '../../components/ContextMenu'
 import useDocumentTitle from '../../utils/useDocumentTitle'
@@ -22,7 +21,7 @@ const ImageViewer = React.lazy(() => import('../../components/ImageViewer/ImageV
 const ERROR_MESSAGE =
   'Er kunnen door een technische storing helaas geen bouwdossiers worden getoond. Probeer het later nog eens.'
 
-const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
+const ConstructionFilesContainer = ({ fileName, user }) => {
   const [results, setResults] = React.useState(null)
   const [errorMessage, setErrorMessage] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
@@ -33,19 +32,10 @@ const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
 
   const { titel: title } = results || {}
 
-  async function fetchConstructionFiles() {
-    setLoading(true)
-    try {
-      const data = await getByUrl(endpoint)
-      setResults(data)
-    } catch (e) {
-      setErrorMessage(ERROR_MESSAGE)
-    }
-    setLoading(false)
-  }
-
   React.useEffect(() => {
-    fetchConstructionFiles()
+    setLoading(false)
+    setResults([])
+    setErrorMessage(ERROR_MESSAGE)
   }, [])
 
   // Effect to update the documentTitle
