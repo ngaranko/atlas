@@ -17,7 +17,7 @@ import getImageFromCms from '../../utils/getImageFromCms'
 import { TYPES } from '../../../shared/config/cms.config'
 import { EDITORIAL_DETAIL_ACTIONS } from '../../../normalizations/cms/useNormalizedCMSResults'
 
-const notFoundImage = require('./not_found_thumbnail.jpg')
+const notFoundImage = '/assets/images/not_found_thumbnail.jpg'
 
 const IMAGE_SIZE = 160
 
