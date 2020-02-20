@@ -34,7 +34,7 @@ const ConstructionFilesContainer = ({ fileName, user }) => {
 
   React.useEffect(() => {
     setLoading(false)
-    setResults([])
+    setResults({})
     setErrorMessage(ERROR_MESSAGE)
   }, [])
 
