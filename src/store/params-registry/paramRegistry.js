@@ -56,12 +56,18 @@ class ParamsRegistry {
     return {
       selector: state => get(state, `[${reducerKey}]${stateKey}`),
       decode: val => {
+        if (typeof val !== 'string') {
+          return val
+        }
+
         if (val === 'true' || val === 'false') {
           return val === 'true'
         }
-        if (!Number.isNaN(Number(val))) {
+
+        if (val.trim().length > 0 && !Number.isNaN(Number(val))) {
           return parseFloat(val)
         }
+
         return val
       },
       encode: val => {
