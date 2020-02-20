@@ -43,7 +43,7 @@ const PlaceholderLink = styled(StyledLink)`
 
 const ContentHolder: React.FC = ({ children }) => (
   <StyledRow hasMargin={false}>
-    <BlockHeading $as="h1">Thema’s</BlockHeading>
+    <BlockHeading $as="h1">Zoek op thema</BlockHeading>
     {children}
   </StyledRow>
 )
