@@ -54,7 +54,7 @@ const mapLayerTypes = require('../../../../public/static/map/map-layer-types.con
 const mapPanelLayers = mapCollections.map(mapCollection => {
   return {
     ...mapCollection,
-    mapLayers: mapCollection.mapLayers.map(({ id }) => {
+    mapLayers: mapCollection.mapLayers.map(({ id, title }) => {
       const {
         authScope = '',
         category,
@@ -65,7 +65,8 @@ const mapPanelLayers = mapCollections.map(mapCollection => {
         minZoom = MAP_CONFIG.MIN_ZOOM,
         detailUrl,
         iconUrl = '',
-        title,
+        imageRule = '',
+        title: mapLayerTitle,
         url,
       } = mapLayers.find(mapLayer => mapLayer.id === id)
 
@@ -79,7 +80,8 @@ const mapPanelLayers = mapCollections.map(mapCollection => {
         minZoom,
         noDetail: !detailUrl,
         iconUrl,
-        title,
+        imageRule: imageRule || mapLayerTitle,
+        title: title || mapLayerTitle,
         url,
 
         legendItems: legendItems
