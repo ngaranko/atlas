@@ -10,6 +10,18 @@ const src = path.resolve(root, 'src')
 const legacy = path.resolve(root, 'modules')
 const dist = path.resolve(root, 'dist')
 
+// Since Babel does not automatically include packages that might ship with modern ECMAScript
+// syntax we need to include them manually so they are properly transpiled.
+const esModules = [
+  path.resolve(__dirname, 'node_modules/@datapunt/asc-assets'),
+  path.resolve(__dirname, 'node_modules/@datapunt/asc-core'),
+  path.resolve(__dirname, 'node_modules/@datapunt/asc-ui'),
+  path.resolve(__dirname, 'node_modules/@datapunt/matomo-tracker-js'),
+  path.resolve(__dirname, 'node_modules/@datapunt/matomo-tracker-react'),
+  path.resolve(__dirname, 'node_modules/escape-string-regexp'),
+  path.resolve(__dirname, 'node_modules/marked'),
+]
+
 const dotenv = require('dotenv')
 
 const env = dotenv.config().parsed
@@ -25,7 +37,7 @@ function commonConfig() {
   return {
     context: root,
     entry: {
-      app: ['isomorphic-fetch', '@babel/polyfill', './src/index.js'],
+      app: ['./src/index.js'],
     },
     output: {
       filename: '[name].bundle.js',
@@ -45,9 +57,9 @@ function commonConfig() {
       rules: [
         {
           test: /\.(t|j)sx?$/,
-          include: [src, legacy],
-          use: 'babel-loader',
+          include: [src, legacy, ...esModules],
           exclude: /\.stories\.(j|t)sx$/,
+          use: 'babel-loader',
         },
         {
           test: /\.scss$/,
