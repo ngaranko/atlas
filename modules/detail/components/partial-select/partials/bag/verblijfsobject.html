@@ -11,14 +11,14 @@
             <dd class="c-key-value-list__multiple-values" ng-repeat="item in apiData.results.gebruiksdoel">
                 {{ item }}
             </dd>
-            
+
             <dt>Gebruiksdoel woonfunctie</dt>
             <dd>{{ apiData.results.gebruiksdoel_woonfunctie }}</dd>
             <dt>Gebruiksdoel gezondheidszorgfunctie</dt>
             <dd>{{ apiData.results.gebruiksdoel_gezondheidszorgfunctie }}</dd>
             <dt>Aan­tal een­he­den complex</dt>
             <dd>{{ apiData.results.aantal_eenheden_complex }}</dd>
-            <dt>Soort object (feitelijk gebruik)</dt>
+            <dt>Soort object (feitelijk gebruik) volgens de WOZ</dt>
             <dd>{{ apiData.results.gebruik }}</dd>
             <dt>Status</dt>
             <dd>{{ apiData.results.status }}</dd>
@@ -115,15 +115,5 @@
             partial="monumenten/situering"
             user="user"
         />
-    </div>
-
-    <div class="c-detail__block">
-        <dp-glossary-header definition="BOUWDOSSIER" use-plural="true"></dp-glossary-header>
-        <div ng-if="!user.scopes.includes('BD/R')"
-             ng-include="'modules/detail/components/detail/templates/bouwdossiers/unauthorized.html'">
-        </div>
-        <div ng-if="user.scopes.includes('BD/R')">
-            <dp-api-call endpoint="{{apiUrl}}stadsarchief/bouwdossier/?{{subType}}={{id}}&page_size=25" partial="bouwdossiers" user="vm.user"></dp-api-call>
-        </div>
     </div>
 </div>

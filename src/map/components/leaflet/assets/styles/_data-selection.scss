@@ -1,5 +1,5 @@
 .data-selection-cluster {
-  background-image: url("assets/images/map/data-selection/cluster-zoomed-in-100.svg");
+  background-image: url('assets/images/map/data-selection/cluster-zoomed-in-100.svg');
   background-size: 100%;
   color: $primary-light;
   cursor: default;
@@ -15,7 +15,7 @@
   }
 
   &--zoomed-in-100 {
-    background-image: url("assets/images/map/data-selection/cluster-zoomed-in-100.svg");
+    background-image: url('assets/images/map/data-selection/cluster-zoomed-in-100.svg');
 
     .data-selection-cluster__text {
       line-height: 29px;
@@ -23,7 +23,7 @@
   }
 
   &--zoomed-in-10 {
-    background-image: url("assets/images/map/data-selection/cluster-zoomed-in-10.svg");
+    background-image: url('assets/images/map/data-selection/cluster-zoomed-in-10.svg');
 
     .data-selection-cluster__text {
       line-height: 24px;
@@ -31,7 +31,7 @@
   }
 
   &--zoomed-in-1 {
-    background-image: url("assets/images/map/data-selection/cluster-zoomed-in-1.svg");
+    background-image: url('assets/images/map/data-selection/cluster-zoomed-in-1.svg');
 
     .data-selection-cluster__text {
       line-height: 21px;
@@ -40,7 +40,7 @@
   }
 
   &--zoomed-in-point {
-    background-image: url("assets/images/map/data-selection/point-zoomed-in.svg");
+    background-image: url('assets/images/map/data-selection/point-zoomed-in.svg');
 
     .data-selection-cluster__text {
       line-height: 21px;
@@ -48,7 +48,7 @@
   }
 
   &--zoomed-out-100 {
-    background-image: url("assets/images/map/data-selection/cluster-zoomed-out-100.svg");
+    background-image: url('assets/images/map/data-selection/cluster-zoomed-out-100.svg');
 
     .data-selection-cluster__text {
       line-height: 23px;
@@ -56,7 +56,7 @@
   }
 
   &--zoomed-out-10 {
-    background-image: url("assets/images/map/data-selection/cluster-zoomed-out-10.svg");
+    background-image: url('assets/images/map/data-selection/cluster-zoomed-out-10.svg');
 
     .data-selection-cluster__text {
       line-height: 18px;
@@ -64,17 +64,17 @@
   }
 
   &--zoomed-out-1 {
-    background-image: url("assets/images/map/data-selection/cluster-zoomed-out-1.svg");
+    background-image: url('assets/images/map/data-selection/cluster-zoomed-out-1.svg');
 
     .data-selection-cluster__text {
       line-height: 15px;
       margin-left: -1px;
-      margin-top: -.5px;
+      margin-top: -0.5px;
     }
   }
 
   &--zoomed-out-point {
-    background-image: url("assets/images/map/data-selection/point-zoomed-out.svg");
+    background-image: url('assets/images/map/data-selection/point-zoomed-out.svg');
 
     .data-selection-cluster__text {
       line-height: 15px;

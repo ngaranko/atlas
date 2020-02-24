@@ -275,9 +275,7 @@ describe('The Panorama Api', () => {
 
     it('should return an url to google streeview', () => {
       expect(getStreetViewUrl(location, heading)).toBe(
-        `http://maps.google.com/maps?q=&layer=c&cbll=${location[0]},${
-          location[1]
-        }&cbp=11,${heading},0,0,0`,
+        `http://maps.google.com/maps?q=&layer=c&cbll=${location[0]},${location[1]}&cbp=11,${heading},0,0,0`,
       )
     })
   })

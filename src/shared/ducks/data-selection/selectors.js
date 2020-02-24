@@ -19,10 +19,7 @@ export const getGeometryFiltersMarkers = createSelector(
   filters => (filters && filters.markers) || [],
 )
 
-export const getDataset = createSelector(
-  getDataSelection,
-  dataSelection => dataSelection.dataset,
-)
+export const getDataset = createSelector(getDataSelection, dataSelection => dataSelection.dataset)
 
 export const getDataSelectionResult = createSelector(
   getDataSelection,
@@ -39,47 +36,36 @@ const getMapMarkers = createSelector(
   dataSelection => dataSelection.markers || [],
 )
 
-export const getClusterMarkers = createSelector(
-  [getMapMarkers],
-  markers =>
-    markers && markers.clusterMarkers && markers.clusterMarkers.length
-      ? generateMarkers(markers.clusterMarkers)
-      : [],
+export const getClusterMarkers = createSelector([getMapMarkers], markers =>
+  markers && markers.clusterMarkers && markers.clusterMarkers.length
+    ? generateMarkers(markers.clusterMarkers)
+    : [],
 )
 
-export const getBrkMarkers = createSelector(
-  [getMapMarkers],
-  markers => (markers && markers.markers && markers.markers.length ? markers.markers : []),
+export const getBrkMarkers = createSelector([getMapMarkers], markers =>
+  markers && markers.markers && markers.markers.length ? markers.markers : [],
 )
-export const getGeoJsons = createSelector(
-  [getMapMarkers],
-  markers => (markers && markers.geoJsons && markers.geoJsons.length ? markers.geoJsons : []),
+export const getGeoJsons = createSelector([getMapMarkers], markers =>
+  markers && markers.geoJsons && markers.geoJsons.length ? markers.geoJsons : [],
 )
 
-export const getShapeFilter = createSelector(
-  getDataSelection,
-  dataSelection => {
-    const markers = get(dataSelection, 'geometryFilter.markers')
-    const description = get(dataSelection, 'geometryFilter.description')
-    return markers && description
-      ? {
-          shape: {
-            slug: 'shape',
-            label: 'Locatie',
-            option: `ingetekend (${description})`,
-          },
-        }
-      : {}
-  },
-)
+export const getShapeFilter = createSelector(getDataSelection, dataSelection => {
+  const markers = get(dataSelection, 'geometryFilter.markers')
+  const description = get(dataSelection, 'geometryFilter.description')
+  return markers && description
+    ? {
+        shape: {
+          slug: 'shape',
+          label: 'Locatie',
+          option: `ingetekend (${description})`,
+        },
+      }
+    : {}
+})
 
-export const getFilters = createSelector(
-  getDataSelectionResult,
-  result => result.filters || [],
-)
-export const getGeomarkersShape = createSelector(
-  getGeometryFiltersMarkers,
-  markers => JSON.stringify(markers.map(([lat, lng]) => [lng, lat])),
+export const getFilters = createSelector(getDataSelectionResult, result => result.filters || [])
+export const getGeomarkersShape = createSelector(getGeometryFiltersMarkers, markers =>
+  JSON.stringify(markers.map(([lat, lng]) => [lng, lat])),
 )
 export const areMarkersLoading = createSelector(
   getDataSelection,

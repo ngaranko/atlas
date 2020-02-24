@@ -15,64 +15,41 @@ export const getLocationQuery = () => {
   return search ? queryString.decode(search) : {}
 }
 
-export const getLocationPayload = createSelector(
-  getLocation,
-  location => location.payload,
+export const getLocationPayload = createSelector(getLocation, location => location.payload)
+export const getDetailLocation = createSelector(getLocation, ({ payload: { type, subtype, id } }) =>
+  type && subtype && id ? [id.slice(2), type, subtype] : [],
 )
-export const getDetailLocation = createSelector(
-  getLocation,
-  ({ payload: { type, subtype, id } }) =>
-    type && subtype && id ? [id.slice(2), type, subtype] : [],
-)
-export const getPage = createSelector(
-  getLocation,
-  (location = {}) => {
-    const key = Object.keys(routing).find(route => routing[route].type === location.type)
-    return (key && routing[key].page) || ''
-  },
-)
-export const isHomepage = createSelector(
-  getPage,
-  page => page === PAGES.HOME,
-)
+export const getPage = createSelector(getLocation, (location = {}) => {
+  const key = Object.keys(routing).find(route => routing[route].type === location.type)
+  return (key && routing[key].page) || ''
+})
+export const isHomepage = createSelector(getPage, page => page === PAGES.HOME)
 export const isDataPage = createSelector(
   getPage,
   page => page === PAGES.DATA || page === PAGES.DATA_DETAIL || page === PAGES.DATA_SEARCH,
 )
-export const isPanoPage = createSelector(
-  getPage,
-  page => page === PAGES.PANORAMA,
-)
-export const isDataDetailPage = createSelector(
-  getPage,
-  page => page === PAGES.DATA_DETAIL,
-)
-export const isDatasetDetailPage = createSelector(
-  getPage,
-  page => page === PAGES.DATASET_DETAIL,
-)
+export const isPanoPage = createSelector(getPage, page => page === PAGES.PANORAMA)
+export const isDataDetailPage = createSelector(getPage, page => page === PAGES.DATA_DETAIL)
+export const isDatasetDetailPage = createSelector(getPage, page => page === PAGES.DATASET_DETAIL)
 
 export const isDatasetPage = createSelector(
   getPage,
-  page => page === PAGES.DATASETS || page === PAGES.DATASET_DETAIL || page === PAGES.DATASET_SEARCH,
+  page => page === PAGES.DATASET_DETAIL || page === PAGES.DATASET_SEARCH,
 )
 
 export const isArticlePage = createSelector(
   getPage,
-  page => page === PAGES.ARTICLES || page === PAGES.ARTICLE_DETAIL || page === PAGES.ARTICLE_SEARCH,
+  page => page === PAGES.ARTICLE_DETAIL || page === PAGES.ARTICLE_SEARCH,
 )
 
 export const isPublicationPage = createSelector(
   getPage,
-  page =>
-    page === PAGES.PUBLICATIONS ||
-    page === PAGES.PUBLICATION_DETAIL ||
-    page === PAGES.PUBLICATION_SEARCH,
+  page => page === PAGES.PUBLICATION_DETAIL || page === PAGES.PUBLICATION_SEARCH,
 )
 
 export const isSpecialPage = createSelector(
   getPage,
-  page => page === PAGES.SPECIALS || page === PAGES.SPECIAL_DETAIL || page === PAGES.SPECIAL_SEARCH,
+  page => page === PAGES.SPECIAL_DETAIL || page === PAGES.SPECIAL_SEARCH,
 )
 
 export const isDataSelectionPage = createSelector(

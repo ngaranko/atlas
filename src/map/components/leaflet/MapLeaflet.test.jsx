@@ -18,7 +18,10 @@ describe('MapLeaflet component', () => {
   const getLeafletInstance = () => ''
   const baseLayer = {
     baseLayerOptions: {
-      bounds: [[52.25168, 4.64034], [52.50536, 5.10737]],
+      bounds: [
+        [52.25168, 4.64034],
+        [52.50536, 5.10737],
+      ],
       maxZoom: 16,
       minZoom: 8,
       subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4'],

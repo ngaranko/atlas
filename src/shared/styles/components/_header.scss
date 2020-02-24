@@ -15,7 +15,7 @@
 
   color: $primary-contrast;
   display: block;
-  margin-bottom: .4 * $base-whitespace;
+  margin-bottom: 0.4 * $base-whitespace;
 
   .s-indented-list & {
     @include font-size-responsive($m-header-font);
@@ -36,5 +36,5 @@
 
 .o-header__button {
   float: right;
-  margin-left: .5 * $base-whitespace;
+  margin-left: 0.5 * $base-whitespace;
 }

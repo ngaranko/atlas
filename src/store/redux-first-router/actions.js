@@ -175,15 +175,6 @@ export const toConstructionFilesFromEndpoint = endpoint => {
   }
 }
 
-export const toDatasets = (additionalParams = null, preserve = false, forceSaga = true) => ({
-  type: routing.datasets.type,
-  meta: {
-    preserve,
-    additionalParams,
-    forceSaga,
-  },
-})
-
 export const toDatasetSearch = (
   additionalParams = null,
   skipSaga = false,
@@ -213,13 +204,7 @@ export const toSearch = (
     additionalParams,
   },
 })
-export const toDatasetsWithFilter = (additionalParams = {}, preserve = false) => ({
-  type: routing.datasets.type,
-  meta: {
-    additionalParams,
-    preserve,
-  },
-})
+
 export const toDataSuggestion = (payload, view) => {
   const { type, subtype, id } = getDetailPageData(payload.endpoint)
   const tracking = {
@@ -348,8 +333,3 @@ export const toCmsSearch = type => (
 export const toPublicationSearch = toCmsSearch(routing.publicationSearch.type)
 export const toArticleSearch = toCmsSearch(routing.articleSearch.type)
 export const toSpecialSearch = toCmsSearch(routing.specialSearch.type)
-
-// TODO: This can be deleted when the CMS overview pages are deleted and redirected
-export const toArticles = toCmsSearch(routing.articles.type)
-export const toPublications = toCmsSearch(routing.publications.type)
-export const toSpecials = toCmsSearch(routing.specials.type)

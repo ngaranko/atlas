@@ -14,10 +14,6 @@ import {
   toSpecialSearch,
   toDataSearch,
   toDatasetSearch,
-  toPublications,
-  toArticles,
-  toSpecials,
-  toDatasets,
 } from '../../../store/redux-first-router/actions'
 import { routing } from '../../routes'
 import { TYPES as EDITORIAL_TYPES } from '../../../shared/config/cms.config'
@@ -45,25 +41,14 @@ export const QUERY_TYPES = {
 }
 
 export const EDITORIAL_SEARCH_PAGES = [
-  routing.publications.page,
   routing.publicationSearch.page,
-  routing.specials.page,
   routing.specialSearch.page,
-  routing.articles.page,
   routing.articleSearch.page,
-]
-
-export const DATASET_SEARCH_PAGES = [routing.datasets.page, routing.datasetSearch.page]
-export const DATA_SEARCH_PAGES = [routing.dataSearch.page]
-export const CMS_SEARCH_PAGES = [
-  routing.articleSearch.page,
-  routing.specialSearch.page,
-  routing.publicationSearch.page,
 ]
 
 export default {
   [routing.search.page]: {
-    resolver: ['dataSearch', 'datasetSearch', 'articleSearch'],
+    resolver: Object.values(QUERY_TYPES),
     to: toSearch,
     query: searchQuery,
     label: routing.search.title,
@@ -73,15 +58,7 @@ export default {
     resolver: QUERY_TYPES[routing.publicationSearch.page],
     query: publicationSearchQuery,
     to: toPublicationSearch,
-    label: routing.publications.title,
-    type: EDITORIAL_TYPES.PUBLICATION,
-    component: EditorialResults,
-  },
-  [routing.publications.page]: {
-    resolver: QUERY_TYPES[routing.publicationSearch.page],
-    query: publicationSearchQuery,
-    to: toPublications,
-    label: routing.publications.title,
+    label: routing.publicationSearch.title,
     type: EDITORIAL_TYPES.PUBLICATION,
     component: EditorialResults,
   },
@@ -89,15 +66,7 @@ export default {
     resolver: QUERY_TYPES[routing.articleSearch.page],
     query: articleSearchQuery,
     to: toArticleSearch,
-    label: routing.articles.title,
-    type: EDITORIAL_TYPES.ARTICLE,
-    component: EditorialResults,
-  },
-  [routing.articles.page]: {
-    resolver: QUERY_TYPES[routing.articleSearch.page],
-    query: articleSearchQuery,
-    to: toArticles,
-    label: routing.articles.title,
+    label: routing.articleSearch.title,
     type: EDITORIAL_TYPES.ARTICLE,
     component: EditorialResults,
   },
@@ -105,15 +74,7 @@ export default {
     resolver: QUERY_TYPES[routing.specialSearch.page],
     query: specialSearchQuery,
     to: toSpecialSearch,
-    label: routing.specials.title,
-    type: EDITORIAL_TYPES.SPECIAL,
-    component: EditorialResults,
-  },
-  [routing.specials.page]: {
-    resolver: QUERY_TYPES[routing.specialSearch.page],
-    query: specialSearchQuery,
-    to: toSpecials,
-    label: routing.specials.title,
+    label: routing.specialSearch.title,
     type: EDITORIAL_TYPES.SPECIAL,
     component: EditorialResults,
   },
@@ -121,7 +82,7 @@ export default {
     resolver: QUERY_TYPES[routing.dataSearch.page],
     query: dataSearchQuery,
     to: toDataSearch,
-    label: routing.data.title,
+    label: routing.dataSearch.title,
     type: TYPES.DATA,
     component: DataSearchResults,
   },
@@ -129,15 +90,7 @@ export default {
     resolver: QUERY_TYPES[routing.datasetSearch.page],
     query: datasetSearchQuery,
     to: toDatasetSearch,
-    label: routing.datasets.title,
-    type: TYPES.DATASET,
-    component: DatasetSearchResults,
-  },
-  [routing.datasets.page]: {
-    resolver: QUERY_TYPES[routing.datasetSearch.page],
-    query: datasetSearchQuery,
-    to: toDatasets,
-    label: routing.datasets.title,
+    label: routing.datasetSearch.title,
     type: TYPES.DATASET,
     component: DatasetSearchResults,
   },

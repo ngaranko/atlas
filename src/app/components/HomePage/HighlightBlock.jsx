@@ -3,7 +3,7 @@ import { breakpoint, styles, themeSpacing } from '@datapunt/asc-ui'
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import { cmsConfig } from '../../../shared/config/config'
-import { toArticles } from '../../../store/redux-first-router/actions'
+import { toArticleSearch } from '../../../store/redux-first-router/actions'
 import useFromCMS from '../../utils/useFromCMS'
 import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
 import HighlightCard from './HighlightCard'
@@ -118,7 +118,10 @@ const HighlightBlock = () => {
           </ImageCardWrapperSmall>
         </HighlightBlockInnerStyle>
       </HighlightBlockStyle>
-      <OverviewLink linkProps={{ to: toArticles(), $as: RouterLink }} label="Bekijk overzicht" />
+      <OverviewLink
+        linkProps={{ to: toArticleSearch(), $as: RouterLink }}
+        label="Bekijk overzicht"
+      />
     </>
   )
 }

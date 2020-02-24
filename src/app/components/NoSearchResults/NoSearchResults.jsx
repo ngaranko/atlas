@@ -2,6 +2,7 @@ import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import styled from '@datapunt/asc-core'
 import { Heading, Paragraph, List, Typography, themeSpacing, Link } from '@datapunt/asc-ui'
+import { formatNoResultsMessage } from './utils'
 
 const StyledList = styled(List)`
   list-style: square;
@@ -17,10 +18,7 @@ const StyledListItem = ({ children }) => <StyledTypgraphy $as="li">{children}</S
 
 const NoSearchResults = ({ query, label = '', to = false }) => (
   <>
-    <Paragraph>
-      {`Er zijn geen resultaten gevonden met '${query}'`}
-      {label ? ` binnen de categorie '${label}'.` : ''}
-    </Paragraph>
+    <Paragraph>{formatNoResultsMessage(query, label)}</Paragraph>
     <Heading $as="h3">Zoeksuggesties</Heading>
     <StyledList>
       <StyledListItem>Maak de zoekcriteria eventueel minder specifiek.</StyledListItem>

@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -60,16 +59,16 @@ function commonConfig() {
             {
               loader: 'css-loader',
               options: {
-                // Todo: eventually turn on modules: true
+                // Todo: eventually turn on modules
                 // For now we explicitly tell classnames to be local
-                localIdentName: '[name]__[local]--[hash:base64:5]',
+                // localIdentName: '[name]__[local]--[hash:base64:5]',
                 url: false, // Disable URL parsing in css for now
               },
             },
             {
               loader: 'postcss-loader',
               options: {
-                plugins: () => [require('autoprefixer')({ browsers: ['last 3 versions'] })],
+                plugins: () => [require('autoprefixer')],
               },
             },
             {
@@ -139,7 +138,6 @@ function commonConfig() {
       ],
     },
     plugins: [
-      new CleanWebpackPlugin([dist]),
       new SVGSpritemapPlugin(['src/shared/assets/icons/**/*.svg'], {
         output: {
           filename: 'sprite.svg',
@@ -191,12 +189,8 @@ function commonConfig() {
           to: 'assets',
         },
         {
-          from: './node_modules/@datapunt/asc-assets/lib/assets/Fonts',
-          to: 'Fonts',
-        },
-        {
-          from: './node_modules/@datapunt/asc-assets/lib/assets/scripts',
-          to: './',
+          from: './node_modules/@datapunt/asc-assets/static/fonts',
+          to: '',
         },
       ]),
       new HtmlWebpackPlugin({

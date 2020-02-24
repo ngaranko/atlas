@@ -14,7 +14,7 @@ export interface SearchFilterProps {
   hideCount: boolean
 }
 
-function getFilterComponent(filterType: FilterType) {
+export function getFilterComponent(filterType: FilterType) {
   switch (filterType) {
     case FilterType.Checkbox:
       return CheckboxFilter

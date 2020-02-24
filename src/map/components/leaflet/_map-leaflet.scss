@@ -1,12 +1,12 @@
-@import "../../../shared/styles/config";
-@import "assets/styles/map";
-@import "assets/styles/clusterer";
-@import "assets/styles/data-selection";
+@import '../../../shared/styles/config';
+@import 'assets/styles/map';
+@import 'assets/styles/clusterer';
+@import 'assets/styles/data-selection';
 
 .is-print-mode,
 .is-embed-preview,
 .is-embed {
-  @import "assets/styles/map-print";
+  @import 'assets/styles/map-print';
 
   & .c-map {
     height: 350px;
@@ -20,7 +20,7 @@
 }
 
 .is-embed {
-  @import "assets/styles/map-embed";
+  @import 'assets/styles/map-embed';
 }
 
 .test-cx {
@@ -28,5 +28,5 @@
 }
 
 .leaflet-layer {
-  transition: opacity .3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }

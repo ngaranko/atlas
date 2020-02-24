@@ -30,7 +30,7 @@ describe('redirectToDcatd', () => {
 
     expect(global.sessionStorage.setItem).toHaveBeenCalledWith(
       DCATD_LIST_REDIRECT_URL,
-      `${document.location.origin}${routing.datasets.path}`,
+      `${document.location.origin}${routing.datasetSearch.path}`,
     )
   })
 

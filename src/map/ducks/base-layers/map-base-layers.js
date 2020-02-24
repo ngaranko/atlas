@@ -19,16 +19,14 @@ const getUrlTemplateOfActiveLayer = (layers, value) => {
 
 const getAllBaseLayers = state => state.mapLayers.baseLayers.items
 
-export const getBaseLayers = createSelector(
-  [getAllBaseLayers],
-  baseLayers =>
-    baseLayers.reduce(
-      (result, item) => ({
-        ...result,
-        [item.category]: result[item.category] ? [...result[item.category], item] : [item],
-      }),
-      {},
-    ),
+export const getBaseLayers = createSelector([getAllBaseLayers], baseLayers =>
+  baseLayers.reduce(
+    (result, item) => ({
+      ...result,
+      [item.category]: result[item.category] ? [...result[item.category], item] : [item],
+    }),
+    {},
+  ),
 )
 
 export const getUrlTemplate = createSelector(

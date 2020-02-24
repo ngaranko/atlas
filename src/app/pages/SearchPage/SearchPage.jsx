@@ -3,12 +3,7 @@ import { useMatomo } from '@datapunt/matomo-tracker-react'
 import { clearAllBodyScrollLocks, enableBodyScroll } from 'body-scroll-lock'
 import { Container, Row } from '@datapunt/asc-ui'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
-import SEARCH_PAGE_CONFIG, {
-  DEFAULT_LIMIT,
-  DATA_SEARCH_PAGES,
-  DATASET_SEARCH_PAGES,
-  EDITORIAL_SEARCH_PAGES,
-} from './config'
+import SEARCH_PAGE_CONFIG, { DEFAULT_LIMIT } from './config'
 import SearchPageResults from './SearchPageResults'
 import SearchPageFilters from './SearchPageFilters'
 import useCompare from '../../utils/useCompare'
@@ -16,6 +11,7 @@ import useSelectors from '../../utils/useSelectors'
 import { getActiveFilters, getSort, getPage } from './SearchPageDucks'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import usePagination from './usePagination'
+import PAGES from '../../pages'
 
 function getSortIntput(sortString) {
   let sort
@@ -29,22 +25,33 @@ function getSortIntput(sortString) {
   return sort
 }
 
+const SEARCH_PAGES = [
+  PAGES.ARTICLE_SEARCH,
+  PAGES.PUBLICATION_SEARCH,
+  PAGES.SPECIAL_SEARCH,
+  PAGES.DATASET_SEARCH,
+]
+
 /* TODO: Write tests for the Hooks used in this component */
 /* istanbul ignore next */
-const SearchPage = ({ isOverviewPage, currentPage, query }) => {
+const SearchPage = ({ currentPage, query }) => {
   const [initialLoading, setInitialLoading] = useState(true)
   const [showFilter, setShowFilter] = useState(false)
   const [sort, page, activeFilters] = useSelectors([getSort, getPage, getActiveFilters])
+
+  const hasQuery = query.trim().length > 0
+  const isSearchPage = SEARCH_PAGES.includes(currentPage)
+  const isDataSearchPage = currentPage === PAGES.DATA_SEARCH
+  const isOverviewPage = !hasQuery && isSearchPage
   const defaultSort = isOverviewPage ? 'date:desc' : ''
 
   const { documentTitle } = useDocumentTitle()
   const { trackPageView } = useMatomo()
 
-  const isSearchPage = [...EDITORIAL_SEARCH_PAGES, ...DATASET_SEARCH_PAGES].includes(currentPage)
-  const isDataSearchPage = DATA_SEARCH_PAGES.includes(currentPage)
-
-  // Pagination is needed on the search pages with a single query unless the dataSearchQuery which also needs activeFilters
-  const withPagination = isSearchPage || !!(isDataSearchPage && activeFilters.length > 0) || false
+  // Pagination is needed on the search pages except for:
+  // - The 'all results' page, since it has mixed content.
+  // - The data results page, unless a query is active.
+  const withPagination = isSearchPage || (isDataSearchPage && activeFilters.length > 0)
 
   useEffect(() => {
     if (documentTitle) {
@@ -85,9 +92,7 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
     if (currentPageHasChanged) {
       // If the page changes, the skeleton components must be rendered
       setInitialLoading(true)
-    }
-
-    if (!!results && !fetching) {
+    } else if (!!results && !fetching) {
       setInitialLoading(false)
     }
   }, [currentPage, results, fetching])
@@ -98,9 +103,8 @@ const SearchPage = ({ isOverviewPage, currentPage, query }) => {
         <Row>
           <SearchPageFilters
             filters={filters}
-            isOverviewPage={isOverviewPage}
             totalCount={totalCount}
-            hideCount={!DATA_SEARCH_PAGES.includes(currentPage)}
+            hideCount={!isDataSearchPage}
             setShowFilter={setShowFilter}
             query={query}
             currentPage={currentPage}

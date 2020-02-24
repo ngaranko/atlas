@@ -21,7 +21,7 @@ function formatFilters(dataset, rawData) {
           .filter(item => !!item)
         delete newFilter.order
       }
-      return Object.assign({}, newFilter, newRawData[newFilter.slug])
+      return { ...newFilter, ...newRawData[newFilter.slug] }
     })
 
   if (sortFilters) {
@@ -91,7 +91,7 @@ function formatData(dataset, view, rawData) {
 function filterUnavailableFilters(dataset, activeFilters = {}) {
   // Filter out the filters that are not used in the current dataset
   // Filtering is done based on the configured possible filters.
-  const activeAndAvailableFilters = Object.assign({}, activeFilters)
+  const activeAndAvailableFilters = { ...activeFilters }
 
   // Filter activeFilters that are not available for this dataset
   Object.keys(activeFilters).forEach(activeFilterKey => {

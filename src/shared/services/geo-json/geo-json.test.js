@@ -16,7 +16,12 @@ describe('The geo json service', () => {
     expect(
       getCenter({
         type: 'Polygon',
-        coordinates: [[1, 2], [2, 2], [2, 1], [1, 1]],
+        coordinates: [
+          [1, 2],
+          [2, 2],
+          [2, 1],
+          [1, 1],
+        ],
       }),
     ).toEqual({
       x: 1.5,
@@ -28,7 +33,16 @@ describe('The geo json service', () => {
     expect(
       getCenter({
         type: 'Polygon',
-        coordinates: [[[1, 2], [2, 2]], [[2, 1], [1, 1]]],
+        coordinates: [
+          [
+            [1, 2],
+            [2, 2],
+          ],
+          [
+            [2, 1],
+            [1, 1],
+          ],
+        ],
       }),
     ).toEqual({ x: 1.5, y: 1.5 })
   })

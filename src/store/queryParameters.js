@@ -60,13 +60,9 @@ import { getFileName } from '../shared/ducks/files/selectors'
 const routesWithSearch = [
   routing.search.type,
   routing.dataSearch.type,
-  routing.datasets.type,
   routing.datasetSearch.type,
-  routing.articles.type,
   routing.articleSearch.type,
-  routing.specials.type,
   routing.specialSearch.type,
-  routing.publications.type,
   routing.publicationSearch.type,
 ]
 
@@ -254,7 +250,7 @@ export default paramsRegistry
         defaultValue: filterInitialState.filters,
         decode: val => {
           try {
-            return Object.assign({}, JSON.parse(val))
+            return JSON.parse(val)
           } catch (e) {
             return filterInitialState.filters
           }

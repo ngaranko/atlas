@@ -10,7 +10,7 @@
             <dp-redux-link
                 to="object._links.self.href | constructionFilesEndpointAction"
                 link-class="o-btn o-btn--link"
-            >{{ object._display }}
+            >{{ object.dossier_type | dpUppercaseFirstLetter }} - {{ object.datering | date:'yyyy' }}
             </dp-redux-link>
         </li>
     </ul>

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@datapunt/asc-core'
 import { themeSpacing } from '@datapunt/asc-ui'
 import { Enlarge } from '@datapunt/asc-assets'
-import { toDatasetDetail, toDatasets } from '../../../store/redux-first-router/actions'
+import { toDatasetDetail, toDatasetSearch } from '../../../store/redux-first-router/actions'
 import DatasetCard from '../../components/DatasetCard'
 import useSlug from '../../utils/useSlug'
 import redirectToDcatd from '../../utils/redirectToDcatd'
@@ -61,6 +61,6 @@ export default ({ query, label, results, isOverviewPage }) => {
       ))}
     </DatasetCardContainer>
   ) : (
-    <NoSearchResults query={query} label={label} to={toDatasets()} />
+    <NoSearchResults query={query} label={label} to={toDatasetSearch(null, false, false, false)} />
   )
 }

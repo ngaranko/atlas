@@ -26,7 +26,4 @@ const mapDispatchToProps = dispatch => ({
     key === 'shape' ? dispatch(removeGeometryFilter()) : dispatch(removeActiveFilter(key)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DataSelectionActiveFilters)
+export default connect(mapStateToProps, mapDispatchToProps)(DataSelectionActiveFilters)

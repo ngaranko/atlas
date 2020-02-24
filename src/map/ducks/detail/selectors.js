@@ -15,10 +15,7 @@ export const getCurrentEndpoint = createSelector(
   mapDetail => mapDetail.currentEndpoint,
 )
 
-export const getAllResults = createSelector(
-  mapDetailSelector,
-  mapDetail => mapDetail.byEndpoint,
-)
+export const getAllResults = createSelector(mapDetailSelector, mapDetail => mapDetail.byEndpoint)
 
 export const selectLatestMapDetail = createSelector(
   [getCurrentEndpoint, getAllResults],
@@ -36,10 +33,7 @@ export const getDetailId = createSelector(
   (detailEndpoint, currentEndpoint) => detailEndpoint || currentEndpoint,
 )
 
-export const getGeometry = createSelector(
-  getDetailGeometry,
-  detailGeometry => detailGeometry,
-)
+export const getGeometry = createSelector(getDetailGeometry, detailGeometry => detailGeometry)
 
 export const getGeoJson = createSelector(
   shouldShowGeoJson,

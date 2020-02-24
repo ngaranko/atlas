@@ -5,6 +5,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message'
     .factory('httpErrorRegistrar', httpErrorRegistrarFactory)
     .config([
       '$httpProvider',
+      // eslint-disable-next-line angular/di
       $httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'),
     ])
 

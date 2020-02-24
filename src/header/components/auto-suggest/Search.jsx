@@ -41,7 +41,7 @@ const Search = ({
   )
 
   return (
-    <React.Fragment>
+    <>
       <StyledSearchBar
         showAt="tabletM"
         inputProps={inputProps}
@@ -70,7 +70,7 @@ const Search = ({
       >
         {children}
       </SearchBarToggle>
-    </React.Fragment>
+    </>
   )
 }
 

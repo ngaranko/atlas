@@ -10,7 +10,4 @@ const mapDispatchToProps = dispatch => ({
   dismissError: () => dispatch(resetGlobalError()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ErrorMessage)
+export default connect(mapStateToProps, mapDispatchToProps)(ErrorMessage)

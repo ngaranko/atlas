@@ -1,5 +1,5 @@
-@import "../../../shared/styles/config";
-@import "../../../shared/styles/components/button";
+@import '../../../shared/styles/config';
+@import '../../../shared/styles/components/button';
 
 $print-header-height: 118px;
 $print-header-padding: 46px;
@@ -16,7 +16,7 @@ $print-header-padding-icon: 4px;
     }
 
     &__close {
-      @include icon-button("icon-clear", $primary-dark, $primary-dark);
+      @include icon-button('icon-clear', $primary-dark, $primary-dark);
 
       background-color: $primary-light;
       position: absolute;
@@ -31,7 +31,7 @@ $print-header-padding-icon: 4px;
   }
 
   &-button {
-    @include header-button("print", 24px, right);
+    @include header-button('print', 24px, right);
 
     height: 26px;
     padding: 0 2px 0 5px;
@@ -42,4 +42,3 @@ $print-header-padding-icon: 4px;
     }
   }
 }
-

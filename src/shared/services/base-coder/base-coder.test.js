@@ -113,12 +113,30 @@ describe('The BaseCoder', () => {
   })
 
   it('can encode an array of an array of numbers', () => {
-    expect(encode([[61, -61], [62, -62], [63, -63]], 62)).toEqual([
+    expect(
+      encode(
+        [
+          [61, -61],
+          [62, -62],
+          [63, -63],
+        ],
+        62,
+      ),
+    ).toEqual([
       ['z', '-z'],
       ['10', '-10'],
       ['11', '-11'],
     ])
-    expect(decode([['z', '-z'], ['10', '-10'], ['11', '-11']], 62)).toEqual([
+    expect(
+      decode(
+        [
+          ['z', '-z'],
+          ['10', '-10'],
+          ['11', '-11'],
+        ],
+        62,
+      ),
+    ).toEqual([
       [61, -61],
       [62, -62],
       [63, -63],
@@ -133,7 +151,10 @@ describe('The BaseCoder', () => {
     })
 
     it('works only for integer base', () => {
-      ;[[525, 'aap'], [525, 10.1]].forEach(a => {
+      ;[
+        [525, 'aap'],
+        [525, 10.1],
+      ].forEach(a => {
         const f = () => decode(...a)
         expect(f).toThrowError(RangeError)
       })
@@ -145,7 +166,12 @@ describe('The BaseCoder', () => {
     })
 
     it('works only for valid precisions', () => {
-      ;[['F', 16, -1], ['F', 16, 1.5], ['F', 16, 'aap'], ['F', 16, true]].forEach(a => {
+      ;[
+        ['F', 16, -1],
+        ['F', 16, 1.5],
+        ['F', 16, 'aap'],
+        ['F', 16, true],
+      ].forEach(a => {
         const f = () => decode(...a)
         expect(f).toThrowError(RangeError)
       })
@@ -164,14 +190,22 @@ describe('The BaseCoder', () => {
     })
 
     it('works only for integer base', () => {
-      ;[[525, 'aap'], [525, 10.1]].forEach(a => {
+      ;[
+        [525, 'aap'],
+        [525, 10.1],
+      ].forEach(a => {
         const f = () => encode(...a)
         expect(f).toThrowError(RangeError)
       })
     })
 
     it('works only for valid precisions', () => {
-      ;[[525, 10, -25], [525, 10, 5.7], [525, 10, 'noot'], [525, 10, false]].forEach(a => {
+      ;[
+        [525, 10, -25],
+        [525, 10, 5.7],
+        [525, 10, 'noot'],
+        [525, 10, false],
+      ].forEach(a => {
         const f = () => encode(...a)
         expect(f).toThrowError(RangeError)
       })
