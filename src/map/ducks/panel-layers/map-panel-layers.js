@@ -11,26 +11,21 @@ const initialState = {
   error: null,
 }
 
-export const getActiveMapLayers = state =>
-  state.map.overlays
+export const getActiveMapLayers = ({ map, mapLayers, user }) =>
+  map.overlays
     .filter(overlay => overlay.isVisible)
-    .map(overlay => state.mapLayers.layers.items.find(layer => layer.id === overlay.id) || {})
+    .map(overlay => mapLayers.layers.items.find(layer => layer.id === overlay.id) || {})
     .filter(
       layer =>
         layer.detailUrl &&
         !layer.noDetail &&
-        (!layer.authScope || state.user.scopes.includes(layer.authScope)),
+        (!layer.authScope || user.scopes.includes(layer.authScope)),
     )
-const getPanelLayers = state => state.mapLayers.panelLayers
 
-// Selector to get the collections from the redux state
-export const getMapPanelCollections = createSelector(
-  getPanelLayers,
-  panelLayers => panelLayers.items || [],
-)
+export const getPanelLayers = state => state.mapLayers.panelLayers?.items || []
 
-// Selector to get the mapLayers from the collections
-export const getMapPanelLayers = createSelector(getMapPanelCollections, panelCollections =>
+// Selector to get the mapLayers from the collections in the redux state
+export const getMapPanelLayers = createSelector(getPanelLayers, panelCollections =>
   panelCollections.length > 0
     ? panelCollections.reduce((acc, cur) => {
         if (cur.mapLayers) {
@@ -46,19 +41,17 @@ export const selectActivePanelLayers = createSelector(
   (panelLayers, overlays) => {
     const mapLayerIds = overlays.map(mapLayer => mapLayer.id)
 
-    const activeLayers = panelLayers
+    return panelLayers
       .filter(mapLayer =>
         [mapLayer.id, ...mapLayer.legendItems.map(legendItem => legendItem.id)]
           .filter(mapLayerId => Boolean(mapLayerId))
-          .some(mapLayerId => overlays.map(overlay => overlay.id).includes(mapLayerId)),
+          .some(mapLayerId => mapLayerIds.includes(mapLayerId)),
       )
       .sort((a, b) => {
         const aId = a.id || a.legendItems[0].id
         const bId = b.id || b.legendItems[0].id
         return mapLayerIds.indexOf(bId) - mapLayerIds.indexOf(aId)
       })
-
-    return activeLayers
   },
 )
 

@@ -24,7 +24,6 @@
     ],
     "disabled": {Boolean} "Hides the legenda for this layer when set to TRUE",
     "bounds": {Array} "Array of a GEO location, only use this when the bounds are predefined",
-    "notClosable": {Boolean} "Hides the close button for this layer when set to TRUE",
     "minZoom": {Number} "Can be used to overwrite the default value for MIN_ZOOM in MAP_CONFIG",
     "maxZoom": {Number} "Can be used to overwrite the default value for MAX_ZOOM in MAP_CONFIG",
     "detailUrl": {String} "Relative endpoint for GeoSearch",
@@ -48,7 +47,11 @@ const mapLayers = require('../../../../public/static/map/map-layers.config.json'
 const mapCollections = require('../../../../public/static/map/map-collections.config.json')
 const mapThemes = require('../../../../public/static/map/map-themes.config.json')
 const mapBaseLayers = require('../../../../public/static/map/map-base-layers.config.json')
-const mapLayerTypes = require('../../../../public/static/map/map-layer-types.config.json')
+
+export const MAP_LAYER_TYPES = {
+  TMS: 'tms',
+  WMS: 'wms',
+}
 
 // Creates the panel layers as shown in the MapPanel and MapLegend component
 const mapPanelLayers = mapCollections.map(mapCollection => {
@@ -83,14 +86,16 @@ const mapPanelLayers = mapCollections.map(mapCollection => {
         imageRule: imageRule || mapLayerTitle,
         title: title || mapLayerTitle,
         url,
-
         legendItems: legendItems
           ? legendItems.map(legendItem => {
               const legendItemLayer = mapLayers.find(mapLayer => mapLayer.id === legendItem.id)
+              const selectable = legendItem.selectable || legendItem.id
 
               return {
                 ...(legendItemLayer || legendItem),
-                selectable: !!legendItem.notSelectable || legendItem.id,
+                // The ID of the mapLayer when defined as legendItem, is a combination of the IDs of the mapLayer and the collection it's used in to prevent duplication
+                id: selectable ? `${mapCollection.id}-${legendItem.id}` : null,
+                selectable,
                 noDetail: !legendItem.detailUrl,
               }
             })
@@ -100,7 +105,7 @@ const mapPanelLayers = mapCollections.map(mapCollection => {
   }
 })
 
-export { mapBaseLayers, mapPanelLayers, mapLayerTypes }
+export { mapBaseLayers, mapPanelLayers }
 
 // Creates the set of map layers that are used to fetch the maps from the server
 export default [
@@ -110,7 +115,7 @@ export default [
     return id
       ? {
           ...mapLayer,
-          ...(type ? { type: mapLayerTypes[type] } : {}),
+          ...(type ? { type: MAP_LAYER_TYPES[type] } : {}),
         }
       : mapLayer.legendItems.map(legendItem => {
           if (legendItem.id) {
@@ -123,7 +128,7 @@ export default [
           return Object.prototype.hasOwnProperty.call(legendItem, 'id')
             ? {
                 ...mapLayer,
-                ...(type ? { type: mapLayerTypes[type] } : {}),
+                ...(type ? { type: MAP_LAYER_TYPES[type] } : {}),
                 ...legendItem,
               }
             : null

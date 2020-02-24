@@ -110,13 +110,11 @@ class MapLegend extends React.Component {
                     }
                   />
                   <h4 className="map-legend__category-title">{mapLayer.title}</h4>
-                  {!mapLayer.notClosable && (
-                    <button
-                      type="button"
-                      className="map-legend__toggle map-legend__toggle--remove"
-                      onClick={() => onLayerToggle(mapLayer)}
-                    />
-                  )}
+                  <button
+                    type="button"
+                    className="map-legend__toggle map-legend__toggle--remove"
+                    onClick={() => onLayerToggle(mapLayer)}
+                  />
                 </div>
                 {!isAuthorised(mapLayer, user) && (
                   <div className="map-legend__notification">

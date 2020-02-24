@@ -854,5 +854,23 @@
             "datasetId": null,
             "date": null
         }
+    },
+    {
+        "id": "pano",
+        "title": "Panoramabeelden",
+        "mapLayers": [
+            {
+                "id": "panobi"
+            },
+            {
+                "id": "panowoz"
+            }
+        ],
+        "meta": {
+            "description": null,
+            "theme": [],
+            "datasetId": null,
+            "date": null
+        }
     }
 ]

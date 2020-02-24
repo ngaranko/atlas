@@ -14,7 +14,14 @@ const initialState = {
   error: null,
 }
 
-const findLayer = (layers, id) => layers.find(mapLayer => mapLayer.id === id)
+export const findLayer = (layers, id) =>
+  layers.find(mapLayer => {
+    const mapLayerID = id.split('-')
+
+    // The ID of the mapLayer when defined as legendItem, is a combination of the IDs of the mapLayer and the collection it's used in
+    return mapLayer.id === (mapLayerID[1] || mapLayerID[0])
+  })
+
 const generateLayer = (layers, overlay, url, params, type, bounds) => ({
   ...overlay,
   url,

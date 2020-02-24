@@ -6,7 +6,13 @@
             "burgerlijke_gemeente",
             "burgerlijke_gemeente_label"
         ],
-        "url": "/maps/brk"
+        "url": "/maps/brk",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "kgem",
@@ -15,7 +21,13 @@
             "kadastrale_gemeente",
             "kadastrale_gemeente_label"
         ],
-        "url": "/maps/brk"
+        "url": "/maps/brk",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "ksec",
@@ -24,7 +36,13 @@
             "kadastrale_sectie",
             "kadastrale_sectie_label"
         ],
-        "url": "/maps/brk"
+        "url": "/maps/brk",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "kot",
@@ -36,7 +54,13 @@
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
         "detailIsShape": true,
-        "url": "/maps/brk"
+        "url": "/maps/brk",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "egga",
@@ -51,7 +75,13 @@
         "url": "/maps/eigendommen",
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "egog",
@@ -66,7 +96,13 @@
         "url": "/maps/eigendommen",
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "egst",
@@ -81,7 +117,13 @@
         "url": "/maps/eigendommen",
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "egpr",
@@ -96,7 +138,13 @@
         "url": "/maps/eigendommen",
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "egwa",
@@ -111,7 +159,13 @@
         "url": "/maps/eigendommen",
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "egwo",
@@ -122,6 +176,12 @@
         ],
         "params": {
             "categorie": 6
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
         }
     },
     {
@@ -137,7 +197,13 @@
         "url": "/maps/eigendommen",
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "egsp",
@@ -152,7 +218,13 @@
         "url": "/maps/eigendommen",
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "egnnp",
@@ -167,7 +239,13 @@
         "url": "/maps/eigendommen",
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "egnp",
@@ -182,7 +260,13 @@
         "url": "/maps/eigendommen",
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "efga",
@@ -197,7 +281,13 @@
         },
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "efov",
@@ -212,7 +302,13 @@
         },
         "detailUrl": "geosearch/search/",
         "detailItem": "kadastraal_object",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "vge",
@@ -224,7 +320,13 @@
         ],
         "detailUrl": "geosearch/vastgoed/",
         "detailItem": "vastgoed",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "vga",
@@ -236,7 +338,13 @@
         ],
         "detailUrl": "geosearch/vastgoed/",
         "detailItem": "vastgoed",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "gbvv",
@@ -244,8 +352,13 @@
         "layers": [
             "beperking-VV"
         ],
-        "minZoom": 13,
-        "title": "(voorlopige) aanwijzing WVG"
+        "title": "(voorlopige) aanwijzing WVG",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "gbkw",
@@ -253,8 +366,13 @@
         "layers": [
             "beperking-KW"
         ],
-        "minZoom": 13,
-        "title": "Wet bodembescherming"
+        "title": "Wet bodembescherming",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "gbwu",
@@ -262,8 +380,13 @@
         "layers": [
             "beperking-WU"
         ],
-        "minZoom": 13,
-        "title": "Woningwet"
+        "title": "Woningwet",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "gboh",
@@ -271,8 +394,13 @@
         "layers": [
             "beperking-OH"
         ],
-        "minZoom": 13,
-        "title": "WABO bestuursdwang / dwangsom"
+        "title": "WABO bestuursdwang / dwangsom",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "gbos",
@@ -280,8 +408,13 @@
         "layers": [
             "beperking-OS"
         ],
-        "minZoom": 13,
-        "title": "Sluiting o.b.v. Opiumwet"
+        "title": "Sluiting o.b.v. Opiumwet",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "gbgs",
@@ -289,8 +422,13 @@
         "layers": [
             "beperking-GS"
         ],
-        "minZoom": 13,
-        "title": "Sluiting v. woning/lokaal/erf"
+        "title": "Sluiting v. woning/lokaal/erf",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "gbgg",
@@ -298,8 +436,13 @@
         "layers": [
             "beperking-GG"
         ],
-        "minZoom": 13,
-        "title": "Gemeentelijk monument"
+        "title": "Gemeentelijk monument",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "gbep",
@@ -307,8 +450,13 @@
         "layers": [
             "beperking-EP"
         ],
-        "minZoom": 13,
-        "title": "Exploitatieplan"
+        "title": "Exploitatieplan",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "gbhv",
@@ -316,8 +464,13 @@
         "layers": [
             "beperking-HV"
         ],
-        "minZoom": 13,
-        "title": "Vordering tot woonruimte"
+        "title": "Vordering tot woonruimte",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "buurt",
@@ -326,7 +479,13 @@
             "buurt",
             "buurt_label"
         ],
-        "title": "Buurt"
+        "title": "Buurt",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "bc",
@@ -335,7 +494,13 @@
             "buurtcombinatie",
             "buurtcombinatie_label"
         ],
-        "title": "Wijk"
+        "title": "Wijk",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "sd",
@@ -344,7 +509,13 @@
             "stadsdeel",
             "stadsdeel_label"
         ],
-        "title": "Stadsdeel"
+        "title": "Stadsdeel",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "bbn",
@@ -357,7 +528,13 @@
         "url": "/maps/gebieden",
         "detailUrl": "geosearch/search/",
         "detailItem": "bouwblok",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "ggwg",
@@ -367,7 +544,13 @@
         ],
         "title": "Gebiedsgerichtwerken-gebied",
         "minZoom": 6,
-        "url": "/maps/gebieden"
+        "url": "/maps/gebieden",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "ggwpg",
@@ -377,7 +560,13 @@
         ],
         "title": "Gebiedsgerichtwerken-praktijkgebied",
         "minZoom": 6,
-        "url": "/maps/gebieden"
+        "url": "/maps/gebieden",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "ggra",
@@ -385,7 +574,13 @@
         "layers": [
             "grootstedelijk_regio_amsterdam"
         ],
-        "title": "Regie Gemeente Amsterdam"
+        "title": "Regie Gemeente Amsterdam",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "ggro",
@@ -393,7 +588,13 @@
         "layers": [
             "grootstedelijk_regio_omgevingsdienst"
         ],
-        "title": "Regie Omgevingsdienst"
+        "title": "Regie Omgevingsdienst",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mtr",
@@ -401,7 +602,13 @@
         "layers": [
             "metrolijnen"
         ],
-        "title": "Metrolijn"
+        "title": "Metrolijn",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "trm",
@@ -409,7 +616,13 @@
         "layers": [
             "tramlijnen"
         ],
-        "title": "Tramlijn"
+        "title": "Tramlijn",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "slpb",
@@ -420,7 +633,13 @@
         "layers": [
             "snel_beschikbaar"
         ],
-        "title": "Snellaadpunt (beschikbaar, ±15 min. geleden)"
+        "title": "Snellaadpunt (beschikbaar, ±15 min. geleden)",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "slpnb",
@@ -431,7 +650,13 @@
         "layers": [
             "snel_niet_beschikbaar"
         ],
-        "title": "Snellaadpunt (niet beschikbaar, ±15 min. geleden)"
+        "title": "Snellaadpunt (niet beschikbaar, ±15 min. geleden)",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "nlpb",
@@ -442,7 +667,13 @@
         "layers": [
             "normaal_beschikbaar"
         ],
-        "title": "Gewoon laadpunt (beschikbaar, ±15 min. geleden)"
+        "title": "Gewoon laadpunt (beschikbaar, ±15 min. geleden)",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "nlpnb",
@@ -453,7 +684,13 @@
         "layers": [
             "normaal_niet_beschikbaar"
         ],
-        "title": "Gewoon laadpunt (niet beschikbaar, ±15 min. geleden)"
+        "title": "Gewoon laadpunt (niet beschikbaar, ±15 min. geleden)",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrts",
@@ -468,7 +705,13 @@
         "minZoom": 11,
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrll",
@@ -484,7 +727,13 @@
         "minZoom": 11,
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrpr",
@@ -499,7 +748,13 @@
         "minZoom": 11,
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrf",
@@ -514,7 +769,13 @@
         "url": "/maps/parkeervakken",
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrpv",
@@ -529,7 +790,13 @@
         "url": "/maps/parkeervakken",
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrga",
@@ -544,7 +811,13 @@
         "url": "/maps/parkeervakken",
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrgk",
@@ -559,7 +832,13 @@
         "url": "/maps/parkeervakken",
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrsv",
@@ -574,7 +853,13 @@
         "url": "/maps/parkeervakken",
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrvh",
@@ -589,7 +874,13 @@
         "url": "/maps/parkeervakken",
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvrbz",
@@ -604,7 +895,13 @@
         "url": "/maps/parkeervakken",
         "detailUrl": "parkeervakken/geosearch/",
         "detailItem": "parkeervak",
-        "detailIsShape": true
+        "detailIsShape": true,
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "uitzpvg",
@@ -616,7 +913,13 @@
         "detailItem": "parkeerzones_uitz",
         "detailUrl": "geosearch/parkeerzones_uitz/",
         "detailIsShape": true,
-        "url": "/maps/parkeerzones_uitz"
+        "url": "/maps/parkeerzones_uitz",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "pvg",
@@ -628,7 +931,13 @@
         "detailItem": "parkeerzones",
         "detailUrl": "geosearch/parkeerzones/",
         "detailIsShape": true,
-        "url": "/maps/parkeerzones"
+        "url": "/maps/parkeerzones",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "bgt",
@@ -637,7 +946,13 @@
         "layers": [
             "busbaan_geen_taxi"
         ],
-        "title": "Verbod lijnbusbaan"
+        "title": "Verbod lijnbusbaan",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "tar",
@@ -646,7 +961,13 @@
         "layers": [
             "taxiroutes"
         ],
-        "title": "Hoofdroutes taxi's"
+        "title": "Hoofdroutes taxi's",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "bespla",
@@ -659,7 +980,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "drahor",
@@ -672,7 +999,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "evever",
@@ -685,7 +1018,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "exploi",
@@ -698,7 +1037,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "inspra",
@@ -711,7 +1056,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "kapver",
@@ -724,7 +1075,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "ligpla",
@@ -737,7 +1094,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "medede",
@@ -750,7 +1113,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "meldin",
@@ -763,7 +1132,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "omgver",
@@ -776,7 +1151,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "onttre",
@@ -789,7 +1170,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "optijd",
@@ -802,7 +1189,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "rectif",
@@ -815,7 +1208,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "speela",
@@ -828,7 +1227,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "splits",
@@ -841,7 +1246,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "terras",
@@ -854,7 +1265,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "verbes",
@@ -867,7 +1284,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "verreg",
@@ -880,7 +1303,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "overig",
@@ -893,7 +1322,13 @@
         ],
         "url": "/maps/bekendmakingen",
         "detailUrl": "geosearch/search/",
-        "detailItem": "bekendmakingen"
+        "detailItem": "bekendmakingen",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "wlorst",
@@ -906,6 +1341,12 @@
         "params": {
             "width": 30,
             "height": 30
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
         }
     },
     {
@@ -919,6 +1360,12 @@
         "params": {
             "width": 30,
             "height": 30
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
         }
     },
     {
@@ -932,6 +1379,12 @@
         "params": {
             "width": 30,
             "height": 30
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
         }
     },
     {
@@ -945,6 +1398,12 @@
         "params": {
             "width": 30,
             "height": 30
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
         }
     },
     {
@@ -958,6 +1417,12 @@
         "params": {
             "width": 30,
             "height": 30
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
         }
     },
     {
@@ -971,31 +1436,49 @@
         "params": {
             "width": 30,
             "height": 30
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
         }
     },
     {
         "id": "mvlpgv105",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgvulpuntplaatsgebondenrisico105"
         ],
-        "title": "Plaatsgebonden risico 10-5"
+        "title": "Plaatsgebonden risico 10-5",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "tcmnmt",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/monumenten",
         "detailUrl": "geosearch/search/",
         "detailItem": "monument",
         "layers": [
             "monument_coordinaten"
         ],
-        "title": "Monument (pandgerelateerd)"
+        "title": "Monument (pandgerelateerd)",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "tcmnmtov",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/monumenten",
         "detailUrl": "geosearch/search/",
         "detailItem": "monument",
@@ -1006,52 +1489,82 @@
     },
     {
         "id": "mvlpgv106",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgvulpuntplaatsgebondenrisico106"
         ],
-        "title": "Plaatsgebonden risico 10-6"
+        "title": "Plaatsgebonden risico 10-6",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvlpgvgeb",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgvulpuntinvloedsgebied"
         ],
-        "title": "Invloedsgebied groepsrisico"
+        "title": "Invloedsgebied groepsrisico",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvlpga",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgafleverzuillocaties"
         ],
-        "title": "Locatie LPG-afleverzuil"
+        "title": "Locatie LPG-afleverzuil",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvlpgeb",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgafleverzuilplaatsgebondenrisico"
         ],
-        "title": "Plaatsgebonden risico (15 m)"
+        "title": "Plaatsgebonden risico (15 m)",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvlpgt",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgtankligging"
         ],
-        "title": "Ligging LPG-tank"
+        "title": "Ligging LPG-tank",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvlpgtris",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgtankplaatsgebondenrisico"
@@ -1060,69 +1573,111 @@
     },
     {
         "id": "mvlpgtgrp",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgtankinvloedsgebied",
             "lpgtankplaatsgebondenrisico",
             "lpgtankligging"
         ],
-        "title": "Invloedsgebied groepsrisico"
+        "title": "Invloedsgebied groepsrisico",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvlpgs",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgstationslocaties"
         ],
-        "title": "Locatie LPG-station"
+        "title": "Locatie LPG-station",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvlpgst",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "lpgstationcontouren",
             "lpgstationslocaties"
         ],
-        "title": "Contouren LPG-station"
+        "title": "Contouren LPG-station",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvbrgb",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "overigerisicobedrijfplaatsgebondenrisico106"
         ],
-        "title": "Plaatsgebonden risico 10-6"
+        "title": "Plaatsgebonden risico 10-6",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvbr",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "overigerisicobedrijfsbronnen"
         ],
-        "title": "Bron"
+        "title": "Bron",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvbdl",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "overigerisicobedrijfslocaties"
         ],
-        "title": "Bedrijf"
+        "title": "Bedrijf",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvbdc",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/externeveiligheid",
         "layers": [
             "overigerisicobedrijfscontouren"
         ],
-        "title": "Terrein"
+        "title": "Terrein",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvvo",
@@ -1130,7 +1685,13 @@
         "layers": [
             "milieu_veiligheid_vuurwerk"
         ],
-        "title": "Vuurwerkopslag"
+        "title": "Vuurwerkopslag",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvmo",
@@ -1138,7 +1699,13 @@
         "layers": [
             "milieu_veiligheid_munitie"
         ],
-        "title": "Munitieopslag"
+        "title": "Munitieopslag",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvgms",
@@ -1146,7 +1713,13 @@
         "layers": [
             "milieu_veiligheid_gasdrukregel_meetstation"
         ],
-        "title": "Gasdrukregel- en meetstation"
+        "title": "Gasdrukregel- en meetstation",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvsls",
@@ -1154,7 +1727,13 @@
         "layers": [
             "milieu_veiligheid_sluis"
         ],
-        "title": "Sluis"
+        "title": "Sluis",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvwp",
@@ -1162,7 +1741,13 @@
         "layers": [
             "milieu_veiligheid_wachtplaats"
         ],
-        "title": "Wachtplaats"
+        "title": "Wachtplaats",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mvbs",
@@ -1170,25 +1755,43 @@
         "layers": [
             "milieu_veiligheid_bunkerschepen"
         ],
-        "title": "Bunkerschip"
+        "title": "Bunkerschip",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mgpindg",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/planologischegeluidszones",
         "layers": [
             "gezoneerdindustrieterrein"
         ],
-        "title": "Gezoneerd industrieterrein"
+        "title": "Gezoneerd industrieterrein",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "mgpindgz",
-        "notSelectable": true,
+        "selectable": false,
         "url": "/maps/planologischegeluidszones",
         "layers": [
             "geluidzoneindustrieterrein"
         ],
-        "title": "Geluidzone industrieterrein"
+        "title": "Geluidzone industrieterrein",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "tariffA",
@@ -1201,7 +1804,13 @@
         },
         "url": "/maps/reclame",
         "detailUrl": "geosearch/reclamebelasting/",
-        "detailItem": "reclamebelasting"
+        "detailItem": "reclamebelasting",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "tariffB",
@@ -1214,7 +1823,13 @@
         },
         "url": "/maps/reclame",
         "detailUrl": "geosearch/reclamebelasting/",
-        "detailItem": "reclamebelasting"
+        "detailItem": "reclamebelasting",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "tariffC",
@@ -1227,7 +1842,13 @@
         },
         "url": "/maps/reclame",
         "detailUrl": "geosearch/reclamebelasting/",
-        "detailItem": "reclamebelasting"
+        "detailItem": "reclamebelasting",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
     },
     {
         "id": "kdstrl",
@@ -1363,6 +1984,7 @@
             }
         ],
         "title": "Gemeentelijke beperkingen (WKPB)",
+        "minZoom": 13,
         "meta": {
             "description": null,
             "theme": null,
@@ -1833,7 +2455,8 @@
         "id": "mzt",
         "layers": [
             "milieuzones"
-        ],"imageRule": "Taxi",
+        ],
+        "imageRule": "Taxi",
         "title": "Milieuzones - Taxi",
         "url": "/maps/milieuzones",
         "params": {
@@ -1850,7 +2473,8 @@
         "id": "mztc",
         "layers": [
             "milieuzones"
-        ], "imageRule": "Touringcar",
+        ],
+        "imageRule": "Touringcar",
         "title": "Milieuzones - Touringcar",
         "url": "/maps/milieuzones",
         "params": {
@@ -1867,7 +2491,7 @@
         "id": "mzva",
         "layers": [
             "milieuzones"
-        ], 
+        ],
         "imageRule": "Vrachtauto",
         "title": "Milieuzones - Vrachtauto",
         "url": "/maps/milieuzones",
@@ -2059,8 +2683,7 @@
         ],
         "title": "Algemene overlastgebieden",
         "url": "/maps/overlastgebieden",
-
-                "imageRule": "Algemeen overlastgebied",
+        "imageRule": "Algemeen overlastgebied",
         "meta": {
             "description": null,
             "theme": null,
@@ -2076,9 +2699,7 @@
         ],
         "title": "Dealeroverlastgebieden",
         "url": "/maps/overlastgebieden",
- 
-                "imageRule": "Dealeroverlastgebied"
-    ,
+        "imageRule": "Dealeroverlastgebied",
         "meta": {
             "description": null,
             "theme": null,
@@ -2092,8 +2713,7 @@
             "cameratoezichtgebied",
             "cameratoezichtgebied_label"
         ],
-"imageRule": "Cameratoezichtgebied"
-,
+        "imageRule": "Cameratoezichtgebied",
         "title": "Cameratoezichtgebieden",
         "url": "/maps/overlastgebieden",
         "meta": {
@@ -2109,9 +2729,7 @@
             "alcoholverbodsgebied",
             "alcoholverbodsgebied_label"
         ],
-
-                "imageRule": "Alcoholverbodsgebied"
-           ,
+        "imageRule": "Alcoholverbodsgebied",
         "title": "Alcoholverbodsgebieden",
         "url": "/maps/overlastgebieden",
         "meta": {
@@ -2329,7 +2947,8 @@
         "id": "bros",
         "layers": [
             "cpt"
-        ],"iconUrl": "/assets/images/map-legend/icon-bro-sondering.png",
+        ],
+        "iconUrl": "/assets/images/map-legend/icon-bro-sondering.png",
         "title": "Geotechnische sonderingen (CPT BRO)",
         "url": "https://geodata.nationaalgeoregister.nl/brocpt/wms?",
         "external": true,
@@ -3452,6 +4071,263 @@
         "url": "/maps/handelsregister",
         "detailUrl": "handelsregister/geosearch/",
         "detailItem": "overige",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "pano2020woz",
+        "layers": [
+            "panorama_new"
+        ],
+        "minZoom": 11,
+        "title": "Panoramabeelden - 2020 WOZ",
+        "imageRule": "2020",
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2020,
+            "mission_type": "woz",
+            "scale": 800
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "pano2020bi",
+        "layers": [
+            "panorama_new"
+        ],
+        "imageRule": "2020",
+        "minZoom": 11,
+        "title": "Panoramabeelden - 2020",
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2020,
+            "mission_type": "bi",
+            "scale": 800
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "pano2019woz",
+        "layers": [
+            "panorama_new"
+        ],
+        "minZoom": 11,
+        "title": "Panoramabeelden - 2019 WOZ",
+        "imageRule": "2019",
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2019,
+            "mission_type": "woz",
+            "scale": 800
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "pano2019bi",
+        "layers": [
+            "panorama_new"
+        ],
+        "imageRule": "2019",
+        "minZoom": 11,
+        "title": "Panoramabeelden - 2019",
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2019,
+            "mission_type": "bi",
+            "scale": 800
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "pano2018woz",
+        "layers": [
+            "panorama_new"
+        ],
+        "minZoom": 11,
+        "title": "Panoramabeelden - 2018 WOZ",
+        "imageRule": "2018",
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2018,
+            "mission_type": "woz",
+            "scale": 800
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "pano2018bi",
+        "layers": [
+            "panorama_new"
+        ],
+        "imageRule": "2018",
+        "minZoom": 11,
+        "title": "Panoramabeelden - 2018",
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2018,
+            "mission_type": "bi",
+            "scale": 800
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "pano2017woz",
+        "layers": [
+            "panorama_new"
+        ],
+        "minZoom": 11,
+        "title": "Panoramabeelden - 2017 WOZ",
+        "imageRule": "2017",
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2017,
+            "mission_type": "woz",
+            "scale": 800
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "pano2017bi",
+        "layers": [
+            "panorama_new"
+        ],
+        "imageRule": "2017",
+        "minZoom": 11,
+        "title": "Panoramabeelden - 2017",
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2017,
+            "mission_type": "bi",
+            "scale": 800
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "pano2016bi",
+        "layers": [
+            "panorama_new"
+        ],
+        "imageRule": "2016",
+        "minZoom": 11,
+        "title": "Panoramabeelden - 2016",
+        "url": "/maps/panorama",
+        "params": {
+            "mission_year": 2016,
+            "mission_type": "bi",
+            "scale": 800
+        },
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "panobi",
+        "layers": [
+            "panorama_new"
+        ],
+        "legendItems": [
+            {
+                "id": "pano2020bi",
+                "title": "2020"
+            },
+            {
+                "id": "pano2019bi",
+                "title": "2019"
+            },
+            {
+                "id": "pano2018bi",
+                "title": "2018"
+            },
+            {
+                "id": "pano2017bi",
+                "title": "2017"
+            },
+            {
+                "id": "pano2016bi",
+                "title": "2016"
+            }
+        ],
+        "minZoom": 11,
+        "title": "Panoramabeelden",
+        "meta": {
+            "description": null,
+            "theme": null,
+            "datasetId": null,
+            "date": null
+        }
+    },
+    {
+        "id": "panowoz",
+        "layers": [
+            "panorama_new"
+        ],
+        "legendItems": [
+            {
+                "id": "pano2020woz",
+                "title": "2020 WOZ"
+            },
+            {
+                "id": "pano2019woz",
+                "title": "2019 WOZ"
+            },
+            {
+                "id": "pano2018woz",
+                "title": "2018 WOZ"
+            },
+            {
+                "id": "pano2017woz",
+                "title": "2017 WOZ"
+            }
+        ],
+        "minZoom": 11,
+        "title": "Panoramabeelden - WOZ",
         "meta": {
             "description": null,
             "theme": null,

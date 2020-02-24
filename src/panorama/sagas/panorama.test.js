@@ -12,7 +12,7 @@ import {
 } from './panorama'
 import { fetchPanoramaRequest } from '../ducks/actions'
 import { getImageDataById, getImageDataByLocation } from '../services/panorama-api/panorama-api'
-import { TOGGLE_MAP_OVERLAY_PANORAMA } from '../../map/ducks/map/constants'
+import { TOGGLE_MAP_OVERLAY } from '../../map/ducks/map/constants'
 import { closeMapPanel } from '../../map/ducks/map/actions'
 import { toMap } from '../../store/redux-first-router/actions'
 import { getLocationPayload } from '../../store/redux-first-router/selectors'
@@ -120,8 +120,8 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
         .select(getLocationPayload)
         .next({ id: 'newId' })
         .put({
-          type: TOGGLE_MAP_OVERLAY_PANORAMA,
-          payload: 'pano',
+          type: TOGGLE_MAP_OVERLAY,
+          payload: { id: 'pano' },
         })
         .next()
         .put({
@@ -151,8 +151,8 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
         .select(getLocationPayload)
         .next({ id: 'oldId' })
         .put({
-          type: TOGGLE_MAP_OVERLAY_PANORAMA,
-          payload: 'pano',
+          type: TOGGLE_MAP_OVERLAY,
+          payload: { id: 'pano' },
         })
         .next()
         .select(getMapCenter)

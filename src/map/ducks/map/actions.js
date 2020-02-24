@@ -1,4 +1,3 @@
-import { getLabelObjectByTags } from '../../../panorama/ducks/selectors'
 import { normalizeCoordinate } from '../../../shared/services/coordinate-reference-system'
 import {
   MAP_EMPTY_GEOMETRY,
@@ -11,7 +10,6 @@ import {
   CLOSE_MAP_PANEL,
   SET_MAP_BASE_LAYER,
   TOGGLE_MAP_OVERLAY,
-  TOGGLE_MAP_OVERLAY_PANORAMA,
   TOGGLE_MAP_OVERLAY_VISIBILITY,
   MAP_PAN,
   SET_MAP_CLICK_LOCATION,
@@ -46,18 +44,13 @@ export const toggleMapOverlay = payload => ({
   type: TOGGLE_MAP_OVERLAY,
   payload: {
     mapLayers:
-      payload.legendItems.some(({ selectable }) => selectable) && payload.legendItems.length > 0
+      payload.legendItems?.some(({ selectable }) => selectable) && payload.legendItems.length > 0
         ? payload.legendItems.map(overlay => overlay.id)
         : [payload.id],
   },
   meta: {
     tracking: payload,
   },
-})
-
-export const toggleMapOverlayPanorama = tags => ({
-  type: TOGGLE_MAP_OVERLAY_PANORAMA,
-  payload: getLabelObjectByTags(tags).layerId,
 })
 
 export const toggleMapOverlayVisibility = (mapLayerId, isVisible) => ({

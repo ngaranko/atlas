@@ -13,52 +13,52 @@ export const FETCH_PANORAMA_REQUEST_EXTERNAL = `${REDUCER_KEY}/FETCH_PANORAMA_RE
 
 export const PANO_LABELS = [
   {
-    layerId: 'pano',
+    layerId: 'panobi',
     label: 'Meest recent',
     tags: ['mission-bi'],
   },
   {
-    layerId: 'pano2020bi',
+    layerId: 'pano-pano2020bi',
     label: 'Alleen 2020',
     tags: ['mission-bi', 'mission-2020'],
   },
   {
-    layerId: 'pano2019bi',
+    layerId: 'pano-pano2019bi',
     label: 'Alleen 2019',
     tags: ['mission-bi', 'mission-2019'],
   },
   {
-    layerId: 'pano2018bi',
+    layerId: 'pano-pano2018bi',
     label: 'Alleen 2018',
     tags: ['mission-bi', 'mission-2018'],
   },
   {
-    layerId: 'pano2017bi',
+    layerId: 'pano-pano2017bi',
     label: 'Alleen 2017',
     tags: ['mission-bi', 'mission-2017'],
   },
   {
-    layerId: 'pano2016bi',
+    layerId: 'pano-pano2016bi',
     label: 'Alleen 2016',
     tags: ['mission-bi', 'mission-2016'],
   },
   {
-    layerId: 'pano2020woz',
+    layerId: 'pano-pano2020woz',
     label: 'Alleen 2020 WOZ',
     tags: ['mission-woz', 'mission-2020'],
   },
   {
-    layerId: 'pano2019woz',
+    layerId: 'pano-pano2019woz',
     label: 'Alleen 2019 WOZ',
     tags: ['mission-woz', 'mission-2019'],
   },
   {
-    layerId: 'pano2018woz',
+    layerId: 'pano-pano2018woz',
     label: 'Alleen 2018 WOZ',
     tags: ['mission-woz', 'mission-2018'],
   },
   {
-    layerId: 'pano2017woz',
+    layerId: 'pano-pano2017woz',
     label: 'Alleen 2017 WOZ',
     tags: ['mission-woz', 'mission-2017'],
   },

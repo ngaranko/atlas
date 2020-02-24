@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const MapLayers = ({ mapCollections, activeMapLayers, onLayerToggle }) => (
+const MapLayers = ({ panelLayers, activeMapLayers, onLayerToggle }) => (
   <div className="map-layers">
     <h3 className="u-sr-only">Beschikbare kaartlagen</h3>
     <ul>
-      {mapCollections.map(({ id, title, mapLayers }) => (
+      {panelLayers.map(({ id, title, mapLayers }) => (
         <li className="map-layers__category" key={id}>
           <h4 className="map-layers__category-text">{title}</h4>
           <ul>
@@ -37,7 +37,7 @@ const MapLayers = ({ mapCollections, activeMapLayers, onLayerToggle }) => (
 
 MapLayers.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
-  layers: PropTypes.array, // eslint-disable-line
+  panelLayers: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
 }
 

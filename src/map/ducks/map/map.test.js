@@ -1,4 +1,4 @@
-import { initialState, TOGGLE_MAP_OVERLAY_PANORAMA } from './constants'
+import { initialState, TOGGLE_MAP_OVERLAY } from './constants'
 import {
   mapClear,
   mapEmptyGeometry,
@@ -205,25 +205,18 @@ describe('Map Reducer', () => {
     })
   })
 
-  it(`should add a pano overlay when dispatching ${TOGGLE_MAP_OVERLAY_PANORAMA}`, () => {
+  it(`should add a pano overlay when dispatching ${TOGGLE_MAP_OVERLAY}`, () => {
     expect(
       reducer(
         { overlays: [] },
         {
-          type: TOGGLE_MAP_OVERLAY_PANORAMA,
-          payload: 'pano',
+          type: TOGGLE_MAP_OVERLAY,
+          payload: { id: 'pano' },
         },
       ),
     ).toEqual({
       overlays: [{ id: 'pano', isVisible: true }],
     })
-
-    // expect(reducer({ overlays: [{ id: 'pano' }] }, {
-    //   type: TOGGLE_MAP_OVERLAY_PANORAMA,
-    //   payload: 'pano'
-    // })).toEqual({
-    //   overlays: []
-    // });
   })
 
   it('should toggle the overlay visibility with and without show action', () => {
