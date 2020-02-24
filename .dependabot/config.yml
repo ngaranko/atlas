@@ -18,3 +18,7 @@ update_configs:
           dependency_name: "redux-saga"
       - match:
           dependency_name: "jest-styled-components"
+      - match:
+          dependency_name: "escape-string-regexp"
+      - match:
+          dependency_name: "marked"
