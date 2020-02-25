@@ -68,30 +68,15 @@
             },
             {
                 "id": "nap"
-            }
-        ],
-        "meta": {
-            "description": null,
-            "theme": [],
-            "datasetId": null,
-            "date": null
-        }
-    },
-    {
-        "id": "id4",
-        "title": "Meetbouten",
-        "mapLayers": [
-            {
-                "id": "mbs",
-                "title": "Status"
             },
             {
-                "id": "mbz",
-                "title": "Zaksnelheid"
+                "id": "mbs"
             },
             {
-                "id": "mbr",
-                "title": "Referentiepunten"
+                "id": "mbz"
+            },
+            {
+                "id": "mbr"
             }
         ],
         "meta": {

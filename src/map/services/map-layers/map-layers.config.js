@@ -77,7 +77,8 @@ const mapPanelLayers = mapCollections.map(mapCollection => {
         authScope,
         category: category ? mapThemes[category] : null,
         disabled,
-        id,
+        // The ID of the mapLayer, is a combination of the IDs of the mapLayer and the collection it's used in to prevent duplication
+        id: `${mapCollection.id}-${id}`,
         layers,
         maxZoom,
         minZoom,

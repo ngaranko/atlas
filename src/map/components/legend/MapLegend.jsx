@@ -60,7 +60,8 @@ class MapLegend extends React.Component {
   toggleLayerVisibility(mapLayer, isVisible) {
     const { onLayerVisibilityToggle } = this.props
 
-    return mapLayer.legendItems.length > 0
+    // When the legendItems itself are selectable, the legendItems can be toggled on/off individually
+    return mapLayer.legendItems?.some(({ selectable }) => Boolean(selectable))
       ? mapLayer.legendItems.map(legendItem => onLayerVisibilityToggle(legendItem.id, isVisible))
       : onLayerVisibilityToggle(mapLayer.id, isVisible)
   }
