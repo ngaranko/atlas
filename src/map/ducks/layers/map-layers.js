@@ -16,10 +16,10 @@ const initialState = {
 
 export const findLayer = (layers, id) =>
   layers.find(mapLayer => {
-    const mapLayerID = id.split('-')
+    const mapLayerId = id.split('-')
 
-    // The ID of the mapLayer when defined as legendItem, is a combination of the IDs of the mapLayer and the collection it's used in
-    return mapLayer.id === (mapLayerID[1] || mapLayerID[0])
+    // The ID of the mapLayer when defined as part of a collection or as legendItem, is a combination of the IDs of the mapLayer and the collection it's used in
+    return mapLayer.id === (mapLayerId[1] || mapLayerId[0])
   })
 
 const generateLayer = (layers, overlay, url, params, type, bounds) => ({

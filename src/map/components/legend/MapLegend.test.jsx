@@ -34,7 +34,7 @@ describe('MapLegend', () => {
             title: 'legendTitle',
             layer: 'layer',
             iconUrl: 'iconUrl',
-            selectable: true,
+            selectable: false,
           },
         ],
       },
@@ -44,8 +44,6 @@ describe('MapLegend', () => {
         maxZoom: 3,
         minZoom: 1,
         authScope: false,
-        url: 'url',
-        layers: ['maplayer2'],
         legendItems: [
           {
             id: 2,
@@ -59,7 +57,7 @@ describe('MapLegend', () => {
             title: 'legendTitle',
             layer: false,
             iconUrl: false,
-            selectable: false,
+            selectable: true,
           },
         ],
       },
@@ -107,10 +105,10 @@ describe('MapLegend', () => {
 
     // With legendaItems
     component.instance().toggleLayerVisibility(props.activeMapLayers[0])
-    expect(onLayerVisibilityToggleMock).toHaveBeenCalled()
+    expect(onLayerVisibilityToggleMock).toHaveBeenCalledTimes(1)
 
     // Without legendaItems
     component.instance().toggleLayerVisibility(props.activeMapLayers[1])
-    expect(onLayerVisibilityToggleMock).toHaveBeenCalledTimes(2)
+    expect(onLayerVisibilityToggleMock).toHaveBeenCalledTimes(3)
   })
 })

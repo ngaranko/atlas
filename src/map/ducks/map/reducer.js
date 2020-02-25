@@ -135,6 +135,7 @@ export default function MapReducer(state = initialState, action) {
     case MAP_CLEAR:
       return {
         ...enrichedState,
+        overlays: initialState.overlays,
         drawingMode: initialState.drawingMode,
         shapeMarkers: initialState.shapeMarkers,
         shapeDistanceTxt: initialState.shapeDistanceTxt,

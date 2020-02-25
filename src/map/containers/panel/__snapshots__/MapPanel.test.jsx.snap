@@ -72,8 +72,8 @@ exports[`MapPanel should render MapLegend if store contains active map layers 1`
             Object {},
           ]
         }
-        layers={Array []}
         onLayerToggle={[Function]}
+        panelLayers={Array []}
       />
     </MapPanelHandle>
   </div>
@@ -132,8 +132,8 @@ exports[`MapPanel should render MapType and MapLayers 1`] = `
       />
       <MapLayers
         activeMapLayers={Array []}
-        layers={Array []}
         onLayerToggle={[Function]}
+        panelLayers={Array []}
       />
     </MapPanelHandle>
   </div>
@@ -148,7 +148,6 @@ exports[`MapPanel should render the container 1`] = `
   isMapPanelVisible={true}
   map={Object {}}
   mapBaseLayers={Object {}}
-  mapLayers={Array []}
   onBaseLayerToggle={[Function]}
   onLayerToggle={[Function]}
   onLayerVisibilityToggle={[Function]}
@@ -161,6 +160,7 @@ exports[`MapPanel should render the container 1`] = `
       },
     ]
   }
+  panelLayers={Array []}
   printMode={false}
   store={
     Object {

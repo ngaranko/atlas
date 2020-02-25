@@ -7,7 +7,7 @@ import {
   getPanoramaTags,
   getLabelObjectByTags,
 } from '../ducks/selectors'
-import { closeMapPanel, toggleMapOverlay } from '../../map/ducks/map/actions'
+import { closeMapPanel, toggleMapOverlay, mapClear } from '../../map/ducks/map/actions'
 import { getImageDataById, getImageDataByLocation } from '../services/panorama-api/panorama-api'
 import { toDataDetail, toGeoSearch, toPanorama } from '../../store/redux-first-router/actions'
 import { getLocationPayload } from '../../store/redux-first-router/selectors'
@@ -38,9 +38,10 @@ export function* handlePanoramaRequest(fn, input, tags) {
     const { id } = yield select(getLocationPayload)
 
     // Transform the tags to the mapLayer ID
-    const { layerId } = getLabelObjectByTags(tags)
+    const { layer } = getLabelObjectByTags(tags)
 
-    yield put(toggleMapOverlay({ id: layerId }))
+    yield put(mapClear())
+    yield put(toggleMapOverlay(layer))
 
     if (id && id !== panoramaData.id) {
       const viewCenter = yield select(getMapCenter)

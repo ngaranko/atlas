@@ -1,4 +1,4 @@
-import { initialState, TOGGLE_MAP_OVERLAY } from './constants'
+import { initialState } from './constants'
 import {
   mapClear,
   mapEmptyGeometry,
@@ -26,6 +26,7 @@ describe('Map Reducer', () => {
     const state = { shapeMarkers: 2 }
     expect(reducer(state, mapClear())).toEqual({
       ...state,
+      overlays: initialState.overlays,
       drawingMode: initialState.drawingMode,
       shapeMarkers: initialState.shapeMarkers,
       shapeDistanceTxt: initialState.shapeDistanceTxt,
@@ -184,11 +185,23 @@ describe('Map Reducer', () => {
       overlays: [{ id: '1' }, { id: '2' }, { id: '3' }],
     }
 
-    const newOverlay = {
-      legendItems: [{ id: '3' }],
+    let newOverlay = {
+      legendItems: [{ id: '3', selectable: true }],
     }
+
+    // The legendItem is selectable, so must be removed
     expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
       overlays: [{ id: '1' }, { id: '2' }],
+    })
+
+    newOverlay = {
+      id: '2',
+      legendItems: [{ id: '3', selectable: false }],
+    }
+
+    // The legendItem is NOT selectable, so the parent must be removed
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
+      overlays: [{ id: '1' }, { id: '3' }],
     })
   })
 
@@ -197,25 +210,23 @@ describe('Map Reducer', () => {
       overlays: [{ id: '2' }, { id: '3' }],
     }
 
-    const newOverlay = {
-      legendItems: [{ id: '4' }],
+    let newOverlay = {
+      legendItems: [{ id: '4', selectable: true }],
     }
+
+    // The legendItem is selectable, so must be added
     expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
       overlays: [{ id: '2' }, { id: '3' }, { id: '4', isVisible: true }],
     })
-  })
 
-  it(`should add a pano overlay when dispatching ${TOGGLE_MAP_OVERLAY}`, () => {
-    expect(
-      reducer(
-        { overlays: [] },
-        {
-          type: TOGGLE_MAP_OVERLAY,
-          payload: { id: 'pano' },
-        },
-      ),
-    ).toEqual({
-      overlays: [{ id: 'pano', isVisible: true }],
+    newOverlay = {
+      id: '1',
+      legendItems: [{ id: '3', selectable: false }],
+    }
+
+    // The legendItem is NOT selectable, so the parent must be added
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
+      overlays: [{ id: '2' }, { id: '3' }, { id: '1', isVisible: true }],
     })
   })
 

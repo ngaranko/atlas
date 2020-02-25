@@ -90,7 +90,7 @@ const mapPanelLayers = mapCollections.map(mapCollection => {
         legendItems: legendItems
           ? legendItems.map(legendItem => {
               const legendItemLayer = mapLayers.find(mapLayer => mapLayer.id === legendItem.id)
-              const selectable = legendItem.selectable || legendItem.id
+              const selectable = legendItem.selectable || legendItem.id || false
 
               return {
                 ...(legendItemLayer || legendItem),

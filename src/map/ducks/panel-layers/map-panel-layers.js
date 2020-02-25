@@ -25,9 +25,9 @@ export const getActiveMapLayers = ({ map, mapLayers, user }) =>
 export const getPanelLayers = state => state.mapLayers.panelLayers?.items || []
 
 // Selector to get the mapLayers from the collections in the redux state
-export const getMapPanelLayers = createSelector(getPanelLayers, panelCollections =>
-  panelCollections.length > 0
-    ? panelCollections.reduce((acc, cur) => {
+export const getMapPanelLayers = createSelector(getPanelLayers, panelLayers =>
+  panelLayers.length > 0
+    ? panelLayers.reduce((acc, cur) => {
         if (cur.mapLayers) {
           return [...acc, ...cur.mapLayers]
         }
@@ -43,7 +43,7 @@ export const selectActivePanelLayers = createSelector(
 
     return panelLayers
       .filter(mapLayer =>
-        [mapLayer.id, ...mapLayer.legendItems.map(legendItem => legendItem.id)]
+        [mapLayer.id, ...(mapLayer.legendItems?.map(legendItem => legendItem.id) || [])]
           .filter(mapLayerId => Boolean(mapLayerId))
           .some(mapLayerId => mapLayerIds.includes(mapLayerId)),
       )
