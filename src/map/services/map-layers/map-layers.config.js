@@ -45,7 +45,6 @@ import MAP_CONFIG from '../map.config'
 
 const mapLayers = require('../../../../public/static/map/map-layers.config.json')
 const mapCollections = require('../../../../public/static/map/map-collections.config.json')
-const mapThemes = require('../../../../public/static/map/map-themes.config.json')
 const mapBaseLayers = require('../../../../public/static/map/map-base-layers.config.json')
 
 export const MAP_LAYER_TYPES = {
@@ -60,7 +59,6 @@ const mapPanelLayers = mapCollections.map(mapCollection => {
     mapLayers: mapCollection.mapLayers.map(({ id, title }) => {
       const {
         authScope = '',
-        category,
         disabled,
         layers = [],
         legendItems,
@@ -75,7 +73,6 @@ const mapPanelLayers = mapCollections.map(mapCollection => {
 
       return {
         authScope,
-        category: category ? mapThemes[category] : null,
         disabled,
         // The ID of the mapLayer, is a combination of the IDs of the mapLayer and the collection it's used in to prevent duplication
         id: `${mapCollection.id}-${id}`,
@@ -94,6 +91,8 @@ const mapPanelLayers = mapCollections.map(mapCollection => {
 
               return {
                 ...(legendItemLayer || legendItem),
+                imageRule: legendItem.imageRule || legendItemLayer?.imageRule,
+                title: legendItem.title || legendItemLayer?.title,
                 // The ID of the mapLayer when defined as legendItem, is a combination of the IDs of the mapLayer and the collection it's used in to prevent duplication
                 id: selectable ? `${mapCollection.id}-${legendItem.id}` : null,
                 selectable,

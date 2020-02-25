@@ -523,7 +523,8 @@
             "bouwblok",
             "bouwblok_label"
         ],
-        "title": "Bouwblok",
+        "title": "Bouwblokken",
+        "imageRule": "Bouwblok",
         "minZoom": 12,
         "url": "/maps/gebieden",
         "detailUrl": "geosearch/search/",
