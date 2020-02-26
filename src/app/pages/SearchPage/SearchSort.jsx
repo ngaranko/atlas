@@ -3,7 +3,7 @@ import styled from '@datapunt/asc-core'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 import { breakpoint, Label, Select, themeColor, themeSpacing } from '@datapunt/asc-ui'
 import { useDispatch } from 'react-redux'
-import { setSort } from './SearchPageDucks'
+import { setSort, setPage } from './SearchPageDucks'
 
 const SelectboxWrapper = styled.div`
   display: flex;
@@ -44,6 +44,7 @@ const SearchSort = ({ sort, isOverviewPage, disabled }) => {
       <StyledLabel htmlFor="sort-select" label="Sorteren:" position="left">
         <StyledSelect
           id="sort-select"
+          data-testid="sort-select"
           value={sort}
           disabled={disabled}
           onChange={e => {
@@ -53,13 +54,26 @@ const SearchSort = ({ sort, isOverviewPage, disabled }) => {
               name: e.target.value,
             })
             dispatch(setSort(e.target.value))
+            dispatch(setPage(1))
           }}
         >
-          {!isOverviewPage && <option value="">Relevantie</option>}
-          <option value={!isOverviewPage ? 'date:desc' : ''}>Publicatiedatum aflopend</option>
-          <option value="date:asc">Publicatiedatum oplopend</option>
-          <option value="title:asc">Titel A-Z</option>
-          <option value="title:desc">Titel Z-A</option>
+          {!isOverviewPage && (
+            <option key={1} value="">
+              Relevantie
+            </option>
+          )}
+          <option key={2} value={!isOverviewPage ? 'date:desc' : ''}>
+            Publicatiedatum aflopend
+          </option>
+          <option key={3} value="date:asc">
+            Publicatiedatum oplopend
+          </option>
+          <option key={4} value="title:asc">
+            Titel A-Z
+          </option>
+          <option key={5} value="title:desc">
+            Titel Z-A
+          </option>
         </StyledSelect>
       </StyledLabel>
     </SelectboxWrapper>

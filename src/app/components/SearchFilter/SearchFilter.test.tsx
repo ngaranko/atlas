@@ -95,6 +95,7 @@ describe('SearchFilter', () => {
 
     fireEvent.click(inputNodeOne)
     expect(ducks.setFilterValues).toBeCalledWith('group', ['one'])
+    expect(ducks.setPage).toBeCalledWith(1) // And reset the page number
   })
 
   it('should handle changes in selection for radio buttons', () => {
@@ -106,6 +107,7 @@ describe('SearchFilter', () => {
 
     fireEvent.click(inputNodeOne)
     expect(ducks.setFilterValues).toBeCalledWith('group', ['one'])
+    expect(ducks.setPage).toBeCalledWith(1) // And reset the page number
   })
 
   it('should handle changes in selection for a select', () => {
@@ -117,6 +119,7 @@ describe('SearchFilter', () => {
 
     fireEvent.click(inputNodeOne)
     expect(ducks.setFilterValues).toBeCalledWith('group', ['one'])
+    expect(ducks.setPage).toBeCalledWith(1) // And reset the page number
   })
 
   describe('getFilterComponent', () => {
