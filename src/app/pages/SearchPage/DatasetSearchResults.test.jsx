@@ -23,7 +23,7 @@ describe('DatasetSearchResults', () => {
   })
 
   it('shows a list of card components', () => {
-    const component = shallow(<DatasetSearchResults results={[1, 2, 3]} />)
+    const component = shallow(<DatasetSearchResults results={[1, 2, 3]} errors={[]} />)
 
     expect(component.find('NoSearchResults').exists()).toBeFalsy()
 
@@ -42,6 +42,7 @@ describe('DatasetSearchResults', () => {
             modified: 'ererer',
           },
         ]}
+        errors={[]}
       />,
     )
 
@@ -58,7 +59,7 @@ describe('DatasetSearchResults', () => {
   })
 
   it('shows a button to add a new dataset', () => {
-    let component = shallow(<DatasetSearchResults isOverviewPage results={[1, 2, 3]} />)
+    let component = shallow(<DatasetSearchResults isOverviewPage results={[1, 2, 3]} errors={[]} />)
 
     expect(component.find('[data-test="ActionButton"]').exists()).toBeFalsy()
 
@@ -68,13 +69,13 @@ describe('DatasetSearchResults', () => {
       },
     }))
 
-    component = shallow(<DatasetSearchResults isOverviewPage results={[1, 2, 3]} />)
+    component = shallow(<DatasetSearchResults isOverviewPage results={[1, 2, 3]} errors={[]} />)
 
     expect(component.find('[data-test="ActionButton"]').exists()).toBeTruthy()
   })
 
   it('shows the no results component', () => {
-    const component = shallow(<DatasetSearchResults />)
+    const component = shallow(<DatasetSearchResults results={[]} errors={[]} />)
 
     expect(component.find('NoSearchResults').exists()).toBeTruthy()
   })

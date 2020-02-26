@@ -1,12 +1,14 @@
-import React from 'react'
 import styled from '@datapunt/asc-core'
 import { themeSpacing } from '@datapunt/asc-ui'
-import SEARCH_PAGE_CONFIG, { QUERY_TYPES } from './config'
-import SearchHeading from '../../components/SearchHeading/SearchHeading'
+import React from 'react'
+import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
+import ErrorMessage from '../../components/HomePage/ErrorMessage'
 import SearchLink from '../../components/Links/SearchLink/SearchLink'
 import NoSearchResults from '../../components/NoSearchResults'
-import ErrorMessage from '../../components/HomePage/ErrorMessage'
-import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
+import SearchHeading from '../../components/SearchHeading/SearchHeading'
+import getErrorsForPath from '../../utils/getErrorsForPath'
+import getLoadingErrors from '../../utils/getLoadingErrors'
+import SEARCH_PAGE_CONFIG, { QUERY_TYPES } from './config'
 
 const ResultsComponent = styled.div`
   margin-bottom: ${themeSpacing(8)};
@@ -28,23 +30,14 @@ const SearchResultsOverview = ({ query, totalCount, results, errors, loading }) 
       if (resultItemType) {
         const { label, component: ResultComponent, to, type } = SEARCH_PAGE_CONFIG[resultItemType]
 
-        const hasLoadingError =
-          errors &&
-          errors.find(
-            ({ query: errorResolver, code }) =>
-              errorResolver === SEARCH_PAGE_CONFIG[resultItemType].resolver &&
-              code !== 'UNAUTHORIZED',
-          )
-
-        const hasNoMatchingFilters =
-          errors &&
-          !!errors.find(
-            ({ query: errorResolver, message }) =>
-              errorResolver === SEARCH_PAGE_CONFIG[resultItemType].resolver &&
-              // Todo: add code to error in cms_search
-              message === 'The entered type(s) does not exist',
-          )
-
+        const matchingErrors = getErrorsForPath(errors, [
+          SEARCH_PAGE_CONFIG[resultItemType].resolver,
+        ])
+        const hasLoadingError = getLoadingErrors(matchingErrors).length > 0
+        // TODO: This statement should match the error code instead, needs to be implemented in the API.
+        const hasNoMatchingFilters = errors.some(
+          err => err.message === 'The entered type(s) does not exist',
+        )
         const hasResults = resultItemTotalCount > 0
 
         return hasResults || (!!hasLoadingError && !hasNoMatchingFilters) ? (

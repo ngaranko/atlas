@@ -1,20 +1,20 @@
-import React, { ReactElement } from 'react'
+import { Close } from '@datapunt/asc-assets'
 import styled from '@datapunt/asc-core'
 import {
-  themeSpacing,
+  breakpoint,
   Button,
+  Column,
+  Heading,
   Modal,
   Spinner,
-  breakpoint,
-  Column,
   themeColor,
+  themeSpacing,
   TopBar,
-  Heading,
 } from '@datapunt/asc-ui'
-import { Close } from '@datapunt/asc-assets'
-import SearchFilter from '../../components/SearchFilter'
-import { Filter } from '../../models'
+import React, { ReactElement } from 'react'
 import PageFilterBox from '../../components/PageFilterBox/PageFilterBox'
+import SearchFilter from '../../components/SearchFilter'
+import { Filter } from '../../models/filter'
 
 interface SearchPageFiltersProps {
   filters: Filter[]

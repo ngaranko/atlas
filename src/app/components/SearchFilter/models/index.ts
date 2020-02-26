@@ -1,4 +1,4 @@
-import { FilterOption } from '../../../models'
+import { FilterOption } from '../../../models/filter'
 
 export interface FilterProps {
   type: string
