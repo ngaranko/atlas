@@ -53,7 +53,7 @@ class MapLegend extends React.Component {
   determineLegendItemVisibility(legendItem) {
     const { overlays } = this.props
     return overlays.some(
-      overlay => (overlay.id === legendItem.id && overlay.isVisible) || !legendItem.selectable,
+      overlay => (overlay.id === legendItem.id && overlay.isVisible) || legendItem.notSelectable,
     )
   }
 
@@ -61,7 +61,7 @@ class MapLegend extends React.Component {
     const { onLayerVisibilityToggle } = this.props
 
     // When the legendItems itself are selectable, the legendItems can be toggled on/off individually
-    return mapLayer.legendItems?.some(({ selectable }) => Boolean(selectable))
+    return mapLayer.legendItems?.some(({ notSelectable }) => !notSelectable)
       ? mapLayer.legendItems.map(legendItem => onLayerVisibilityToggle(legendItem.id, isVisible))
       : onLayerVisibilityToggle(mapLayer.id, isVisible)
   }
@@ -96,7 +96,7 @@ class MapLegend extends React.Component {
                   className={`
                     map-legend__category
                     map-legend__category--${
-                      mapLayer.legendItems.some(legendItem => legendItem.selectable) ? '' : 'un'
+                      mapLayer.legendItems.some(legendItem => legendItem.notSelectable) ? 'un' : ''
                     }selectable-legend
                   `}
                 >
@@ -147,7 +147,7 @@ class MapLegend extends React.Component {
                             // eslint-disable-next-line react/no-array-index-key
                             key={legendItemIndex}
                           >
-                            {legendItem.selectable && (
+                            {!legendItem.notSelectable && (
                               <StyledCheckbox
                                 className="checkbox"
                                 variant="tertiary"
@@ -163,7 +163,7 @@ class MapLegend extends React.Component {
                               className={`
                             map-legend__image
                             map-legend__image--${
-                              legendItem.selectable ? 'selectable' : 'not-selectable'
+                              legendItem.notSelectable ? 'not-selectable' : 'selectable'
                             }
                           `}
                             >

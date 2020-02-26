@@ -45,7 +45,8 @@ export const toggleMapOverlay = payload => ({
   payload: {
     mapLayers:
       // Only mapLayers with selectable legendItems must be added as overlay
-      payload.legendItems?.some(({ selectable }) => selectable) && payload.legendItems.length > 0
+      payload.legendItems?.some(({ notSelectable }) => !notSelectable) &&
+      payload.legendItems.length > 0
         ? payload.legendItems.map(({ id: legendItemId }) => legendItemId)
         : [payload.id],
   },

@@ -186,7 +186,7 @@ describe('Map Reducer', () => {
     }
 
     let newOverlay = {
-      legendItems: [{ id: '3', selectable: true }],
+      legendItems: [{ id: '3' }],
     }
 
     // The legendItem is selectable, so must be removed
@@ -196,7 +196,7 @@ describe('Map Reducer', () => {
 
     newOverlay = {
       id: '2',
-      legendItems: [{ id: '3', selectable: false }],
+      legendItems: [{ id: '3', notSelectable: true }],
     }
 
     // The legendItem is NOT selectable, so the parent must be removed
@@ -211,7 +211,7 @@ describe('Map Reducer', () => {
     }
 
     let newOverlay = {
-      legendItems: [{ id: '4', selectable: true }],
+      legendItems: [{ id: '4' }],
     }
 
     // The legendItem is selectable, so must be added
@@ -221,7 +221,7 @@ describe('Map Reducer', () => {
 
     newOverlay = {
       id: '1',
-      legendItems: [{ id: '3', selectable: false }],
+      legendItems: [{ id: '3', notSelectable: true }],
     }
 
     // The legendItem is NOT selectable, so the parent must be added

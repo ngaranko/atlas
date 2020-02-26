@@ -14,13 +14,22 @@ const initialState = {
 export const getActiveMapLayers = ({ map, mapLayers, user }) =>
   map.overlays
     .filter(overlay => overlay.isVisible)
-    .map(overlay => mapLayers.layers.items.find(layer => layer.id === overlay.id) || {})
-    .filter(
-      layer =>
+    .map(overlay => {
+      const overlayId = overlay.id.split('-')[1] || overlay.id // The active mapLayer must be matched to the original mapLayer independent of the collection it's in
+      const mapLayer = mapLayers.layers.items.find(layer => layer.id === overlayId) || {}
+
+      return {
+        ...mapLayer,
+        id: overlay.id, // We want to preserve the ID of the overlay
+      }
+    })
+    .filter(layer => {
+      return (
         layer.detailUrl &&
         !layer.noDetail &&
-        (!layer.authScope || user.scopes.includes(layer.authScope)),
-    )
+        (!layer.authScope || user.scopes.includes(layer.authScope))
+      )
+    })
 
 export const getPanelLayers = state => state.mapLayers.panelLayers?.items || []
 
@@ -84,7 +93,6 @@ export const getLayers = createSelector(
           panelLayer.id === layer.id ||
           panelLayer.legendItems.some(legendItem => legendItem.id === layer.id),
       )
-
       return (
         matchingPanelLayer &&
         zoom <= matchingPanelLayer.maxZoom &&

@@ -19,11 +19,11 @@ export const PANO_LABELS = [
     layer: {
       id: 'panobi',
       legendItems: [
-        { id: 'pano-pano2020bi', selectable: true },
-        { id: 'pano-pano2019bi', selectable: true },
-        { id: 'pano-pano2018bi', selectable: true },
-        { id: 'pano-pano2017bi', selectable: true },
-        { id: 'pano-pano2016bi', selectable: true },
+        { id: 'pano-pano2020bi' },
+        { id: 'pano-pano2019bi' },
+        { id: 'pano-pano2018bi' },
+        { id: 'pano-pano2017bi' },
+        { id: 'pano-pano2016bi' },
       ],
     },
     label: 'Meest recent',
@@ -33,7 +33,7 @@ export const PANO_LABELS = [
     id: 'pano2020bi',
     layer: {
       id: 'panobi',
-      legendItems: [{ id: 'pano-pano2020bi', selectable: true }],
+      legendItems: [{ id: 'pano-pano2020bi' }],
     },
     label: 'Alleen 2020',
     tags: ['mission-bi', 'mission-2020'],
@@ -42,7 +42,7 @@ export const PANO_LABELS = [
     id: 'pano2019bi',
     layer: {
       id: 'panobi',
-      legendItems: [{ id: 'pano-pano2019bi', selectable: true }],
+      legendItems: [{ id: 'pano-pano2019bi' }],
     },
     label: 'Alleen 2019',
     tags: ['mission-bi', 'mission-2019'],
@@ -51,7 +51,7 @@ export const PANO_LABELS = [
     id: 'pano2018bi',
     layer: {
       id: 'panobi',
-      legendItems: [{ id: 'pano-pano2018bi', selectable: true }],
+      legendItems: [{ id: 'pano-pano2018bi' }],
     },
     label: 'Alleen 2018',
     tags: ['mission-bi', 'mission-2018'],
@@ -60,7 +60,7 @@ export const PANO_LABELS = [
     id: 'pano2017bi',
     layer: {
       id: 'panobi',
-      legendItems: [{ id: 'pano-pano2017bi', selectable: true }],
+      legendItems: [{ id: 'pano-pano2017bi' }],
     },
     label: 'Alleen 2017',
     tags: ['mission-bi', 'mission-2017'],
@@ -69,7 +69,7 @@ export const PANO_LABELS = [
     id: 'pano2016bi',
     layer: {
       id: 'panobi',
-      legendItems: [{ id: 'pano-pano2016bi', selectable: true }],
+      legendItems: [{ id: 'pano-pano2016bi' }],
     },
     label: 'Alleen 2016',
     tags: ['mission-bi', 'mission-2016'],
@@ -78,7 +78,7 @@ export const PANO_LABELS = [
     id: 'pano2020woz',
     layer: {
       id: 'panowoz',
-      legendItems: [{ id: 'pano-pano2020woz', selectable: true }],
+      legendItems: [{ id: 'pano-pano2020woz' }],
     },
     label: 'Alleen 2020 WOZ',
     tags: ['mission-woz', 'mission-2020'],
@@ -87,7 +87,7 @@ export const PANO_LABELS = [
     id: 'pano2019woz',
     layer: {
       id: 'panowoz',
-      legendItems: [{ id: 'pano-pano2019woz', selectable: true }],
+      legendItems: [{ id: 'pano-pano2019woz' }],
     },
     label: 'Alleen 2019 WOZ',
     tags: ['mission-woz', 'mission-2019'],
@@ -96,7 +96,7 @@ export const PANO_LABELS = [
     id: 'pano2018woz',
     layer: {
       id: 'panowoz',
-      legendItems: [{ id: 'pano-pano2018woz', selectable: true }],
+      legendItems: [{ id: 'pano-pano2018woz' }],
     },
     label: 'Alleen 2018 WOZ',
     tags: ['mission-woz', 'mission-2018'],
@@ -105,7 +105,7 @@ export const PANO_LABELS = [
     id: 'pano2017woz',
     layer: {
       id: 'panowoz',
-      legendItems: [{ id: 'pano-pano2017woz', selectable: true }],
+      legendItems: [{ id: 'pano-pano2017woz' }],
     },
     label: 'Alleen 2017 WOZ',
     tags: ['mission-woz', 'mission-2017'],

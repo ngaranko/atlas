@@ -116,7 +116,7 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
     const mockPanoramaConfig = {
       layer: {
         id: 'foo',
-        legendItems: [{ id: 'foo-legend', selectable: true }],
+        legendItems: [{ id: 'foo-legend' }],
       },
     }
 

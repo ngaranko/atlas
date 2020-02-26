@@ -18,7 +18,7 @@ import { boundsToString, getBounds, isBoundsAPoint, isValidBounds } from './serv
 import LoadingIndicator from '../loading-indicator/LoadingIndicator'
 import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/constants'
 import RdGeoJson from './custom/geo-json/RdGeoJson'
-import { MAP_LAYER_TYPES } from '../../services/map-layers/map-layers.config'
+import MAP_CONFIG from '../../services/map.config'
 
 const isIE = false || !!window.document.documentMode
 if (isIE) {
@@ -201,8 +201,8 @@ class MapLeaflet extends React.Component {
 
     const { pendingLayers } = this.state
 
-    const tmsLayers = layers.filter(layer => layer.type === MAP_LAYER_TYPES.TMS)
-    const nonTmsLayers = layers.filter(layer => layer.type !== MAP_LAYER_TYPES.TMS)
+    const tmsLayers = layers.filter(layer => layer.type === MAP_CONFIG.MAP_LAYER_TYPES.TMS)
+    const nonTmsLayers = layers.filter(layer => layer.type !== MAP_CONFIG.MAP_LAYER_TYPES.TMS)
 
     const loadingHandlers = {
       onLoading: ({ sourceTarget }) => this.handleLoading(sourceTarget),

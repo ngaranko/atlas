@@ -1,4 +1,4 @@
-const mapLayers = require('../../../../public/static/map/map-layers.config.json')
+const mapLayers = []
 
 // Get all the maplayer names from the atlas configuration that should be hosted on map server
 const mapLayersNames = mapLayers
