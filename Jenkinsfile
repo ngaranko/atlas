@@ -19,22 +19,15 @@ node {
         checkout scm
     }
 
-    stage('Unit tests') {
-      options {
-        timeout(time: 30, unit: 'MINUTES')
-      }
-      environment {
-        PROJECT = "${PROJECT_PREFIX}unit"
-      }
-      steps {
-        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit test-unit"
-      }
-      post {
-        always {
-          sh "docker-compose -p ${PROJECT} down -v || true"
+    stage('Test') {
+        tryStep "test", {
+            sh "docker-compose build && " +
+               "docker-compose run -u root --rm test-unit"
+        }, {
+            sh "docker-compose down"
         }
-      }
     }
+
 
     stage('Build A') {
       when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
