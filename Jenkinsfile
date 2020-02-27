@@ -1,40 +1,23 @@
-pipeline {
-  agent any
-  options {
-    timeout(time: 5, unit: 'DAYS')
-  }
+#!groovy
+def tryStep(String message, Closure block, Closure tearDown = null) {
+    try {
+        block()
+    }
+    catch (Throwable t) {
+        slackSend message: "${env.JOB_NAME}: ${message} failure ${env.BUILD_URL}", channel: '#ci-channel', color: 'danger'
+        throw t
+    }
+    finally {
+        if (tearDown) {
+            tearDown()
+        }
+    }
+}
 
-  environment {
-    COMMIT_HASH = GIT_COMMIT.substring(0, 8)
-    PROJECT_PREFIX = "${BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
-
-    IMAGE_FRONTEND_BASE = "docker-registry.data.amsterdam.nl/atlas/app"
-    IMAGE_FRONTEND_BUILD = "${IMAGE_FRONTEND_BASE}:${BUILD_NUMBER}"
-    IMAGE_FRONTEND_ACCEPTANCE = "${IMAGE_FRONTEND_BASE}:acceptance"
-    IMAGE_FRONTEND_PRODUCTION = "${IMAGE_FRONTEND_BASE}:production"
-    IMAGE_FRONTEND_LATEST = "${IMAGE_FRONTEND_BASE}:latest"
-  }
-
-  stages {
-
-    // stage('Check API\'s health') {
-    //   options {
-    //     timeout(time: 2, unit: 'MINUTES')
-    //   }
-    //   environment {
-    //     PROJECT                = "${PROJECT_PREFIX}e2e-api-health"
-    //     USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
-    //     PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
-    //   }
-    //   steps {
-    //     sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-health-checks test-health-checks"
-    //   }
-    //   post {
-    //     always {
-    //       sh "docker-compose -p ${PROJECT} down -v || true"
-    //     }
-    //   }
-    // }
+node {
+    stage("Checkout") {
+        checkout scm
+    }
 
     stage('Unit tests') {
       options {
@@ -52,49 +35,6 @@ pipeline {
         }
       }
     }
-
-    // stage('Run tests') {
-      //parallel {
-        // stage('E2E tests') {
-        //   options {
-        //     timeout(time: 60, unit: 'MINUTES')
-        //   }
-        //   environment {
-        //     PROJECT                = "${PROJECT_PREFIX}e2e"
-        //     USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
-        //     USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
-        //     PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
-        //     PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
-        //   }
-        //   steps {
-        //     sh "docker-compose -p ${PROJECT} up --build --exit-code-from start start"
-        //   }
-        //   post {
-        //     always {
-        //        sh "docker-compose -p ${PROJECT} down -v || true"
-        //     }
-        //   }
-        // }
-
-        // stage('E2E tests (Aria)') {
-        //   options {
-        //     timeout(time: 30, unit: 'MINUTES')
-        //   }
-        //   environment {
-        //     PROJECT = "${PROJECT_PREFIX}e2e-aria"
-        //   }
-        //   steps {
-        //     // sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
-        //     sh "echo \"Skipped aria test!\"" // TODO refactor, reactivate
-        //   }
-        //   post {
-        //     always {
-        //       sh "docker-compose -p ${PROJECT} down -v || true"
-        //     }
-        //   }
-        // }
-      //}
-    // }
 
     stage('Build A') {
       when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
@@ -128,6 +68,11 @@ pipeline {
                     image.push("acceptance")
                 }
             }
+        }
+    }
+
+    node {
+        stage("Deploy to ACC") {
             tryStep "deployment", {
                 build job: 'Subtask_Openstack_Playbook',
                 parameters: [
@@ -138,6 +83,7 @@ pipeline {
         }
     }
 
+    node {
     stage('Build P (Master)') {
       when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
