@@ -8,7 +8,7 @@ pipeline {
     COMMIT_HASH = GIT_COMMIT.substring(0, 8)
     PROJECT_PREFIX = "${BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
 
-    IMAGE_FRONTEND_BASE = "repo.data.amsterdam.nl/atlas/app"
+    IMAGE_FRONTEND_BASE = "docker-registry.data.amsterdam.nl/atlas/app"
     IMAGE_FRONTEND_BUILD = "${IMAGE_FRONTEND_BASE}:${BUILD_NUMBER}"
     IMAGE_FRONTEND_ACCEPTANCE = "${IMAGE_FRONTEND_BASE}:acceptance"
     IMAGE_FRONTEND_PRODUCTION = "${IMAGE_FRONTEND_BASE}:production"
@@ -101,31 +101,41 @@ pipeline {
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
-      steps {
-        // Frontend
-        sh "docker build -t ${IMAGE_FRONTEND_BUILD} " +
-          "--shm-size 1G " +
-          "--build-arg NODE_ENV=acceptance " +
-          "."
-        sh "docker push ${IMAGE_FRONTEND_BUILD}"
-      }
+      tryStep "build", {
+                docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
+                def image = docker.build("atlas/app:${env.BUILD_NUMBER}",
+                    "--shm-size 1G " +
+                    "--build-arg NODE_ENV=acc " +
+                    ".")
+                    image.push()
+                }
+            }
+        }
     }
 
+
+
+    node {
     stage('Deploy A (Master & Develop)') {
       when { expression { BRANCH_NAME ==~ /(master|develop)/ } }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
-      steps {
-        // Frontend
-        sh "docker pull ${IMAGE_FRONTEND_BUILD}"
-        sh "docker tag ${IMAGE_FRONTEND_BUILD} ${IMAGE_FRONTEND_ACCEPTANCE}"
-        sh "docker push ${IMAGE_FRONTEND_ACCEPTANCE}"
-        build job: 'Subtask_Openstack_Playbook', parameters: [
-          [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-          [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml']
-        ]
-      }
+            tryStep "image tagging", {
+                docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
+                    def image = docker.image("atlas/app:${env.BUILD_NUMBER}")
+                    image.pull()
+                    image.push("acceptance")
+                }
+            }
+            tryStep "deployment", {
+                build job: 'Subtask_Openstack_Playbook',
+                parameters: [
+                    [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
+                    [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml'],
+                ]
+            }
+        }
     }
 
     stage('Build P (Master)') {
@@ -133,16 +143,17 @@ pipeline {
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
-      steps {
-        // NOTE NODE_ENV intentionaly not set (using Dockerfile default)
-        // Frontend
-        sh "docker build -t ${IMAGE_FRONTEND_PRODUCTION} " +
-            "--shm-size 1G " +
-            "."
-        sh "docker tag ${IMAGE_FRONTEND_PRODUCTION} ${IMAGE_FRONTEND_LATEST}"
-        sh "docker push ${IMAGE_FRONTEND_PRODUCTION}"
-        sh "docker push ${IMAGE_FRONTEND_LATEST}"
-      }
+      tryStep "build", {
+                docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
+                def image = docker.build("atlas/app:${env.BUILD_NUMBER}",
+                    "--shm-size 1G " +
+                    ".")
+                    image.push()
+                    image.push("production")
+                    image.push("latest")
+                }
+            }
+        }
     }
 
     stage('Deploy pre P (Master & Develop)') {
@@ -150,11 +161,12 @@ pipeline {
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
-      steps {
-        build job: 'Subtask_Openstack_Playbook', parameters: [
-          [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-          [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client-pre.yml']
-        ]
+      tryStep "deployment pre", {
+          build job: 'Subtask_Openstack_Playbook',
+          parameters: [
+              [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
+              [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client-pre.yml'],
+          ]
       }
     }
 
@@ -168,16 +180,18 @@ pipeline {
       }
     }
 
+    node {
     stage('Deploy P (Master)') {
       when { branch 'master' }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
-      steps {
+      tryStep {
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
           [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml']
         ]
+        }
       }
     }
   }
