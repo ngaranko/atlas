@@ -57,23 +57,11 @@ const SearchSort = ({ sort, isOverviewPage, disabled }) => {
             dispatch(setPage(1))
           }}
         >
-          {!isOverviewPage && (
-            <option key={1} value="">
-              Relevantie
-            </option>
-          )}
-          <option key={2} value={!isOverviewPage ? 'date:desc' : ''}>
-            Publicatiedatum aflopend
-          </option>
-          <option key={3} value="date:asc">
-            Publicatiedatum oplopend
-          </option>
-          <option key={4} value="title:asc">
-            Titel A-Z
-          </option>
-          <option key={5} value="title:desc">
-            Titel Z-A
-          </option>
+          {!isOverviewPage && <option value="">Relevantie</option>}
+          <option value={!isOverviewPage ? 'date:desc' : ''}>Publicatiedatum aflopend</option>
+          <option value="date:asc">Publicatiedatum oplopend</option>
+          <option value="title:asc">Titel A-Z</option>
+          <option value="title:desc">Titel Z-A</option>
         </StyledSelect>
       </StyledLabel>
     </SelectboxWrapper>
