@@ -1,8 +1,8 @@
+import { cleanup, fireEvent, render } from '@testing-library/react'
 import React from 'react'
-import { render, cleanup, fireEvent } from '@testing-library/react'
-import RadioFilter from './RadioFilter'
+import { FilterOption } from '../../../models/filter'
 import { FilterProps } from '../models'
-import { FilterOption } from '../../../models'
+import RadioFilter from './RadioFilter'
 
 describe('RadioFilter', () => {
   beforeEach(cleanup)

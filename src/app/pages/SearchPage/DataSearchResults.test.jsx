@@ -19,6 +19,7 @@ describe('DataSearchResults', () => {
             results: [1, 2, 3],
           },
         ]}
+        errors={[]}
       />,
     )
 
@@ -35,6 +36,7 @@ describe('DataSearchResults', () => {
             results: [1, 2, 3],
           },
         ]}
+        errors={[]}
       />,
     )
 
@@ -43,13 +45,22 @@ describe('DataSearchResults', () => {
   })
 
   it('shows the list card component with unauthorized message', () => {
+    const errors = [
+      {
+        message: '',
+        path: ['dataSearch'],
+        extensions: { code: 'UNAUTHORIZED', label: 'foo' },
+      },
+    ]
+
     const component = shallow(
       <DataSearchResults
-        errors={[{ code: 'UNAUTHORIZED', label: 'foo' }]}
+        errors={errors}
         results={[
           {
             count: 1,
-            results: [1, 2, 3],
+            type: 'foo',
+            results: [],
           },
         ]}
       />,
@@ -64,12 +75,23 @@ describe('DataSearchResults', () => {
   })
 
   it('adds a prop to the DataList component when a type cannot be loaded', () => {
+    const errors = [
+      {
+        message: '',
+        path: ['dataSearch'],
+        extensions: { code: 'GATEWAY_TIMEOUT', label: 'Timeout', type: 'foo' },
+      },
+      {
+        message: '',
+        path: ['dataSearch'],
+        extensions: { code: 'ERROR', label: 'Error', type: 'abc' },
+      },
+    ]
+
     const component = shallow(
       <DataSearchResults
-        errors={[
-          { code: 'GATEWAY_TIMEOUT', type: 'foo' },
-          { code: 'ERROR', type: 'abc' },
-        ]}
+        compact={false}
+        errors={errors}
         results={[
           {
             count: 1,
@@ -100,7 +122,7 @@ describe('DataSearchResults', () => {
 
   it('shows the no results component', () => {
     let component
-    component = shallow(<DataSearchResults results={[]} />)
+    component = shallow(<DataSearchResults results={[]} errors={[]} />)
 
     expect(component.find('NoDataSearchResults').exists()).toBeTruthy()
 
@@ -113,6 +135,7 @@ describe('DataSearchResults', () => {
             results: [],
           },
         ]}
+        errors={[]}
       />,
     )
 
