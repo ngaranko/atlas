@@ -30,15 +30,6 @@ export const PANO_LABELS = [
     tags: ['mission-bi'],
   },
   {
-    id: 'pano2020bi',
-    layer: {
-      id: 'panobi',
-      legendItems: [{ id: 'pano-pano2020bi' }],
-    },
-    label: 'Alleen 2020',
-    tags: ['mission-bi', 'mission-2020'],
-  },
-  {
     id: 'pano2019bi',
     layer: {
       id: 'panobi',
@@ -73,15 +64,6 @@ export const PANO_LABELS = [
     },
     label: 'Alleen 2016',
     tags: ['mission-bi', 'mission-2016'],
-  },
-  {
-    id: 'pano2020woz',
-    layer: {
-      id: 'panowoz',
-      legendItems: [{ id: 'pano-pano2020woz' }],
-    },
-    label: 'Alleen 2020 WOZ',
-    tags: ['mission-woz', 'mission-2020'],
   },
   {
     id: 'pano2019woz',

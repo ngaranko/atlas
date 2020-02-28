@@ -1,5 +1,5 @@
-import { FilterOption } from '../../models'
 import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
+import { FilterOption } from '../../models/filter'
 
 export function formatOptionLabel({ count, label }: FilterOption, hideCount: boolean) {
   return count && count !== 0 && !hideCount

@@ -1,5 +1,6 @@
+import { DocumentNode, GraphQLFormattedError } from 'graphql'
 import { useQuery } from 'urql'
-import { DocumentNode, GraphQLError } from 'graphql'
+import { ErrorExtensions } from '../../models/graphql'
 
 const usePagination = (query: DocumentNode, variables: Object, resolver: string | string[]) => {
   const [result] = useQuery({
@@ -25,14 +26,22 @@ const usePagination = (query: DocumentNode, variables: Object, resolver: string 
     })
   }
 
-  let errors: Object[] = []
-  if (error) {
-    errors = error.graphQLErrors.map(({ message, path, extensions }: GraphQLError) => ({
-      message,
-      query: path && path[0],
-      ...extensions,
-    }))
-  }
+  const errors: GraphQLFormattedError<ErrorExtensions>[] = (error?.graphQLErrors ?? []).map(
+    graphQlError => {
+      // Only include extensions that actually contain fields.
+      const extensions =
+        graphQlError.extensions !== undefined && Object.keys(graphQlError.extensions).length > 0
+          ? (graphQlError.extensions as ErrorExtensions)
+          : undefined
+
+      return {
+        message: graphQlError.message,
+        locations: graphQlError.locations,
+        path: graphQlError.path,
+        extensions,
+      }
+    },
+  )
 
   return { fetching, errors, totalCount, filters, results, pageInfo }
 }

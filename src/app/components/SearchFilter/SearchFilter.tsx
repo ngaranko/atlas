@@ -1,9 +1,9 @@
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 import React, { memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useMatomo } from '@datapunt/matomo-tracker-react'
+import { Filter, FilterType } from '../../models/filter'
+import { getFilterValues, setFilterValues, setPage } from '../../pages/SearchPage/SearchPageDucks'
 import FilterBox from '../FilterBox'
-import { setFilterValues, getFilterValues } from '../../pages/SearchPage/SearchPageDucks'
-import { Filter, FilterType } from '../../models'
 import CheckboxFilter from './filters/CheckboxFilter'
 import RadioFilter from './filters/RadioFilter'
 import SelectFilter from './filters/SelectFilter'
@@ -48,6 +48,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ filter, totalCount, hideCou
       trackEvent({ category: 'search', action: 'enable-filter', name: `${type}-${value}` }),
     )
 
+    dispatch(setPage(1))
     dispatch(setFilterValues(type, values))
   }
 

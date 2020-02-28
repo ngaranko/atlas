@@ -3,7 +3,7 @@ import styled from '@datapunt/asc-core'
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 import { breakpoint, Label, Select, themeColor, themeSpacing } from '@datapunt/asc-ui'
 import { useDispatch } from 'react-redux'
-import { setSort } from './SearchPageDucks'
+import { setSort, setPage } from './SearchPageDucks'
 
 const SelectboxWrapper = styled.div`
   display: flex;
@@ -44,6 +44,7 @@ const SearchSort = ({ sort, isOverviewPage, disabled }) => {
       <StyledLabel htmlFor="sort-select" label="Sorteren:" position="left">
         <StyledSelect
           id="sort-select"
+          data-testid="sort-select"
           value={sort}
           disabled={disabled}
           onChange={e => {
@@ -53,6 +54,7 @@ const SearchSort = ({ sort, isOverviewPage, disabled }) => {
               name: e.target.value,
             })
             dispatch(setSort(e.target.value))
+            dispatch(setPage(1))
           }}
         >
           {!isOverviewPage && <option value="">Relevantie</option>}

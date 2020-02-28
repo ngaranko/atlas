@@ -180,6 +180,7 @@ const ArticleDetailPage = ({ id }) => {
                               headingLevel="h2"
                               type={TYPES.ARTICLE}
                               results={related}
+                              errors={[]}
                               title="Verder lezen"
                             />
                           </>

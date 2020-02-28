@@ -113,7 +113,6 @@ module.exports = () => {
       new MiniCssExtractPlugin('main.[contenthash].css'),
       new GenerateSW({
         clientsClaim: true,
-        skipWaiting: true,
         exclude: [/\.map$/, /\.json$/],
         navigateFallbackDenylist: [
           // Exclude any URLs whose last part seems to be a file extension
