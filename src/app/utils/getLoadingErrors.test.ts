@@ -4,8 +4,16 @@ import getLoadingErrors from './getLoadingErrors'
 
 describe('getLoadingErrors', () => {
   it('should get the loading errors', () => {
-    const errors: GraphQLFormattedError<ErrorExtensions>[] = []
+    const ERROR_UNAUTHORIZED = { extensions: { code: 'UNAUTHORIZED' } } as GraphQLFormattedError<
+      ErrorExtensions
+    >
+    const ERROR_DIFFERENT_CODE = { extensions: { code: 'FOO' } } as GraphQLFormattedError<
+      ErrorExtensions
+    >
+    const ERROR_NO_EXTENSIONS = {} as GraphQLFormattedError<ErrorExtensions>
 
-    expect(getLoadingErrors(errors)).toEqual([])
+    expect(
+      getLoadingErrors([ERROR_UNAUTHORIZED, ERROR_DIFFERENT_CODE, ERROR_NO_EXTENSIONS]),
+    ).toEqual([ERROR_DIFFERENT_CODE, ERROR_NO_EXTENSIONS])
   })
 })
