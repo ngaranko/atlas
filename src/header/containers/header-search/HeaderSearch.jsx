@@ -77,6 +77,7 @@ class HeaderSearch extends React.Component {
       isDataPage,
       isArticlePage,
       isPublicationPage,
+      isSpecialsPage,
       typedQuery,
       onCleanDatasetOverview,
       onDatasetSearch,
@@ -84,15 +85,17 @@ class HeaderSearch extends React.Component {
       onSearch,
       onArticleSearch,
       onPublicationSearch,
+      onSpecialsSearch,
     } = this.props
 
-    const { ARTICLES, DATASETS, PUBLICATIONS, DATA } = LABELS
+    const { ARTICLES, DATASETS, PUBLICATIONS, DATA, SPECIALS } = LABELS
 
     const searchAction = {
       [DATASETS]: onDatasetSearch,
       [ARTICLES]: onArticleSearch,
       [PUBLICATIONS]: onPublicationSearch,
       [DATA]: onDataSearch,
+      [SPECIALS]: onSpecialsSearch,
     }
 
     if (activeSuggestion.index === -1) {
@@ -109,10 +112,14 @@ class HeaderSearch extends React.Component {
           ? ARTICLES
           : isPublicationPage
           ? PUBLICATIONS
+          : isSpecialsPage
+          ? SPECIALS
           : null)
 
-      if (searchAction[searchType]) {
-        searchAction[searchType](typedQuery)
+      const actionFn = searchAction[searchType]
+
+      if (actionFn) {
+        actionFn(typedQuery)
       } else {
         onSearch(typedQuery)
       }
@@ -164,9 +171,11 @@ HeaderSearch.defaultProps = {
   prefillQuery: '',
   suggestions: [],
   typedQuery: '',
+  isDataPage: false,
   isDatasetPage: false,
   isArticlePage: false,
   isPublicationPage: false,
+  isSpecialsPage: false,
 }
 
 HeaderSearch.propTypes = {
@@ -178,9 +187,11 @@ HeaderSearch.propTypes = {
   }),
   displayQuery: PropTypes.string,
   view: PropTypes.string.isRequired,
+  isDataPage: PropTypes.bool,
   isDatasetPage: PropTypes.bool,
   isArticlePage: PropTypes.bool,
   isPublicationPage: PropTypes.bool,
+  isSpecialsPage: PropTypes.bool,
   isMapActive: PropTypes.bool.isRequired,
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
@@ -188,6 +199,7 @@ HeaderSearch.propTypes = {
   onDataSearch: PropTypes.func.isRequired,
   onArticleSearch: PropTypes.func.isRequired,
   onPublicationSearch: PropTypes.func.isRequired,
+  onSpecialsSearch: PropTypes.func.isRequired,
   openDataSuggestion: PropTypes.func.isRequired,
   openDatasetSuggestion: PropTypes.func.isRequired,
   openEditorialSuggestion: PropTypes.func.isRequired,
