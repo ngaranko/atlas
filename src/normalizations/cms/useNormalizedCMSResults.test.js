@@ -139,4 +139,13 @@ describe('useNormalizedCMSResults', () => {
       links: [],
     })
   })
+
+  it("should set the date if field_publication_date isn't set", () => {
+    const newInput = { ...input, field_publication_year: '2012', field_publication_month: '1' }
+    delete newInput.field_publication_date
+    expect(useNormalizedCMSResults({ results: [newInput], _links: [] })).toMatchObject({
+      data: [{ ...output, localeDate: new Date(Date.UTC(2012, 0, 1, 0, 0, 0)) }],
+      links: [],
+    })
+  })
 })
