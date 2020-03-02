@@ -58,35 +58,53 @@ describe('post reducer', () => {
 describe('selectors', () => {
   const panelLayers = [
     {
-      category: 'Geografie: onroerende zaken',
-      maxZoom: 16,
-      minZoom: 8,
-      legendItems: [{ id: 'bgem', noDetail: true }],
-      noDetail: true,
-      title: 'Kadastrale perceelsgrenzen',
-      url: '/maps/brk?version=1.3.0&service=WMS',
-    },
-    {
-      category: 'Verkeer en infrastructuur',
-      id: 'pv',
-      noDetail: true,
-      layers: ['alle_parkeervakken'],
-      legendItems: [
+      id: 'id1',
+      title: 'Foo',
+      mapLayers: [
         {
-          selectable: false,
-          title: 'Fiscaal',
+          id: 'id3',
+          layers: ['layer'],
+          legendItems: [
+            {
+              title: 'Legend 1',
+            },
+            {
+              title: 'Legend 2',
+            },
+          ],
+          title: 'Foo Layer',
+          url: '/maps/layer',
+          detailUrl: 'geosearch/search/',
+          detailItem: 'foo',
+        },
+        {
+          id: 'id2',
+          layers: ['layer'],
+          legendItems: [
+            {
+              title: 'Legend 1',
+            },
+            {
+              title: 'Legend 2',
+            },
+          ],
+          maxZoom: 16,
+          minZoom: 8,
+          title: 'Foo Layer',
+          url: '/maps/layer',
+          noDetail: true,
         },
       ],
-      maxZoom: 16,
-      minZoom: 10,
-      title: 'Parkeervakken - Fiscale indeling',
-      url: '/maps/parkeervakken?version=1.3.0&service=WMS',
     },
   ]
 
+  const mapPanelLayers = panelLayers
+    .map(({ mapLayers }) => mapLayers)
+    .reduce((acc, val) => acc.concat(val), []) // Alternative to .flat())
+
   const overlays = [
     {
-      id: 'bgem',
+      id: 'id2',
       isVisible: true,
     },
   ]
@@ -97,9 +115,9 @@ describe('selectors', () => {
       expect(selected).toEqual([])
     })
 
-    it('should return an array with all panelLayers', () => {
-      const selected = getMapPanelLayers.resultFunc({ items: panelLayers })
-      expect(selected).toEqual(panelLayers)
+    it('should return an array with all panelLayers stripped from the collections', () => {
+      const selected = getMapPanelLayers.resultFunc(panelLayers)
+      expect(selected).toEqual(mapPanelLayers)
     })
   })
 
@@ -110,47 +128,45 @@ describe('selectors', () => {
     })
 
     it('should return an empty array if there are no active overlays', () => {
-      const selected = selectActivePanelLayers.resultFunc(panelLayers, [])
+      const selected = selectActivePanelLayers.resultFunc(mapPanelLayers, [])
       expect(selected).toEqual([])
     })
 
     it('should return an array with all panelLayers matching the id of the active overlays', () => {
-      const selected = selectActivePanelLayers.resultFunc(panelLayers, overlays)
-      expect(selected).toEqual([panelLayers[0]])
+      const selected = selectActivePanelLayers.resultFunc(mapPanelLayers, overlays)
+      expect(selected).toEqual([mapPanelLayers[1]])
     })
 
     it('should return an all active panelLayers and sort them', () => {
-      const selected = selectActivePanelLayers.resultFunc(panelLayers, [...overlays, { id: 'pv' }])
-      expect(selected).toEqual([panelLayers[1], panelLayers[0]])
+      const selected = selectActivePanelLayers.resultFunc(mapPanelLayers, [
+        ...overlays,
+        { id: 'id3' },
+      ])
+      expect(selected).toEqual([mapPanelLayers[0], mapPanelLayers[1]])
     })
   })
 
   describe('getActiveMapLayersWithinZoom', () => {
     it('should filter out mapLayers based on the zoom', () => {
-      const selected = getActiveMapLayersWithinZoom.resultFunc(9, panelLayers)
-      expect(selected).toEqual([panelLayers[0]])
+      const selected = getActiveMapLayersWithinZoom.resultFunc(9, mapPanelLayers)
+      expect(selected).toEqual([mapPanelLayers[1]])
     })
 
     it('should filter out mapLayers if the current zoom of the map is bigger then the maxZoom of the layer', () => {
-      const selected = getActiveMapLayersWithinZoom.resultFunc(20, panelLayers)
+      const selected = getActiveMapLayersWithinZoom.resultFunc(20, mapPanelLayers)
       expect(selected).toEqual([])
     })
 
     it('should filter out mapLayers if the current zoom of the map is smaller then the minZoom of the layer', () => {
-      const selected = getActiveMapLayersWithinZoom.resultFunc(6, panelLayers)
+      const selected = getActiveMapLayersWithinZoom.resultFunc(6, mapPanelLayers)
       expect(selected).toEqual([])
     })
   })
 
   describe('selectNotClickableVisibleMapLayers', () => {
     it('should return an array of the notClickable layers', () => {
-      const selected = selectNotClickableVisibleMapLayers.resultFunc(panelLayers, overlays)
-      expect(selected).toEqual([
-        {
-          id: 'bgem',
-          noDetail: true,
-        },
-      ])
+      const selected = selectNotClickableVisibleMapLayers.resultFunc(mapPanelLayers, overlays)
+      expect(selected).toEqual([mapPanelLayers[1]])
     })
   })
 

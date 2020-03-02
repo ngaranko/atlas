@@ -269,8 +269,8 @@ const trackEvents = {
   // PANORAMA
   // PANORAMA -> TOGGLE "missionType" / "missionYear"
   [SET_PANORAMA_TAGS]: function trackPanoramaTags({ tracking }) {
-    const { layerId } = getLabelObjectByTags(tracking)
-    const set = tracking.length > 1 ? layerId.replace('pano', '') : 'recent'
+    const { id } = getLabelObjectByTags(tracking)
+    const set = tracking.length > 1 ? id.replace('pano', '') : 'recent'
 
     return [MATOMO_CONSTANTS.TRACK_EVENT, 'panorama-set', `panorama-set-${set}`, null]
   },

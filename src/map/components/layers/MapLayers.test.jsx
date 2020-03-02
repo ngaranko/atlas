@@ -2,124 +2,58 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import MapLayers from './MapLayers'
 
-const layers = [
+const panelLayers = [
   {
-    id: 'pano2018',
-    layers: ['panorama_recent_2018'],
-    legendItems: [
+    id: 'id1',
+    title: 'Foo',
+    mapLayers: [
       {
-        selectable: false,
-        title: '2018',
+        id: 'id3',
+        layers: ['layer'],
+        legendItems: [
+          {
+            title: 'Legend 1',
+          },
+          {
+            title: 'Legend 2',
+          },
+        ],
+        title: 'Foo Layer',
+        url: '/maps/layer',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'foo',
       },
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS',
-  },
-  {
-    id: 'pano2017',
-    layers: ['panorama_recent_2017'],
-    legendItems: [
       {
-        selectable: false,
-        title: '2017',
-      },
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS',
-  },
-  {
-    id: 'pano2016',
-    layers: ['panorama_recent_2016'],
-    legendItems: [
-      {
-        selectable: false,
-        title: '2016',
-      },
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS',
-  },
-  {
-    category: 'Geografie: onroerende zaken',
-    legendItems: [
-      {
-        id: 'bgem',
+        id: 'id2',
+        layers: ['layer'],
+        legendItems: [
+          {
+            title: 'Legend 1',
+          },
+          {
+            title: 'Legend 2',
+          },
+        ],
+        maxZoom: 16,
+        minZoom: 8,
+        title: 'Foo Layer',
+        url: '/maps/layer',
         noDetail: true,
-        layer: 'burgerlijke_gemeente',
-        selectable: true,
-        title: 'Burgerlijke gemeente',
-      },
-      {
-        id: 'kgem',
-        noDetail: true,
-        layer: 'kadastrale_gemeente',
-        selectable: true,
-        title: 'Kadastrale gemeente',
-      },
-      {
-        id: 'ksec',
-        noDetail: true,
-        layer: 'kadastrale_sectie',
-        selectable: true,
-        title: 'Kadastrale sectie',
-      },
-      {
-        id: 'kot',
-        layer: 'kadastraal_object',
-        selectable: true,
-        title: 'Kadastraal object',
       },
     ],
-    maxZoom: 16,
-    minZoom: 8,
-    title: 'Kadastrale perceelsgrenzen',
-    url: '/maps/brk?version=1.3.0&service=WMS',
   },
 ]
 
-const activeLayers = [
-  {
-    category: 'Geografie: onroerende zaken',
-    legendItems: [
-      {
-        id: 'bgem',
-        noDetail: true,
-        layer: 'burgerlijke_gemeente',
-        selectable: true,
-        title: 'Burgerlijke gemeente',
-      },
-      {
-        id: 'kgem',
-        noDetail: true,
-        layer: 'kadastrale_gemeente',
-        selectable: true,
-        title: 'Kadastrale gemeente',
-      },
-      {
-        id: 'ksec',
-        noDetail: true,
-        layer: 'kadastrale_sectie',
-        selectable: true,
-        title: 'Kadastrale sectie 1',
-      },
-    ],
-    maxZoom: 16,
-    minZoom: 8,
-    title: 'Kadastrale perceelsgrenzen',
-    url: '/maps/brk?version=1.3.0&service=WMS',
-  },
-]
+const activeLayers = [panelLayers[0]]
 
 describe('MapLayer', () => {
   it('should render', () => {
     const component = shallow(
-      <MapLayers activeMapLayers={activeLayers} layers={layers} onLayerToggle={() => {}} />,
+      <MapLayers
+        activeMapLayers={activeLayers}
+        panelLayers={panelLayers}
+        onLayerToggle={() => {}}
+      />,
     )
 
     expect(component).toMatchSnapshot()
@@ -127,7 +61,7 @@ describe('MapLayer', () => {
 
   it('should render without active layers', () => {
     const component = shallow(
-      <MapLayers activeMapLayers={[]} layers={layers} onLayerToggle={() => {}} />,
+      <MapLayers activeMapLayers={[]} panelLayers={panelLayers} onLayerToggle={() => {}} />,
     )
 
     expect(component).toMatchSnapshot()
@@ -138,12 +72,12 @@ describe('MapLayer', () => {
     const component = shallow(
       <MapLayers
         activeMapLayers={activeLayers}
-        layers={layers}
+        panelLayers={panelLayers}
         onLayerToggle={onLayerToggleMock}
       />,
     )
 
-    const button = component.find('button')
+    const button = component.find('button').at(0)
     button.simulate('click')
 
     expect(onLayerToggleMock).toHaveBeenCalled()

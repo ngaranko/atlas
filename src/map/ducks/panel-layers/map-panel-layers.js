@@ -11,32 +11,50 @@ const initialState = {
   error: null,
 }
 
-export const getActiveMapLayers = state =>
-  state.map.overlays
+export const getActiveMapLayers = ({ map, mapLayers, user }) =>
+  map.overlays
     .filter(overlay => overlay.isVisible)
-    .map(overlay => state.mapLayers.layers.items.find(layer => layer.id === overlay.id) || {})
-    .filter(
-      layer =>
+    .map(overlay => {
+      const overlayId = overlay.id.split('-')[1] || overlay.id // The active mapLayer must be matched to the original mapLayer independent of the collection it's in
+      const mapLayer = mapLayers.layers.items.find(layer => layer.id === overlayId) || {}
+
+      return {
+        ...mapLayer,
+        id: overlay.id, // We want to preserve the ID of the overlay
+      }
+    })
+    .filter(layer => {
+      return (
         layer.detailUrl &&
         !layer.noDetail &&
-        (!layer.authScope || state.user.scopes.includes(layer.authScope)),
-    )
-const getPanelLayers = state => state.mapLayers.panelLayers
+        (!layer.authScope || user.scopes.includes(layer.authScope))
+      )
+    })
 
-export const getMapPanelLayers = createSelector(
-  getPanelLayers,
-  panelLayers => panelLayers.items || [],
+export const getPanelLayers = state => state.mapLayers.panelLayers?.items || []
+
+// Selector to get the mapLayers from the collections in the redux state
+export const getMapPanelLayers = createSelector(getPanelLayers, panelLayers =>
+  panelLayers.length > 0
+    ? panelLayers.reduce((acc, cur) => {
+        if (cur.mapLayers) {
+          return [...acc, ...cur.mapLayers]
+        }
+        return cur
+      }, [])
+    : [],
 )
 
 export const selectActivePanelLayers = createSelector(
   [getMapPanelLayers, getMapOverlays],
   (panelLayers, overlays) => {
     const mapLayerIds = overlays.map(mapLayer => mapLayer.id)
+
     return panelLayers
       .filter(mapLayer =>
-        [mapLayer.id, ...mapLayer.legendItems.map(legendItem => legendItem.id)]
+        [mapLayer.id, ...(mapLayer.legendItems?.map(legendItem => legendItem.id) || [])]
           .filter(mapLayerId => Boolean(mapLayerId))
-          .some(mapLayerId => overlays.map(overlay => overlay.id).includes(mapLayerId)),
+          .some(mapLayerId => mapLayerIds.includes(mapLayerId)),
       )
       .sort((a, b) => {
         const aId = a.id || a.legendItems[0].id

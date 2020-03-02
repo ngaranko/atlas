@@ -51,15 +51,15 @@ const PanoramaToggle = ({
         label={currentLabel}
         position="bottom"
       >
-        {PANO_LABELS.map((label, index) => (
+        {PANO_LABELS.map(({ id, label, tags }, index) => (
           <ContextMenuItem
-            key={label.layerId}
+            key={id}
             divider={index === PANO_LABELS.length - 1}
             role="button"
-            onClick={() => handleSetPanoramaTags(label.tags)}
+            onClick={() => handleSetPanoramaTags(tags)}
             icon={<Icon padding={4} inline size={24} />}
           >
-            {label.label}
+            {label}
           </ContextMenuItem>
         ))}
         <ContextMenuItem

@@ -53,15 +53,17 @@ class MapLegend extends React.Component {
   determineLegendItemVisibility(legendItem) {
     const { overlays } = this.props
     return overlays.some(
-      overlay => (overlay.id === legendItem.id && overlay.isVisible) || !legendItem.selectable,
+      overlay => (overlay.id === legendItem.id && overlay.isVisible) || legendItem.notSelectable,
     )
   }
 
   toggleLayerVisibility(mapLayer, isVisible) {
     const { onLayerVisibilityToggle } = this.props
-    return mapLayer.id
-      ? onLayerVisibilityToggle(mapLayer.id, isVisible)
-      : mapLayer.legendItems.map(legendItem => onLayerVisibilityToggle(legendItem.id, isVisible))
+
+    // When the legendItems itself are selectable, the legendItems can be toggled on/off individually
+    return mapLayer.legendItems?.some(({ notSelectable }) => !notSelectable)
+      ? mapLayer.legendItems.map(legendItem => onLayerVisibilityToggle(legendItem.id, isVisible))
+      : onLayerVisibilityToggle(mapLayer.id, isVisible)
   }
 
   render() {
@@ -80,6 +82,10 @@ class MapLegend extends React.Component {
         <ul className="map-legend">
           {activeMapLayers.map((mapLayer, mapLayerIndex) => {
             const layerIsVisible = this.determineLayerVisibility(mapLayer)
+
+            // If there are no legend items, the layer itself will be used as legend item as the current design does not support one-level map layers
+            const legendItems = mapLayer.legendItems.length > 0 ? mapLayer.legendItems : [mapLayer]
+
             return (
               <li
                 className="map-legend__map-layer"
@@ -90,7 +96,7 @@ class MapLegend extends React.Component {
                   className={`
                     map-legend__category
                     map-legend__category--${
-                      mapLayer.legendItems.some(legendItem => legendItem.selectable) ? '' : 'un'
+                      mapLayer.legendItems.some(legendItem => legendItem.notSelectable) ? 'un' : ''
                     }selectable-legend
                   `}
                 >
@@ -105,13 +111,11 @@ class MapLegend extends React.Component {
                     }
                   />
                   <h4 className="map-legend__category-title">{mapLayer.title}</h4>
-                  {!mapLayer.notClosable && (
-                    <button
-                      type="button"
-                      className="map-legend__toggle map-legend__toggle--remove"
-                      onClick={() => onLayerToggle(mapLayer)}
-                    />
-                  )}
+                  <button
+                    type="button"
+                    className="map-legend__toggle map-legend__toggle--remove"
+                    onClick={() => onLayerToggle(mapLayer)}
+                  />
                 </div>
                 {!isAuthorised(mapLayer, user) && (
                   <div className="map-legend__notification">
@@ -135,7 +139,7 @@ class MapLegend extends React.Component {
                   isInsideZoomLevel(mapLayer, zoomLevel) &&
                   !mapLayer.disabled && (
                     <ul className="map-legend__items">
-                      {mapLayer.legendItems.map((legendItem, legendItemIndex) => {
+                      {legendItems.map((legendItem, legendItemIndex) => {
                         const legendItemIsVisible = this.determineLegendItemVisibility(legendItem)
                         return !legendItemIsVisible && printMode ? null : (
                           <li
@@ -143,7 +147,7 @@ class MapLegend extends React.Component {
                             // eslint-disable-next-line react/no-array-index-key
                             key={legendItemIndex}
                           >
-                            {legendItem.selectable && (
+                            {!legendItem.notSelectable && (
                               <StyledCheckbox
                                 className="checkbox"
                                 variant="tertiary"
@@ -159,7 +163,7 @@ class MapLegend extends React.Component {
                               className={`
                             map-legend__image
                             map-legend__image--${
-                              legendItem.selectable ? 'selectable' : 'not-selectable'
+                              legendItem.notSelectable ? 'not-selectable' : 'selectable'
                             }
                           `}
                             >

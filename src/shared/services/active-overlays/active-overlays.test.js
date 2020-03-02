@@ -1,54 +1,49 @@
 import ActiveOverlaysDefault, { ActiveOverlays } from './active-overlays'
+
 import getState from '../redux/get-state'
 
 jest.mock('../redux/get-state')
 
 describe('ActiveOverlays', () => {
+  beforeEach(() => {
+    getState.mockImplementation(() => ({
+      user: {},
+      map: {
+        zoom: 3,
+      },
+      mapLayers: {
+        layers: {
+          items: [
+            {
+              id: 'biz',
+            },
+            {
+              id: 2,
+              legendItems: [
+                {
+                  id: 'hvo',
+                },
+              ],
+              authScope: true,
+            },
+          ],
+        },
+      },
+    }))
+  })
+
+  afterEach(() => {
+    getState.mockReset()
+  })
+
   describe('static isVisibleAtCurrentZoom', () => {
     it("should return false is layer is not in mapLayers or when layer doesn't have a minZoom or maxZoom", () => {
-      getState.mockImplementation(() => ({
-        user: {},
-        map: {
-          zoom: 3,
-        },
-        mapLayers: [
-          {
-            id: 'biz',
-          },
-          {
-            id: 2,
-            legendItems: [
-              {
-                id: 'hvo',
-              },
-            ],
-            authScope: true,
-          },
-        ],
-      }))
       expect(ActiveOverlays.isVisibleAtCurrentZoom('hvo', 2)).toBe(false)
       expect(ActiveOverlays.isVisibleAtCurrentZoom('bladie', 1)).toBe(false)
     })
   })
   describe('getOverlays', () => {
     it('should return an array with the active layers', () => {
-      getState.mockImplementation(() => ({
-        user: {},
-        mapLayers: [
-          {
-            id: 'biz',
-          },
-          {
-            id: 2,
-            legendItems: [
-              {
-                id: 'hvo',
-              },
-            ],
-            authScope: true,
-          },
-        ],
-      }))
       ActiveOverlaysDefault.allOverlays = [
         {
           id: 'biz',
@@ -65,23 +60,32 @@ describe('ActiveOverlays', () => {
     })
 
     it("should return an empty array when mapLayers doesn't contain a id matching the allOverlays", () => {
+      getState.mockReset()
       getState.mockImplementation(() => ({
         user: {},
-        mapLayers: [
-          {
-            id: 'pir',
-          },
-          {
-            id: 2,
-            legendItems: [
+        map: {
+          zoom: 3,
+        },
+        mapLayers: {
+          layers: {
+            items: [
               {
-                id: 'hvo',
+                id: 'other',
+              },
+              {
+                id: 2,
+                legendItems: [
+                  {
+                    id: 'not',
+                  },
+                ],
+                authScope: true,
               },
             ],
-            authScope: true,
           },
-        ],
+        },
       }))
+
       ActiveOverlaysDefault.allOverlays = [
         {
           id: 'biz',
@@ -96,26 +100,6 @@ describe('ActiveOverlays', () => {
 
   describe('getVisibleSources', () => {
     it('should return an empty array', () => {
-      getState.mockImplementation(() => ({
-        user: {},
-        map: {
-          zoom: 3,
-        },
-        mapLayers: [
-          {
-            id: 'biz',
-          },
-          {
-            id: 2,
-            legendItems: [
-              {
-                id: 'hvo',
-              },
-            ],
-            authScope: true,
-          },
-        ],
-      }))
       ActiveOverlaysDefault.allOverlays = [
         {
           id: 'biz',
@@ -129,26 +113,6 @@ describe('ActiveOverlays', () => {
     })
 
     it('should filter', () => {
-      getState.mockImplementation(() => ({
-        user: {},
-        map: {
-          zoom: 3,
-        },
-        mapLayers: [
-          {
-            id: 'biz',
-          },
-          {
-            id: 2,
-            legendItems: [
-              {
-                id: 'hvo',
-              },
-            ],
-            authScope: true,
-          },
-        ],
-      }))
       ActiveOverlaysDefault.allOverlays = [
         {
           id: 'biz',
@@ -164,9 +128,11 @@ describe('ActiveOverlays', () => {
   })
 
   describe('getOverlaysWarning', () => {
+    beforeEach(() => {})
     it('should return an empty string', () => {
       ActiveOverlays.isAuthorised = jest.fn().mockImplementation(() => true)
       ActiveOverlays.isVisibleAtCurrentZoom = jest.fn().mockImplementation(() => true)
+      ActiveOverlaysDefault.getVisibleSources = jest.fn().mockImplementation(() => [])
       ActiveOverlaysDefault.allOverlays = [
         {
           id: 'biz',

@@ -14,7 +14,14 @@ const initialState = {
   error: null,
 }
 
-const findLayer = (layers, id) => layers.find(mapLayer => mapLayer.id === id)
+export const findLayer = (layers, id) =>
+  layers.find(mapLayer => {
+    const mapLayerId = id.split('-')
+
+    // The ID of the mapLayer when defined as part of a collection or as legendItem, is a combination of the IDs of the mapLayer and the collection it's used in
+    return mapLayer.id === (mapLayerId[1] || mapLayerId[0])
+  })
+
 const generateLayer = (layers, overlay, url, params, type, bounds) => ({
   ...overlay,
   url,
@@ -38,6 +45,7 @@ export const getLayers = createSelector(
         if (!layer) {
           return false
         }
+
         const layerUrl = layer.external ? layer.url : `${MAP_CONFIG.OVERLAY_ROOT}${layer.url}`
         if (!layer.authScope) {
           return generateLayer(layers, overlay, layerUrl, layer.params, layer.type, layer.bounds)

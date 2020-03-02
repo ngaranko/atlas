@@ -12,7 +12,7 @@ import {
 } from './panorama'
 import { fetchPanoramaRequest } from '../ducks/actions'
 import { getImageDataById, getImageDataByLocation } from '../services/panorama-api/panorama-api'
-import { TOGGLE_MAP_OVERLAY_PANORAMA } from '../../map/ducks/map/constants'
+import { TOGGLE_MAP_OVERLAY, MAP_CLEAR } from '../../map/ducks/map/constants'
 import { closeMapPanel } from '../../map/ducks/map/actions'
 import { toMap } from '../../store/redux-first-router/actions'
 import { getLocationPayload } from '../../store/redux-first-router/selectors'
@@ -26,9 +26,11 @@ import {
   SET_PANORAMA_LOCATION,
   SET_PANORAMA_TAGS,
 } from '../ducks/constants'
-import { getPanoramaLocation, getPanoramaTags } from '../ducks/selectors'
+import { getPanoramaLocation, getPanoramaTags, getLabelObjectByTags } from '../ducks/selectors'
 import { getViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui'
 import { routing } from '../../app/routes'
+
+jest.mock('../ducks/selectors')
 
 describe('watchPanoramaRoute', () => {
   const payload = { id: 'payload' }
@@ -111,8 +113,20 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
   })
 
   describe('handlePanoramaRequest', () => {
+    const mockPanoramaConfig = {
+      layer: {
+        id: 'foo',
+        legendItems: [{ id: 'foo-legend' }],
+      },
+    }
+
+    beforeEach(() => {
+      getLabelObjectByTags.mockImplementationOnce(() => mockPanoramaConfig)
+    })
+
     it('should dispatch a given function and dispatch FETCH_PANORAMA_SUCCESS, but not forward to new url', () => {
       const mockFn = jest.fn()
+
       testSaga(handlePanoramaRequest, mockFn, 'id123', ['string'])
         .next()
         .call(mockFn, 'id123', ['string'])
@@ -120,8 +134,17 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
         .select(getLocationPayload)
         .next({ id: 'newId' })
         .put({
-          type: TOGGLE_MAP_OVERLAY_PANORAMA,
-          payload: 'pano',
+          type: MAP_CLEAR,
+        })
+        .next({ id: 'newId' })
+        .put({
+          type: TOGGLE_MAP_OVERLAY,
+          payload: {
+            mapLayers: ['foo-legend'],
+          },
+          meta: {
+            tracking: mockPanoramaConfig.layer,
+          },
         })
         .next()
         .put({
@@ -151,8 +174,17 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
         .select(getLocationPayload)
         .next({ id: 'oldId' })
         .put({
-          type: TOGGLE_MAP_OVERLAY_PANORAMA,
-          payload: 'pano',
+          type: MAP_CLEAR,
+        })
+        .next({ id: 'oldId' })
+        .put({
+          type: TOGGLE_MAP_OVERLAY,
+          payload: {
+            mapLayers: ['foo-legend'],
+          },
+          meta: {
+            tracking: mockPanoramaConfig.layer,
+          },
         })
         .next()
         .select(getMapCenter)

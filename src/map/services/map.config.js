@@ -35,6 +35,10 @@ const defaultConfig = {
     zoomInTitle: 'Inzoomen',
     zoomOutTitle: 'Uitzoomen',
   },
+  MAP_LAYER_TYPES: {
+    TMS: 'tms',
+    WMS: 'wms',
+  },
   MIN_ZOOM: 8,
   MAX_ZOOM: 16,
   DEFAULT_ZOOM_HIGHLIGHT: 14,
