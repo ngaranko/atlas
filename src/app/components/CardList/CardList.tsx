@@ -2,7 +2,6 @@ import React from 'react'
 import { Card, CardContent, Heading, themeSpacing, themeColor } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
 import useFromCMS from '../../utils/useFromCMS'
-import { cmsConfig } from '../../../shared/config/config'
 import EditorialCard from '../EditorialCard'
 
 const StyledCard = styled(Card)`
@@ -29,8 +28,8 @@ const StyledHeading = styled(Heading)`
   margin: ${themeSpacing(3, 0, 6)};
 `
 
-const CardList = ({ title }) => {
-  const { results, fetchData, loading } = useFromCMS(cmsConfig.HOME_HIGHLIGHT, undefined)
+const CardList = ({ title, list }) => {
+  const { results, fetchData, loading } = useFromCMS(list, undefined)
 
   React.useEffect(() => {
     ;(async () => {
