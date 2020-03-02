@@ -11,7 +11,7 @@ import {
   themeSpacing,
   breakpoint,
 } from '@datapunt/asc-ui'
-import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
+import { MatomoProvider } from '@datapunt/matomo-tracker-react'
 import {
   Provider as GraphQLProvider,
   createClient,
@@ -33,10 +33,10 @@ import { hasGlobalError } from '../shared/ducks/error/error-message'
 import { getPage, isHomepage } from '../store/redux-first-router/selectors'
 import Header from './components/Header'
 import AppBody from './AppBody'
-import { MATOMO_CONFIG } from '../store/middleware/matomo/constants'
 import { routing } from './routes'
 import Footer from './components/Footer/Footer'
 import getState from '../shared/services/redux/get-state'
+import matomoInstance from './matomo'
 
 const StyledContainer = styled(Container)`
   min-height: 100%;
@@ -49,11 +49,6 @@ const StyledContainer = styled(Container)`
     margin: 0 ${themeSpacing(6)};
   }
 `
-
-const matomoInstance = createInstance({
-  urlBase: MATOMO_CONFIG.BASE_URL,
-  siteId: MATOMO_CONFIG[process.env.NODE_ENV].SITE_ID,
-})
 
 const graphQLClient = createClient({
   url: `${process.env.GRAPHQL_ENDPOINT}`,
