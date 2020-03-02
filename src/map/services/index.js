@@ -1,7 +1,7 @@
 const mapBaseLayers = require('../../../public/static/map/map-base-layers.config.json')
 
 async function fetchMap(resolver, query) {
-  const result = await fetch('http://localhost:8080/cms_search/graphql', {
+  const result = await fetch(process.env.GRAPHQL_ENDPOINT, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
