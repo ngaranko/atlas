@@ -8,24 +8,28 @@ import {
   Heading,
   Paragraph,
   Image,
-  Tag,
   themeColor,
   themeSpacing,
 } from '@datapunt/asc-ui'
 import RouterLink from 'redux-first-router-link'
 import getImageFromCms from '../../utils/getImageFromCms'
-import { TYPES } from '../../../shared/config/cms.config'
-import { EDITORIAL_DETAIL_ACTIONS } from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const notFoundImage = '/assets/images/not_found_thumbnail.jpg'
 
-const IMAGE_SIZE = 160
-
 const StyledHeading = styled(Heading)`
   line-height: 22px;
-  margin-bottom: ${themeSpacing(3)};
+  margin-bottom: ${({ hasMarginBottom }) => hasMarginBottom && themeSpacing(3)};
   width: fit-content;
   display: inline-block;
+  font-weight: bold;
+`
+
+const ContentType = styled(Paragraph)`
+  text-transform: uppercase;
+  color: ${themeColor('support', 'valid')};
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
 `
 
 const StyledCardContent = styled(CardContent)`
@@ -35,6 +39,7 @@ const StyledCardContent = styled(CardContent)`
   margin-left: ${themeSpacing(4)};
   border-bottom: 1px solid ${themeColor('tint', 'level3')};
   position: relative;
+  min-height: 100%;
 `
 
 const StyledLink = styled(Link)`
@@ -62,6 +67,7 @@ const StyledLink = styled(Link)`
 
 const StyledCard = styled(Card)`
   align-items: stretch;
+  background-color: inherit;
 
   &:last-child {
     margin-bottom: 0;
@@ -69,21 +75,16 @@ const StyledCard = styled(Card)`
 `
 
 const StyledCardMedia = styled(CardMedia)`
+  ${({ vertical, imageDimensions }) => `
   flex: 1 0 auto;
-  border: 1px solid ${themeColor('tint', 'level3')};
-  max-width: ${({ vertical }) => (vertical ? IMAGE_SIZE * 0.7 : IMAGE_SIZE)}px;
-  max-height: ${IMAGE_SIZE}px;
+    border: 1px solid ${themeColor('tint', 'level3')};
+    max-width: ${imageDimensions[0]}px;
+    max-height: ${imageDimensions[1]}px;
 
-  &::before {
-    padding-top: ${({ vertical }) => (vertical ? '145%' : '100%')};
-  }
-`
-
-const StyledTag = styled(Tag)`
-  display: inline-block;
-  text-transform: capitalize;
-  margin-bottom: ${themeSpacing(2)};
-  padding: 2px; // needs to check if we need to implement this in asc-ui, as we also use the same padding on the homepage
+    &::before {
+      padding-top: ${vertical ? '145%' : '100%'};
+    }
+  `}
 `
 
 const IntroText = styled(Paragraph)`
@@ -102,17 +103,19 @@ const MetaText = styled(Paragraph)`
   }
 `
 
-const getImageSize = (image, resize) => {
+const getImageSize = (image, resize, imageSize) => {
+  const small = Math.round(imageSize * 0.5)
+  const medium = imageSize
+
   const srcSet = {
-    srcSet: `${getImageFromCms(image, IMAGE_SIZE * 0.5, IMAGE_SIZE * 0.5, resize)} ${IMAGE_SIZE *
-      0.5}w,
-             ${getImageFromCms(image, IMAGE_SIZE, IMAGE_SIZE, resize)} ${IMAGE_SIZE}w`,
+    srcSet: `${getImageFromCms(image, small, small, resize)} ${small}w,
+             ${getImageFromCms(image, medium, medium, resize)} ${medium}w`,
   }
 
   const sizes = {
     sizes: `
-      ${ascDefaultTheme.breakpoints.mobileL('max-width')} ${IMAGE_SIZE * 0.5}px,
-      ${ascDefaultTheme.breakpoints.tabletM('max-width')} ${IMAGE_SIZE}px,
+      ${ascDefaultTheme.breakpoints.mobileL('max-width')} ${small}px,
+      ${ascDefaultTheme.breakpoints.tabletM('max-width')} ${medium}px,
     `,
   }
 
@@ -125,70 +128,59 @@ const getImageSize = (image, resize) => {
 const EditorialCard = ({
   id,
   title,
-  label, // GraphQL
-  shortTitle,
-  teaser,
-  intro,
-  specialType,
-  localeDate,
-  localeDateFormatted,
-  date, // GraphQL
-  dateLocale, // GraphQL
-  slug, // GraphQL
-  teaserImage,
-  coverImage,
-  to: toProp,
+  description,
   type,
+  specialType,
+  date,
+  image,
+  to,
+  imageDimensions = [400, 400],
+  compact = false,
 }) => {
-  const image = type === TYPES.PUBLICATION ? coverImage : teaserImage
-  const imageIsVertical = type === TYPES.PUBLICATION
+  const imageIsVertical = imageDimensions[0] !== imageDimensions[1] // Image dimensions indicate whether the image is square or not
 
-  const { srcSet, sizes } = getImageSize(image, type === TYPES.PUBLICATION ? 'fit' : 'fill')
+  const { srcSet, sizes } = getImageSize(
+    image,
+    imageIsVertical ? 'fit' : 'fill',
+    imageIsVertical ? imageDimensions[1] : imageDimensions[0],
+  )
 
-  // The type SPECIALS has a different url structure
-  const to =
-    toProp ||
-    (specialType
-      ? EDITORIAL_DETAIL_ACTIONS[type](id, specialType, slug)
-      : EDITORIAL_DETAIL_ACTIONS[type](id, slug))
-
-  const displayTitle = shortTitle || title || label
-  const summary = teaser || intro
+  const contentType = specialType || type
 
   return (
-    <StyledLink $as={RouterLink} key={id} to={to} title={displayTitle} linkType="blank">
+    <StyledLink $as={RouterLink} key={id} to={to} title={title} linkType="blank">
       <StyledCard horizontal>
-        <StyledCardMedia vertical={imageIsVertical}>
+        <StyledCardMedia imageDimensions={imageDimensions} vertical={imageIsVertical}>
           <Image
             {...(image ? { ...srcSet, ...sizes } : {})}
-            src={getImageFromCms(image, 400, 400) || notFoundImage}
+            src={getImageFromCms(image, imageDimensions[0], imageDimensions[1]) || notFoundImage}
             alt={title}
             square
           />
         </StyledCardMedia>
         <StyledCardContent>
+          {contentType && (
+            <div>
+              <ContentType data-test="contentType">{contentType}</ContentType>
+            </div>
+          )}
+
           <div>
-            <StyledHeading $as="h4">{displayTitle}</StyledHeading>
+            <StyledHeading $as={compact ? 'Link' : 'h4'} hasMarginBottom={description}>
+              {title}
+            </StyledHeading>
           </div>
 
-          {specialType && (
+          {description && (
             <div>
-              <StyledTag colorType="tint" colorSubtype="level3">
-                {specialType}
-              </StyledTag>
+              <IntroText>{description}</IntroText>
             </div>
           )}
 
-          {summary && (
+          {date && (
             <div>
-              <IntroText>{summary}</IntroText>
-            </div>
-          )}
-
-          {!specialType && (localeDate || date || dateLocale) && (
-            <div>
-              <MetaText as="time" data-test="metaText" datetime={localeDate || date}>
-                {localeDateFormatted || dateLocale}
+              <MetaText as="time" data-test="metaText" datetime={date}>
+                {date}
               </MetaText>
             </div>
           )}

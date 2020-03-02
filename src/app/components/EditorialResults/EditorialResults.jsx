@@ -15,12 +15,15 @@ import EditorialCard from '../EditorialCard'
 import ErrorMessage from '../HomePage/ErrorMessage'
 import NoSearchResults from '../NoSearchResults'
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn'
+import { EDITORIAL_DETAIL_ACTIONS } from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const EDITORIAL_OVERVIEW_ACTIONS = {
   [TYPES.ARTICLE]: toArticleSearch,
   [TYPES.PUBLICATION]: toPublicationSearch,
   [TYPES.SPECIAL]: toSpecialSearch,
 }
+
+export const IMAGE_SIZE = 144
 
 const EditorialCardContainer = styled(CardContainer)`
   padding: 0;
@@ -41,7 +44,39 @@ const EditorialResults = ({ query, results, errors, label, loading, type, classN
         <>
           {!hasLoadingError &&
             results.length > 0 &&
-            results.map(result => <EditorialCard {...result} key={result.id} type={type} />)}
+            results.map(result => {
+              const {
+                id,
+                specialType,
+                slug,
+                coverImage,
+                teaserImage,
+                dateLocale,
+                label: cardLabel,
+                teaser,
+              } = result
+
+              // The type SPECIALS has a different url structure
+              const to = specialType
+                ? EDITORIAL_DETAIL_ACTIONS[type](id, specialType, slug)
+                : EDITORIAL_DETAIL_ACTIONS[type](id, slug)
+
+              return (
+                <EditorialCard
+                  specialType={specialType}
+                  key={id}
+                  image={type === TYPES.PUBLICATION ? coverImage : teaserImage}
+                  imageDimensions={[
+                    type === TYPES.PUBLICATION ? IMAGE_SIZE * 0.7 : IMAGE_SIZE, // Publications have different image dimensions
+                    IMAGE_SIZE,
+                  ]}
+                  to={to}
+                  title={cardLabel}
+                  description={teaser}
+                  date={!specialType && dateLocale}
+                />
+              )
+            })}
           {!hasLoadingError && results.length === 0 && (
             <NoSearchResults
               query={query}

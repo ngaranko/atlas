@@ -280,7 +280,7 @@ ${input.gebruiksdoel[1]}`,
       output = kadastraalObject(input)
 
       expect(output).toMatchObject({
-        size: '1.121 m²',
+        size: '1,121 m²',
       })
 
       input = {}
