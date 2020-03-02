@@ -1,6 +1,7 @@
 import PARAMETERS from '../store/parameters'
 import { routing, MAIN_PATHS } from './routes'
 import { CONTENT_REDIRECT_LINKS } from '../shared/config/config'
+import matomoInstance from './matomo'
 
 const { VIEW, VIEW_CENTER, LAYERS, LEGEND, ZOOM, EMBED } = PARAMETERS
 
@@ -134,8 +135,13 @@ export default function resolveRedirects() {
     return false
   }
 
-  // Tries to prevent cancelling the network request to Matomo from the middleware, arbitrary number that allows Matomo some time to load
-  window.setTimeout(() => window.location.replace(matchingRedirect.to), 600)
+  // Track "themakaarten"
+  if (shortUrls.includes(matchingRedirect)) {
+    matomoInstance.trackEvent({ category: 'kaartlaag', action: 'visit', name: currentPath })
+  }
+
+  // Tries to prevent cancelling the network request to Matomo, arbitrary number that allows Matomo some time to load
+  window.setTimeout(() => window.location.replace(matchingRedirect.to), 1000)
 
   return true
 }

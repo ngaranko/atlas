@@ -1,20 +1,11 @@
-import MatomoTracker from '@datapunt/matomo-tracker-js'
-// eslint-disable-next-line import/no-cycle
 import trackEvents from './trackEvents'
-// eslint-disable-next-line import/no-cycle
 import trackViews from './trackViews'
 import { authCustomDimensions, viewCustomDimensions } from './customDimensions'
-import { MATOMO_CONFIG } from './constants'
+import matomoInstance from '../../../app/matomo'
 
 // Execute Matomo actions
 const matomoMiddleware = ({ getState }) => next => action => {
   const nextAction = action
-
-  // Initialize connection with Matomo
-  const MatomoInstance = new MatomoTracker({
-    urlBase: MATOMO_CONFIG.BASE_URL,
-    siteId: MATOMO_CONFIG[process.env.NODE_ENV].SITE_ID,
-  })
 
   const actionsToMatomo = []
   if (trackViews[action.type]) {
@@ -42,7 +33,7 @@ const matomoMiddleware = ({ getState }) => next => action => {
       ]
 
       actionsToMatomo.forEach(matomoAction => {
-        MatomoInstance.track({
+        matomoInstance.track({
           data: matomoAction({
             tracking,
             firstAction,

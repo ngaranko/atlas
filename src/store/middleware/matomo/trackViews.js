@@ -2,7 +2,7 @@ import { routing } from '../../../app/routes'
 import { getDetail } from '../../../shared/ducks/detail/selectors'
 import { FETCH_DETAIL_SUCCESS } from '../../../shared/ducks/detail/constants'
 import { isDatasetDetailPage } from '../../redux-first-router/selectors'
-import { MATOMO_CONSTANTS } from './constants'
+import { MATOMO_CONSTANTS } from '../../../app/matomo'
 
 let views = Object.entries(routing).reduce((acc, [, value]) => ({
   ...acc,
