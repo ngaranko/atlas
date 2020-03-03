@@ -6,7 +6,7 @@
     "url": "git+https://github.com/Amsterdam/atlas.git"
   },
   "engines": {
-    "node": ">=8"
+    "node": "^12"
   },
   "author": "Datapunt Amsterdam",
   "license": "MPL-2.0",
