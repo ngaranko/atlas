@@ -70,10 +70,8 @@ const normalizeObject = data => {
    */
   if (!field_publication_date && (field_publication_year || field_publication_month)) {
     // Month (undefined or a string) - 1, check https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC
-    const month =
-      typeof field_publication_month === 'number' && field_publication_month > 0
-        ? field_publication_month - 1
-        : 0
+    const monthNumber = parseInt(field_publication_month, 10)
+    const month = monthNumber > 0 ? monthNumber - 1 : 0
     localeDate = new Date(Date.UTC(field_publication_year, month, 1, 0, 0, 0))
     localeDateFormatted = formatDate(
       localeDate,
