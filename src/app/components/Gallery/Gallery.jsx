@@ -78,7 +78,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength, access }) => {
           </Notification>
         ) : thumbnails && thumbnails.length ? (
           <>
-            {!hasRights && (
+            {!hasRights && !hasExtendedRights && (
               <StyledNotification type="warning">
                 Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om bouwdossiers te
                 bekijken.
@@ -121,7 +121,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength, access }) => {
                     >
                       <IIIFThumbnail
                         src={
-                          hasRights
+                          hasRights || hasExtendedRights
                             ? `${process.env.IIIF_ROOT}iiif/2/edepot:${fileName}/square/300,300/0/default.jpg`
                             : '/assets/images/not_found_thumbnail.jpg' // use the default not found image when user has no rights
                         }
