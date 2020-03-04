@@ -99,13 +99,12 @@ const SearchPageResults = ({
   sort,
   page,
   pageInfo,
+  hasQuery,
 }) => {
   const dispatch = useDispatch()
   const allResultsPageActive = currentPage === PAGES.SEARCH
 
   const formatTitle = (label, count = null) => {
-    const hasQuery = query.trim().length > 0
-
     // Handle an empty result.
     if (count === 0) {
       return hasQuery ? `Geen resultaten met '${query}'` : 'Geen resultaten'

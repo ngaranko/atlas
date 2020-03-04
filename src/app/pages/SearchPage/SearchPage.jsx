@@ -39,7 +39,7 @@ const SearchPage = ({ currentPage, query }) => {
   const [showFilter, setShowFilter] = useState(false)
   const [sort, page, activeFilters] = useSelectors([getSort, getPage, getActiveFilters])
 
-  const hasQuery = query.trim().length > 0
+  const hasQuery = query.toString().trim().length > 0
   const isSearchPage = SEARCH_PAGES.includes(currentPage)
   const isDataSearchPage = currentPage === PAGES.DATA_SEARCH
   const isOverviewPage = !hasQuery && isSearchPage
@@ -114,7 +114,8 @@ const SearchPage = ({ currentPage, query }) => {
 
           <SearchPageResults
             {...{
-              query,
+              hasQuery,
+              query: query.toString(), // the query is not used for data fetching any longer, so can be transformed
               errors,
               fetching: initialLoading,
               totalCount,
