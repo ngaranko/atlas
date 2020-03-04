@@ -1,8 +1,9 @@
 import React from 'react'
 import { Card, CardContent, Heading, themeSpacing, themeColor } from '@datapunt/asc-ui'
 import styled from '@datapunt/asc-core'
-import useFromCMS from '../../utils/useFromCMS'
+import useFromCMS, { CMSConfig } from '../../utils/useFromCMS'
 import EditorialCard from '../EditorialCard'
+import { EDITORIAL_DETAIL_ACTIONS } from '../../../normalizations/cms/useNormalizedCMSResults'
 
 const StyledCard = styled(Card)`
   border-top: 2px solid;
@@ -28,7 +29,12 @@ const StyledHeading = styled(Heading)`
   margin: ${themeSpacing(3, 0, 6)};
 `
 
-const CardList = ({ title, list }) => {
+type CardListProps = {
+  title: string
+  list: CMSConfig
+}
+
+const CardList: React.FC<CardListProps> = ({ title, list }) => {
   const { results, fetchData, loading } = useFromCMS(list, undefined)
 
   React.useEffect(() => {
@@ -44,14 +50,16 @@ const CardList = ({ title, list }) => {
           {title}
         </StyledHeading>
         <div>
-          {results &&
-            results.map(result => (
+          {results.length > 0 &&
+            results.map(({ id, type, specialType, title: cardTitle, linkProps, teaserImage }) => (
               <EditorialCard
                 {...{
-                  to: result.type,
-                  specialType: result.specialType,
-                  title: result.title,
-                  image: result.teaserImage,
+                  id,
+                  type,
+                  linkProps,
+                  specialType,
+                  title: cardTitle,
+                  image: teaserImage,
                   imageDimensions: [44, 44],
                   compact: true, // Important: renders a simplified version of this card
                 }}

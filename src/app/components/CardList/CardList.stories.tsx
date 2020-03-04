@@ -1,5 +1,6 @@
 import React from 'react'
 import CardList from './CardList'
+import { cmsConfig } from '../../../shared/config/config'
 
 export default {
   title: 'Dataportaal/Dossiers/CardList',
@@ -9,4 +10,4 @@ export default {
   ],
 }
 
-export const DefaultState = () => <CardList />
+export const DefaultState = () => <CardList title="Example list" list={cmsConfig.HOME_HIGHLIGHT} />

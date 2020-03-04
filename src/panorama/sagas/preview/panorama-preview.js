@@ -15,6 +15,7 @@ export function* fetchMapPano(action) {
   try {
     const location = action.payload
     const panoramaResult = yield call(panoPreview, location)
+
     yield put(fetchPanoramaPreviewSuccess(panoramaResult))
   } catch (error) {
     yield put(fetchPanoramaPreviewFailure(error))

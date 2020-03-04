@@ -39,6 +39,8 @@ const SearchPage = ({ currentPage, query }) => {
   const [showFilter, setShowFilter] = useState(false)
   const [sort, page, activeFilters] = useSelectors([getSort, getPage, getActiveFilters])
 
+  console.log(query)
+
   const hasQuery = query.trim().length > 0
   const isSearchPage = SEARCH_PAGES.includes(currentPage)
   const isDataSearchPage = currentPage === PAGES.DATA_SEARCH

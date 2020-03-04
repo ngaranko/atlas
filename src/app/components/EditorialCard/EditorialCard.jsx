@@ -11,14 +11,15 @@ import {
   themeColor,
   themeSpacing,
 } from '@datapunt/asc-ui'
-import RouterLink from 'redux-first-router-link'
 import getImageFromCms from '../../utils/getImageFromCms'
 
 const notFoundImage = '/assets/images/not_found_thumbnail.jpg'
 
 const StyledHeading = styled(Heading)`
+  // By forwarding this component as h4, we need to overwrite the style rules in src/shared/styles/base/_typography.scss
   line-height: 22px;
   margin-bottom: ${({ hasMarginBottom }) => hasMarginBottom && themeSpacing(3)};
+  ${({ compact }) => compact && 'font-size: 16px;'}
   width: fit-content;
   display: inline-block;
   font-weight: bold;
@@ -128,12 +129,12 @@ const getImageSize = (image, resize, imageSize) => {
 const EditorialCard = ({
   id,
   title,
-  description,
+  description = false,
   type,
-  specialType,
-  date,
+  specialType = false,
+  date = false,
   image,
-  to,
+  linkProps,
   imageDimensions = [400, 400],
   compact = false,
 }) => {
@@ -148,7 +149,7 @@ const EditorialCard = ({
   const contentType = specialType || type
 
   return (
-    <StyledLink $as={RouterLink} key={id} to={to} title={title} linkType="blank">
+    <StyledLink {...linkProps} key={id} title={title} linkType="blank">
       <StyledCard horizontal>
         <StyledCardMedia imageDimensions={imageDimensions} vertical={imageIsVertical}>
           <Image
@@ -166,7 +167,11 @@ const EditorialCard = ({
           )}
 
           <div>
-            <StyledHeading $as={compact ? 'Link' : 'h4'} hasMarginBottom={description}>
+            <StyledHeading
+              forwardedAs={compact ? 'span' : 'h4'}
+              compact={compact}
+              hasMarginBottom={description}
+            >
               {title}
             </StyledHeading>
           </div>
