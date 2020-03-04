@@ -1,7 +1,6 @@
-import MatomoTracker from '@datapunt/matomo-tracker-js'
+import matomoInstance from '../../../app/matomo'
 import matomoMiddleware from './matomoMiddleware'
 
-jest.mock('@datapunt/matomo-tracker-js')
 jest.mock('./trackEvents', () => ({
   YOUR_ACTION_TYPE: ({ tracking }) => ['foo', 'foo', tracking, null],
 }))
@@ -14,13 +13,9 @@ describe('matomoMiddleware', () => {
     ui: {},
   }))
 
-  const trackMock = jest.fn()
+  const trackMock = jest.spyOn(matomoInstance, 'track')
 
   beforeEach(() => {
-    MatomoTracker.mockImplementation(() => ({
-      track: trackMock,
-    }))
-
     next = jest.fn()
   })
 

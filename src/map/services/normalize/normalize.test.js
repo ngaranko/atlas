@@ -22,6 +22,9 @@ import formatDate from '../../../shared/services/date-formatter/date-formatter'
 jest.mock('../../../shared/services/date-formatter/date-formatter')
 
 describe('normalize', () => {
+  // This must be mocked to prevent issues with locale settings of machines
+  const localeStringMock = jest.spyOn(Number.prototype, 'toLocaleString')
+
   describe('normalizes "oplaadpunten', () => {
     let input
     let output
@@ -203,6 +206,7 @@ describe('normalize', () => {
         hoofdadres: {
           type_adres: 'foo',
         },
+        oppervlakte: 0,
       }
 
       output = adressenVerblijfsobject(input)
@@ -211,11 +215,16 @@ describe('normalize', () => {
         statusLevel: 'alert',
         isNevenadres: false,
         typeAdres: input.hoofdadres.type_adres,
+        size: 'onbekend',
       })
 
       input = {
         hoofdadres: false,
+        oppervlakte: 1000,
       }
+
+      const mockedLocaleString = '1,000'
+      localeStringMock.mockImplementationOnce(() => mockedLocaleString)
 
       output = adressenVerblijfsobject(input)
 
@@ -223,6 +232,7 @@ describe('normalize', () => {
         statusLevel: false,
         isNevenadres: true,
         typeAdres: 'Nevenadres',
+        size: `${mockedLocaleString} m²`, // mocked
       })
     })
 
@@ -277,10 +287,13 @@ ${input.gebruiksdoel[1]}`,
         grootte: 1.12121121212,
       }
 
+      const mockedLocaleString = '1,21212'
+      localeStringMock.mockImplementationOnce(() => mockedLocaleString)
+
       output = kadastraalObject(input)
 
       expect(output).toMatchObject({
-        size: '1,121 m²',
+        size: `${mockedLocaleString} m²`, // mocked
       })
 
       input = {}

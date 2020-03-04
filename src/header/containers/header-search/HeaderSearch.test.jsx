@@ -16,6 +16,7 @@ describe('The HeaderSearch component', () => {
   const mockOnDatasetSearch = jest.fn()
   const mockOnArticleSearch = jest.fn()
   const mockOnPublicationSearch = jest.fn()
+  const mockOnSpecialsSearch = jest.fn()
   const mockOpenDataSuggestion = jest.fn()
   const mockOpenDatasetSuggestion = jest.fn()
   const mockOpenEditorialSuggestion = jest.fn()
@@ -30,6 +31,7 @@ describe('The HeaderSearch component', () => {
     onDataSearch: mockOnDataSearch,
     onArticleSearch: mockOnArticleSearch,
     onPublicationSearch: mockOnPublicationSearch,
+    onSpecialsSearch: mockOnSpecialsSearch,
     openDataSuggestion: mockOpenDataSuggestion,
     openDatasetSuggestion: mockOpenDatasetSuggestion,
     openEditorialSuggestion: mockOpenEditorialSuggestion,
@@ -80,6 +82,15 @@ describe('The HeaderSearch component', () => {
       autosuggest.props().onSubmit(LABELS.PUBLICATIONS)
 
       expect(mockOnPublicationSearch).toHaveBeenCalledWith(typedQuery)
+    })
+
+    it('and opens the specials search tab', () => {
+      const autosuggest = component.find('AutoSuggest')
+
+      // execute this.onFormSubmit()
+      autosuggest.props().onSubmit(LABELS.SPECIALS)
+
+      expect(mockOnArticleSearch).toHaveBeenCalledWith(typedQuery)
     })
   })
 

@@ -82,9 +82,7 @@ describe('SearchResultsOverview', () => {
 
       it('renders an error message when needed', () => {
         const mockErrors = [{ message: 'Some error', path: ['foo2'] }]
-
-        // Totalcount must also be zero
-        const mockResultsWithError = [...mockResults, { key: 'foo2', totalCount: 0, results: [] }]
+        const mockResultsWithError = [{ key: 'foo2', totalCount: 0, results: [] }]
 
         component = shallow(
           <SearchResultsOverview

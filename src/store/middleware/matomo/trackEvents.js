@@ -45,8 +45,8 @@ import {
 } from '../../../panorama/ducks/constants'
 import PAGES from '../../../app/pages'
 import PARAMETERS from '../../parameters'
-import { MATOMO_CONSTANTS } from './constants'
 import { DOWNLOAD_DATASET_RESOURCE } from '../../../shared/ducks/detail/constants'
+import { MATOMO_CONSTANTS } from '../../../app/matomo'
 
 /* istanbul ignore next */
 const trackEvents = {
@@ -214,16 +214,6 @@ const trackEvents = {
           null,
         ]
   },
-  // MAP -> TOGGLE OVERLAYS
-  TOGGLE_MAP_OVERLAY: ({ tracking }) =>
-    tracking.category
-      ? [
-          MATOMO_CONSTANTS.TRACK_EVENT,
-          'kaartlaag',
-          tracking.category.toLowerCase().replace(/[: ][ ]*/g, '_'),
-          tracking.title,
-        ]
-      : [],
   // AUTHENTICATION
   // AUTHENTICATION BUTTON -> "inloggen" / "uitloggen"
   [AUTHENTICATE_USER_REQUEST]: ({ tracking, title }) => [

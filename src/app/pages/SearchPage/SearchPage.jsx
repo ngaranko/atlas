@@ -90,8 +90,8 @@ const SearchPage = ({ currentPage, query }) => {
   // Only the initial loading state should render the skeleton components, this prevents unwanted flickering when changing query variables
   useEffect(() => {
     if (currentPageHasChanged) {
-      // If the page changes, the skeleton components must be rendered
-      setInitialLoading(true)
+      // If the page changes, the skeleton components must be rendered, unless we already have results
+      setInitialLoading(!results.length)
     } else if (!!results && !fetching) {
       setInitialLoading(false)
     }
