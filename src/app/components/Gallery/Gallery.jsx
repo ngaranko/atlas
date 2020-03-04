@@ -71,18 +71,21 @@ const Gallery = ({ title, allThumbnails, id, maxLength, access }) => {
         <StyledHeading color="secondary" forwardedAs="h3">
           {title} {hasMore && `(${allThumbnails.length})`}
         </StyledHeading>
-        {restricted && !hasExtendedRights ? (
-          <Notification type="warning">
-            Medewerkers/ketenpartners van Gemeente Amsterdam met extra bevoegdheden kunnen inloggen
-            om alle bouwdossiers te bekijken.
-          </Notification>
-        ) : thumbnails && thumbnails.length ? (
+        {thumbnails && thumbnails.length ? (
           <>
-            {!hasRights && !hasExtendedRights && (
+            {!hasRights && !hasExtendedRights ? (
               <StyledNotification type="warning">
                 Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om bouwdossiers te
                 bekijken.
               </StyledNotification>
+            ) : (
+              restricted &&
+              !hasExtendedRights && (
+                <StyledNotification type="warning">
+                  Medewerkers/ketenpartners van Gemeente Amsterdam met extra bevoegdheden kunnen
+                  inloggen om alle bouwdossiers te bekijken.
+                </StyledNotification>
+              )
             )}
 
             <StyledGridContainer
@@ -121,7 +124,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength, access }) => {
                     >
                       <IIIFThumbnail
                         src={
-                          hasRights || hasExtendedRights
+                          hasExtendedRights || (!restricted && hasRights)
                             ? `${process.env.IIIF_ROOT}iiif/2/edepot:${fileName}/square/300,300/0/default.jpg`
                             : '/assets/images/not_found_thumbnail.jpg' // use the default not found image when user has no rights
                         }
