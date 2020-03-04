@@ -6,7 +6,7 @@ import { cmsConfig } from '../../../shared/config/config'
 import { toSpecialSearch } from '../../../store/redux-first-router/actions'
 import useFromCMS from '../../utils/useFromCMS'
 import BlockHeading from './BlockHeading'
-import ErrorMessage, { ErrorBackgroundCSS } from './ErrorMessage'
+import ErrorMessage, { ErrorBackgroundCSS } from '../ErrorMessage/ErrorMessage'
 import OverviewLink from './OverviewLink'
 import SpecialCard from './SpecialCard'
 

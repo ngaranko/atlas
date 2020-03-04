@@ -19,10 +19,11 @@ export type CMSResults = {
 export type CMSResultItem = {
   id: string
   type: string
-  specialType?: string
+  specialType: string | null
   title: string
   shortTitle?: string
   teaser: string
+  linkProps: Object
   teaserImage?: string
   coverImage?: string
 }

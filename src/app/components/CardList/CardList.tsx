@@ -3,7 +3,7 @@ import { Card, CardContent, Heading, themeSpacing, themeColor } from '@datapunt/
 import styled from '@datapunt/asc-core'
 import useFromCMS, { CMSConfig } from '../../utils/useFromCMS'
 import EditorialCard from '../EditorialCard'
-import { EDITORIAL_DETAIL_ACTIONS } from '../../../normalizations/cms/useNormalizedCMSResults'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 const StyledCard = styled(Card)`
   border-top: 2px solid;
@@ -35,13 +35,9 @@ type CardListProps = {
 }
 
 const CardList: React.FC<CardListProps> = ({ title, list }) => {
-  const { results, fetchData, loading } = useFromCMS(list, undefined)
+  const { results, fetchData, loading, error } = useFromCMS(list, undefined)
 
-  React.useEffect(() => {
-    ;(async () => {
-      await fetchData()
-    })()
-  }, [])
+  React.useEffect(() => fetchData(), [])
 
   return (
     <StyledCard isLoading={loading}>
@@ -50,6 +46,7 @@ const CardList: React.FC<CardListProps> = ({ title, list }) => {
           {title}
         </StyledHeading>
         <div>
+          {error && <ErrorMessage onClick={() => fetchData()} />}
           {results.length > 0 &&
             results.map(({ id, type, specialType, title: cardTitle, linkProps, teaserImage }) => (
               <EditorialCard

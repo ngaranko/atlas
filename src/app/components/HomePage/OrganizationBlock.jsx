@@ -10,7 +10,7 @@ import {
   styles,
 } from '@datapunt/asc-ui'
 import React from 'react'
-import ErrorMessage from './ErrorMessage'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import OrganizationCard from './OrganizationCard'
 import useFromCMS from '../../utils/useFromCMS'
 import { cmsConfig } from '../../../shared/config/config'

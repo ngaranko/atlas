@@ -38,14 +38,14 @@ describe('useFromCMS', () => {
     const { result } = renderHook(() => useFromCMS(mockCMSconfig.TEST, id))
 
     expect(result.current.loading).toBe(true)
-    expect(result.current.results).toBeNull()
+    expect(result.current.results).toEqual([])
   })
 
   it('should return results when fetchData is called', async () => {
     const { result, waitForNextUpdate } = renderHook(() => useFromCMS(mockCMSconfig.TEST))
 
     expect(result.current.loading).toBe(true)
-    expect(result.current.results).toBeNull()
+    expect(result.current.results).toEqual([])
 
     // call the fetchData function
     result.current.fetchData()
@@ -67,7 +67,7 @@ describe('useFromCMS', () => {
     )
 
     expect(result.current.loading).toBe(true)
-    expect(result.current.results).toBeNull()
+    expect(result.current.results).toEqual([])
 
     // call the fetchData function
     result.current.fetchData()
@@ -89,7 +89,7 @@ describe('useFromCMS', () => {
 
     const { result, waitForNextUpdate } = renderHook(() => useFromCMS(mockCMSconfig.TEST, id))
     expect(result.current.loading).toBe(true)
-    expect(result.current.results).toBeNull()
+    expect(result.current.results).toEqual([])
 
     // call the fetchData function
     result.current.fetchData()
@@ -98,7 +98,7 @@ describe('useFromCMS', () => {
     await waitForNextUpdate()
 
     expect(result.current.loading).toBe(false)
-    expect(result.current.results).toBeNull()
+    expect(result.current.results).toEqual([])
     expect(result.current.error).toBe(true)
   })
 })

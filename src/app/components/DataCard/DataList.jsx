@@ -7,7 +7,7 @@ import SearchLink from '../Links/SearchLink/SearchLink'
 import SearchHeading from '../SearchHeading/SearchHeading'
 import DataIcon from './DataIcon'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
-import ErrorMessage from '../HomePage/ErrorMessage'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import { DEFAULT_LOCALE } from '../../../shared/config/locale.config'
 
 const List = styled.ul`

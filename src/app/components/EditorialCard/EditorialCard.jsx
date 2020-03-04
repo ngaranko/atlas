@@ -131,7 +131,7 @@ const EditorialCard = ({
   title,
   description = false,
   type,
-  specialType = false,
+  specialType = null,
   date = false,
   image,
   linkProps,

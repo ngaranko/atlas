@@ -9,7 +9,7 @@ import { toSearch } from '../../../store/redux-first-router/actions'
 import { Filter, FilterOption } from '../../models/filter'
 import { ActiveFilter } from '../../pages/SearchPage/SearchPageDucks'
 import BlockHeading from './BlockHeading'
-import ErrorMessage from './ErrorMessage'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 const getFiltersQuery = `
   query {

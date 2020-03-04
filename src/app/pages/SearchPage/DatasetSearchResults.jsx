@@ -8,7 +8,7 @@ import { toDatasetDetail, toDatasetSearch } from '../../../store/redux-first-rou
 import ActionButton from '../../components/ActionButton/ActionButton'
 import DatasetCard from '../../components/DatasetCard'
 import { modificationDateFilter } from '../../components/Filters/Filters'
-import ErrorMessage from '../../components/HomePage/ErrorMessage'
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import NoSearchResults from '../../components/NoSearchResults'
 import MoreResultsWhenLoggedIn from '../../components/PanelMessages/MoreResultsWhenLoggedIn'
 import getErrorsForPath from '../../utils/getErrorsForPath'
