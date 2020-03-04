@@ -1,7 +1,6 @@
 const merge = require('webpack-merge')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { commonConfig } = require('./webpack.common.js')
-const { GenerateSW } = require('workbox-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = () => {
@@ -109,50 +108,6 @@ module.exports = () => {
       },
       runtimeChunk: true,
     },
-    plugins: [
-      new MiniCssExtractPlugin('main.[contenthash].css'),
-      new GenerateSW({
-        clientsClaim: true,
-        exclude: [/\.map$/, /\.json$/],
-        navigateFallbackDenylist: [
-          // Exclude any URLs whose last part seems to be a file extension
-          // as they're likely a resource and not a SPA route.
-          // URLs containing a "?" character won't be blacklisted as they're likely
-          // a route with query params (e.g. auth callbacks).
-          new RegExp('/[^/?]+\\.[^/]+$'),
-        ],
-        cleanupOutdatedCaches: true,
-        // Temporary disabled this, since we do not want to cache responses that require authorization
-        //
-        // runtimeCaching: [
-        //   {
-        //     urlPattern: new RegExp(apiUrl),
-        //     handler: 'StaleWhileRevalidate',
-        //     options: {
-        //       cacheName: 'api',
-        //       expiration: {
-        //         maxAgeSeconds: 60 * 60 * 12, // 12h
-        //       },
-        //       cacheableResponse: {
-        //         statuses: [0, 200],
-        //       },
-        //     },
-        //   },
-        //   {
-        //     urlPattern: new RegExp(`${cmsUrl}(?!/jsonapi/node/notification)`),
-        //     handler: 'StaleWhileRevalidate',
-        //     options: {
-        //       cacheName: 'cms',
-        //       expiration: {
-        //         maxAgeSeconds: 60 * 60 * 12, // 12h
-        //       },
-        //       cacheableResponse: {
-        //         statuses: [0, 200],
-        //       },
-        //     },
-        //   },
-        // ],
-      }),
-    ],
+    plugins: [new MiniCssExtractPlugin('main.[contenthash].css')],
   })
 }
