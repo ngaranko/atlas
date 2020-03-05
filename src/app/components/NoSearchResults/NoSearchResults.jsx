@@ -14,18 +14,20 @@ const StyledTypgraphy = styled(Typography)`
   margin-bottom: 0;
 `
 
-const StyledListItem = ({ children }) => <StyledTypgraphy $as="li">{children}</StyledTypgraphy>
+const StyledListItem = ({ children }) => (
+  <StyledTypgraphy forwardedAs="li">{children}</StyledTypgraphy>
+)
 
 const NoSearchResults = ({ query, label = '', to = false }) => (
   <>
     <Paragraph>{formatNoResultsMessage(query, label)}</Paragraph>
-    <Heading $as="h3">Zoeksuggesties</Heading>
+    <Heading as="h3">Zoeksuggesties</Heading>
     <StyledList>
       <StyledListItem>Maak de zoekcriteria eventueel minder specifiek.</StyledListItem>
       {to && (
         <StyledListItem>
           Of bekijk de lijst{' '}
-          <Link $as={RouterLink} to={to} title={label} variant="inline">
+          <Link as={RouterLink} to={to} title={label} variant="inline">
             {label}
           </Link>{' '}
           en filter vervolgens op thema.

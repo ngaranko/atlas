@@ -20,7 +20,7 @@ exports[`MapLegend should render the component 1`] = `
                     map-legend__category--unselectable-legend
                   "
       >
-        <Styled(Checkbox)
+        <Styled(Component)
           checked={false}
           className="checkbox"
           name="title"
@@ -74,7 +74,7 @@ exports[`MapLegend should render the component 1`] = `
                     map-legend__category--selectable-legend
                   "
       >
-        <Styled(Checkbox)
+        <Styled(Component)
           checked={true}
           className="checkbox"
           name="title"
@@ -99,7 +99,7 @@ exports[`MapLegend should render the component 1`] = `
           className="map-legend__item"
           key="0"
         >
-          <Styled(Checkbox)
+          <Styled(Component)
             checked={false}
             className="checkbox"
             name="legendTitle"
@@ -127,7 +127,7 @@ exports[`MapLegend should render the component 1`] = `
           className="map-legend__item"
           key="1"
         >
-          <Styled(Checkbox)
+          <Styled(Component)
             checked={true}
             className="checkbox"
             name="legendTitle"

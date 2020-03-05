@@ -5,7 +5,7 @@ exports[`MoreResultsWhenLoggedIn should render everything 1`] = `
   type="info"
 >
   <Styled(Heading)
-    $as="h3"
+    forwardedAs="h3"
   >
     Meer resultaten na inloggen
   </Styled(Heading)>

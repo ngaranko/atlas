@@ -95,7 +95,7 @@ describe('useNormalizedCMSResults', () => {
       }),
     ).toMatchObject({
       linkProps: {
-        $as: 'a',
+        forwardedAs: 'a',
         href,
       },
     })

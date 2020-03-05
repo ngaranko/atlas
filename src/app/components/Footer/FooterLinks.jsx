@@ -13,7 +13,7 @@ const FooterLinks = ({ children, links }) => (
           <FooterLinkListItem key={linkId} order={order}>
             {!href ? (
               <Link
-                $as={RouterLink}
+                as={RouterLink}
                 title={title}
                 to={toArticleDetail(linkId, slug)}
                 variant="with-chevron"

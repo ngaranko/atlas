@@ -54,10 +54,10 @@ const normalizeObject = data => {
 
   // By default use the internal router, fallback on a div if there's no link.
   // If there's an externalUrl set, override the linkProps.
-  let linkProps = to ? { to, $as: RouterLink } : { $as: 'div' }
+  let linkProps = to ? { to, forwardedAs: RouterLink } : { forwardedAs: 'div' }
   const externalUrl = field_link && field_link.uri
 
-  linkProps = externalUrl ? { href: externalUrl, $as: 'a' } : linkProps
+  linkProps = externalUrl ? { href: externalUrl, forwardedAs: 'a' } : linkProps
   linkProps = { ...linkProps, title } // Add the title attribute by default
 
   let localeDate = field_publication_date

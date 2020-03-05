@@ -49,20 +49,20 @@ const FeedbackModalComponent = ({
     hideOverFlow={false}
   >
     <TopBar>
-      <Heading $as="h4">
+      <Heading as="h4">
         Feedback
         <Button variant="blank" type="button" size={30} onClick={handleClose} icon={<Close />} />
       </Heading>
     </TopBar>
     <Divider />
     <ModalBlock>
-      <Heading $as="h4">Onjuiste of ontbrekende gegevens?</Heading>
+      <Heading as="h4">Onjuiste of ontbrekende gegevens?</Heading>
       <Paragraph>
         We horen graag welke gegevens onjuist zijn of ontbreken. Voor medewerkers van de gemeente is
         dit &lsquo;terugmelden&lsquo; overigens verplicht.
       </Paragraph>
       <Button
-        $as="a"
+        as="a"
         variant="primary"
         onClick={reportFeedbackAction}
         href={getMailtoLink(
@@ -76,13 +76,13 @@ const FeedbackModalComponent = ({
     </ModalBlock>
     <Divider gutter />
     <ModalBlock>
-      <Heading $as="h4">Probleem of suggestie?</Heading>
+      <Heading as="h4">Probleem of suggestie?</Heading>
       <Paragraph>
         Als iets op deze pagina niet goed werkt, onduidelijk is of vragen oproept, geef het aan ons
         door.
       </Paragraph>
       <Button
-        $as="a"
+        as="a"
         variant="primary"
         onClick={reportProblemAction}
         href={getMailtoLink(PROBLEM_RECIPIENT, PROBLEM_SUBJECT, PROBLEM_BODY(window.location.href))}
@@ -92,7 +92,7 @@ const FeedbackModalComponent = ({
     </ModalBlock>
     <Divider transparent />
     <ModalBlock>
-      <Link variant="inline" to={toHelpPage()} onClick={handleClose} $as={RouterLink}>
+      <Link variant="inline" to={toHelpPage()} onClick={handleClose} as={RouterLink}>
         Hulp nodig?
       </Link>
     </ModalBlock>
