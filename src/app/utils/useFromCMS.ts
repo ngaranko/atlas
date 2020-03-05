@@ -4,7 +4,7 @@ import cmsJsonApiNormalizer from '../../shared/services/cms/cms-json-api-normali
 import useNormalizedCMSResults from '../../normalizations/cms/useNormalizedCMSResults'
 
 export type CMSConfig = {
-  endpoint: (id?: number) => string
+  endpoint: (id?: string) => string
   fields?: Array<string>
 }
 

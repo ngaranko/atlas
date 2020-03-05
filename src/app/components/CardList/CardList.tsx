@@ -38,14 +38,14 @@ const CardList: React.FC<CardListProps> = ({ title, list }) => {
   const { results, fetchData, loading, error } = useFromCMS(list)
 
   React.useEffect(() => {
-    ;(async () => {
-      await fetchData()
-    })()
+    fetchData()
   }, [])
 
   return (
     <StyledCard isLoading={loading}>
       <StyledCardContent>
+        {/* 
+          // @ts-ignore */}
         <StyledHeading forwardedAs="h4" styleAs="h3">
           {title}
         </StyledHeading>
