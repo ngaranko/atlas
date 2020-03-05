@@ -48,20 +48,22 @@ const CardList: React.FC<CardListProps> = ({ title, list }) => {
         <div>
           {error && <ErrorMessage onClick={() => fetchData()} />}
           {results.length > 0 &&
-            results.map(({ id, type, specialType, title: cardTitle, linkProps, teaserImage }) => (
-              <EditorialCard
-                {...{
-                  id,
-                  type,
-                  linkProps,
-                  specialType,
-                  title: cardTitle,
-                  image: teaserImage,
-                  imageDimensions: [44, 44],
-                  compact: true, // Important: renders a simplified version of this card
-                }}
-              />
-            ))}
+            results.map(
+              ({ id, type, specialType, shortTitle, title: cardTitle, linkProps, teaserImage }) => (
+                <EditorialCard
+                  {...{
+                    id,
+                    type,
+                    linkProps,
+                    specialType,
+                    title: shortTitle || cardTitle,
+                    image: teaserImage,
+                    imageDimensions: [44, 44],
+                    compact: true, // Important: renders a simplified version of this card
+                  }}
+                />
+              ),
+            )}
         </div>
       </StyledCardContent>
     </StyledCard>
