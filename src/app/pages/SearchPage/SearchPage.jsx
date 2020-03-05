@@ -114,6 +114,7 @@ const SearchPage = ({ currentPage, query }) => {
 
           <SearchPageResults
             {...{
+              hasQuery,
               query,
               errors,
               fetching: initialLoading,
