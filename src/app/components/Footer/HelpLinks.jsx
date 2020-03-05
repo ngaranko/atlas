@@ -23,7 +23,7 @@ const HelpLinks = ({ links }) => (
     <FooterLinks links={links}>
       <FooterLinkListItem order={3}>
         <FeedbackLink
-          $as="button"
+          forwardedAs="button"
           title="Feedback geven"
           variant="with-chevron"
           onClick={openFeedbackForm}

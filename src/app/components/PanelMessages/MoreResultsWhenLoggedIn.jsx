@@ -15,7 +15,7 @@ const StyledHeading = styled(Heading)`
 
 const MoreResultsWhenLoggedIn = ({ excludedResults }) => (
   <StyledNotification type="info">
-    <StyledHeading $as="h3">Meer resultaten na inloggen</StyledHeading>
+    <StyledHeading forwardedAs="h3">Meer resultaten na inloggen</StyledHeading>
     <p>
       {'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om ' +
         `meer te vinden${excludedResults ? `: ${excludedResults}` : ''}. `}

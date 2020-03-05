@@ -58,7 +58,7 @@ const DataList = ({ type, label, count, results, withPagination }) => (
           <li key={location.id}>
             <StyledLink
               to={toDetailFromEndpoint(location.endpoint, VIEW_MODE.SPLIT)}
-              $as={RouterLink}
+              forwardedAs={RouterLink}
               variant="with-chevron"
             >
               {location.label}

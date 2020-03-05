@@ -46,7 +46,7 @@ const CardList: React.FC<CardListProps> = ({ title, list }) => {
   return (
     <StyledCard isLoading={loading}>
       <StyledCardContent>
-        <StyledHeading $as="h4" styleAs="h3">
+        <StyledHeading forwardedAs="h4" styleAs="h3">
           {title}
         </StyledHeading>
         <div>

@@ -94,7 +94,7 @@ const AboutBlock = () => {
     <AboutBlockStyle data-test="about-block">
       <Row hasMargin={false}>
         <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
-          <StyledHeading $as="h2" styleAs="h1">
+          <StyledHeading forwardedAs="h2" styleAs="h1">
             Over data
           </StyledHeading>
 
@@ -113,7 +113,7 @@ const AboutBlock = () => {
           </StyledRow>
         </StyledColumn>
         <StyledColumn span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}>
-          <StyledHeading $as="h2" styleAs="h1">
+          <StyledHeading forwardedAs="h2" styleAs="h1">
             Over deze site
           </StyledHeading>
 

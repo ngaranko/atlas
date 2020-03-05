@@ -56,7 +56,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength, access }) => {
   return (
     <GalleryGridContainer key={title} direction="column" gutterX={20}>
       <GridItem>
-        <StyledHeading color="secondary" $as="h3">
+        <StyledHeading color="secondary" forwardedAs="h3">
           {title} {hasMore && `(${allThumbnails.length})`}
         </StyledHeading>
         {restricted ? (
@@ -96,7 +96,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength, access }) => {
                     ]}
                   >
                     <StyledLink
-                      $as={RouterLink}
+                      forwardedAs={RouterLink}
                       to={toConstructionFileViewer(id, fileName)}
                       title={fileTitle}
                     >

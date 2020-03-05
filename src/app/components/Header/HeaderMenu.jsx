@@ -21,7 +21,7 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
     <Menu {...props} open={menuOpen} hasBackDrop onExpand={setMenuOpen}>
       <MenuFlyOut label="Onderdelen">
         {navigationLinks.map(({ id, title, to }) => (
-          <MenuButton $as={RouterLink} iconLeft={<ChevronRight />} key={id} title={title} to={to}>
+          <MenuButton as={RouterLink} iconLeft={<ChevronRight />} key={id} title={title} to={to}>
             {title}
           </MenuButton>
         ))}
@@ -34,7 +34,7 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
             return (
               <MenuItem key={linkId}>
                 <MenuButton
-                  $as={RouterLink}
+                  as={RouterLink}
                   iconLeft={<ChevronRight />}
                   title={title}
                   to={toArticleDetail(linkId, slug)}
@@ -59,7 +59,7 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
       {HEADER_LINKS && (
         <MenuItem>
           <MenuButton
-            $as={RouterLink}
+            as={RouterLink}
             title={HEADER_LINKS.HELP.title}
             to={toArticleDetail(HEADER_LINKS.HELP.id[process.env.NODE_ENV], HEADER_LINKS.HELP.slug)}
           >

@@ -17,7 +17,7 @@ const StyledHeading = styled(Heading)`
 const SearchHeading = ({ label, icon }) => (
   <>
     <Divider />
-    <StyledHeading $as="h2">
+    <StyledHeading forwardedAs="h2">
       {icon}
       {label}
     </StyledHeading>
