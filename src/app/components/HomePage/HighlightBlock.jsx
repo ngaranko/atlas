@@ -72,7 +72,7 @@ flex-basis: 100%;
 `
 
 const HighlightBlock = () => {
-  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_HIGHLIGHT, undefined)
+  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_HIGHLIGHT)
 
   React.useEffect(() => {
     ;(async () => {

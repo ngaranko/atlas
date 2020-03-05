@@ -49,7 +49,7 @@ const CardListBlock: React.FC<{}> = () => {
         <Row halign="flex-start" hasMargin={false}>
           {lists.map(list => (
             <StyledColumn wrap span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
-              <CardList title={list} list={cmsConfig.HOME_HIGHLIGHT} />
+              <CardList title={list} list={cmsConfig.HOME_SPECIALS} />
             </StyledColumn>
           ))}
         </Row>

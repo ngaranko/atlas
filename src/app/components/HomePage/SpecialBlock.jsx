@@ -36,7 +36,7 @@ const CardRow = styled.div`
 `
 
 const SpecialBlock = () => {
-  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_SPECIALS, undefined)
+  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_SPECIALS)
 
   React.useEffect(() => {
     ;(async () => {

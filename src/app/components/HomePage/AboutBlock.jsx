@@ -75,13 +75,13 @@ const AboutBlock = () => {
     fetchData: fetchDataAbout,
     loading: loadingAbout,
     error: errorAbout,
-  } = useFromCMS(cmsConfig.HOME_ABOUT, undefined)
+  } = useFromCMS(cmsConfig.HOME_ABOUT)
   const {
     results: resultsAboutData,
     fetchData: fetchDataAboutData,
     loading: loadingAboutData,
     error: errorAboutData,
-  } = useFromCMS(cmsConfig.HOME_ABOUT_DATA, undefined)
+  } = useFromCMS(cmsConfig.HOME_ABOUT_DATA)
 
   React.useEffect(() => {
     ;(async () => {

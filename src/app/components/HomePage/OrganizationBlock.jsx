@@ -45,7 +45,7 @@ const StyledHeading = styled(Heading)`
 `
 
 const OrganizationBlock = () => {
-  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_ORGANIZATION, undefined)
+  const { results, fetchData, loading, error } = useFromCMS(cmsConfig.HOME_ORGANIZATION)
 
   React.useEffect(() => {
     ;(async () => {

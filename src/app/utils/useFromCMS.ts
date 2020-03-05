@@ -4,7 +4,7 @@ import cmsJsonApiNormalizer from '../../shared/services/cms/cms-json-api-normali
 import useNormalizedCMSResults from '../../normalizations/cms/useNormalizedCMSResults'
 
 export type CMSConfig = {
-  endpoint: Function
+  endpoint: (id?: number) => string
   fields?: Array<string>
 }
 
@@ -28,12 +28,12 @@ export type CMSResultItem = {
   coverImage?: string
 }
 
-function useFromCMS(config: CMSConfig, id = false, normalizeFromJSONApi = true): CMSResults {
-  const [results, setResults] = React.useState([])
+function useFromCMS(config: CMSConfig, id?: string, normalizeFromJSONApi = true): CMSResults {
+  const [results, setResults] = React.useState<CMSResultItem[]>([])
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState(false)
 
-  const fetchData = async (endpoint: string): Promise<Array<Object>> => {
+  const fetchData = async (endpoint: string) => {
     setLoading(true)
     try {
       if (!endpoint) {

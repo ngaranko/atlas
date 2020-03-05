@@ -35,9 +35,13 @@ type CardListProps = {
 }
 
 const CardList: React.FC<CardListProps> = ({ title, list }) => {
-  const { results, fetchData, loading, error } = useFromCMS(list, undefined)
+  const { results, fetchData, loading, error } = useFromCMS(list)
 
-  React.useEffect(() => fetchData(), [])
+  React.useEffect(() => {
+    ;(async () => {
+      await fetchData()
+    })()
+  }, [])
 
   return (
     <StyledCard isLoading={loading}>
