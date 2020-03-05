@@ -115,7 +115,7 @@ const SearchPage = ({ currentPage, query }) => {
           <SearchPageResults
             {...{
               hasQuery,
-              query: query.toString(), // the query is not used for data fetching any longer, so can be transformed
+              query,
               errors,
               fetching: initialLoading,
               totalCount,
