@@ -43,7 +43,7 @@ const PlaceholderLink = styled(StyledLink)`
 
 const ContentHolder: React.FC = ({ children }) => (
   <StyledRow hasMargin={false}>
-    <BlockHeading $as="h1">Zoek op thema</BlockHeading>
+    <BlockHeading forwardedAs="h1">Zoek op thema</BlockHeading>
     {children}
   </StyledRow>
 )
@@ -104,7 +104,7 @@ const ThemesBlock: React.FC = () => {
         return (
           <Column key={option.id} span={colSpan}>
             <StyledLink
-              $as={RouterLink}
+              forwardedAs={RouterLink}
               to={toSearch({ [PARAMETERS.FILTERS]: filters })}
               variant="with-chevron"
             >

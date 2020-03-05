@@ -159,7 +159,7 @@ const ArticleDetailPage = ({ id }) => {
                   >
                     <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
                       <EditorialBodyStyled>
-                        <StyledHeading $as="h1" isContentType={!isContentType}>
+                        <StyledHeading forwardedAs="h1" isContentType={!isContentType}>
                           {title}
                         </StyledHeading>
                         {isContentType && (
@@ -199,7 +199,7 @@ const ArticleDetailPage = ({ id }) => {
                               {normalizedDownloads.map(({ fileName, key, type, size, url }) => (
                                 <ListItem key={key}>
                                   <DownloadLink
-                                    $as="button"
+                                    forwardedAs="button"
                                     onClick={() => downloadFile(`${process.env.CMS_ROOT}${url}`)}
                                     variant="with-chevron"
                                   >

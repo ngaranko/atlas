@@ -65,7 +65,7 @@ const HighlightCard = ({
       alt={shortTitle || title}
     >
       <ImageCardContent>
-        <HighlightCardHeadingStyle $as="h3" styleAs={styleAs || 'h4'}>
+        <HighlightCardHeadingStyle forwardedAs="h3" styleAs={styleAs || 'h4'}>
           {shortTitle || title}
         </HighlightCardHeadingStyle>
       </ImageCardContent>

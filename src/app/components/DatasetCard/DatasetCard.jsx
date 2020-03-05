@@ -81,12 +81,19 @@ const DatasetCard = ({
   ...otherProps
 }) => (
   <StyledLink
-    {...{ $as: RouterLink, key: id, to, title: shortTitle, linkType: 'blank', ...otherProps }}
+    {...{
+      forwardedAs: RouterLink,
+      key: id,
+      to,
+      title: shortTitle,
+      linkType: 'blank',
+      ...otherProps,
+    }}
   >
     <StyledCard horizontal>
       <StyledCardContent>
         <div>
-          <StyledHeading $as="h4">{shortTitle}</StyledHeading>
+          <StyledHeading forwardedAs="h4">{shortTitle}</StyledHeading>
         </div>
 
         <div>

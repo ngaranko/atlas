@@ -156,7 +156,7 @@ const EditorialCard = ({
   const summary = teaser || intro
 
   return (
-    <StyledLink $as={RouterLink} key={id} to={to} title={displayTitle} linkType="blank">
+    <StyledLink forwardedAs={RouterLink} key={id} to={to} title={displayTitle} linkType="blank">
       <StyledCard horizontal>
         <StyledCardMedia vertical={imageIsVertical}>
           <Image
@@ -168,7 +168,7 @@ const EditorialCard = ({
         </StyledCardMedia>
         <StyledCardContent>
           <div>
-            <StyledHeading $as="h4">{displayTitle}</StyledHeading>
+            <StyledHeading forwardedAs="h4">{displayTitle}</StyledHeading>
           </div>
 
           {specialType && (

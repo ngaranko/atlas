@@ -72,9 +72,9 @@ const DataCard = ({ type, label, count, results, ...otherProps }) => (
     </StyledCardMedia>
     <StyledCardContent>
       <div>
-        <Heading $as="h4">
+        <Heading as="h4">
           <StyledLink
-            $as={RouterLink}
+            as={RouterLink}
             to={toDataSearchType(type)}
           >{`${label} (${count.toLocaleString(DEFAULT_LOCALE)})`}</StyledLink>
         </Heading>
@@ -86,7 +86,7 @@ const DataCard = ({ type, label, count, results, ...otherProps }) => (
             <React.Fragment key={id}>
               <StyledParagraphLink
                 to={toDetailFromEndpoint(endpoint, VIEW_MODE.SPLIT)}
-                $as={RouterLink}
+                as={RouterLink}
               >
                 {itemLabel}
               </StyledParagraphLink>

@@ -54,7 +54,7 @@ const SpecialBlock = () => {
     <CardContainer data-test="special-block">
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-          <BlockHeading $as="h1">In Beeld</BlockHeading>
+          <BlockHeading forwardedAs="h1">In Beeld</BlockHeading>
         </Column>
       </Row>
       <CardRow showError={error}>
@@ -75,7 +75,7 @@ const SpecialBlock = () => {
       <Row hasMargin={false}>
         <Column wrap span={{ small: 1, medium: 2, big: 3, large: 4, xLarge: 4 }}>
           <OverviewLink
-            linkProps={{ to: toSpecialSearch(), $as: RouterLink }}
+            linkProps={{ to: toSpecialSearch(), forwardedAs: RouterLink }}
             label="Bekijk overzicht"
           />
         </Column>

@@ -59,7 +59,7 @@ const StyledLink = styled(Link)`
     ${StyledCard} {
       ${focusOutline()}
     }
-    
+
   }
 
   &:last-child {
@@ -94,13 +94,13 @@ const StyledParagraph = styled(Paragraph)`
 `
 
 const NavigationCard = ({ CardIcon, to, title, description }) => (
-  <StyledLink $as={RouterLink} linkType="blank" to={to}>
+  <StyledLink forwardedAs={RouterLink} linkType="blank" to={to}>
     <StyledCard horizontal>
       <StyledCardMedia backgroundColor="level2">
         <CardIcon />
       </StyledCardMedia>
       <StyledCardContent>
-        <StyledHeading $as="h4">{title}</StyledHeading>
+        <StyledHeading forwardedAs="h4">{title}</StyledHeading>
         <StyledParagraph>{description}</StyledParagraph>
       </StyledCardContent>
       <StyledCardActions>

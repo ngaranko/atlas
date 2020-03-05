@@ -68,7 +68,7 @@ exports[`ArticleDetailPage should render the publication when there are results 
               >
                 <Styled(EditorialBody)>
                   <Styled(Heading)
-                    $as="h1"
+                    forwardedAs="h1"
                     isContentType={true}
                   >
                     This is a title

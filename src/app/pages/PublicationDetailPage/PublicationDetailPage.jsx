@@ -68,7 +68,7 @@ const PublicationDetailPage = ({ id }) => {
                   }}
                 >
                   <EditorialContent>
-                    <Heading $as="h1">{title}</Heading>
+                    <Heading as="h1">{title}</Heading>
                     <EditorialMetaList
                       fields={[
                         { id: 1, label: source },

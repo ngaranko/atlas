@@ -90,7 +90,7 @@ const SpecialCard = ({
     <StyledLink {...linkProps} linkType="blank">
       <StyledCard horizontal animateLoading={!showError} isLoading={loading} showError={showError}>
         <StyledCardContent>
-          <StyledHeading $as="h4" styleAs="h3">
+          <StyledHeading forwardedAs="h4" styleAs="h3">
             {shortTitle || title}
           </StyledHeading>
           <Paragraph>
