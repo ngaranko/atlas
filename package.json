@@ -36,7 +36,7 @@
     "@datapunt/asc-ui": "0.18.2-alpha.75",
     "@datapunt/matomo-tracker-js": "0.1.1",
     "@datapunt/matomo-tracker-react": "0.1.1",
-    "@sentry/browser": "5.13.0",
+    "@sentry/browser": "5.13.2",
     "angular": "1.7.9",
     "angular-aria": "~1.7.9",
     "angular-i18n": "~1.7.9",
