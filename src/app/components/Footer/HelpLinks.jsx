@@ -6,10 +6,6 @@ import { openFeedbackForm } from '../Modal/FeedbackModal'
 
 import FooterLinks from './FooterLinks'
 
-export const FeedbackLink = styled(Link).attrs({
-  type: 'button',
-})``
-
 const StyledParagraph = styled(Paragraph)`
   margin-bottom: ${themeSpacing(5)};
 `
@@ -22,14 +18,15 @@ const HelpLinks = ({ links }) => (
     </StyledParagraph>
     <FooterLinks links={links}>
       <FooterLinkListItem order={3}>
-        <FeedbackLink
+        <Link
+          type="button"
           forwardedAs="button"
           title="Feedback geven"
           variant="with-chevron"
           onClick={openFeedbackForm}
         >
           Feedback geven
-        </FeedbackLink>
+        </Link>
       </FooterLinkListItem>
     </FooterLinks>
   </>

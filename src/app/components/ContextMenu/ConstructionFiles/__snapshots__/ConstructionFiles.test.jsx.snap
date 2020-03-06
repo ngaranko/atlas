@@ -14,7 +14,6 @@ exports[`ContextMenu for ConstructionFiles viewer should render 1`] = `
       <SvgEllipsis />
     </Icon>
   }
-  open={false}
   position="bottom"
   tabindex={0}
 >
