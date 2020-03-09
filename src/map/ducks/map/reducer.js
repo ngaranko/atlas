@@ -14,7 +14,6 @@ import {
   CLOSE_MAP_PANEL,
   SET_MAP_BASE_LAYER,
   TOGGLE_MAP_OVERLAY,
-  TOGGLE_MAP_OVERLAY_PANORAMA,
   TOGGLE_MAP_OVERLAY_VISIBILITY,
   MAP_PAN,
   MAP_BOUNDING_BOX,
@@ -27,6 +26,7 @@ import {
 let polygon = {}
 let has2Markers
 let moreThan2Markers
+
 export const isPanoLayer = layer => layer.id && layer.id.startsWith(PANORAMA)
 
 export default function MapReducer(state = initialState, action) {
@@ -107,8 +107,8 @@ export default function MapReducer(state = initialState, action) {
     case TOGGLE_MAP_OVERLAY:
       return {
         ...enrichedState,
-        overlays: enrichedState.overlays.some(
-          overlay => !isPanoLayer(overlay) && action.payload.mapLayers.includes(overlay.id),
+        overlays: enrichedState.overlays.some(overlay =>
+          action.payload.mapLayers.includes(overlay.id),
         )
           ? [
               ...enrichedState.overlays.filter(
@@ -123,15 +123,6 @@ export default function MapReducer(state = initialState, action) {
             ],
       }
 
-    case TOGGLE_MAP_OVERLAY_PANORAMA:
-      return {
-        ...enrichedState,
-        overlays: [
-          { id: action.payload, isVisible: true },
-          ...enrichedState.overlays.filter(overlay => !isPanoLayer(overlay)),
-        ],
-      }
-
     case TOGGLE_MAP_OVERLAY_VISIBILITY:
       return {
         ...enrichedState,
@@ -144,6 +135,7 @@ export default function MapReducer(state = initialState, action) {
     case MAP_CLEAR:
       return {
         ...enrichedState,
+        overlays: initialState.overlays,
         drawingMode: initialState.drawingMode,
         shapeMarkers: initialState.shapeMarkers,
         shapeDistanceTxt: initialState.shapeDistanceTxt,

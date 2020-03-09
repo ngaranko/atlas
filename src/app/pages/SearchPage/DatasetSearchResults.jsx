@@ -1,16 +1,21 @@
-import React from 'react'
+import { Enlarge } from '@datapunt/asc-assets'
 import styled from '@datapunt/asc-core'
 import { themeSpacing } from '@datapunt/asc-ui'
-import { Enlarge } from '@datapunt/asc-assets'
-import { toDatasetDetail, toDatasetSearch } from '../../../store/redux-first-router/actions'
-import DatasetCard from '../../components/DatasetCard'
-import useSlug from '../../utils/useSlug'
-import redirectToDcatd from '../../utils/redirectToDcatd'
-import { modificationDateFilter } from '../../components/Filters/Filters'
-import NoSearchResults from '../../components/NoSearchResults'
-import ActionButton from '../../components/ActionButton/ActionButton'
-import getState from '../../../shared/services/redux/get-state'
+import React from 'react'
 import { dcatdScopes } from '../../../shared/services/auth/auth'
+import getState from '../../../shared/services/redux/get-state'
+import { toDatasetDetail, toDatasetSearch } from '../../../store/redux-first-router/actions'
+import ActionButton from '../../components/ActionButton/ActionButton'
+import DatasetCard from '../../components/DatasetCard'
+import { modificationDateFilter } from '../../components/Filters/Filters'
+import ErrorMessage from '../../components/HomePage/ErrorMessage'
+import NoSearchResults from '../../components/NoSearchResults'
+import MoreResultsWhenLoggedIn from '../../components/PanelMessages/MoreResultsWhenLoggedIn'
+import getErrorsForPath from '../../utils/getErrorsForPath'
+import getLoadingErrors from '../../utils/getLoadingErrors'
+import getUnauthorizedLabels from '../../utils/getUnauthorizedLabels'
+import redirectToDcatd from '../../utils/redirectToDcatd'
+import useSlug from '../../utils/useSlug'
 
 const DatasetCardContainer = styled.div`
   margin-bottom: ${themeSpacing(8)};
@@ -24,43 +29,61 @@ const StyledActionButton = styled(ActionButton)`
   margin-bottom: ${themeSpacing(8)};
 `
 
-export default ({ query, label, results, isOverviewPage }) => {
+const DatasetSearchResults = ({ query, label, results, errors, isOverviewPage }) => {
   // Check if user has the correct scopes to add or edit datasets
   const canEdit =
     getState().user && isOverviewPage
       ? getState().user.scopes.some(scope => dcatdScopes.includes(scope))
       : false
 
-  return results && results.length ? (
-    <DatasetCardContainer>
-      {canEdit && (
-        <StyledActionButton
-          data-test="ActionButton"
-          onClick={() => redirectToDcatd('_')}
-          label="Toevoegen"
-          iconLeft={<Enlarge />}
-        />
-      )}
+  const matchingErrors = getErrorsForPath(errors, ['datasetSearch'])
+  const hasLoadingError = getLoadingErrors(matchingErrors).length > 0
 
-      {results.map(({ header, id, teaser, modified, distributionTypes }) => (
-        <StyledDatasetCard
-          data-test="DatasetCard"
-          {...{
-            key: id,
-            to: toDatasetDetail({
-              id,
-              slug: useSlug(header) || '',
-            }),
-            shortTitle: header,
-            teaser,
-            lastModified: modificationDateFilter(modified),
-            modified,
-            distributionTypes,
-          }}
-        />
-      ))}
-    </DatasetCardContainer>
+  // Get all the labels of the type that the user has no access to
+  const unauthorizedLabels = getUnauthorizedLabels(matchingErrors)
+
+  if (results.length > 0) {
+    return (
+      <DatasetCardContainer>
+        {canEdit && (
+          <StyledActionButton
+            data-test="ActionButton"
+            onClick={() => redirectToDcatd('_')}
+            label="Toevoegen"
+            iconLeft={<Enlarge />}
+          />
+        )}
+
+        {results.map(({ header, id, teaser, modified, distributionTypes }) => (
+          <StyledDatasetCard
+            data-test="DatasetCard"
+            {...{
+              key: id,
+              to: toDatasetDetail({
+                id,
+                slug: useSlug(header) || '',
+              }),
+              shortTitle: header,
+              teaser,
+              lastModified: modificationDateFilter(modified),
+              modified,
+              distributionTypes,
+            }}
+          />
+        ))}
+
+        {unauthorizedLabels.length > 0 && (
+          <MoreResultsWhenLoggedIn excludedResults={unauthorizedLabels.join(', ')} />
+        )}
+      </DatasetCardContainer>
+    )
+  }
+
+  return hasLoadingError ? (
+    <ErrorMessage />
   ) : (
     <NoSearchResults query={query} label={label} to={toDatasetSearch(null, false, false, false)} />
   )
 }
+
+export default DatasetSearchResults

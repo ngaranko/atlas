@@ -37,6 +37,7 @@ describe('SearchResultsOverview', () => {
               results: [],
             },
           ]}
+          errors={[]}
         />,
       )
 
@@ -53,7 +54,9 @@ describe('SearchResultsOverview', () => {
       }))
 
       it('renders correct number of components', () => {
-        component = shallow(<SearchResultsOverview results={mockResults} totalCount={1} />)
+        component = shallow(
+          <SearchResultsOverview results={mockResults} totalCount={1} errors={[]} />,
+        )
 
         expect(component.length).toBe(mockTypes.length)
       })
@@ -78,10 +81,8 @@ describe('SearchResultsOverview', () => {
       })
 
       it('renders an error message when needed', () => {
-        const mockErrors = [{ query: 'foo2', code: 'ERROR' }]
-
-        // Totalcount must also be zero
-        const mockResultsWithError = [...mockResults, { key: 'foo2', totalCount: 0, results: [] }]
+        const mockErrors = [{ message: 'Some error', path: ['foo2'] }]
+        const mockResultsWithError = [{ key: 'foo2', totalCount: 0, results: [] }]
 
         component = shallow(
           <SearchResultsOverview

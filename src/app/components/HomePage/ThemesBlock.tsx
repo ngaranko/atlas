@@ -6,7 +6,7 @@ import RouterLink from 'redux-first-router-link'
 import { useQuery } from 'urql'
 import PARAMETERS from '../../../store/parameters'
 import { toSearch } from '../../../store/redux-first-router/actions'
-import { Filter, FilterOption } from '../../models'
+import { Filter, FilterOption } from '../../models/filter'
 import { ActiveFilter } from '../../pages/SearchPage/SearchPageDucks'
 import BlockHeading from './BlockHeading'
 import ErrorMessage from './ErrorMessage'
@@ -43,7 +43,7 @@ const PlaceholderLink = styled(StyledLink)`
 
 const ContentHolder: React.FC = ({ children }) => (
   <StyledRow hasMargin={false}>
-    <BlockHeading $as="h1">Zoek op thema</BlockHeading>
+    <BlockHeading forwardedAs="h1">Zoek op thema</BlockHeading>
     {children}
   </StyledRow>
 )
@@ -104,7 +104,7 @@ const ThemesBlock: React.FC = () => {
         return (
           <Column key={option.id} span={colSpan}>
             <StyledLink
-              $as={RouterLink}
+              forwardedAs={RouterLink}
               to={toSearch({ [PARAMETERS.FILTERS]: filters })}
               variant="with-chevron"
             >

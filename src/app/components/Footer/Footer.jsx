@@ -30,7 +30,7 @@ const FooterBlock = ({ title, children }) => (
       <FooterContent indent>{children}</FooterContent>
     </FooterToggle>
     <FooterContent showAt="tabletM">
-      <FooterHeading $as="h3">{title}</FooterHeading>
+      <FooterHeading forwardedAs="h3">{title}</FooterHeading>
       {children}
     </FooterContent>
   </>

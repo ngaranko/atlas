@@ -72,7 +72,7 @@ exports[`PublicationDetailPage should render the publication when there are resu
           >
             <EditorialContent>
               <Heading
-                $as="h1"
+                as="h1"
               >
                 This is a title
               </Heading>

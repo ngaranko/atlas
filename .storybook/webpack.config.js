@@ -56,5 +56,15 @@ module.exports = ({ config }) => {
     new MiniCssExtractPlugin('main.css'),
   )
 
+  config.module.rules.push({
+    test: /\.(ts|tsx)$/, // Storybook can already handle .js and .jsx
+    loader: require.resolve('babel-loader'),
+    options: {
+      presets: [['react-app', { typescript: true }]],
+    },
+  })
+
+  config.resolve.extensions.push('.js', '.ts', '.tsx', '.css')
+
   return config
 }

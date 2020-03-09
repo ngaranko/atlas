@@ -14,8 +14,7 @@ const req = require.context('../src', true, /\.stories\.(j|t)sx$/)
 const store = configureStore(routes, true)
 
 const extendedTheme = {
-  globalStyle: `
-  `,
+  globalStyle: ``,
 }
 
 function withGlobalStyles(storyFn) {
@@ -33,8 +32,4 @@ function withGlobalStyles(storyFn) {
 
 addDecorator(withGlobalStyles)
 
-function loadStories() {
-  req.keys().forEach(filename => req(filename))
-}
-
-configure(loadStories, module)
+configure(req, module)

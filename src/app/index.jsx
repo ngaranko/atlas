@@ -8,8 +8,11 @@ import resolveRedirects from './redirects'
 import './sentry'
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
+  window.navigator.serviceWorker.getRegistrations().then(registrations => {
+    // eslint-disable-next-line prefer-const,no-restricted-syntax
+    for (let registration of registrations) {
+      registration.unregister()
+    }
   })
 }
 

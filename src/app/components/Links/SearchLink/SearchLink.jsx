@@ -13,7 +13,7 @@ const StyledLink = styled(Link)`
 `
 
 const SearchLink = ({ to, label, title = '' }) => (
-  <StyledLink variant="with-chevron" $as={RouterLink} to={to} title={title || label}>
+  <StyledLink variant="with-chevron" forwardedAs={RouterLink} to={to} title={title || label}>
     {label}
   </StyledLink>
 )

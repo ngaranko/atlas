@@ -119,7 +119,7 @@ const HighlightBlock = () => {
         </HighlightBlockInnerStyle>
       </HighlightBlockStyle>
       <OverviewLink
-        linkProps={{ to: toArticleSearch(), $as: RouterLink }}
+        linkProps={{ to: toArticleSearch(), forwardedAs: RouterLink }}
         label="Bekijk overzicht"
       />
     </>

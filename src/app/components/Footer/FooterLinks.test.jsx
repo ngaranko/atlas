@@ -43,7 +43,7 @@ describe('FooterLinks', () => {
     component.dive()
     const link = component.find(Link).at(1)
 
-    expect(link.props().$as).toBe(RouterLink)
+    expect(link.props().as).toBe(RouterLink)
     expect(link.props()).toHaveProperty('to')
   })
 

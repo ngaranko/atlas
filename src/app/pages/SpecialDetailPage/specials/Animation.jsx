@@ -40,7 +40,7 @@ const Animation = ({ contentLink, title, results }) => {
           }}
         >
           <EditorialContent>
-            <Heading $as="h1">{title}</Heading>
+            <Heading>{title}</Heading>
             <EditorialMetaList fields={[{ id: 1, label: localeDateFormatted }]} />
           </EditorialContent>
         </Column>

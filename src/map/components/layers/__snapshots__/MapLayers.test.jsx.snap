@@ -12,20 +12,20 @@ exports[`MapLayer should render 1`] = `
   <ul>
     <li
       className="map-layers__category"
-      key="Geografie: onroerende zaken"
+      key="id1"
     >
       <h4
         className="map-layers__category-text"
       >
-        Geografie: onroerende zaken
+        foo
       </h4>
       <ul>
         <li
           className="
                       map-layers__title
-                      map-layers__title--active
+                      map-layers__title--inactive
                     "
-          key="Kadastrale perceelsgrenzen"
+          key="Foo Layer"
         >
           <button
             onClick={[Function]}
@@ -34,7 +34,31 @@ exports[`MapLayer should render 1`] = `
             <span
               className="map-layers__toggle-title"
             >
-              Kadastrale perceelsgrenzen
+              Foo Layer
+            </span>
+            <span
+              className="map-layers__toggle map-layers__toggle--remove"
+            />
+            <span
+              className="map-layers__toggle map-layers__toggle--add"
+            />
+          </button>
+        </li>
+        <li
+          className="
+                      map-layers__title
+                      map-layers__title--inactive
+                    "
+          key="Foo Layer"
+        >
+          <button
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="map-layers__toggle-title"
+            >
+              Foo Layer
             </span>
             <span
               className="map-layers__toggle map-layers__toggle--remove"
@@ -62,12 +86,12 @@ exports[`MapLayer should render without active layers 1`] = `
   <ul>
     <li
       className="map-layers__category"
-      key="Geografie: onroerende zaken"
+      key="id1"
     >
       <h4
         className="map-layers__category-text"
       >
-        Geografie: onroerende zaken
+        foo
       </h4>
       <ul>
         <li
@@ -75,7 +99,7 @@ exports[`MapLayer should render without active layers 1`] = `
                       map-layers__title
                       map-layers__title--inactive
                     "
-          key="Kadastrale perceelsgrenzen"
+          key="Foo Layer"
         >
           <button
             onClick={[Function]}
@@ -84,7 +108,31 @@ exports[`MapLayer should render without active layers 1`] = `
             <span
               className="map-layers__toggle-title"
             >
-              Kadastrale perceelsgrenzen
+              Foo Layer
+            </span>
+            <span
+              className="map-layers__toggle map-layers__toggle--remove"
+            />
+            <span
+              className="map-layers__toggle map-layers__toggle--add"
+            />
+          </button>
+        </li>
+        <li
+          className="
+                      map-layers__title
+                      map-layers__title--inactive
+                    "
+          key="Foo Layer"
+        >
+          <button
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="map-layers__toggle-title"
+            >
+              Foo Layer
             </span>
             <span
               className="map-layers__toggle map-layers__toggle--remove"

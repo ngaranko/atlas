@@ -9,7 +9,15 @@ import geosearch from '../../services/search/geosearch'
 import search from '../../../map/services/map-search/map-search'
 import { VIEW_MODE } from '../../ducks/ui/ui'
 
+import ActiveOverlaysClass from '../../services/active-overlays/active-overlays'
+
+jest.mock('../../services/active-overlays/active-overlays')
+
 describe('fetchMapSearchResults', () => {
+  beforeEach(() => {
+    ActiveOverlaysClass.getOverlaysWarning.mockReturnValueOnce('')
+  })
+
   it('should do a geo search in a list view', () => {
     testSaga(fetchMapSearchResults, {})
       .next()

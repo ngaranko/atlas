@@ -63,6 +63,11 @@ const StyledIcon = styled(Icon)`
   }
 `
 
+const ParagraphWrapper = styled.div`
+  flex-wrap: nowrap;
+  max-width: 800px;
+`
+
 const DataCard = ({ type, label, count, results, ...otherProps }) => (
   <StyledCard key={type} horizontal {...otherProps}>
     <StyledCardMedia>
@@ -72,21 +77,21 @@ const DataCard = ({ type, label, count, results, ...otherProps }) => (
     </StyledCardMedia>
     <StyledCardContent>
       <div>
-        <Heading $as="h4">
+        <Heading as="h4">
           <StyledLink
-            $as={RouterLink}
+            forwardedAs={RouterLink}
             to={toDataSearchType(type)}
           >{`${label} (${count.toLocaleString(DEFAULT_LOCALE)})`}</StyledLink>
         </Heading>
       </div>
 
-      <div>
+      <ParagraphWrapper>
         <StyledParagraph>
           {results.map(({ id, endpoint, label: itemLabel }, index) => (
             <React.Fragment key={id}>
               <StyledParagraphLink
                 to={toDetailFromEndpoint(endpoint, VIEW_MODE.SPLIT)}
-                $as={RouterLink}
+                forwardedAs={RouterLink}
               >
                 {itemLabel}
               </StyledParagraphLink>
@@ -94,7 +99,7 @@ const DataCard = ({ type, label, count, results, ...otherProps }) => (
             </React.Fragment>
           ))}
         </StyledParagraph>
-      </div>
+      </ParagraphWrapper>
     </StyledCardContent>
   </StyledCard>
 )

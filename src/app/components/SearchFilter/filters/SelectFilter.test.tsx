@@ -1,8 +1,8 @@
+import { cleanup, fireEvent, render } from '@testing-library/react'
 import React from 'react'
-import { render, cleanup, fireEvent } from '@testing-library/react'
-import SelectFilter from './SelectFilter'
+import { FilterOption } from '../../../models/filter'
 import { FilterProps } from '../models'
-import { FilterOption } from '../../../models'
+import SelectFilter from './SelectFilter'
 
 describe('SelectFilter', () => {
   beforeEach(cleanup)

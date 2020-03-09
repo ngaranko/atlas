@@ -7,9 +7,11 @@ import { isEmbedded } from '../../../shared/ducks/ui/ui'
 
 export function* fetchNearestDetails(action) {
   const { location, layers, zoom, view } = action.payload
+
   try {
     const { uri } = yield call(fetchNearestDetail, location, layers, zoom)
     const isEmbed = yield select(isEmbedded)
+
     if (uri) {
       yield put(toDetailFromEndpoint(uri, view))
     } else if (!isEmbed) {

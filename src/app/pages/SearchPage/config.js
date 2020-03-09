@@ -54,6 +54,14 @@ export default {
     label: routing.search.title,
     type: TYPES.SEARCH,
   },
+  [routing.dataSearch.page]: {
+    resolver: QUERY_TYPES[routing.dataSearch.page],
+    query: dataSearchQuery,
+    to: toDataSearch,
+    label: routing.dataSearch.title,
+    type: TYPES.DATA,
+    component: DataSearchResults,
+  },
   [routing.publicationSearch.page]: {
     resolver: QUERY_TYPES[routing.publicationSearch.page],
     query: publicationSearchQuery,
@@ -61,6 +69,14 @@ export default {
     label: routing.publicationSearch.title,
     type: EDITORIAL_TYPES.PUBLICATION,
     component: EditorialResults,
+  },
+  [routing.datasetSearch.page]: {
+    resolver: QUERY_TYPES[routing.datasetSearch.page],
+    query: datasetSearchQuery,
+    to: toDatasetSearch,
+    label: routing.datasetSearch.title,
+    type: TYPES.DATASET,
+    component: DatasetSearchResults,
   },
   [routing.articleSearch.page]: {
     resolver: QUERY_TYPES[routing.articleSearch.page],
@@ -77,21 +93,5 @@ export default {
     label: routing.specialSearch.title,
     type: EDITORIAL_TYPES.SPECIAL,
     component: EditorialResults,
-  },
-  [routing.dataSearch.page]: {
-    resolver: QUERY_TYPES[routing.dataSearch.page],
-    query: dataSearchQuery,
-    to: toDataSearch,
-    label: routing.dataSearch.title,
-    type: TYPES.DATA,
-    component: DataSearchResults,
-  },
-  [routing.datasetSearch.page]: {
-    resolver: QUERY_TYPES[routing.datasetSearch.page],
-    query: datasetSearchQuery,
-    to: toDatasetSearch,
-    label: routing.datasetSearch.title,
-    type: TYPES.DATASET,
-    component: DatasetSearchResults,
   },
 }

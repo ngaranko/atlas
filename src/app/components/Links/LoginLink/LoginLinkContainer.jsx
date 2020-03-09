@@ -31,11 +31,11 @@ const StyledLink = styled(Link)`
 export const LoginLink = ({ login, linkType, children, inverted }) => (
   <div>
     {inverted ? (
-      <StyledLinkInverted $as="button" onClick={login} linkType={linkType}>
+      <StyledLinkInverted forwardedAs="button" onClick={login} linkType={linkType}>
         {children || 'Inloggen'}
       </StyledLinkInverted>
     ) : (
-      <StyledLink $as="button" onClick={login} linkType={linkType}>
+      <StyledLink forwardedAs="button" onClick={login} linkType={linkType}>
         {children || 'Inloggen'}
       </StyledLink>
     )}

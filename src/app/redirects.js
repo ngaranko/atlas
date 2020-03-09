@@ -1,6 +1,7 @@
 import PARAMETERS from '../store/parameters'
 import { routing, MAIN_PATHS } from './routes'
 import { CONTENT_REDIRECT_LINKS } from '../shared/config/config'
+import matomoInstance from './matomo'
 
 const { VIEW, VIEW_CENTER, LAYERS, LEGEND, ZOOM, EMBED } = PARAMETERS
 
@@ -83,19 +84,19 @@ const legacyRoutes = [
 const shortUrls = [
   {
     from: '/themakaart/taxi/',
-    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=oovtig%3A1%7Cvezips%3A1%7Cmzt%3A0%7Cslpb%3A1%7Cslpnb%3A1%7Cbgt%3A1%7Ctar%3A1%7Cpvrts%3A1%7Cpvrll%3A1%7Cpvrpr%3A1&${LEGEND}=true`,
+    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=themtaxi-bgt%3A1%7Cthemtaxi-tar%3A1%7Cthemtaxi-pvrts%3A1%7Cthemtaxi-mzt%3A1%7Cthemtaxi-oovtig%3A1%7Cthemtaxi-vezips%3A1%7Cthemtaxi-slpnb%3A1%7Cthemtaxi-slpb%3A1%7Cthemtaxi-nlpnb%3A1%7Cthemtaxi-nlpb%3A1&${LEGEND}=true`,
   },
   {
     from: '/themakaart/veiligheid-en-overlast/',
-    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=oovorlv%3A1%7Coovoalco%3A1%7Coovctg%3A1%7Coovodlrs%3A1%7Coovoalg%3A1&${LEGEND}=true`,
+    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=veilov-oovoalg%3A1%7Cveilov-oovodlrs%3A1%7Cveilov-oovctg%3A1%7Cveilov-oovoalco%3A1%7Cveilov-oovorlv%3A1%7Cveilov-oovtig%3A1%7Cveilov-vwrk%3A1&${LEGEND}=true`,
   },
   {
     from: '/themakaart/logistiek/',
-    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=mvw%3A1%7Cmzb%3A1%7Cmzva%3A1%7Cpvrpr%3A0%7Cpvrll%3A1%7Cpvrts%3A0%7Cvrr%3A1&${LEGEND}=true`,
+    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=logistk-rtsvr%3A1%7Clogistk-pvrll%3A1%7Clogistk-mzb%3A1%7Clogistk-mvw%3A1%7Clogistk-mzva%3A1&${LEGEND}=true`,
   },
   {
     from: '/themakaart/ondergrond/',
-    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=vezips%3A1%7Cmbgm%3A1%7Cmbs%3A1%7Cmbz%3A1%7Cmbr%3A1%7Cmbaig%3A1%7Cmbgwm%3A1%7Cexin%3A1%7Cmvlpgv%3A1%7Cmvlpga%3A1%7Cmvlpgt%3A1%7Cmvlpgs%3A1%7Cnap%3A1%7Cgbhv%3A1%7Cgbep%3A1%7Cgbgg%3A1%7Cgbgs%3A1%7Cgbos%3A1%7Cgboh%3A1%7Cgbwu%3A1%7Cgbkw%3A1%7Cgbvv%3A1%7Cexvg%3A1%7Cexgg%3A1%7Cexuo%3A1%7Cmvabl%3A1&${LEGEND}=true`,
+    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=vondrgd-aardgasbel%3A1%7Condrgd-aardgas1let%3A1%7Condrgd-aardgas100let%3A1%7Condrgd-aardgaspr106%3A1%7Condrgd-aardgas%3A1%7Condrgd-exuo%3A1%7Condrgd-exgg%3A1%7Condrgd-exvg%3A1%7Condrgd-gbhv%3A1%7Condrgd-gbep%3A1%7Condrgd-gbgg%3A1%7Condrgd-gbgs%3A1%7Condrgd-gbos%3A1%7Condrgd-gboh%3A1%7Condrgd-gbwu%3A1%7Condrgd-gbkw%3A1%7Condrgd-gbvv%3A1%7Condrgd-mvlpgst%3A1%7Condrgd-mvlpgs%3A1%7Condrgd-mvlpgtgrp%3A1%7Condrgd-mvlpgtris%3A1%7Condrgd-mvlpgt%3A1%7Condrgd-mvlpgvgeb%3A1%7Condrgd-mvlpgv106%3A1%7Condrgd-mvlpgv105%3A1%7Condrgd-mvlpgeb%3A1%7Condrgd-mvlpga%3A1%7Condrgd-exin%3A1%7Condrgd-mbgm%3A1%7Condrgd-mbaig%3A1%7Condrgd-mbgwm%3A1%7Condrgd-mbz%3A1%7Condrgd-mbs%3A1%7Condrgd-mbr%3A1%7Condrgd-vezips%3A1&${LEGEND}=true`,
   },
   {
     from: '/datablog/',
@@ -134,8 +135,17 @@ export default function resolveRedirects() {
     return false
   }
 
-  // Tries to prevent cancelling the network request to Matomo from the middleware, arbitrary number that allows Matomo some time to load
-  window.setTimeout(() => window.location.replace(matchingRedirect.to), 600)
+  // Track "themakaarten"
+  // TODO: As soon as the collections can be found in the search, this must be double checked to prevent duplicate logs in Matomo
+  if (shortUrls.includes(matchingRedirect)) {
+    // Get the title of the "themakaart" from the currentPath
+    const action = currentPath.split('/')[2]
+
+    matomoInstance.trackEvent({ category: 'kaartlaag', action })
+  }
+
+  // Tries to prevent cancelling the network request to Matomo, arbitrary number that allows Matomo some time to load
+  window.setTimeout(() => window.location.replace(matchingRedirect.to), 1000)
 
   return true
 }

@@ -1,5 +1,5 @@
-import { formatOptionLabel, formatAllOptionLabel } from './utils'
-import { FilterOption } from '../../models'
+import { FilterOption } from '../../models/filter'
+import { formatAllOptionLabel, formatOptionLabel } from './utils'
 
 describe('SearchFilter - Utilities', () => {
   describe('formatOptionLabel', () => {

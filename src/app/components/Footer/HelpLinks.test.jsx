@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { FooterLinkListItem } from '@datapunt/asc-ui'
-import HelpLinks, { FeedbackLink } from './HelpLinks'
+import HelpLinks from './HelpLinks'
 import FooterLinks from './FooterLinks'
 import { openFeedbackForm } from '../Modal/FeedbackModal'
 
@@ -38,7 +38,7 @@ describe('HelpLinks', () => {
   })
 
   it('should open the feedback form', () => {
-    component.find(FeedbackLink).simulate('click')
+    component.find('Link').simulate('click')
 
     expect(openFeedbackForm.mock.calls.length).toBe(1)
   })

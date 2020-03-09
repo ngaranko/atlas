@@ -25,14 +25,7 @@ export default memo(({ currentPage, query }) => {
   // We only want to preserve certain parameters when navigating between "filters" (pages)
   const RESET_ROUTE_ARGUMENTS = [QUERY_PARAMETER, undefined, undefined, false]
 
-  const AVAILABLE_FILTERS = [
-    routing.search.page,
-    routing.dataSearch.page,
-    routing.datasetSearch.page,
-    routing.publicationSearch.page,
-    routing.articleSearch.page,
-    routing.specialSearch.page,
-  ]
+  const AVAILABLE_FILTERS = Object.keys(SEARCH_PAGE_CONFIG)
 
   let totalCount
 

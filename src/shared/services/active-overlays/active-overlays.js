@@ -1,7 +1,6 @@
 import getState from '../redux/get-state'
-import mapLayers from '../../../map/services/map-layers/map-layers.config'
 
-const findLayer = id => mapLayers.find(mapLayer => mapLayer.id === id)
+const findLayer = (mapLayers, id) => mapLayers.find(mapLayer => mapLayer.id === id)
 
 export class ActiveOverlays {
   constructor() {
@@ -14,18 +13,22 @@ export class ActiveOverlays {
 
   // Todo: this always returns false: look into mapLayers, since it doesn't have a minZoom / maxZoom
   static isVisibleAtCurrentZoom(overlay, zoomLevel) {
-    const layer = findLayer(overlay)
+    const { map, mapLayers } = getState()
+    const { items: mapLayerItems } = mapLayers.layers
+
+    const layer = findLayer(mapLayerItems, overlay)
     if (!layer) {
       return false
     }
-    const zoom = zoomLevel || getState().map.zoom
+    const zoom = zoomLevel || map.zoom
     return zoom >= layer.minZoom && zoom <= layer.maxZoom
   }
 
   static isAuthorised(overlay) {
-    const state = getState()
-    const { user } = state
-    const layer = state.mapLayers.find(
+    const { user, mapLayers } = getState()
+    const { items: mapLayerItems } = mapLayers.layers
+
+    const layer = mapLayerItems.find(
       item =>
         (item.id && item.id === overlay.id) ||
         (item.legendItems &&
@@ -35,7 +38,7 @@ export class ActiveOverlays {
     const authScope = layer && layer.authScope
 
     return (
-      findLayer(overlay.id) &&
+      findLayer(mapLayerItems, overlay.id) &&
       layer &&
       (!authScope || (user.authenticated && user.scopes.includes(authScope)))
     )
@@ -49,6 +52,9 @@ export class ActiveOverlays {
   }
 
   getVisibleSources(zoom) {
+    const { mapLayers } = getState()
+    const { items: mapLayerItems } = mapLayers.layers
+
     return this.allOverlays
       .filter(
         source =>
@@ -56,7 +62,7 @@ export class ActiveOverlays {
           ActiveOverlays.isAuthorised(source) &&
           ActiveOverlays.isVisibleAtCurrentZoom(source.id, zoom),
       )
-      .map(source => findLayer(source.id))
+      .map(source => findLayer(mapLayerItems, source.id))
   }
 }
 
