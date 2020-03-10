@@ -237,7 +237,7 @@ describe('the dp-detail component', () => {
       const scope = component.isolateScope()
       store.dispatch.calls.reset()
       const { vm } = scope
-      vm.downloadResource('dataset name', 'dataset url')
+      vm.downloadResource('dataset name', { 'ams:purl': 'dataset url' })
 
       expect(store.dispatch).toHaveBeenCalledWith({
         type: DOWNLOAD_DATASET_RESOURCE,
