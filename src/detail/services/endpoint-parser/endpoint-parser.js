@@ -5,12 +5,7 @@ const isZakelijkRecht = someUriParts =>
 
 export const getParts = endpoint => {
   const anchor = document.createElement('a')
-  // TODO: Removeme
-  if (endpoint === 'http://localhost:8000/datasets/mLyqwNhdR6w0wA') {
-    anchor.href = 'http://localhost:8000/dcatd/datasets/mLyqwNhdR6w0wA'
-  } else {
-    anchor.href = endpoint
-  }
+  anchor.href = endpoint
 
   // Transform http://www.api-root.com/this/that/123 to ['this', 'that', '123']
   const uriParts = anchor.pathname

@@ -19,8 +19,7 @@ const mapStateToProps = state => {
     isLoading,
     catalogFilters: getApiSpecificationData(state),
     user: getUser(state),
-    endpoint: `http://localhost:8000/datasets/${getLocationPayload(state).id}`,
-    // endpoint: `${process.env.API_ROOT}dcatd/datasets/${getLocationPayload(state).id}`,
+    endpoint: `${process.env.API_ROOT}dcatd/datasets/${getLocationPayload(state).id}`,
     // construct the canonical href and meta description using the result from the api
 
     action:
