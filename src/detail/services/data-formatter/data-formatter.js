@@ -3,6 +3,8 @@ import { dcatdScopes } from '../../../shared/services/auth/auth'
 
 const formatCatalogData = (data, catalogFilters) => {
   const { resourceTypes } = catalogFilters
+  // TODO: REMOVEME
+  resourceTypes.push({ id: 'table', label: 'Tabellen' })
   if (!resourceTypes || !data) {
     return {}
   }

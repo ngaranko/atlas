@@ -20,16 +20,28 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/detail/act
     controllerAs: 'vm',
   })
 
-  DpDetailController.$inject = ['store']
+  DpDetailController.$inject = ['store', 'api']
 
-  function DpDetailController(store) {
+  function DpDetailController(store, api) {
     const vm = this
 
     vm.$onInit = () => {
       vm.stripMarkdown = val => removeMd(val)
 
-      vm.downloadResource = (dataset, resourceUrl) =>
-        store.dispatch(downloadDatasetResource({ dataset, resourceUrl }))
+      vm.downloadResource = function(dataset, resource) {
+        if (resource['ams:resourceType'] === 'table') {
+          if (angular.isUndefined(vm.apiData.schema_tables)) {
+            api.getByUrl(resource['dcat:accessURL']).then(function(response) {
+              if (angular.isArray(response.tables)) {
+                vm.apiData.schema_tables = response.tables
+              }
+            })
+          }
+        } else {
+          const resourceUrl = resource['ams:purl']
+          store.dispatch(downloadDatasetResource({ dataset, resourceUrl }))
+        }
+      }
     }
 
     /* istanbul ignore next */
@@ -44,6 +56,7 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/detail/act
       if (detailData && detailData.previousValue !== detailData.currentValue) {
         vm.apiData = {
           results: detailData.currentValue,
+          schema_tables: undefined,
         }
       }
 

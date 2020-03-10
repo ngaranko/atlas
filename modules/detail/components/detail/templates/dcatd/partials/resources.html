@@ -2,12 +2,12 @@
 
     <div class="resources-type" ng-repeat="resourceType in vm.apiData.results.resources">
         <div class="resources-type__header">
-            <span class="resources-type__header-title">{{resourceType.type | optionLabel: vm.catalogFilters.resourceTypes}}</span>
+            <span class="resources-type__header-title">{{resourceType.type | optionLabel: vm.catalogFilters.resourceTypes }}</span>
         </div>
         <div class="resources-type__content" ng-repeat="resource in resourceType.rows">
             <div class="resources-type__content-item">
 
-                <a class="resources-item" href="{{resource['ams:purl']}}" target="_blank" ng-click="vm.downloadResource(vm.apiData.results['dct:title'], resource['ams:purl'])">
+                <a class="resources-item" href="{{resource['ams:purl']}}" target="_blank" ng-click="$event.preventDefault();vm.downloadResource(vm.apiData.results['dct:title'], resource)">
 
                         <div class="resources-item__left">
                             <div class="resources-item__title">
@@ -30,7 +30,12 @@
                                                  c-data-selection-file-type__name
                                                  c-data-selection-file-type__format-{{resource['ams:distributionType'] | optionLabel: vm.catalogFilters.distributionTypes | kebabcase}}">
                                                  {{resource['ams:distributionType'] | optionLabel: vm.catalogFilters.distributionTypes}}</span>
-                                </span>
+
+                                    <span ng-if="resource['ams:distributionType'] === 'aschema'"
+                                      class="c-data-selection-file-type
+                                      c-data-selection-file-type__name
+                                      c-data-selection-file-type__format-{{resource['ams:distributionType'] | optionLabel: vm.catalogFilters.distributionTypes | kebabcase}}">
+                                      {{resource['ams:distributionType'] | optionLabel: vm.catalogFilters.distributionTypes}}</span>
                                 <div>{{resource['dct:description'] ? vm.stripMarkdown(resource['dct:description']) : resource['ams:purl']}}</div>
                             </div>
                         </div>
@@ -46,6 +51,10 @@
                             </div>
                         </div>
                 </a>
+
+            </div>
+            <div class="resources-type__content" ng-if="resource['ams:distributionType'] === 'aschema'">
+              <div ng-include="'modules/detail/components/detail/templates/dcatd/partials/tables.html'" class="u-col-md--12"></div>
             </div>
         </div>
     </div>

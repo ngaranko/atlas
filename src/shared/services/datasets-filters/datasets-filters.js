@@ -39,6 +39,7 @@ function getCatalogFilters(data) {
 }
 
 export default async function fetchApiSpecification() {
-  const data = await getByUrl(`${process.env.API_ROOT}dcatd/openapi`)
+  // const data = await getByUrl(`${process.env.API_ROOT}dcatd/openapi`)
+  const data = await getByUrl(`http://localhost:8000/openapi`)
   return getCatalogFilters(data)
 }

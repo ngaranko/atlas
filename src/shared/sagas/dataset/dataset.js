@@ -64,7 +64,8 @@ export function* getDatasetData(endpoint) {
 export function* fetchDatasetEffect(action) {
   yield call(waitForAuthentication)
   yield put(fetchDetailRequest(true)) // Set the loading state
-  const endpoint = `${process.env.API_ROOT}dcatd/datasets/${action.payload.id}`
+  const endpoint = `http://localhost:8000/datasets/${action.payload.id}`
+  // const endpoint = `${process.env.API_ROOT}dcatd/datasets/${action.payload.id}`
 
   const detailData = yield call(getDatasetData, endpoint)
 

@@ -1,0 +1,23 @@
+<div ng-repeat="table in vm.apiData.schema_tables">
+  <div class="resources-type__header">
+    <span class="resources-type__header-title">Tabel: {{ table.id }}</span>
+  </div>
+  <div class="c-ds-table">
+    <div class="c-ds-table__head">
+      <div class="c-ds-table__row c-ds-table__row--link">
+        <div class="c-ds-table__cell">Name</div>
+        <div class="c-ds-table__cell">Type</div>
+        <div class="c-ds-table__cell">Description</div>
+        <div class="c-ds-table__cell">Unit</div>
+      </div>
+    </div>
+    <div class="c-ds-table__body">
+      <div class="c-ds-table__row c-ds-table__row--link qa-table-link" ng-repeat="(column_name, column) in table.schema.properties" ng-hide="column_name === 'schema'">
+        <div class="c-ds-table__cell"><div class="qa-table-value">{{ column_name }}</div></div>
+        <div class="c-ds-table__cell"><div class="qa-table-value">{{ column.type }}{{ column.$ref }}</div></div>
+        <div class="c-ds-table__cell"><div class="qa-table-value">{{ column.description }}</div></div>
+        <div class="c-ds-table__cell"><div class="qa-table-value">{{ column.unit }}</div></div>
+      </div>
+    </div>
+  </div>
+</div>
