@@ -2,12 +2,12 @@
 
     <div class="resources-type" ng-repeat="resourceType in vm.apiData.results.resources">
         <div class="resources-type__header">
-            <span class="resources-type__header-title">{{ resourceType.type | optionLabel: vm.catalogFilters.resourceTypes }}</span>
+            <span class="resources-type__header-title">{{resourceType.type | optionLabel: vm.catalogFilters.resourceTypes}}</span>
         </div>
         <div class="resources-type__content" ng-repeat="resource in resourceType.rows">
             <div class="resources-type__content-item">
 
-                <a class="resources-item" href="{{resource['ams:purl']}}" target="_blank" ng-click="$event.preventDefault();vm.downloadResource(vm.apiData.results['dct:title'], resource)">
+                <a class="resources-item" href="{{resource['ams:purl']}}" target="_blank" ng-click="vm.downloadResource(vm.apiData.results['dct:title'], resource, $event)">
 
                         <div class="resources-item__left">
                             <div class="resources-item__title">

@@ -28,9 +28,10 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/detail/act
     vm.$onInit = () => {
       vm.stripMarkdown = val => removeMd(val)
 
-      vm.downloadResource = function(dataset, resource) {
+      vm.downloadResource = function(dataset, resource, $event) {
         if (resource['ams:resourceType'] === 'table') {
           if (angular.isUndefined(vm.apiData.schema_tables)) {
+            $event.preventDefault()
             api.getByUrl(resource['dcat:accessURL']).then(function(response) {
               if (angular.isArray(response.tables)) {
                 vm.apiData.schema_tables = response.tables
